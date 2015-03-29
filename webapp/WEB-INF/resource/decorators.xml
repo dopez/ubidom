@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<decorators defaultdir="/WEB-INF">
+
+	<excludes>
+		<pattern>/erp/index.do</pattern>
+	</excludes>	
+	
+	<decorator name="header" page="layout/header.jsp"/>
+	
+	<decorator name="default" page="layout/default.jsp">
+		<pattern>/**/*.do</pattern>
+	</decorator>
+	
+</decorators>

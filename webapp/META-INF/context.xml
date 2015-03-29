@@ -1,0 +1,11 @@
+<Context>
+	<Resource auth="Container" 	
+		name="jdbc/www" 
+		username="jw_erp" password="jw_erp"
+		url="jdbc:oracle:thin:@175.209.128.74:1521/ORCL"  
+		driverClassName="oracle.jdbc.driver.OracleDriver" 	
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		initialSize="1" maxActive="5" maxWait="10000" minIdle="10"
+		type="javax.sql.DataSource" defaultAutoCommit="true"
+		validationQuery="SELECT 1 FROM DUAL" />
+</Context>

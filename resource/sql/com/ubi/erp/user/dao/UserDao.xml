@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.user.dao.UserDao">
+
+	<resultMap id="UserMap" type="User"/>
+	<resultMap id="MenuMap" type="Menu"/>
+	
+	<select id="getUser" statementType="CALLABLE">
+		{ call SP_LOGIN_RESULT (
+				#{P_LOG_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{P_LOG_PASS, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=UserMap}
+			)
+		}
+	</select>
+	
+	
+		
+	<select id="getMenu" statementType="CALLABLE">
+		{ call SP_GETAUTHORIZEDMENU(
+				#{EMP_NO, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MenuMap}
+			)
+		}
+	</select>
+	
+	
+	<select id="selMenu" resultType="Menu">
+		SELECT
+		    MENUCD, MENUNAME, DECODE(PMENUCD,'0000000000','0',PMENUCD) PMENUCD, EXEGBN, URI
+		FROM
+		    (
+		    SELECT
+		        ROW_NUMBER() OVER (PARTITION BY PMENUCD, LV ORDER BY SORT_KEY) RNUM,
+		        MENUCD, MENUNAME, PMENUCD, LV, SORT_KEY, SCRN_PARM, URI, EXEGBN
+		    FROM
+		        (
+		        SELECT
+		            MENUCD, MENUNAME, PMENUCD, LV, SORT_KEY, SCRN_PARM, URI, EXEGBN
+		        FROM
+		            M_MENU_MT
+		        WHERE
+		            EXEGBN = '0'
+		        UNION ALL
+		        SELECT
+		            MENUCD, MENUNAME, PMENUCD, LV, SORT_KEY, SCRN_PARM, URI, EXEGBN
+		        FROM
+		            M_MENU_MT
+		        WHERE
+		            EXEGBN = '1'
+		        )
+		    ) A
+		START WITH PMENUCD = '0000000000'
+		CONNECT BY PRIOR MENUCD = PMENUCD
+		ORDER SIBLINGS BY SORT_KEY, MENUNAME
+  	</select>
+  	
+</mapper>
