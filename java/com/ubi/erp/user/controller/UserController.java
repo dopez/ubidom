@@ -1,18 +1,3 @@
-/**
- * <pre>
- * Copyright (c) 2014 BI Matrix Co., Ltd.
- * All right reserved.
- *
- * This software is the confidential and proprietary information of BI Matrix Co., Ltd.
- * You shall not disclose such Confidential Information and
- * shall use it only in accordance with the terms of the license agreement
- * you entered into with BI Matrix Co., Ltd.
- *
- * 작성자 : 
- * 작성일 : 2015. 3. 8.
- * 설  명 : 
- * 
- */
 package com.ubi.erp.user.controller;
 
 import java.util.HashMap;
