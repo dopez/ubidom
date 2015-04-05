@@ -13,7 +13,7 @@
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<logback.version>1.1.2</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<jackson.version>2.5.0</jackson.version>
+		<jackson.version>2.5.2</jackson.version>
 	</properties>
 	
 	<repositories>
@@ -324,6 +324,13 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 		</dependency>
+		
+		<!-- JasperReports -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>6.0.3</version>
+		</dependency>
             
 		<!-- JSON -->
 		<dependency>
@@ -334,6 +341,11 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>

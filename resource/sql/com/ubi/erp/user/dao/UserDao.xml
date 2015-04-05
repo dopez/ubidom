@@ -14,8 +14,6 @@
 			)
 		}
 	</select>
-	
-	
 		
 	<select id="getMenu" statementType="CALLABLE">
 		{ call SP_GETAUTHORIZEDMENU(
@@ -23,6 +21,12 @@
 				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MenuMap}
 			)
 		}
+	</select>
+		
+	<select id="selUser" resultType="hashmap">
+		SELECT
+			PERSONNO,PERSONNAME,LOGID,PASS_CHANGE_DT 
+		FROM SYS_USER
 	</select>
 	
 	

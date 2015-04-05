@@ -237,7 +237,9 @@ function setViewFullPath(id){
 </script> 
  
 <div id="top">
-	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" ><a href="#">HOME</a></div>
+	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
+	<a href="#" onclick="window.open('/report/simpleReport.do','rpt','');">REPORT SAMPLE</a>
+	</div>
 	
 	<div style="float:right;margin-top:15px;margin-right:30px;"id="logout">
 		<a  href="#" id="full_screen">전체화면</a>
