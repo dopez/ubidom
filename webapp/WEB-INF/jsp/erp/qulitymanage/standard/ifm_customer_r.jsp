@@ -7,12 +7,12 @@ var gridMain;
 $(document).ready(function(){
 	ubi.init(1,[1,8,9],"1C");
 	o = ubi.getDataSet(); 
-	//공급어체조회
+	//고객조회
 	o.layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = o.slayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,공급업체명,대표자명,사업자번호,법인번호,업태,종목,주소,전화번호,팩스번호,이름,직책,소속,HP번호,전화,이메일,거래여부",null,
+	gridMain.setHeader("코드,고객명,대표자명,사업자번호,법인번호,업태,종목,주소,전화번호,팩스번호,이름,직책,소속,HP번호,전화,이메일,거래여부",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
