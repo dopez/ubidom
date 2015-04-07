@@ -29,3 +29,7 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet" type="text/css" href="/common/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/component/dhtmlx.css" />
 
+<!--dhtmlx Calendar 추가 -->
+<script type="text/javascript" src="/component/dhtmlxCalendar/dhtmlxcalendar.js"></script>
+<link rel="stylesheet" href="/component/dhtmlxCalendar/skins/dhtmlxcalendar_dhx_skyblue.css"/>
+
