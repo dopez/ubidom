@@ -6,6 +6,12 @@ var dxGrid = function(divId, autoHeight){
 	this.dxObj.setDateFormat("%Y-%m-%d");
 	this.dxObj.attachEvent("onEditCell", gfn_gridEditCell);
 	
+	this.headerName = new Array();
+	this.headerColId = new Array();
+	this.headerWidth = new Array();
+	this.headerAlign = new Array();
+	this.headerType = new Array();
+	
 	if (autoHeight == false) {
 		gAutoHeight = false;
 		this.dxObj.enableAutoHeight(false, 0);
@@ -15,41 +21,24 @@ var dxGrid = function(divId, autoHeight){
 	}
 };
 
-dxGrid.prototype.getDxObj = function(){
-	return this.dxObj;
+dxGrid.prototype.addHeader = function(val){
+	this.headerName.push(val.name);
+	this.headerColId.push(val.colId);
+	this.headerWidth.push(val.width);
+	this.headerAlign.push(val.align);
+	this.headerType.push(val.type);
 };
 
-dxGrid.prototype.getRowsNum = function(){
-	return this.dxObj.getRowsNum();
-};
-
-dxGrid.prototype.getColumnCount = function(){
-	return this.dxObj.getColumnCount();
-};
-
-dxGrid.prototype.getColumnsNum = function(){
-	return this.dxObj.getColumnsNum();
-};
-
-dxGrid.prototype.getRowId = function(rowIdx){
-	return this.dxObj.getRowId(rowIdx);
-};
-
-dxGrid.prototype.getSelectedRowId = function(){
-	return this.dxObj.getSelectedId();
-};
-
-dxGrid.prototype.getSelectedRowIndex = function(){
-	var rowId = this.dxObj.getSelectedId();
-	return this.dxObj.getRowIndex(rowId);
-};
-
-dxGrid.prototype.getColIndexById = function(colName){
-	return this.dxObj.getColIndexById(colName);
-};
-
-dxGrid.prototype.getActTypeColIdx = function(){
-	return this.dxObj.getColIndexById(cudKeyCol);
+dxGrid.prototype.init = function() {
+	this.setHeader(this.headerName.join(","));
+	this.setColId(this.headerColId.join(","));
+	this.setColWidthP(this.headerWidth.join(","));
+	this.setColAlign(this.headerAlign.join(","));
+	this.setColType(this.headerType.join(","));
+	
+	this.dxObj.init();
+	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
+	this.dxObj.setColumnHidden(colIdx, true);
 };
 
 dxGrid.prototype.setHeader = function(headers) {
@@ -117,6 +106,43 @@ dxGrid.prototype.setColSort = function(val) {
 	}
 };
 
+dxGrid.prototype.getDxObj = function(){
+	return this.dxObj;
+};
+
+dxGrid.prototype.getRowsNum = function(){
+	return this.dxObj.getRowsNum();
+};
+
+dxGrid.prototype.getColumnCount = function(){
+	return this.dxObj.getColumnCount();
+};
+
+dxGrid.prototype.getColumnsNum = function(){
+	return this.dxObj.getColumnsNum();
+};
+
+dxGrid.prototype.getRowId = function(rowIdx){
+	return this.dxObj.getRowId(rowIdx);
+};
+
+dxGrid.prototype.getSelectedRowId = function(){
+	return this.dxObj.getSelectedId();
+};
+
+dxGrid.prototype.getSelectedRowIndex = function(){
+	var rowId = this.dxObj.getSelectedId();
+	return this.dxObj.getRowIndex(rowId);
+};
+
+dxGrid.prototype.getColIndexById = function(colName){
+	return this.dxObj.getColIndexById(colName);
+};
+
+dxGrid.prototype.getActTypeColIdx = function(){
+	return this.dxObj.getColIndexById(cudKeyCol);
+};
+
 dxGrid.prototype.setUserData = function(rowId, key, val) {
 	this.dxObj.setUserData(rowId, key, val);
 };
@@ -129,12 +155,6 @@ dxGrid.prototype.attachEvent = function(eName, fName) {
 	this.dxObj.attachEvent(eName, fName);
 };
 
-dxGrid.prototype.init = function() {
-	this.dxObj.init();
-	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
-	this.dxObj.setColumnHidden(colIdx, true);
-};
-// 
 dxGrid.prototype.load = function(json) {
 	var pk = this.dxObj.getUserData("","pk");
 	this.dxObj.clearAll();

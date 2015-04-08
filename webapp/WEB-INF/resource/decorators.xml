@@ -2,7 +2,7 @@
 <decorators defaultdir="/WEB-INF">
 
 	<excludes>
-		<pattern>/erp/index.do</pattern>
+		<pattern>/report/*.do</pattern>
 	</excludes>	
 	
 	<decorator name="header" page="layout/header.jsp"/>
