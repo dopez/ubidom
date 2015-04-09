@@ -8,6 +8,7 @@ $(document).ready(function(){
 	ubi.init(1,[1,2,3,4],"2U");
 	o = ubi.getDataSet(); 
 	//라인작업등록
+	o.layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = o.slayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
@@ -19,7 +20,7 @@ $(document).ready(function(){
 	gridMain.init();	
 	o.slayout.cells("a").setWidth(400);
 	
-	o.slayout.cells("b").attachObject("bootContainer");
+	o.slayout.cells("b").attachObject("bootContainer2");
 });
 function fn_new(){
 	
@@ -42,6 +43,28 @@ function fn_popupGoodsCode(){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%; overflow:auto;"></div>
 <div id="bootContainer" style="position: relative;">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+      <div class="row">
+		<div class="form-group form-group-sm">
+		  <div class="col-sm-12 col-md-7">
+		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    부서코드
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="deptCode" id="deptCode" value="" placeholder="" class="form-control input-xs">
+			</div>
+           <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    부서명
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="deptName" id="deptName" value="" placeholder="" class="form-control input-xs">
+			</div>
+		  </div>
+	    </div>
+      </div>     
+  </form>
+</div>
+<div id="bootContainer2" style="position: relative;">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">

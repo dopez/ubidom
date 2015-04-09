@@ -217,8 +217,8 @@ var fncSelectItem = function(tree, id) {
 		});
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true); 
-			  mainTabbar.tabs(id).attachURL("/erp/test.do");
-// 			  mainTabbar.tabs(id).attachURL("/erp/"+uri+".do");
+			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
+			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 		
 	}

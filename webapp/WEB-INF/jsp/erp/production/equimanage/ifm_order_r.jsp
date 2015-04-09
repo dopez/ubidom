@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 .calicon{
-width: 32px;
-height: 28px;
+width: 27px;
+height: 27px;
+margin-top : 1px;
 }
 </style>
 <script type="text/javascript">
@@ -60,38 +61,34 @@ function fn_popupItemCode(){
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-12 col-md-7">
 				<label class="col-sm-2 col-md-2 control-label" for="textinput">
-				  기간 
+				 기간 
 				</label>
-				<div class="col-sm-5 col-md-5">
-					<div class="col-sm-5 col-md-5">
-					   <div class="input-group date" id="date1">
-						  <div class="col-sm-9 col-md-9">
-							 <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="" >
-						  </div>
-						  <div class="col-sm-3 col-md-3">
-							 <span>
-						       <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0" onclick="setSens(1,'edDate', 'max')">
-						      </span>
-						  </div>
-					  </div>
-					 </div>
-				 <label class="col-sm-1 col-md-1 control-label" for="textinput"  style="margin-right: 15px;">~</label>
-				 <div class="col-sm-5 col-md-5">
-					 <div class="input-group date" id="date2">
-						 <div class="col-sm-9 col-md-9">
-							<input type="text" class="form-control input-xs" name="edDate" id="edDate" value="" >
-						 </div>
-						  <div class="col-sm-3 col-md-3">
-						      <span>
-						       <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0" onclick="setSens(1,'stDate', 'min')">
-						     </span>
-						   </div>
-					   </div>
-				  </div>
-				</div>
+				<div class="col-sm-6 col-md-6">
+                    <div class="col-sm-4 col-md-4">
+                         <div class="col-sm-10 col-md-10">
+                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                         </div>
+                         <div class="col-sm-2 col-md-2">
+                            <span>
+                               <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0" onclick="setSens(1,'edDate', 'max')" >
+							</span>
+                          </div>
+                     </div>
+                     <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
+                        <div class="col-sm-4 col-md-4">
+                          <div class="col-sm-10 col-md-10">
+                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                          </div>
+                          <div class="col-sm-2 col-md-2">
+                              <span> 
+                                 <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0" onclick="setSens(1,'stDate', 'min')">
+							  </span>
+                          </div>
+                       </div> 
+                 </div>              
 			</div>
 		</div>
-	  </div>      
+	  </div>     
      <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-12 col-md-7">

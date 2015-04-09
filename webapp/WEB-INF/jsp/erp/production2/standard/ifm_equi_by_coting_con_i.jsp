@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 .calicon{
-width: 32px;
-height: 28px;
+width: 27px;
+height: 27px;
+margin-top : 1px;
 }
 </style>
 <script type="text/javascript">
@@ -16,6 +17,8 @@ $(document).ready(function(){
 	ubi.init(1,[1,2,3,4,5,6],"3L");
 	o = ubi.getDataSet(); 
 	//설비별코팅조건등록
+	o.layout.cells("b").attachObject("bootContainer");
+	
 	gridMst = o.slayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("설비코드,설비명",null,["text-align:center;","text-align:center;"]);
@@ -38,7 +41,7 @@ $(document).ready(function(){
 	o.slayout.cells("c").showHeader();
 	o.slayout.cells("c").setText("코팅조건");
 	
-	o.slayout.cells("b").attachObject("bootContainer");
+	o.slayout.cells("b").attachObject("bootContainer2");
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -73,26 +76,46 @@ function fn_popupBaseMatr(){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
+		  <div class="col-sm-12 col-md-7">
+		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    설비코드
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="equiCode" id="equiCode" value="" placeholder="" class="form-control input-xs">
+			</div>
+           <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    설비명
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="equiName" id="equiName" value="" placeholder="" class="form-control input-xs">
+			</div>
+		  </div>
+	    </div>
+      </div>     
+  </form>
+</div>
+<div id="bootContainer2" style="position: relative;">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+      <div class="row">
+		<div class="form-group form-group-sm">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			  일자 
 			</label>
-			 <div class="col-sm-5 col-md-5">
-			    <div class="col-sm-5 col-md-5">
-				  <div class="input-group date" id="date">
-					 <div class="col-sm-9 col-md-9">
-						<input type="text" class="form-control input-xs" name="stDate" id="stDate" value="" >
-					 </div>
-					 <div class="col-sm-3 col-md-3">
-					      <span>
-						     <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						  </span>
-					 </div>
-				   </div>
-				</div>
-			     <div class="col-sm-2 col-md-2" style="margin-left: 10px;">
-                    <input  name="snum" id="snum" type="text" value="0001" readonly="readonly" class="form-control input-xs">
-                </div>
-		   </div> 
+			<div class="col-sm-2 col-md-2">
+                  <div class="col-sm-10 col-md-10">
+                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                       <span>
+						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+					   </span>
+                  </div>              
+             </div>
+             <div class="col-sm-1 col-md-1">
+                  <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                      <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                  </div>
+             </div>
 	    </div>
       </div>      
       <div class="row">

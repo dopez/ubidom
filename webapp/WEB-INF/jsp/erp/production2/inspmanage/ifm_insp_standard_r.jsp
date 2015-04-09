@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style type="text/css">
-.calicon{
-width: 32px;
-height: 28px;
-}
-</style>
 <script type="text/javascript">
 var o;
 var gridMain;

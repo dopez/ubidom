@@ -9,6 +9,8 @@ $(document).ready(function(){
 	ubi.init(1,[1,2,3,4,5,6],"2U");
 	o = ubi.getDataSet(); 
 	//검사기준등록
+	o.layout.cells("b").attachObject("bootContainer");
+	
 	gridMst = o.slayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("품목코드,품명,규격,단위",null,["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
@@ -52,3 +54,25 @@ function fn_row_delete(){
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%; overflow:auto;"></div>
+<div id="bootContainer" style="position: relative;">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+      <div class="row">
+		<div class="form-group form-group-sm">
+		  <div class="col-sm-12 col-md-7">
+		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    품목코드
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="itemCode" id="itemCode" value="" placeholder="" class="form-control input-xs">
+			</div>
+           <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		    품명
+		   </label>
+			<div class="col-sm-2 col-md-2">
+			 <input type="text" name="itemName" id="itemName" value="" placeholder="" class="form-control input-xs">
+			</div>
+		  </div>
+	    </div>
+      </div>     
+  </form>
+</div>

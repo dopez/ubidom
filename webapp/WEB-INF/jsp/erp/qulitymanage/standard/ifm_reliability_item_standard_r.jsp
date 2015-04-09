@@ -8,7 +8,12 @@ $(document).ready(function(){
 	ubi.init(1,[1,8,9],"1C");
 	o = ubi.getDataSet(); 
 	//신뢰성항목기준정보조회
-	gridMain = o.slayout.cells("a").attachGrid();
+	
+	uClayout = o.layout.cells("b").attachLayout("1C");
+               o.slayout.cells("a").setHeight(1);
+	
+    uClayout.cells("a").hideHeader();
+	gridMain = uClayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,등록자,종류,항목,#cspan,세부내역,코드",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -20,7 +25,9 @@ $(document).ready(function(){
 	gridMain.setColAlign("center,left,center,center,left,center,left");
 	gridMain.setColTypes("ron,ro,coro,coro,ed,coro,ro");
 	gridMain.setColSorting("int,str,na,na,str,na,str");
-	gridMain.init();	
+	gridMain.init();
+	
+	
 });
 function fn_search(){
 	
