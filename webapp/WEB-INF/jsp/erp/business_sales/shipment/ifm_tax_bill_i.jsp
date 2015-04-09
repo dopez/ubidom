@@ -99,19 +99,19 @@
 						<div class="col-sm-12 col-md-7">
 							<label class=" col-sm-2 col-md-2 control-label"
 								for="textinput"> 구분 </label>
-							<div class="col-sm-3 col-md-3">
+							<div class="col-sm-4 col-md-3">
 								
-								<div class="col-xs-4 col-sm-4 col-md-3">
+								<div class="col-xs-4 col-sm-4 col-md-4">
 								  <input type="radio"
 									name="searchGbn" value="1" checked="checked">일반
 								 
 								</div>
-								<div class="col-xs-4 col-sm-4 col-md-3">
+								<div class="col-xs-4 col-sm-4 col-md-4">
 								  <input type="radio"
 									name="searchGbn" value="2">영세
 								
 								</div>
-								<div class="col-xs-4 col-sm-4 col-md-6">
+								<div class="col-xs-4 col-sm-4 col-md-4">
 								  <input type="radio"
 									name="searchGbn" value="3">면세
 								
@@ -119,11 +119,11 @@
 							
 							</div>
 							
-						<div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">
-                            <div class="col-sm-6 col-md-6">
+						<div class="col-sm-offset-1 col-sm-3 col-md-4">
+                            <div class="col-sm-5 col-md-6">
                                 <input name="" id="" type="button" value="세금계산서생성" placeholder="" class="btn btn-default btn-xs">
                             </div>
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-sm-5 col-md-6">
                                 <input name="" id="" type="button" value="매출전표생성" placeholder="" class="btn btn-default btn-xs">
                             </div>
                         </div>

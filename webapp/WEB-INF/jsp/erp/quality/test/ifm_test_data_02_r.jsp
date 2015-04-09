@@ -36,8 +36,8 @@ $( document ).ready(function() {
 </script>
 <style>
 .calicon{
-	width: 32px; 
-	height: 28px;
+	width: 27px; 
+	height: 27px;
 }
 
 </style>
@@ -53,8 +53,8 @@ $( document ).ready(function() {
 				<div class="col-sm-12 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
-					<div class="col-sm-5 col-md-5">
-						<div class="col-sm-5 col-md-5">
+					<div class="col-sm-6 col-md-6">
+						<div class="col-sm-4 col-md-4">
 							<div class="col-sm-10 col-md-10">
 								<input type="text" class="form-control input-xs" name="stDate"
 									id="stDate" value="">
@@ -68,7 +68,7 @@ $( document ).ready(function() {
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
-						<div class="col-sm-5 col-md-5">
+						<div class="col-sm-4 col-md-4">
 
 							<div class="col-sm-10 col-md-10">
 								<input type="text" class="form-control input-xs" name="edDate"

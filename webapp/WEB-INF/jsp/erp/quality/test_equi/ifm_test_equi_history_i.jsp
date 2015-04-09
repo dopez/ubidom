@@ -162,23 +162,23 @@
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제작일자 </label>
                         <div class="col-sm-2 col-md-2">
 
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-9 col-md-11">
                                 <input name="prDate" id="prDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-						       <img id="calpicker1" style="margin-top:1px;width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						       <img id="calpicker1" style=" width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 						     </span>
                             </div>
                         </div>
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구입일자 </label>
                         <div class="col-sm-2 col-md-2">
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-9 col-md-11">
                                 <input name="phDate" id="phDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-						       <img id="calpicker2" style="margin-top:1px;width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						       <img id="calpicker2" style=" width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 						     </span>
                             </div>
                         </div>
@@ -194,12 +194,12 @@
                         </div>
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 사용기한 </label>
                         <div class="col-sm-2 col-md-2">
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-9 col-md-11">
                                 <input name="exDate" id="exDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-					       <img id="calpicker3" style="margin-top:1px;width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+					       <img id="calpicker3" style=" width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 					     </span>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                             사용유무
                         </label>
                         <div class="col-sm-4 col-md-4">
-                            <div class="col-md-offset-1 col-sm-4 col-md-4">
+                            <div class="col-sm-4 col-md-4">
                                 <input type="radio" name="useGbn" id="dealGbn" value="거래">사용
                             </div>
                             <div class="col-sm-4 col-md-4">
