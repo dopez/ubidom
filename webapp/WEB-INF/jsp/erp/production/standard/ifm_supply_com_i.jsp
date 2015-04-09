@@ -306,7 +306,7 @@ function fn_row_delete(){
 						<input type="radio" name="empGbn_group1" value="5">품질
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="6"> 총무
+						<input type="radio" name="empGbn_group1" value="6">총무
 					</div>
 					<div class="col-sm-2 col-md-2">
 						<input type="radio" name="empGbn_group1" value="7"> Buyer

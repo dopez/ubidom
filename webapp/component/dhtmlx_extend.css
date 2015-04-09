@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+div.gridbox_dhx_skyblue.gridbox table.hdr td {
+	text-align:center;
+	vertical-align:middle; 
+}
+.dhxtabbar_base_dhx_skyblue div.dhxtabbar_tabs div.dhxtabbar_tab.dhxtabbar_tab_actv div.dhxtabbar_tab_close {
+  border: 0px solid #a4bed4 !important;
+  background-position: -12px 0 !important;
+ 
+}

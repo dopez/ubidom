@@ -18,46 +18,38 @@ label {
 
 .form-group-sm .form-control {
 	height: 23px;
-	padding: 5px 10px;
+	padding: 2px 10px;
 	font-size: 12px;
 	line-height: 1.5;
 	border-radius: 1px;
-	margin-top: 4px;
+	margin-top: 3px;
 }
 
 div.dhx_cell_toolbar_def *{
 	box-sizing:initial;
 	-webkit-box-sizing:initial;
 }
-.dhxtabbar_base_dhx_skyblue div.dhxtabbar_tabs div.dhxtabbar_tab.dhxtabbar_tab_actv div.dhxtabbar_tab_close {
-  border: 0px solid #a4bed4 !important;
-  background-position: -12px 0 !important;
- 
+select[class^="form-"]{
+	padding:2px 10px;
 }
-    .contentDiv {
-      width:100%;
-      height:400px;
-      border-color: #dddddd;
-      border-width: thin;
-      border-style: solid;
-      border-radius: 4px;
-      display: block;
-      padding:5px; 
-      overflow: auto;
-    }
-    
-    .username {
-      font-weight: bold;
-      color: #555599;
-    }
-    
-.board td{text-align: center;}
-.board th{text-align: center;}
- 
-.board a:link{ text-decoration:none;    color: #5D5D5D;}
-.board a:visited{ text-decoration:none; color: #5D5D5D;}
-.board a:active{ text-decoration:none;  color: #47C83E;}
-.board a:hover{ text-decoration:none;   color: #47C83E;}
-.listTable{width:600px;}
-#boardListCount{text-align: right;}
-#boardList_a{font-weight: bold; color:#8041D9;}
+.contentDiv {
+  width:100%;
+  height:400px;
+  border-color: #dddddd;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 4px;
+  display: block;
+  padding:5px; 
+  overflow: auto;
+}
+
+.username {
+  font-weight: bold;
+  color: #555599;
+}
+
+input[type=checkbox], input[type=radio] {
+  margin: 8px 5px 3px;
+  vertical-align: bottom;
+}
