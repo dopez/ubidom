@@ -41,7 +41,7 @@ function fn_print(){
 		  <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				구분 
 				</label>
-			<div class="col-sm-8 col-md-8">
+			<div class="col-sm-10 col-md-10">
 					<div class="col-sm-1 col-md-1">
 						<input type="radio" name="empGbn_group1" value="1" checked="checked">매출
 					</div>
@@ -60,7 +60,7 @@ function fn_print(){
 					<div class="col-sm-1 col-md-1">
 						<input type="radio" name="empGbn_group1" value="6"> 총무
 					</div>
-					<div class="col-sm-1 col-md-1">
+					<div class="col-sm-2 col-md-2">
 						<input type="radio" name="empGbn_group1" value="7"> Buyer
 					</div>
 				</div>

@@ -109,7 +109,7 @@ function fn_popupEquiCode(){
 			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="pudcdept" id="pudcdept" value="월간">월간
 			    </div>
-			    <div class="col-sm-4 col-md-3">
+			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="pudcdept" id="pudcdept" value="분기">분기
 				</div>
 				<div class="col-sm-3 col-md-3">

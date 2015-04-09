@@ -214,7 +214,7 @@ function fn_row_delete(){
 			 <div class="col-sm-4 col-md-4">
 			    <input type="radio" name="deal" id="deal" value="거래"  checked="checked">거래
 			  </div>
-			  <div class="col-sm-4 col-md-4">
+			  <div class="col-sm-6 col-md-6">
 			    <input type="radio" name="deal" id="deal" value="거래중지">거래중지
 			  </div>
 		   </div>
@@ -228,18 +228,18 @@ function fn_row_delete(){
 				<div class="col-sm-8 col-md-8">	
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered" style="text-align: center;">
-						<thead>
+						<tbody>
 						  <tr>
-							<th>이름</th>
-							<th>직책</th>
-							<th>소속</th>
-							<th>HP번호</th>
-							<th>전화</th>
-							<th>이메일</th>
-							<th>중지일자</th>
-							<th>비고</th>
+							<td>이름</td>
+							<td>직책</td>
+							<td>소속</td>
+							<td>HP번호</td>
+							<td>전화</td>
+							<td>이메일</td>
+							<td>중지일자</td>
+							<td>비고</td>
 						</tr>
-						</thead>
+						</tbody>
 						  <tbody>
 							 <tr>
 								<td>김지훈</td>

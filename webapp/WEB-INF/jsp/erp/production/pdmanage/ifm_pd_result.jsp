@@ -104,17 +104,17 @@ function fn_popupItemCode(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
-			 <div class="col-sm-4 col-md-4">
-				<div class="col-sm-2 col-md-2">
+			 <div class="col-sm-3 col-md-3">
+				<div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="주간" checked="checked">주간
 				</div>
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="월간">월간
 				</div>
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="분기">분기
 				</div>
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="연간">연간
 				</div>
 			</div>

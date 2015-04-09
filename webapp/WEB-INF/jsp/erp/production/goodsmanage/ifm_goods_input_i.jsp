@@ -115,10 +115,10 @@ function fn_row_delete(){
 			 구분
 			 </label>
 			 <div class="col-sm-2 col-md-2">
-				<div class="col-sm-4 col-md-4">
+				<div class="col-sm-5 col-md-5">
 					<input type="radio" name="gubn" id="gubn" value="반품" checked="checked">반품
 				</div>
-				<div class="col-sm-4 col-md-4">
+				<div class="col-sm-5 col-md-5">
 					<input type="radio" name="gubn" id="gubn" value="기타">기타
 				</div>
 			</div>

@@ -120,7 +120,7 @@ function fn_row_delete(){
 						<input type="radio" name="gubn" id="gubn" value="3군">3군
 					 </div>
 				   </div>
-				   <label class="col-sm-1 col-md-1 control-label" for="textinput">
+				   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 					  제품군 
 			         </label>
 			         <div class="col-sm-2 col-md-2">
