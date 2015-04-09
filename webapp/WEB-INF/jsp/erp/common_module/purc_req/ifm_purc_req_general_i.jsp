@@ -65,13 +65,13 @@ table{
 		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
 		id="frmSearch">
 		<div class="row">
-			<div class="col-sm-12 col-md-6">
+			<div class="col-sm-6 col-md-6">
 				<div class="row">
 					<div class="form-group form-group-sm">
 
-						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
 							일자 </label>
-						<div class="col-sm-2 col-md-2">
+						<div class="col-sm-4 col-md-2">
 							
 								<div class="col-sm-10 col-md-10">
 									<input name="stDate" id="stDate" type="text" value=""
@@ -86,7 +86,7 @@ table{
 								</div>
 							
 						</div>
-						<div class="col-sm-1 col-md-1">
+						<div class="col-sm-2 col-md-1">
 							<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
 								<input name="seqNo" id="seqNo" type="text" value=""
 									placeholder="" class="form-control input-xs"
@@ -100,9 +100,9 @@ table{
 				<div class="row">
 					<div class="form-group form-group-sm">
 
-						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
 							공급업체 </label>
-						<div class="col-sm-2 col-md-2">
+						<div class="col-sm-4 col-md-2">
 							<input name="supplCompName" id="supplCompName" type="text"
 								value="" placeholder="" class="form-control input-xs">
 						</div>
@@ -111,9 +111,9 @@ table{
 				<div class="row">
 					<div class="form-group form-group-sm">
 
-						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
 							의뢰자 </label>
-						<div class="col-sm-2 col-md-2">
+						<div class="col-sm-4 col-md-2">
 							<input name="rqstName" id="rqstName" type="text" value=""
 								placeholder="" class="form-control input-xs">
 						</div>

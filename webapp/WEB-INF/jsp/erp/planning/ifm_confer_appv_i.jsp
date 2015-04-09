@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 var o; 
-var gridMain;
+var gridMst;
 var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(3,[1,2,3,4,5,6],"1C"); //재료출고의뢰등록
+	ubi.init(2,[2,3,4,5,6],"2E"); //품의서결재
 	
 	o = ubi.getDataSet();
 	
@@ -16,18 +16,27 @@ $( document ).ready(function() {
 
 	
 	//up
+		
+	gridMst = o.slayout.cells("a").attachGrid();
+	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
+	gridMst.setHeader("종류,일자,품의자,제목,금액,기간");
+	gridMst.setInitWidths("100,100,100,100,100,100");       
+	gridMst.setColAlign("center,center,center,left,right,center");     
+	gridMst.setColTypes("coro,dhxCalendar,ed,ed,edn,edn"); 
+	gridMst.setColSorting("str,date,str,str,int,int");
+	gridMst.init();
 	
-	
-	gridMain = o.slayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
-	gridMain.setHeader("No,재료코드,재료명,규격,단위,수량,사용일자,용도", null, 
+	o.slayout.cells("b").showHeader();
+	o.slayout.cells("b").setText("내용");
+	gridDtl = o.slayout.cells("b").attachGrid();
+	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
+	gridDtl.setHeader("No,내용", null, 
 				[]);
-	gridMain.setInitWidths("50,150,200,150,100,100,100,200");       
-	gridMain.setColAlign("center,left,left,left,center,right,center,center");     
-	gridMain.setColTypes("ro,ed,ed,ed,ed,edn,edn,ed,ed"); 
-	gridMain.setColSorting("str,str,str,str,str,int,int,date,str");
-	gridMain.init();
-	
+	gridDtl.setInitWidths("100,880");       
+	gridDtl.setColAlign("center,left");     
+	gridDtl.setColTypes("ro,txt"); 
+	gridDtl.setColSorting("str,str");
+	gridDtl.init();
 
 	//calRangeDate
 	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -35,23 +44,17 @@ $( document ).ready(function() {
 	 calMain.hideTime();
 		var t = dateformat(new Date());
 		byId("stDate").value = t;
-		/* byId("edDate").value = t; */
-	
 
 })
 
 </script>
 <style>
+
+
 table{
 	text-align: center;
 }
 
-#forSpace02{
-	height: 60px;
-}
-#appv{
-	width: 20px;
-}
 </style>
 <div id="container"
 	style="position: relative; widtd: 100%; height: 100%; overflow: auto;">
@@ -59,12 +62,11 @@ table{
 <div id="bootContainer2">
 	<form class="form-horizontal"
 		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
-		id="frmSearch">
+		id="frmMain">
 		<div class="row">
 			<div class="col-sm-6 col-md-6">
 				<div class="row">
 					<div class="form-group form-group-sm">
-
 						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
 							일자 </label>
 						<div class="col-sm-4 col-md-2">
@@ -89,39 +91,45 @@ table{
 									disabled="disabled">
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group form-group-sm">
-
 						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
-							의뢰자 </label>
+							작성자 </label>
 						<div class="col-sm-4 col-md-2">
-							<input name="rqstName" id="rqstName" type="text" value=""
+							<input name="regEmpName" id="regEmpName" type="text" value=""
 								placeholder="" class="form-control input-xs">
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-3">
+			<div class="col-sm-6 col-md-6">
 				<div class="row">
-					<table class="table table-bordered">
-						<tr>
-							<td id="appv"rowspan="2"><br>결<br><br>재
-							</td>
-							<td id="forSpace01">작성</td>
-							<td>검토</td>
-							<td>승인</td>
-						</tr>
-						<tr>
-							<td id="forSpace02"></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
+					<div class="col-sm-12 col-md-6">
+						<table class="table-bordered">
+							<tr>
+								<td rowspan="2" class="col-md-1">결<br>재</td>
+								<td class="col-md-1">작성</td>
+								<td class="col-md-1">검토</td>
+								<td class="col-md-1">검토</td>
+								<td class="col-md-1">승인</td>
+							</tr>
+							<tr>
+								<td class="col-md-1">&nbsp;<br>&nbsp;
+								</td>
+								<td class="col-md-1">&nbsp;<br>&nbsp;
+								</td>
+								<td class="col-md-1">&nbsp;<br>&nbsp;
+								</td>
+								<td class="col-md-1">&nbsp;<br>&nbsp;
+								</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
+
