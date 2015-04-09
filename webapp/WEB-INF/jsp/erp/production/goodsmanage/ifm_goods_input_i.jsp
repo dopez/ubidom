@@ -89,7 +89,7 @@ function fn_row_delete(){
                   </div>              
              </div>
              <div class="col-sm-1 col-md-1">
-                  <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                  <div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
                       <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                   </div>
              </div>
@@ -114,11 +114,11 @@ function fn_row_delete(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
-			 <div class="col-sm-2 col-md-2">
-				<div class="col-sm-5 col-md-5">
+			 <div class="col-sm-3 col-md-3">
+				<div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="반품" checked="checked">반품
 				</div>
-				<div class="col-sm-5 col-md-5">
+				<div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="기타">기타
 				</div>
 			</div>

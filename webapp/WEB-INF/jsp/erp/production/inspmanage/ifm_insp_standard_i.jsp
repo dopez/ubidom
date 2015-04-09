@@ -59,17 +59,17 @@ function fn_row_delete(){
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-12 col-md-7">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
-		    품목코드
-		   </label>
-			<div class="col-sm-2 col-md-2">
-			 <input type="text" name="itemCode" id="itemCode" value="" placeholder="" class="form-control input-xs">
-			</div>
-           <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
-		    품명
-		   </label>
-			<div class="col-sm-2 col-md-2">
-			 <input type="text" name="itemName" id="itemName" value="" placeholder="" class="form-control input-xs">
+		     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		      품목코드
+		     </label>
+			 <div class="col-sm-2 col-md-2">
+			    <input type="text" name="itemCode" id="itemCode" value="" placeholder="" class="form-control input-xs">
+			 </div>
+             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		       품명
+		     </label>
+			 <div class="col-sm-2 col-md-2">
+			    <input type="text" name="itemName" id="itemName" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	    </div>

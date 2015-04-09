@@ -102,7 +102,7 @@ function fn_popupBaseMatrCode(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-4 col-md-4">
 			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="pudcdept" id="pudcdept" value="주간" checked="checked">주간
 			    </div>

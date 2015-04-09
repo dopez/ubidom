@@ -13,7 +13,7 @@ var o;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	ubi.init(2,[1,8,9],"1C");
+	ubi.init(3,[1,8,9],"1C");
 	o = ubi.getDataSet(); 
 	//배합작업조회
 	o.layout.cells("b").attachObject("bootContainer");
@@ -101,7 +101,7 @@ function fn_print(){
 				  <label class="col-sm-2 col-md-2 control-label" for="textinput">
 					제품군 
 			      </label>
-				  <div class="col-sm-2 col-md-2">
+				  <div class="col-sm-3 col-md-3">
 					 <div class="col-sm-4 col-md-4">
 						<input type="radio" name="gubn" id="gubn" value="1군" checked="checked">1군
 					 </div>

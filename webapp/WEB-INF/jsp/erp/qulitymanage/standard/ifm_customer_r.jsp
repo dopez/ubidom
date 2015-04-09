@@ -37,7 +37,7 @@ function fn_print(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
-		  <div class="col-sm-12 col-md-7">
+		  <div class="col-sm-12 col-md-8">
 		  <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				구분 
 				</label>
@@ -58,7 +58,7 @@ function fn_print(){
 						<input type="radio" name="empGbn_group1" value="5">품질
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="6"> 총무
+						<input type="radio" name="empGbn_group1" value="6">총무
 					</div>
 					<div class="col-sm-2 col-md-2">
 						<input type="radio" name="empGbn_group1" value="7"> Buyer

@@ -244,6 +244,5 @@ function fn_row_delete(){
 		   </div>
 	  </div>
 	</div>
-	
   </form>
 </div>

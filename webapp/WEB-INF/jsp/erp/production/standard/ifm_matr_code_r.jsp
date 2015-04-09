@@ -33,10 +33,10 @@
 					<label class="col-sm-2 col-md-2 control-label" for="textinput">
 						자재코드
 					 </label>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-1 col-md-1">
 						<input name="mtrlCode" id="mtrlCode" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<div class="col-md-offset-1 col-sm-4 col-md-4">
+					<div class="col-sm-2 col-md-2" style="margin-left: 10px;">
 						<input name="mtrlName" id="mtrlName" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
 					<label class="col-sm-1 col-md-1 control-label" for="textinput">
