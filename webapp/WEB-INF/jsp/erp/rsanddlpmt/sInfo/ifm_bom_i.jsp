@@ -153,7 +153,7 @@
                                 <input name="rpWeight" id="rpWeight" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                             <label class="col-sm-1 col-md-1 control-label" for="textinput">
-                                가감기준량 </label>
+                                가감기준 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="adjQty" id="adjQty" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>

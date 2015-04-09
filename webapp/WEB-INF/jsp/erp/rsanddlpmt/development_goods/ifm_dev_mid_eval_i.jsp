@@ -156,36 +156,43 @@ $( document ).ready(function() {
 	
 	
 	
-	o.btn.attachEvent("onClick", function(id){
-		if(id="srh")
-			btn_serach();
-	});
+	for (var i = 1; i < 9; i++) {
+        var a = toolbar
+        if (i < 5 || i==7) {
+            subToolbar(a + i, devPlanTabbar.tabs("a" + i), [3, 4, 5, 6]);
+        } else {
+            subToolbar(a + i, devPlanTabbar.tabs("a" + i), [3, 4]);
+        }
+    }
 	
 })
-function btn_serach() {	
-	console.log("search condition",$("#frmSearch").serialize());
-	$.ajax({
-		url:"/erp/scm/search",
-        type :"POST",
-        data : $("#frmSearch").serialize(),
-        async : true,
-        success : function(data) {
-        	alert("done.");
-    		console.log("loaded data is..",data);
-    		$.each(data,function(key,value){
-					$.each(value,function(k,v){
-						if(v==null){
-							value[k]="";
-						}
-					});
-    		});
-    		console.log(data);
-    		gridMain.clearAll();
-    		gridMain.parse(data, "js");
-    		console.log(gridMain.getAllRowIds());
-        }
-	});
-}
+ 			//tool bar//
+            var subToolbar = function(toolbar, sublayout, btn_id_array) {
+
+                toolbar = sublayout.attachToolbar();
+
+                /* var size = 18; */
+                toolbar.clearAll();
+                toolbar.setIconSize(18);
+                toolbar.setIconsPath("/images/button/dhtmlx/");
+                toolbar.loadStruct("/common/json/button.json", fn_onLoad);
+
+                function fn_onLoad() {
+                    var item_id_set_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+                    for (var i = 0; i < btn_id_array.length; i++) {
+                        var index = item_id_set_arr.indexOf(btn_id_array[i]);
+                        if (index > -1) {
+                            item_id_set_arr.splice(index, 1);
+                        }
+                    }
+                    for (var i = 0; i < item_id_set_arr.length; i++) {
+
+                        toolbar.removeItem("btn" + item_id_set_arr[i]); // item
+                        toolbar.removeItem("sep" + item_id_set_arr[i]); // seperator
+                    }
+                }
+            }
 </script>
 <style>
 
@@ -268,7 +275,7 @@ function btn_serach() {
 				<div class="col-sm-12 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						보고자의견 </label>
-					<div class="col-sm-5 col-md-5">
+					<div class="col-sm-5 col-md-6">
 						
 							<div class="col-xs-4 col-sm-3 col-md-3">
 								  <input type="radio"

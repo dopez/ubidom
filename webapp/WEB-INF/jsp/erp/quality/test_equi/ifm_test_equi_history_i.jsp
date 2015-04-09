@@ -216,8 +216,8 @@
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                             사용유무
                         </label>
-                        <div class="col-sm-2 col-md-2">
-                            <div class="col-md-offset-2 col-sm-4 col-md-4">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="col-md-offset-1 col-sm-4 col-md-4">
                                 <input type="radio" name="useGbn" id="dealGbn" value="거래">사용
                             </div>
                             <div class="col-sm-4 col-md-4">

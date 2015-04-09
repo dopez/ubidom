@@ -147,12 +147,42 @@ $( document ).ready(function() {
 	var t = dateformat(new Date());
 	byId("stDate").value = t;	
 	
-	
+	  //set tool bar//
+    for (var i = 1; i < 9; i++) {
+        var a = toolbar
+            subToolbar(a + i, devPlanTabbar.tabs("a" + i), [3, 4, 5, 6]);
+    }
 	
 	
 
 })
+ //tool bar//
+            var subToolbar = function(toolbar, sublayout, btn_id_array) {
 
+                toolbar = sublayout.attachToolbar();
+
+                /* var size = 18; */
+                toolbar.clearAll();
+                toolbar.setIconSize(18);
+                toolbar.setIconsPath("/images/button/dhtmlx/");
+                toolbar.loadStruct("/common/json/button.json", fn_onLoad);
+
+                function fn_onLoad() {
+                    var item_id_set_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+                    for (var i = 0; i < btn_id_array.length; i++) {
+                        var index = item_id_set_arr.indexOf(btn_id_array[i]);
+                        if (index > -1) {
+                            item_id_set_arr.splice(index, 1);
+                        }
+                    }
+                    for (var i = 0; i < item_id_set_arr.length; i++) {
+
+                        toolbar.removeItem("btn" + item_id_set_arr[i]); // item
+                        toolbar.removeItem("sep" + item_id_set_arr[i]); // seperator
+                    }
+                }
+            }
 </script>
 <style>
 </style>
@@ -299,7 +329,7 @@ $( document ).ready(function() {
 		id="frmMain02">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-1 col-md-1 control-label" for="textinput">
+				<label class=" col-sm-2 col-md-1 control-label" for="textinput">
 					적용제품 </label>
 				<div class="col-sm-6 col-md-6">
 					<input name="prjtName" id="prjtName" type="text" value=""
@@ -309,9 +339,9 @@ $( document ).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-1 col-md-1 control-label" for="textinput">
+				<label class=" col-sm-2 col-md-1 control-label" for="textinput">
 					개발선행도 </label>
-				<div class="col-sm-6 col-md-8">
+				<div class="col-sm-10 col-md-10">
 					<input type="radio" name="foregoDegree" value="1" checked="checked">국내경쟁사 후행 
 					<input type="radio" name="foregoDegree" value="2">국내경쟁사 동일시점 
 					<input type="radio" name="foregoDegree" value="3">국내최초
