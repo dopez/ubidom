@@ -109,15 +109,15 @@ function gfn_onDrag(sId,tId,sObj,tObj,sInd,tInd) {
 
 function setGridHeight() {
 	if(gAutoHeight == false) {
-		if($('#gridbox').position()!=null){
+		if($('#gridDiv').position()!=null){
 			var h = $(window).height();
-			h -= Math.round($('#gridbox').position().top);
+			h -= Math.round($('#gridDiv').position().top);
 			h += gridHeight;
-			$('#gridbox').css("height",h);
+			$('#gridDiv').css("height",h);
 	
 			var w = $(window).width();
-			w -= Math.round($('#gridbox').position().left);
-			$('#gridbox').css("width",w);
+			w -= Math.round($('#gridDiv').position().left);
+			$('#gridDiv').css("width",w);
 		}
 	}
 }

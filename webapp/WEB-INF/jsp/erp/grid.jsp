@@ -5,15 +5,29 @@ var mygrid;
 var myMenu;
 
 $(function() {
+	
 	fncMenuConf();
 	
-	mygrid = new dxGrid("gridDiv", true);
-	mygrid.setHeader("편집,선택,시스템코드,시스템명,표시순서,TOP메뉴여부,사용여부,생성일,생성자");
-	mygrid.setColId("editStat,chk,sysCd,sysNm,viewIdx,topMenuYn,useYn,strCdate,strCuser");
-	mygrid.setColWidthP("5,5,10,*,10,10,10,15,15");
-	mygrid.setColAlign("center,center,center,center,center,center,center,center,center");
-	mygrid.setColType("ro,ch,ed,ed,ed,coro,coro,ro,ro");
-	mygrid.setColSort("str");
+	mygrid = new dxGrid("gridDiv", false);
+	
+	mygrid.addHeader({name:"편집", 		colId:"editStat", 	width:"5", 	align:"center", type:"ro"});
+	mygrid.addHeader({name:"삭제", 		colId:"chk", 		width:"5", 	align:"center", type:"ch"});
+	mygrid.addHeader({name:"시스템코드", 	colId:"sysCd", 		width:"10", align:"center", type:"ed"});
+	mygrid.addHeader({name:"시스템명", 	colId:"sysNm", 		width:"*", 	align:"center", type:"ed"});
+	mygrid.addHeader({name:"표시순서", 	colId:"viewIdx", 	width:"10", align:"center", type:"ed"});
+	mygrid.addHeader({name:"사용여부", 	colId:"useYn", 		width:"10", align:"center", type:"coro"});
+	mygrid.addHeader({name:"생성일", 		colId:"strCdate", 	width:"15", align:"center", type:"ro"});
+	mygrid.addHeader({name:"생성자", 		colId:"strCuser", 	width:"15", align:"center", type:"ro"});
+	
+	/*
+	mygrid.setHeader("편집,선택,시스템코드,시스템명,표시순서,사용여부,생성일,생성자");
+	mygrid.setColId("editStat,chk,sysCd,sysNm,viewIdx,useYn,strCdate,strCuser");
+	mygrid.setColWidthP("5,5,10,*,10,10,15,15");
+	mygrid.setColAlign("center,center,center,center,center,center,center,center");
+	mygrid.setColType("ro,ch,ed,ed,ed,coro,ro,ro");
+	*/
+	
+	mygrid.setColSort("str");	
 	mygrid.setUseYnCol(mygrid.getColIndexById("topMenuYn"));
 	mygrid.setUseYnCol(mygrid.getColIndexById("useYn"));
 	mygrid.setUserData("","pk","sysCd");
