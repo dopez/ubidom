@@ -268,7 +268,7 @@ function btn_serach() {
 				<div class="col-sm-12 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						보고자의견 </label>
-					<div class="col-sm-5 col-md-5">
+					<div class="col-sm-5 col-md-6">
 						
 							<div class="col-xs-4 col-sm-3 col-md-3">
 								  <input type="radio"

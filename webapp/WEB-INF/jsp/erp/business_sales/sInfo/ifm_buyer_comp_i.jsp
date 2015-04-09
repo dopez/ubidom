@@ -30,7 +30,7 @@ function fn_search(){
 </script>
 <style>
 .forPadding{
-	padding-left: 15px;
+	padding-left: 5px;
 }
 </style>
 <div id="container" style="position: relative; width: 100%; height: 100%; overflow: auto;"></div>
