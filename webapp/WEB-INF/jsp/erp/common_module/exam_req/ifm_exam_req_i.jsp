@@ -46,10 +46,10 @@ $( document ).ready(function() {
 		id="frmSearch">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label"
+				<div class="col-sm-6 col-md-6">
+					<label class=" col-sm-4 col-md-2 control-label"
 						for="textinput"> 일자 </label>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-4 col-md-2">
 							
 								<div class="col-sm-10 col-md-10">
 									<input name="stDate" id="stDate" type="text" value=""
@@ -64,7 +64,7 @@ $( document ).ready(function() {
 								</div>
 							
 						</div>
-					<div class="col-sm-1 col-md-1">
+					<div class="col-sm-2 col-md-1">
 						<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
 						<input name="seqNo" id="seqNo" type="text"
 									value="" placeholder="" class="form-control input-xs" disabled="disabled"></div>
@@ -74,10 +74,10 @@ $( document ).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label"
+				<div class="col-sm-6 col-md-6">
+					<label class=" col-sm-4 col-md-2 control-label"
 						for="textinput"> 의뢰자 </label>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-4 col-md-2">
 						<input name="reqName" id="reqName" type="text"
 									value="" placeholder="" class="form-control input-xs">
 					</div></div>
@@ -85,10 +85,10 @@ $( document ).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+				<div class="col-sm-6 col-md-6">
+					<label class=" col-sm-4 col-md-2 control-label" for="textinput">
 						의뢰회사 </label>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-4 col-md-2">
 						<input name="reqComp" id="reqComp" type="text" value=""
 							placeholder="" class="form-control input-xs">
 					</div>
@@ -96,7 +96,7 @@ $( document ).ready(function() {
 						<input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록">
 					</div> -->
 				</div>
-					<div class=" col-md-offset-3 col-sm-12 col-md-2">
+					<div class=" col-md-offset-3 col-sm-offset-2 col-sm-2 col-md-2">
 						<input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록">
 					</div>
 			</div>
