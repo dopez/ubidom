@@ -118,17 +118,17 @@ function fn_row_delete(){
 	
 	<div class="row">
 	   <div class="form-group form-group-sm">
-		  <label class="col-sm-2 col-md-2 control-label" for="textinput">
-		     이미지첨부
-		   </label>
-		   <div class="col-sm-2 col-md-2">
-			  <input name="imageFile" id="imageFile" type="file" value="" placeholder="" >
-		   </div>
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 		     전화번호
 		   </label>
 		   <div class="col-sm-2 col-md-2">
 			  <input name="phone" id="phone" type="text" value="" placeholder="" class="form-control input-xs">
+		   </div>
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
+		     이미지첨부
+		   </label>
+		   <div class="col-sm-2 col-md-2">
+			  <input name="imageFile" id="imageFile" type="file" value="" placeholder="" >
 		   </div>
 	  </div>
 	</div>

@@ -83,7 +83,7 @@ function fn_popupItemCode(){
                   </div>              
              </div>
              <div class="col-sm-1 col-md-1">
-                  <div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
+                  <div class="col-sm-11 col-md-11 col-sm-offset-1 col-md-offset-1">
                       <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                   </div>
              </div>
