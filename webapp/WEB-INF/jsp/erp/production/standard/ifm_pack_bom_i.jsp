@@ -126,7 +126,7 @@ function fn_row_deleteSub(){
 			<div class="col-sm-2 col-md-2">
 			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs">		
 			</div>
-		  <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		  <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				포장명
 		  </label>
 		   <div class="col-sm-2 col-md-2">
@@ -141,7 +141,7 @@ function fn_row_deleteSub(){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
-		     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 			   포장코드
 			  </label>
 			  <div class="col-sm-2 col-md-2">
@@ -151,7 +151,7 @@ function fn_row_deleteSub(){
       </div> 
       <div class="row">
 		<div class="form-group form-group-sm">
-		     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 			   포장명
 			  </label>
 			  <div class="col-sm-2 col-md-2">
@@ -161,32 +161,32 @@ function fn_row_deleteSub(){
       </div>  
       <div class="row">
 		<div class="form-group form-group-sm">
-		     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 			   규격
 			  </label>
 	    </div>
       </div> 
       <div class="row">
 		<div class="form-group form-group-sm">
-		     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 			   가로
 			  </label>
 			  <div class="col-sm-1 col-md-1">
 			    <input type="text" name="width" id="width" value="" placeholder="" class="form-control input-xs">		
 			 </div>
-			 <label class=" col-sm-1 col-md-1 control-label" for="textinput"> 
+			 <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 			   세로
 			  </label>
 			  <div class="col-sm-1 col-md-1">
 			    <input type="text" name="heightLen" id="heightLen" value="" placeholder="" class="form-control input-xs">		
 			 </div>
-			 <label class=" col-sm-1 col-md-1 control-label" for="textinput"> 
+			 <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 			   높이
 			  </label>
 			  <div class="col-sm-1 col-md-1">
 			    <input type="text" name="height" id="height" value="" placeholder="" class="form-control input-xs">		
 			 </div>
-			 <label class=" col-sm-1 col-md-1 control-label" for="textinput"> 
+			 <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 			   단위
 			  </label>
 			  <div class="col-sm-1 col-md-1">

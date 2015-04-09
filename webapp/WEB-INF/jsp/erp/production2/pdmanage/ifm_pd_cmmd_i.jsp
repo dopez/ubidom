@@ -51,7 +51,7 @@ $(document).ready(function(){
 	gridDtl01.setInitWidths("100,100,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30");
 	gridDtl01.setColAlign("center,left,right,right,right,right,right,right,right,1right,right,right,right,right,right,right,right,right,right,right,right,right,right,"+
 			"right,right,right,right,right,right,right,right,right,right,1right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridDtl01.setColTypes("ron,ro,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra,ra");
+	gridDtl01.setColTypes("ron,ro,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch");
 	gridDtl01.setColSorting("int,str,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na");
 	gridDtl01.init();	
 	o.slayout.cells("b").showHeader();

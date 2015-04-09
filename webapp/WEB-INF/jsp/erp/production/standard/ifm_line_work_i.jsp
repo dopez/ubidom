@@ -47,13 +47,13 @@ function fn_popupGoodsCode(){
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-12 col-md-7">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 		    부서코드
 		   </label>
 			<div class="col-sm-2 col-md-2">
 			 <input type="text" name="deptCode" id="deptCode" value="" placeholder="" class="form-control input-xs">
 			</div>
-           <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+           <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 		    부서명
 		   </label>
 			<div class="col-sm-2 col-md-2">
@@ -68,7 +68,7 @@ function fn_popupGoodsCode(){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				라인코드
 		   </label>
 			<div class="col-sm-2 col-md-2">
@@ -78,7 +78,7 @@ function fn_popupGoodsCode(){
       </div>
       <div class="row">
 		<div class="form-group form-group-sm">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				라인명
 		   </label>
 			<div class="col-sm-4 col-md-4">
@@ -88,7 +88,7 @@ function fn_popupGoodsCode(){
       </div> 
       <div class="row">
 		<div class="form-group form-group-sm">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				주생산제품
 		   </label>
 			<div class="col-sm-2 col-md-2">
@@ -98,7 +98,7 @@ function fn_popupGoodsCode(){
       </div> 
       <div class="row">
 		<div class="form-group form-group-sm">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				인원
 		   </label>
 			<div class="col-sm-2 col-md-2">
@@ -108,7 +108,7 @@ function fn_popupGoodsCode(){
       </div> 
       <div class="row">
 		<div class="form-group form-group-sm">
-		   <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				일생산수량
 		   </label>
 			<div class="col-sm-2 col-md-2">
