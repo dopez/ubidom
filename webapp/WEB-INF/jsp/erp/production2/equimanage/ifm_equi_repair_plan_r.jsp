@@ -110,12 +110,12 @@ function fn_popupEquiCode(){
 			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="전체" checked="checked">전체
 			    </div>
-			    <div class="col-sm-5 col-md-5">
-					<input type="radio" name="gubn" id="gubn" value="수리완료">수리완료
-			    </div>
-			    <div class="col-sm-4 col-md-4">
+			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="gubn" id="gubn" value="계획">계획
 				</div>
+				<div class="col-sm-5 col-md-5">
+					<input type="radio" name="gubn" id="gubn" value="수리완료">수리완료
+			    </div>
 			 </div>
 		  </div>
 	  </div>

@@ -42,7 +42,7 @@ function fn_popupPackCode(){
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-12 col-md-7">
-		  <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+		  <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				포장코드
 				</label>
 			<div class="col-sm-2 col-md-2">

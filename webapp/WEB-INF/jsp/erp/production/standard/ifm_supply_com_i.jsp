@@ -12,15 +12,15 @@ $( document ).ready(function() {
 	o.layout.cells("b").attachObject("bootContainer");
 	gridMain = o.slayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
-	gridMain.setHeader("공급업체코드, 공급업체명, 사업자번호", null, 
+	gridMain.setHeader("공급업체코드, 공급업체명,사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,");       
+	gridMain.setInitWidths("100,100,100");       
 	gridMain.setColAlign("left,left,left");     
 	gridMain.setColTypes("ro,ro,ro"); 
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();   
 	
-	o.slayout.cells("a").setWidth("300");
+	o.slayout.cells("a").setWidth(300);
 	
 	o.slayout.cells("b").attachObject("bootContainer2");
 })
@@ -49,13 +49,13 @@ function fn_row_delete(){
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-3 col-md-3 control-label" for="textinput"> 
+					<label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 					공급업체코드
 					 </label>
 					<div class="col-sm-2 col-md-2">
 					    <input name="supplyComCode" id="supplyComCode" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+					<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 					공급업체명 
 					</label>
 					<div class="col-sm-2 col-md-2">
@@ -70,13 +70,13 @@ function fn_row_delete(){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
-			    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+			    <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				  공급업체코드 
 				</label>
 				<div class="col-sm-2 col-md-2">
 				    <input name="supplCompCode" id="supplCompCode" type="text" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				공급업체명 
 				</label>
 				<div class="col-sm-4 col-md-4">
@@ -86,13 +86,13 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				  주민번호 
 				</label>
 				<div class="col-sm-2 col-md-2">
 					<input name="compCeoNo" id="compCeoNo" type="text" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				대표자명
 				</label>
 				<div class="col-sm-2 col-md-2">
@@ -101,30 +101,30 @@ function fn_row_delete(){
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
-				사업자등록번호
-				</label>
-				<div class="col-sm-2 col-md-2">
-					<input name="compRegiNo" id="compRegiNo" type="text" value="" placeholder="" class="form-control input-xs">
-				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput">
-				   법인번호 
-				</label>
-				<div class="col-sm-2 col-md-2">
-					<input name="compCorpNo" id="compCorpNo" type="text" value="" placeholder="" class="form-control input-xs">
-				</div>
-			</div>
-		</div>
+	      <div class="form-group form-group-sm">
+		     <label class="col-sm-2 col-md-2 control-label" for="textinput">
+		      사업자등록번호
+		     </label>
+		      <div class="col-sm-2 col-md-2">
+			     <input name="businessNum" id="businessNum" type="text" value="" placeholder="" class="form-control input-xs">
+		      </div>
+		      <label class="col-sm-2 col-md-2 control-label" for="textinput">
+		        법인번호
+		     </label>
+		     <div class="col-sm-2 col-md-2">
+			  <input name="corporateBodyNum" id="corporateBodyNum" type="text" value="" placeholder="" class="form-control input-xs">
+		    </div>
+	    </div>
+	 </div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				 업태 
 				</label>
 				<div class="col-sm-2 col-md-2">
 					<input name="compJob" id="compJob" type="text" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				종목
 				</label>
 				<div class="col-sm-2 col-md-2">
@@ -134,20 +134,20 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				우편번호
 				 </label>
 				<div class="col-sm-2 col-md-2">
-					<div class="col-sm-10 col-md-10">
+					<div class="col-sm-9 col-md-10">
 						<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-3 col-md-2">
 							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
 					  </div>
 			    </div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				주소구분 
 				</label>
 				<div class="col-sm-3 col-md-3">
@@ -162,7 +162,7 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				주소(도로명)
 				</label>
 				<div class="col-sm-8 col-md-8">
@@ -172,7 +172,7 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				주소(지번) 
 				</label>
 				<div class="col-sm-8 col-md-8">
@@ -182,13 +182,13 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				전화번호 
 				</label>
 				<div class="col-sm-2 col-md-2">
 					<input name="phoneNo" id="phoneNo" type="text" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+				<label class="col-sm-2 col-md-2 control-label" for="textinput">
 				 이메일
 				 </label>
 				<div class="col-sm-4 col-md-4">
@@ -198,13 +198,13 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				팩스번호
 				</label>
 				<div class="col-sm-2 col-md-2">
 					<input name="faxNo" id="faxNo" type="text" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+				<label class="col-sm-2 col-md-2 control-label" for="textinput">
 				 홈페이지
 			    </label>
 				<div class="col-sm-4 col-md-4">
@@ -214,7 +214,7 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				 거래여부
 				</label>
 				<div class="col-sm-3 col-md-3">
@@ -229,7 +229,7 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				담당자 정보 
 				</label>
 				<div class="col-sm-8 col-md-8">	
@@ -286,30 +286,30 @@ function fn_row_delete(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				구분 
 				</label>
 				<div class="col-sm-10 col-md-10">
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="1" checked="checked">매출
+						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">매출
 					</div>
 					<div class="col-sm-1 col-md-1">
-					    <input type="radio" name="empGbn_group1" value="2">매입
+					    <input type="checkbox" name="empGbn_group1" value="2">매입
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="3">외주
+						<input type="checkbox" name="empGbn_group1" value="3">외주
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="4">금융
+						<input type="checkbox" name="empGbn_group1" value="4">금융
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="5">품질
+						<input type="checkbox" name="empGbn_group1" value="5">품질
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="6">총무
+						<input type="checkbox" name="empGbn_group1" value="6">총무
 					</div>
 					<div class="col-sm-2 col-md-2">
-						<input type="radio" name="empGbn_group1" value="7"> Buyer
+						<input type="checkbox" name="empGbn_group1" value="7">Buyer
 					</div>
 				</div>
 			</div>
