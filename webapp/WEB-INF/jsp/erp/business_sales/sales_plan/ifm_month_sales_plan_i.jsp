@@ -45,6 +45,7 @@
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%; overflow:auto;"></div>
         <div id="bootContainer" style="position: relative;">
+        
             <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;">
                 <div class="row">
                     <div class="col-sm-7 col-md-7">

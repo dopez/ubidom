@@ -29,7 +29,8 @@ function fn_search(){
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%; overflow: auto;"></div>
-<div id="bootContainer" style="position: relative; ">
+<div id="bootContainer" style="position: relative;">
+	
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
@@ -52,6 +53,8 @@ function fn_search(){
 	</form>
 </div>
 <div id="bootContainer2" style="position: relative; width: 100%; height: 100%; ">
+	<div class="container">
+	<div class="col-md-10">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px; ">
 		<div class="row">
 			<div class="form-group form-group-sm">
@@ -135,11 +138,11 @@ function fn_search(){
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				주소구분 
 				</label>
-				<div class="col-sm-3 col-md-2">
-					<div class="col-sm-6 col-md-6">
+				<div class="col-sm-3 col-md-3">
+					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="postGbn" id="postGbn" value="도로명">도로명
 					</div>
-				    <div class="col-sm-6 col-md-6">
+				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="postGbn" id="postGbn" value="지번">지번
 					</div>
 				</div>
@@ -202,11 +205,11 @@ function fn_search(){
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				 거래여부
 				</label>
-				<div class="col-sm-3 col-md-2">
-					<div class="col-sm-6 col-md-6">
+				<div class="col-sm-3 col-md-3">
+					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="dealGbn" id="dealGbn" value="거래">거래
 					</div>
-				    <div class="col-sm-6 col-md-6">
+				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="dealGbn" id="dealGbn" value="거래중지">거래중지
 					</div>
 				</div>
@@ -300,4 +303,6 @@ function fn_search(){
 			</div>
 		</div>
 	</form>
+	</div>
+	</div>
 </div>

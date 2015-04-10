@@ -57,6 +57,8 @@ function fn_search(){
 	</form>
 </div>
 <div id="bootContainer2" style="position: relative; width: 100%; height: 100%; overflow: auto;">
+	<div class="container">
+	<div class="col-md-10">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
@@ -144,19 +146,19 @@ function fn_search(){
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				 계산서 발행
 				</label>
-				<div class="col-sm-3 col-md-2">
-					<div class="col-sm-6 col-md-6">
+				<div class="col-sm-3 col-md-3">
+					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="dealGbn" id="dealGbn" value="거래">월합산
 					</div>
-				    <div class="col-sm-6 col-md-6">
+				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="dealGbn" id="dealGbn" value="거래중지">건별
 					</div>
 				</div>
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				 사용유무
 				</label>
-				<div class="col-sm-3 col-md-2">
-					<div class="col-sm-6 col-md-6">
+				<div class="col-sm-3 col-md-3">
+					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="useGbn" id="dealGbn" value="거래">사용
 					</div>
 				    <div class="col-sm-6 col-md-6">
@@ -172,7 +174,7 @@ function fn_search(){
 				</label>
 				<div class="col-sm-10 col-md-10">
 					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">Buyer
+						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">총무
 					</div>
 					<div class="col-sm-1 col-md-1">
 					    <input type="checkbox" name="empGbn_group1" value="2">매출
@@ -190,10 +192,11 @@ function fn_search(){
 						<input type="checkbox" name="empGbn_group1" value="6">품질
 					</div>
 					<div class="col-sm-2 col-md-2">
-						<input type="checkbox" name="empGbn_group1" value="7">총무
+						<input type="checkbox" name="empGbn_group1" value="7">Buyer
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+	</div></div>
 </div>
