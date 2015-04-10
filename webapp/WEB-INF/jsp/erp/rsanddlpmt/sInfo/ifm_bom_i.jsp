@@ -68,7 +68,7 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-12 col-md-8">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 제품코드 </label>
                             <div class="col-sm-2 col-md-2">
@@ -79,15 +79,15 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-12 col-md-8">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 개정번호 </label>
                             <div class="col-sm-1 col-md-1">
                                 <input name="gjCode" id="gjCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <label class="col-sm-1 col-md-1 control-label" for="textinput">
+                            <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 개정사유 </label>
-                            <div class="col-sm-8 col-md-8">
+                            <div class="col-sm-6 col-md-6">
                                 <input name="gjCause" id="gjCause" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
@@ -96,10 +96,10 @@
             </form>
         </div>
         <div id="bootContainer3">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
+            <form class="form-horizontal" style="padding-top: 10px; padding-left: 15px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-8">
+                        <div class="col-sm-12 col-md-10">
                             <label class="col-sm-1 col-md-1 control-label" for="textinput">
                                 작성자 </label>
                             <div class="col-sm-2 col-md-2">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-8">
+                        <div class="col-sm-12 col-md-10">
                             <label class="col-sm-1 col-md-1 control-label" for="textinput">
                                 기준중량 </label>
                             <div class="col-sm-2 col-md-2">

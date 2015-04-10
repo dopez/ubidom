@@ -35,7 +35,7 @@ function fn_search(){
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+					<label class=" col-sm-3 col-md-3 control-label" for="textinput"> 
 					공급업체코드
 					 </label>
 					<div class="col-sm-2 col-md-2">
@@ -126,10 +126,10 @@ function fn_search(){
 				우편번호
 				 </label>
 				<div class="col-sm-2 col-md-2">
-					<div class="col-sm-10 col-md-10">
+					<div class="col-sm-9 col-md-9">
 						<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-3 col-md-3">
 							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
