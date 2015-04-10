@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style type="text/css">
-.calicon{
-width: 27px;
-height: 27px;
-margin-top : 1px;
-}
-</style>
 <script type="text/javascript">
 var o;
 var gridMain;   
@@ -92,7 +85,7 @@ function fn_popupDeptCode(){
                   </div>
                   <div class="col-sm-2 col-md-2">
                        <span>
-						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" >
 					   </span>
                   </div>              
              </div>

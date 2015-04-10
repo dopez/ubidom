@@ -32,4 +32,5 @@ response.setDateHeader("Expires", 0);
 <!--dhtmlx Calendar 추가 -->
 <script type="text/javascript" src="/component/dhtmlxCalendar/dhtmlxcalendar.js"></script>
 <link rel="stylesheet" href="/component/dhtmlxCalendar/skins/dhtmlxcalendar_dhx_skyblue.css"/>
+<link rel="stylesheet" type="text/css" href="/component/dxcalendar_extend.css" />
 
