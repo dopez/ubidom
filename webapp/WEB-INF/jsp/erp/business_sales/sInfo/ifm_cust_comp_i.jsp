@@ -124,10 +124,10 @@ function fn_search(){
 				우편번호
 				 </label>
 				<div class="col-sm-2 col-md-2">
-					<div class="col-sm-8 col-md-10">
+					<div class="col-sm-9 col-md-10">
 						<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<div class="col-sm-4 col-md-2">
+					<div class="col-sm-3 col-md-2">
 							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
