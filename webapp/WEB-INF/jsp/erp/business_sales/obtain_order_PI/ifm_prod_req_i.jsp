@@ -12,7 +12,7 @@
 
                 //form//
                 o.layout.cells("b").attachObject("bootContainer2");
-                
+
 
                 //grid	
                 gridMain = o.slayout.cells("a").attachGrid();
@@ -41,7 +41,7 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 일자 </label>
                             <div class="col-sm-2 col-md-2">
@@ -50,7 +50,6 @@
                                 </div>
                                 <div class="col-sm-2 col-md-2">
                                     <span> <img id="calpicker1"
-								style="margin-top: 1px; width: 27px; height: 27px;"
 								class="calicon"
 								src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 							</span>
@@ -66,7 +65,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">담당</label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">

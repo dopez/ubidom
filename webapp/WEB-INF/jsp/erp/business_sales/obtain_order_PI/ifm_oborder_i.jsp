@@ -41,7 +41,7 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 일자 </label>
                             <div class="col-sm-2 col-md-2">
@@ -49,10 +49,7 @@
                                     <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <span> <img id="calpicker1"
-								style="margin-top: 1px; width: 27px; height: 27px;"
-								class="calicon"
-								src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+                                    <span> <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 							</span>
                                 </div>
                             </div>
@@ -66,7 +63,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
@@ -84,7 +81,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
@@ -98,7 +95,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 결제조건 </label>
                             <div class="col-sm-2 col-md-2">
                                 <select class="form-control input-xs">
@@ -120,7 +117,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 선적항 </label>
                             <div class="col-sm-2 col-md-2">
                                 <select class="form-control input-xs">
@@ -142,7 +139,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 특이사항 </label>
                             <div class="col-sm-6 col-md-6">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
@@ -150,7 +147,6 @@
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 <input type="button" id="" name="" value="Excel Upload"> </label>
                         </div>
-
                     </div>
                 </div>
             </form>
