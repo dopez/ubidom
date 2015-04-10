@@ -34,14 +34,6 @@ $( document ).ready(function() {
 })
 
 </script>
-<style>
-.calicon{
-width: 27px;
-height: 27px;
-margin-top: 1px;
-}
-
-</style>
 <div id="container"
 	style="position: relative; width: 100%; height: 100%; overflow: auto;">
 	</div>
@@ -51,13 +43,13 @@ margin-top: 1px;
 		id="frmSearch">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
 					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date1">
+							
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
 										id="stDate" value="">
@@ -68,12 +60,12 @@ margin-top: 1px;
 										onclick="setSens(1,'edDate', 'max')">
 									</span>
 								</div>
-							</div>
+							
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date2">
+							
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="edDate"
 										id="edDate" value="">
@@ -84,16 +76,15 @@ margin-top: 1px;
 										onclick="setSens(1,'stDate', 'min')">
 									</span>
 								</div>
-							</div>
+							
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						품목 </label>
 					<div class="col-sm-2 col-md-2">
@@ -105,7 +96,7 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						적용환율 </label>
 					<div class="col-sm-2 col-md-2">
@@ -117,28 +108,20 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 구분 </label>
-					<div class="col-sm-4 col-md-4">
-						
-						<div class="col-xs-4 col-sm-4 col-md-3">
-						  <input type="radio"
-							name="searchGbn" value="1" checked="checked">전체
-					 
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-3">
-						  <input type="radio"
-							name="searchGbn" value="2">내수
-					
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						  <input type="radio"
-							name="searchGbn" value="3">수출
-					
-						</div>
-					
-					</div>
+					<div class="col-sm-6 col-md-6">
+                         <div class="col-xs-4 col-sm-2 col-md-2">
+                             <input type="radio" name="searchGbn" value="1" checked="checked">전체
+                         </div>
+                         <div class="col-xs-4 col-sm-2 col-md-2">
+                             <input type="radio" name="searchGbn" value="2">내수
+                         </div>
+                         <div class="col-xs-4 col-sm-2 col-md-2">
+                             <input type="radio" name="searchGbn" value="3">수출
+                         </div>
+                     </div>
 				</div>
 			</div>
 		</div>
