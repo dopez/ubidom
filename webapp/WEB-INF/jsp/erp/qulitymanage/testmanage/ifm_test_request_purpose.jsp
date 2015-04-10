@@ -51,7 +51,7 @@ function fn_print(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">  
       <div class="row">  
 		 <div class="form-group form-group-sm">
-			<div class="col-sm-12 col-md-7">
+			<div class="col-sm-7 col-md-7">
 				<label class="col-sm-2 col-md-2 control-label" for="textinput">
 				 일자 
 				</label>
@@ -83,7 +83,7 @@ function fn_print(){
 	  </div>      
 	<div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-12 col-md-7">
+		  <div class="col-sm-7 col-md-7">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
