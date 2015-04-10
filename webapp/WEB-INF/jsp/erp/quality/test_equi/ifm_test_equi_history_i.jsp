@@ -217,10 +217,10 @@
                             사용유무
                         </label>
                         <div class="col-sm-4 col-md-4">
-                            <div class="col-sm-4 col-md-4">
+                            <div class="col-sm-4 col-md-3">
                                 <input type="radio" name="useGbn" id="dealGbn" value="거래">사용
                             </div>
-                            <div class="col-sm-4 col-md-4">
+                            <div class="col-sm-4 col-md-3">
                                 <input type="radio" name="useGbn" id="dealGbn" value="거래중지">미사용
                             </div>
                         </div>

@@ -29,57 +29,40 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-9">
+                        <div class="col-sm-12 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-10 col-md-10">
-                                
-	                                <div class="col-xs-1 col-sm-1 col-md-1">
-	                                     
-                                            <input type="radio" name="empGbn_group1" value="8"> 전체
-                                        
-	                                </div>
-                                	<div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="7">Buyer
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="1" checked="checked">매출
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="2">매입
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="3">외주
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="4">금융
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="5">품질
-                                        
-                                    </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1">
-                                         
-                                            <input type="radio" name="empGbn_group1" value="6" checked="checked"> 총무
-                                        
-                                    </div>
-                            </div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">전체
+					</div>
+					<div class="col-sm-1 col-md-1">
+					    <input type="checkbox" name="empGbn_group1" value="2">buyer
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="3">매출
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="4">매입
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="5">외주
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="6">금융
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="7">품질
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="8">총무
+					</div>
+				</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-12 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 					Buyer명 
 					</label>

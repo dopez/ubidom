@@ -165,34 +165,33 @@ function fn_search(){
 				</div>
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				구분 
 				</label>
 				<div class="col-sm-10 col-md-10">
-					<label class="">
-						<input type="radio" name="empGbn_group1" value="1" checked="checked">Buyer
-					</label>
-					<label class="forPadding">
-					    <input type="radio" name="empGbn_group1" value="2">매출
-					</label>
-					<label class="forPadding">
-						<input type="radio" name="empGbn_group1" value="3">매입
-					</label>
-					<label class="forPadding">
-						<input type="radio" name="empGbn_group1" value="4">외주
-					</label>
-					<label class="forPadding">
-						<input type="radio" name="empGbn_group1" value="5">금융
-					</label>
-					<label class="forPadding">
-						<input type="radio" name="empGbn_group1" value="6" checked="checked"> 품질
-					</label>
-					<label class="forPadding">
-						<input type="radio" name="empGbn_group1" value="7"> 총무
-					</label>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">Buyer
+					</div>
+					<div class="col-sm-1 col-md-1">
+					    <input type="checkbox" name="empGbn_group1" value="2">매출
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="3">매입
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="4">외주
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="5">금융
+					</div>
+					<div class="col-sm-1 col-md-1">
+						<input type="checkbox" name="empGbn_group1" value="6">품질
+					</div>
+					<div class="col-sm-2 col-md-2">
+						<input type="checkbox" name="empGbn_group1" value="7">총무
+					</div>
 				</div>
 			</div>
 		</div>

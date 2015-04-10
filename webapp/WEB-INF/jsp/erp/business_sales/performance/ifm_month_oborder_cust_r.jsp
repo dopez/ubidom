@@ -110,12 +110,12 @@ margin-top: 1px;
 						for="textinput"> 구분 </label>
 					<div class="col-sm-4 col-md-4">
 						
-						<div class="col-xs-4 col-sm-4 col-md-4">
+						<div class="col-xs-4 col-sm-4 col-md-3">
 						  <input type="radio"
 							name="searchGbn" value="1" checked="checked">전체
 					 
 						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
+						<div class="col-xs-4 col-sm-4 col-md-3">
 						  <input type="radio"
 							name="searchGbn" value="2">내수
 					
