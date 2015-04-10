@@ -68,7 +68,7 @@ function fn_popupItemCode(){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
-		  <div class="col-sm-12 col-md-7">
+		  <div class="col-sm-7 col-md-7">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			  일자 
 			</label>
@@ -92,7 +92,7 @@ function fn_popupItemCode(){
       </div>      
       <div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-12 col-md-7">
+		  <div class="col-sm-7 col-md-7">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			등록자
 			 </label>
@@ -104,16 +104,16 @@ function fn_popupItemCode(){
 	</div>
     <div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-7">
+		  <div class="col-sm-7 col-md-7">
 			<label class="col-sm-3 col-md-2 control-label" for="textinput">
 			공급업체
 			 </label>
-			<div class="col-sm-3 col-md-2">
+			<div class="col-sm-2 col-md-2">
 			  <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
-		  <div class="col-sm-4 col-md-5">
-		    <div class="col-sm-8 col-md-6 col-sm-offset-4 col-md-offset-6">
+		  <div class="col-sm-5 col-md-5">
+		    <div class="col-sm-6 col-md-6 col-sm-offset-4 col-md-offset-6">
 		       <button type="button"  class="btn btn-default form-control" name="btnPrint" id="btnPrint" onclick="fn_print()">발주서인쇄
 		      </button>
 		    </div>

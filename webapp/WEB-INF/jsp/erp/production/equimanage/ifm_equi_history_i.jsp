@@ -77,7 +77,7 @@ function fn_row_delete(){
 			</div>
 		  </div>
 		  <div class="col-sm-5 col-md-5">
-		     <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-6">
+		     <div class="col-sm-6 col-md-6 col-sm-offset-4 col-md-offset-6">
 		    <button type="button"  class="btn btn-default form-control" name="btnImage" id="btnImage">설비 이미지정보
 		    </button>
 		    </div>

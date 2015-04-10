@@ -29,7 +29,7 @@
 	<form class="form-horizontal" name="frmSearch" id="frmSearch" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class="col-sm-2 col-md-2 control-label" for="textinput">
 						자재코드
 					 </label>
