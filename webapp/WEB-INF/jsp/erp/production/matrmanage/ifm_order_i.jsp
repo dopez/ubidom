@@ -105,7 +105,7 @@ function fn_popupItemCode(){
     <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
-			<label class="col-sm-3 col-md-2 control-label" for="textinput">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			공급업체
 			 </label>
 			<div class="col-sm-2 col-md-2">
