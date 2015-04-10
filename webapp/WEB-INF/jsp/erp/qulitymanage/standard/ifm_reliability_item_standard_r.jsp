@@ -39,4 +39,4 @@ function fn_print(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; overflow:auto;"></div>
+<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
