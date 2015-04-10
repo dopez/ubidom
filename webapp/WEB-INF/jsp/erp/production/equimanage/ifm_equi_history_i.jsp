@@ -27,7 +27,7 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str");
 	gridMain.init();	
-	
+	o.slayout.cells("a").setWidth(400);
 	o.slayout.cells("b").attachObject("bootContainer2");
 	
 	calMain = new dhtmlXCalendarObject([{input:"buyDate",button:"calpicker1"},{input:"regDate",button:"calpicker2"}]); 

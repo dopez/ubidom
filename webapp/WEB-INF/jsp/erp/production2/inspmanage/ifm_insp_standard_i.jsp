@@ -19,8 +19,10 @@ $(document).ready(function(){
 	gridMst.setColTypes("ro,ro,ed,ro");
 	gridMst.setColSorting("str,str,str,str");
 	gridMst.init();	
+	o.slayout.cells("a").setWidth(400);
 	o.slayout.cells("a").showHeader();
 	o.slayout.cells("a").setText("품목정보");	
+	
 	
 	gridDtl = o.slayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
