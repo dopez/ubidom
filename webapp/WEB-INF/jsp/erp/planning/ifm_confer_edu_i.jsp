@@ -109,7 +109,7 @@ table{
 		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain02">
 		<div class="row">
-		<div class="col-md-7 col-sm-12">
+		<div class="col-md-9 col-sm-12">
 			<table class="col-md-offset-1 table table-bordered">
 				<tr>
 					<td class="col-md-1">교육제목</td>
