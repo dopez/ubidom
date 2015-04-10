@@ -21,6 +21,7 @@ $(document).ready(function(){
 	gridMst.init();	
 	o.slayout.cells("a").showHeader();
 	o.slayout.cells("a").setText("품목정보");	
+	o.slayout.cells("a").setWidth(400);
 	
 	gridDtl = o.slayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");

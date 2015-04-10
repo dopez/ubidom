@@ -27,7 +27,8 @@ $(document).ready(function(){
 	gridMst.setColTypes("ro,ro");
 	gridMst.setColSorting("str,str");
 	gridMst.init();	
-
+	o.slayout.cells("a").setWidth(200);
+	
 	gridDtl = o.slayout.cells("c").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,약품명,온도,진공도,애칭,어시스트,두께,Rate,에칭,방식",null,
