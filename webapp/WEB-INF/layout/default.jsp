@@ -8,7 +8,7 @@
 <head>
 	<page:applyDecorator name="header"/>
 </head>
-<body  style="width:100%; min-width:1024px; min-height:768px; background-color:white; overflow: scroll;">
+<body  style="width:100%; min-width:1024px; min-height:768px; background-color:white;">
 	<decorator:body />
 </body>
 </html>
