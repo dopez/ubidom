@@ -55,7 +55,7 @@ table{
 }
 </style>
 <div id="container"
-	style="position: relative; widtd: 100%; height: 100%; overflow: auto;">
+	style="position: relative; widtd: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
 	<form class="form-horizontal"

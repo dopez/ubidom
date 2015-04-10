@@ -35,7 +35,7 @@
                 gridDtl.init();
             })
         </script>
-        <div id="container" style="position: relative; width: 100%; height: 100%; overflow: auto;">
+        <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
        <div id="bootContainer" style="position: relative; width: 100%; height: 100%;">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">

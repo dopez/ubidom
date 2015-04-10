@@ -46,7 +46,7 @@ $( document ).ready(function() {
             }
 </style>
 <div id="container"
-	style="position: relative; width: 100%; height: 100%; overflow: auto;">
+	style="position: relative; width: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
 	<form class="form-horizontal"

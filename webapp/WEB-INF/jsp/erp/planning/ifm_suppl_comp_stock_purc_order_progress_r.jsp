@@ -45,7 +45,7 @@ height: 27px;
 margin-top: 1px;
 }
         </style>
-        <div id="container" style="position: relative; width: 100%; height: 100%; overflow: auto;">
+        <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
             <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
