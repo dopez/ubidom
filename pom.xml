@@ -15,6 +15,10 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<jackson.version>2.5.2</jackson.version>
 		<poi.version>3.11</poi.version>
+		<maven.tomcat.url>http://175.209.128.74/manager/text</maven.tomcat.url>
+		<maven.tomcat.path>/</maven.tomcat.path>
+		<tomcat.username>pcw</tomcat.username>
+		<tomcat.password>pcw1234</tomcat.password>
 	</properties>
 	
 	<repositories>
@@ -102,7 +106,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${version.spring}</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -257,12 +261,12 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!--dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>org.pojomatic</groupId>
 			<artifactId>pojomatic</artifactId>
@@ -277,12 +281,12 @@
 		</dependency>
 
 		<!-- Web -->
-	    <dependency>
+	    <!--dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 		    <version>3.1.0</version>
 		    <scope>provided</scope>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -412,7 +416,6 @@
 		      <version>8.0.0-RC5</version>
 		      <scope>provided</scope>
 	    </dependency>
-
 	</dependencies>
 
 	<build>
@@ -509,6 +512,15 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://175.209.128.74/manager</url>
+					<path>/</path>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	
