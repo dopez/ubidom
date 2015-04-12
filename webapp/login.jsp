@@ -39,7 +39,7 @@ function fn_chk() {
 <body topmargin="300" leftmargin="20" onload="frm.uid.focus();">
 <form id="frm" name="frm" method="post">
 <table align="center">
-<tr><td style="font-size:13px">##아이디</td><td><input type="text" id="uid" name="uid" value="B0102" autocomplete="off" style="width:200px"></td></tr>
+<tr><td style="font-size:13px">#아이디</td><td><input type="text" id="uid" name="uid" value="B0102" autocomplete="off" style="width:200px"></td></tr>
 <tr><td style="font-size:13px">패스워드</td><td><input type="password" id="passwd" name="passwd" value="B0102" autocomplete="off" style="width:200px" onKeyPress="if(event.keyCode==13) { fn_chk(); }"></td></tr>
 <tr><td>&nbsp;</td><td><input type="button" value="로그인" style="width:200px" onClick="javascript:fn_chk();" /></td></tr>
 </table>
