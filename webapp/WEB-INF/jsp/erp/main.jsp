@@ -238,7 +238,8 @@ function setViewFullPath(id){
  
 <div id="top">
 	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
-	<a href="#" onclick="window.open('/report/simpleReport.do','rpt','');">REPORT SAMPLE</a>
+	<a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp;
+	<a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">EXCEL</a>
 	</div>
 	
 	<div style="float:right;margin-top:15px;margin-right:30px;"id="logout">
