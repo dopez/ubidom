@@ -1,24 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
 var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(3,[1,2,3,4,5,6],"1C"); //재료출고의뢰등록
+	Ubi.setContainer(3,[1,2,3,4,5,6],"1C"); //재료출고의뢰등록
 	
-	o = ubi.getDataSet();
+    layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 	
 
 	
 	//up
 	
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
 	gridMain.setHeader("No,재료코드,재료명,규격,단위,수량,사용일자,용도", null, 
 				[]);
@@ -57,11 +59,12 @@ table{
 	style="position: relative; widtd: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmSearch">
 		<div class="row">
-			<div class="col-sm-6 col-md-6">
+			<div class="col-sm-7 col-md-7">
 				<div class="row">
 					<div class="form-group form-group-sm">
 
@@ -75,7 +78,6 @@ table{
 								</div>
 								<div class="col-sm-2 col-md-2">
 									<span> <img id="calpicker1"
-										style="margin-top: 1px; widtd: 27px; height: 27px;"
 										class="calicon"
 										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 									</span>
@@ -124,4 +126,5 @@ table{
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
