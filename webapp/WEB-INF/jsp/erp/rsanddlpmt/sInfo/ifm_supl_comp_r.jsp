@@ -34,7 +34,6 @@
                     <div class="form-group form-group-sm">
                         <div class="col-sm-10 col-md-10">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
-                            
                                 <div class="col-sm-1 col-md-1">
                                     <input type="checkbox" name="empGbn_group1" value="1" checked="checked">매출
                                 </div>
@@ -56,7 +55,6 @@
                                 <div class="col-sm-2 col-md-2">
                                     <input type="checkbox" name="empGbn_group1" value="7">Buyer
                                 </div>
-                            
                         </div>
                     </div>
                 </div>
