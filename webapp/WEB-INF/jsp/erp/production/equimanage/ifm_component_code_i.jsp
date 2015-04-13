@@ -43,7 +43,6 @@ function fn_delete(){
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-    <div class="col-md-10">
 	   <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">      
           <div class="row">
 	         <div class="form-group form-group-sm">
@@ -61,12 +60,10 @@ function fn_delete(){
 	        </div>
 	      </div>
        </form>
-     </div>
   </div>
 </div>
 <div id="bootContainer2" style="position: relative;">
 <div class="container">
-   <div class="col-md-10">
 	  <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">      
          <div class="row">
 	        <div class="form-group form-group-sm">
@@ -127,5 +124,4 @@ function fn_delete(){
 	   </div>
      </form>
     </div>
-  </div>
 </div>

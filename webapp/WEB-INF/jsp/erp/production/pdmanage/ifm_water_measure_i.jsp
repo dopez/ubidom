@@ -2,17 +2,19 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
-var gridMst;
-var gridDtl;     
+var layout,toolbar,subLayout;
+var gridMst, gridDtl;   
 var calMain;
 $(document).ready(function(){
-	ubi.init(2,[1,2,3,4,5,6],"2E");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(2,[1,2,3,4,5,6],"2E");
 	//수분측정등록
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	gridMst = o.slayout.cells("a").attachGrid();
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,입고일자,품목코드,품명,포장,단위,수량,제조LotNo,위치,선택",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -22,10 +24,10 @@ $(document).ready(function(){
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ro,ra");
 	gridMst.setColSorting("int,date,str,str,str,str,int,int,str,na");
 	gridMst.init();	
-	o.slayout.cells("a").showHeader();
-	o.slayout.cells("a").setText("약품재고내역");
+	subLayout.cells("a").showHeader();
+	subLayout.cells("a").setText("약품재고내역");
 	
-	gridDtl = o.slayout.cells("b").attachGrid();
+	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,품목코드,품명,포장,단위,무게,수분율,부유무게,가동회수,기준중량,밀도",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -35,8 +37,8 @@ $(document).ready(function(){
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,edn,edn,edn,edn,edn,edn");
 	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,int");
 	gridDtl.init();	
-	o.slayout.cells("b").showHeader();
-	o.slayout.cells("b").setText("수분측정내용");
+	subLayout.cells("b").showHeader();
+	subLayout.cells("b").setText("수분측정내용");
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -63,9 +65,10 @@ function fn_row_delete(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+  <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
@@ -78,7 +81,7 @@ function fn_row_delete(){
                   </div>
                   <div class="col-sm-2 col-md-2">
                        <span>
-						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" >
+                         <input type="button" id="calpicker" class="calicon">
 					   </span>
                   </div>              
              </div>
@@ -103,4 +106,5 @@ function fn_row_delete(){
 	  </div>
 	</div>      
   </form>
+ </div> 
 </div>

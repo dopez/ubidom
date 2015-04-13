@@ -2,17 +2,20 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
-var gridMst;
-var gridDtl;
+var layout,toolbar,subLayout;
+var gridMst, gridDtl;
 var calMain;
 $(document).ready(function(){
 	ubi.init(2,[1,8,9],"2E");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(2,[1,8,9],"2E");
 	//품질검사요청현황
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	gridMst = o.slayout.cells("a").attachGrid();
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,생산일자,품목코드,품명,포장,단위,정량,함침,조립,크램핑,세척,무게선별,실링",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -24,7 +27,7 @@ $(document).ready(function(){
 	gridMst.setColSorting("int,date,str,str,str,str,int,int,int,int,int,int,int");
 	gridMst.init();		
 
-	gridDtl = o.slayout.cells("b").attachGrid();
+	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,포장코드,포장명,단위,수량,제조LotNo,제품수량,Box수량,총중량,총CBM,C/TNo,선택",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -56,9 +59,10 @@ function fn_popupItemCode(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">  
+  <div class="container">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
        <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-7 col-md-7">
@@ -72,7 +76,7 @@ function fn_popupItemCode(){
                          </div>
                          <div class="col-sm-2 col-md-2">
                             <span>
-                               <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" onclick="setSens(1,'edDate', 'max')" >
+                               <input type="button" id="calpicker1" class="calicon" onclick="setSens(1,'edDate', 'max')">
 							</span>
                           </div>
                      </div>
@@ -83,7 +87,7 @@ function fn_popupItemCode(){
                           </div>
                           <div class="col-sm-2 col-md-2">
                               <span> 
-                                 <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" onclick="setSens(1,'stDate', 'min')">
+                                <input type="button" id="calpicker2" class="calicon" onclick="setSens(1,'stDate', 'min')">
 							  </span>
                           </div>
                        </div> 
@@ -104,4 +108,5 @@ function fn_popupItemCode(){
 	  </div>
 	</div>   
   </form>
+ </div> 
 </div>

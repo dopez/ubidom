@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout,toolbar,subLayout; 
 var gridMain;
 $( document ).ready(function() {
-	
-	ubi.init(1,[1,2,3,4,5,6],"2U"); 
-	o = ubi.getDataSet();
+	Ubi.setContainer(1,[1,2,3,4,5,6],"2U");
 	//공급업체등록
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	o.layout.cells("b").attachObject("bootContainer");
-	gridMain = o.slayout.cells("a").attachGrid(); 
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMain = subLayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("공급업체코드, 공급업체명,사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
@@ -20,9 +22,9 @@ $( document ).ready(function() {
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();   
 	
-	o.slayout.cells("a").setWidth(300);
+	subLayout.cells("a").setWidth(300);
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").attachObject("bootContainer2");
 })
 function fn_new(){
 	
@@ -45,7 +47,8 @@ function fn_row_delete(){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+ <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-7 col-md-7">
@@ -65,9 +68,11 @@ function fn_row_delete(){
 			</div>
 		</div>
 	</form>
+  </div>	
 </div>
 <div id="bootContainer2" style="position: relative; width: 100%; height: 100%;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+  <div class="container">	
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 			    <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -315,4 +320,5 @@ function fn_row_delete(){
 			</div>
 		</div>
 	</form>
+  </div>	
 </div>

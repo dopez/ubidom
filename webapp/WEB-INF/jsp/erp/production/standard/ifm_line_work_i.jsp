@@ -2,15 +2,18 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	ubi.init(1,[1,2,3,4],"2U");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(1,[1,2,3,4],"2U");
 	//라인작업등록
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
+    
+    layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("부서코드,부서명",null,["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("200,200");
@@ -18,9 +21,9 @@ $(document).ready(function(){
 	gridMain.setColTypes("ro,ro");
 	gridMain.setColSorting("str,str");
 	gridMain.init();	
-	o.slayout.cells("a").setWidth(400);
+	subLayout.cells("a").setWidth(400);
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").attachObject("bootContainer2");
 });
 function fn_new(){
 	
@@ -41,9 +44,10 @@ function fn_popupGoodsCode(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+  <div class="container">	
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
@@ -63,9 +67,11 @@ function fn_popupGoodsCode(){
 	    </div>
       </div>     
   </form>
+ </div> 
 </div>
 <div id="bootContainer2" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+ <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -117,4 +123,5 @@ function fn_popupGoodsCode(){
 	    </div>
       </div>       
   </form>
+ </div> 
 </div>

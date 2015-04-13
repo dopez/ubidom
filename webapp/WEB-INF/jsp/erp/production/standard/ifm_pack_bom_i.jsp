@@ -2,17 +2,18 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
-var gridMst;
-var gridDtl01;
-var gridDtl02;
+var layout,toolbar,subLayout;
+var gridMst, gridDtl01, gridDtl02;
 $(document).ready(function(){
-	ubi.init(1,[1,2,3,4,5,6],"4C");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(1,[1,2,3,4,5,6],"4C");
 	//포장BOM등록
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	gridMst = o.slayout.cells("a").attachGrid();
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("포장자재",null,["text-align:center;"]);
 	gridMst.setInitWidths("100");
@@ -20,12 +21,12 @@ $(document).ready(function(){
 	gridMst.setColTypes("ro");
 	gridMst.setColSorting("str");
 	gridMst.init();	
-	o.slayout.cells("a").setWidth(100);
+	subLayout.cells("a").setWidth(100);
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
-	o.slayout.cells("b").setHeight(150);
+	subLayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").setHeight(150);
 	
-	gridDtl01 = o.slayout.cells("c").attachGrid();
+	gridDtl01 = subLayout.cells("c").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl01.setHeader("포장코드,포장명,규격,단위,수량,Loss율,사용일자,사용유무,비고",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -35,10 +36,10 @@ $(document).ready(function(){
 	gridDtl01.setColTypes("ro,ro,ro,ro,edn,edn,dhxCalendarA,coro,ed");
 	gridDtl01.setColSorting("str,str,str,str,int,int,date,str,str");
 	gridDtl01.init();	
-	o.slayout.cells("c").showHeader();
-	o.slayout.cells("c").setText("BOM등록");	
+	subLayout.cells("c").showHeader();
+	subLayout.cells("c").setText("BOM등록");	
 	
-	gridDtl02 = o.slayout.cells("d").attachGrid();
+	gridDtl02 = subLayout.cells("d").attachGrid();
 	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl02.setHeader("공정,구분,공정순서",null,
 			["text-align:center;","text-align:center;","text-align:center;"]);
@@ -47,8 +48,8 @@ $(document).ready(function(){
 	gridDtl02.setColTypes("coro,coro,ro");
 	gridDtl02.setColSorting("na,na,int");
 	gridDtl02.init();
-	o.slayout.cells("d").showHeader();
-	o.slayout.cells("d").setText("공정등록");
+	subLayout.cells("d").showHeader();
+	subLayout.cells("d").setText("공정등록");
 
 	var tbrlayout = o.slayout.cells("d");
 	subToolbar(toolbar,tbrlayout,[3,5,6]);
@@ -114,9 +115,10 @@ function fn_row_deleteSub(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+ <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
@@ -136,9 +138,11 @@ function fn_row_deleteSub(){
 	    </div>
       </div>     
   </form>
+ </div> 
 </div>
 <div id="bootContainer2" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+  <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -195,4 +199,5 @@ function fn_row_deleteSub(){
 	    </div>
       </div> 
   </form>
+ </div> 
 </div>

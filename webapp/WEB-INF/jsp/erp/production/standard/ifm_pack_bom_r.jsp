@@ -2,15 +2,18 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	ubi.init(1,[1,8,9],"1C");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(1,[1,8,9],"1C");
 	//포장BOM조회
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("Level,포장코드,포장명,규격,단위,수량,사용일지,사용유무,공정,순서,구분,비고",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -21,7 +24,6 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ro,ro,ro,ron,ro,ro");
 	gridMain.setColSorting("int,str,str,str,str,int,date,str,str,int,str,str");
 	gridMain.init();	
-	
 });
 function fn_search(){
 	
@@ -36,9 +38,10 @@ function fn_popupPackCode(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
+  <div class="container">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
@@ -52,4 +55,5 @@ function fn_popupPackCode(){
 	    </div>
       </div>      
   </form>
+ </div> 
 </div>
