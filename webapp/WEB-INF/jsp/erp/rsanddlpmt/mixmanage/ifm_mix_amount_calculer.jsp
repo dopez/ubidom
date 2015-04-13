@@ -2,16 +2,19 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	ubi.init(3,[2,3,4,5,6],"1C");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(3,[2,3,4,5,6],"1C");
 	//배합수량계산
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
+    
+	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("NO,제품코드,제품명,제품재고,재공재고,적정재고,미출하수량,과부족수량,배합중량,생산예정수량",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -47,6 +50,7 @@ function fn_row_delete(){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
+  <div class="container">
 	<form class="form-horizontal" id="frmCalcul" name="frmCalcul" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
@@ -60,7 +64,7 @@ function fn_row_delete(){
                   </div>
                   <div class="col-sm-2 col-md-2">
                        <span>
-						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" >
+                         <input type="button" id="calpicker" class="calicon">
 					   </span>
                   </div>              
              </div>
@@ -114,5 +118,6 @@ function fn_row_delete(){
 				</div>
 			</div>
 		</div>      
-  </form>
+    </form>
+  </div>
 </div>
