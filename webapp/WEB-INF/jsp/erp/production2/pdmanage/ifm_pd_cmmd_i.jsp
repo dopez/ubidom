@@ -2,18 +2,19 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
-var gridMst;
-var gridDtl01;
-var gridDtl02;
+var layout,toolbar,subLayout;
+var gridMst,gridDtl01,gridDtl02;
 var calMain;
 $(document).ready(function(){
-	ubi.init(2,[1,2,3,4,5,6],"3E");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(2,[1,2,3,4,5,6],"3E");
 	//생산지시등록
-	o.layout.cells("b").attachObject("bootContainer");
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
 	
-	gridMst = o.slayout.cells("a").attachGrid();
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,요청번호,요청부서,담당,매출구분,구분,설비코드,모재코드,모재명,포장,단위,수량,납기일자,선택",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -24,10 +25,10 @@ $(document).ready(function(){
 	gridMst.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ra");
 	gridMst.setColSorting("int,int,str,str,str,str,str,str,str,str,str,int,date,na");
 	gridMst.init();	
-	o.slayout.cells("a").showHeader();
-	o.slayout.cells("a").setText("코팅요청내역");
+	subLayout.cells("a").showHeader();
+	subLayout.cells("a").setText("코팅요청내역");
 
-	gridDtl01 = o.slayout.cells("b").attachGrid();
+	gridDtl01 = subLayout.cells("b").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl01.setHeader("No,설비코드,8시,#cspan,9시,#cspan,10시,#cspan,11시,#cspan,12시,#cspan,13시,#cspan,14시,#cspan,15시,#cspan,16시,#cspan,17시,#cspan,"+
 			"18시,#cspan,19시,#cspan,20시,#cspan,21시,#cspan,22시,#cspan,23시,#cspan,24시,#cspan,1시,#cspan,2시,#cspan,3시,#cspan,4시,#cspan,5시,#cspan,6시,#cspan,7시,#cspan",null,
@@ -47,10 +48,10 @@ $(document).ready(function(){
 	gridDtl01.setColTypes("ron,ro,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch,ch");
 	gridDtl01.setColSorting("int,str,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na,na");
 	gridDtl01.init();	
-	o.slayout.cells("b").showHeader();
-	o.slayout.cells("b").setText("장비사용계획");
+	subLayout.cells("b").showHeader();
+	subLayout.cells("b").setText("장비사용계획");
 	
-	gridDtl02 = o.slayout.cells("c").attachGrid();
+	gridDtl02 = subLayout.cells("c").attachGrid();
 	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl02.setHeader("No,작업자,설비,#cspan,#cspan,모재코드,모재명,포장,단위,약품,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식,수량",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -67,8 +68,8 @@ $(document).ready(function(){
 	gridDtl02.setColTypes("ron,ro,ro,ron,ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ro,ron");
 	gridDtl02.setColSorting("int,str,str,int,int,str,str,str,str,str,int,int,int,int,int,int,int,str,int");
 	gridDtl02.init();	
-	o.slayout.cells("c").showHeader();
-	o.slayout.cells("c").setText("생산지시내역");
+	subLayout.cells("c").showHeader();
+	subLayout.cells("c").setText("생산지시내역");
 
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -96,8 +97,9 @@ function fn_row_delete(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
+ <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
@@ -111,7 +113,7 @@ function fn_row_delete(){
                   </div>
                   <div class="col-sm-2 col-md-2">
                        <span>
-						 <img id="calpicker" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" >
+                        <input type="button"  id="calpicker" class="calicon">
 					   </span>
                   </div>              
              </div>
@@ -136,4 +138,5 @@ function fn_row_delete(){
 	    </div>
 	</div>
   </form>
+ </div> 
 </div>
