@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
+            var layout,toolbar,subLayout;
             var gridMain;
             var calStDate;
             $(document)
                 .ready(
                     function() {
 
-                        ubi.init(1, [1, 2, 3, 4], "2U"); //제품코드등록
+                        Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //제품코드등록
 
-                        o = ubi.getDataSet();
+                        layout = Ubi.getLayout();
+                        toolbar = Ubi.getToolbar();
+                        subLayout = Ubi.getSubLayout();
 
                         //form//
-                        o.layout.cells("b").attachObject("bootContainer2");
+                        layout.cells("b").attachObject("bootContainer2");
 
                         //left grid//
-                        gridMain = o.slayout.cells("a").attachGrid();
+                        gridMain = subLayout.cells("a").attachGrid();
                         gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
                         gridMain.setHeader("제품코드, 제품명", null, [
                             "text-align:center;", "text-align:center;"
@@ -28,13 +30,8 @@
                         gridMain.init();
 
                         //right form//
-                        o.slayout.cells("b").attachObject("productCodeInfo");
-                        o.slayout.cells("a").setWidth("252");
-
-                        o.btn.attachEvent("onClick", function(id) {
-                            if (id = "srh")
-                                btn_serach();
-                        });
+                        subLayout.cells("b").attachObject("productCodeInfo");
+                        subLayout.cells("a").setWidth("252");
 
                         //set date//
                         calStDate = new dhtmlXCalendarObject([{
@@ -56,27 +53,35 @@
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
+        
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+         <div class="container">
+         
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                 <div class="row">
-
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
-                            <label class="col-sm-2 col-md-2 control-label" for="textinput">
+                        <div class="col-sm-7 col-md-7">
+                            <label class="col-sm-3 col-md-2 control-label" for="textinput">
                                 제품코드 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="pCode" id="pCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-md-offset-1 col-sm-4 col-md-4">
+                            <div class="col-md-offset-1 col-sm-offset-1 col-sm-4 col-md-4">
                                 <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+         
+            </div>
         </div>
-        <div id="productCodeInfo" style="position: relative; width: 100%; height: 100%; ">
-            <form id="frmMain" class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;">
+        
+        
+        <div id="productCodeInfo">
+            <form id="frmMain" class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
+                <div class="container">
+         		
                 <div class="row">
                     <div class="form-group form-group-sm">
 
@@ -157,7 +162,7 @@
 
                         <label class="col-sm-2 col-md-2 control-label" for="textinput">
                             제품명 </label>
-                        <div class="col-sm-10 col-md-6">
+                        <div class="col-sm-6 col-md-6">
                             <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
@@ -168,7 +173,7 @@
 
                         <label class="col-sm-2 col-md-2 control-label" for="textinput">
                             규격 </label>
-                        <div class="col-sm-10 col-md-6">
+                        <div class="col-sm-6 col-md-6">
                             <input name="pSzie" id="pSzie" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
@@ -350,5 +355,8 @@
                         </div>
                     </div>
                 </div>
+                
+                </div>
             </form>
         </div>
+        

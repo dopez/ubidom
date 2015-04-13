@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
-            var gridMst;
+	        var layout,toolbar,subLayout;
+	        var gridMst,gridDtl;
             var calStDate
             $(document)
                 .ready(
                     function() {
 
-                        ubi.init(0, [1, 2, 3, 4, 5, 6], "1C"); //진공증착기준등록
+                    	Ubi.setContainer(0, [1, 2, 3, 4, 5, 6], "1C"); //진공증착기준등록
 
-                        o = ubi.getDataSet();
+                        layout = Ubi.getLayout();
+                        toolbar = Ubi.getToolbar();
+                        subLayout = Ubi.getSubLayout();
 
                         //마지막 C셀을 죽이고 b 셀에 새로운 레이아웃 추가//
-                        var differentLayout = o.layout.cells("b").attachLayout("2U");
-                        o.slayout.cells("a").setHeight(0);
+                        var differentLayout = layout.cells("b").attachLayout("2U");
+                        subLayout.cells("a").setHeight(0);
                         differentLayout.cells("a").setWidth(253);
                         differentLayout.cells("a").hideHeader();
                         differentLayout.cells("b").hideHeader();
@@ -62,10 +64,12 @@
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+            <div class="container">
+            
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        
                             <label class="col-sm-2 col-md-2 control-label" for="textinput"> 적용일자 </label>
                             <div class="col-sm-2 col-md-2">
                                 <div class="input-group date" id="date">
@@ -84,29 +88,31 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        
                             <label class="col-sm-2 col-md-2 control-label" for="textinput"> 설비코드 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 설비명 </label>
                             <div class="col-sm-10 col-md-8">
                                 <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                        </div>
+                        
                     </div>
+                </div>
+             
                 </div>
             </form>
         </div>

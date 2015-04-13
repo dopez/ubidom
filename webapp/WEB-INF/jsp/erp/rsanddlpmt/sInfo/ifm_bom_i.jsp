@@ -1,26 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
-            var gridMain;
+	        var layout,toolbar,subLayout;
+	        var gridMst,gridDtl;
             var calMain;
             $(document).ready(function() {
 
-                ubi.init(2, [1, 2, 3, 4], "3E"); //BOM등록
+            	Ubi.setContainer(2, [1, 2, 3, 4], "3E"); //BOM등록
 
-                o = ubi.getDataSet();
+                layout = Ubi.getLayout();
+                toolbar = Ubi.getToolbar();
+                subLayout = Ubi.getSubLayout();
 
                 //form//
-                o.layout.cells("b").attachObject("bootContainer2");
+                layout.cells("b").attachObject("bootContainer2");
 
                 //form02//
-                o.slayout.cells("b").attachObject("bootContainer3");
-                o.slayout.cells("b").setHeight(80);
+                subLayout.cells("b").attachObject("bootContainer3");
+                subLayout.cells("b").setHeight(80);
 
                 //up
 
 
-                gridMst = o.slayout.cells("a").attachGrid();
+                gridMst = subLayout.cells("a").attachGrid();
                 gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");
                 gridMst.setHeader("계정번호,계정일자,사유", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
 
@@ -31,9 +33,9 @@
                 gridMst.init();
 
                 //down
-                gridDtl = o.slayout.cells("c").attachGrid();
-                o.slayout.cells("c").showHeader();
-                o.slayout.cells("c").setText("BOM");
+                gridDtl = subLayout.cells("c").attachGrid();
+                subLayout.cells("c").showHeader();
+                subLayout.cells("c").setText("BOM");
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
 
                 gridDtl.setHeader("순번,공정,자재코드,자재명,소요량,Loss율", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
@@ -65,10 +67,12 @@
         </div>
 
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+            <div class="container">
+            
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-8">
+                        <div class="col-sm-7 col-md-7">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 제품코드 </label>
                             <div class="col-sm-2 col-md-2">
@@ -79,10 +83,10 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-8">
+                        <div class="col-sm-7 col-md-7">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 개정번호 </label>
-                            <div class="col-sm-1 col-md-1">
+                            <div class="col-sm-2 col-md-2">
                                 <input name="gjCode" id="gjCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
@@ -93,13 +97,16 @@
                         </div>
                     </div>
                 </div>
+            
+                </div>
             </form>
         </div>
         <div id="bootContainer3">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 15px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
+            <div class="container">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-10">
+                        
                             <label class="col-sm-1 col-md-1 control-label" for="textinput">
                                 작성자 </label>
                             <div class="col-sm-2 col-md-2">
@@ -141,12 +148,12 @@
 
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-10">
+                        
                             <label class="col-sm-1 col-md-1 control-label" for="textinput">
                                 기준중량 </label>
                             <div class="col-sm-2 col-md-2">
@@ -162,8 +169,9 @@
                             <div class="col-sm-2 col-md-2">
                                 <input name="endDate" id="endDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                        </div>
+                        
                     </div>
+                </div>
                 </div>
             </form>
         </div>

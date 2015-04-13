@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
+        	var layout, toolbar, subLayout;
             var gridMst;
             var gridDtl;
             var calMain;
+            var tbar;
             $(document).ready(function() {
 
-                    ubi.init(4, [1, 2, 3, 4], "1C"); //개발계획등록
+            		Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발계획등록
 
-                    o = ubi.getDataSet();
+                    layout = Ubi.getLayout();
+                    toolbar = Ubi.getToolbar();
+                    subLayout = Ubi.getSubLayout();
 
                     //form//
-                    o.layout.cells("b").attachObject("bootContainer2");
-                    o.layout.cells("b").setHeight(180);
+                    layout.cells("b").attachObject("bootContainer2");
+                    layout.cells("b").setHeight(180);
 
 
                     //setDate//
@@ -26,7 +29,7 @@
                     var t = dateformat(new Date());
                     byId("stDate").value = t;
                     //tabbar//	
-                    var devPlanTabbar = o.slayout.cells("a").attachTabbar({
+                    var devPlanTabbar = subLayout.cells("a").attachTabbar({
                         tabs: [{
                             id: "a1",
                             text: "목적/배경",
@@ -155,10 +158,11 @@
                     tab8.setColSorting("str,str,str,str");
                     tab8.attachFooter("적용제품,,#cspan,#cspan", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
                     tab8.init();
-
+                    
+                    
                     //set tool bar//
                     for (var i = 1; i < 9; i++) {
-                        var a = toolbar
+                        var a = tbar
                         if (i < 7) {
                             subToolbar(a + i, devPlanTabbar.tabs("a" + i), [3, 4, 5, 6]);
                         } else {
@@ -167,43 +171,47 @@
                     }
                 })
                 //tool bar//
-            var subToolbar = function(toolbar, sublayout, btn_id_array) {
+						var subToolbar = function(tbar,sublo,btn_id_array){
 
-                toolbar = sublayout.attachToolbar();
+                    	tbar = sublo.attachToolbar();
+                    	
+                        var size = 18;
+                        
+                        tbar.clearAll();
+                        tbar.setIconSize(18);
+                        tbar.setIconsPath("/images/button/dhtmlx/");
+                        tbar.loadStruct("/common/json/button.json", fn_onLoad);
 
-                /* var size = 18; */
-                toolbar.clearAll();
-                toolbar.setIconSize(18);
-                toolbar.setIconsPath("/images/button/dhtmlx/");
-                toolbar.loadStruct("/common/json/button.json", fn_onLoad);
-
-                function fn_onLoad() {
-                    var item_id_set_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-                    for (var i = 0; i < btn_id_array.length; i++) {
-                        var index = item_id_set_arr.indexOf(btn_id_array[i]);
-                        if (index > -1) {
-                            item_id_set_arr.splice(index, 1);
+                        function fn_onLoad(){
+                        	
+                        	var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
+                        	
+                        	for(var i=0; i< btn_id_array.length; i++){
+                        		var index = item_id_set_arr.indexOf(btn_id_array[i]);
+                                if (index > -1) {
+                                	item_id_set_arr.splice(index, 1);
+                                }
+                        	}
+                        	
+                        	for(var i=0; i<item_id_set_arr.length; i++){
+                        	
+                        		tbar.removeItem("btn"+item_id_set_arr[i]);	// item
+                        		tbar.removeItem("sep"+item_id_set_arr[i]); // seperator
+                        	}	
                         }
                     }
-                    for (var i = 0; i < item_id_set_arr.length; i++) {
-
-                        toolbar.removeItem("btn" + item_id_set_arr[i]); // item
-                        toolbar.removeItem("sep" + item_id_set_arr[i]); // seperator
-                    }
-                }
-            }
+           
         </script>
         <style>
         </style>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
-
+		<div class="container">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                             <div class="col-sm-2 col-md-2">
 							
@@ -213,7 +221,7 @@
 								</div>
 								<div class="col-sm-2 col-md-2">
 									<span> <img id="calpicker1"
-										style="margin-top: 1px; widtd: 27px; height: 27px;"
+										 
 										class="calicon"
 										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 									</span>
@@ -234,7 +242,7 @@
 
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 작성자 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -244,7 +252,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제안자 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="propsName" id="propsName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -254,7 +262,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제안부서 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="propsDeptName" id="propsDeptName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -264,7 +272,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 과제명 </label>
                             <div class="col-sm-10 col-md-10">
                                 <input name="propsDeptName" id="propsDeptName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -273,8 +281,9 @@
                     </div>
                 </div>
             </form>
+            </div>
         </div>
-        <div id="devGoal">
+        <div id="devGoal" class="container">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-6">
@@ -296,7 +305,7 @@
                 </div>
             </div>
         </div>
-        <div id="devPerfoPlan">
+        <div id="devPerfoPlan" class="container">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-4">

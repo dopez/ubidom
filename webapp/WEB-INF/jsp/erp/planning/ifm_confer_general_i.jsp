@@ -1,28 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
 var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(2,[2,3,4,5,6],"2E"); //일반품의등록
+	Ubi.setContainer(2,[2,3,4,5,6],"2E"); //일반품의등록
 	
-	o = ubi.getDataSet();
+    layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 	
 
 	
 	//up
 	
-	o.slayout.cells("a").attachObject("tableAppv");
-	o.slayout.cells("a").setHeight(132);
+	subLayout.cells("a").attachObject("tableAppv");
+	subLayout.cells("a").setHeight(132);
 	
-	o.slayout.cells("b").showHeader();
-	o.slayout.cells("b").setText("품의내용");
-	gridMain = o.slayout.cells("b").attachGrid();
+	subLayout.cells("b").showHeader();
+	subLayout.cells("b").setText("품의내용");
+	gridMain = subLayout.cells("b").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //10 col
 	gridMain.setHeader("No,내용", null, 
 				[]);
@@ -43,16 +45,9 @@ $( document ).ready(function() {
 
 </script>
 <style>
-.calicon{
-	widtd: 32px; 
-	height: 28px;
-}
-
 table{
 	text-align: center;
 }
-
-
 #appv{
 	width: 20px;
 }
@@ -61,11 +56,12 @@ table{
 	style="position: relative; widtd: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain">
 		<div class="row">
-			<div class="col-sm-12 col-md-6">
+			<div class="col-sm-7 col-md-7">
 				<div class="row">
 					<div class="form-group form-group-sm">
 						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
@@ -78,7 +74,6 @@ table{
 								</div>
 								<div class="col-sm-2 col-md-2">
 									<span> <img id="calpicker1"
-										style="margin-top: 1px; widtd: 27px; height: 27px;"
 										class="calicon"
 										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 									</span>
@@ -107,13 +102,15 @@ table{
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
 <div id="tableAppv">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain02">
 		<div class="row">
-		<div class="col-md-9 col-sm-12">
+		<div class="col-md-9 col-sm-9">
 			<table class="col-md-offset-1 table table-bordered">
 				<tr>
 					<td class="col-md-1">제목</td>
@@ -140,4 +137,5 @@ table{
 			</table>
 		</div></div>
 	</form>
+	</div>
 </div>
