@@ -2,15 +2,17 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	ubi.init(1,[1,8,9],"1C");
-	o = ubi.getDataSet(); 
+	Ubi.setContainer(1,[1,8,9],"1C");
 	//신뢰성항목기준정보조회
-	
-	uClayout = o.layout.cells("b").attachLayout("1C");
-               o.slayout.cells("a").setHeight(1);
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
+    
+	uClayout = layout.cells("b").attachLayout("1C");
+               subLayout.cells("a").setHeight(1);
 	
     uClayout.cells("a").hideHeader();
 	gridMain = uClayout.cells("a").attachGrid();

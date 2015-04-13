@@ -2,16 +2,18 @@
 	pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
    $(document).ready(function() {
-	ubi.init(1,[1,8,9],"1C"); 
-	o = ubi.getDataSet();
+	Ubi.setContainer(1,[1,8,9],"1C");
 	//제품코드조회
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
+    
+	layout.cells("b").attachObject("bootContainer");
 	
-	o.layout.cells("b").attachObject("bootContainer");
-	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");//col 9
 	gridMain.setHeader("구분,대분류,중분류,소분류,제품코드,제품명,규격,단위,포장단위", null, 
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
@@ -32,10 +34,10 @@ function fn_print(){
 	
 }   
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; ">
-</div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" name="frmSearch" id="frmSearch" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;">
+ <div class="container">
+	<form class="form-horizontal" name="frmSearch" id="frmSearch" style="padding-top: 10px;padding-bottom: 5px; margin: 0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-7 col-md-7">
@@ -62,4 +64,5 @@ function fn_print(){
 			</div>
 		</div>
 	</form>
+  </div>	
 </div>
