@@ -1,23 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
+var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(3,[1,8,9],"1C"); //배합작업조회
+	Ubi.setContainer(3,[1,8,9],"1C"); //배합작업조회
 	
-	o = ubi.getDataSet();
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 	
 
 	
 	//up
 	
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //10 col
 	gridMain.setHeader("No,일자,작업자,제품코드,제품명,원료코드,원료명,단위소요량,배합수량,투입중량", null, 
 					["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
@@ -48,29 +51,23 @@ $( document ).ready(function() {
 })
 
 </script>
-<style>
-.calicon{
-width: 27px;
-height: 27px;
-margin-top: 1px;
-}
-</style>
+
 <div id="container"
 	style="position: relative; width: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmSearch">
 		<div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
 					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date1">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
 										id="stDate" value="">
@@ -81,12 +78,10 @@ margin-top: 1px;
 										onclick="setSens(1,'edDate', 'max')">
 									</span>
 								</div>
-							</div>
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date2">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="edDate"
 										id="edDate" value="">
@@ -97,7 +92,6 @@ margin-top: 1px;
 										onclick="setSens(1,'stDate', 'min')">
 									</span>
 								</div>
-							</div>
 						</div>
 					</div>
 
@@ -106,7 +100,7 @@ margin-top: 1px;
                 </div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 등록자 </label>
 					<div class="col-sm-2 col-md-2">
@@ -117,7 +111,7 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 제품군 </label>
 					<div class="col-sm-4 col-md-4">
@@ -152,4 +146,5 @@ margin-top: 1px;
 			</div>
 		</div>
 	</form>
+	</div>
 </div>

@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout,toolbar,subLayout;
 var gridMain;
 $( document ).ready(function() {
 	
-	ubi.init(2,[1,2,3,4,5,6],"2U"); 
-	o = ubi.getDataSet();
+	Ubi.setContainer(1,[1,2,3,4,5,6],"2U"); 
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	//공급업체등록
 	
-	o.layout.cells("b").attachObject("bootContainer");
-	gridMain = o.slayout.cells("a").attachGrid(); 
+	layout.cells("b").attachObject("bootContainer");
+	gridMain = subLayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("공급업체코드, 공급업체명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
@@ -20,21 +22,23 @@ $( document ).ready(function() {
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();   
 	
-	o.slayout.cells("a").setWidth("300");
+	subLayout.cells("a").setWidth("303");
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").attachObject("bootContainer2");
 })
 function fn_search(){
 	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
-<div id="bootContainer" style="position: relative; width: 100%; height: 100%;">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+<div id="bootContainer" style="position: relative;">
+	<div class="container">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
+	
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<div class="col-sm-7 col-md-7">
+					<label class=" col-sm-3 col-md-3 control-label" for="textinput"> 
 					공급업체코드
 					 </label>
 					<div class="col-sm-2 col-md-2">
@@ -49,10 +53,14 @@ function fn_search(){
 				</div>
 			</div>
 		</div>
+		
 	</form>
+	</div>
 </div>
-<div id="bootContainer2" style="position: relative; width: 100%; height: 100%;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+<div id="bootContainer2" style="position: relative; width: 100%; height: 100%; ">
+	<div class="container">
+	
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px; ">
 		<div class="row">
 			<div class="form-group form-group-sm">
 			    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -123,10 +131,10 @@ function fn_search(){
 				우편번호
 				 </label>
 				<div class="col-sm-2 col-md-2">
-					<div class="col-sm-10 col-md-10">
+					<div class="col-sm-9 col-md-9">
 						<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<div class="col-sm-2 col-md-2">
+					<div class="col-sm-3 col-md-3">
 							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
@@ -135,11 +143,11 @@ function fn_search(){
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				주소구분 
 				</label>
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="postGbn" id="postGbn" value="도로명">도로명
 					</div>
-				    <div class="col-sm-4 col-md-4">
+				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="postGbn" id="postGbn" value="지번">지번
 					</div>
 				</div>
@@ -202,11 +210,11 @@ function fn_search(){
 				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 				 거래여부
 				</label>
-				<div class="col-sm-2 col-md-2">
+				<div class="col-sm-3 col-md-3">
 					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="dealGbn" id="dealGbn" value="거래">거래
 					</div>
-				    <div class="col-sm-4 col-md-4">
+				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="dealGbn" id="dealGbn" value="거래중지">거래중지
 					</div>
 				</div>
@@ -219,20 +227,20 @@ function fn_search(){
 				</label>
 				<div class="col-sm-8 col-md-8">	
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered" style="text-align: center;">
-						<thead>
+						<table class="table table-bordered" style="text-align: center;">
+						
 						  <tr>
-							<th>이름</th>
-							<th>직책</th>
-							<th>소속</th>
-							<th>HP번호</th>
-							<th>전화</th>
-							<th>이메일</th>
-							<th>중지일자</th>
-							<th>비고</th>
+							<td>이름</td>
+							<td>직책</td>
+							<td>소속</td>
+							<td>HP번호</td>
+							<td>전화</td>
+							<td>이메일</td>
+							<td>중지일자</td>
+							<td>비고</td>
 						</tr>
-						</thead>
-						  <tbody>
+						
+						
 							 <tr>
 								<td>김지훈</td>
 								<td>사원</td>
@@ -263,7 +271,7 @@ function fn_search(){
 								<td>2015/03/25</td>
 								<td>.</td>
 							</tr>
-						 </tbody>
+						 
 					  </table>
 				   </div>
 			   </div>
@@ -271,33 +279,35 @@ function fn_search(){
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
+				<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				구분 
 				</label>
-				<div class="col-sm-8 col-md-8">
+				<div class="col-sm-10 col-md-10">
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="1" checked="checked">매출
+						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">매출
 					</div>
 					<div class="col-sm-1 col-md-1">
-					    <input type="radio" name="empGbn_group1" value="2">매입
+					    <input type="checkbox" name="empGbn_group1" value="2">매입
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="3">외주
+						<input type="checkbox" name="empGbn_group1" value="3">외주
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="4">금융
+						<input type="checkbox" name="empGbn_group1" value="4">금융
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="5">품질
+						<input type="checkbox" name="empGbn_group1" value="5">품질
 					</div>
 					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="6" checked="checked"> 총무
+						<input type="checkbox" name="empGbn_group1" value="6">총무
 					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="radio" name="empGbn_group1" value="7"> Buyer
+					<div class="col-sm-2 col-md-2">
+						<input type="checkbox" name="empGbn_group1" value="7">Buyer
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+	
+	</div>
 </div>

@@ -1,23 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
-var gridMst;
+var layout, toolbar, subLayout;
+var gridMst,gridDtl;
 var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(2,[2,3,4,5,6],"2E"); //품의서결재
+	Ubi.setContainer(2,[2,3,4,5,6],"2E"); //품의서결재
 	
-	o = ubi.getDataSet();
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 	
 
 	
 	//up
 		
-	gridMst = o.slayout.cells("a").attachGrid();
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
 	gridMst.setHeader("종류,일자,품의자,제목,금액,기간");
 	gridMst.setInitWidths("100,100,100,100,100,100");       
@@ -26,9 +28,9 @@ $( document ).ready(function() {
 	gridMst.setColSorting("str,date,str,str,int,int");
 	gridMst.init();
 	
-	o.slayout.cells("b").showHeader();
-	o.slayout.cells("b").setText("내용");
-	gridDtl = o.slayout.cells("b").attachGrid();
+	subLayout.cells("b").showHeader();
+	subLayout.cells("b").setText("내용");
+	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
 	gridDtl.setHeader("No,내용", null, 
 				[]);
@@ -54,18 +56,15 @@ $( document ).ready(function() {
 table{
 	text-align: center;
 }
-.calicon{
-width: 27px;
-height: 27px;
 
-}
 </style>
 <div id="container"
 	style="position: relative; widtd: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain">
 		<div class="row">
 			<div class="col-sm-6 col-md-6">
@@ -77,7 +76,6 @@ height: 27px;
 
 					<div class="col-sm-8 col-md-6">
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date1">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
 										id="stDate" value="">
@@ -88,12 +86,10 @@ height: 27px;
 										onclick="setSens(1,'edDate', 'max')">
 									</span>
 								</div>
-							</div>
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date2">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="edDate"
 										id="edDate" value="">
@@ -106,9 +102,7 @@ height: 27px;
 								</div>
 							</div>
 						</div>
-					</div>
-
-				
+			
 			</div>
 		</div>
 				<div class="row">
@@ -149,5 +143,6 @@ height: 27px;
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
 

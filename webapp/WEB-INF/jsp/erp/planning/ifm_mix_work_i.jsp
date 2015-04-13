@@ -1,23 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
+var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(3,[1,2,3,4,5,6],"2E"); //배합작업등록
+	Ubi.setContainer(3,[1,2,3,4,5,6],"2E"); //배합작업등록
 	
-	o = ubi.getDataSet();
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 	
 
 	
 	//up
 	
 	
-	gridMst = o.slayout.cells("a").attachGrid();
+	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //7 col
 	gridMst.setHeader("No,제품코드,제품명,배합수량,배합중량,Batch,선택", null, 
 					["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
@@ -31,7 +34,7 @@ $( document ).ready(function() {
 	gridMst.init();
 	
 	//down
-	gridDtl = o.slayout.cells("b").attachGrid();
+	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //6col
 	gridDtl.setHeader("No,원료코드,원료명,단위소요량,배합수량,투입중량", null,
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
@@ -50,6 +53,7 @@ $( document ).ready(function() {
     calMain.loadUserLanguage("ko");
     calMain.hideTime();
     var t = dateformat(new Date());
+    byId("stDate").value = t;
 })
 
 </script>
@@ -60,12 +64,13 @@ $( document ).ready(function() {
 	style="position: relative; width: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 일자 </label>
 					<div class="col-sm-2 col-md-2">
@@ -76,7 +81,7 @@ $( document ).ready(function() {
 							</div>
 							<div class="col-sm-2 col-md-2">
 								<span>
-						       <img id="calpicker1" style="margin-top:1px;width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						       <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 						     </span>
 							</div>
 						
@@ -91,7 +96,7 @@ $( document ).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 등록자 </label>
 					<div class="col-sm-2 col-md-2">
@@ -102,7 +107,7 @@ $( document ).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 제품군 </label>
 					<div class="col-sm-4 col-md-4">
@@ -137,4 +142,5 @@ $( document ).ready(function() {
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
