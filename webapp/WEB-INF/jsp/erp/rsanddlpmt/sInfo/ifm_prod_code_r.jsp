@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
-            var gridMain;
+            var gridMain,layout,toolbar,subLayout;
             $(document)
                 .ready(
                     function() {
 
-                        ubi.init(1, [1, 8, 9], "1C"); //제품코드조회
+                    	Ubi.setContainer(1, [1, 8, 9], "1C"); //제품코드조회
 
-                        o = ubi.getDataSet();
+                        layout = Ubi.getLayout();
+                        toolbar = Ubi.getToolbar();
+                        subLayout = Ubi.getSubLayout();
 
                         //form//
-                        o.layout.cells("b").attachObject("bootContainer2");
+                        layout.cells("b").attachObject("bootContainer2");
 
-                        gridMain = o.slayout.cells("a").attachGrid();
+                        gridMain = subLayout.cells("a").attachGrid();
                         gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //col 9
                         gridMain.setHeader("구분,대분류,중분류,소분류,제품코드,제품명,규격,단위,포장단위", null, []);
                         gridMain.setInitWidths("100,100,100,100,150,300,300,100,100");
@@ -28,21 +29,23 @@
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
+        
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+            <div class="container">
+            
                 <div class="row">
-
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-8 col-md-7">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 제품코드 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="pCode" id="pCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-md-offset-1 col-sm-4 col-md-4">
+                            <div class="col-md-offset-1 col-sm-offset-1 col-sm-3 col-md-3">
                                 <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <label class="col-sm-1 col-md-1 control-label" for="textinput"> 구분 </label>
+                            <label class="col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-2 col-md-2">
                                 <select class="form-control input-xs">
                                     <option>제품</option>
@@ -52,6 +55,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            
                 </div>
             </form>
         </div>
