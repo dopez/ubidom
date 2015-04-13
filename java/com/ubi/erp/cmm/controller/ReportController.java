@@ -22,9 +22,15 @@ public class ReportController {
 	@Autowired
     private UserService userService;
 
-	@RequestMapping("/simpleReport")
-	public ModelAndView sysUser(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/reportPdf")
+	public ModelAndView reportPdf(HttpServletRequest request, HttpServletResponse response) {
 		List<Map<String, Object>> list = userService.selUser();
 		return JasperReportUtil.render("simpleReport", list, "pdf");
+	}
+
+	@RequestMapping("/reportExcel")
+	public ModelAndView reportExcel(HttpServletRequest request, HttpServletResponse response) {
+		List<Map<String, Object>> list = userService.selUser();
+		return JasperReportUtil.render("simpleReport", list, "xls");
 	}
 }
