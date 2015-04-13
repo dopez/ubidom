@@ -37,7 +37,7 @@
 						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">전체
 					</div>
 					<div class="col-sm-1 col-md-1">
-					    <input type="checkbox" name="empGbn_group1" value="2">buyer
+					    <input type="checkbox" name="empGbn_group1" value="2">총무
 					</div>
 					<div class="col-sm-1 col-md-1">
 						<input type="checkbox" name="empGbn_group1" value="3">매출
@@ -54,8 +54,8 @@
 					<div class="col-sm-1 col-md-1">
 						<input type="checkbox" name="empGbn_group1" value="7">품질
 					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="8">총무
+					<div class="col-sm-2 col-md-2">
+						<input type="checkbox" name="empGbn_group1" value="8">buyer
 					</div>
 				</div>
                         </div>
