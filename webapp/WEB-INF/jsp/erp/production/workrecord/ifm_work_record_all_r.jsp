@@ -42,7 +42,7 @@ function fn_print(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%; "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
     <div class="col-md-10">
@@ -60,7 +60,7 @@ function fn_print(){
                              </div>
                              <div class="col-sm-2 col-md-2">
                                <span>
-                                  <button type="button" class="calicon" id="calpicker1" onclick="setSens(1,'edDate', 'max')"></button>
+                                  <img class="calicon" id="calpicker1" onclick="setSens(1,'edDate', 'max')">
 							   </span>
                              </div>
                          </div>
@@ -71,7 +71,7 @@ function fn_print(){
                               </div>
                               <div class="col-sm-2 col-md-2">
                                 <span> 
-                                  <button type="button" class="calicon" id="calpicker2" onclick="setSens(1,'stDate', 'min')"></button>
+                                  <img class="calicon" id="calpicker2"  onclick="setSens(1,'stDate', 'min')">
 							    </span>
                              </div>
                          </div> 

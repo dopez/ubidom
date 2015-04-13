@@ -3,5 +3,5 @@
 width: 27px;
 height: 27px;
 margin-top : 1px;
-background: /component/dhtmlxCalendar/imgs/calendar.gif;
+background-image:url("/component/dhtmlxCalendar/imgs/calendar.gif") no-repeat;
 }
