@@ -2,15 +2,19 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-var o;
+var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	ubi.init(1,[1,2,3,4],"2U");
-	o = ubi.getDataSet(); 
 	//부품코드등록
-	o.layout.cells("b").attachObject("bootContainer");
+	Ubi.setContainer(1,[1,2,3,4],"2U");
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout(); 
+	
+	layout.cells("b").attachObject("bootContainer");
+	
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("코드,부품명,규격",null,
 			["text-align:center;","text-align:center;","text-align:center;"]);
@@ -19,10 +23,9 @@ $(document).ready(function(){
 	gridMain.setColTypes("ro,ro,ro");
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();	
-	o.slayout.cells("a").setWidth(300);
+	subLayout.cells("a").setWidth(300);
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
-
+	subLayout.cells("b").attachObject("bootContainer2");
 });
 function fn_new(){
 	
@@ -37,9 +40,11 @@ function fn_delete(){
 	
 }
 </script>
-<div id="container" style="position: relative; width: 100%; height: 100%;  "></div>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">      
+ <div class="container">
+  <div class="col-md-10">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">      
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-7 col-md-7">
@@ -55,9 +60,13 @@ function fn_delete(){
 		  </div>
 	  </div>
 	</div>
-  </form>
+   </form>
+   </div>
+  </div>
 </div>
 <div id="bootContainer2" style="position: relative;">
+<div class="container">
+  <div class="col-md-10">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">      
       <div class="row">
 	   <div class="form-group form-group-sm">
@@ -116,5 +125,7 @@ function fn_delete(){
 		   </div>
 	  </div>
 	</div>
-  </form>
+   </form>
+  </div>
+ </div>
 </div>
