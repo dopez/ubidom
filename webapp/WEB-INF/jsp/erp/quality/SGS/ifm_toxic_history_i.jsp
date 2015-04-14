@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
-var calMain;
-$( document ).ready(function() {
-	
-	ubi.init(0,[1,2,3,4,5,6],"1C"); //유해물질이력등록
+var calStDate;
+$(document).ready(function() {
 
-	o = ubi.getDataSet();
+	 Ubi.setContainer(0,[1,2,3,4,5,6],"1C"); //유해물질이력등록
+
+	  	layout = Ubi.getLayout();
+	    toolbar = Ubi.getToolbar();
+	    subLayout = Ubi.getSubLayout();
 
 	//grid	
-	o.layout.cells("b").setHeight(900);
-	gridMain = o.layout.cells("b").attachGrid();
+	layout.cells("b").setHeight(900);
+	gridMain = layout.cells("b").attachGrid();
     gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
     gridMain.setHeader("No,시험종류,시료명,시험주기,최종시험일자");
     gridMain.setInitWidths("100,100,100,100,100,100");
