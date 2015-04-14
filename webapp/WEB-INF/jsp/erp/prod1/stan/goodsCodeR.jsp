@@ -50,7 +50,7 @@ function fn_print(){
 					<div class="col-sm-2 col-md-2" style="margin-left: 10px;">
 						<input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
-					<label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+					<label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 					구분 
 					</label>
 					<div class="col-sm-2 col-md-2">

@@ -96,7 +96,7 @@ function fn_popupItemCode(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 분류기준
 			 </label>
-			 <div class="col-sm-3 col-md-3">
+			 <div class="col-sm-4 col-md-4">
 				<div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="일자" checked="checked">일자
 				</div>
