@@ -59,7 +59,7 @@ function fn_row_delete(){
 	   <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">      
          <div class="row">
 	        <div class="form-group form-group-sm">
-		       <div class="col-sm-7 col-md-7">
+		       <div class="col-sm-8 col-md-8">
 			      <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			       설비코드
 			      </label>
@@ -73,8 +73,8 @@ function fn_row_delete(){
 			         <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs">
 			      </div>
 		       </div>
-		       <div class="col-sm-5 col-md-5">
-		         <div class="col-sm-6 col-md-6 col-sm-offset-4 col-md-offset-6">
+		       <div class="col-sm-4 col-md-4">
+		         <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-9">
 		           <button type="button"  class="btn btn-default form-control" name="btnImage" id="btnImage">설비 이미지정보
 		           </button>
 		         </div>

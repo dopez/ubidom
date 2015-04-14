@@ -81,7 +81,7 @@ function fn_popupInspector(){
 	   <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
          <div class="row">
 		    <div class="form-group form-group-sm">
-		      <div class="col-sm-7 col-md-7">
+		      <div class="col-sm-8 col-md-8">
 			    <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			     점검일자 
 			    </label>
@@ -103,9 +103,9 @@ function fn_popupInspector(){
         </div>   
         <div class="row">  
 		   <div class="form-group form-group-sm">
-			   <div class="col-sm-7 col-md-7">
+			   <div class="col-sm-8 col-md-8">
 				   <label class="col-sm-2 col-md-2 control-label" for="textinput">
-				    점검대상기간 
+				    점검기간 
 				   </label>
 				   <div class="col-sm-6 col-md-6">
                        <div class="col-sm-4 col-md-4">
@@ -131,7 +131,7 @@ function fn_popupInspector(){
 	       </div> 
 	       <div class="row">
 	          <div class="form-group form-group-sm">
-		         <div class="col-sm-7 col-md-7">
+		         <div class="col-sm-8 col-md-8">
 		        	<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			         설비코드
 			        </label>
@@ -143,7 +143,7 @@ function fn_popupInspector(){
 	       </div>   
            <div class="row">
 	         <div class="form-group form-group-sm">
-		       <div class="col-sm-7 col-md-7">
+		       <div class="col-sm-8 col-md-8">
 			      <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			       등록자
 			      </label>
