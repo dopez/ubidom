@@ -51,7 +51,7 @@ function fn_popupBaseMatrCode(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
       <div class="row">  
 		 <div class="form-group form-group-sm">
-			<div class="col-sm-7 col-md-7">
+			<div class="col-sm-8 col-md-8">
 				<label class="col-sm-2 col-md-2 control-label" for="textinput">
 				 기간 
 				</label>
@@ -79,7 +79,7 @@ function fn_popupBaseMatrCode(){
 	  </div>  
 	  <div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-7 col-md-7">
+		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 모재코드
 			 </label>
@@ -91,11 +91,11 @@ function fn_popupBaseMatrCode(){
 	</div>
 	<div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-7 col-md-7">
+		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
-			<div class="col-sm-4 col-md-4">
+			<div class="col-sm-5 col-md-4">
 			    <div class="col-sm-3 col-md-3">
 					<input type="radio" name="pudcdept" id="pudcdept" value="주간" checked="checked">주간
 			    </div>

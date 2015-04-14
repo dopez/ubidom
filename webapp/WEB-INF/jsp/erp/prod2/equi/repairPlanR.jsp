@@ -55,7 +55,7 @@ function fn_popupEquiCode(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">  
 		 <div class="form-group form-group-sm">
-			<div class="col-sm-7 col-md-7">
+			<div class="col-sm-8 col-md-8">
 				<label class="col-sm-2 col-md-2 control-label" for="textinput">
 				 기간 
 				</label>
@@ -83,7 +83,7 @@ function fn_popupEquiCode(){
 	  </div>      
      <div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-7 col-md-7">
+		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			설비코드
 			 </label>
@@ -95,19 +95,19 @@ function fn_popupEquiCode(){
 	</div>
 	<div class="row">
 	   <div class="form-group form-group-sm">
-		  <div class="col-sm-7 col-md-7">
+		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			구분
 			 </label>
 			<div class="col-sm-4 col-md-4">
-			    <div class="col-sm-3 col-md-3">
+			    <div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="전체" checked="checked">전체
 			    </div>
-			    <div class="col-sm-3 col-md-3">
+			    <div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="계획">계획
 				</div>
-				<div class="col-sm-5 col-md-5">
-					<input type="radio" name="gubn" id="gubn" value="수리완료">수리완료
+				<div class="col-sm-4 col-md-4">
+					<input type="radio" name="gubn" id="gubn" value="완료">완료
 			    </div>
 			 </div>
 		  </div>
