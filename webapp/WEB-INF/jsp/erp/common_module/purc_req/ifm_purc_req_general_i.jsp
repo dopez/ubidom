@@ -34,9 +34,6 @@
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
                     button: "calpicker1"
-                }, {
-                    input: "edDate",
-                    button: "calpicker2"
                 }]);
                 calMain.loadUserLanguage("ko");
                 calMain.hideTime();
@@ -79,10 +76,7 @@
                                             <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                         </div>
                                         <div class="col-sm-2 col-md-2">
-                                            <span> <img id="calpicker1"
-										class="calicon"
-										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-									</span>
+                                            <input type="button" id="calpicker1" class="calicon form-control">
                                         </div>
 
                                     </div>

@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-						       <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						       <input type="button" id="calpicker1" class="calicon form-control">
 						     </span>
                             </div>
                         </div>
@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-						       <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+						       <input type="button" id="calpicker2" class="calicon form-control">
 						     </span>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                             </div>
                             <div class="col-sm-1 col-md-1">
                                 <span>
-					       <img id="calpicker3" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
+					       <input type="button" id="calpicker3" class="calicon form-control">
 					     </span>
                             </div>
                         </div>

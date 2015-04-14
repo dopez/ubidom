@@ -120,9 +120,7 @@
                                     <input name="regDate" id="regDate" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <span>
-						       <img id="calpicker2" style="margin-top:1px;width:27px;height:27px; " class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+									<input type="button" id="calpicker2" class="calicon form-control">
                                 </div>
 
                             </div>
@@ -140,11 +138,8 @@
                                     <input name="appvlDate" id="appvlDate" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <span> <img id="calpicker3"
-										style="margin-top: 1px; width: 27px; height: 27px;"
-										class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif"
-										border="0">
-									</span>
+								<input type="button" id="calpicker3" class="calicon form-control">
+
 
                                 </div>
                             </div>

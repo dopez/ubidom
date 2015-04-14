@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
-var gridMain;
+
+var gridMain, layout, toolbar, subLayout;
 var calMain;
 $( document ).ready(function() {
 	
-	ubi.init(4,[1,8,9],"1C"); //접수,배정 조회
+	Ubi.setContainer(4,[1,8,9],"1C"); //접수,배정 조회
 	
-	o = ubi.getDataSet();
+    layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	
 	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
+	layout.cells("b").attachObject("bootContainer2");
 
 	//grid	
-	gridMain = o.slayout.cells("a").attachGrid();
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //12col
 	gridMain.setHeader("No, 배정일자,관리번호,고객,요청자,품목코드,품명,사용설비,상태,담당자,납기일자,완료일자", null,
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
@@ -64,25 +66,18 @@ function fn_excel() {
 
 
 </script>
-<style>
-
-.calicon{
-width: 27px;
-height: 27px;
-margin-top: 1px;
-}
-
-</style>
 <div id="container"
 	style="position: relative; width: 100%; height: 100%;">
 	</div>
 <div id="bootContainer2">
+<div class="container">
+
 	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmSearch">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
@@ -94,10 +89,7 @@ margin-top: 1px;
 										id="stDate" value="">
 								</div>
 								<div class="col-sm-2 col-md-2">
-									<span> <img id="calpicker1" class="calicon"
-										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0"
-										onclick="setSens(1,'edDate', 'max')">
-									</span>
+									<input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
 								</div>
 							</div>
 						</div>
@@ -110,10 +102,7 @@ margin-top: 1px;
 										id="edDate" value="">
 								</div>
 								<div class="col-sm-2 col-md-2">
-									<span> <img id="calpicker2" class="calicon"
-										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0"
-										onclick="setSens(1,'stDate', 'min')">
-									</span>
+									<input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
 								</div>
 							</div>
 						</div>
@@ -125,7 +114,7 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						고객 </label>
 					<div class="col-sm-2 col-md-2">
@@ -137,7 +126,7 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						요구자 </label>
 					<div class="col-sm-2 col-md-2">
@@ -149,7 +138,7 @@ margin-top: 1px;
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						담당자 </label>
 					<div class="col-sm-2 col-md-2">
@@ -160,4 +149,5 @@ margin-top: 1px;
 			</div>
 		</div>
 	</form>
+	</div>
 </div>

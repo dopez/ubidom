@@ -79,9 +79,7 @@
                                         <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                       <input type="button" id="calpicker1" class="calicon form-control">
                                     </div>
                                 
                             </div>
@@ -150,9 +148,7 @@
                                         <input name="shipDate1" id="shipDate1" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-3 col-md-3">
-                                        <span>
-						       <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                        <input type="button" id="calpicker2" class="calicon form-control">
                                     </div>
                             </div>
                         </div>
@@ -173,9 +169,7 @@
                                         <input name="shipDate2" id="shipDate2" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-3 col-md-3">
-                                        <span>
-						       <img id="calpicker3" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                        <input type="button" id="calpicker3" class="calicon form-control">
                                     </div>
                             </div>
                         </div>

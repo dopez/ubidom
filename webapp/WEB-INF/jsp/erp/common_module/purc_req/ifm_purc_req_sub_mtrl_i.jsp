@@ -32,7 +32,7 @@ $( document ).ready(function() {
 	/* subLayout.cells("a").appendObject("tdisLabel01").init(); */
 
 	//calRangeDate
-	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"}]);
 	 calMain.loadUserLanguage("ko");
 	 calMain.hideTime();
 		var t = dateformat(new Date());
@@ -77,10 +77,7 @@ table{
 										placeholder="" class="form-control input-xs">
 								</div>
 								<div class="col-sm-2 col-md-2">
-									<span> <img id="calpicker1"
-										class="calicon"
-										src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-									</span>
+									<input type="button" id="calpicker1" class="calicon form-control">
 								</div>
 							
 						</div>

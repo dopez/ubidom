@@ -138,9 +138,7 @@
                                         <input name="spDate" id="spDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker1" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                      <input type="button" id="calpicker1" class="calicon form-control">
                                     </div>
                                 </div>
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
@@ -159,9 +157,7 @@
                                         <input name="rptDate" id="rptDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker2" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                        <input type="button" id="calpicker2" class="calicon form-control">
                                     </div>
                                 </div>
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> Invoice No </label>
@@ -178,9 +174,7 @@
                                         <input name="portEntDate" id="portEntDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker3" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                      <input type="button" id="calpicker3" class="calicon form-control">
                                     </div>
                                 </div>
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 반입일자 </label>
@@ -189,9 +183,7 @@
                                         <input name="crryDate" id="crryDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker4" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                       <input type="button" id="calpicker4" class="calicon form-control">
                                     </div>
                                 </div>
                             </div>
@@ -278,9 +270,7 @@
                                         <input name="cstPmtDate" id="cstPmtDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker5" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                       <input type="button" id="calpicker5" class="calicon form-control">
                                     </div>
                                 </div>
                             </div>
@@ -307,9 +297,7 @@
                                         <input name="inputExpctDate" id="inputExpctDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker6" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                        <input type="button" id="calpicker6" class="calicon form-control">
                                     </div>
                                 </div>
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
@@ -327,9 +315,7 @@
                                         <input name="inputDate" id="inputDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                     <div class="col-sm-2 col-md-2">
-                                        <span>
-						       <img id="calpicker7" class="calicon" src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-						     </span>
+                                      <input type="button" id="calpicker7" class="calicon form-control">
                                     </div>
                                 </div>
                             </div>
