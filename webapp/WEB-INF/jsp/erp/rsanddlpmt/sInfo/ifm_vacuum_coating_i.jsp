@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-	        var layout,toolbar,subLayout;
-	        var gridMst,gridDtl;
+            var layout, toolbar, subLayout;
+            var gridMst, gridDtl;
             var calStDate
             $(document)
                 .ready(
                     function() {
 
-                    	Ubi.setContainer(0, [1, 2, 3, 4, 5, 6], "1C"); //진공증착기준등록
+                        Ubi.setContainer(0, [1, 2, 3, 4, 5, 6], "1C"); //진공증착기준등록
 
                         layout = Ubi.getLayout();
                         toolbar = Ubi.getToolbar();
@@ -65,54 +65,41 @@
         </div>
         <div id="bootContainer2">
             <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
-            <div class="container">
-            
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        
+                <div class="container">
+
+                    <div class="row">
+                        <div class="form-group form-group-sm">
                             <label class="col-sm-2 col-md-2 control-label" for="textinput"> 적용일자 </label>
                             <div class="col-sm-2 col-md-2">
-                                <div class="input-group date" id="date">
-                                    <div class="col-sm-10 col-md-10">
-                                        <input name="applyDate" id="applyDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                    </div>
-                                    <div class="col-sm-2 col-md-2">
-                                        <div class="input-group date" id="date">
-
-                                            <span> <img id="calpicker1"
-											style="margin-top: 1px; width: 27px; height: 27px;"
-											class="calicon"
-											src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
-										</span>
-                                        </div>
-                                    </div>
+                                <div class="col-sm-10 col-md-10">
+                                    <input name="applyDate" id="applyDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <input type="button" id="calpicker1" class="calicon form-control">
                                 </div>
                             </div>
-                        
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+
                             <label class="col-sm-2 col-md-2 control-label" for="textinput"> 설비코드 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                        
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 설비명 </label>
                             <div class="col-sm-10 col-md-8">
                                 <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                        
+
+                        </div>
                     </div>
-                </div>
-             
                 </div>
             </form>
         </div>

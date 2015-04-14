@@ -58,10 +58,7 @@
                                             <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
                                         </div>
                                         <div class="col-sm-2 col-md-2">
-                                            <span> <img id="calpicker1" class="calicon"
-												src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0"
-												onclick="setSens(1,'edDate', 'max')">
-											</span>
+                                           <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
 	                                    </div>
                                 </div>
                                 <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
@@ -70,10 +67,7 @@
                                          <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
                                      </div>
                                      <div class="col-sm-2 col-md-2">
-                                         <span> <img id="calpicker2" class="calicon"
-											src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0"
-											onclick="setSens(1,'stDate', 'min')">
-										</span>
+                                        <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                                      </div>
                                 </div>
                             </div>
