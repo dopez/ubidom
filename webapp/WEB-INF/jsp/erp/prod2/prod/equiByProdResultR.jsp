@@ -61,9 +61,7 @@ function fn_popupEquiCode(){
                               <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
-                            <span>
                                <input type="button" id="calpicker1" class="calicon" onclick="setSens(1,'edDate', 'max')">
-							</span>
                           </div>
                      </div>
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
@@ -72,9 +70,7 @@ function fn_popupEquiCode(){
                               <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
-                              <span> 
                                 <input type="button" id="calpicker2" class="calicon" onclick="setSens(1,'stDate', 'min')">
-							  </span>
                           </div>
                        </div> 
                  </div>              
