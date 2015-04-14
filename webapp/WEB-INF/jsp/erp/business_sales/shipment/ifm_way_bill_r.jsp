@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
-            var gridMain;
-            var calMain;
-            $(document).ready(function() {
+        var layout, toolbar, subLayout;
+        var gridMain;
+        var calStDate;
+        $(document).ready(function() {
 
-                ubi.init(3, [1, 8, 9], "1C"); //운송장발행현황
+        	 Ubi.setContainer(3, [1, 8, 9], "1C"); //운송장현황
 
-                o = ubi.getDataSet();
+             	layout = Ubi.getLayout();
+                toolbar = Ubi.getToolbar();
+                subLayout = Ubi.getSubLayout();
 
                 //form//
-                o.layout.cells("b").attachObject("bootContainer2");
+                layout.cells("b").attachObject("bootContainer2");
+                
 
                 //grid	
-                gridMain = o.slayout.cells("a").attachGrid();
+                gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); 
                 gridMain.setHeader("No,일자,담당자,받는사람,주소,금액");
                 gridMain.setInitWidths("100,100,100,100,100,100");
@@ -36,26 +39,20 @@
                 byId("stDate").value = t;
             })
         </script>
-        <style>
- .calicon{
-width: 27px;
-height: 27px;
-margin-top: 1px;
-}
-        </style>
-        <div id="container" style="position: relative; width: 100%; height: 100%;">
+<div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
-        <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+       <div id="bootContainer2">
+        <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
 					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date1">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
 										id="stDate" value="">
@@ -66,12 +63,10 @@ margin-top: 1px;
 										onclick="setSens(1,'edDate', 'max')">
 									</span>
 								</div>
-							</div>
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
 						<div class="col-sm-4 col-md-4">
-							<div class="input-group date" id="date2">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="edDate"
 										id="edDate" value="">
@@ -82,7 +77,6 @@ margin-top: 1px;
 										onclick="setSens(1,'stDate', 'min')">
 									</span>
 								</div>
-							</div>
 						</div>
 					</div>
 
@@ -91,7 +85,7 @@ margin-top: 1px;
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당자 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name=" " id=" " type="text" value="" placeholder="" class="form-control input-xs">
@@ -101,7 +95,7 @@ margin-top: 1px;
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 운송회사 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name=" " id=" " type="text" value="" placeholder="" class="form-control input-xs">
@@ -110,4 +104,5 @@ margin-top: 1px;
                     </div>
                 </div>
             </form>
+            </div>
         </div>
