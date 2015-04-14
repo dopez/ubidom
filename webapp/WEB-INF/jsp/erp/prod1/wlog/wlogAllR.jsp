@@ -59,9 +59,7 @@ function fn_print(){
                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
                              </div>
                              <div class="col-sm-2 col-md-2">
-                               <span>
                                   <input type="button" class="calicon" id="calpicker1" onclick="setSens(1,'edDate','max')" />
-							   </span>
                              </div>
                          </div>
                          <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
@@ -70,9 +68,7 @@ function fn_print(){
                                  <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
                               </div>
                               <div class="col-sm-2 col-md-2">
-                                <span> 
                                   <input type="button" class="calicon" id="calpicker2" onclick="setSens(1,'stDate', 'min')"/>
-							    </span>
                              </div>
                          </div> 
                      </div>              
