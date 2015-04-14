@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
 $( document ).ready(function() {
 	
-	ubi.init(1,[1,2,3,4,5,6],"2U"); 
-	o = ubi.getDataSet();
+	Ubi.setContainer(1,[1,2,3,4,5,6],"2U"); 
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	//공급업체등록
 	
-	o.layout.cells("b").attachObject("bootContainer");
-	gridMain = o.slayout.cells("a").attachGrid(); 
+	layout.cells("b").attachObject("bootContainer");
+	gridMain = subLayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("고객코드, 고객명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
@@ -20,18 +22,18 @@ $( document ).ready(function() {
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();   
 	
-	o.slayout.cells("a").setWidth("303");
+	subLayout.cells("a").setWidth("303");
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").attachObject("bootContainer2");
 })
 function fn_search(){
 	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
-<div id="bootContainer" style="position: relative; width: 100%; height: 100%; ">
-
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+<div id="bootContainer">
+<div class="container">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-7 col-md-7">
@@ -51,9 +53,11 @@ function fn_search(){
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
-<div id="bootContainer2" style="position: relative; width: 100%; height: 100%;  ">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+<div id="bootContainer2">
+<div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 			    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -276,29 +280,16 @@ function fn_search(){
 				구분 
 				</label>
 				<div class="col-sm-10 col-md-10">
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="1" checked="checked">매출
-					</div>
-					<div class="col-sm-1 col-md-1">
-					    <input type="checkbox" name="empGbn_group1" value="2">매입
-					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="3">외주
-					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="4">금융
-					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="5">품질
-					</div>
-					<div class="col-sm-1 col-md-1">
-						<input type="checkbox" name="empGbn_group1" value="6">총무
-					</div>
-					<div class="col-sm-2 col-md-2">
-						<input type="checkbox" name="empGbn_group1" value="7">Buyer
-					</div>
+					<input type="checkbox" name="empGbn_group1" value="1" checked="checked">매출
+					<input type="checkbox" name="empGbn_group1" value="2">매입
+					<input type="checkbox" name="empGbn_group1" value="3">외주
+					<input type="checkbox" name="empGbn_group1" value="4">금융
+					<input type="checkbox" name="empGbn_group1" value="5">품질
+					<input type="checkbox" name="empGbn_group1" value="6">총무
+					<input type="checkbox" name="empGbn_group1" value="7">Buyer
 				</div>
 			</div>
 		</div>
 	</form>
+	</div>
 </div>

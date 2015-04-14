@@ -1,21 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
+        var layout, toolbar, subLayout;
             var gridMst;
             var calStDate;
             $(document).ready(function() {
 
-                ubi.init(4, [1, 2, 3, 4, 5, 6], "2E"); //세금계싼서생성
+                Ubi.setContainer(4, [1, 2, 3, 4, 5, 6], "2E"); //세금계싼서생성
 
-                o = ubi.getDataSet();
+             	layout = Ubi.getLayout();
+                toolbar = Ubi.getToolbar();
+                subLayout = Ubi.getSubLayout();
 
                 //form//
-                o.layout.cells("b").attachObject("bootContainer2");
+                layout.cells("b").attachObject("bootContainer2");
                 
 
                 //grid	
-                gridMst = o.slayout.cells("a").attachGrid();
+                gridMst = subLayout.cells("a").attachGrid();
                 gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
                 gridMst.setHeader("No,고객,공급가액,세액,발행일자,구분,발행");
                 gridMst.attachFooter("&nbsp;,합계,0,0");
@@ -25,7 +27,7 @@
                 gridMst.setColSorting("int,str,int,int,date,str,str");
                 gridMst.init();
 
-                gridDtl = o.slayout.cells("b").attachGrid();
+                gridDtl = subLayout.cells("b").attachGrid();
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("No,출하일자,고객,품명,규격,수량,단가,공급가액,세액");
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,0,0,0,0");
@@ -48,10 +50,12 @@
         <div id="container" style="position: relative; width: 100%; height: 100%; ">
         </div>
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+        <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 일자 </label>
                             <div class="col-sm-2 col-md-2">
@@ -60,7 +64,6 @@
                                 </div>
                                 <div class="col-sm-2 col-md-2">
                                     <span> <img id="calpicker1"
-								style="margin-top: 1px; width: 27px; height: 27px;"
 								class="calicon"
 								src="/component/dhtmlxCalendar/imgs/calendar.gif" border="0">
 							</span>
@@ -76,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">담당</label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
@@ -86,7 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">고객</label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
@@ -96,10 +99,10 @@
                 </div>
                 <div class="row">
 					<div class="form-group form-group-sm">
-						<div class="col-sm-12 col-md-7">
+						<div class="col-sm-7 col-md-7">
 							<label class=" col-sm-2 col-md-2 control-label"
 								for="textinput"> 구분 </label>
-							<div class="col-sm-4 col-md-3">
+							<div class="col-sm-4 col-md-4">
 								
 								<div class="col-xs-4 col-sm-4 col-md-4">
 								  <input type="radio"
@@ -119,7 +122,7 @@
 							
 							</div>
 							
-						<div class="col-sm-offset-1 col-sm-3 col-md-4">
+						<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
                             <div class="col-sm-5 col-md-6">
                                 <input name="" id="" type="button" value="세금계산서생성" placeholder="" class="btn btn-default btn-xs">
                             </div>
@@ -132,4 +135,5 @@
 					
 				</div>
             </form>
+            </div>
         </div>

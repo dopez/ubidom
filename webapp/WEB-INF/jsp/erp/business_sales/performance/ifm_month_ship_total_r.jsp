@@ -1,22 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
-var calMain;
-$( document ).ready(function() {
-	
-	ubi.init(3,[1,8,9],"1C"); //월별수주현황(집계)
-	
-	o = ubi.getDataSet();
-	
-	//form//
-	o.layout.cells("b").attachObject("bootContainer2");
-	o.layout.cells("b").setHeight(174);
+$(document).ready(function() {
 
-	//grid	
+	 Ubi.setContainer(4,[1,8,9],"1C"); //월별수주현황(집계)
 	
-	gridMain = o.slayout.cells("a").attachGrid();
+	 layout = Ubi.getLayout();
+	    toolbar = Ubi.getToolbar();
+	    subLayout = Ubi.getSubLayout();
+
+	    //form//
+	    layout.cells("b").attachObject("bootContainer2");
+	    layout.cells("b").setHeight(178);
+	    
+
+	    //grid	
+	    gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("No,구분,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,합계");
 	gridMain.attachFooter("&nbsp,합계,0,0,0,0,0,0,0,0,0,0,0,0,0");
@@ -39,18 +40,17 @@ $( document ).ready(function() {
 	style="position: relative; width: 100%; height: 100%; ">
 	</div>
 <div id="bootContainer2">
-	<form class="form-horizontal"
-		style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;"
-		id="frmSearch">
-		<div class="row">
-			<div class="form-group form-group-sm">
-				<div class="col-sm-7 col-md-7">
+        <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
 					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
-							
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
 										id="stDate" value="">
@@ -61,12 +61,10 @@ $( document ).ready(function() {
 										onclick="setSens(1,'edDate', 'max')">
 									</span>
 								</div>
-							
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
 							style="margin-right: 15px;">~</label>
 						<div class="col-sm-4 col-md-4">
-							
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="edDate"
 										id="edDate" value="">
@@ -77,13 +75,12 @@ $( document ).ready(function() {
 										onclick="setSens(1,'stDate', 'min')">
 									</span>
 								</div>
-							
 						</div>
 					</div>
 
 				</div>
-			</div>
-		</div>
+                    </div>
+                </div>
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-7 col-md-7">
@@ -123,21 +120,21 @@ $( document ).ready(function() {
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-7 col-md-7">
-					<label class=" col-sm-2 col-md-2 control-label"
-						for="textinput"> 구분 </label>
-					<div class="col-sm-6 col-md-6">
-                         <div class="col-xs-4 col-sm-2 col-md-2">
-                             <input type="radio" name="searchGbn" value="1" checked="checked">전체
-                         </div>
-                         <div class="col-xs-4 col-sm-2 col-md-2">
-                             <input type="radio" name="searchGbn" value="2">내수
-                         </div>
-                         <div class="col-xs-4 col-sm-2 col-md-2">
-                             <input type="radio" name="searchGbn" value="3">수출
-                         </div>
-                     </div>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
+                     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <input type="radio" name="searchGbn" value="1" checked="checked">전체
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <input type="radio" name="searchGbn" value="2">내수
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <input type="radio" name="searchGbn" value="3">수출
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>

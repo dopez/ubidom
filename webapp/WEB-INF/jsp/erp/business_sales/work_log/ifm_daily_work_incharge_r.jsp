@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-            var o;
-            var gridMain;
-            var calMain;
-            $(document).ready(function() {
-
-                ubi.init(4, [1, 8, 9], "1C"); //업무일지조회(담당)
-
-                o = ubi.getDataSet();
-
-                //form//
-                o.layout.cells("b").attachObject("bootContainer2");
-
-                //grid	
-                gridMain = o.slayout.cells("a").attachGrid();
+	    	var layout, toolbar, subLayout;
+	        var gridMain;
+	        var calMain;
+	        $(document).ready(function() {
+	
+	            Ubi.setContainer(4, [1, 8, 9], "1C"); //업무일지조회(담당)
+	
+	            layout = Ubi.getLayout();
+	            toolbar = Ubi.getToolbar();
+	            subLayout = Ubi.getSubLayout();
+	
+	            //form//
+	            layout.cells("b").attachObject("bootContainer2");
+	
+	            //grid	
+	            gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,일자,고객,종류,관리번호,내용,첨부", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.setInitWidths("50,100,100,100,150,400,50");
@@ -36,20 +38,15 @@
                 byId("stDate").value = t;
             })
         </script>
-        <style>
-.calicon{
-width: 27px;
-height: 27px;
-margin-top: 1px;
-}
-        </style>
+
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
-            <form class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+            <div class="container">
+                <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
@@ -91,7 +88,7 @@ margin-top: 1px;
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
@@ -101,7 +98,7 @@ margin-top: 1px;
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -111,7 +108,7 @@ margin-top: 1px;
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12 col-md-7">
+                        <div class="col-sm-7 col-md-7">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
                             <div class="col-sm-2 col-md-2">
                                  <select class="form-control input-xs">
@@ -125,4 +122,5 @@ margin-top: 1px;
                     </div>
                 </div>
             </form>
+            </div>
         </div>

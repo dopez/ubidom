@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var o; 
+var layout, toolbar, subLayout;
 var gridMain;
 $( document ).ready(function() {
 	
-	ubi.init(1,[1,2,3,4,5,6],"2U"); 
-	o = ubi.getDataSet();
+	Ubi.setContainer(1,[1,2,3,4,5,6],"2U"); 
+	layout = Ubi.getLayout();
+    toolbar = Ubi.getToolbar();
+    subLayout = Ubi.getSubLayout();
 	//바이어등록
 	
-	o.layout.cells("b").attachObject("bootContainer");
-	gridMain = o.slayout.cells("a").attachGrid(); 
+	layout.cells("b").attachObject("bootContainer");
+	gridMain = subLayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("Buyer코드, Buyer명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
@@ -20,25 +22,22 @@ $( document ).ready(function() {
 	gridMain.setColSorting("str,str,str");
 	gridMain.init();   
 	
-	o.slayout.cells("a").setWidth("300");
+	subLayout.cells("a").setWidth("300");
 	
-	o.slayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").attachObject("bootContainer2");
 })
 function fn_search(){
 	
 }
 </script>
-<style>
-.forPadding{
-	padding-left: 5px;
-}
-</style>
+
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
-<div id="bootContainer" style="position: relative; width: 100%; height: 100%;">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+<div id="bootContainer">
+<div class="container">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px; padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-7 col-md-7">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
 					Buyer코드
 					 </label>
@@ -55,11 +54,12 @@ function fn_search(){
 			</div>
 		</div>
 	</form>
+	</div>
 </div>
-<div id="bootContainer2" style="position: relative; width: 100%; height: 100%; overflow: auto;">
+<div id="bootContainer2">
 	<div class="container">
-	<div class="col-md-10">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
+	
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px; padding-bottom:5px;margin:0px;">
 		<div class="row">
 			<div class="form-group form-group-sm">
 			    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 
@@ -150,7 +150,7 @@ function fn_search(){
 					<div class="col-sm-4 col-md-4">
 					  <input type="radio" name="dealGbn" id="dealGbn" value="거래">월합산
 					</div>
-				    <div class="col-sm-5 col-md-5">
+				    <div class="col-sm-6 col-md-6">
 					   <input type="radio" name="dealGbn" id="dealGbn" value="거래중지">건별
 					</div>
 				</div>
@@ -198,5 +198,5 @@ function fn_search(){
 			</div>
 		</div>
 	</form>
-	</div></div>
+	</div>
 </div>
