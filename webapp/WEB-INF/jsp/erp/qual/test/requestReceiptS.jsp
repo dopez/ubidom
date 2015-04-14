@@ -92,9 +92,7 @@ function fn_popupCharge(){
                       <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-2 col-md-2">
-                       <span>
                          <input type="button" id="calpicker" class="calicon">
-					   </span>
                   </div>              
              </div>
              <div class="col-sm-1 col-md-1">
