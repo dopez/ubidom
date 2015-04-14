@@ -74,7 +74,7 @@ function fn_popupItemCode(){
                         <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                       </div>
                     <div class="col-sm-2 col-md-2">
-                         <input type="button" id="calpicker" class="calicon">
+                         <input type="button" id="calpicker" class="calicon form-control">
                     </div>              
                    </div>
                   <div class="col-sm-1 col-md-1">

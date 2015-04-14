@@ -5,7 +5,6 @@
 var layout,toolbar,subLayout;
 var gridMain;
    $(document).ready(function() {
-	ubi.init(1,[1,8,9],"1C"); 
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//제품코드조회
 	layout = Ubi.getLayout();

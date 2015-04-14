@@ -5,7 +5,6 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 $(document).ready(function(){
-	ubi.init(1,[1,3,4,5,6],"2U");
 	Ubi.setContainer(1,[1,3,4,5,6],"2U");
 	//제코드등록
 	layout = Ubi.getLayout();

@@ -1,7 +1,4 @@
 @CHARSET "UTF-8";
 .calicon{
-width: 20px;
-height: 23px;
-margin-top : 1px;
 background:url("/component/dhtmlxCalendar/imgs/calendar.gif") no-repeat;
 }
