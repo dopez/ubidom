@@ -131,3 +131,20 @@ $(window).resize(function(){
 		}, 100);
 	}
 });
+
+function gfn_load_popup(eleId,view_path){
+	var w1;
+	if( $('#'+eleId).length < 1){
+	var $div = $('<div />').appendTo('body');
+	$div.attr('id', eleId);
+	}
+
+	dhxWins = new dhtmlXWindows();
+	dhxWins.attachViewportTo(eleId);
+
+	w1 = dhxWins.createWindow(eleId, 20, 30, 320, 200);
+
+	// iframe, get
+	w1.attachURL("/erp/popup/"+view_path+".do");
+	return w1;
+	}
