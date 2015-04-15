@@ -76,3 +76,7 @@ input[type=checkbox], input[type=radio] {
 		width: 1170px
 	}
 }
+
+#appv{
+	width: 20px;
+}

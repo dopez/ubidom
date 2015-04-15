@@ -46,7 +46,7 @@ $(document).ready(function() {
 		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
@@ -78,7 +78,7 @@ $(document).ready(function() {
                 </div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-7 col-md-7">
+				<div class="col-sm-8 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						품목 </label>
 					<div class="col-sm-2 col-md-2">
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		</div>
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-7 col-md-7">
+				<div class="col-sm-8 col-md-8">
                      <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-4 col-md-4">
                                 <div class="col-xs-4 col-sm-4 col-md-4">

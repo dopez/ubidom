@@ -71,7 +71,7 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> Date </label>
                             <div class="col-sm-2 col-md-2">
                                 
@@ -107,7 +107,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Seller </label>
                             <div class="col-sm-2 col-md-2">
@@ -119,12 +119,12 @@
             </form>
             </div>
         </div>
-        <div id="commdtDesc" style="overflow: auto;">
+        <div id="commdtDesc">
             <div class="container">
-            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
+            <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain02" >
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Price Term </label>
                             <div class="col-sm-2 col-md-2">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Shipment </label>
                             <div class="col-sm-2 col-md-2">
@@ -156,7 +156,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Container </label>
                             <div class="col-sm-2 col-md-2">
@@ -177,7 +177,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Partial Shipment </label>
                             <div class="col-sm-2 col-md-2">
@@ -193,7 +193,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Payment </label>
                             <div class="col-sm-2 col-md-2">
@@ -213,7 +213,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Origin </label>
                             <div class="col-sm-2 col-md-2">
@@ -233,7 +233,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Shipping Company or Forwarder </label>
                             <div class="col-sm-2 col-md-2">
@@ -244,7 +244,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Special Conditions </label>
                             <div class="col-sm-6 col-md-6">
@@ -255,7 +255,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <div class="col-sm-offset-2 col-md-offset-2 col-sm-6 col-md-6">
                                 <input name="SC2" id="SC2" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
@@ -264,7 +264,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
 
                             <div class="col-sm-offset-2 col-md-offset-2 col-sm-6 col-md-6">
                                 <input name="SC3" id="SC3" type="text" value="" placeholder="" class="form-control input-xs">

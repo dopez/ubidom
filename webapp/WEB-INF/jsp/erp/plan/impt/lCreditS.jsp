@@ -56,7 +56,7 @@
                 <form class="form-horizontal" style="padding-top: 10px;padding-bottom: 5px; margin: 0px;" id="frmMain">
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     L/C No
                                 </label>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     L/C종류
                                 </label>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     개설은행
                                 </label>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     금액
                                 </label>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> Open Date </label>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="col-sm-10 col-md-10">
@@ -141,7 +141,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> Expiry Date </label>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="col-sm-10 col-md-10">
@@ -156,7 +156,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     보험여부
                                 </label>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> B/L 도착일자 </label>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="col-sm-10 col-md-10">
@@ -183,7 +183,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 결제일자 </label>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="col-sm-10 col-md-10">
@@ -200,7 +200,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     비고
                                 </label>

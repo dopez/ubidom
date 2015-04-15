@@ -64,7 +64,7 @@
             <div class="container">
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                     <div class="row">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <div class="row">
                                 <div class="form-group form-group-sm">
 

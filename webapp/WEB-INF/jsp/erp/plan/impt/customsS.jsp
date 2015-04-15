@@ -81,7 +81,7 @@
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     신고번호 </label>
                                 <div class="col-sm-2 col-md-2">
@@ -101,7 +101,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-offset-3 col-sm-offset-3 col-sm-2 col-md-2">
+                            <div class="col-md-offset-2 col-sm-offset-2 col-sm-2 col-md-2">
                                 <div class="col-sm-5 col-md-5">
                                     <input name="btnStateGo" id="btnStateGo" type="button" value="전표발행" placeholder="" class="form-control btn-default btn-xs">
                                 </div>

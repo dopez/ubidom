@@ -37,7 +37,7 @@ function fn_search(){
 	
 		<div class="row">
 			<div class="form-group form-group-sm">
-				<div class="col-sm-7 col-md-7">
+				<div class="col-sm-8 col-md-8">
 					<label class=" col-sm-3 col-md-3 control-label" for="textinput"> 
 					공급업체코드
 					 </label>

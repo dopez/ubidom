@@ -43,7 +43,7 @@
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-3 col-md-2 control-label" for="textinput"> 일자 </label>
                                 <div class="col-sm-2 col-md-2">
 
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-3 col-md-2 control-label" for="textinput"> 담당 </label>
                                 <div class="col-sm-1 col-md-1">
                                     <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-3 col-md-2 control-label" for="textinput"> 종류 </label>
                                 <div class="col-sm-4 col-md-4">
                                     <div class="col-xs-4 col-sm-4 col-md-4">
@@ -101,7 +101,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-3 col-md-2 control-label" for="textinput"> 관리번호 </label>
                                 <div class="col-sm-2 col-md-2">
                                     <input name="mngNo" id="mngNo" type="text" value="" placeholder="" class="form-control input-xs">

@@ -51,12 +51,9 @@ $( document ).ready(function() {
 
 </script>
 <style>
-
-
 table{
 	text-align: center;
 }
-
 </style>
 <div id="container"
 	style="position: relative; widtd: 100%; height: 100%;">
@@ -67,14 +64,14 @@ table{
 		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain">
 		<div class="row">
-			<div class="col-sm-6 col-md-6">
+			<div class="col-sm-8 col-md-8">
 				<div class="row">
 			<div class="form-group form-group-sm">
 				
-					<label class=" col-sm-4 col-md-2 control-label" for="textinput">
+					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
 
-					<div class="col-sm-8 col-md-6">
+					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
 								<div class="col-sm-10 col-md-10">
 									<input type="text" class="form-control input-xs" name="stDate"
@@ -101,19 +98,18 @@ table{
 		</div>
 				<div class="row">
 					<div class="form-group form-group-sm">
-						<label class=" col-sm-4 col-md-2 control-label" for="textinput">
+						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 							작성자 </label>
-						<div class="col-sm-4 col-md-2">
+						<div class="col-sm-2 col-md-2">
 							<input name="regEmpName" id="regEmpName" type="text" value=""
 								placeholder="" class="form-control input-xs">
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-6">
+			<div class="col-sm-4 col-md-4">
 				<div class="row">
-					<div class="col-sm-12 col-md-6">
-						<table class="table-bordered">
+											<table class="table-bordered">
 							<tr>
 								<td rowspan="2" class="col-md-1">결<br>재</td>
 								<td class="col-md-1">작성</td>
@@ -133,7 +129,7 @@ table{
 							</tr>
 						</table>
 					</div>
-				</div>
+				
 			</div>
 		</div>
 	</form>

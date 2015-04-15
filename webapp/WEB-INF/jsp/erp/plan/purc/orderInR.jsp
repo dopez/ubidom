@@ -46,7 +46,7 @@
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     기간 </label>
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group form-group-sm">
-                            <div class="col-sm-7 col-md-7">
+                            <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 공급업체 </label>
                                 <div class="col-sm-2 col-md-2">
                                     <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs">

@@ -214,7 +214,7 @@
             <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                             <div class="col-sm-2 col-md-2">
 
@@ -240,7 +240,7 @@
 
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 보고자 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="rptName" id="rptName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -250,7 +250,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개발번호 </label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="devNo" id="devNo" type="text" value="" placeholder="" class="form-control input-xs">
@@ -261,7 +261,7 @@
 
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 과제명 </label>
                             <div class="col-sm-10 col-md-10">
                                 <input name="prjtName" id="prjtName" type="text" value="" placeholder="" class="form-control input-xs">
@@ -271,7 +271,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-7 col-md-7">
+                        <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 보고자의견 </label>
                             <div class="col-sm-8 col-md-8">
