@@ -53,3 +53,26 @@ input[type=checkbox], input[type=radio] {
   margin: 8px 5px 3px;
   vertical-align: bottom;
 }
+
+.container{
+	margin-left : 0;
+	margin-right : 0;
+}
+
+@media ( min-width :768px) {
+	.container {
+		width: 970px
+	}
+}
+
+@media ( min-width :992px) {
+	.container {
+		width: 970px
+	}
+}
+
+@media ( min-width :1200px) {
+	.container {
+		width: 1170px
+	}
+}

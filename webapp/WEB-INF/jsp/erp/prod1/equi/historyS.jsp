@@ -72,13 +72,10 @@ function fn_row_delete(){
 			      <div class="col-sm-2 col-md-2">
 			         <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs">
 			      </div>
+			      <div class="col-sm-2 col-md-2" style="margin-left: 5px;">
+		           <button type="button"  class="btn btn-default form-control" name="btnImage" id="btnImage">설비 이미지정보</button>
+		          </div>
 		       </div>
-		       <div class="col-sm-4 col-md-4">
-		         <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-9">
-		           <button type="button"  class="btn btn-default form-control" name="btnImage" id="btnImage">설비 이미지정보
-		           </button>
-		         </div>
-		      </div>
 	       </div>
 	     </div>
       </form>
@@ -173,10 +170,10 @@ function fn_row_delete(){
 		        구입일자
 		      </label>
 		       <div class="col-sm-2 col-md-2">
-                  <div class="col-sm-10 col-md-10">
+                  <div class="col-sm-11 col-md-11">
                      <input name="buyDate" id="buyDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
-                  <div class="col-sm-2 col-md-2">
+                  <div class="col-sm-1 col-md-1">
                       <input type="button" id="calpicker1" class="calicon form-control">
                   </div>              
                </div> 
@@ -194,10 +191,10 @@ function fn_row_delete(){
 		       등록일자
 		     </label>
 		     <div class="col-sm-2 col-md-2">
-                  <div class="col-sm-10 col-md-10">
+                  <div class="col-sm-11 col-md-11">
                      <input name="regDate" id="regDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
-                   <div class="col-sm-2 col-md-2">
+                   <div class="col-sm-1 col-md-1">
                        <input type="button" id="calpicker2" class="calicon form-control">
                   </div>              
              </div> 

@@ -106,13 +106,10 @@ function fn_popupItemCode(){
 			     <div class="col-sm-2 col-md-2">
 			       <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs">
 			     </div>
+			     <div class="col-sm-2 col-md-2" style="margin-left: 5px;">
+		           <button type="button"  class="btn btn-default form-control" name="btnPrint" id="btnPrint" onclick="fn_print()">발주서인쇄</button>
+		        </div>
 		       </div>
-		       <div class="col-sm-4 col-md-4">
-		         <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-9">
-		           <button type="button"  class="btn btn-default form-control" name="btnPrint" id="btnPrint" onclick="fn_print()">발주서인쇄
-		           </button>
-		         </div>
-		      </div>
 	       </div>
 	     </div>
        </form>

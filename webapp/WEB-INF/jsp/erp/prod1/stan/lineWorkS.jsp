@@ -78,7 +78,7 @@ function fn_popupGoodsCode(){
 				라인코드
 		   </label>
 			<div class="col-sm-2 col-md-2">
-			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','inputR')">
+			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" >
 			</div>
 	    </div>
       </div>
