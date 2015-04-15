@@ -45,7 +45,6 @@ function fn_print(){
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-    <div class="col-md-10">
      	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
            <div class="row">
 		      <div class="form-group form-group-sm">
@@ -89,5 +88,4 @@ function fn_print(){
 	    </div>     
      </form>
     </div>
-  </div>
 </div>

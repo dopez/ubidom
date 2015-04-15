@@ -108,7 +108,7 @@ function fn_popupItemCode(){
 			</div>
 		  </div>
 		  <div class="col-sm-4 col-md-4">
-		    <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-9">
+		    <div class="col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-6">
 		       <button type="button"  class="btn btn-default form-control" name="btnPrint" id="btnPrint" onclick="fn_print()">발주서인쇄
 		      </button>
 		    </div>

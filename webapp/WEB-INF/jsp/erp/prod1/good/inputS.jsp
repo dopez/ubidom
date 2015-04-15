@@ -108,7 +108,7 @@ function fn_row_delete(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 구분
 			 </label>
-			 <div class="col-sm-4 col-md-4">
+			 <div class="col-sm-4 col-md-3">
 				<div class="col-sm-4 col-md-4">
 					<input type="radio" name="gubn" id="gubn" value="반품" checked="checked">반품
 				</div>

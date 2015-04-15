@@ -134,10 +134,6 @@ $(window).resize(function(){
 
 function gfn_load_popup(eleId,view_path){
 	var w1;
-	if( $('#'+eleId).length < 1){
-	var $div = $('<div />').appendTo('body');
-	$div.attr('id', eleId);
-	}
 
 	dhxWins = new dhtmlXWindows();
 	dhxWins.attachViewportTo(eleId);
