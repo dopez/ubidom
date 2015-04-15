@@ -38,6 +38,7 @@ $(document).ready(function(){
 	subLayout.cells("c").setText("코팅조건");
 	
 	subLayout.cells("b").attachObject("bootContainer2");
+	subLayout.cells("b").setHeight(200);
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -98,7 +99,7 @@ function fn_popupBaseMatr(){
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			  일자 
 			</label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
                   <div class="col-sm-10 col-md-10">
                       <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
@@ -118,7 +119,7 @@ function fn_popupBaseMatr(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 설비코드
 		    </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			  <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -128,7 +129,7 @@ function fn_popupBaseMatr(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 설비명
 		    </label>
-			<div class="col-sm-4 col-md-4">
+			<div class="col-sm-2 col-md-2">
 			  <input name="equiName" id="equiName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -138,7 +139,7 @@ function fn_popupBaseMatr(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 모재
 		    </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			  <input name="baseMatr" id="baseMatr" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -148,7 +149,7 @@ function fn_popupBaseMatr(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 생산능력
 		    </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			  <input name="pudcability" id="pudcability" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -158,7 +159,7 @@ function fn_popupBaseMatr(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 적정인원
 		    </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			  <input name="suitableEmp" id="suitableEmp" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
