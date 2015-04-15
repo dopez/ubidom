@@ -174,7 +174,7 @@ function fn_row_delete(){
                      <input name="buyDate" id="buyDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-1 col-md-1">
-                      <input type="button" id="calpicker1" class="calicon form-control">
+                      <input type="button" id="calpicker1" class="calicon form-control input-xs">
                   </div>              
                </div> 
 	       </div>
@@ -195,7 +195,7 @@ function fn_row_delete(){
                      <input name="regDate" id="regDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                    <div class="col-sm-1 col-md-1">
-                       <input type="button" id="calpicker2" class="calicon form-control">
+                       <input type="button" id="calpicker2" class="calicon form-control input-xs">
                   </div>              
              </div> 
 	     </div>
