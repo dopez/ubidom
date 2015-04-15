@@ -148,7 +148,7 @@ function fn_row_deleteSub(){
 		     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 			   포장코드
 			  </label>
-			  <div class="col-sm-2 col-md-2">
+			  <div class="col-sm-1 col-md-1">
 			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs">		
 			 </div>
 	    </div>

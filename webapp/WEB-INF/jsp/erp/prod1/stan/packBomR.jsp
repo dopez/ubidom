@@ -49,7 +49,7 @@ function fn_popupPackCode(){
 				포장코드
 				</label>
 			<div class="col-sm-2 col-md-2">
-			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs">		
+			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','common/packCodePOP')">		
 			</div>
 		 </div>
 	    </div>

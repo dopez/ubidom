@@ -77,7 +77,7 @@ function fn_popupGoodsCode(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				라인코드
 		   </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" >
 			</div>
 	    </div>
@@ -87,7 +87,7 @@ function fn_popupGoodsCode(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				라인명
 		   </label>
-			<div class="col-sm-4 col-md-4">
+			<div class="col-sm-2 col-md-2">
 			 <input type="text" name="lineName" id="lineName" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -97,7 +97,7 @@ function fn_popupGoodsCode(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				주생산제품
 		   </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			 <input type="text" name="workProduct" id="workProduct" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -107,7 +107,7 @@ function fn_popupGoodsCode(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				인원
 		   </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			 <input type="text" name="employee" id="employee" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
@@ -117,7 +117,7 @@ function fn_popupGoodsCode(){
 		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				일생산수량
 		   </label>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-1 col-md-1">
 			 <input type="text" name="dayWorkAmount" id="dayWorkAmount" value="" placeholder="" class="form-control input-xs">
 			</div>
 	    </div>
