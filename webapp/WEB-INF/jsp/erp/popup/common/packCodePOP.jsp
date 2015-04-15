@@ -5,17 +5,16 @@
 var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(1,[],"1C");
-	//설비이력조회
+	Ubi.setContainer(1,[1,8],"1C");
+	//포장코드 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
-    
-    uClayout = layout.cells("b").attachLayout("1C");
-    subLayout.cells("a").setHeight(1);
-    
-    uClayout.cells("a").hideHeader();
-	gridMain = uClayout.cells("a").attachGrid();
+
+	subLayout.cells("a").setHeight(1);
+	layout.cells("b").fixSize(false,true);
+	
+	gridMain = layout.cells("b").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("포장코드,포장명",null,
 			["text-align:center;","text-align:center;"]);
@@ -23,7 +22,8 @@ $(document).ready(function(){
 	gridMain.setColAlign("left,left");
 	gridMain.setColTypes("ro,ro");
 	gridMain.setColSorting("str,str");
-	gridMain.init();	
+	gridMain.init();
+	layout.cells("b").setHeight(400);
 
 });
 </script>
