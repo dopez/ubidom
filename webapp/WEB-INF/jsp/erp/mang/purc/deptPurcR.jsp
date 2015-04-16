@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1, 8, 9], "1C"); /* //유형별매입현황 */
+                Ubi.setContainer(1, [1, 8, 9], "1C"); /* //유형별매입현황 */
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -18,12 +18,12 @@
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
-                gridMain.setHeader("부서,장비,비품,원자재,소모품,계");
-                gridMain.attachFooter("계,0,0,0,0,0");
-                gridMain.setInitWidths("100,100,100,100,100,100");
-                gridMain.setColAlign("center,right,right,right,right,right");
-                gridMain.setColTypes("ro,ron,ron,ron,ron,ron");
-                gridMain.setColSorting("str,int,int,int,int,int");
+                gridMain.setHeader("부서,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,계");
+                gridMain.attachFooter("계,0,0,0,0,0,0,0,0,0,0,0,0,0");
+                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMain.setColAlign("center,right,right,right,right,right,right,right,right,right,right,right");
+                gridMain.setColTypes("ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
+                gridMain.setColSorting("str,int,int,int,int,int,int,int,int,int,int,int");
                 gridMain.init();
                 //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
@@ -50,7 +50,6 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     기간 </label>
-
                                 <div class="col-sm-6 col-md-6">
                                     <div class="col-sm-4 col-md-4">
                                         <div class="col-sm-10 col-md-10">
@@ -69,20 +68,6 @@
                                             <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group form-group-sm">
-                            <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">유형</label>
-                                <div class="col-sm-6 col-md-6">
-                                    <input type="radio" name="typeGbn" id="" value="1" class="" checked="checked">전체
-                                    <input type="radio" name="typeGbn" id="" value="2" class="">장비
-                                    <input type="radio" name="typeGbn" id="" value="3" class="">비품
-                                    <input type="radio" name="typeGbn" id="" value="4" class="">원자재
-                                    <input type="radio" name="typeGbn" id="" value="5" class="">소모품
                                 </div>
                             </div>
                         </div>
