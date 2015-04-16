@@ -3,52 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMst,gridDtl;   
+var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(3,[1,2,3,4,5,6],"2E");
-	//제품입고등록
+	Ubi.setContainer(3,[2,3,4,5,6],"1C");
+	//건강검진결과등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout();
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,요청일자,요청부서,담당,품목코드,품명,단위,요청수량,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,center,left,left,left,left,left,right,center");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ra");
-	gridMst.setColSorting("int,date,str,str,str,str,str,int,na");
-	gridMst.init();	
-	subLayout.cells("a").showHeader();
-	subLayout.cells("a").setText("입고요청내역");
-	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,품목코드,품명,단위,요청수량,입고수량",null,
+	gridMain = subLayout.cells("a").attachGrid();
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
+	gridMain.setHeader("부서,직급,성명,생년월일,직전검진일자,검진일자",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ron,edn");
-	gridDtl.setColSorting("int,str,str,str,int,int");
-	gridDtl.init();	
-	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("입고내역");
+	gridMain.setInitWidths("100,100,100,100,100,100");
+	gridMain.setColAlign("left,left,left,center,center,center");
+	gridMain.setColTypes("ro,ro,ro,ro,ro,dhxCalendarA");
+	gridMain.setColSorting("str,str,str,date,date,date");
+	gridMain.init();	
 
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]);
 	calMain.loadUserLanguage("ko");
-	calMain.hideTime();	   
+	calMain.hideTime();
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
 function fn_new(){
-	
-}
-function fn_search(){
 	
 }
 function fn_save(){
@@ -82,11 +64,6 @@ function fn_row_delete(){
                          <input type="button" id="calpicker" class="calicon form-control">
                   </div>              
              </div>
-             <div class="col-sm-1 col-md-1">
-                  <div class="col-sm-11 col-md-11 col-sm-offset-1 col-md-offset-1">
-                      <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
-                  </div>
-             </div>
 		 </div>
 	    </div>
       </div> 
@@ -94,10 +71,10 @@ function fn_row_delete(){
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 담당
+			 등록자
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="charge" id="charge" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="register" id="register" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
@@ -106,19 +83,14 @@ function fn_row_delete(){
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 구분
+			 사번
 			 </label>
-			 <div class="col-sm-3 col-md-3">
-				<div class="col-sm-4 col-md-4">
-					<input type="radio" name="gubn" id="gubn" value="반품" checked="checked">반품
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<input type="radio" name="gubn" id="gubn" value="기타">기타
-				</div>
+			<div class="col-sm-2 col-md-2">
+			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>           
+	</div>          
    </form>
  </div>
 </div>

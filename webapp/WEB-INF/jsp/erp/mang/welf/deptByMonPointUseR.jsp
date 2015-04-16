@@ -7,7 +7,7 @@ var gridMain;
 var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8,9],"1C");
-	//제품수불집계표
+	//부서별월별포인트사용
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout();
@@ -16,18 +16,15 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,품목코드,품명,단위,전재고,입고,#cspan,#cspan,출고,#cspan,#cspan,재고",null,
+	gridMain.setHeader("부서,이월포인트,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,합계,잔여포인트",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,생산,기타,계,출하,기타,계,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,int,int,int,int,int,int,int,int");
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,70,70,70,70,70,70,70,70,70,70,70,70,100,100");
+	gridMain.setColAlign("left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
+	gridMain.setColTypes("ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
+	gridMain.attachFooter("합계,,,,,,,,,,,,,,,");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -46,9 +43,6 @@ function fn_excel(){
 function fn_print(){
 	
 }
-function fn_popupGoodsCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -58,7 +52,7 @@ function fn_popupGoodsCode(){
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
 				<label class="col-sm-2 col-md-2 control-label" for="textinput">
-				 기간 
+				 기간
 				</label>
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
@@ -74,8 +68,8 @@ function fn_popupGoodsCode(){
                           <div class="col-sm-10 col-md-10">
                               <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
                           </div>
-                          <div class="col-sm-2 col-md-2"> 
-                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                          <div class="col-sm-2 col-md-2">
+                            <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                           </div>
                        </div> 
                  </div>              
@@ -86,14 +80,14 @@ function fn_popupGoodsCode(){
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 제품코드
+			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="goodsCode" id="goodsCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>   
+	</div> 
    </form>
- </div> 
+  </div>
 </div>

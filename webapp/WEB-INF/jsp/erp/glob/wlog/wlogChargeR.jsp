@@ -6,29 +6,23 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,8,9],"1C");
-	//제품수불집계표
+	Ubi.setContainer(4,[1,8,9],"1C");
+	//업무일지조회(담당)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout();
+    subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,품목코드,품명,단위,전재고,입고,#cspan,#cspan,출고,#cspan,#cspan,재고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,생산,기타,계,출하,기타,계,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,int,int,int,int,int,int,int,int");
-	gridMain.init();	
+	gridMain.setHeader("No,일자,고객,종류,내용,첨부",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,left,left,center");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro");
+	gridMain.setColSorting("int,date,str,str,str,na");
+	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
@@ -44,9 +38,6 @@ function fn_excel(){
 	
 }
 function fn_print(){
-	
-}
-function fn_popupGoodsCode(){
 	
 }
 </script>
@@ -66,7 +57,7 @@ function fn_popupGoodsCode(){
                               <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
-                            <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
                           </div>
                      </div>
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
@@ -74,26 +65,59 @@ function fn_popupGoodsCode(){
                           <div class="col-sm-10 col-md-10">
                               <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
                           </div>
-                          <div class="col-sm-2 col-md-2"> 
-                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                          <div class="col-sm-2 col-md-2">
+                                 <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                           </div>
                        </div> 
                  </div>              
 			</div>
 		</div>
-	  </div>    
+	  </div>     
+      <div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 담당
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+				<input name="charge" id="charge" type="text" value="" placeholder="" class="form-control input-xs">
+			</div>
+		 </div>
+	  </div>
+	</div> 
 	<div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 제품코드
+			 고객
 			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="goodsCode" id="goodsCode" type="text" value="" placeholder="" class="form-control input-xs">
+			 <div class="col-sm-2 col-md-2">
+				<input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
-		  </div>
+		 </div>
 	  </div>
-	</div>   
-   </form>
- </div> 
+	</div>
+	<div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 종류
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+				<select id="branch" name="branch" class="form-control input-xs">
+				 <option value="방문상담">방문상담</option>
+				 <option value="유선상담">유선상담</option>
+				 <option value="불량분석">불량분석</option>
+				 <option value="견적/가격조정">견적/가격조정</option>
+				 <option value="Test진행">Test진행</option>
+				 <option value="기술지원">기술지원</option>
+				 <option value="자료작성">자료작성</option>
+				 <option value="컴플레인">컴플레인</option>
+				</select>
+			</div>
+		 </div>
+	  </div>
+	</div>
+  </form>
+ </div>
 </div>

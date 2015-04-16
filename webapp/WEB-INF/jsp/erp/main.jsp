@@ -70,6 +70,7 @@ $( document ).ready(function() {
 	mainTabbar.attachEvent("onSelect", function(id, lastId){
 
 		mainMenu.getDxObj().selectItem(id);
+		//mainMenu.getDxObj().focusItem(id); Tabbar 클릭시 Tree scroll이 해당위치로 이동
 		return true;
 	});
 	
