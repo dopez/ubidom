@@ -8,3 +8,6 @@ div.gridbox_dhx_skyblue.gridbox table.hdr td {
   background-position: -12px 0 !important;
  
 }
+div.gridbox_dhx_skyblue.gridbox table.hdr td div.hdrcell {
+  padding-left: 0px;
+}
