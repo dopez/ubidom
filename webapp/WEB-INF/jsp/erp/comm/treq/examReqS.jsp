@@ -81,17 +81,14 @@
                     <div class="row">
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-4 col-md-2 control-label" for="textinput">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     의뢰회사 </label>
-                                <div class="col-sm-4 col-md-2">
+                                <div class="col-sm-2 col-md-2">
                                     <input name="reqComp" id="reqComp" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
-                                <!-- <div class=" col-md-offset-6 col-sm-8 col-md-2">
-						<input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록">
-					</div> -->
-                            </div>
-                            <div class=" col-md-offset-3 col-sm-offset-2 col-sm-2 col-md-2">
-                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록">
+	                            <div class="col-sm-3 col-md-3">
+	                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록" class="btn btn-default btn-xs form-control">
+	                            </div>
                             </div>
                         </div>
                     </div>

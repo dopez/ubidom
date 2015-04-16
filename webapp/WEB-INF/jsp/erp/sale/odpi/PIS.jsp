@@ -91,8 +91,8 @@
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-sm-offset-6 col-md-offset-6 col-sm-2 col-md-2">
-                                <input name="" id="" type="button" value="&nbsp;&nbsp;인&nbsp;&nbsp;쇄&nbsp;&nbsp;" placeholder="" class="btn btn-default btn-xs">
+                            <div class="col-sm-2 col-md-2">
+                                <input name="" id="" type="button" value="&nbsp;&nbsp;인&nbsp;&nbsp;쇄&nbsp;&nbsp;" placeholder="" class="btn btn-default btn-xs form-control">
                             </div>
                         </div>
                     </div>

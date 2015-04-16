@@ -104,7 +104,7 @@ table{
 		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
 		id="frmMain02">
 		<div class="row">
-		<div class="col-md-9 col-sm-9">
+
 			<table class="col-md-offset-1 table table-bordered">
 				<tr>
 					<td class="col-md-1">교육제목</td>
@@ -129,6 +129,6 @@ table{
 				<td></td>
 				</tr>
 			</table>
-		</div></div>
+		</div>
 	</form></div>
 </div>

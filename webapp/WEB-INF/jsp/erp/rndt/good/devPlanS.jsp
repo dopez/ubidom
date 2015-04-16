@@ -229,8 +229,8 @@
                                     <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                                 </div>
                             </div>
-                        <div class="col-sm-offset-5 col-md-offset-5 col-sm-2 col-md-2">
-                                <input type="button" class="btn btn-default btn-xs" id="btnReportPrint" name="btnReportPrint" value="개발계획보고서인쇄">
+                        <div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">
+                                <input type="button" class="btn btn-default btn-xs form-control" id="btnReportPrint" name="btnReportPrint" value="개발계획보고서인쇄">
                         </div>
                         </div>
                     </div>

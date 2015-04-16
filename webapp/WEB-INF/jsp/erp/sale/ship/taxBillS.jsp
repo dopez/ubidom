@@ -119,12 +119,12 @@
 							
 							</div>
 							
-						<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
-                            <div class="col-sm-5 col-md-6">
-                                <input name="" id="" type="button" value="세금계산서생성" placeholder="" class="btn btn-default btn-xs">
+						<div class="col-sm-6 col-md-6">
+                            <div class="col-sm-6 col-md-6">
+                                <input name="" id="" type="button" value="세금계산서생성" placeholder="" class="btn btn-default btn-xs form-control">
                             </div>
-                            <div class="col-sm-5 col-md-6">
-                                <input name="" id="" type="button" value="매출전표생성" placeholder="" class="btn btn-default btn-xs">
+                            <div class="col-sm-6 col-md-6">
+                                <input name="" id="" type="button" value="매출전표생성" placeholder="" class="btn btn-default btn-xs form-control">
                             </div>
                         </div>
 						</div>

@@ -76,8 +76,8 @@
                                 <div class="col-sm-2 col-md-2">
                                     <input name="closeName" id="closeName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
-                                <div class="col-sm-offset-6 col-md-offset-6 col-sm-2 col-md-2">
-                                    <input type="button" id="btnPurcStatement" name="btnPurcStatement" class="btn btn-default btn-xs" value="매입전표생성">
+                                <div class="col-sm-2 col-md-2">
+                                    <input type="button" id="btnPurcStatement" name="btnPurcStatement" class="btn btn-default btn-xs form-control" value="매입전표생성">
                                 </div>
                                 <!-- <div class=" col-md-offset-6 col-sm-8 col-md-2">
 						<input type="button" id="btnPurcStatement" name="btnPurcStatement" value="매입전표생성">
