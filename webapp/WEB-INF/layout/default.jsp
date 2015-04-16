@@ -8,7 +8,7 @@
 <head>
 	<page:applyDecorator name="header"/>
 </head>
-<body  style="width:100%; background-color:white;">
+<body  style="width:100%; background-color:white; min-width: 1024px;">
 	<decorator:body />
 </body>
 </html>

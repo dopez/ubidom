@@ -11,8 +11,8 @@ $(document).ready(function(){
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
-
-	subLayout.cells("a").setHeight(1);
+	
+	subLayout.cells("a").setHeight(0);
 	
 	gridMain = layout.cells("b").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
