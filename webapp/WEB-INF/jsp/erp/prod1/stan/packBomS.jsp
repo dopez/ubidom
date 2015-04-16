@@ -21,7 +21,7 @@ $(document).ready(function(){
 	gridMst.setColTypes("ro");
 	gridMst.setColSorting("str");
 	gridMst.init();	
-	subLayout.cells("a").setWidth(100);
+	subLayout.cells("a").setWidth(103);
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 	subLayout.cells("b").setHeight(150);
@@ -51,36 +51,33 @@ $(document).ready(function(){
 	subLayout.cells("d").showHeader();
 	subLayout.cells("d").setText("공정등록");
 
-	var tbrlayout = o.slayout.cells("d");
+	var tbrlayout = subLayout.cells("d");
 	subToolbar(toolbar,tbrlayout,[3,5,6]);
 });
 
  var subToolbar = function(toolbar,sublayout,btn_id_array){
-	
 	toolbar = sublayout.attachToolbar();
 		
-	    var size = 18;
-	    toolbar.clearAll();
-	    toolbar.setIconSize(18);
-	    toolbar.setIconsPath("/images/button/dhtmlx/");
-	    toolbar.loadStruct("/common/json/button.json",fn_onLoad1);
+	var size = 18;
+	toolbar.setIconSize(18);
+	toolbar.setIconsPath("/images/button/dhtmlx/");
+	toolbar.loadStruct("/common/json/button.json",fn_onLoad);
 
-	    function fn_onLoad1(){
-	    	var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
+	function fn_onLoad(){
+	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
 	    	
-	    	for(var i=0; i< btn_id_array.length; i++){
-	    		var index = item_id_set_arr.indexOf(btn_id_array[i]);
-	            if (index > -1) {
-	            	item_id_set_arr.splice(index, 1);
-	            }
-	    	}
-	    	for(var i=0; i<item_id_set_arr.length; i++){
-	    	
-	    		toolbar.removeItem("btn"+item_id_set_arr[i]);	// item
-	    		toolbar.removeItem("sep"+item_id_set_arr[i]); // seperator
-	    	}	
-	    }
-	} 
+	  for(var i=0; i< btn_id_array.length; i++){
+	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
+	       if (index > -1){
+	             item_id_set_arr.splice(index, 1);
+	          }
+	      }
+	  for(var i=0; i<item_id_set_arr.length; i++){
+	      toolbar.removeItem("btn"+item_id_set_arr[i]);	
+	      toolbar.removeItem("sep"+item_id_set_arr[i]);
+	     }	
+	 } 
+} 
 function fn_new(){
 	
 }
