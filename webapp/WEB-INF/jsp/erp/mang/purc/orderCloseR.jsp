@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1, 8, 9], "1C"); //발주마감조회
+                Ubi.setContainer(3, [1, 8, 9], "1C"); //발주마감조회
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -17,12 +17,12 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
-                gridMain.setHeader("No,마감일자,발주일자,품의자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량", null, []);
-                gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,");
-                gridMain.setColAlign("center,center,center,center,left,left,left,center,right,right,right");
-                gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ron,ron,ron");
-                gridMain.setColSorting("str,date,date,str,str,str,str,str,int,int,int");
+                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); 
+                gridMain.setHeader("No,마감일자,발주일자,의뢰부서,의뢰자,품의자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량", null, []);
+                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,");
+                gridMain.setColAlign("center,center,center,center,center,center,left,left,left,center,right,right,right");
+                gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ron,ron");
+                gridMain.setColSorting("str,date,date,str,str,str,str,str,str,int,int,int");
                 gridMain.init();
                 //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
@@ -68,6 +68,16 @@
                                             <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">의뢰부서</label>
+                                <div class="col-sm-2 col-md-2">
+                                    <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 8, 9], "1C"); //입고마감등록
+                Ubi.setContainer(3, [1, 8, 9], "1C"); //입고마감조회
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -18,14 +18,14 @@
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13
-                gridMain.setHeader("No,입고일자,발주자,공급업체,구분,품목,규격,단위,입고수량,단가,공급가액,부가세,금액계", null, []);
-                gridMain.attachFooter("&nbsp;,소계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,0,0", []);
-                gridMain.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,0,0,", []);
+                gridMain.setHeader("No,마감일자,입고일자,발주자,공급업체,구분,품목,규격,단위,입고수량,단가,공급가액,부가세,금액계", null, []);
+                gridMain.attachFooter("&nbsp;,소계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,0,0", []);
+                gridMain.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,0,0,", []);
 
-                gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,left,center,left,left,center,right,right,right,right,right");
-                gridMain.setColTypes("ron,dhxCalendar,ed,ed,ed,ed,ed,ed,edn,edn,edn,edn,edn");
-                gridMain.setColSorting("str,date,str,str,str,str,str,str,int,int,int,int,int");
+                gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron");
+                gridMain.setColSorting("str,date,date,str,str,str,str,str,str,int,int,int,int,int");
                 gridMain.init();
                 //calRangeDate
                 //calRangeDate

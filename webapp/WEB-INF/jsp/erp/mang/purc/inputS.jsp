@@ -15,21 +15,18 @@
 
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
-
-
-
                 //up
 
 				subLayout.cells("a").showHeader();
 				subLayout.cells("a").setText("발주내역");
                 gridMst = subLayout.cells("a").attachGrid();
                 gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11 col
-                gridMst.setHeader("No,발주일자,발주자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량,입고", null,[]);
+                gridMst.setHeader("No,발주일자,발주자,의뢰부서,의뢰자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량,입고", null,[]);
                 
-                gridMst.setInitWidths("50,100,100,100,100,100,100,100,100,100,100");
-                gridMst.setColAlign("center,center,center,left,left,left,center,right,right,right,center");
-                gridMst.setColTypes("ron,dhxCalendar,ed,ed,ed,ed,ed,edn,edn,edn,ra");
-                gridMst.setColSorting("str,date,str,str,str,str,str,int,int,int,str");
+                gridMst.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMst.setColAlign("center,center,center,left,left,left,left,left,center,right,right,right,center");
+                gridMst.setColTypes("ron,dhxCalendar,ed,ed,ed,ed,ed,ed,ed,edn,edn,edn,ra");
+                gridMst.setColSorting("str,date,str,str,str,str,str,str,str,int,int,int,str");
                 gridMst.init();
 
                 //down
@@ -39,7 +36,7 @@
                 gridDtl = subLayout.cells("b").attachGrid();
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("No,품명,규격,단위,입고수량,단가,금액,납기일자,납품장소", null, []);
-                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0,&nbsp;,#cspan", null, []);
+                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
                 
                 
                 gridDtl.setInitWidths("50,100,100,100,100,100,100,100,100");

@@ -22,12 +22,12 @@
                 subLayout.cells("a").setText("발주내역");
                 gridMst = subLayout.cells("a").attachGrid();
                 gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7 col
-                gridMst.setHeader("No,품의일자,품의자,공급업체,결재금액,발주,인쇄", null, []);
-                gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,0,&nbsp;,#cspan", []);
-                gridMst.setInitWidths("50,100,100,100,100,100,100");
-                gridMst.setColAlign("center,center,left,left,right,center,center");
-                gridMst.setColTypes("ron,dhxCalendar,ed,ed,edn,ra,ra");
-                gridMst.setColSorting("str,date,str,str,int,str,str");
+                gridMst.setHeader("No,품의일자,품의자,의뢰부서,의뢰자,공급업체,결재금액");
+                gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,0");
+                gridMst.setInitWidths("100,100,100,100,100,100,100");
+                gridMst.setColAlign("center,center,left,left,left,left,right");
+                gridMst.setColTypes("ron,dhxCalendar,ro,ro,ro,ro,ron");
+                gridMst.setColSorting("str,date,str,str,str,str,int");
                 gridMst.init();
 
                 //down
@@ -37,12 +37,10 @@
                 gridDtl = subLayout.cells("b").attachGrid();
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,납품장소", null, []);
-                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0,&nbsp;,#cspan", null, []);
-
-
+                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
                 gridDtl.setInitWidths("50,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,right,right,right,center,center");
-                gridDtl.setColTypes("ron,ed,ed,ed,edn,edn,edn,dhxCalendar,ed");
+                gridDtl.setColTypes("ron,ro,ro,ro,ron,ron,ron,dhxCalendar,ro");
                 gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str,str,");
                 gridDtl.init();
 

@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-            	Ubi.setContainer(3,[1,8,9], "1C"); //입고조회
+            	Ubi.setContainer(3,[1,8,9], "1C"); //의뢰부서확인내역
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -15,17 +15,14 @@
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
 
-
-
                 //up
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11 col
-                gridMain.setHeader("No,입고일자,발주자,의뢰부서,의뢰자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량", null,[]);
-                
-                gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100");
-                gridMain.setColAlign("center,center,center,left,left,left,left,left,center,right,right,right");
-                gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ron,ron,ron");
-                gridMain.setColSorting("str,date,str,str,str,str,str,str,str,int,int,int");
+                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); // 12col
+                gridMain.setHeader("No,입고일자,의뢰부서,의뢰자,공급업체,품목,규격,단위,입고수량,확인,취소사유");
+                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMain.setColAlign("center,center,left,left,left,left,left,center,right,center,left");
+                gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ron,ch,ro");
+                gridMain.setColSorting("int,date,str,str,str,str,str,str,int,na,str");
                 gridMain.init();
 
                 //calRangeDate
@@ -44,7 +41,6 @@
             })
 
         </script>
-
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
@@ -55,7 +51,6 @@
                         <div class="col-sm-8 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 						기간 </label>
-
 					<div class="col-sm-6 col-md-6">
 						<div class="col-sm-4 col-md-4">
 								<div class="col-sm-10 col-md-10">

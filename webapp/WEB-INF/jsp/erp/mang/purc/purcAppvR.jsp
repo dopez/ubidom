@@ -21,14 +21,14 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("품의내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9 col
-                gridMst.setHeader("No,품의자,공급업체,품의금액,결재금액,선택,결재,#cspan,#cspan", null, []);
-                gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,작성,검토,승인", []);
-                gridMst.attachFooter("&nbsp;,합계,#cspan,0,0,&nbsp;,#cspan,#cspan,#cspan", []);
-                gridMst.setInitWidths("50,100,100,100,100,100,100,100,100");
-                gridMst.setColAlign("center,left,left,right,right,center,center,center,center");
-                gridMst.setColTypes("ron,ed,ed,edn,edn,ra,ed,ch,ch,ch");
-                gridMst.setColSorting("str,str,str,str,str,str,str,str,str");
+                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //12 col
+                gridMst.setHeader("No,품의자,의뢰부서,의뢰자,공급업체,품의금액,결재금액,선택,결재,#cspan,#cspan,#cspan", null,[]);
+                gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,작성,검토,검토,승인", []);
+                gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,0,0");
+                gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMst.setColAlign("center,left,left,left,left,right,right,center,center,center,center,center");
+                gridMst.setColTypes("ron,ed,ed,ed,ed,edn,edn,ra,ch,ch,ch,ch");
+                gridMst.setColSorting("int,str,str,str,str,int,int,na,na,na,na,na");
                 gridMst.init();
 
                 //down
@@ -36,14 +36,14 @@
                 subLayout.cells("b").setText("품의상세내역");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //12col
-                gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,구매제외사유,선택,#cspan,#cspan", null, []);
-                gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,구매,보류,취소", []);
-                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0,&nbsp;,#cspan,#cspan,#cspan,#cspan", []);
-                gridDtl.setInitWidths("50,100,200,100,150,150,200,200,100,100,100");
-                gridDtl.setColAlign("center,center,left,center,left,left,left,left,center,center,center");
-                gridDtl.setColTypes("ron,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,ra,ra,ra");
-                gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str,str");
+                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13col
+                gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,용도,구매제외사유,선택,#cspan,#cspan", null, []);
+                gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,구매,보류,취소", []);
+                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
+                gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
+                gridDtl.setColAlign("center,center,left,center,left,left,left,left,center,center,center,center");
+                gridDtl.setColTypes("ron,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,ed,ra,ra,ra");
+                gridDtl.setColSorting("int,str,str,str,int,int,int,date,str,str,na,na,na");
                 gridDtl.init();
 
                 //calRangeDate

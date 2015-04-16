@@ -17,12 +17,10 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
-                gridMain.setHeader("전표일자,계정코드,차변,대변,적요,거래처,부가세구분,귀속부서", null, []);
-                gridMain.attachFooter("소계,#cspan,0,0");
-                gridMain.attachFooter("합계,#cspan,0,0");
-
-                gridMain.setInitWidths("100,100,100,100,100,100,100,100");
+                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setHeader("부서,장비,비품,원자재,소모품,계");
+                gridMain.attachFooter("계,0,0,0,0,0");
+                gridMain.setInitWidths("100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,right,right,left,left,center,center");
                 gridMain.setColTypes("ro,ro,ron,ron,ro,ro,ro,ro");
                 gridMain.setColSorting("date,str,int,int,str,str,str,str");
@@ -78,9 +76,13 @@
                     <div class="row">
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 공급업체 </label>
-                                <div class="col-sm-2 col-md-2">
-                                    <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">유형</label>
+                                <div class="col-sm-6 col-md-6">
+                                    <input type="radio" name="typeGbn" id="" value="1" class="" checked="checked">전체
+                                    <input type="radio" name="typeGbn" id="" value="2" class="">장비
+                                    <input type="radio" name="typeGbn" id="" value="3" class="">비품
+                                    <input type="radio" name="typeGbn" id="" value="4" class="">원자재
+                                    <input type="radio" name="typeGbn" id="" value="5" class="">소모품
                                 </div>
                             </div>
                         </div>
