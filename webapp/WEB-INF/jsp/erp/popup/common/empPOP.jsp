@@ -16,7 +16,7 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,고객명",null,
+	gridMain.setHeader("코드,사원명",null,
 			["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("150,150");
 	gridMain.setColAlign("left,left");
@@ -30,7 +30,7 @@ $(document).ready(function(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label"  id="poplabel"for="textinput">
-			 고객명
+			 사원명
 			</label>
 			<div class="col-xs-6">
 			  <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">

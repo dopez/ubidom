@@ -38,7 +38,9 @@ $( document ).ready(function() {
 		
 
 })
-
+function fn_popup_matr() {
+	gfn_load_popup('재료코드','common/materialsCodePOP');
+}
 </script>
 
 <div id="container"
@@ -100,10 +102,10 @@ $( document ).ready(function() {
 			<div class="form-group form-group-sm">
 				<div class="col-sm-8 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label"
-						for="textinput"> 공급업체 </label>
+						for="textinput">재료코드</label>
 					<div class="col-sm-2 col-md-2">
-						<input name="suplCompName" id="suplCompName" type="text"
-									value="" placeholder="" class="form-control input-xs">
+						<input name="" id="" type="text"
+									value="" placeholder="" class="form-control input-xs" ondblclick="fn_popup_matr()">
 					</div></div>
 			</div>
 		</div>

@@ -33,12 +33,10 @@ $( document ).ready(function() {
 		var t = dateformat(new Date());
 		byId("stDate").value = t;
 		/* byId("edDate").value = t; */
-		
-		
-		
-
 })
-
+function fn_popup_suppl() {
+	gfn_load_popup('공급업체','common/supplyCompCodePOP');
+	}
 </script>
 
 <div id="container"
@@ -95,10 +93,10 @@ $( document ).ready(function() {
 			<div class="form-group form-group-sm">
 				<div class="col-sm-8 col-md-8">
 					<label class=" col-sm-2 col-md-2 control-label"
-						for="textinput"> 제품코드 </label>
+						for="textinput">공급업체</label>
 					<div class="col-sm-2 col-md-2">
-						<input name="prodCode" id="prodCode" type="text"
-									value="" placeholder="" class="form-control input-xs">
+						<input name="suplCode" id="suplCode" type="text"
+									value="" placeholder="" class="form-control input-xs" ondblclick="fn_popup_suppl()">
 					</div></div>
 			</div>
 		</div>
