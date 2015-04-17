@@ -29,7 +29,7 @@ $(document).ready(function(){
 <div id="bootContainer" style="position: relative;">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
-		   <label class="col-xs-4 control-label" for="textinput">
+		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
 			 과제명
 			</label>
 			<div class="col-xs-6">
