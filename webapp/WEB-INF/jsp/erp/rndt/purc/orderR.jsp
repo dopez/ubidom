@@ -89,7 +89,7 @@ function fn_popupItemCode(){
 			공급업체
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체코드','common/supplyCompCodePOP')">
 			</div>
 		  </div>
 	  </div>
@@ -101,7 +101,7 @@ function fn_popupItemCode(){
 			품목코드
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('품목코드','common/itemCodePOP')">
 			</div>
 		  </div>
 	  </div>

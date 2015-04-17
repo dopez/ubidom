@@ -23,12 +23,23 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro,ro,edn,edn,ro,dhxCalendarA,ed");
 	gridMain.setColSorting("int,str,str,str,str,int,int,int,date,str");
 	gridMain.init();	
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
+	
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			fn_row_insert();
+		}
+	});
+	
+	function doOnRowDblClicked(rowId){
+		gfn_load_popup('모재코드','common/metalCodePOP');
+	}
 });
 
 function fn_new(){
@@ -44,7 +55,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,",1);
 }
 function fn_row_delete(){
 	
@@ -83,7 +94,7 @@ function fn_row_delete(){
 			 고객
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객','common/customPOP')">
 			</div>
 		  </div>
 	  </div>

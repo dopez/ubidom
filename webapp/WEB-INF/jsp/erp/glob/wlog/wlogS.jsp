@@ -39,7 +39,7 @@ $(document).ready(function(){
     
 	 function doOnRowDblClicked(rowId,colId){
 			if(colId==1){
-			gfn_load_popup('container','common/customPOP');
+			gfn_load_popup('고객코드','common/customPOP');
 			}
 		}
  })

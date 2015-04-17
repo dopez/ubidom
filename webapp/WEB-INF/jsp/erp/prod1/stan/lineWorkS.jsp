@@ -78,7 +78,7 @@ function fn_popupGoodsCode(){
 				라인코드
 		   </label>
 			<div class="col-sm-1 col-md-1">
-			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" >
+			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			</div>
 	    </div>
       </div>
@@ -98,7 +98,7 @@ function fn_popupGoodsCode(){
 				주생산제품
 		   </label>
 			<div class="col-sm-1 col-md-1">
-			 <input type="text" name="workProduct" id="workProduct" value="" placeholder="" class="form-control input-xs">
+			 <input type="text" name="workProduct" id="workProduct" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제품코드','common/goodsCodePOP')">
 			</div>
 	    </div>
       </div> 

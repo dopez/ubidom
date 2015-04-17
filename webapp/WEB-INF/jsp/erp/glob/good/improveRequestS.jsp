@@ -22,6 +22,7 @@ $(document).ready(function(){
 	gridMst.setColTypes("ron,ro,ro");
 	gridMst.setColSorting("int,str,str");
 	gridMst.init();	
+	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked1);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("관련부서");
 	var sLayout1 = subLayout.cells("a");
@@ -36,10 +37,21 @@ $(document).ready(function(){
 	gridDtl.setColTypes("ron,ro,ro,ro,dhxCalendarA,ed");
 	gridDtl.setColSorting("int,str,str,str,date,str");
 	gridDtl.init();
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked2);
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("개선의뢰내용");
 	var sLayout2 = subLayout.cells("b");
 	subToolbar('toolbar2',sLayout2,[5,6]);
+	
+	function doOnRowDblClicked1(rowId,colId){
+		if(colId==1){
+		gfn_load_popup('부서코드','common/deptCodePOP');
+		}
+	}
+	
+	function doOnRowDblClicked2(rowId){
+		gfn_load_popup('제품코드','common/goodsCodePOP');
+	}
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -48,13 +60,25 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 });
 
- var subToolbar = function(toolbar,sublayout,btn_id_array){
-	toolbar = sublayout.attachToolbar();
-		
+ var subToolbar = function(toolbar1,sublayout,btn_id_array){
+	 var tblstr = toolbar1;
+	toolbar1 = sublayout.attachToolbar();
+	toolbar1.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			
+		  if(tblstr == 'toolbar1'){
+			  fn_row_insertSub1(); 
+		  }
+		  if(tblstr == 'toolbar2'){
+			  fn_row_insertSub2(); 
+		  }	
+		}
+	});
+	
 	var size = 18;
-	toolbar.setIconSize(18);
-	toolbar.setIconsPath("/images/button/dhtmlx/");
-	toolbar.loadStruct("/common/json/button.json",fn_onLoad);
+	toolbar1.setIconSize(18);
+	toolbar1.setIconsPath("/images/button/dhtmlx/");
+	toolbar1.loadStruct("/common/json/button.json",fn_onLoad);
 
 	function fn_onLoad(){
 	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
@@ -66,8 +90,8 @@ $(document).ready(function(){
 	          }
 	      }
 	  for(var i=0; i<item_id_set_arr.length; i++){
-	      toolbar.removeItem("btn"+item_id_set_arr[i]);	
-	      toolbar.removeItem("sep"+item_id_set_arr[i]);
+	      toolbar1.removeItem("btn"+item_id_set_arr[i]);	
+	      toolbar1.removeItem("sep"+item_id_set_arr[i]);
 	     }	
 	 } 
 } 
@@ -84,13 +108,13 @@ function fn_delete(){
 	
 }
 function fn_row_insertSub1(){
-	
+	gridMst.addRow(gridMst.getUID(),"1,,",1);
 }
 function fn_row_deleteSub1(){
 	
 }
 function fn_row_insertSub2(){
-	
+	gridDtl.addRow(gridDtl.getUID(),"1,,,,,",1);
 }
 function fn_row_deleteSub2(){
 	
@@ -141,7 +165,7 @@ function fn_row_deleteSub2(){
 			 고객
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객','common/customPOP')">
 			</div>
 		  </div>
 	  </div>

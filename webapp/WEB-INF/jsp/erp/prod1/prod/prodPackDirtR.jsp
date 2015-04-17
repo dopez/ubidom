@@ -90,7 +90,7 @@ function fn_popupGoodsCode(){
 			 고객
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객','common/customPOP')">
 			</div>
 		  </div>
 	  </div>
@@ -102,7 +102,7 @@ function fn_popupGoodsCode(){
 			 제품
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="goods" id="goods" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="goods" id="goods" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제품코드','common/goodsCodePOP')">
 			</div>
 		  </div>
 	  </div>

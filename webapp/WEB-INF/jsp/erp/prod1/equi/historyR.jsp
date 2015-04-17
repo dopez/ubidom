@@ -24,7 +24,14 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str,int,str,str,str,str,str,str,int,date,str,str");
 	gridMain.init();	
-
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,,,,,,",1);
+	
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==1){
+		gfn_load_popup('부품코드','common/componentCodePOP');
+		}
+	}
 });
 function fn_search(){
 	
@@ -33,9 +40,6 @@ function fn_excel(){
 	
 }
 function fn_print(){
-	
-}
-function fn_popupComponentCode(){
 	
 }
 </script>

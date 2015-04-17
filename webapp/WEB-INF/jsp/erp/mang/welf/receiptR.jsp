@@ -83,7 +83,7 @@ function fn_print(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','common/deptCodePOP')">
+			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서등록','common/deptCodePOP')">
 			</div>
 		  </div>
 	  </div>
@@ -95,7 +95,7 @@ function fn_print(){
 			 사번
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','common/seqNoPOP')">
+			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('사번','common/seqNoPOP')">
 			</div>
 		  </div>
 	  </div>

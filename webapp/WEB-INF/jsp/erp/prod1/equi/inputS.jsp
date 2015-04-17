@@ -36,6 +36,7 @@ $(document).ready(function(){
 	gridDtl.setColTypes("ro,ro,ro,ro,edn,edn,edn");
 	gridDtl.setColSorting("str,str,str,str,int,int,int");
 	gridDtl.init();	
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("입고내역");
 	
@@ -44,6 +45,18 @@ $(document).ready(function(){
 	calMain.hideTime();	   
 	    var t = dateformat(new Date());
 		byId("stDate").value = t;
+		
+		toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_insert();
+			}
+		});
+		
+		function doOnRowDblClicked(rowId,colId){
+			if(colId==0){
+			gfn_load_popup('부품코드','common/componentCodePOP');
+			}
+		}	
 });
 function fn_new(){
 	
@@ -58,15 +71,9 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridDtl.addRow(gridDtl.getUID(),",,,,,,",1);
 }
 function fn_row_delete(){
-	
-}
-function fn_popupSupplyComCode(){
-	
-}
-function fn_popupItemCode(){
 	
 }
 </script>
@@ -115,7 +122,7 @@ function fn_popupItemCode(){
 			    공급업체
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs">
+			     <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체코드','common/supplyCompCodePOP')">
 			   </div>
 		     </div>
 	      </div>

@@ -146,7 +146,7 @@ function fn_row_deleteSub(){
 			   포장코드
 			  </label>
 			  <div class="col-sm-1 col-md-1">
-			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs">		
+			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('자재코드','common/matrCodePOP')">		
 			 </div>
 	    </div>
       </div> 

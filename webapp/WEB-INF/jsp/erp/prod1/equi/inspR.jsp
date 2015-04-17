@@ -25,14 +25,21 @@ $(document).ready(function(){
 	gridMain.setColAlign("center,left,left,left,left,left,center,center,center,left,left,left");
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str,str,str,date,date,date,str,str,str");
-	gridMain.init();		
-
+	gridMain.init();
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,,,",1);
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 	byId("edDate").value = t;
+	
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==1){
+		gfn_load_popup('설비코드','common/equiCodePOP');
+		}
+	}
 });
 function fn_search(){
 	
@@ -41,10 +48,6 @@ function fn_excel(){
 	
 }
 function fn_print(){
-	
-}
-
-function fn_popupEquiCode(){
 	
 }
 </script>

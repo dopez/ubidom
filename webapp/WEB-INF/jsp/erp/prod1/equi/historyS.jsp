@@ -23,6 +23,8 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str");
 	gridMain.init();	
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	subLayout.cells("a").setWidth(400);
 	subLayout.cells("b").attachObject("bootContainer2");
 	
@@ -32,6 +34,21 @@ $(document).ready(function(){
 	    var t = dateformat(new Date());
 		byId("buyDate").value = t;
 		byId("regDate").value = t;
+		
+		toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_insert();
+			}
+		});
+		
+		function doOnRowDblClicked(rowId,colId){
+			if(colId==1){
+			gfn_load_popup('점검항목','prod1/inspPOP');
+			}
+			if(colId==2){
+				gfn_load_popup('소모성부품이력등록','prod1/compHistoryPOP');
+			}
+		}
 
 });
 function fn_new(){
@@ -47,7 +64,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridMain.addRow(gridMain.getUID(),"1,,,",1);
 }
 function fn_row_delete(){
 	

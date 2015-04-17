@@ -89,7 +89,7 @@ function fn_popupGoodsCode(){
 			 제품코드
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="goodsCode" id="goodsCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="goodsCode" id="goodsCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제품코드','common/goodsCodePOP')">
 			</div>
 		  </div>
 	  </div>

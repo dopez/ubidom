@@ -25,6 +25,7 @@ $(document).ready(function(){
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ra");
 	gridMst.setColSorting("int,str,str,str,str,str,date,date,date,str,str,str,na");
 	gridMst.init();	
+	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("점검대상");
 	
@@ -49,6 +50,21 @@ $(document).ready(function(){
 		byId("inspDate").value = t;
 		byId("stDate").value = t;
 		byId("edDate").value = t;
+		
+		toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_insert();
+			}
+		});
+		
+		function doOnRowDblClicked(rowId,colId){
+			if(colId==1){
+			gfn_load_popup('설비코드','prod1/equiCodePOP');
+			}
+			if(colId==10){
+				gfn_load_popup('점검자','common/chargePOP');
+			}
+		}
 });
 function fn_new(){
 	
@@ -63,16 +79,10 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridMst.addRow(gridMst.getUID(),"1,,,,,,,,,,,,",1);
 }
 function fn_row_delete(){
 	
-}
-function fn_popupEquiCode(){
-	
-}
-function fn_popupInspector(){
-
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

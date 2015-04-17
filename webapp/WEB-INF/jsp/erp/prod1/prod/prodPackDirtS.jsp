@@ -38,6 +38,7 @@ $(document).ready(function(){
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,dhxCalendarA,ron,ron,ron,edn,ch");
 	gridDtl.setColSorting("int,str,str,str,str,date,int,int,int,int,na");
 	gridDtl.init();	
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("생산지시내역");
 
@@ -46,6 +47,18 @@ $(document).ready(function(){
 	    calMain.hideTime();	   
 	    var t = dateformat(new Date());
 		byId("stDate").value = t;
+		
+		toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_insert();
+			}
+		});
+		
+		function doOnRowDblClicked(rowId,colId){
+			if(colId==1){
+			gfn_load_popup('제품코드','common/goodsCodePOP');
+			}
+		}
 });
 function fn_new(){
 	
@@ -60,12 +73,9 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
 }
 function fn_row_delete(){
-	
-}
-function fn_popupGoodsCode(){
 	
 }
 </script>

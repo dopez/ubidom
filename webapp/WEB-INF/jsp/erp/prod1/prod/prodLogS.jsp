@@ -44,9 +44,10 @@ $(document).ready(function(){
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70");
 	gridDtl.setColAlign("center,left,left,left,left,right,right,right,left,right,right,center,right,right,left,right,right,right,right,right,right,center,right,right,right,right,center,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,edn,ron,ron,ron,ron,ch,edn,ron,ron,ron,ron,edn,ron,edn,ron,ch,edn,ron,edn,ron,ch,edn,ron");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,edn,ron,ron,ron,ron,ro,edn,ron,ron,ron,ron,edn,ron,edn,ron,ro,edn,ron,edn,ron,ro,edn,ron");
 	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,int,na,int,int,int,int,int,int,int,int,int,na,int,int,int,int,ch,int,int");
 	gridDtl.init();	
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("생산일지내역");
 
@@ -55,6 +56,24 @@ $(document).ready(function(){
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
+	
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			fn_row_insert();
+		}
+	});
+	
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==7 || colId==13 || colId==18 || colId==20 || colId==23 || colId==25 || colId==28){
+		gfn_load_popup('불량유형등록창','prod1/poorTypeSPOP');
+		}
+		if(colId==8 || colId==14){
+			gfn_load_popup('작업자 등록창','prod1/workerSPOP');
+		}
+		if(colId==11 || colId==21 || colId==26){
+			gfn_load_popup('설비가동 등록창','prod1/equiSPOP');
+		}
+	}
 });
 function fn_new(){
 	
@@ -69,21 +88,9 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,,,,,,,,,,,,,,,,,,",1);
 }
 function fn_row_delete(){
-	
-}
-function fn_popupReturnType(){
-	
-}
-function fn_popupWorker(){
-	
-}
-function fn_popupEquiWork(){
-	
-}
-function fn_popupEquiCode(){
 	
 }
 </script>

@@ -49,7 +49,7 @@ function fn_popupComponentCode(){
 			       부품코드
 			      </label>
 			    <div class="col-sm-2 col-md-2">
-			      <input name="componentCode" id="componentCode" type="text" value="" placeholder="" class="form-control input-xs">
+			      <input name="componentCode" id="componentCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부품코드','common/componentCodePOP')">
 			    </div>
 		       </div>
 	        </div>
