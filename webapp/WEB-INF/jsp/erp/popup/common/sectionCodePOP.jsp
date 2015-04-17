@@ -7,7 +7,7 @@ var gridMain;
 var toolbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
-	//포장코드 도우미
+	//항목코드 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,7 +16,7 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("포장코드,포장명",null,
+	gridMain.setHeader("항목코드,항목명",null,
 			["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("150,150");
 	gridMain.setColAlign("left,left");
@@ -30,10 +30,10 @@ $(document).ready(function(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
-			 포장명
+			 항목명
 			</label>
 			<div class="col-xs-6">
-			  <input name="packName" id="packName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="sectionName" id="sectionName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

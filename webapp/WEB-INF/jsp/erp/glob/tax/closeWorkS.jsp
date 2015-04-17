@@ -93,7 +93,7 @@ function fn_row_delete(){
 			 고객
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="custom" id="custom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','common/customPOP')">
 			</div>
 		  </div>
 	  </div>
