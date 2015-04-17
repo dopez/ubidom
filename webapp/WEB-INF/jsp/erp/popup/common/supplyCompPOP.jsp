@@ -7,7 +7,7 @@ var gridMain;
 var toolbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
-	//포장코드 도우미
+	//공급업체 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,12 +16,12 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("포장코드,포장명",null,
-			["text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("150,150");
-	gridMain.setColAlign("left,left");
-	gridMain.setColTypes("ro,ro");
-	gridMain.setColSorting("str,str");
+	gridMain.setHeader("코드,업체명,사업자번호",null,
+			["text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100");
+	gridMain.setColAlign("left,left,left");
+	gridMain.setColTypes("ro,ro,ro");
+	gridMain.setColSorting("str,str,str");
 	gridMain.init(); 
 });
 </script>
@@ -30,10 +30,10 @@ $(document).ready(function(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label" for="textinput">
-			 포장명
+			 업체명
 			</label>
 			<div class="col-xs-6">
-			  <input name="packName" id="packName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="supplyCompName" id="supplyCompName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>
