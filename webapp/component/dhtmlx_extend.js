@@ -133,13 +133,14 @@ $(window).resize(function(){
 });
 
 /*function gfn_load_popup(eleId,view_path){
+function gfn_load_popup(subject,view_path){
 	var w1;
-	
+	var eleId = "container";
 	dhxWins = new dhtmlXWindows();
 	dhxWins.attachViewportTo(eleId);
 
 	w1 = dhxWins.createWindow(eleId, 20, 30, 320, 300);
-
+    dhxWins.window(eleId).setText(subject);
 	// iframe, get
 	w1.attachURL("/erp/popup/"+view_path+".do");
 	return w1;
@@ -156,4 +157,5 @@ function gfn_load_popup(subject,view_path){
 	// iframe, get
 	w1.attachURL("/erp/popup/"+view_path+".do");
 	return w1;
+}
 }

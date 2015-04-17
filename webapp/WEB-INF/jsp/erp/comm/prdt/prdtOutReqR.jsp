@@ -43,6 +43,9 @@
 
 
             })
+            function fn_popup_prdt() {
+            	gfn_load_popup('제품코드','common/itemCodePOP');
+			}
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -92,9 +95,10 @@
                     <div class="row">
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 공급업체 </label>
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">제품코드</label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs"
+                                    	ondblclick="fn_popup_prdt()">
                                 </div>
                             </div>
                         </div>

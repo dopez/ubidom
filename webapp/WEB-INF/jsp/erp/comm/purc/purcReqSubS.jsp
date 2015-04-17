@@ -37,10 +37,24 @@ $( document ).ready(function() {
 	 calMain.hideTime();
 		var t = dateformat(new Date());
 		byId("stDate").value = t;
-		/* byId("edDate").value = t; */
-	
-	
-})
+		//항목삽입
+        toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_insert();
+			}
+		});
+        //popUp
+        gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+        function doOnRowDblClicked(rowId,colId){
+			if(colId==1){
+				gfn_load_popup('품목코드','common/itemPOP');
+			}
+		}
+    })
+        
+    function fn_insert() {
+    		gridMain.addRow(gridMain.getUID(),"1,,,,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,",1);
+	}
 
 </script>
 <style>
@@ -81,7 +95,7 @@ $( document ).ready(function() {
                                 <div class="form-group form-group-sm">
                                     <label class="col-sm-2 col-md-2 control-label" for="textinput">공급업체</label>
                                     <div class="col-sm-2 col-md-2">
-                                        <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs">
+                                        <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체','common/supplyCompCodePOP')">
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +129,7 @@ $( document ).ready(function() {
                                                 <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                             </div>
                                             <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </div>
@@ -132,7 +146,7 @@ $( document ).ready(function() {
                                                 <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                             </div>
                                             <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </div>
@@ -149,7 +163,7 @@ $( document ).ready(function() {
                                                 <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                             </div>
                                             <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </div>
@@ -166,7 +180,7 @@ $( document ).ready(function() {
                                                 <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                             </div>
                                             <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </div>
