@@ -20,16 +20,30 @@ $(document).ready(function(){
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100");
 	gridMain.setColAlign("center,left,center,left,center");
-	gridMain.setColTypes("ron,ro,ch,ed,ed");
+	gridMain.setColTypes("ron,ro,coro,ed,ed");
 	gridMain.setColSorting("int,str,na,str,na");	
 	gridMain.init();	
-
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
-});
+	
+	 toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_intsert();
+			}
+		});
+    
+	 function doOnRowDblClicked(rowId,colId){
+			if(colId==1){
+			gfn_load_popup('container','common/customPOP');
+			}
+		}
+ })
+     
 function fn_new(){
 	
 }
@@ -43,7 +57,7 @@ function fn_delete(){
 	
 }
 function fn_row_intsert(){
-	
+	gridMain.addRow(gridMain.getUID(),"1,유비덤,,추가생산,",1);
 }
 function fn_row_delete(){
 	
