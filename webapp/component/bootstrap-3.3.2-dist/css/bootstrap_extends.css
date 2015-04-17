@@ -8,6 +8,9 @@ div[class^="col-"]{
 label[class^="col-"]{
 	padding-right: 6px;
 }
+label.col-lg-1,label.col-lg-10,label.col-lg-11,label.col-lg-12,label.col-lg-2,label.col-lg-3,label.col-lg-4,label.col-lg-5,label.col-lg-6,label.col-lg-7,label.col-lg-8,label.col-lg-9,label.col-md-1,label.col-md-10,label.col-md-11,label.col-md-12,label.col-md-2,label.col-md-3,label.col-md-4,label.col-md-5,label.col-md-6,label.col-md-7,label.col-md-8,label.col-md-9,label.col-sm-1,label.col-sm-10,label.col-sm-11,label.col-sm-12,label.col-sm-2,label.col-sm-3,label.col-sm-4,label.col-sm-5,label.col-sm-6,label.col-sm-7,label.col-sm-8,label.col-sm-9,label.col-xs-1,label.col-xs-10,label.col-xs-11,label.col-xs-12,label.col-xs-2,label.col-xs-3,label.col-xs-4,label.col-xs-5,label.col-xs-6,label.col-xs-7,label.col-xs-8,label.col-xs-9 {
+	padding-right: 6px;
+}
 label {
 	font-weight: 500;
 	font-size:13px;
@@ -77,6 +80,10 @@ input[type=checkbox], input[type=radio] {
 	}
 }
 
-#appv{
-	width: 20px;
+#appv {
+    padding: 4px;
+    vertical-align: middle;
+}
+.appvBottomPadding{
+	padding-bottom: 4px;
 }

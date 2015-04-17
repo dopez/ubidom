@@ -7,7 +7,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [2, 3, 4, 5, 6], "2E"); //품의서결재
+                Ubi.setContainer(3, [2, 3, 4, 5, 6], "2E"); //품의서결재
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -16,10 +16,7 @@
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
 
-
-
                 //up
-
                 gridMst = subLayout.cells("a").attachGrid();
                 gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");
                 gridMst.setHeader("종류,일자,품의자,제목,금액,기간");
@@ -28,7 +25,8 @@
                 gridMst.setColTypes("coro,dhxCalendar,ed,ed,edn,edn");
                 gridMst.setColSorting("str,date,str,str,int,int");
                 gridMst.init();
-
+				
+                //down
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("내용");
                 gridDtl = subLayout.cells("b").attachGrid();
@@ -95,12 +93,98 @@ table{
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group form-group-sm">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td id="appv" rowspan="2">
+                                            결
+                                            <br>
+                                            <br>재
+                                        </td>
+                                        <td id="appv">작성</td>
+                                        <td id="appv">검토</td>
+                                        <td id="appv">검토</td>
+                                        <td id="appv">승인</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-4 col-md-4">
                             <div class="row">
                                 <table class="table-bordered">
                                     <tr>
-                                        <td rowspan="2" class="col-md-1">결
-                                            <br>재</td>
+                                        <td rowspan="2" class="col-md-1">결<br>재</td>
                                         <td class="col-md-1">작성</td>
                                         <td class="col-md-1">검토</td>
                                         <td class="col-md-1">검토</td>
@@ -123,7 +207,7 @@ table{
                                 </table>
                             </div>
 
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>

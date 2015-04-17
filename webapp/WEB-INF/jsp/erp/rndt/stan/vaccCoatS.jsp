@@ -16,7 +16,7 @@
 
                         //마지막 C셀을 죽이고 b 셀에 새로운 레이아웃 추가//
                         var differentLayout = layout.cells("b").attachLayout("2U");
-                        subLayout.cells("a").setHeight(0);
+                        /* subLayout.cells("a").setHeight(0); */
                         differentLayout.cells("a").setWidth(253);
                         differentLayout.cells("a").hideHeader();
                         differentLayout.cells("b").hideHeader();

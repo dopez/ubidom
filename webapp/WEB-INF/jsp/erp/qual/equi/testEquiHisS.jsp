@@ -166,10 +166,10 @@
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제작일자 </label>
                         <div class="col-sm-2 col-md-2">
 
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-10 col-md-10">
                                 <input name="prDate" id="prDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-sm-1 col-md-1">
+                            <div class="col-sm-2 col-md-2">
                                 <span>
 						       <input type="button" id="calpicker1" class="calicon form-control">
 						     </span>
@@ -177,10 +177,10 @@
                         </div>
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구입일자 </label>
                         <div class="col-sm-2 col-md-2">
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-10 col-md-10">
                                 <input name="phDate" id="phDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-sm-1 col-md-1">
+                            <div class="col-sm-2 col-md-2">
                                 <span>
 						       <input type="button" id="calpicker2" class="calicon form-control">
 						     </span>
@@ -198,10 +198,10 @@
                         </div>
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 사용기한 </label>
                         <div class="col-sm-2 col-md-2">
-                            <div class="col-sm-11 col-md-11">
+                            <div class="col-sm-10 col-md-10">
                                 <input name="exDate" id="exDate" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-sm-1 col-md-1">
+                            <div class="col-sm-2 col-md-2">
                                 <span>
 					       <input type="button" id="calpicker3" class="calicon form-control">
 					     </span>

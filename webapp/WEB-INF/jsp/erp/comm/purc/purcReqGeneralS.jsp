@@ -15,10 +15,7 @@
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
 
-
-
                 //up
-
 
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10 col
@@ -49,14 +46,6 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            
-            #forSpace02 {
-                height: 60px;
-            }
-            
-            #appv {
-                width: 20px;
-            }
         </style>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>
@@ -67,10 +56,8 @@
                         <div class="col-sm-8 col-md-8">
                             <div class="row">
                                 <div class="form-group form-group-sm">
-
-                                    <label class="col-sm-4 col-md-2 control-label" for="textinput">
-                                        일자 </label>
-                                    <div class="col-sm-4 col-md-2">
+                                    <label class="col-sm-2 col-md-2 control-label" for="textinput">일자</label>
+                                    <div class="col-sm-2 col-md-2">
 
                                         <div class="col-sm-10 col-md-10">
                                             <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
@@ -80,7 +67,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-2 col-md-1">
+                                    <div class="col-sm-1 col-md-1">
                                         <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
                                             <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                                         </div>
@@ -90,40 +77,105 @@
                             </div>
                             <div class="row">
                                 <div class="form-group form-group-sm">
-                                    <label class=" col-sm-4 col-md-2 control-label" for="textinput">
-                                        공급업체 </label>
-                                    <div class="col-sm-4 col-md-2">
+                                    <label class="col-sm-2 col-md-2 control-label" for="textinput">공급업체</label>
+                                    <div class="col-sm-2 col-md-2">
                                         <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group form-group-sm">
-                                    <label class=" col-sm-4 col-md-2 control-label" for="textinput">
+                                    <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                         의뢰자 </label>
-                                    <div class="col-sm-4 col-md-2">
+                                    <div class="col-sm-2 col-md-2">
                                         <input name="rqstName" id="rqstName" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group form-group-sm">
                                 <table class="table table-bordered">
                                     <tr>
                                         <td id="appv" rowspan="2">
-                                            <br>결
+                                            결
                                             <br>
                                             <br>재
                                         </td>
-                                        <td id="forSpace01">작성</td>
-                                        <td>검토</td>
-                                        <td>승인</td>
+                                        <td id="appv">작성</td>
+                                        <td id="appv">검토</td>
+                                        <td id="appv">검토</td>
+                                        <td id="appv">승인</td>
                                     </tr>
                                     <tr>
-                                        <td id="forSpace02"></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td id="appv" class="col-md-3">
+                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
+                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <select class="form-control input-xs">
+                                                    <option>미결</option>
+                                                    <option>전결</option>
+                                                    <option>무결</option>
+                                                </select>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>

@@ -1,4 +1,6 @@
 @CHARSET "UTF-8";
 .calicon{
 background:url("/component/dhtmlxCalendar/imgs/Calendar-icon.png") no-repeat;
+background-position: right top;
+border: 0px;
 }

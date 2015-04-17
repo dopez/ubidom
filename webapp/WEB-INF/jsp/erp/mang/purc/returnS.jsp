@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 2, 3, 4], "1C"); //반품등록
+                Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //반품등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -21,7 +21,7 @@
                 gridMain.setHeader("No,입고일자,품목,규격,단위,수량,단가,금액,반품사유", null, []);
                 gridMain.setInitWidths("50,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,left,left,center,right,right,right,left");
-                gridMain.setColTypes("ron,dhxCalendar,ed,ed,ed,edn,edn,edn,ed");
+                gridMain.setColTypes("ron,dhxCalendarA,ed,ed,ed,edn,edn,edn,ed");
                 gridMain.setColSorting("str,date,str,str,str,str,int,int,int,str");
                 gridMain.init();
                 //calRangeDate
@@ -34,7 +34,29 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
 
+                toolbar.attachEvent("onClick", function(id) {
+					if(id == "btn5"){
+						fn_insert();
+					}
+				});
+                var inCellobj = gridMain.cellById(0,2);
+                layout.attachEvent("onClick", function(id) {
+					if(id == inCellobj){
+						fn_popup_test();
+					}
+				})
             })
+                
+            function fn_insert() {
+            	//for(i=1; i<10; ++i){
+            	//	var a="sample"+i;
+            	//	if(a===null || typeof a == "undefined") return;
+            		gridMain.addRow(gridMain.getUID(),"1,2015/04/16,TEST,TEST,TEST,100,100.00,10000.00,TEST",1);
+            	//}
+			}
+            function fn_popup_test() {
+				alert("pop!");
+			}
         </script>
         <style>
         </style>
