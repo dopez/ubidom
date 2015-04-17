@@ -86,7 +86,7 @@ function fn_row_delete(){
 			 사번
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('container','common/seqNoPOP')">
 			</div>
 		  </div>
 	  </div>
