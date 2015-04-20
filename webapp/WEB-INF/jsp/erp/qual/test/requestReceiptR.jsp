@@ -83,7 +83,7 @@ function fn_print(){
 			 의뢰부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="requestDept" id="requestDept" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="requestDept" id="requestDept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			</div>
 		  </div>
 	  </div>

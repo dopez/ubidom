@@ -24,14 +24,7 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str,int,str,str,str,str,str,str,int,date,str,str");
 	gridMain.init();	
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,,,,,,",1);
-	
-	function doOnRowDblClicked(rowId,colId){
-		if(colId==1){
-		gfn_load_popup('부품코드','common/componentCodePOP');
-		}
-	}
+
 });
 function fn_search(){
 	
@@ -54,7 +47,7 @@ function fn_print(){
 		        	설비코드
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-			         <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+			         <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부품코드','common/componentCodePOP')">
 			       </div>
 		        </div>
 	        </div>

@@ -41,9 +41,6 @@ function fn_excel(){
 function fn_print(){
 	
 }
-function fn_popupBaseMatrCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -84,7 +81,7 @@ function fn_popupBaseMatrCode(){
 			 모재코드
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="baseMatrCode" id="baseMatrCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="baseMatrCode" id="baseMatrCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('모재코드','common/metalCodePOP')">
 			</div>
 		  </div>
 	  </div>

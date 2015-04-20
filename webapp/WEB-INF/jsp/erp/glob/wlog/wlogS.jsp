@@ -57,7 +57,7 @@ function fn_delete(){
 	
 }
 function fn_row_intsert(){
-	gridMain.addRow(gridMain.getUID(),"1,유비덤,,추가생산,",1);
+	gridMain.addRow(gridMain.getUID(),"1,유비덤,방문상담,추가생산,",1);
 }
 function fn_row_delete(){
 	

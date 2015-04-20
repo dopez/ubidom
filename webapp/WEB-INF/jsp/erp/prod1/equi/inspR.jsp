@@ -26,8 +26,7 @@ $(document).ready(function(){
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str,str,str,date,date,date,str,str,str");
 	gridMain.init();
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,,,",1);
+
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
@@ -35,11 +34,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 	
-	function doOnRowDblClicked(rowId,colId){
-		if(colId==1){
-		gfn_load_popup('설비코드','common/equiCodePOP');
-		}
-	}
 });
 function fn_search(){
 	
@@ -90,7 +84,7 @@ function fn_print(){
 			     설비코드
 			    </label>
 			    <div class="col-sm-2 col-md-2">
-			      <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+			      <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
 			    </div>
 		      </div>
 	       </div>

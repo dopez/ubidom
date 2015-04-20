@@ -39,12 +39,6 @@ function fn_search(){
 function fn_excel(){
 	
 }
-function fn_popupCustomerCode(){
-	
-}
-function fn_popupCharge(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%; "></div>
 <div id="bootContainer" style="position: relative;">
@@ -85,7 +79,7 @@ function fn_popupCharge(){
 			 고객
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="customer" id="customer" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
 			</div>
 		  </div>
 	  </div>
@@ -97,7 +91,7 @@ function fn_popupCharge(){
 			 요구자
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="demander" id="demander" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="demander" id="demander" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('요구자','common/demanderCodePOP')">
 			</div>
 		  </div>
 	  </div>
@@ -109,7 +103,7 @@ function fn_popupCharge(){
 			 담당자
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="charge" id="charge" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="charge" id="charge" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('담당자','common/chargePOP')">
 			</div>
 		  </div>
 	  </div>

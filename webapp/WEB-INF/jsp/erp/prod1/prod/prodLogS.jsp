@@ -21,10 +21,11 @@ $(document).ready(function(){
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,center,left,left,left,left,center,right,right,right,right,center");
+	gridMst.setColAlign("center,center,left,left,right,left,center,right,right,right,right,center");
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron,ra");
 	gridMst.setColSorting("int,date,str,str,str,Str,date,int,int,int,int,na");
 	gridMst.init();	
+	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("생산지시내역");
 	
@@ -57,6 +58,12 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 	
+	function doOnCheck(rowId,colId){
+		if(colId==11){
+			gridDtl.addRow(gridDtl.getUID(),"1,chkh-250,chkh-250,10,EA,2700,,,,,,,,,,,,,,,,,,,,,,,",1);
+		}
+	}
+	
 	toolbar.attachEvent("onClick", function(id) {
 		if(id == "btn5"){
 			fn_row_insert();
@@ -88,7 +95,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,,,,,,,,,,,,,,,,,,",1);
+	gridMst.addRow(gridMst.getUID(),"1,2014-04-20,chkh-250,chkj-250,10,EA,2014-04-20,3000,3600,2700,3000,",1);
 }
 function fn_row_delete(){
 	

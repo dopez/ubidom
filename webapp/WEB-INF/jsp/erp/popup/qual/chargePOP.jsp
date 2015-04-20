@@ -6,20 +6,20 @@ var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
 $(document).ready(function(){
-	Ubi.setContainer(0,[1],"1C");
-	//설비점검 도우미
+	Ubi.setContainer(0,[],"1C");
+	//담당 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("설비코드,설비명,규격,사용공정",null,
+	gridMain.setHeader("사번,성명,진행중,시료수량",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("70,70,70,70");
-	gridMain.setColAlign("left,left,left,left");
-	gridMain.setColTypes("ro,ro,ro,ro");
-	gridMain.setColSorting("str,str,str,str");
+	gridMain.setColAlign("left,left,right,right");
+	gridMain.setColTypes("ro,ro,ron,ron");
+	gridMain.setColSorting("str,str,int,int");
 	gridMain.init(); 
 });
 </script>

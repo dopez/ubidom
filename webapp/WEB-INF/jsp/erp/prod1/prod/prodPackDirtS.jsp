@@ -21,10 +21,11 @@ $(document).ready(function(){
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,right,left,left,center,left,left,left,left,left,right,center,center");
+	gridMst.setColAlign("center,left,left,left,center,center,left,left,right,left,right,center,center");
 	gridMst.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ra");
 	gridMst.setColSorting("int,int,str,str,str,str,str,str,str,str,int,date,na");
 	gridMst.init();	
+	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("수주내역");
 	
@@ -47,6 +48,12 @@ $(document).ready(function(){
 	    calMain.hideTime();	   
 	    var t = dateformat(new Date());
 		byId("stDate").value = t;
+		
+		function doOnCheck(rowId,colId){
+			if(colId==12){
+				gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
+			}
+		}
 		
 		toolbar.attachEvent("onClick", function(id) {
 			if(id == "btn5"){
@@ -73,7 +80,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
+	gridMst.addRow(gridMst.getUID(),"1,1234-5678,유비덤,ceko,Y,Y,cskj-250,cskj-250,10,EA,100,2014-04-20,",1);
 }
 function fn_row_delete(){
 	

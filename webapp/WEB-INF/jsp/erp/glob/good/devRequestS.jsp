@@ -56,11 +56,14 @@ $(document).ready(function(){
 });
 
  var subToolbar = function(toolbar1,sublayout,btn_id_array){
-	toolbar1 = sublayout.attachToolbar();
+	var tbr = toolbar1;
+	 toolbar1 = sublayout.attachToolbar();
 
 	toolbar1.attachEvent("onClick", function(id) {
+		if(tbr == 'toolbar1'){
 		if(id == "btn5"){
 			fn_row_insertSub1();
+		  }
 		}
 	});
 	

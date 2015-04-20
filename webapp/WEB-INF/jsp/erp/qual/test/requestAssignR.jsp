@@ -81,7 +81,7 @@ function fn_print(){
 			 시험담당자
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="testCharge" id="testCharge" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="testCharge" id="testCharge" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('시험담당자','common/testChargePOP')">
 			</div>
 		  </div>
 	  </div>

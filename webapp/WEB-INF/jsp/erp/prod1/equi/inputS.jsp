@@ -24,6 +24,7 @@ $(document).ready(function(){
 	gridMst.setColTypes("ro,ro,ro,ro,ro,ro,edn,edn,edn,ra");
 	gridMst.setColSorting("date,str,str,str,str,str,int,int,int,na");
 	gridMst.init();	
+	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("발주내역");
 	
@@ -53,7 +54,7 @@ $(document).ready(function(){
 		});
 		
 		function doOnRowDblClicked(rowId,colId){
-			if(colId==0){
+			if(colId==2){
 			gfn_load_popup('부품코드','common/componentCodePOP');
 			}
 		}	
@@ -71,7 +72,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	gridDtl.addRow(gridDtl.getUID(),",,,,,,",1);
+	gridMst.addRow(gridMst.getUID(),"2014-04-20,유비덤,,,,,,,,",1);
 }
 function fn_row_delete(){
 	

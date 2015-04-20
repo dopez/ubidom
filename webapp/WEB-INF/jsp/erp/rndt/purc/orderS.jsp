@@ -24,12 +24,25 @@ $(document).ready(function(){
 	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,edn,ron,ron,dhxCalendarA,ed");
 	gridMain.setColSorting("str,str,str,str,int,int,int,int,int,date,str");
 	gridMain.init();	
-
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	    var t = dateformat(new Date());
 		byId("stDate").value = t;
+		
+		toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_row_insert();
+			}
+		});
+		
+		function doOnRowDblClicked(rowId,colId){
+			if(colId==0){
+			gfn_load_popup('품목코드','common/itemCodePOP');
+			}
+		}
 });
 function fn_new(){
 	
@@ -44,7 +57,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridMain.addRow(gridMain.getUID(),",,,,,,,,,,",1);
 }
 function fn_row_delete(){
 	
@@ -53,12 +66,6 @@ function fn_order_print(){
 	
 }
 function fn__order_Calcul(){
-	
-}
-function fn_popupSupplyComCode(){
-	
-}
-function fn_popupItemCode(){
 	
 }
 </script>
@@ -107,7 +114,7 @@ function fn_popupItemCode(){
 			공급업체
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체코드','common/supplyCompCodePOP')">
 			</div>
 			<div class="col-sm-4 col-md-4" style="margin-left: 5px;">
 		    <div class="col-sm-6 col-md-6">

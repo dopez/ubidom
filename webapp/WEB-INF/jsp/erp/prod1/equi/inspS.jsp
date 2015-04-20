@@ -58,9 +58,6 @@ $(document).ready(function(){
 		});
 		
 		function doOnRowDblClicked(rowId,colId){
-			if(colId==1){
-			gfn_load_popup('설비코드','prod1/equiCodePOP');
-			}
 			if(colId==10){
 				gfn_load_popup('점검자','common/chargePOP');
 			}
@@ -146,7 +143,7 @@ function fn_row_delete(){
 			         설비코드
 			        </label>
 			        <div class="col-sm-2 col-md-2">
-			          <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+			          <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','prod1/equiCodePOP')">
 			        </div>
 		        </div>
 	         </div>

@@ -53,7 +53,7 @@ function fn_popupDeptCode(){
 				라인코드
 				</label>
 			<div class="col-sm-2 col-md-2">
-			    <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">		
+			    <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('라인코드','common/lineCodePOP')">		
 			</div>
 		 </div>
 	    </div>

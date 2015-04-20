@@ -33,6 +33,7 @@ $(document).ready(function(){
 	gridMst.setColTypes("ron,ra,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ro,ro,ro,ron,ro,ro,ro,ro");
 	gridMst.setColSorting("int,na,str,str,str,date,date,str,str,str,str,int,str,str,str,str,int,str,str,str,str");
 	gridMst.init();	
+	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("시험의뢰내역");
 	
@@ -46,6 +47,8 @@ $(document).ready(function(){
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,ro,ro,dhxCalendarA");
 	gridDtl.setColSorting("int,str,date,date,str,int,str,str,date");
 	gridDtl.init();	
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("시험의뢰접수내역");
 
@@ -54,6 +57,24 @@ $(document).ready(function(){
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
+	
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			fn_row_insert();
+		}
+	});
+	
+	function doOnCheck(rowId,colId){
+		if(colId==1){
+			gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,",1);
+		}
+	}
+	
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==7){
+		gfn_load_popup('담당','qual/chargePOP');
+		}
+	}
 });
 function fn_new(){
 	
@@ -68,13 +89,7 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupCharge(){
-	
+	gridMst.addRow(gridMst.getUID(),"1,,,,,,,,,,,,,,,,,,,,",1);
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
