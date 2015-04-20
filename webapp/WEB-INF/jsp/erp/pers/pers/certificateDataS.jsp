@@ -4,10 +4,9 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,8,9],"1C");
-	//수입검사조회
+	Ubi.setContainer(1,[1,3,5,6],"1C");
+	//상벌사항등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,15 +15,15 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("검사일자,입고요청일자,공급업체,품목코드,품명,규격,단위,입고요청수량,불량수량,최종판정,처리결과",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+	gridMain.setHeader("No,발급일자,발급번호,구분,성명,부서명,담당업무,신청일자,용도,제출처,발급자,매수",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,left,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron");
-	gridMain.setColSorting("date,date,str,str,str,str,str,int,int,int,int");
-	gridMain.init();		
-
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,right,center,left,left,left,center,left,left,left,right");
+	gridMain.setColTypes("ron,dhxCalendarA,edn,coro,ed,ed,ed,dhxCalendarA,ed,ed,ed,edn");
+	gridMain.setColSorting("int,date,int,str,str,str,str,date,str,str,str,int");
+	gridMain.init();	
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
@@ -35,17 +34,20 @@ $(document).ready(function(){
 function fn_search(){
 	
 }
-function fn_excel(){
+function fn_save(){
 	
 }
-function fn_print(){
+function fn_row_insert(){
+	
+}
+function fn_row_delete(){
 	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
@@ -70,22 +72,13 @@ function fn_print(){
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                           </div>
                        </div> 
-                 </div>              
+                 </div> 
+                 <div class="col-sm-2 col-md-2">
+			       <input name="certifi" id="certifi" type="button" value="증명서발급" placeholder="" class="form-control input-xs">
+			    </div>             
 			</div>
 		</div>
-	  </div>    
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 품목코드
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('품목코드','common/itemCodePOP')">
-			</div>
-		  </div>
-	  </div>
-	</div>  
-   </form>
+	  </div> 
+  </form>
  </div> 
 </div>

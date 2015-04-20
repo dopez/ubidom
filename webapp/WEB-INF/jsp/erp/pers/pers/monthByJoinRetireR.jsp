@@ -4,10 +4,9 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,8,9],"1C");
-	//수입검사조회
+	Ubi.setContainer(1,[1,8],"1C");
+	//월별입사퇴사현황
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,15 +15,15 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("검사일자,입고요청일자,공급업체,품목코드,품명,규격,단위,입고요청수량,불량수량,최종판정,처리결과",null,
+	gridMain.setHeader("No,입사일,부서코드,부서명,직위,사번,성명,퇴직일,주민번호",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,left,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron");
-	gridMain.setColSorting("date,date,str,str,str,str,str,int,int,int,int");
-	gridMain.init();		
-
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,left,left,right,left,center,left");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro");
+	gridMain.setColSorting("int,date,str,str,str,int,str,date,str");
+	gridMain.init();	
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
@@ -38,18 +37,21 @@ function fn_search(){
 function fn_excel(){
 	
 }
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
-				<label class="col-sm-2 col-md-2 control-label" for="textinput">
+				<div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+			       <select name="ists" id="ists" class="form-control input-xs">
+			         <option value="입사일">입사일</option>
+			         <option value="퇴사일">퇴사일</option>
+			       </select>
+			    </div>  
+				<label class="col-sm-1 col-md-1 control-label" for="textinput">
 				 기간 
 				</label>
 				<div class="col-sm-6 col-md-6">
@@ -70,22 +72,10 @@ function fn_print(){
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
                           </div>
                        </div> 
-                 </div>              
+                 </div>       
 			</div>
 		</div>
-	  </div>    
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 품목코드
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('품목코드','common/itemCodePOP')">
-			</div>
-		  </div>
-	  </div>
-	</div>  
-   </form>
+	  </div> 
+  </form>
  </div> 
 </div>

@@ -5,8 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,8],"1C");
-	//부서조회
+	Ubi.setContainer(2,[1,8],"1C");
+	//사원대장(개인신상)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -15,15 +15,14 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서코드,본부명,부서명,파트명,부서명(조회기준),부서전체명,적용일자,원가구분,사용여부",null,
+	gridMain.setHeader("No,부서명,사번,성명,직책,학력,결혼구분,주민번호,입사일,우편번호,주소",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,left,left,left,center,center,center");
-	gridMain.setColTypes("ron,ro,ed,ed,ed,ed,ed,dhxCalendarA,coro,ch");
-	gridMain.setColSorting("int,str,str,str,str,str,str,date,na,na");
+			"text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,left,right,left,left,left,left,left,center,left,left");
+	gridMain.setColTypes("ron,ro,ron,ro,ro,ro,ro,ro,ro,ro,ro");
+	gridMain.setColSorting("int,str,int,str,str,str,str,str,date,str,str");
 	gridMain.init();	
-
 });
 function fn_search(){
 	
@@ -40,14 +39,26 @@ function fn_excel(){
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 부서명
+			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			</div>
 		  </div>
 	  </div>
-	</div>           
+	</div>
+	<div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 사번
+			 </label>
+			<div class="col-sm-2 col-md-2">
+			  <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('사번','common/seqNoPOP')">
+			</div>
+		  </div>
+	  </div>
+	</div> 
   </form>
  </div> 
 </div>
