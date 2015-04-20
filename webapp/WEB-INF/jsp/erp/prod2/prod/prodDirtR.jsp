@@ -91,7 +91,7 @@ function fn_popupEquiCode(){
 			요청부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="requestEmp" id="requestEmp" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="requestEmp" id="requestEmp" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			</div>
 		  </div>
 	  </div>
@@ -103,7 +103,7 @@ function fn_popupEquiCode(){
 			 설비코드
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
 			</div>
 		  </div>
 	  </div>

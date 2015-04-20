@@ -158,4 +158,3 @@ function gfn_load_popup(subject,view_path){
 	w1.attachURL("/erp/popup/"+view_path+".do");
 	return w1;
 }
-}

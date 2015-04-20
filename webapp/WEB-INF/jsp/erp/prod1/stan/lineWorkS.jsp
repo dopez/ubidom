@@ -55,7 +55,7 @@ function fn_popupGoodsCode(){
 		    부서코드
 		   </label>
 			<div class="col-sm-2 col-md-2">
-			 <input type="text" name="deptCode" id="deptCode" value="" placeholder="" class="form-control input-xs">
+			 <input type="text" name="deptCode" id="deptCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			</div>
            <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 		    부서명
@@ -78,7 +78,7 @@ function fn_popupGoodsCode(){
 				라인코드
 		   </label>
 			<div class="col-sm-1 col-md-1">
-			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			 <input type="text" name="lineCode" id="lineCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('라인코드','common/lineCodePOP')">
 			</div>
 	    </div>
       </div>

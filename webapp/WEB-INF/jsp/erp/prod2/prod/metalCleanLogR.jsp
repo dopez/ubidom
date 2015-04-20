@@ -89,7 +89,7 @@ function fn_popupBaseMatrCode(){
 			 모재코드
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="baseMatrCode" id="baseMatrCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="baseMatrCode" id="baseMatrCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('모재코드','common/metalCodePOP')">
 			</div>
 		  </div>
 	  </div>

@@ -140,7 +140,7 @@ function fn_popupBaseMatr(){
 			 모재
 		    </label>
 			<div class="col-sm-1 col-md-1">
-			  <input name="baseMatr" id="baseMatr" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="baseMatr" id="baseMatr" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('모재코드','common/metalCodePOP')">
 			</div>
 	    </div>
 	</div>

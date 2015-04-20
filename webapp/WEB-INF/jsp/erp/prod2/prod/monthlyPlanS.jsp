@@ -31,7 +31,7 @@ $(document).ready(function(){
 	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,ron,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn");
 	gridMain.setColSorting("str,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
 	gridMain.init();	
-	
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
     calMain.setDateFormat("%Y/%m");
@@ -40,6 +40,18 @@ $(document).ready(function(){
     var m = +new Date().getMonth()+1;
     m = fn_monthLen(m);
 	byId("stDate").value = t+"/"+m;
+	
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			fn_row_insert();
+		}
+	});
+	
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==0){
+		gfn_load_popup('모재코드','common/metalCodePOP');
+		}
+	}
 });
 function fn_monthLen(month){
  var initMonth;
@@ -64,12 +76,9 @@ function fn_delete(){
 	
 }
 function fn_row_insert(){
-	
+	gridMain.addRow(gridMain.getUID(),",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",1);
 }
 function fn_row_delete(){
-	
-}
-function fn_popupEquiCode(){
 	
 }
 </script>
@@ -106,7 +115,7 @@ function fn_popupEquiCode(){
 				 설비코드
 				 </label>
 				<div class="col-sm-2 col-md-2">
-				  <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
 				</div>
 			  </div>
 		  </div>
