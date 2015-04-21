@@ -7,7 +7,7 @@ var gridMain;
 var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,9],"1C");
-	//퇴직금추계액
+	//퇴직금추계액 
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
