@@ -73,7 +73,7 @@ function fn_print(){
 			  </select>
 			</div>
 			<div class="col-sm-2 col-md-2">
-			  <input type="button" name="labelp" id="labelp" value="용지출력" class="form-control input-xs">
+			  <input type="button" name="labelp" id="labelp" value="용지출력" class="form-control btn btn-default btn-xs">
 			</div>
 		  </div>
 	  </div>

@@ -152,7 +152,7 @@ function gfn_load_popup(subject,view_path){
 	dhxWins = new dhtmlXWindows();
 	dhxWins.attachViewportTo(eleId);
 		
-	w1 = dhxWins.createWindow(eleId, 20, 30, 320, 300);
+	w1 = dhxWins.createWindow(eleId, 50, 80, 320, 300);
 	     dhxWins.window(eleId).setText(subject);
 	// iframe, get
 	w1.attachURL("/erp/popup/"+view_path+".do");

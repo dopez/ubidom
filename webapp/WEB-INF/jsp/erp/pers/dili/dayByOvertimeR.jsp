@@ -6,8 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(3,[1,3,6,8],"1C");
-	//일일근태등록
+	Ubi.setContainer(2,[1,8],"1C");
+	//일일잔업일보
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,15 +16,14 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,근무일자,부서,직책,사번,성명,근태구분,출근,퇴근,정상,연장,야근,외출,조퇴,지각,총근무,휴일구분,요일",null,
+	gridMain.setHeader("No,부서,직위,성명,출근시간,퇴근시간,연장시간,근무시간,야근시간,특근,특근잔업",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,center,center,center,right,right,right,right,right,right,right,center,center");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,coro,ro,ro,ron,ron,ron,ron,ron,ron,ron,coro,coro");
-	gridMain.setColSorting("int,date,str,str,int,str,str,date,date,int,int,int,int,int,int,int,str,str");
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,left,left,left,center,center,right,right,right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("int,str,str,str,date,date,int,int,int,int,int");
+	gridMain.attachFooter(",총계,,,,,,,,,");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -36,12 +35,6 @@ $(document).ready(function(){
 function fn_search(){
 	
 }
-function fn_save(){
-	
-}
-function fn_row_delete(){
-	
-}
 function fn_excel(){
 	
 }
@@ -49,12 +42,12 @@ function fn_excel(){
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
  <div class="container">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			  근무일자 
+			  일자 
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
@@ -78,34 +71,7 @@ function fn_excel(){
 			</div>
 		  </div>
 	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 직군
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
-			  </select>
-			</div>
-			<div class="col-sm-3 col-md-3 col-sm-offset-1 col-md-offset-1">
-			  <div class="col-sm-6 col-md-6">
-			    <input type="button" name="diliS" id="diliS" value="근태자료생성" class="form-control btn btn-default btn-xs">
-			  </div>
-			  <div class="col-sm-6 col-md-6">
-			    <input type="button" name="addS" id="addS" value="추가생성" class="form-control btn btn-default btn-xs">
-			  </div>
-			</div>
-		  </div>
-	  </div>
-	</div>   
+	</div>  
   </form>
  </div> 
 </div>

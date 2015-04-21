@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl01, gridDtl02;
 $(document).ready(function(){
 	Ubi.setContainer(4,[1,3,5,6],"3L");
-	//교육훈련사항등록
+	//신원보증/보험등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -15,14 +15,14 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,부서",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100");
-	gridMst.setColAlign("center,right,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro");
-	gridMst.setColSorting("int,int,str,str");
+	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100");
+	gridMst.setColAlign("center,right,left,left,left,left");
+	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
+	gridMst.setColSorting("int,int,str,str,str,str");
 	gridMst.init();	
-	subLayout.cells("a").setWidth(403);
+	subLayout.cells("a").setWidth(603);
 	
 	gridDtl01 = subLayout.cells("b").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");

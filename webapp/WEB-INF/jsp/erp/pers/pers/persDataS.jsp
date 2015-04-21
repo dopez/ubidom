@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 });
 function fn_search(){
-	
+
 }
 function fn_save(){
 	
@@ -111,7 +111,7 @@ function fn_delete(){
 			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			<div class="col-sm-2 col-md-2" style="margin-left: 5px;">
-			  <input name="pers" id="pers" type="button" value="인사발령" placeholder="" class="form-control input-xs">
+			  <input name="pers" id="pers" type="button" value="인사발령" placeholder="" class="form-control btn btn-default btn-xs">
 			</div>
 		  </div>
 	  </div>
@@ -133,10 +133,10 @@ function fn_delete(){
 		  <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-2 col-md-2 col-sm-offset-2 col-md-offset-2">
-				 <input name="upd" id="upd" type="button" value="첨부" placeholder="" class="form-control input-xs">
+				 <input name="upd" id="upd" type="button" value="첨부" placeholder="" class="form-control btn btn-default btn-xs">
 			  </div>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="del" id="del" type="button" value="삭제" placeholder="" class="form-control input-xs">
+				  <input name="del" id="del" type="button" value="삭제" placeholder="" class="form-control btn btn-default btn-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -245,7 +245,14 @@ function fn_delete(){
 				 주소 
 			  </label>
 			  <div class="col-sm-6 col-md-6">
-				 <input name="addr" id="addr" type="text" value="" placeholder="" class="form-control input-xs">
+				 <div class="col-sm-11 col-md-11">
+					<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
+				 </div>
+				 <div class="col-sm-1 col-md-1">
+					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch" onclick="fn_search()">
+					  <span class="glyphicon glyphicon-search"></span>
+					</button>
+				 </div>
 			  </div>
 		   </div>
  		</div>

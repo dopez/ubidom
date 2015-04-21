@@ -15,14 +15,14 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,부서",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100");
-	gridMst.setColAlign("center,right,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro");
-	gridMst.setColSorting("int,int,str,str");
+	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100");
+	gridMst.setColAlign("center,right,left,left,left,left");
+	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
+	gridMst.setColSorting("int,int,str,str,str,str");
 	gridMst.init();	
-	subLayout.cells("a").setWidth(403);
+	subLayout.cells("a").setWidth(603);
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");

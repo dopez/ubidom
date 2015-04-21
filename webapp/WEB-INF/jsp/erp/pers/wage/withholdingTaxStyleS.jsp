@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMain;  
+var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(3,[1,3,6,8],"1C");
-	//일일근태등록
+	Ubi.setContainer(3,[1,8],"1C");
+	//원천징수변황양식
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,30 +16,47 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,근무일자,부서,직책,사번,성명,근태구분,출근,퇴근,정상,연장,야근,외출,조퇴,지각,총근무,휴일구분,요일",null,
+	gridMain.setHeader("No,성명,주민번호,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,식대보조금,"+
+			           "자가운전보조금,년차수당,기타수당,상여,국민연금,건강보험,고용보험,장기요양보험,소득세,지방소득세,"+
+			           "건강보험연말정산,연말정산소득세,연말정산지방소득세,기타공제",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,center,center,center,right,right,right,right,right,right,right,center,center");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,coro,ro,ro,ron,ron,ron,ron,ron,ron,ron,coro,coro");
-	gridMain.setColSorting("int,date,str,str,int,str,str,date,date,int,int,int,int,int,int,int,str,str");
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+	                       "100,100,100,100,100,100,100,100,100,100,"+
+	                       "120,100,120,100");
+	gridMain.setColAlign("center,left,left,right,right,right,right,right,right,right,"+
+	                     "right,right,right,right,right,right,right,right,right,right,"+
+	                     "right,right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ron,ron,ron,ron,ron,ron,ron,"+
+	                     "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+	                     "ron,ron,ron,ron");
+	gridMain.setColSorting("int,str,str,int,int,int,int,int,int,int,"+
+	                       "int,int,int,int,int,int,int,int,int,int,"+
+	                       "int,int,int,int");
 	gridMain.init();	
-
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
+	calMain.setDateFormat("%Y/%m");
 	calMain.hideTime();	   
-	var t = dateformat(new Date());
-	byId("stDate").value = t;
+    var t1 = new Date().getFullYear();
+    var m = +new Date().getMonth()+1;
+    m = fn_monthLen(m);
+	byId("stDate").value = t1+"/"+m;
 });
+function fn_monthLen(month){
+	 var initMonth;
+		if(month < 10){		
+			initMonth = "0"+month;
+		}else{
+			initMonth = month;
+		}
+		return initMonth;
+}
 function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_delete(){
 	
 }
 function fn_excel(){
@@ -48,13 +65,13 @@ function fn_excel(){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
- <div class="container">
+  <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			  근무일자 
+			  급여년월 
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
@@ -66,20 +83,8 @@ function fn_excel(){
              </div>
 		 </div>
 	    </div>
-      </div>      
-      <div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 부서
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
-			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
+      </div>
+	 <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
@@ -95,17 +100,27 @@ function fn_excel(){
 			   <option value="기술직">기술직</option>
 			  </select>
 			</div>
-			<div class="col-sm-3 col-md-3 col-sm-offset-1 col-md-offset-1">
-			  <div class="col-sm-6 col-md-6">
-			    <input type="button" name="diliS" id="diliS" value="근태자료생성" class="form-control btn btn-default btn-xs">
-			  </div>
-			  <div class="col-sm-6 col-md-6">
-			    <input type="button" name="addS" id="addS" value="추가생성" class="form-control btn btn-default btn-xs">
-			  </div>
-			</div>
 		  </div>
 	  </div>
-	</div>   
+	</div>
+	<div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			    부서
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			    <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			 </div>
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			    미표시자여부
+			 </label>
+			 <div class="col-sm-1 col-md-1">
+			    <input name="mpy" id="mpy" type="checkbox" value="Y" >
+			 </div>
+		  </div>
+	  </div>
+	</div>
   </form>
  </div> 
 </div>

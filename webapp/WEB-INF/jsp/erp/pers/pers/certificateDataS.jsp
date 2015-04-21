@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,3,5,6],"1C");
-	//상벌사항등록
+	//재증명서발급
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -74,7 +74,7 @@ function fn_row_delete(){
                        </div> 
                  </div> 
                  <div class="col-sm-2 col-md-2">
-			       <input name="certifi" id="certifi" type="button" value="증명서발급" placeholder="" class="form-control input-xs">
+			       <input name="certifi" id="certifi" type="button" value="증명서발급" placeholder="" class="form-control btn btn-default btn-xs">
 			    </div>             
 			</div>
 		</div>

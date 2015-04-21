@@ -5,8 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"2U");
-	//자격면허등록
+	Ubi.setContainer(4,[1,3],"2U");
+	//급여기본자료(고정/공제)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -26,14 +26,15 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,자격구분,자격증명,자격등급,수당,취득일자,시행처",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right,center,left");
-	gridDtl.setColTypes("ron,ed,ed,ed,edn,dhxCalendarA,left");
-	gridDtl.setColSorting("int,str,str,str,int,str,str");
-	gridDtl.init();	
+	gridDtl.setHeader("No,지급/공제,코드,항목명,금액",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100");
+	gridDtl.setColAlign("center,left,left,left,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro");
+	gridDtl.setColSorting("int,str,str,str,int");
+	gridDtl.attachFooter("합계,,,,0");
+	gridDtl.init();		
+
 });
 function fn_search(){
 	
@@ -41,42 +42,36 @@ function fn_search(){
 function fn_save(){
 	
 }
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-     <div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 부서
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
-			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 성명
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
-			</div>
-		  </div>
-	  </div>
-	</div>  
       <div class="row">
+	     <div class="form-group form-group-sm">
+		    <div class="col-sm-8 col-md-8">
+			   <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			    부서
+			   </label>
+			   <div class="col-sm-2 col-md-2">
+			     <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			   </div>
+		    </div>
+	     </div>
+	 </div>
+	 <div class="row">
+	    <div class="form-group form-group-sm">
+		   <div class="col-sm-8 col-md-8">
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			  성명
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			   <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
+			 </div>
+		  </div>
+	   </div>
+	 </div>  
+     <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">

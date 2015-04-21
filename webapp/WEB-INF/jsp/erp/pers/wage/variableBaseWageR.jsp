@@ -4,9 +4,10 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
+var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"2U");
-	//학력/경력사항등록
+	Ubi.setContainer(4,[1,3],"2U");
+	//급여기본자료(유동/공제)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -26,32 +27,61 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,학교,시작일자,종료일자,전공1,전공2,졸업구분",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,center,center,left,left,left");
-	gridDtl.setColTypes("ron,ed,dhxCalendarA,dhxCalendarA,ed,ed,coro");
-	gridDtl.setColSorting("int,str,date,date,str,str,str");
-	gridDtl.init();	
+	gridDtl.setHeader("No,지급/공제,코드,항목명,금액",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100");
+	gridDtl.setColAlign("center,left,left,left,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro");
+	gridDtl.setColSorting("int,str,str,str,int");
+	gridDtl.attachFooter("합계,,,,0");
+	gridDtl.init();		
+
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+    calMain.loadUserLanguage("ko");
+    calMain.setDateFormat("%Y/%m");
+    calMain.hideTime();	   
+    var t = new Date().getFullYear();
+    var m = +new Date().getMonth()+1;
+    m = fn_monthLen(m);
+	byId("stDate").value = t+"/"+m;
 });
+function fn_monthLen(month){
+	 var initMonth;
+		if(month < 10){		
+			initMonth = "0"+month;
+		}else{
+			initMonth = month;
+		}
+		return initMonth;
+}
 function fn_search(){
 	
 }
 function fn_save(){
 	
 }
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
+	<div class="row">
+		<div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			  년월 
+			</label>
+			<div class="col-sm-2 col-md-2">
+                  <div class="col-sm-10 col-md-10">
+                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                     <input type="button" id="calpicker" class="calicon form-control">
+                  </div>              
+             </div>
+		 </div>
+	    </div>
+      </div>  
       <div class="row">
 	     <div class="form-group form-group-sm">
 		    <div class="col-sm-8 col-md-8">
@@ -92,13 +122,7 @@ function fn_row_delete(){
 			   <option value="기술직">기술직</option>
 			  </select>
 			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 근무
 			 </label>
 			<div class="col-sm-2 col-md-2">
@@ -109,17 +133,9 @@ function fn_row_delete(){
 			   <option value="퇴직">퇴직</option>
 			  </select>
 			</div>
-			<div class="col-sm-3 col-md-3">
-			    <div class="col-sm-6 col-md-6">
-				    <input type="radio" name="gubn" id="gubn" value="학력사항" checked="checked">학력사항
-				</div>
-				<div class="col-sm-6 col-md-6">
-					<input type="radio" name="gubn" id="gubn" value="경력사항">경력사항
-				</div>
-			</div>
 		  </div>
 	  </div>
-	</div>  
+	</div> 
   </form>
  </div> 
 </div>

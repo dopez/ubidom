@@ -3,48 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMst, gridDtl;
+var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"2U");
-	//학력/경력사항등록
+	Ubi.setContainer(4,[1,3,8],"1C");
+	//건강보험 기초자료
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100");
-	gridMst.setColAlign("center,right,left,left,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
-	gridMst.setColSorting("int,int,str,str,str,str");
-	gridMst.init();	
-	subLayout.cells("a").setWidth(603);
-	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,학교,시작일자,종료일자,전공1,전공2,졸업구분",null,
+	gridMain = subLayout.cells("a").attachGrid();
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
+	gridMain.setHeader("No,부서,직위,사번,성명,취득일자,증번호,보수월액(현),보험료율(현),산정보험료(현),보수월액(전),보험료율(전),산정보험료(전),금액차",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,center,center,left,left,left");
-	gridDtl.setColTypes("ron,ed,dhxCalendarA,dhxCalendarA,ed,ed,coro");
-	gridDtl.setColSorting("int,str,date,date,str,str,str");
-	gridDtl.init();	
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,left,left,left,left,center,left,right,right,right,right,right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("int,str,str,str,str,date,str,int,int,int,int,int,int,int");
+	gridMain.init();	
 });
+
 function fn_search(){
 	
 }
 function fn_save(){
 	
 }
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
+function fn_excel(){
 	
 }
 </script>
@@ -56,10 +44,13 @@ function fn_row_delete(){
 	     <div class="form-group form-group-sm">
 		    <div class="col-sm-8 col-md-8">
 			   <label class="col-sm-2 col-md-2 control-label" for="textinput">
-			    부서
+			    구분
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			     <select name="jobgubn" id="jobgubn" class="form-control input-xs">
+			       <option value="본사">본사</option>
+			       <option value="지점">지점</option>
+			     </select>
 			   </div>
 		    </div>
 	     </div>
@@ -67,7 +58,13 @@ function fn_row_delete(){
 	 <div class="row">
 	    <div class="form-group form-group-sm">
 		   <div class="col-sm-8 col-md-8">
-			 <label class="col-sm-2 col-md-2 control-label" for="textinput">
+		       <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			    부서
+			   </label>
+			   <div class="col-sm-2 col-md-2">
+			     <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			   </div>
+			 <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			  성명
 			 </label>
 			 <div class="col-sm-2 col-md-2">
@@ -92,13 +89,7 @@ function fn_row_delete(){
 			   <option value="기술직">기술직</option>
 			  </select>
 			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 근무
 			 </label>
 			<div class="col-sm-2 col-md-2">
@@ -109,17 +100,24 @@ function fn_row_delete(){
 			   <option value="퇴직">퇴직</option>
 			  </select>
 			</div>
-			<div class="col-sm-3 col-md-3">
-			    <div class="col-sm-6 col-md-6">
-				    <input type="radio" name="gubn" id="gubn" value="학력사항" checked="checked">학력사항
-				</div>
-				<div class="col-sm-6 col-md-6">
-					<input type="radio" name="gubn" id="gubn" value="경력사항">경력사항
-				</div>
+		  </div>
+	  </div>
+	</div>
+	<div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 보험료율
+			 </label>
+			<div class="col-sm-1 col-md-1">
+			  <input type="text" name="rate" id="rate" value="" class="form-control input-xs" disabled="disabled">
+			</div>
+			<div class="col-sm-2 col-md-2" style="margin-left: 5px;">
+			  <input type="button" name="status" id="status" value="현내역->전내역" class="form-control btn btn-default btn-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>  
+	</div> 
   </form>
  </div> 
 </div>
