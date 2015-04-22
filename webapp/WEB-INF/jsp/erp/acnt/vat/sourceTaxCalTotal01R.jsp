@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(1, [1,9], "2E"); //매입처별계산서집계표
+                Ubi.setContainer(1, [1,9], "2E"); //매출처별세금계산서집계표
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -19,7 +19,7 @@
 
                 //grid
                 subLayout.cells("b").showHeader();
-                subLayout.cells("b").setText("계산서(전자,종이 포함)");
+                subLayout.cells("b").setText("종이세금계산서");
                 gridMain = subLayout.cells("b").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
                 gridMain.setHeader("일련번호,사업자등록번호,상호(법인명),매수,공급가액"+
@@ -102,7 +102,7 @@
                        	<thead>
                        		<tr class="active">
                        			<th colspan="2" class="col-sm-2 col-md-2">구&nbsp;&nbsp;&nbsp;분</th>
-                       			<th class="col-sm-1 col-md-1">매입처수</th>
+                       			<th class="col-sm-1 col-md-1">매출처수</th>
                        			<th class="col-sm-1 col-md-1">매&nbsp;&nbsp;&nbsp;수</th>
                        			<th class="col-sm-2 col-md-2">공급가액</th>
                        			<th class="col-sm-2 col-md-2">세&nbsp;&nbsp;&nbsp;액</th>

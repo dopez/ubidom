@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(1, [1,9], "2E"); //매입처별계산서집계표
+                Ubi.setContainer(1, [1,9], "2E"); //매입처별세금계산서집계표
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -19,7 +19,7 @@
 
                 //grid
                 subLayout.cells("b").showHeader();
-                subLayout.cells("b").setText("계산서(전자,종이 포함)");
+                subLayout.cells("b").setText("전자세금계산서");
                 gridMain = subLayout.cells("b").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
                 gridMain.setHeader("일련번호,사업자등록번호,상호(법인명),매수,공급가액"+
