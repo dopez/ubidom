@@ -8,7 +8,7 @@ var calMain;
 var t;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8],"2U");
-	//원천징수변황양식
+	//연차등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 

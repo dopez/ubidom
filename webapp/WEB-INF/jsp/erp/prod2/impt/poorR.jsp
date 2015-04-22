@@ -8,7 +8,7 @@ var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8,9],"1C");
 	//불량현황
-	layout = Ubi.getLayout();
+	layout = Ubi.getLayout(); 
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 	
