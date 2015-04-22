@@ -95,7 +95,7 @@ function fn_excel(){
 			   <option value="기술직">기술직</option>
 			  </select>
 			</div>
-			<div class="col-sm-3 col-md-3 col-sm-offset-1 col-md-offset-1">
+			<div class="col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
 			  <div class="col-sm-6 col-md-6">
 			    <input type="button" name="diliS" id="diliS" value="근태자료생성" class="form-control btn btn-default btn-xs">
 			  </div>

@@ -5,8 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,2,3,5,6],"1C");
-	//받을어음등록
+	Ubi.setContainer(4,[1,8],"1C");
+	//지금어음현황
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -15,19 +15,19 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,발행일,수금업체,발행인,발행은행,어음번호,어음종류,만기일,금액,어음잔액,"+
-			            "배서금액계,할인금액계,만기금액,수금번호",null,
+	gridMain.setHeader("No,어음종류,발행은행,어음번호,어음금액,발행일,만기일,비고,거래처,계정,"+
+			           "세목,전표일자(발행일),전표No(발행일),전표일자(만기일),전표No(만기일)",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-                           "100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,left,center,right,right,"+
-                         "right,right,right,right");
-	gridMain.setColTypes("ron,dhxCalendarA,ed,ed,ed,ed,ed,dhxCalendarA,edn,edn,"+
-                         "edn,edn,edn,edn");
-	gridMain.setColSorting("int,date,str,str,str,str,str,date,int,int,"+
-                           "int,int,int,int");
+	                       "100,100,100,100,100");
+	gridMain.setColAlign("center,left,left,left,right,center,center,left,left,left,"+
+	                     "left,center,center,center,center");
+	gridMain.setColTypes("ron,ed,ed,ed,edn,dhxCalendarA,dhxCalendarA,ed,ed,ed,"+
+	                     "ed,dhxCalendarA,dhxCalendarA,dhxCalendarA,dhxCalendarA");
+	gridMain.setColSorting("int,str,str,str,int,date,date,str,Str,str,"+
+	                       "str,date,date,date,date");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},{input:"stDate2",button:"calpicker3"},{input:"edDate2",button:"calpicker4"}]);
@@ -42,16 +42,7 @@ $(document).ready(function(){
 function fn_search(){
 	
 }
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
+function fn_excel(){
 	
 }
 </script>
@@ -62,14 +53,9 @@ function fn_row_delete(){
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
-			    <div class="col-sm-2 col-md-2">
-			      <label class="col-sm-8 col-md-8 control-label" for="textinput">
-				    발행기간 
-				  </label>
-				  <div class="col-sm-2 col-md-2">
-				     <input type="checkbox" name="val" id="val" value="y">
-				  </div>
-			    </div>		
+			      <label class="col-sm-2 col-md-2 control-label" for="textinput">
+				    발행일 
+				  </label>	
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
@@ -79,7 +65,7 @@ function fn_row_delete(){
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
                           </div>
                      </div>
-                     <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
+                     <label class="col-sm-2 col-md-2 control-label" for="textinput" style="text-align: center;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
                               <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
@@ -95,14 +81,9 @@ function fn_row_delete(){
 	  <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
-			   <div class="col-sm-2 col-md-2">
-			      <label class="col-sm-8 col-md-8 control-label" for="textinput">
+			      <label class="col-sm-2 col-md-2 control-label" for="textinput">
 				    만기기간 
 				  </label>
-				  <div class="col-sm-2 col-md-2">
-				     <input type="checkbox" name="mval" id="mval" value="y">
-				  </div>
-			    </div>
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
@@ -112,7 +93,7 @@ function fn_row_delete(){
                             <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'edDate2', 'max')">
                           </div>
                      </div>
-                     <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
+                     <label class="col-sm-2 col-md-2 control-label" for="textinput" style="text-align: center;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
                               <input type="text" class="form-control input-xs" name="edDate2" id="edDate2" value="">
@@ -136,19 +117,19 @@ function fn_row_delete(){
 			</div>
 		  </div>
 	  </div>
-	</div> 
+	</div>
 	<div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 수금번호
+			 거래처
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="sNum" id="sNum" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="busiComp" id="busiComp" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>
+	</div>  
   </form>
  </div> 
 </div>
