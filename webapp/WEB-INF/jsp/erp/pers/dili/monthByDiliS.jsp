@@ -61,7 +61,7 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-	}
+}
 function fn_search(){
 	
 }
@@ -155,7 +155,7 @@ function fn_excel(){
 			 *해당사원의 1개월치 일일근태입니다.
 			</label>
 			<label class="col-sm-6 col-md-6" for="textinput">
-			 1. 해당 항목 수정 후 반드시 데이터 값 확인후 저장하시기 바랍니다.<br>
+			 1. 해당항목 수정 후 반드시 데이터 값 확인후 저장하시기 바랍니다.<br>
 			 2. 일근태 저장 후 월근태를 재생성 하시기 바랍니다.
 			</label>
 			<div class="col-sm-2 col-md-2">
