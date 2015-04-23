@@ -34,7 +34,24 @@
                 calStDate.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				gfn_load_popup('품목코드','common/itemCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
@@ -68,7 +85,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
                             </div>
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 매출구분 </label>
                             <div class="col-sm-2 col-md-2">

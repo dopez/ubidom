@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-var gridMain, layout, toolbar, subLayout;
+var gridDtl, layout, toolbar, subLayout;
 var gridMst,girdDtl;
 var calMain;
 $( document ).ready(function() {
@@ -37,49 +37,43 @@ $( document ).ready(function() {
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
 	gridDtl.setInitWidths("50,100,200,100,150,150,200,200,100,100,100");       
 	gridDtl.setColAlign("center,center,left,center,left,left,left,left,center,center,center");     
-	gridDtl.setColTypes("ro,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed"); 
+	gridDtl.setColTypes("ro,ed,ed,ed,ed,ed,ed,ed,ro,ed,ed"); 
 	gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str");
 	gridDtl.init();
 	
 	//calRangeDate
-	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
-	 calMain.loadUserLanguage("ko");
-	 calMain.hideTime();
-		var t = dateformat(new Date());
-		byId("stDate").value = t;
-		/* byId("edDate").value = t; */
-	
-
-})
-
-
-function fn_search() {
-	
-}
-function fn_insert() {
-	
-}
-function fn_save() {
-	
-}
-function fn_edit() {
-	
-}
-function fn_delete() {
-	
-}
-function fn_close() {
-	
-}
-function fn_popup_anonymous() {
-	
-}
-function fn_print() {
-	
-}
-function fn_excel() {
-	
-}
+	 calMain = new dhtmlXCalendarObject([{
+         input: "stDate",
+         button: "calpicker1"
+     }]);
+     calMain.loadUserLanguage("ko");
+     calMain.hideTime();
+     var t = dateformat(new Date());
+     byId("stDate").value = t;
+		
+     //항목삽입
+     toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn5"){
+				fn_insert();
+			}
+		});
+     //popUp
+     gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
+     function doOnRowDblClicked(rowId,colId){
+			if(colId==8){
+				gfn_load_popup('사원번호','common/empPOP');
+			}
+		} 
+		
+		//editcell
+     gridDtl.attachEvent("onRowSelect", function(id,ind){
+     	gridDtl.editCell();
+     	});
+ })
+     
+ function fn_insert() {
+ 		gridDtl.addRow(gridDtl.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,100,100.00,10000.00,TEST",1);
+	}
 
 
 </script>

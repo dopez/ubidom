@@ -6,7 +6,7 @@ var gridMain;
 var calStDate;
 $(document).ready(function() {
 
-	 Ubi.setContainer(4,[1,8,9],"1C"); //월별고객별수주현황
+	 Ubi.setContainer(4,[1,8,9],"1C"); //월별고객별수주현황 /// 수주- 출하 주석이 반대로 되어있음
 	
 	 	layout = Ubi.getLayout();
 	    toolbar = Ubi.getToolbar();
@@ -82,7 +82,7 @@ $(document).ready(function() {
 						품목 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text" value="" placeholder=""
-							class="form-control input-xs">
+							class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customPOP')">
 					</div>
 				</div>
 			</div>

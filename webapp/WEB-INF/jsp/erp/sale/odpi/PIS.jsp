@@ -69,7 +69,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customPOP')">
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> PO No </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('PO No','common/ponoPOP')"> 
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 결제은행 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('결제은행','common/bankPOP')">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="button" value="&nbsp;&nbsp;인&nbsp;&nbsp;쇄&nbsp;&nbsp;" placeholder="" class="btn btn-default btn-xs form-control">

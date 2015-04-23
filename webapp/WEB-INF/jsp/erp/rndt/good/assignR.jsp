@@ -119,7 +119,7 @@ function fn_excel() {
 						고객 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="custName" id="custName" type="text" value=""
-							placeholder="" class="form-control input-xs">
+							placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객','common/customCodePOP')">
 					</div>
 				</div>
 			</div>
@@ -131,7 +131,7 @@ function fn_excel() {
 						요구자 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="askName" id="askName" type="text" value=""
-							placeholder="" class="form-control input-xs">
+							placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('요구자','common/demanderCodePOP')">
 					</div>
 				</div>
 			</div>
@@ -143,7 +143,7 @@ function fn_excel() {
 						담당자 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="chargeName" id="chargeName" type="text" value=""
-							placeholder="" class="form-control input-xs">
+							placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('담당자','common/demanderCodePOP')">
 					</div>
 				</div>
 			</div>

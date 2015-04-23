@@ -4,6 +4,7 @@
         	var layout, toolbar, subLayout
             var gridMain;
             var calMain;
+            var gfn_load_popup;
             $(document).ready(function() {
 
                 Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //반품등록
@@ -33,6 +34,20 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                
+                
+                function page_popup(subject,view_path){
+                	var w2;
+                	var eleId = "container";
+                	dhxWins = new dhtmlXWindows();
+                	dhxWins.attachViewportTo(eleId);
+                		
+                	w2 = dhxWins.createWindow(eleId, 50, 80, 1120, 500);
+                	     dhxWins.window(eleId).setText(subject);
+                	// iframe, get
+                	w2.attachURL("/erp/popup/"+view_path+".do");
+                	return w2;
+                }
 				
                 //항목삽입
                 toolbar.attachEvent("onClick", function(id) {
@@ -44,9 +59,15 @@
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
         			if(colId==1){
-        			alert("need PopUp");
+        				page_popup('입고내역 도우미창','mang/inStockPOP');
+        				
         			}
-        		}
+        		} 
+        		
+        		//editcell
+                gridMain.attachEvent("onRowSelect", function(id,ind){
+                	gridMain.editCell();
+                	});
             })
                 
             function fn_insert() {
@@ -83,10 +104,9 @@
                     <div class="row">
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                    공급업체 </label>
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 공급업체 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('공급업체','common/supplyCompCodePOP')">
                                 </div>
                             </div>
                         </div>

@@ -43,7 +43,7 @@ function fn_search(){
 						<input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
 					<div class="col-sm-2 col-md-2">
-							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
+							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('고객코드','common/customCodePOP');">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
 					  </div>
@@ -62,7 +62,7 @@ function fn_search(){
 						<input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs">
 					</div>
 					<div class="col-sm-2 col-md-2">
-							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
+							<button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('품목코드','common/itemCodePOP');">
 							  <span class="glyphicon glyphicon-search"></span>
 							</button>
 					  </div>

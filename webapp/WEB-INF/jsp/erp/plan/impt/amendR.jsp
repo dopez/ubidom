@@ -89,7 +89,7 @@
                                     <input name="openBank" id="openBank" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
+                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('개설은행','common/bankPOP')">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>

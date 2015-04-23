@@ -84,7 +84,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 작성자 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('작성자','common/empPOP')">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제안자 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="prpsName" id="prpsName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="prpsName" id="prpsName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제안자','common/empPOP')">
                                 </div>
                             </div>
                         </div>

@@ -93,9 +93,9 @@
                 <div class="row">
                     <div class="form-group form-group-sm">
                         <div class="col-sm-8 col-md-8">
-                            <label class=" col-sm-2 col-md-2 control-label" for="textinput">고객</label>
+                            <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name=" " id=" " type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customPOP')">
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">운송회사</label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('운송회사','common/supplyCompCodePOP')">
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">선박회사</label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('선박회사','common/supplyCompCodePOP')">
                             </div>
                         </div>
                     </div>

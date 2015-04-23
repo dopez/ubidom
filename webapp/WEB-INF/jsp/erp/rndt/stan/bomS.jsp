@@ -76,7 +76,7 @@
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                 제품코드 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="pCode" id="pCode" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제품코드','common/goodsCodePOP')">
                             </div>
                         </div>
                     </div>

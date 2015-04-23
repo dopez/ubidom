@@ -251,7 +251,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제안자 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="propsName" id="propsName" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="propsName" id="propsName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제안자','common/empPOP')">
                             </div>
                         </div>
                     </div>

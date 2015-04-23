@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [2, 1, 3, 4, 5, 6], "1C"); //개발계획조회
+                Ubi.setContainer(3, [2, 1, 3, 4, 5, 6], "1C"); //코팅생산일지등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -35,8 +35,26 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
                 /* byId("edDate").value = t; */
-
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				gfn_load_popup('모재코드','common/metalCodePOP');
+        			}else if(colId==3){
+        				gfn_load_popup('약품코드','common/coatingDrugCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
+
         </script>
         <style>
         </style>
@@ -82,7 +100,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 설비코드 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
                                 </div>
                             </div>
                         </div>

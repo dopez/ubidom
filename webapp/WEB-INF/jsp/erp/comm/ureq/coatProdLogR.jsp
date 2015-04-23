@@ -37,8 +37,24 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
-
+                /* byId("edDate").value = t; */
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==4){
+        				gfn_load_popup('약품코드','common/coatingDrugCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -79,7 +95,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 생산자 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="prodName" id="prodName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="prodName" id="prodName" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('생산자','common/empPOP')">
                                 </div>
                             </div>
                         </div>
@@ -89,7 +105,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 설비코드 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
                                 </div>
                             </div>
                         </div>

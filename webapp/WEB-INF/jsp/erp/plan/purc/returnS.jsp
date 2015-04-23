@@ -21,7 +21,7 @@
                 gridMain.setHeader("No,입고일자,품목,규격,단위,수량,단가,금액,반품사유", null, []);
                 gridMain.setInitWidths("50,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,left,left,center,right,right,right,left");
-                gridMain.setColTypes("ron,dhxCalendar,ed,ed,ed,edn,edn,edn,ed");
+                gridMain.setColTypes("ron,ro,ed,ed,ed,edn,edn,edn,ed");
                 gridMain.setColSorting("str,date,str,str,str,str,int,int,int,str");
                 gridMain.init();
                 //calRangeDate
@@ -34,7 +34,43 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
 
+                function page_popup(subject,view_path){
+                	var w2;
+                	var eleId = "container";
+                	dhxWins = new dhtmlXWindows();
+                	dhxWins.attachViewportTo(eleId);
+                		
+                	w2 = dhxWins.createWindow(eleId, 50, 80, 1120, 500);
+                	     dhxWins.window(eleId).setText(subject);
+                	// iframe, get
+                	w2.attachURL("/erp/popup/"+view_path+".do");
+                	return w2;
+                }
+				
+                //항목삽입
+                toolbar.attachEvent("onClick", function(id) {
+					if(id == "btn2"){
+						fn_insert();
+					}
+				});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				page_popup('입고내역 도우미창','mang/inStockPOP');
+        				
+        			}
+        		} 
+        		
+        		//editcell
+                gridMain.attachEvent("onRowSelect", function(id,ind){
+                	gridMain.editCell();
+                	});
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,,TEST,TEST,TEST,100,100.00,10000.00,TEST",1);
+			}
         </script>
         <style>
         </style>
@@ -69,7 +105,7 @@
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     공급업체 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체','common/supplyCompCodePOP')">
                                 </div>
                             </div>
                         </div>

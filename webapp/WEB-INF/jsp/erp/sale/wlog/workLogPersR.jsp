@@ -95,7 +95,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
                             </div>
                         </div>
                     </div>
