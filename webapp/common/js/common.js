@@ -108,7 +108,7 @@ function gfn_checkAlphaNumeric(onvalue) {
  */
 function gfn_checkXSS(chkValue, bolMsg)
 {
-	var exp = /[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\@\ \"\:\.\,\+\-\=\/\(\)\{\}\?\~\!\#\_\[\]\月\火\水\木\金\土\日]/;
+	var exp = /[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\@\ \"\:\.\,\+\-\=\/\(\)\{\}\?\~\!\#\*\_\[\]\月\火\水\木\金\土\日]/;
 	count = 0;
 	
 	var i;

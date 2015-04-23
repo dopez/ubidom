@@ -9,5 +9,25 @@
 		 {call SP_ITEM_CODE_SERCH(#{P_NAME},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=TestMap, javaType=ResultSet})}	
 	</select>
  
+  	<insert id="insTest" statementType="CALLABLE" parameterType="Test">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</insert>
+
+	<update id="updTest" statementType="CALLABLE" parameterType="Test">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</update>
   	
+  	<delete id="delTest" statementType="CALLABLE" parameterType="Test">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</delete>
+
+<!-- <insert id="insTest" parameterType="Test">
+  		<![CDATA[
+        INSERT INTO TBL_ITEM_CODE(ITEM_CODE, 
+        	ITEM_NAME, 
+        	ITEM_SIZE) 
+  		VALUES(#{itemCode},#{itemName},#{itemSize})
+		]]>
+  	</insert> -->
+
 </mapper>

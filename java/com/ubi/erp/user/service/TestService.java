@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.user.dao.TestDao;
+import com.ubi.erp.user.domain.Test;
 
 @Service
 public class TestService {
@@ -21,4 +22,15 @@ public class TestService {
 		dao.selTest(map);
 	}
 
+	public void insTest(Test test) {
+		dao.insTest(test);
+	}
+	
+	public void updTest(Test test){
+		dao.updTest(test);
+	}
+	
+	public void delTest(Test test){
+		dao.delTest(test);
+	}
 }

@@ -30,22 +30,28 @@ public class Test implements Serializable {
 	private String itemCode;
 	private String itemName;
 	private String itemSize;
+	private String cudKey;
 
 	public Test() {
 		super();
 	}
 
-	public Test(String itemCode, String itemName, String itemSize) {
+
+	public Test(String itemCode, String itemName, String itemSize, String cudKey) {
 		super();
 		this.itemCode = itemCode;
 		this.itemName = itemName;
 		this.itemSize = itemSize;
+		this.cudKey = cudKey;
 	}
 
-	@Override
-	public String toString() {
-		return "Test [itemCode=" + itemCode + ", itemName=" + itemName
-				+ ", itemSize=" + itemSize + "]";
+
+	public String getCudKey() {
+		return cudKey;
+	}
+
+	public void setCudKey(String cudKey) {
+		this.cudKey = cudKey;
 	}
 
 	public String getItemCode() {
@@ -75,5 +81,6 @@ public class Test implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 
 }

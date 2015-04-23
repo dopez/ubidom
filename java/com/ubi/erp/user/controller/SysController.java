@@ -31,7 +31,7 @@ public class SysController {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Sys> selSys(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("V_NAME", "관리자");
+		param.put("V_NAME", "%");
 		param.put("rst", null);
 		sysService.selSys(param);
 		return (List<Sys>) param.get("rst");

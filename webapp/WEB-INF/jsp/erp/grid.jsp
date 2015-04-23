@@ -28,7 +28,7 @@ $(function() {
 	*/
 	
 	mygrid.setColSort("str");	
-	mygrid.setUseYnCol(mygrid.getColIndexById("topMenuYn"));
+	//mygrid.setUseYnCol(mygrid.getColIndexById("topMenuYn"));
 	mygrid.setUseYnCol(mygrid.getColIndexById("useYn"));
 	mygrid.setUserData("","pk","sysCd");
 	mygrid.init();
@@ -47,13 +47,13 @@ $(function() {
 	
 	$("#btnAdd").click(function() {
 		var totalColNum = mygrid.getColumnCount();
-		var topMenuYnColIdx = mygrid.getColIndexById('topMenuYn');
+		//var topMenuYnColIdx = mygrid.getColIndexById('topMenuYn');
 		var userYnColIdx = mygrid.getColIndexById('useYn');
 		var strCdateColIdx = mygrid.getColIndexById('strCdate');
 		var strCuserColIdx = mygrid.getColIndexById('strCuser');
 		
 		var data = new Array(totalColNum);
-		data[topMenuYnColIdx] = 'N';
+		
 		data[userYnColIdx] = 'Y';
 		data[strCdateColIdx] = '자동입력';
 		data[strCuserColIdx] = '자동입력';

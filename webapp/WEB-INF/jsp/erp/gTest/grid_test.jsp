@@ -16,14 +16,138 @@
                         layout.cells("b").attachObject("bootContainer2");
 
                         mygrid = new dxGrid(subLayout.cells("a"), false);
-
+                        
                     	mygrid.addHeader({name:"품목코드", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
                     	mygrid.addHeader({name:"품목명", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
                     	mygrid.addHeader({name:"규격", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
                     	mygrid.setColSort("str");	
+                    	mygrid.setUseYnCol(mygrid.getColIndexById("topMenuYn"));
                     	mygrid.setUserData("","pk","itemCode");
                     	mygrid.init();
+                    	
+                    	toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn5") {
+                            	var totalColNum = mygrid.getColumnCount();
+                        		var data = new Array(totalColNum);
+                        		mygrid.addRow(data, 0, 2);
+                            }
+                        })
+                    	
+                        //저장 - 수정
+                        toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn3") {
+                            	var jsonStr = mygrid.getJsonUpdated();
+                        		if (jsonStr == null || jsonStr.length <= 0) return;
+                        		
+                                $("#jsonData").val(jsonStr);
+                                
+                        		$.ajax({
+                        			url : "/erp/gTest/grid_test",
+                        	        type : "POST",
+                        	        data : $("#pform").serialize(),
+                        	        async : true,
+                        	        success : function(data) {
+                        	        	MsgManager.alertMsg("INF001");
+                        				fn_loadGridList();
+                        	        }
+                        		});
+                            }
+                        })
+                        
+                        
+                        //삭제
+                          toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn4") {
+                            	for(var i = mygrid.getRowsNum(); i > 0; i--){
+	                            	
+	                            	if(mygrid.isDelRows(i)) {
+	           		
+	                        		    var jsonStr = mygrid.getJsonMultiRowDelete(i);
+	                        		    alert(jsonStr);
+	                        			if (jsonStr == null || jsonStr.length <= 0) return;
+										
+	                    				$("#jsonData").val(jsonStr);
+	                        	        $.ajax({
+	                        				url : "/erp/gTest/grid_test",
+	                        		        type : "POST",
+	                        		        data : $("#pform").serialize(),
+	                        		        async : true,
+	                        		        success : function(data) {
+	                        		        	//MsgManager.alertMsg("INF003");
+	                        					//fn_loadGridList();
+	                        		        }
+	                        			});
+	                        	        
+	                        		}else {
+	                        			MsgManager.alertMsg("WRN002");
+	                        		}
+                            	}
+                            }
+                        })
+                        
+                        /*
+                           toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn4") {
+                        			if(!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?	
+                        				return;
+                        			}
+                        			
+                        		    var jsonStr = mygrid.getJsonMultiRowDelete();
+                        			if (jsonStr == null || jsonStr.length <= 0) return;
 
+                    				$("#jsonData").val(jsonStr);
+                        	        $.ajax({
+                        				url : "/erp/gTest/grid_test",
+                        		        type : "POST",
+                        		        data : $("#pform").serialize(),
+                        		        async : true,
+                        		        success : function(data) {
+                        		        	MsgManager.alertMsg("INF003");
+                        					fn_loadGridList();
+                        		        }
+                        			});
+                        	        
+                        		}else {
+                        			MsgManager.alertMsg("WRN002");
+                        		}
+                        })
+                        */
+                
+                        //한줄삭제
+                           toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn6") {
+                            	var rodIdx = mygrid.getSelectedRowId();
+                            	if(mygrid.isDelRows(rodIdx)) {
+                        			if(!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?	
+                        				return;
+                        			} else {
+                        			
+                        				if(!mygrid.chkUnsavedRows()) {
+                        					return;
+                        				}
+                        			}
+                        			
+                        		    var jsonStr = mygrid.getJsonRowDelete(rodIdx);
+                        			if (jsonStr == null || jsonStr.length <= 0) return;
+
+                    				$("#jsonData").val(jsonStr);
+                        	        $.ajax({
+                        				url : "/erp/gTest/grid_test",
+                        		        type : "POST",
+                        		        data : $("#pform").serialize(),
+                        		        async : true,
+                        		        success : function(data) {
+                        		        	MsgManager.alertMsg("INF003");
+                        					fn_loadGridList();
+                        		        }
+                        			});
+                        	        
+                        		}else {
+                        			MsgManager.alertMsg("WRN002");
+                        		}
+                            }
+                        })
+                                   
                         //조회
                         toolbar.attachEvent("onClick", function(id) {
                                 if (id == "btn1") {

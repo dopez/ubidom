@@ -30,15 +30,16 @@ dxGrid.prototype.addHeader = function(val){
 	this.headerType.push(val.type);
 };
 
-
 dxGrid.prototype.init = function() {
 	this.setHeader(this.headerName.join(","));
 	this.setColId(this.headerColId.join(","));
 	this.setColWidthP(this.headerWidth.join(","));
 	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
+	this.setColSort("str");
 	
 	this.dxObj.init();
+	
 	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
 	this.dxObj.setColumnHidden(colIdx, true);
 };
@@ -100,7 +101,7 @@ dxGrid.prototype.setColType = function(val) {
 };
 
 dxGrid.prototype.setColSort = function(val) {
-	var arrLenth = val.split(",");	
+	var arrLenth = val.split(",");
 	if(arrLenth.length==1) {
 		this.dxObj.setColSorting(this.getAutoVal(val));
 	} else {
@@ -246,7 +247,7 @@ dxGrid.prototype.getJsonUpdated = function(excludeCols) {
 		}
 	}
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-
+	
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -295,7 +296,7 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	}
 
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	
+	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -360,3 +361,137 @@ dxGrid.prototype.isSelRows = function(colIdx) {
 	}
 	return false;
 };
+
+dxGrid.prototype.isDelRows = function(rowIdx) {
+	if(rowIdx == null){
+		return false;
+	}
+	return true;
+};
+
+//한줄삭제 row delete 
+dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+    
+	chkIdx = chkIdx -1;
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
+		if(i == chkIdx) {
+		   var row = '{';
+			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+					colId = this.dxObj.getColumnId(j);
+					colVal = this.dxObj.cells2(chkIdx,j).getValue();
+
+						if(colId !="cudKey") {
+							row += '"' + colId + '": "' + colVal + '",';
+						} else {
+							row += '"' + colId + '": "' + actDelete + '",';
+						}
+				}
+				jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+		 }
+	 }
+	
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	
+	if(!gfn_checkXSS(jsonStr, true)) {
+		return null;
+	} else {
+		if (jsonStr.length > 0) {
+			jsonStr = '[' + jsonStr + ']';
+		} else {
+			MsgManager.alertMsg("WRN008");
+			return null;
+		}
+	}
+
+	return jsonStr;
+};
+
+dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	
+	for(var i = this.dxObj.getRowsNum(); i > 0; i--){
+	//	alert("i="+i+"chkIdx="+chkIdx);
+		if(i == chkIdx) {
+		   var row = '{';
+			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+					colId = this.dxObj.getColumnId(j);
+					colVal = this.dxObj.cells2(chkIdx-1,j).getValue();
+					
+						if(colId !="cudKey") {
+							row += '"' + colId + '": "' + colVal + '",';
+						} else {
+							row += '"' + colId + '": "' + actDelete + '",';
+						}
+				}
+				jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';			
+		 }
+	 }
+	
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+//	alert(jsonStr);
+	if(!gfn_checkXSS(jsonStr, true)) {
+		alert(1);
+		return null;
+	} else {
+		alert(2);
+		if (jsonStr.length > 0) {
+			jsonStr = '[' + jsonStr + ']';
+		} else {
+			alert(2);
+			MsgManager.alertMsg("WRN008");
+			return null;
+		}
+	}
+
+	return jsonStr;
+};
+
+
+//멀티삭제 MULTI DELETE 
+/*dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
+		   var row = '{';
+			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+					colId = this.dxObj.getColumnId(j);
+					colVal = this.dxObj.cells2(i,j).getValue();
+
+						if(colId !="cudKey") {
+							row += '"' + colId + '": "' + colVal + '",';
+						} else {
+							row += '"' + colId + '": "' + actDelete + '",';
+						}
+				}
+				jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+				
+	 }
+	
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	
+	if(!gfn_checkXSS(jsonStr, true)) {
+		return null;
+	} else {
+		if (jsonStr.length > 0) {
+			jsonStr = '[' + jsonStr + ']';
+		} else {
+			MsgManager.alertMsg("WRN008");
+			return null;
+		}
+	}
+
+	return jsonStr;
+};*/

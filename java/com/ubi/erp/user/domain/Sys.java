@@ -35,6 +35,7 @@ public class Sys implements Serializable
 	private String useYn;
 	private Date createDate;
 	private String creator;
+	
 	private Date editDate;
 	private String editor;
 	private String cudKey;
