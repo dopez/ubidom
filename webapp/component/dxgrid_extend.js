@@ -30,6 +30,7 @@ dxGrid.prototype.addHeader = function(val){
 	this.headerType.push(val.type);
 };
 
+
 dxGrid.prototype.init = function() {
 	this.setHeader(this.headerName.join(","));
 	this.setColId(this.headerColId.join(","));

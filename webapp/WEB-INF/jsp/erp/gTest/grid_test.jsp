@@ -17,111 +17,23 @@
 
                         mygrid = new dxGrid(subLayout.cells("a"), false);
 
-                    	mygrid.addHeader({name:"품목코드", 	colId:"item_code", 		width:"15", align:"center", type:"ed"});
-                    	mygrid.addHeader({name:"품목명", 		colId:"item_name", 	width:"15", align:"center", type:"ed"});
-                    	mygrid.addHeader({name:"규격", 		colId:"item_size", 	width:"15", align:"center", type:"ed"});
-/*                     	mygrid.addHeader({name:"편집", 		colId:"editStat", 	width:"5", 	align:"center", type:"ro"});
-                    	mygrid.addHeader({name:"삭제", 		colId:"chk", 		width:"5", 	align:"center", type:"ch"});
-                    	mygrid.addHeader({name:"시스템코드", 	colId:"sysCd", 		width:"10", align:"center", type:"ed"});
-                    	mygrid.addHeader({name:"시스템명", 	colId:"sysNm", 		width:"*", 	align:"center", type:"ed"});
-                    	mygrid.addHeader({name:"표시순서", 	colId:"viewIdx", 	width:"10", align:"center", type:"ed"});
-                    	mygrid.addHeader({name:"사용여부", 	colId:"useYn", 		width:"10", align:"center", type:"coro"});
-                    	mygrid.addHeader({name:"생성일", 		colId:"strCdate", 	width:"15", align:"center", type:"ro"});
-                    	mygrid.addHeader({name:"생성자", 		colId:"strCuser", 	width:"15", align:"center", type:"ro"}); */
+                    	mygrid.addHeader({name:"품목코드", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
+                    	mygrid.addHeader({name:"품목명", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
+                    	mygrid.addHeader({name:"규격", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
                     	mygrid.setColSort("str");	
-                    	mygrid.setUserData("","pk","item_code");
+                    	mygrid.setUserData("","pk","itemCode");
                     	mygrid.init();
-                        /* 
-                        gridMain = subLayout.cells("a").attachGrid();
-                        gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //col 9
-                        gridMain.setHeader("구분,대분류,중분류,소분류,품목코드,품목명,규격,단위,포장단위", null, []);
-                        gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
-                        gridMain.setColAlign("center,center,center,center,left,left,left,center,center");
-                        gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                        gridMain.setColSorting("str,str,str,str,str,str,str,str,str");
-                        gridMain.init(); */
-                        
-                        
-                        //항목추가
-                        toolbar.attachEvent("onClick", function(id) {
-                            if (id == "btn5") {
-                            	var totalColNum = mygrid.getColumnCount();
-                        		var item_code = mygrid.getColIndexById('item_code');
-                        		var data = new Array(totalColNum);
-                        		data[item_code] = 'TE5T';
 
-                        		
-                        		mygrid.addRow(data, 0, 2);
-                            }
-                        })
-                        
-                        //항목삭제
-                        toolbar.attachEvent("onClick", function(id) {
-                            if (id == "btn6") {
-
-                                if (mygrid.isSelRows(1)) {
-                                    if (!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?
-                                        return;
-                                    } else {
-                                        if (!mygrid.chkUnsavedRows()) {
-                                            return;
-                                        }
-                                    }
-                                    var jsonStr = mygrid.getJsonChecked(1);
-                                    if (jsonStr == null || jsonStr.length <= 0) return;
-
-                                    $("#jsonData").val(jsonStr);
-                                    $.ajax({
-                                        url: "/erp/gTest/grid_test",
-                                        type: "POST",
-                                        data: $("#pform").serialize(),
-                                        async: true,
-                                        success: function(data) {
-                                            alert(123);
-                                        	//MsgManager.alertMsg("INF003");
-                                            fn_loadGridList();
-                                        }
-                                    });
-                                } else {
-                                    //MsgManager.alertMsg("WRN002");
-                                    alert(345);
-                                }
-                            }
-                        })
-                        
                         //조회
                         toolbar.attachEvent("onClick", function(id) {
                                 if (id == "btn1") {
                                 	fn_loadGridList();
                                 }
                             })
-                            
-                        //저장
-                        toolbar.attachEvent("onClick", function(id) {
-                            if (id == "btn3") {
-                            	var jsonStr = mygrid.getJsonUpdated();
-                        		if (jsonStr == null || jsonStr.length <= 0) return;
-                        		
-                                $("#jsonData").val(jsonStr);
-                                
-                        		$.ajax({
-                        			url : "/erp/gTest/grid_test",
-                        	        type : "POST",
-                        	        data : $("#pform").serialize(),
-                        	        async : true,
-                        	        success : function(data) {
-                        	        	MsgManager.alertMsg("INF001");
-                        				fn_loadGridList();
-                        	        }
-                        		});
-                            }
-                        })
-                        
-                        
-                        
+
                     })
             function fn_loadGridList() {
-                gfn_gridLoad("/erp/gTest/grid_test", {}, mygrid, fn_setCount);
+                gfn_gridLoad("/erp/gTest", {}, mygrid, fn_setCount);
             }
             function fn_setCount() {
             	$("#totalCount").text(mygrid.getRowsNum());

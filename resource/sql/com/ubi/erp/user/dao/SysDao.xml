@@ -6,7 +6,7 @@
 	<resultMap id="SysMap" type="Sys"/>
 
 	<select id="selSys" statementType="CALLABLE">
-		{call SP_SEL_SYS(#{rst, mode=OUT, jdbcType=CURSOR, resultMap=SysMap, javaType=ResultSet})}
+		{call SP_SEL_SYS(#{V_NAME},#{rst, mode=OUT, jdbcType=CURSOR, resultMap=SysMap, javaType=ResultSet})}
 	</select>
   
   	<!--select id="selSys" resultType="Sys">
