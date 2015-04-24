@@ -158,3 +158,28 @@ function gfn_load_popup(subject,view_path){
 	w1.attachURL("/erp/popup/"+view_path+".do");
 	return w1;
 }
+function gfn_big_load_popup(width,height,subject,view_path){
+	var w1;
+	var eleId = "container";
+	dhxWins = new dhtmlXWindows();
+	dhxWins.attachViewportTo(eleId);
+		
+	w1 = dhxWins.createWindow(eleId, 50, 80, width, height);
+	     dhxWins.window(eleId).setText(subject);
+	// iframe, get
+	w1.attachURL("/erp/popup/"+view_path+".do");
+	return w1;
+}
+
+function gfn_sub_load_popup(eleId,subject,view_path){
+	var w1;
+	var eleId = eleId;
+	dhxWins = new dhtmlXWindows();
+	dhxWins.attachViewportTo(eleId);
+		
+	w1 = dhxWins.createWindow(eleId, 50, 80, width, height);
+	     dhxWins.window(eleId).setText(subject);
+	// iframe, get
+	w1.attachURL("/erp/popup/"+view_path+".do");
+	return w1;
+}

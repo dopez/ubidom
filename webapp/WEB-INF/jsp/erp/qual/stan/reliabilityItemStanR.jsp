@@ -18,11 +18,11 @@ $(document).ready(function(){
 	gridMain = uClayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,등록자,종류,항목,#cspan,세부내역,코드",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.attachHeader("#rspan,#rspan,#rspan,한글,영문,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;","text-align:center;"]);
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,center,center,left,center,left");
 	gridMain.setColTypes("ron,ro,coro,coro,ed,coro,ro");

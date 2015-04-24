@@ -16,15 +16,20 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,접수일자,시험담당자,결과통보일자,의뢰일자,회사,소속,성명,목적/용도,요청일,완료일,설비,위치,약품,시료명,시료수량,시료처리,결과공유,요구사항",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,center,center,left,left,left,left,center,center,left,left,left,left,right,left,left,left");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ro,ro");
-	gridMain.setColSorting("int,date,str,date,date,str,str,str,str,date,date,str,str,str,str,int,str,str,str");
+	gridMain.setHeader("No,접수일자,시험담당자,결과통보일자,의뢰일자,회사,소속,성명,목적/용도,요청일,"+
+			           "완료일,설비,위치,약품,시료명,시료수량,시료처리,결과공유,요구사항",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,center,center,left,left,left,left,center,"+
+			             "center,left,left,left,left,right,left,left,left");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
+			             "ro,ro,ro,ro,ro,ron,ro,ro,ro");
+	gridMain.setColSorting("int,date,str,date,date,str,str,str,str,date,"+
+			               "date,str,str,str,str,int,str,str,str");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
