@@ -15,15 +15,21 @@ $(document).ready(function(){
 
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,의뢰번호,담당,구분,고객,품목코드,품명,포장,단위,수량,단가,금액,출하일자,마감",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,right,left,left,left,left,left,left,left,right,right,right,center,center");
-	gridMain.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,ro,ra");
-	gridMain.setColSorting("int,int,str,str,str,str,str,str,str,int,int,int,date,na");
-	gridMain.attachFooter(",합계,,,,,,,,,,,,");
+	gridMain.setHeader("No,의뢰번호,담당,구분,고객,품목코드,품명,포장,단위,수량,"+
+			           "단가,금액,출하일자,마감",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100");
+	gridMain.setColAlign("center,right,left,left,left,left,left,left,left,right,"+
+			             "right,right,center,center");
+	gridMain.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ron,"+
+			             "ron,ron,ro,ra");
+	gridMain.setColSorting("int,int,str,str,str,str,str,str,str,int,"+
+			               "int,int,date,na");
+	gridMain.attachFooter(",합계,,,,,,,,,"+
+			              ",,,");
 	gridMain.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -32,21 +38,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

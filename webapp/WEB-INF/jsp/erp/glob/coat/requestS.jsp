@@ -16,8 +16,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,모재코드,품명,포장,단위,수량,단가,금액,납기일자,납품장소",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,left,right,right,right,center,left");
 	gridMain.setColTypes("ron,ro,ro,ro,ro,edn,edn,ro,dhxCalendarA,ed");
@@ -33,7 +33,7 @@ $(document).ready(function(){
 	
 	toolbar.attachEvent("onClick", function(id) {
 		if(id == "btn5"){
-			fn_row_insert();
+			gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,",1);
 		}
 	});
 	
@@ -41,25 +41,6 @@ $(document).ready(function(){
 		gfn_load_popup('모재코드','common/metalCodePOP');
 	}
 });
-
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMain.addRow(gridMain.getUID(),"1,,,,,,,,,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

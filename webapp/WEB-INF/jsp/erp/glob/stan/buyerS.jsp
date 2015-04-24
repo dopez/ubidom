@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("코드,Buyer명",null,
-			["text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100");
 	gridMain.setColAlign("left,left");
 	gridMain.setColTypes("ro,ro");
@@ -26,18 +26,6 @@ $(document).ready(function(){
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

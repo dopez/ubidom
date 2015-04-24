@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,부서코드,부서명",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100");
 	gridMst.setColAlign("center,left,left");
 	gridMst.setColTypes("ron,ro,ro");
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,제품개발내용",null,
-			["text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,200");
 	gridDtl.setColAlign("center,left");
 	gridDtl.setColTypes("ron,ed");
@@ -62,7 +62,7 @@ $(document).ready(function(){
 	toolbar1.attachEvent("onClick", function(id) {
 		if(tbr == 'toolbar1'){
 		if(id == "btn5"){
-			fn_row_insertSub1();
+			gridMst.addRow(gridMst.getUID(),"1,,",1);
 		  }
 		}
 	});
@@ -87,30 +87,6 @@ $(document).ready(function(){
 	     }	
 	 } 
 } 
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insertSub1(){
-	gridMst.addRow(gridMst.getUID(),"1,,",1);
-}
-function fn_row_deleteSub1(){
-	
-}
-function fn_row_insertSub2(){
-	
-}
-function fn_row_deleteSub2(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,16 +16,23 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,작업일자,발행일자,고객,품목코드,품명,규격,수량,공급가액,세액,구분,청구/영수,인쇄",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,center,left,left,left,left,right,right,right,left,left,center");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ro,ro,ra");
-	gridMain.setColSorting("int,date,date,str,str,str,str,int,int,int,str,str,na");
-	gridMain.attachFooter(",일계,,,,,,,,,,,");
-	gridMain.attachFooter(",합계,,,,,,,,,,,");
+	gridMain.setHeader("No,작업일자,발행일자,고객,품목코드,품명,규격,수량,공급가액,세액,"+
+			           "구분,청구/영수,인쇄",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100");
+	gridMain.setColAlign("center,center,center,left,left,left,left,right,right,right,"+
+			             "left,left,center");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			             "ro,ro,ra");
+	gridMain.setColSorting("int,date,date,str,str,str,str,int,int,int,"+
+			               "str,str,na");
+	gridMain.attachFooter(",일계,,,,,,,,,"+
+			              ",,");
+	gridMain.attachFooter(",합계,,,,,,,,,"+
+			              ",,");
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -35,15 +42,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
