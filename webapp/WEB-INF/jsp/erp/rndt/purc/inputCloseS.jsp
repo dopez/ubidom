@@ -16,44 +16,31 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("공급업체,입고일자,품목코드,품명,규격,단위,입고수량,단가,공급가,부가세,금액계,마감",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("left,center,left,left,left,left,right,right,right,right,right,center");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,edn,ron,ron,ron,ron,ra");
-	gridMain.setColSorting("str,date,str,str,str,str,int,int,int,int,int,na");
-	gridMain.attachFooter("소계,,,,,,0,,0,0,0,");
-	gridMain.attachFooter("합계,,,,,,0,,0,0,0,");
+	gridMain.setHeader("공급업체,입고일자,품목코드,품명,규격,단위,입고수량,단가,공급가,부가세,"+
+			           "금액계,마감",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100");
+	gridMain.setColAlign("left,center,left,left,left,left,right,right,right,right,"+
+			             "right,center");
+	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,edn,ron,ron,ron,"+
+			             "ron,ra");
+	gridMain.setColSorting("str,date,str,str,str,str,int,int,int,int,"+
+			               "int,na");
+	gridMain.attachFooter("소계,,,,,,0,,0,0,"+
+			              "0,");
+	gridMain.attachFooter("합계,,,,,,0,,0,0,"+
+			              "0,");
 	gridMain.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupSupplyComCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

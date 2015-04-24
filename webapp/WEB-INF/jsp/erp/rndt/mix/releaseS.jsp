@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("NO,제품코드,제품명,배합수량,배합중량,Batch,출고중량",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,right,right,left,right");
 	gridMain.setColTypes("ron,ro,ro,ron,ron,ro,edn");
@@ -29,24 +29,9 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+    var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

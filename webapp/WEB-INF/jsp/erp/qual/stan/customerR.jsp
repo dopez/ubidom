@@ -31,15 +31,6 @@ $(document).ready(function(){
 			               "str,str,str,str,str,str,str");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

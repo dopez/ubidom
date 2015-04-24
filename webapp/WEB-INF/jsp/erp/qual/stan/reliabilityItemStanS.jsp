@@ -28,24 +28,6 @@ $(document).ready(function(){
 	gridMain.init();	
 
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

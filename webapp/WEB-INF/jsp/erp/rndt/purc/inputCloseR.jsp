@@ -16,15 +16,23 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("마감일자,공급업체,입고일자,품목코드,품명,규격,단위,수량,공급가,부가세,금액계",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,center,left,left,left,left,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron");
-	gridMain.setColSorting("date,str,date,str,str,str,str,int,int,int,int");
-	gridMain.attachFooter(",소계,,,,,,0,0,0,0");
-	gridMain.attachFooter(",합계,,,,,,0,0,0,0");
+	gridMain.setHeader("마감일자,공급업체,입고일자,품목코드,품명,규격,단위,수량,공급가,부가세,"+
+			           "금액계",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("center,left,center,left,left,left,left,right,right,right,"+
+			             "right");
+	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			             "ron");
+	gridMain.setColSorting("date,str,date,str,str,str,str,int,int,int,"+
+			               "int");
+	gridMain.attachFooter(",소계,,,,,,0,0,0,"+
+			              "0");
+	gridMain.attachFooter(",합계,,,,,,0,0,0,"+
+			              "0");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -34,18 +42,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
-function fn_popupSupplyComCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

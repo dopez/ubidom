@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("공급업체,품목코드,품명,규격,단위,발주수량,미입고수량,마감",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,left,left,left,right,right,center");
 	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ra");
@@ -28,30 +28,9 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+    var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupSupplyComCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

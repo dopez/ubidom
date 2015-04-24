@@ -17,49 +17,33 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("품목코드,품명,규격,단위,수량,반품사유",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,left,left,right,left");
 	gridMain.setColTypes("ro,ro,ro,ro,edn,ed");
 	gridMain.setColSorting("str,str,str,str,int,str");
 	gridMain.init();	
 	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				fn_row_insert();
-			}
-		});
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMain.addRow(gridMain.getUID(),",,,,,",1);
+		  }
+	});
 		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==0){
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==0){
 			gfn_load_popup('품목코드','common/itemCodePOP');
-			}
-		}
+		  }
+	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMain.addRow(gridMain.getUID(),",,,,,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

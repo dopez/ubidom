@@ -16,16 +16,23 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("NO,일자,작업자,제품코드,제품명,제품재고,재공재고,적정재고,미출하수량,과부족수량,배합중량,생산예정수량",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,date,str,str,str,int,int,int,int,int,int,int");
-	gridMain.attachFooter(",일계,,,,0,0,0,0,0,0,0");
-	gridMain.attachFooter(",합계,,,,0,0,0,0,0,0,0");
+	gridMain.setHeader("NO,일자,작업자,제품코드,제품명,제품재고,재공재고,적정재고,미출하수량,과부족수량,"+
+			           "배합중량,생산예정수량",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100");
+	gridMain.setColAlign("center,center,left,left,left,right,right,right,right,right,"+
+			             "right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,"+
+			             "ron,ron");
+	gridMain.setColSorting("int,date,str,str,str,int,int,int,int,int,"+
+			               "int,int");
+	gridMain.attachFooter(",일계,,,,0,0,0,0,0,"+
+			              "0,0");
+	gridMain.attachFooter(",합계,,,,0,0,0,0,0,"+
+			              "0,0");	
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -35,15 +42,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,14 +16,19 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("NO,개선결과등록일자,배정일자,관리번호,고객,요청자,품목코드,품명,사용설비,개선전상태,개선후상태,담당자,납기일자,완료일자",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,center,right,left,left,left,left,left,left,left,left,center,center");
-	gridMain.setColTypes("ron,ro,ro,ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-	gridMain.setColSorting("int,date,date,int,str,str,str,str,str,str,str,str,date,date");
+	gridMain.setHeader("NO,개선결과등록일자,배정일자,관리번호,고객,요청자,품목코드,품명,사용설비,개선전상태,"+
+			           "개선후상태,담당자,납기일자,완료일자",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100");
+	gridMain.setColAlign("center,center,center,right,left,left,left,left,left,left,"+
+			             "left,left,center,center");
+	gridMain.setColTypes("ron,ro,ro,ron,ro,ro,ro,ro,ro,ro,"+
+			             "ro,ro,ro,ro");
+	gridMain.setColSorting("int,date,date,int,str,str,str,str,str,str,"+
+			               "str,str,date,date");
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -60,14 +65,14 @@ function fn_excel(){
                           </div>
                      </div>
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
-                        <div class="col-sm-4 col-md-4">
-                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
-                          </div>
-                          <div class="col-sm-2 col-md-2">
-                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')"> 
-                          </div>
-                       </div> 
+                     <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-10 col-md-10">
+                           <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+                            <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')"> 
+                        </div>
+                    </div> 
                  </div>              
 			</div>
 		</div>
