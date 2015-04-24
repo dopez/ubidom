@@ -17,7 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("부서,직급,성명,생년월일,직전검진일자,검진일자",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,left,center,center,center");
 	gridMain.setColTypes("ro,ro,ro,ro,ro,dhxCalendarA");
@@ -30,21 +31,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

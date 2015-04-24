@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("부서,주기(년)",null,
-			["text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100");
 	gridMain.setColAlign("left,right");
 	gridMain.setColTypes("ro,ron");
@@ -31,15 +31,6 @@ $(document).ready(function(){
     var t = new Date().getFullYear();
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

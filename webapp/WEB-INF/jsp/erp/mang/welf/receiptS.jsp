@@ -16,13 +16,19 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("신청일자,부서,직급,성명,현재포인트,신청포인트,신청항목,관련증빙,가부,부적합내용,접수",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,right,right,left,center,center,left,center");
-	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,ro,ro,ch,ed,ra");
-	gridMain.setColSorting("date,str,str,str,int,int,str,str,na,str,na");
+	gridMain.setHeader("신청일자,부서,직급,성명,현재포인트,신청포인트,신청항목,관련증빙,가부,부적합내용,"+
+			           "접수",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("center,left,left,left,right,right,left,center,center,left,"+
+			             "center");
+	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,ro,ro,ch,ed,"+
+			             "ra");
+	gridMain.setColSorting("date,str,str,str,int,int,str,str,na,str,"+
+			               "na");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]);
@@ -31,24 +37,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

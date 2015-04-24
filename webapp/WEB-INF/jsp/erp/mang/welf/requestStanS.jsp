@@ -17,11 +17,11 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("분야,항목,수혜대상,#cspan,#cspan,세부항목,필수사항",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
 	gridMain.attachHeader("#rspan,#rspan,본인,가족,자녀,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,center,center,center,left,left");
 	gridMain.setColTypes("ed,ed,ra,ra,ra,ed,ed");
@@ -34,24 +34,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,8 +16,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("부서,직급,성명,근속년수포인트,직급포인트,사용포인트,사용가능포인트,금액환산",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,130,100,100,130,100");
 	gridMain.setColAlign("left,left,left,right,right,right,right,right");
 	gridMain.setColTypes("ro,ro,ro,ron,ron,ron,ron,ron");
@@ -25,15 +25,6 @@ $(document).ready(function(){
 	gridMain.attachFooter("계,,,,,,,");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

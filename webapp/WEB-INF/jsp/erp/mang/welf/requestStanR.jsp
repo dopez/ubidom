@@ -17,11 +17,11 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("기준일자,분야,항목,수혜대상,#cspan,#cspan,세부항목,필수사항",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.attachHeader("#rspan,#rspan,#rspan,본인,가족,자녀,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,center,center,center,left,left");
 	gridMain.setColTypes("ro,ro,ro,ra,ra,ra,ro,ro");
@@ -35,15 +35,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

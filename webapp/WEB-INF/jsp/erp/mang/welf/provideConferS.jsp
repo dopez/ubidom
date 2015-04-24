@@ -16,23 +16,31 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("신청일자,부서,직급,성명,현재포인트,신청포인트,선택,결재,#cspan,#cspan,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,작성,검토,검토,승인",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,70,70,70,70");
-	gridMst.setColAlign("center,left,left,left,right,right,center,center,center,center,center");
-	gridMst.setColTypes("ro,ro,ro,ro,ron,ron,ra,ro,ro,ro,ro");
-	gridMst.setColSorting("date,str,str,str,int,int,na,str,str,str,str");
+	gridMst.setHeader("신청일자,부서,직급,성명,현재포인트,신청포인트,선택,결재,#cspan,#cspan,"+
+			          "#cspan",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
+	gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,작성,검토,검토,"+
+			             "승인",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,70,70,70,"+
+			              "70");
+	gridMst.setColAlign("center,left,left,left,right,right,center,center,center,center,"+
+			            "center");
+	gridMst.setColTypes("ro,ro,ro,ro,ron,ron,ra,ro,ro,ro,"+
+			            "ro");
+	gridMst.setColSorting("date,str,str,str,int,int,na,str,str,str,"+
+			              "str");
 	gridMst.init();	
 
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("접수일자,신청일자,현재포인트,신청포인트,신청항목,관련증빙",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
     gridDtl.setInitWidths("100,100,100,100,100,100");
 	gridDtl.setColAlign("center,center,right,right,left,center");
 	gridDtl.setColTypes("ro,ro,ron,ron,ro,ro");
@@ -46,24 +54,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

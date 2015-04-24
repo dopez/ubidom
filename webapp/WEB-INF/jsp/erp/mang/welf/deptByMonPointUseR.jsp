@@ -16,15 +16,22 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("부서,이월포인트,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,합계,잔여포인트",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,70,70,70,70,70,70,70,70,70,70,70,70,100,100");
-	gridMain.setColAlign("left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
-	gridMain.attachFooter("합계,,,,,,,,,,,,,,,");
+	gridMain.setHeader("부서,이월포인트,1월,2월,3월,4월,5월,6월,7월,8월,"+
+			           "9월,10월,11월,12월,합계,잔여포인트",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,70,70,70,70,70,70,70,70,"+
+			               "70,70,70,70,100,100");
+	gridMain.setColAlign("left,right,right,right,right,right,right,right,right,right,"+
+			             "right,right,right,right,right,right");
+	gridMain.setColTypes("ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("str,int,int,int,int,int,int,int,int,int,"+
+			               "int,int,int,int,int,int");
+	gridMain.attachFooter("합계,,,,,,,,,,"+
+			              ",,,,,");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -34,15 +41,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

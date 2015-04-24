@@ -17,7 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("부서,직급,성명,생년월일,직전검진일자,검진일자",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,left,center,center,center");
 	gridMain.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -31,15 +32,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

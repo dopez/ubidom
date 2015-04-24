@@ -16,15 +16,23 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("접수일자,신청일자,부서,직급,성명,현재포인트,신청포인트,신청항목,관련증빙,가부,부적합내용",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,right,right,left,center,center,left");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ron,ro,ch,ro");
-	gridMain.setColSorting("date,date,str,str,str,int,int,str,na,na,str");
-	gridMain.attachFooter("일계,,,,,,,,,,");
-	gridMain.attachFooter("합계,,,,,,,,,,");
+	gridMain.setHeader("접수일자,신청일자,부서,직급,성명,현재포인트,신청포인트,신청항목,관련증빙,가부,"+
+			           "부적합내용",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("center,center,left,left,left,right,right,left,center,center,"+
+			             "left");
+	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ron,ro,ch,"+
+			             "ro");
+	gridMain.setColSorting("date,date,str,str,str,int,int,str,na,na,"+
+			               "str");
+	gridMain.attachFooter("일계,,,,,,,,,,"+
+			              "");
+	gridMain.attachFooter("합계,,,,,,,,,,"+
+			              "");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -34,15 +42,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

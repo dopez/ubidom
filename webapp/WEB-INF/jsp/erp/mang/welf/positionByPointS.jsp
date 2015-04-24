@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("직급,기본포인트",null,
-			["text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100");
 	gridMain.setColAlign("left,right");
 	gridMain.setColTypes("ro,ron");
@@ -30,18 +30,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
