@@ -9,5 +9,33 @@
 		 {call SP_ITEM_CODE_SERCH(#{P_NAME},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=TestMap, javaType=ResultSet})}	
 	</select>
  
+<!--   	  	<insert id="insTest" parameterType="Test" statementType="CALLABLE"> -->
+<!--   	  	<insert id="insTest" statementType="CALLABLE">
+  		{call SP_ITEM_CODE_SAVE(#{pCode,jdbcType=VARCHAR2},#{pName,jdbcType=VARCHAR2},#{pSize,jdbcType=VARCHAR2})}
+  		</insert> -->
+  	  	<insert id="insTest" statementType="CALLABLE">
+  		    INSERT INTO TBL_ITEM_CODE(ITEM_CODE, ITEM_NAME, ITEM_SIZE) 
+          VALUES (#{pCode},#{pName},#{pSize})
+  		</insert>
   	
+  	<!-- <update id="updSys" parameterType="Sys">
+  		<![CDATA[
+        UPDATE TBL_SYS_MT SET 
+  			SYS_NM = #{sysNm}, 
+  			VIEW_IDX = #{viewIdx},
+  			USE_YN = #{useYn}, 
+  			EDIT_DATE = SYSDATE,
+  			EDITOR = #{editor}
+  		WHERE
+  			SYS_CD = #{sysCd}
+		]]>
+  	</update>
+  	
+  	<update id="delSys" parameterType="Sys">
+  		<![CDATA[
+  		DELETE FROM TBL_SYS_MT 
+  		WHERE
+  			SYS_CD = #{sysCd}
+        ]]>
+  	</update> -->
 </mapper>
