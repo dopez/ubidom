@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,입고일자,모재코드,모재명,포장,단위,세척전재고,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,center,left,left,left,left,right,center");
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ra");
@@ -26,54 +26,37 @@ $(document).ready(function(){
 	gridMst.init();	
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("세척전재고내역");
-	
-	
+
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,모재코드,모재명,포장,단위,세척전재고,세척,건조,선별,#cspan,#cspan,세척후재고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품,불량,계,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,50,50,50,100");
-	gridDtl.setColAlign("center,left,left,left,left,right,center,center,right,right,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,ch,ch,edn,edn,ron,ron");
-	gridDtl.setColSorting("int,str,str,str,str,int,na,na,int,int,int,int");
+	gridDtl.setHeader("No,모재코드,모재명,포장,단위,세척전재고,세척,건조,선별,#cspan,"+
+			          "#cspan,세척후재고",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품,불량,"+
+			             "계,#rspan",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,50,50,"+
+			              "50,100");
+	gridDtl.setColAlign("center,left,left,left,left,right,center,center,right,right,"+
+			            "right,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,ch,ch,edn,edn,"+
+			            "ron,ron");
+	gridDtl.setColSorting("int,str,str,str,str,int,na,na,int,int,"+
+			              "int,int");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("세척내역");
 
-	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupEquiCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

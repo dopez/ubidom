@@ -16,41 +16,56 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,지시일자,요청부서,담당,설비,모재코드,모재명,포장,단위,약품,수량,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,center,left,left,left,left,left,left,left,left,right,center");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ra");
-	gridMst.setColSorting("int,date,str,str,str,str,str,str,str,str,int,na");
+	gridMst.setHeader("No,지시일자,요청부서,담당,설비,모재코드,모재명,포장,단위,약품,"+
+			          "수량,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100");
+	gridMst.setColAlign("center,center,left,left,left,left,left,left,left,left,"+
+			            "right,center");
+	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
+			            "ron,ra");
+	gridMst.setColSorting("int,date,str,str,str,str,str,str,str,str,"+
+			              "int,na");
 	gridMst.init();	
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("생산지시내역");
-	
-	
+
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,설비,모재코드,모재명,포장,단위,약품,약품무게,#cspan,#cspan,수량,#cspan,#cspan,조건,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식,비고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,전,후,차이,양품,불량,계,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,50,50,50,50,50,50,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,left,left,left,right,right,right,right,right,right,left,right,right,right,right,right,right,right,left,left");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,edn,edn,ron,ro,edn,edn,edn,edn,edn,edn,edn,ed,ed");
-	gridDtl.setColSorting("int,str,str,str,str,str,str,int,int,int,int,int,int,na,int,int,int,int,int,int,int,str,str");
+	gridDtl.setHeader("No,설비,모재코드,모재명,포장,단위,약품,약품무게,#cspan,#cspan,"+
+			          "수량,#cspan,#cspan,조건,온도,진공도,에칭,어시스트,두께,Rate,"+
+			          "에칭,방식,비고",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,전,후,차이,"+
+			             "양품,불량,계,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
+			             "#rspan,#rspan,#rspan",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,50,50,50,"+
+			              "50,50,50,100,100,100,100,100,100,100,"+
+			              "100,100,100");
+	gridDtl.setColAlign("center,left,left,left,left,left,left,right,right,right,"+
+			            "right,right,right,left,right,right,right,right,right,right,"+
+			            "right,left,left");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			            "edn,edn,ron,ro,edn,edn,edn,edn,edn,edn,"+
+			            "edn,ed,ed");
+	gridDtl.setColSorting("int,str,str,str,str,str,str,int,int,int,"+
+			              "int,int,int,na,int,int,int,int,int,int,"+
+			              "int,str,str");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("생산일지내역");
-
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -58,24 +73,6 @@ $(document).ready(function(){
 	    var t = dateformat(new Date());
 		byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

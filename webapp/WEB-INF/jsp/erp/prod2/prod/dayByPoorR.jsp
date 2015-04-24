@@ -16,15 +16,20 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,생산일자,설비,모재코드,모재명,포장,단위,약품,불량수량,조건,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,left,left,right,left,right,right,right,right,right,right,right,left");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ron,ro,ron,ron,ron,ron,ron,ron,ron,ro");
-	gridMain.setColSorting("int,date,str,str,str,str,str,str,int,na,int,int,int,int,int,int,int,str");
+	gridMain.setHeader("No,생산일자,설비,모재코드,모재명,포장,단위,약품,불량수량,조건,"+
+		               "온도,진공도,에칭,어시스트,두께,Rate,에칭,방식",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,left,left,left,left,left,right,left,"+
+			             "right,right,right,right,right,right,right,left");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ron,ro,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ro");
+	gridMain.setColSorting("int,date,str,str,str,str,str,str,int,na,"+
+			               "int,int,int,int,int,int,int,str");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -34,15 +39,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

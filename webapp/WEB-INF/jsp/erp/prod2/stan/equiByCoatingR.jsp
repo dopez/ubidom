@@ -16,14 +16,19 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,적용일자,설비,생산능력,인원,모재,약품명,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,right,right,left,left,right,right,right,right,right,right,right,left");
-	gridMain.setColTypes("ron,ro,ro,ron,ron,ro,ro,ron,ron,ron,ron,ron,ron,ron,ro");
-	gridMain.setColSorting("int,date,str,int,int,str,str,int,int,int,int,int,int,int,str");
+	gridMain.setHeader("No,적용일자,설비,생산능력,인원,모재,약품명,온도,진공도,에칭,"+
+			           "어시스트,두께,Rate,에칭,방식",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,right,right,left,left,right,right,right,"+
+			             "right,right,right,right,left");
+	gridMain.setColTypes("ron,ro,ro,ron,ron,ro,ro,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ro");
+	gridMain.setColSorting("int,date,str,int,int,str,str,int,int,int,"+
+			               "int,int,int,int,str");
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -34,18 +39,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_popupCustomerCode(){
-	
-}
-function fn_popupCharge(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

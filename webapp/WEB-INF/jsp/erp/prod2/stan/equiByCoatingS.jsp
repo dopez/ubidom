@@ -16,7 +16,8 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("설비코드,설비명",null,["text-align:center;","text-align:center;"]);
+	gridMst.setHeader("설비코드,설비명",null,
+			         ["text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100");
 	gridMst.setColAlign("left,left");
 	gridMst.setColTypes("ro,ro");
@@ -27,8 +28,8 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("c").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,약품명,온도,진공도,애칭,어시스트,두께,Rate,에칭,방식",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridDtl.setColAlign("center,left,left,right,right,right,right,right,right,left");
 	gridDtl.setColTypes("edn,ed,ed,edn,edn,edn,edn,edn,edn,ed");
@@ -43,30 +44,9 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupBaseMatr(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

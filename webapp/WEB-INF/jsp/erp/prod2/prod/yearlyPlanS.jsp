@@ -15,15 +15,20 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("모재코드,모재명,포장,단위,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,합계",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("left,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("str,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int");
+	gridMain.setHeader("모재코드,모재명,포장,단위,1월,2월,3월,4월,5월,6월,"+
+			           "7월,8월,9월,10월,11월,12월,합계",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100,100,100,100");
+	gridMain.setColAlign("left,left,left,left,right,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right");
+	gridMain.setColTypes("ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("str,str,str,str,int,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int");
 	gridMain.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -34,24 +39,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
