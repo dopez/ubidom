@@ -12,6 +12,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
+	layout.cells("b").setHeight(174);
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
@@ -61,32 +62,6 @@ function fn_search(){
 	               <input type="radio" name="sgubn" id="sgubn" value="2">만기일	     
  			     </div>
 			   </div>
-			   <div class="col-sm-4 col-md-4">
-               <label class="col-sm-6 col-md-6 control-label" for="textinput">
-			     발의일자 
-			   </label>
-			    <div class="col-sm-6 col-md-6">
-                    <div class="col-sm-10 col-md-10">
-                       <input name="biDate" id="biDate" type="text" value="" placeholder="" class="form-control input-xs">
-                    </div>
-                     <div class="col-sm-2 col-md-2">
-                       <input type="button" id="calpicker1" class="calicon form-control">
-                    </div>              
-                </div>
-             </div>
-              <div class="col-sm-4 col-md-4">
-               <label class="col-sm-6 col-md-6 control-label" for="textinput">
-			     전표일자 
-			   </label>
-			    <div class="col-sm-6 col-md-6">
-                    <div class="col-sm-10 col-md-10">
-                       <input name="jpDate" id="jpDate" type="text" value="" placeholder="" class="form-control input-xs">
-                    </div>
-                     <div class="col-sm-2 col-md-2">
-                       <input type="button" id="calpicker2" class="calicon form-control">
-                    </div>              
-                </div>
-             </div>
 		    </div>
 	     </div>
 	  </div> 
@@ -118,6 +93,40 @@ function fn_search(){
 			</div>
 		</div>
 	  </div>
+	   <div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+            <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			     발의일자 
+			</label>
+		    <div class="col-sm-2 col-md-2">
+                <div class="col-sm-10 col-md-10">
+                     <input name="biDate" id="biDate" type="text" value="" placeholder="" class="form-control input-xs">
+                </div>
+                <div class="col-sm-2 col-md-2">
+                     <input type="button" id="calpicker1" class="calicon form-control">
+                </div>              
+            </div>
+		 </div>
+	  </div>
+	</div>
+	 <div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+		    <label class="col-sm-2 col-md-2 control-label" for="textinput">
+			     전표일자 
+			</label>
+		    <div class="col-sm-2 col-md-2">
+               <div class="col-sm-10 col-md-10">
+                     <input name="jpDate" id="jpDate" type="text" value="" placeholder="" class="form-control input-xs">
+               </div>
+               <div class="col-sm-2 col-md-2">
+                      <input type="button" id="calpicker2" class="calicon form-control">
+               </div>              
+             </div>
+		 </div>
+	  </div>
+	</div>
      <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
