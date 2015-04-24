@@ -13,33 +13,40 @@ $(document).ready(function(){
 	
 
         //form//
-        layout.cells("b").attachObject("bootContainer2");
+        layout.cells("b").attachObject("bootContainer");
 
 
-	//grid	
 	
-	gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
-    gridMain.setHeader("No,의뢰번호,약품,제조LOT No,시료,코팅장비,위치,시험장비,시험자,비고");
+	
+	subLayout.cells("a").attachObject("bootContainer2");
+	subLayout.cells("a").showHeader();
+	subLayout.cells("a").setText("시험성적서")
     
-    gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,");
-    gridMain.setColAlign("center,center,center,center,center,center,center,center,center,center");
-    gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-    gridMain.setColSorting("int,str,str,str,str,str,str,str,str,str");
-    gridMain.init();
-	//calRangeDate
 	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	 calMain.loadUserLanguage("ko");
 	 calMain.hideTime();
 		var t = dateformat(new Date());
 		byId("stDate").value = t;
-
+		
 })
+		function fn_popup_reqNo(subject,view_path){
+        	var w2;
+        	var eleId = "container";
+        	dhxWins = new dhtmlXWindows();
+        	dhxWins.attachViewportTo(eleId);
+        		
+        	w2 = dhxWins.createWindow(eleId, 50, 80, 1020, 500);
+        	     dhxWins.window(eleId).setText(subject);
+        	// iframe, get
+        	w2.attachURL("/erp/popup/"+view_path+".do");
+        	return w2;
+        }
+
 
 </script>
         <div id="container" style="position: relative; width: 100%; height: 100%; ">
         </div>
-        <div id="bootContainer2">
+        <div id="bootContainer">
         <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain"
 		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
@@ -83,11 +90,19 @@ $(document).ready(function(){
 						의뢰번호 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text" value="" placeholder=""
-							class="form-control input-xs">
+							class="form-control input-xs" ondblclick="fn_popup_reqNo('의뢰번호','qual/testReportPOP')">
 					</div>
 				</div>
 			</div>
 		</div>
+	</form>
+	</div>
+</div>
+        <div id="bootContainer2">
+        <div class="container">
+	<form class="form-horizontal" id="frmMain" name="frmMain"
+		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
+                
 	</form>
 	</div>
 </div>

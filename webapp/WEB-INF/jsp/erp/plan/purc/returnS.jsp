@@ -34,7 +34,7 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
 
-                function page_popup(subject,view_path){
+                function page_popup(eleID,subject,view_path){
                 	var w2;
                 	var eleId = "container";
                 	dhxWins = new dhtmlXWindows();

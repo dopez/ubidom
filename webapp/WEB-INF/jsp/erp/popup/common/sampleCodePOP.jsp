@@ -7,7 +7,7 @@ var gridMain;
 var toolbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
-	//L/C종류 도우미
+	//코팅약품(제품)코드 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -16,7 +16,7 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,분류명",null,
+	gridMain.setHeader("코드,시료명",null,
 			["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("150,150");
 	gridMain.setColAlign("left,left");
@@ -29,11 +29,11 @@ $(document).ready(function(){
 <div id="bootContainer" style="position: relative;">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
-		   <label class="col-xs-6 control-label" id="poplabel" for="textinput">
-			 L/C종류
+		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
+			 시료명
 			</label>
 			<div class="col-xs-6">
-			  <input name="equiName" id="equiName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="drugName" id="drugName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

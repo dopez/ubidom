@@ -3,17 +3,17 @@
 <script type="text/javascript">
 var layout, toolbar, subLayout;
 var gridMain;
-var calStDate;
 $(document).ready(function() {
 
-	 Ubi.setContainer(4,[1,8,9],"1C"); //월별출하현황(집계)
+	 Ubi.setContainer(4,[1,8,9],"1C"); //월별수주현황(집계)
 	
-	 	layout = Ubi.getLayout();
+	 layout = Ubi.getLayout();
 	    toolbar = Ubi.getToolbar();
 	    subLayout = Ubi.getSubLayout();
 
 	    //form//
 	    layout.cells("b").attachObject("bootContainer2");
+	    layout.cells("b").setHeight(178);
 	    
 
 	    //grid	
@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 </script>
 <div id="container"
-	style="position: relative; width: 100%; height: 100%;">
+	style="position: relative; width: 100%; height: 100%; ">
 	</div>
 <div id="bootContainer2">
         <div class="container">
@@ -56,7 +56,7 @@ $(document).ready(function() {
 										id="stDate" value="">
 								</div>
 								<div class="col-sm-2 col-md-2">
-									<input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+								<input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
 								</div>
 						</div>
 						<label class="col-sm-1 col-md-1 control-label" for="textinput"
@@ -67,7 +67,7 @@ $(document).ready(function() {
 										id="edDate" value="">
 								</div>
 								<div class="col-sm-2 col-md-2">
-								<input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+									<input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
 								</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@ $(document).ready(function() {
 						고객 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text" value="" placeholder=""
-							class="form-control input-xs"ondblclick="gfn_load_popup('고객코드','common/customPOP')">
+							class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customPOP')">
 					</div>
 				</div>
 			</div>
@@ -102,17 +102,23 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="form-group form-group-sm">
 				<div class="col-sm-8 col-md-8">
+					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+						적용환율 </label>
+					<div class="col-sm-2 col-md-2">
+						<input name="" id="" type="text" value="" placeholder=""
+							class="form-control input-xs">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group form-group-sm">
+				<div class="col-sm-8 col-md-8">
                      <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-4 col-md-4">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="1" checked="checked">전체
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="2">내수
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="3">수출
-                                </div>
+                              <input type="radio" name="searchGbn" value="1" checked="checked">전체
+                              <input type="radio" name="searchGbn" value="2">내수
+                              <input type="radio" name="searchGbn" value="3">수출
                             </div>
                         </div>
                     </div>

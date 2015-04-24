@@ -128,7 +128,7 @@
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                 Price Term </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="prcT" id="prcT" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="prcT" id="prcT" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('가격조건','plan/priceTermPOP')">
                             </div>
                         </div>
                     </div>
