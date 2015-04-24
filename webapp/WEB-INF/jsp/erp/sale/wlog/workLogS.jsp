@@ -34,7 +34,23 @@
                 calStDate.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				gfn_load_popup('고객코드','common/customCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>

@@ -51,9 +51,23 @@
             calMain.hideTime();
             var t = dateformat(new Date());
             byId("stDate").value = t;
-
+            toolbar.attachEvent("onClick", function(id) {
+    			if(id == "btn2"){
+    				fn_insert();
+    			}
+    		});
+            //popUp
+            gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+            function doOnRowDblClicked(rowId,colId){
+    			if(colId==7){
+    				gfn_load_popup('공급업체','common/supplyCompPOP');
+    			}
+    		}
         })
-
+            
+        function fn_insert() {
+        		gridMst.addRow(gridMst.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+    	}
     </script>
         <style>
         </style>

@@ -16,23 +16,16 @@
             layout.cells("b").attachObject("bootContainer2");
 
                 //grid	page19
-/*                 gridMain = o.slayout.cells("a").attachGrid();
+                gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
-                gridMain.setHeader("No,담당,일자,종류,고객,내용,첨부", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
-                gridMain.setInitWidths("50,100,100,100,150,400,50");
+                gridMain.setHeader("No,담당,일자,종류,고객,내용,첨부");
+                gridMain.setInitWidths("100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,left,left,center");
                 gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro");
                 gridMain.setColSorting("str,str,str,str,str,str,str");
-                gridMain.init(); */
-                //grid	page20
-                gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
-                gridMain.setHeader("방문,유선,불량분석,견적가격조정,Test진행,기술지원,자료작성,컴프레인,계");
-                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
-                gridMain.setColAlign("center,center,center,center,center,center,center,center,center");
-                gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                gridMain.setColSorting("str,str,str,str,str,str,str,str,str");
-                gridMain.init();
+                gridMain.init(); 
+                
+                
                 //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
@@ -45,7 +38,37 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                
+                function page_popup(subject,view_path){
+                	var w2;
+                	var eleId = "container";
+                	dhxWins = new dhtmlXWindows();
+                	dhxWins.attachViewportTo(eleId);
+                		
+                	w2 = dhxWins.createWindow(eleId, 50, 80, 910, 500);
+                	     dhxWins.window(eleId).setText(subject);
+                	// iframe, get
+                	w2.attachURL("/erp/popup/"+view_path+".do");
+                	return w2;
+                }
+                
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn1"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				page_popup('','sale/workLogPOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -100,7 +123,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
                             </div>
                         </div>
                     </div>

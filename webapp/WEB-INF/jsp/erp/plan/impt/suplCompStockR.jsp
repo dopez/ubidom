@@ -88,7 +88,7 @@
                                     <input name="suplCompName" id="suplCompName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
+                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('공급업체','common/supplyCompCodePOP')">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>
@@ -107,7 +107,7 @@
                                     <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="fn_search()">
+                                    <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('품목','common/itemCodePOP')">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </div>

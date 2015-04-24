@@ -82,7 +82,7 @@ $(document).ready(function() {
 						고객 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text" value="" placeholder=""
-							class="form-control input-xs">
+							class="form-control input-xs"ondblclick="gfn_load_popup('고객코드','common/customPOP')">
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@ $(document).ready(function() {
 						품목 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text" value="" placeholder=""
-							class="form-control input-xs">
+							class="form-control input-xs"ondblclick="gfn_load_popup('품목코드','common/itemCodePOP')">
 					</div>
 				</div>
 			</div>

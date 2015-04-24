@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1, 8, 9], "1C"); //개발중간평가조회
+                Ubi.setContainer(3, [1, 8, 9], "1C"); //개발중간평가조회
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -85,7 +85,17 @@
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     보고자 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="reptName" id="reptName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="reptName" id="reptName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('보고자','common/empPOP')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제안자 </label>
+                                <div class="col-sm-2 col-md-2">
+                                    <input name="prpsName" id="prpsName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제안자','common/empPOP')">
                                 </div>
                             </div>
                         </div>

@@ -117,7 +117,7 @@ table{
 				</tr>
 				<tr>
 					<td>관련부서</td>
-					<td></td>
+					<td ondblclick="gfn_load_popup('관련부서','common/requestPOP')"></td>
 					<td rowspan="2"></td>
 					<td rowspan="2"></td>
 					<td rowspan="2"></td>

@@ -79,7 +79,7 @@ $( document ).ready(function() {
 						for="textinput"> 의뢰부서 </label>
 					<div class="col-sm-2 col-md-2">
 						<input name="" id="" type="text"
-									value="" placeholder="" class="form-control input-xs">
+									value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('의뢰부서','common/requestPOP')">
 					</div>
 				</div>
 			</div>

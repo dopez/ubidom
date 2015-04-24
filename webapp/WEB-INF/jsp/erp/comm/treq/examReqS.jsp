@@ -36,8 +36,23 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
                 /* byId("edDate").value = t; */
-
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+				if(colId==4){
+        				gfn_load_popup('약품코드','common/coatingDrugCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
         <style>
         </style>
@@ -84,10 +99,10 @@
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     의뢰회사 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="reqComp" id="reqComp" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="reqComp" id="reqComp" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('의뢰회사','common/customPOP')">
                                 </div>
 	                            <div class="col-sm-3 col-md-3">
-	                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록" class="btn btn-default btn-xs form-control">
+	                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록" class="btn btn-default btn-xs form-control" onclick="gfn_load_popup('시험공유자등록','comm/shareEmpPOP')">
 	                            </div>
                             </div>
                         </div>

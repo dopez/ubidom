@@ -104,7 +104,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-3 col-md-2 control-label" for="textinput"> 관리번호 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="mngNo" id="mngNo" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="mngNo" id="mngNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')">
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">

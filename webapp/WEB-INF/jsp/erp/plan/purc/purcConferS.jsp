@@ -35,7 +35,26 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==1){
+        				gfn_load_popup('공급업체','common/supplyCompPOP');
+        			}
+        			else if(colId==2){
+        				gfn_load_popup('품목코드','common/itemCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
         <style>
         </style>

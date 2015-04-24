@@ -20,8 +20,11 @@
                     	mygrid.addHeader({name:"품목코드", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
                     	mygrid.addHeader({name:"품목명", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
                     	mygrid.addHeader({name:"규격", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
+
                     	mygrid.setColSort("str");	
                     	mygrid.setUseYnCol(mygrid.getColIndexById("topMenuYn"));
+
+                    	mygrid.setColSort("str,str,str");	
                     	mygrid.setUserData("","pk","itemCode");
                     	mygrid.init();
                     	
@@ -154,6 +157,72 @@
                                 	fn_loadGridList();
                                 }
                             })
+                       	//항목추가
+                        toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn5") {
+                            	var totalColNum = mygrid.getColumnCount();
+                        		var item_code = mygrid.getColIndexById('item_code');
+                        		var data = new Array(totalColNum);
+                        		data[item_code] = 'TE5T';
+
+                        		
+                        		mygrid.addRow(data, 0, 2);
+                            }
+                        })
+                        
+                        //항목삭제
+                        toolbar.attachEvent("onClick", function(id) {
+                            if (id == "btn6") {
+
+                                if (mygrid.isSelRows(1)) {
+                                    if (!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?
+                                        return;
+                                    } else {
+                                        if (!mygrid.chkUnsavedRows()) {
+                                            return;
+                                        }
+                                    }
+                                    var jsonStr = mygrid.getJsonChecked(1);
+                                    if (jsonStr == null || jsonStr.length <= 0) return;
+
+                                    $("#jsonData").val(jsonStr);
+                                    $.ajax({
+                                        url: "/erp/gTest/grid_test",
+                                        type: "POST",
+                                        data: $("#pform").serialize(),
+                                        async: true,
+                                        success: function(data) {
+                                            alert(123);
+                                        	//MsgManager.alertMsg("INF003");
+                                            fn_loadGridList();
+                                        }
+                                    });
+                                } else {
+                                    //MsgManager.alertMsg("WRN002");
+                                    alert(345);
+                                }
+                            }
+                          //저장
+                            toolbar.attachEvent("onClick", function(id) {
+                                if (id == "btn3") {
+                                	var jsonStr = mygrid.getJsonUpdated();
+                            		if (jsonStr == null || jsonStr.length <= 0) return;
+                            		
+                                    $("#jsonData").val(jsonStr);
+                                    
+                            		$.ajax({
+                            			url : "/erp/gTest/grid_test",
+                            	        type : "POST",
+                            	        data : $("#pform").serialize(),
+                            	        async : true,
+                            	        success : function(data) {
+                            	        	MsgManager.alertMsg("INF001");
+                            				fn_loadGridList();
+                            	        }
+                            		});
+                                }
+                            })
+                        })
 
                     })
             function fn_loadGridList() {
