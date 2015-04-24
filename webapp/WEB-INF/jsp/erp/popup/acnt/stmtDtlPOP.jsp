@@ -13,7 +13,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
     
     gridMst = subLayout.cells("a").attachGrid();
-    gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+    gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
     gridMst.setHeader("No,계정,세목,귀속부서,차변금액,대변금액,거래처,적요,번호(어음·계좌·L/C)");
     gridMst.attachFooter(",전표합계,#cspan,#cspan,0,0,(차액)");
     gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
@@ -22,7 +22,7 @@ $(document).ready(function(){
     gridMst.setColSorting("int,str,str,str,int,int,str,str,str");
     gridMst.init();
 	
-	gridDtl = subLayout.cells("b").attachGrid();
+	gridDtl = subLayout.cells("b").attachGrid();//11
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("시작일,종료일,과표,수량단위,수량,화폐단위,환율,이율,원가구분,매입구분,매출구분");
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");

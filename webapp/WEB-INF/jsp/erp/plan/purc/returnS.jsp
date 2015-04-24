@@ -33,19 +33,6 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
-
-                function page_popup(eleID,subject,view_path){
-                	var w2;
-                	var eleId = "container";
-                	dhxWins = new dhtmlXWindows();
-                	dhxWins.attachViewportTo(eleId);
-                		
-                	w2 = dhxWins.createWindow(eleId, 50, 80, 1120, 500);
-                	     dhxWins.window(eleId).setText(subject);
-                	// iframe, get
-                	w2.attachURL("/erp/popup/"+view_path+".do");
-                	return w2;
-                }
 				
                 //항목삽입
                 toolbar.attachEvent("onClick", function(id) {
@@ -57,7 +44,7 @@
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
         			if(colId==1){
-        				page_popup('입고내역 도우미창','mang/inStockPOP');
+        				gfn_big_load_popup(1120,500, '입고내역 도우미창','mang/inStockPOP');
         				
         			}
         		} 

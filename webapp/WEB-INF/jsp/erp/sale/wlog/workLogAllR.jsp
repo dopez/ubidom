@@ -39,19 +39,6 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
                 
-                function page_popup(subject,view_path){
-                	var w2;
-                	var eleId = "container";
-                	dhxWins = new dhtmlXWindows();
-                	dhxWins.attachViewportTo(eleId);
-                		
-                	w2 = dhxWins.createWindow(eleId, 50, 80, 910, 500);
-                	     dhxWins.window(eleId).setText(subject);
-                	// iframe, get
-                	w2.attachURL("/erp/popup/"+view_path+".do");
-                	return w2;
-                }
-                
                 toolbar.attachEvent("onClick", function(id) {
         			if(id == "btn1"){
         				fn_insert();
@@ -61,7 +48,7 @@
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
         			if(colId==1){
-        				page_popup('','sale/workLogPOP');
+        				gfn_big_load_popup(910,500,'','sale/workLogPOP');
         			}
         		}
             })

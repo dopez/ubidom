@@ -36,7 +36,26 @@
                 calStDate.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn1"){
+        				mainTabbar.tabs(id).attachURL("/"+uri+".do");
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			
+        				//gfn_big_load_popup(1120,500,'전표등록내역','acnt/stmtDtlPOP');
+                	//mainTabbar.tabs(id).attachURL("/"+uri+".do");
+        			
+        		}
             })
+                
+            function fn_insert() {
+            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>

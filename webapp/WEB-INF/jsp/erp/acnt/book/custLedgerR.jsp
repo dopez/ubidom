@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1,8,9,5], "2U"); //계정별원장
+                Ubi.setContainer(2, [1,8,9], "2U"); //계정별원장
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -26,6 +26,8 @@
                 girdMst.setColSorting("str");
                 girdMst.init();
                 
+                subLayout.cells("b").showHeader();
+                subLayout.cells("b").setText("※ 해당항목 더블클릭 시 전표내역 POP");
                 gridDtl = subLayout.cells("b").attachGrid();
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("거래처,계정,승인일자,전표일자,번호,적요,세목,차변,대변,잔액");
@@ -50,16 +52,16 @@
                 byId("stDate").value = t;
                 
                 toolbar.attachEvent("onClick", function(id) {
-        			if(id == "btn5"){
+        			if(id == "btn1"){
         				fn_insert();
         			}
         		});
                 //popUp
                 gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
-        			if(colId==1){
-        				gfn_load_popup('전표등록내역','acnt/stmtDtlPOP');
-        			}
+        			
+        				gfn_big_load_popup(1120,500,'전표등록내역','acnt/stmtDtlPOP');
+        			
         		}
             })
                 
@@ -104,17 +106,16 @@
                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     거래처 </label>
                                <div class="col-sm-6 col-md-6">
-                                    <div class="col-sm-2 col-md-2">
+                                    <div class="col-sm-2 col-md-2" style="margin-right: 15px;">
                                         <input type="text" class="form-control input-xs" name="" id="" value="">
                                     </div>
-                                    <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;"></label>
-                                    <div class="col-sm-6 col-md-6">
+                                    <!-- <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;"></label> -->
+                                    <div class="col-sm-7 col-md-7">
+                                    <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
                                         <input type="text" class="form-control input-xs" name="" id="" value="" ondblclick="fn_popup_cust()">
                                     </div>
+                                    </div>
                                 </div>     
-                                <label class="col-sm-4 col-md-4 control-label" for="textinput">
-									※ 해당항목 더블클릭 시 전표내역 POP
-								</label>
                             </div>
 						</div>
                     </div>

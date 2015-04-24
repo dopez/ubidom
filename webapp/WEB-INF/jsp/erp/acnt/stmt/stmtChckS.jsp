@@ -15,7 +15,9 @@
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
 
-                //grid	
+                //grid
+                subLayout.cells("a").showHeader();
+                subLayout.cells("a").setText("차/대변이 틀린 전표리스트 입니다.");
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
                 gridMain.setHeader("No,전표일자,전표번호,차변,대변,잔액,승인일자,승인번호");
@@ -68,15 +70,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label class="col-sm-4 col-md-4 control-label" id="forDesc" for="textinput">
-									차/대변이 틀린 전표리스트 입니다.
-								</label>
                             </div>
-							<!-- <div class="form-group form-group-sm">
-								<label class="col-sm-offset-2 col-md-offset-2 col-sm-10 col-md-10 control-label" id="forDesc" for="textinput">
-									차/대변이 틀린 전표리스트 입니다.
-								</label>
-							</div>    -->                     
 						</div>
                     </div>
                 </form>

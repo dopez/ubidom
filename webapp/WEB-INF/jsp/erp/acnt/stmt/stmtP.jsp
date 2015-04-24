@@ -53,7 +53,7 @@
                             <div class="form-group form-group-sm">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">발의부서</label>
                                 <div class="col-sm-1 col-md-1">
-                                    <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                    <input type="text" class="form-control input-xs" name="" id="" value="" ondblclick="gfn_load_popup('발의부서','common/deptCodePOP')">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
                                     <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">

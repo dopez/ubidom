@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-sm-3 col-md-3">
                                     <div class="col-md-offset-1 col-sm-offset-1 col-sm-11 col-md-11">
-                                        <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
+                                        <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('제품코드','common/goodsCodePOP')">
                                     </div>
                                 </div>
                                 <label class="col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>

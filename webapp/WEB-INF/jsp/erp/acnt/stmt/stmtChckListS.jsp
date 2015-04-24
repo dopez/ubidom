@@ -18,7 +18,16 @@
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
-                gridMain.setHeader("No,승인일자,승인번호,구분,계정과목,세목명,차변,대변,적요,귀속부서,거래처,관리항목,발의부서,발의자,전표일자,전표번호");
+                gridMain.setHeader("No,승인일자,승인번호,구분,계정과목,"+
+                					"세목명,차변,대변,적요,귀속부서,"+
+                					"거래처,관리항목,발의부서,발의자,전표일자"+
+                					",전표번호");
+                gridMain.attachFooter(",#cspan,#cspan,#cspan,현금,"+
+                					"#cspan,0,0");
+                gridMain.attachFooter(",#cspan,#cspan,#cspan,기타,"+
+                					"#cspan,0,0,,#cspan,"+
+                					"입금 : ,0,출금 : ,0,대체 : "+
+                					",0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,center,center,right,right,center,center,center,center,center,center,center,center");
                 gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ron,ron,ro,ro,ro,ro,ro,ro,ro,ro");
