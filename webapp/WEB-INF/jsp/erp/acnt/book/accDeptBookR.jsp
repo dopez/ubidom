@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 8, 9,5], "1C"); //      계정+거래처별장부
+                Ubi.setContainer(3, [1, 8, 9], "1C"); //      계정+부서별
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -16,6 +16,8 @@
                 layout.cells("b").attachObject("bootContainer2");
 
                 //grid	
+                subLayout.cells("a").showHeader();
+                subLayout.cells("a").setText("※ 해당항목 더블클릭 시 전표내역 POP");
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //25
                 gridMain.setHeader("계정명,귀속부서,승인일자,No,전표일자,No,발의자,발의부서,귀속부서,세목명,차변,대변,잔액,과표,적요,번호,시작일,종료일" + 
@@ -40,16 +42,16 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
                 toolbar.attachEvent("onClick", function(id) {
-        			if(id == "btn5"){
+        			if(id == "btn1"){
         				fn_insert();
         			}
         		});
                 //popUp
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
-        			if(colId==1){
-        				gfn_load_popup('전표상세현황 조회','acnt/stmtDtlPOP');
-        			}
+        			
+        				gfn_big_load_popup(1120,500,'전표등록내역','acnt/stmtDtlPOP');
+        			
         		}
             })
                 

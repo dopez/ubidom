@@ -87,12 +87,12 @@
                                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                     발의부서 </label>
                                 <div class="col-sm-2 col-md-2">
-                                	<input type="text" class="form-control input-xs" name="" id="" value="">
+                                	<input type="text" class="form-control input-xs" name="" id="" value="" ondblclick="gfn_load_popup('발의부서','common/deptCodePOP')">
                                 </div>    
                                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                                     거래처 </label>
                                 <div class="col-sm-4 col-md-4">
-                                	<input type="text" class="form-control input-xs" name="" id="" value="">
+                                	<input type="text" class="form-control input-xs" name="" id="" value=""ondblclick="gfn_load_popup('거래처코드','common/customPOP')">
                                 </div>    
                             </div>
                             <div class="form-group form-group-sm">

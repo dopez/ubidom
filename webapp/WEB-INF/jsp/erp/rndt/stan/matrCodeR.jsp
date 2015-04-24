@@ -41,8 +41,10 @@
                             <div class="col-sm-2 col-md-2">
                                 <input name="mtrlCode" id="mtrlCode" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
-                            <div class="col-md-offset-1 col-sm-offset-1 col-sm-3 col-md-3">
-                                <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
+                            <div class="col-sm-3 col-md-3">
+	                            <div class="col-md-offset-1 col-sm-offset-1 col-sm-11 col-md-11">
+	                                <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('자재코드조회','common/matrCodePOP')">
+								</div>
                             </div>
                             <label class="col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-2 col-md-2">

@@ -61,6 +61,9 @@
                                     <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                                 </div>
                             </div>
+                            <div class="col-sm-offset-5 col-md-offset-5 col-sm-2 col-md-2">
+                                <input type="button" id="" name="" class="form-control btn btn-default btn-xs" value="인&nbsp;&nbsp;쇄">
+                            </div>
                         </div>
                     </div>
                 </div>

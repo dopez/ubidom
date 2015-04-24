@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(1, [1,8,9,5], "2U"); //총계정원장
+                Ubi.setContainer(1, [1,8,9], "2U"); //총계정원장
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -26,6 +26,9 @@
                 girdMst.setColSorting("str");
                 girdMst.init();
                 
+                
+                subLayout.cells("b").showHeader();
+                subLayout.cells("b").setText("※ 해당항목 더블클릭 시 전표내역 POP");
                 gridDtl = subLayout.cells("b").attachGrid();
                 gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("계정,승인일자,전표일자,번호,차변,대변,잔액");
@@ -50,16 +53,16 @@
                 byId("stDate").value = t;
                 
                 toolbar.attachEvent("onClick", function(id) {
-        			if(id == "btn5"){
+        			if(id == "btn1"){
         				fn_insert();
         			}
         		});
                 //popUp
                 gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
-        			if(colId==1){
-        				gfn_load_popup('전표등록내역','acnt/stmtDtlPOP');
-        			}
+        			
+        				gfn_big_load_popup(1120,500,'전표등록내역','acnt/stmtDtlPOP');
+        			
         		}
             })
                 
@@ -96,9 +99,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <label class="col-sm-4 col-md-4 control-label" id="forDesc" for="textinput">
-									※ 해당항목 더블클릭 시 전표내역 POP
-								</label>
                             </div>
 						</div>
                     </div>

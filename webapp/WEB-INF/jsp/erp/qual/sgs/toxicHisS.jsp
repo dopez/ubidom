@@ -16,13 +16,30 @@ $(document).ready(function() {
 	/* layout.cells("b").setHeight(900); */
 	gridMain = layout.cells("b").attachGrid();
     gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
-    gridMain.setHeader("No,시험종류,시료명,시험주기,최종시험일자");
+    gridMain.setHeader("No,시험종류,시료코드,시료명,시험주기,최종시험일자");
     gridMain.setInitWidths("100,100,100,100,100,100");
     gridMain.setColAlign("center,center,center,center,center,center");
-    gridMain.setColTypes("ron,coro,ed,ed,ed,dhxCalendar");
+    gridMain.setColTypes("ron,coro,ro,ed,ed,dhxCalendar");
     gridMain.setColSorting("int,str,str,str,str,date");
     gridMain.init();
-	})
+    toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn2"){
+			fn_insert();
+		}
+	});
+    //popUp
+    gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+    function doOnRowDblClicked(rowId,colId){
+		if(colId==2){
+			gfn_load_popup('시료코드','common/sampleCodePOP');
+		}
+	}
+})
+    
+function fn_insert() {
+		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+}
+
 
 </script>
 

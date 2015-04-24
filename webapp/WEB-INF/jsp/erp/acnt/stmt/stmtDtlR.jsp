@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 8, 9,5], "1C"); //      전표상세현황
+                Ubi.setContainer(3, [1, 8, 9,], "1C"); //      전표상세현황
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -40,7 +40,7 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
                 toolbar.attachEvent("onClick", function(id) {
-        			if(id == "btn5"){
+        			if(id == "btn1"){
         				fn_insert();
         			}
         		});
@@ -48,7 +48,7 @@
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
         			if(colId==1){
-        				gfn_load_popup('전표상세현황 조회','acnt/stmtDtlPOP');
+        				gfn_big_load_popup(1120,500,'전표상세현황 조회','acnt/stmtDtlPOP');
         			}
         		}
             })

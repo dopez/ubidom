@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1, 8, 9], "1C"); /* //유형별매입현황 */
+                Ubi.setContainer(2, [1, 8, 9], "1C"); /* //내자외자매입현황 */
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -18,13 +18,73 @@
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
                 gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setHeader("부서,1월,#cspan,#cspan,"+
+                					"2월,#cspan,#cspan,"+
+                					"3월,#cspan,#cspan,"+
+                					"4월,#cspan,#cspan,"+
+                					"5월,#cspan,#cspan,"+
+                					"6월,#cspan,#cspan,"+
+                					"7월,#cspan,#cspan,"+
+                					"8월,#cspan,#cspan,"+
+                					"9월,#cspan,#cspan,"+
+                					"10월,#cspan,#cspan,"+
+                					"11월,#cspan,#cspan,"+
+                					"12월,#cspan,#cspan,"+
+                					"계,#cspan,#cspan");
+                gridMain.attachHeader("#rspan,내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,월계,"+
+                					"내자,외자,합계,");
+                gridMain.attachFooter("계,0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0,"+
+                					"0,0,0");
+                gridMain.setInitWidths("100,100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100,"+
+                					"100,100,100,100,100");
+                gridMain.setColAlign("center,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right,"+
+                					"right,right,right,right,right");
+                gridMain.setColTypes("ro");
+                gridMain.setColSorting("str");
+                gridMain.init();
+/*                 gridMain = subLayout.cells("a").attachGrid();
+                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("부서,장비,비품,원자재,소모품,계");
                 gridMain.attachFooter("계,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100");
                 gridMain.setColAlign("center,right,right,right,right,right");
                 gridMain.setColTypes("ro,ron,ron,ron,ron,ron");
                 gridMain.setColSorting("str,int,int,int,int,int");
-                gridMain.init();
+                gridMain.init(); */
                 //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
@@ -79,6 +139,18 @@
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">유형</label>
                                 <div class="col-sm-6 col-md-6">
                                     <input type="radio" name="typeGbn" id="" value="1" class="" checked="checked">전체
+                                    <input type="radio" name="typeGbn" id="" value="2" class="">내자
+                                    <input type="radio" name="typeGbn" id="" value="3" class="">외자
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                     <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">유형</label>
+                                <div class="col-sm-6 col-md-6">
+                                    <input type="radio" name="typeGbn" id="" value="1" class="" checked="checked">전체
                                     <input type="radio" name="typeGbn" id="" value="2" class="">장비
                                     <input type="radio" name="typeGbn" id="" value="3" class="">비품
                                     <input type="radio" name="typeGbn" id="" value="4" class="">원자재
@@ -86,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
