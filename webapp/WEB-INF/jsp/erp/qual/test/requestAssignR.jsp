@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,시험담당자,결과통보일자,접수일자,회사,소속,성명,완료일,시료명,시료수량",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,center,center,left,left,left,center,left,right");
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ron");

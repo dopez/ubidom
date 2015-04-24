@@ -16,22 +16,34 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,선택,회사,소속,성명,요청일,완료일,설비,위치,약품,시료명,시료수량,시료처리,결과공유,"+
-			"시험종류및시험수량,#cspan,#cspan,#cspan,목적/용도,요구사항,시료특이사항",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
-			"종류,항목,시험수량,세부내역,#rspan,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,70,70,70,70,100,100,100");
-	gridMst.setColAlign("center,center,left,left,left,center,center,left,left,left,left,right,left,left,left,left,right,left,left,left,left");
-	gridMst.setColTypes("ron,ra,ro,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ro,ro,ro,ron,ro,ro,ro,ro");
-	gridMst.setColSorting("int,na,str,str,str,date,date,str,str,str,str,int,str,str,str,str,int,str,str,str,str");
+	gridMst.setHeader("No,선택,회사,소속,성명,요청일,완료일,설비,위치,약품,"+
+			          "시료명,시료수량,시료처리,결과공유,시험종류및시험수량,#cspan,#cspan,#cspan,목적/용도,요구사항,"+
+			          "시료특이사항",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
+	gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
+			             "#rspan,#rspan,#rspan,#rspan,종류,항목,시험수량,세부내역,#rspan,#rspan,"+
+			             "#rspan",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100,100,70,70,70,70,100,100,"+
+			              "100");
+	gridMst.setColAlign("center,center,left,left,left,center,center,left,left,left,"+
+			            "left,right,left,left,left,left,right,left,left,left,"+
+			            "left");
+	gridMst.setColTypes("ron,ra,ro,ro,ro,ro,ro,ro,ro,ro,"+
+			            "ro,ron,ro,ro,ro,ro,ron,ro,ro,ro,"+
+			            "ro");
+	gridMst.setColSorting("int,na,str,str,str,date,date,str,str,str,"+
+			              "str,int,str,str,str,str,int,str,str,str,"+
+			              "str");
 	gridMst.init();	
 	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
@@ -40,8 +52,8 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,목적/용도,요청일,완료일,시료명,시료수량,시료처리,시험담당,결과통보일자",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100");
 	gridDtl.setColAlign("center,left,center,center,left,right,left,left,center");
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,ro,ro,dhxCalendarA");

@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("고객코드,고객명,사업자번호",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100");
 	gridMain.setColAlign("left,left,left");
 	gridMain.setColTypes("ro,ro,ro");

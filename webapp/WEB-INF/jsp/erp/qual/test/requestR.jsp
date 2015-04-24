@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,구분,의뢰기관,의뢰건수,시료수량",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,right,right");
 	gridMain.setColTypes("ron,ro,ro,ron,ron");
