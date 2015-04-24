@@ -15,7 +15,8 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("포장자재",null,["text-align:center;"]);
+	gridMst.setHeader("포장자재",null,
+			         ["text-align:center;"]);
 	gridMst.setInitWidths("100");
 	gridMst.setColAlign("left");
 	gridMst.setColTypes("ro");
@@ -29,8 +30,8 @@ $(document).ready(function(){
 	gridDtl01 = subLayout.cells("c").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl01.setHeader("포장코드,포장명,규격,단위,수량,Loss율,사용일자,사용유무,비고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl01.setInitWidths("100,100,100,100,100,100,100,100,100");
 	gridDtl01.setColAlign("left,left,left,left,right,right,center,center,left");
 	gridDtl01.setColTypes("ro,ro,ro,ro,edn,edn,dhxCalendarA,coro,ed");
@@ -42,7 +43,7 @@ $(document).ready(function(){
 	gridDtl02 = subLayout.cells("d").attachGrid();
 	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl02.setHeader("공정,구분,공정순서",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl02.setInitWidths("100,100,100");
 	gridDtl02.setColAlign("center,center,right");
 	gridDtl02.setColTypes("coro,coro,ro");
@@ -78,39 +79,6 @@ $(document).ready(function(){
 	     }	
 	 } 
 } 
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_popupMatrCode(){
-	
-}
-function fn_popupGoodsCode(){
-	
-}
-function fn_saveSub(){
-	
-}
-function fn_row_insertSub(){
-	
-}
-function fn_row_deleteSub(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -15,7 +15,7 @@ $( document ).ready(function() {
 	gridMain = subLayout.cells("a").attachGrid(); 
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("공급업체코드, 공급업체명,사업자번호", null, 
-					["text-align:center;","text-align:center;","text-align:center;"]);
+					  ["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100");       
 	gridMain.setColAlign("left,left,left");     
 	gridMain.setColTypes("ro,ro,ro"); 
@@ -26,24 +26,6 @@ $( document ).ready(function() {
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 })
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,20 +16,42 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,생산일자,품목코드,품명,포장,단위,정량,#cspan,#cspan,함침,#cspan,#cspan,조립,#cspan,#cspan,크램핑,#cspan,#cspan,세척,#cspan,#cspan,무게선별,#cspan,#cspan,실링,#cspan,#cspan,합계,#cspan,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-    gridMain.setInitWidths("70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70");
-	gridMain.setColAlign("center,center,left,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,date,str,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
-	gridMain.attachFooter(",일계,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
-	gridMain.attachFooter(",합계,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+	gridMain.setHeader("No,생산일자,품목코드,품명,포장,단위,정량,#cspan,#cspan,함침,"+
+			           "#cspan,#cspan,조립,#cspan,#cspan,크램핑,#cspan,#cspan,세척,#cspan,"+
+			           "#cspan,무게선별,#cspan,#cspan,실링,#cspan,#cspan,합계,#cspan,#cspan",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,불량율,양품수량,"+
+			              "불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,"+
+			              "불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율,양품수량,불량수량,불량율",
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+    gridMain.setInitWidths("70,70,70,70,70,70,70,70,70,70,"+
+    		               "70,70,70,70,70,70,70,70,70,70,"+
+    		               "70,70,70,70,70,70,70,70,70,70");
+	gridMain.setColAlign("center,center,left,left,left,left,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("int,date,str,str,str,str,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int");
+	gridMain.attachFooter(",일계,,,,,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0");
+	gridMain.attachFooter(",합계,,,,,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0");
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -39,18 +61,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
-function fn_popupItemCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

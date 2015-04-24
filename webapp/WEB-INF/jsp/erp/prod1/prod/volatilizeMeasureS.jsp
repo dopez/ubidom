@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,입고일자,품목코드,품명,포장,단위,수량,제조LotNo,위치,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,center,left,left,left,left,right,right,left,center");
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ro,ra");
@@ -29,18 +29,24 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,품목코드,품명,포장,단위,무게,함칭량,잔여량,#cspan,#cspan,#cspan,휘발량,#cspan,#cspan,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,샘플1,샘플2,샘플3,평균,샘플1,샘플2,샘플3,평균",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,50,50,50,50,50,50,50,50");
-	gridDtl.setColAlign("center,left,left,left,left,left,right,right,right,right,right,right,right,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn");
-	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,int,int,int,int,int");
+	gridDtl.setHeader("No,품목코드,품명,포장,단위,무게,함칭량,잔여량,#cspan,#cspan,"+
+			          "#cspan,휘발량,#cspan,#cspan,#cspan",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,샘플1,샘플2,샘플3,"+
+			             "평균,샘플1,샘플2,샘플3,평균",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,50,50,50,"+
+			              "50,50,50,50,50");
+	gridDtl.setColAlign("center,left,left,left,left,left,right,right,right,right,"+
+			            "right,right,right,right,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,edn,edn,edn,edn,edn,"+
+			            "edn,edn,edn,edn,edn");
+	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,"+
+			              "int,int,int,int,int");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("휘발측정내용");
@@ -51,24 +57,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

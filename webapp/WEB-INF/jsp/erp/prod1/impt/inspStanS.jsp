@@ -15,7 +15,8 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("품목코드,품명,규격,단위",null,["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setHeader("품목코드,품명,규격,단위",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100");
 	gridMst.setColAlign("left,left,left,left");
 	gridMst.setColTypes("ro,ro,ed,ro");
@@ -28,7 +29,7 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("검사항목코드,검사항목,검사기준,허용오차,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100");
 	gridDtl.setColAlign("left,left,left,right,right");
 	gridDtl.setColTypes("ro,ro,ro,edn,edn");
@@ -37,24 +38,6 @@ $(document).ready(function(){
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("검사항목별 기준");	
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,14 +16,19 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,수주번호,담당,고객,매출구분,구분,품목코드,품명,포장,단위,수량,납기일자,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,left,left,left,center,center,left,left,right,left,right,center,center");
-	gridMst.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ro,ron,ro,ra");
-	gridMst.setColSorting("int,int,str,str,str,str,str,str,str,str,int,date,na");
+	gridMst.setHeader("No,수주번호,담당,고객,매출구분,구분,품목코드,품명,포장,단위,"+
+			          "수량,납기일자,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100");
+	gridMst.setColAlign("center,left,left,left,center,center,left,left,right,left,"+
+			            "right,center,center");
+	gridMst.setColTypes("ron,ron,ro,ro,ro,ro,ro,ro,ro,ro,"+
+			            "ron,ro,ra");
+	gridMst.setColSorting("int,int,str,str,str,str,str,str,str,str,"+
+			              "int,date,na");
 	gridMst.init();	
 	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
@@ -31,60 +36,48 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,품목코드,품명,포장,단위,납기일자,재고,안전재고,수주수량,지시수량,생산/포장",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,left,center,right,right,right,right,center");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,dhxCalendarA,ron,ron,ron,edn,ch");
-	gridDtl.setColSorting("int,str,str,str,str,date,int,int,int,int,na");
+	gridDtl.setHeader("No,품목코드,품명,포장,단위,납기일자,재고,안전재고,수주수량,지시수량,"+
+			          "생산/포장",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100");
+	gridDtl.setColAlign("center,left,left,left,left,center,right,right,right,right,"+
+			            "center");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,dhxCalendarA,ron,ron,ron,edn,"+
+			            "ch");
+	gridDtl.setColSorting("int,str,str,str,str,date,int,int,int,int,"+
+			              "na");
 	gridDtl.init();	
 	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("생산지시내역");
 
-	    calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
-	    calMain.loadUserLanguage("ko");
-	    calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+	calMain.loadUserLanguage("ko");
+	calMain.hideTime();	   
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 		
-		function doOnCheck(rowId,colId){
-			if(colId==12){
-				gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
-			}
-		}
+	function doOnCheck(rowId,colId){
+		if(colId==12){
+			gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
+		  }
+	}
 		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				fn_row_insert();
-			}
-		});
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			  gridMst.addRow(gridMst.getUID(),"1,1234-5678,유비덤,ceko,Y,Y,cskj-250,cskj-250,10,EA,100,2014-04-20,",1);
+		  }
+	});
 		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==1){
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==1){
 			gfn_load_popup('제품코드','common/goodsCodePOP');
-			}
-		}
+		   }
+	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMst.addRow(gridMst.getUID(),"1,1234-5678,유비덤,ceko,Y,Y,cskj-250,cskj-250,10,EA,100,2014-04-20,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

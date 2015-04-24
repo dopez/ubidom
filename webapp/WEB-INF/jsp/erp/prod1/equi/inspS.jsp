@@ -16,14 +16,19 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,점검자,비고,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,left,left,left,left,left,center,center,center,left,left,left,center");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ra");
-	gridMst.setColSorting("int,str,str,str,str,str,date,date,date,str,str,str,na");
+	gridMst.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,"+
+			          "점검자,비고,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100");
+	gridMst.setColAlign("center,left,left,left,left,left,center,center,center,left,"+
+			            "left,left,center");
+	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
+			            "ro,ro,ra");
+	gridMst.setColSorting("int,str,str,str,str,str,date,date,date,str,"+
+			              "str,str,na");
 	gridMst.init();	
 	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("a").showHeader();
@@ -31,14 +36,19 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,점검자,비고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,left,left,center,center,center,left,left,left");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,dhxCalendarA,dhxCalendarA,ed,ed");
-	gridDtl.setColSorting("int,str,str,str,str,str,date,date,date,date,str,str");
+	gridDtl.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,"+
+			          "점검자,비고",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100");
+	gridDtl.setColAlign("center,left,left,left,left,left,center,center,center,left,"+
+			            "left,left");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,dhxCalendarA,dhxCalendarA,"+
+			            "ed,ed");
+	gridDtl.setColSorting("int,str,str,str,str,str,date,date,date,date,"+
+			              "str,str");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("점검결과");
@@ -46,41 +56,23 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"inspDate",button:"calpicker"},{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("inspDate").value = t;
-		byId("stDate").value = t;
-		byId("edDate").value = t;
+	var t = dateformat(new Date());
+	byId("inspDate").value = t;
+	byId("stDate").value = t;
+	byId("edDate").value = t;
 		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				fn_row_insert();
-			}
-		});
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMst.addRow(gridMst.getUID(),"1,,,,,,,,,,,,",1);
+		  }
+	});
 		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==10){
-				gfn_load_popup('점검자','common/chargePOP');
-			}
-		}
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==10){
+			gfn_load_popup('점검자','common/chargePOP');
+		  }
+	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMst.addRow(gridMst.getUID(),"1,,,,,,,,,,,,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

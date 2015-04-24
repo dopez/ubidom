@@ -27,18 +27,6 @@ $(document).ready(function(){
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -15,7 +15,8 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("부서코드,부서명",null,["text-align:center;","text-align:center;"]);
+	gridMain.setHeader("부서코드,부서명",null,
+			          ["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("200,200");
 	gridMain.setColAlign("left,left");
 	gridMain.setColTypes("ro,ro");
@@ -25,24 +26,6 @@ $(document).ready(function(){
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_popupDeptCode(){
-	
-}
-function fn_popupGoodsCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

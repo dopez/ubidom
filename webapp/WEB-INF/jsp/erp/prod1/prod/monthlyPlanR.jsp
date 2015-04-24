@@ -15,27 +15,59 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("연월,품목코드,품명,포장,단위,전월실적,#cspan,재고,1일,2일,3일,4일,5일,6일,7일,8일,9일,10일,11일,12일,13일,14일,15일,16일,17일,18일,19일,20일,21일,22일,23일,24일,25일,26일,27일,28일,29일,30일,31일,합계",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,매출,생산,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
-			"#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50");
-	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("date,str,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
-	gridMain.attachFooter("공정계,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
-	gridMain.attachFooter("월계,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
-	gridMain.attachFooter("합계,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+	gridMain.setHeader("연월,품목코드,품명,포장,단위,전월실적,#cspan,재고,1일,2일,"+
+			           "3일,4일,5일,6일,7일,8일,9일,10일,11일,12일,"+
+			           "13일,14일,15일,16일,17일,18일,19일,20일,21일,22일,"+
+			           "23일,24일,25일,26일,27일,28일,29일,30일,31일,합계",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,매출,생산,#rspan,#rspan,#rspan,"+
+			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
+			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
+			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,50,50,50,50,50,"+
+		 	               "50,50,50,50,50,50,50,50,50,50,"+
+			               "50,50,50,50,50,50,50,50,50,50,"+
+			               "50,50,50,50,50,50,50,50,50,50");
+	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right");
+	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
+	gridMain.setColSorting("date,str,str,str,str,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int");
+	gridMain.attachFooter("공정계,,,,,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0");
+	gridMain.attachFooter("월계,,,,,0,0,0,0,0,"+
+		 	              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0");
+	gridMain.attachFooter("합계,,,,,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0,"+
+			              "0,0,0,0,0,0,0,0,0,0");
 	gridMain.init();	
-	
-	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
@@ -45,15 +77,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

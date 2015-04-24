@@ -15,7 +15,8 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("코드,코드명",null,["text-align:center;","text-align:center;"]);
+	gridMst.setHeader("코드,코드명",null,
+			         ["text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("200,200");
 	gridMst.setColAlign("left,left");
 	gridMst.setColTypes("ro,ro");
@@ -25,7 +26,8 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,내부코드,내부코드명,변수,비고",null,["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setHeader("No,내부코드,내부코드명,변수,비고",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,200,200,200,200");
 	gridDtl.setColAlign("center,left,left,right,left");
 	gridDtl.setColTypes("ron,ro,ro,ron,ro");
@@ -33,21 +35,6 @@ $(document).ready(function(){
 	gridDtl.init();	
 	
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

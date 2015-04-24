@@ -15,25 +15,21 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("Level,포장코드,포장명,규격,단위,수량,사용일지,사용유무,공정,순서,구분,비고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("right,left,left,left,left,right,center,center,left,right,center,left");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ro,ro,ro,ron,ro,ro");
-	gridMain.setColSorting("int,str,str,str,str,int,date,str,str,int,str,str");
+	gridMain.setHeader("Level,포장코드,포장명,규격,단위,수량,사용일지,사용유무,공정,순서,"+
+			           "구분,비고",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100");
+	gridMain.setColAlign("right,left,left,left,left,right,center,center,left,right,"+
+			             "center,left");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ro,ro,ro,ron,"+
+			             "ro,ro");
+	gridMain.setColSorting("int,str,str,str,str,int,date,str,str,int,"+
+			               "str,str");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

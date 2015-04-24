@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("입고요청일자,공급업체,품목코드,품명,규격,단위,입고요청수량,최종판정,처리결과",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,left,left,left,left,left,right,right,right");
 	gridMst.setColTypes("ro,ro,ro,ro,ro,ro,ron,ron,ron");
@@ -29,15 +29,24 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("검사항목코드,검사항목명,규격,허용오차,#cspan,검사값,#cspan,#cspan,#cspan,#cspan,판정",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,하한,상한,X1,X2,X3,X4,X5,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,50,50,50,50,50,100");
-	gridDtl.setColAlign("left,left,left,right,right,right,right,right,right,right,center");
-	gridDtl.setColTypes("ro,ro,ro,ron,ron,edn,edn,edn,edn,edn,coro");
-	gridDtl.setColSorting("str,str,str,int,int,int,int,int,int,int,na");
+	gridDtl.setHeader("검사항목코드,검사항목명,규격,허용오차,#cspan,검사값,#cspan,#cspan,#cspan,#cspan,"+
+			          "판정",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			         "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			         "text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,하한,상한,X1,X2,X3,X4,X5,"+
+			             "#rspan",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+	                     "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+	                     "text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,50,50,50,50,50,"+
+			              "100");
+	gridDtl.setColAlign("left,left,left,right,right,right,right,right,right,right,"+
+			            "center");
+	gridDtl.setColTypes("ro,ro,ro,ron,ron,edn,edn,edn,edn,edn,"+
+			            "coro");
+	gridDtl.setColSorting("str,str,str,int,int,int,int,int,int,int,"+
+			              "na");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("검사항목별 기준 및 검사값");	
@@ -48,24 +57,6 @@ $(document).ready(function(){
     var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

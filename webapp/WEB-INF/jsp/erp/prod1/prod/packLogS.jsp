@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,Invoice No,고객,제조LotNo,품목코드,품명,포장,단위,재고수량,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,right,left,left,left,left,left,left,right,center");
 	gridMst.setColTypes("ron,ron,ro,ron,ro,ro,ro,ro,ron,ra");
@@ -29,13 +29,19 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,포장코드,포장명,단위,수량,제조LotNo,제품수량,Box수량,총중량,총CBM,C/TNo,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,right,center");
-	gridDtl.setColTypes("ron,ro,ro,ro,edn,ron,ron,ron,ron,ron,ron,ra");
-	gridDtl.setColSorting("int,str,str,Str,int,int,int,int,int,int,int,na");
+	gridDtl.setHeader("No,포장코드,포장명,단위,수량,제조LotNo,제품수량,Box수량,총중량,총CBM,"+
+			          "C/TNo,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+		 	              "100,100");
+	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,"+
+			            "right,center");
+	gridDtl.setColTypes("ron,ro,ro,ro,edn,ron,ron,ron,ron,ron,"+
+			            "ron,ra");
+	gridDtl.setColSorting("int,str,str,Str,int,int,int,int,int,int,"+
+			              "int,na");
 	gridDtl.init();	
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("포장내역");
@@ -46,24 +52,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

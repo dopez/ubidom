@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,설비코드,설비명,사용공정",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100");
 	gridMain.setColAlign("center,left,left,left");
 	gridMain.setColTypes("ron,ro,ro,ro");
@@ -31,44 +31,25 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"buyDate",button:"calpicker1"},{input:"regDate",button:"calpicker2"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("buyDate").value = t;
-		byId("regDate").value = t;
+	var t = dateformat(new Date());
+	byId("buyDate").value = t;
+	byId("regDate").value = t;
 		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				fn_row_insert();
-			}
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMain.addRow(gridMain.getUID(),"1,,,",1);
+		   }
 		});
 		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==1){
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==1){
 			gfn_load_popup('점검항목','prod1/inspPOP');
-			}
-			if(colId==2){
-				gfn_load_popup('소모성부품이력등록','prod1/compHistoryPOP');
-			}
 		}
-
+		if(colId==2){
+			gfn_load_popup('소모성부품이력등록','prod1/compHistoryPOP');
+		}
+	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMain.addRow(gridMain.getUID(),"1,,,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -13,17 +13,22 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
-	
 
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,지시일자,품목코드,품명,포장,단위,납기일자,재고,안전재고,수주수량,지시수량,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,center,left,left,right,left,center,right,right,right,right,center");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron,ra");
-	gridMst.setColSorting("int,date,str,str,str,Str,date,int,int,int,int,na");
+	gridMst.setHeader("No,지시일자,품목코드,품명,포장,단위,납기일자,재고,안전재고,수주수량,"+
+			          "지시수량,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100");
+	gridMst.setColAlign("center,center,left,left,right,left,center,right,right,right,"+
+			            "right,center");
+	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			            "ron,ra");
+	gridMst.setColSorting("int,date,str,str,str,Str,date,int,int,int,"+
+			              "int,na");
 	gridMst.init();	
 	gridMst.attachEvent("onCheck",doOnCheck);
 	subLayout.cells("a").showHeader();
@@ -31,22 +36,45 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,품목코드,품명,포장,단위,지시수량,정량,#cspan,#cspan,#cspan,#cspan,#cspan,함침,#cspan,#cspan,#cspan,#cspan,조립,#cspan,크램핑,#cspan,#cspan,세척,#cspan,무게선별,#cspan,#cspan,실링,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,작업자,약품보관,#cspan,설비가동,양품수량,불량수량,작업자,약품보관,#cspan,양품수량,불량수량,양품수량,불량수량,설비가동,양품수량,불량수량,양품수량,불량수량,설비가동,양품수량,불량수량",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,사용전,사용후,#rspan,#rspan,#rspan,#rspan,사용전,사용후,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70");
-	gridDtl.setColAlign("center,left,left,left,left,right,right,right,left,right,right,center,right,right,left,right,right,right,right,right,right,center,right,right,right,right,center,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,edn,ron,ron,ron,ron,ro,edn,ron,ron,ron,ron,edn,ron,edn,ron,ro,edn,ron,edn,ron,ro,edn,ron");
-	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,int,na,int,int,int,int,int,int,int,int,int,na,int,int,int,int,ch,int,int");
+	gridDtl.setHeader("No,품목코드,품명,포장,단위,지시수량,정량,#cspan,#cspan,#cspan,"+
+			          "#cspan,#cspan,함침,#cspan,#cspan,#cspan,#cspan,조립,#cspan,크램핑,"+
+		 	          "#cspan,#cspan,세척,#cspan,무게선별,#cspan,#cspan,실링,#cspan",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,작업자,약품보관,"+
+			             "#cspan,설비가동,양품수량,불량수량,작업자,약품보관,#cspan,양품수량,불량수량,양품수량,"+
+			             "불량수량,설비가동,양품수량,불량수량,양품수량,불량수량,설비가동,양품수량,불량수량",
+			            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,사용전,"+
+			             "사용후,#rspan,#rspan,#rspan,#rspan,사용전,사용후,#rspan,#rspan,#rspan,"+
+			             "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
+		 	            ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			             "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("70,70,70,70,70,70,70,70,70,70,"+
+			              "70,70,70,70,70,70,70,70,70,70,"+
+			              "70,70,70,70,70,70,70,70,70");
+	gridDtl.setColAlign("center,left,left,left,left,right,right,right,left,right,"+
+			            "right,center,right,right,left,right,right,right,right,right,"+
+			            "right,center,right,right,right,right,center,right,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,ro,ron,edn,ron,ron,ron,"+
+			            "ron,ro,edn,ron,ron,ron,ron,edn,ron,edn,"+
+			            "ron,ro,edn,ron,edn,ron,ro,edn,ron");
+	gridDtl.setColSorting("int,str,str,str,str,int,int,int,int,int,"+
+			              "int,na,int,int,int,int,int,int,int,int,"+
+			              "int,na,int,int,int,int,ch,int,int");
 	gridDtl.init();	
 	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("b").showHeader();
@@ -66,7 +94,7 @@ $(document).ready(function(){
 	
 	toolbar.attachEvent("onClick", function(id) {
 		if(id == "btn5"){
-			fn_row_insert();
+			gridMst.addRow(gridMst.getUID(),"1,2014-04-20,chkh-250,chkj-250,10,EA,2014-04-20,3000,3600,2700,3000,",1);
 		}
 	});
 	
@@ -82,24 +110,6 @@ $(document).ready(function(){
 		}
 	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMst.addRow(gridMst.getUID(),"1,2014-04-20,chkh-250,chkj-250,10,EA,2014-04-20,3000,3600,2700,3000,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

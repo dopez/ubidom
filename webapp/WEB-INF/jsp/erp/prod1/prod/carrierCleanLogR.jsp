@@ -16,16 +16,24 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,세척일자,품목코드,품명,포장,단위,세척전재고,세척,건조,선별,#cspan,#cspan,세척후재고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품,불량,계,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,50,50,50,100");
-	gridMain.setColAlign("center,center,left,left,left,left,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ch,ch,edn,edn,ron,ron");
-	gridMain.setColSorting("int,date,str,str,str,str,int,int,int,int,int,int,int");
+	gridMain.setHeader("No,세척일자,품목코드,품명,포장,단위,세척전재고,세척,건조,선별,"+
+			           "#cspan,#cspan,세척후재고",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품,"+
+			              "불량,계,#rspan",
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+				          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+				          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,50,"+
+			               "50,50,100");
+	gridMain.setColAlign("center,center,left,left,left,left,right,right,right,right,"+
+			             "right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ch,ch,edn,"+
+			             "edn,ron,ron");
+	gridMain.setColSorting("int,date,str,str,str,str,int,int,int,int,"+
+			               "int,int,int");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -35,15 +43,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,배합일자,품목코드,품명,포장,단위,수량,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,center,left,left,left,left,right,center");
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ra");
@@ -30,8 +30,8 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,품목코드,품명,포장,단위,입고위치,배합수량,입고수량",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100");
 	gridDtl.setColAlign("center,left,left,left,left,left,right,right");
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ron,edn");
@@ -40,30 +40,12 @@ $(document).ready(function(){
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("약품입고내역");
 
-	    calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
-	    calMain.loadUserLanguage("ko");
-	    calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+	calMain.loadUserLanguage("ko");
+	calMain.hideTime();	   
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

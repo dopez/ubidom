@@ -16,8 +16,8 @@
 		gridMain = subLayout.cells("a").attachGrid();
 		gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
 		gridMain.setHeader("구분,자재코드,자재명,규격,단위,포장단위,발주단위,입고단위", null,
-				["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-				 "text-align:center;","text-align:center;","text-align:center;"]);
+				          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+				           "text-align:center;","text-align:center;","text-align:center;"]);
 		gridMain.setInitWidths("100,100,100,100,100,100,100,100");
 		gridMain.setColAlign("center,left,left,left,left,left,left,left");
 		gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");

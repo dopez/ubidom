@@ -16,25 +16,58 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,생산일자,지시일자,폼목코드,품명,포장,단위,지시수량,정량,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,함침,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,조립,#cspan,#cspan,#cspan,크램핑,#cspan,#cspan,#cspan,세척,#cspan,#cspan,#cspan,무게선별,#cspan,#cspan,#cspan,실링,#cspan",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,작업자,약품보관,#cspan,설비가동,#cspan,양품수량,불량수량,작업자,약품보관,#cspan,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,사용전,사용후,시작,종료,#rspan,#rspan,#rspan,사용전,사용후,시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan",
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70");
-	gridMain.setColAlign("center,center,center,left,left,left,left,right,right,right,left,right,right,center,center,right,right,left,right,right,center,cemter,right,right,center,center,right,right,center,center,right,right,center,center,right,right,center,center,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ro,ron,ron,ro,ro,ron,ron,ro,ron,ron,ro,ro,ron,ron,ro,ro,ron,ron,ro,ro,ron,ron,ro,ro,ron,ron,ro,ro,ron,ron");
-	gridMain.setColSorting("int,date,date,str,str,str,str,int,int,int,str,int,int,date,date,int,int,str,int,int,date,date,int,int,date,date,int,int,date,date,int,int,date,date,int,int,date,date,int,int");
+	gridMain.setHeader("No,생산일자,지시일자,폼목코드,품명,포장,단위,지시수량,정량,#cspan,"+
+			           "#cspan,#cspan,#cspan,#cspan,#cspan,함침,#cspan,#cspan,#cspan,#cspan,"+
+			           "#cspan,#cspan,조립,#cspan,#cspan,#cspan,크램핑,#cspan,#cspan,#cspan,"+
+			           "세척,#cspan,#cspan,#cspan,무게선별,#cspan,#cspan,#cspan,실링,#cspan",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품수량,불량수량,"+
+			              "작업자,약품보관,#cspan,설비가동,#cspan,양품수량,불량수량,작업자,약품보관,#cspan,"+
+			              "설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,"+
+			              "양품수량,불량수량,설비가동,#cspan,양품수량,불량수량,설비가동,#cspan,양품수량,불량수량",
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
+			              "#rspan,사용전,사용후,시작,종료,#rspan,#rspan,#rspan,사용전,사용후,"+
+			              "시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan,시작,종료,"+
+			              "#rspan,#rspan,시작,종료,#rspan,#rspan,시작,종료,#rspan,#rspan",
+			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("70,70,70,70,70,70,70,70,70,70,"+
+			               "70,70,70,70,70,70,70,70,70,70,"+
+			               "70,70,70,70,70,70,70,70,70,70,"+
+			               "70,70,70,70,70,70,70,70,70,70");
+	gridMain.setColAlign("center,center,center,left,left,left,left,right,right,right,"+
+			             "left,right,right,center,center,right,right,left,right,right,"+
+			             "center,center,right,right,center,center,right,right,center,center,"+
+			             "right,right,center,center,right,right,center,center,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			             "ro,ron,ron,ro,ro,ron,ron,ro,ron,ron,"+
+			             "ro,ro,ron,ron,ro,ro,ron,ron,ro,ro,"+
+			             "ron,ron,ro,ro,ron,ron,ro,ro,ron,ron");
+	gridMain.setColSorting("int,date,date,str,str,str,str,int,int,int,"+
+			               "str,int,int,date,date,int,int,str,int,int,"+
+			               "date,date,int,int,date,date,int,int,date,date,"+
+			               "int,int,date,date,int,int,date,date,int,int");
 	gridMain.init();		
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -44,19 +77,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
-
-function fn_popupItemCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

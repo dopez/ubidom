@@ -16,26 +16,36 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,생산일자,품목코드,품명,포장,단위,정량,함침,조립,크램핑,세척,무게선별,실링",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,center,left,left,left,left,right,right,right,right,right,right,right");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron");
-	gridMst.setColSorting("int,date,str,str,str,str,int,int,int,int,int,int,int");
+	gridMst.setHeader("No,생산일자,품목코드,품명,포장,단위,정량,함침,조립,크램핑,"+
+			          "세척,무게선별,실링",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100");
+	gridMst.setColAlign("center,center,left,left,left,left,right,right,right,right,"+
+			            "right,right,right");
+	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,"+
+			            "ron,ron,ron");
+	gridMst.setColSorting("int,date,str,str,str,str,int,int,int,int,"+
+			              "int,int,int");
 	gridMst.init();		
 
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,포장코드,포장명,단위,수량,제조LotNo,제품수량,Box수량,총중량,총CBM,C/TNo,선택",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,right,center");
-	gridDtl.setColTypes("ron,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ra");
-	gridDtl.setColSorting("int,str,str,str,int,int,int,int,int,int,int,na");
+	gridDtl.setHeader("No,포장코드,포장명,단위,수량,제조LotNo,제품수량,Box수량,총중량,총CBM,"+
+			          "C/TNo,선택",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100");
+	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,"+
+			            "right,center");
+	gridDtl.setColTypes("ron,ro,ro,ro,ron,ron,ron,ron,ron,ron,"+
+			            "ron,ra");
+	gridDtl.setColSorting("int,str,str,str,int,int,int,int,int,int,"+
+			              "int,na");
 	gridDtl.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -45,18 +55,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
-function fn_popupItemCode(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

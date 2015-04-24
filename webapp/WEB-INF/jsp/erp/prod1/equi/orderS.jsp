@@ -16,55 +16,40 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("부품코드,부품명,규격,단위,수량,단가,금액,납기일자,납품장소",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("left,left,left,left,right,right,right,center,left");
-	gridMain.setColTypes("ro,ro,ro,ro,edn,ron,ron,dhxCalendarA,ed");
-	gridMain.setColSorting("str,str,str,str,int,int,int,date,str");
+	gridMain.setHeader("부품코드,부품명,규격,단위,수량,단가,금액,납기일자,"+
+			           "납품장소",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("left,left,left,left,right,right,right,center,"+
+			             "left");
+	gridMain.setColTypes("ro,ro,ro,ro,edn,ron,ron,dhxCalendarA,"+
+			             "ed");
+	gridMain.setColSorting("str,str,str,str,int,int,int,date,"+
+			               "str");
 	gridMain.init();	
 	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
 		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				fn_row_insert();
-			}
-		});
+	toolbar.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMain.addRow(gridMain.getUID(),",,,,,,,,",1);
+		   }
+	});
 		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==0){
+	function doOnRowDblClicked(rowId,colId){
+		if(colId==0){
 			gfn_load_popup('부품코드','common/componentCodePOP');
-			}
-		}
+		   }
+	}
 });
-function fn_new(){
-	
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	gridMain.addRow(gridMain.getUID(),",,,,,,,,",1);
-}
-function fn_row_delete(){
-	
-}
-function fn_order_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,23 +16,14 @@ var gridMain;
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");//col 9
 	gridMain.setHeader("구분,대분류,중분류,소분류,제품코드,제품명,규격,단위,포장단위", null, 
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,center,center,center,left,left,left,center,center");
 	gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
 	gridMain.setColSorting("str,str,str,str,str,str,str,str,str");
 	gridMain.init();	
-})
-function fn_search(){
-	   
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}   
+})   
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
