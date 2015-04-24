@@ -43,10 +43,10 @@ $(document).ready(function(){
 		
 	function doOnRowDblClicked(rowId,colId){
 		if(colId==1){
-			gfn_load_popup('점검항목','prod1/inspPOP');
+			gfn_big_load_popup(423,400,'점검항목','prod1/inspPOP');
 		}
 		if(colId==2){
-			gfn_load_popup('소모성부품이력등록','prod1/compHistoryPOP');
+			gfn_big_load_popup(503,400,'소모성부품이력등록','prod1/compHistoryPOP');
 		}
 	}
 });

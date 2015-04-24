@@ -106,7 +106,7 @@ $(document).ready(function(){
 			gfn_load_popup('작업자 등록창','prod1/workerSPOP');
 		}
 		if(colId==11 || colId==21 || colId==26){
-			gfn_load_popup('설비가동 등록창','prod1/equiSPOP');
+			gfn_big_load_popup(503,600,'설비가동 등록창','prod1/equiSPOP');
 		}
 	}
 });
