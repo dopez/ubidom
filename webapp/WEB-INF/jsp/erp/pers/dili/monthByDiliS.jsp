@@ -17,15 +17,19 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,부서,직위,사번,성명,근무일수,근무시간,연장시간,야근시간,특근시간,"+
-			"특근연장시간,특근야근(심야),주휴일수,지각시간,조퇴시간,외출시간,결근,무단결근,연차휴가",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,70,70,70,70,70,100,100,70,70,70,70,70,70,70");
-	gridMst.setColAlign("center,left,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMst.setColTypes("ron,ed,ed,ed,ed,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn");
-	gridMst.setColSorting("int,str,str,int,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
+			          "특근연장시간,특근야근(심야),주휴일수,지각시간,조퇴시간,외출시간,결근,무단결근,연차휴가",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,70,70,70,70,70,"+
+			              "100,100,70,70,70,70,70,70,70");
+	gridMst.setColAlign("center,left,left,left,left,right,right,right,right,right,"+
+			            "right,right,right,right,right,right,right,right,right");
+	gridMst.setColTypes("ron,ed,ed,ed,ed,edn,edn,edn,edn,edn,"+
+			            "edn,edn,edn,edn,edn,edn,edn,edn,edn");
+	gridMst.setColSorting("int,str,str,int,str,int,int,int,int,int,"+
+			              "int,int,int,int,int,int,int,int,int");
 	gridMst.init();	
 	
 	subLayout.cells("b").attachObject("bootContainer2");
@@ -33,15 +37,21 @@ $(document).ready(function(){
 
 	gridDtl = subLayout.cells("c").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,근무일자,근태구분,출근,퇴근,정상,연장,야근,외출,조퇴,지각,총근무,휴일구분",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,center,center,center,center,right,right,right,right,right,right,right,right");
-	gridDtl.setColTypes("ron,dhxCalendarA,coro,dhxCalendarA,dhxCalendarA,edn,edn,edn,edn,edn,edn,edn,coro");
-	gridDtl.setColSorting("int,date,str,date,date,int,int,int,int,int,int,int,str");
-	gridDtl.attachFooter("합계,,,,,0,0,0,0,0,0,0,");
+	gridDtl.setHeader("No,근무일자,근태구분,출근,퇴근,정상,연장,야근,외출,조퇴,"+
+			          "지각,총근무,휴일구분",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100");
+	gridDtl.setColAlign("center,center,center,center,center,right,right,right,right,right,"+
+			            "right,right,right");
+	gridDtl.setColTypes("ron,dhxCalendarA,coro,dhxCalendarA,dhxCalendarA,edn,edn,edn,edn,edn,"+
+			            "edn,edn,coro");
+	gridDtl.setColSorting("int,date,str,date,date,int,int,int,int,int,"+
+			              "int,int,str");
+	gridDtl.attachFooter("합계,,,,,0,0,0,0,0,"+
+			             "0,0,");
 	gridDtl.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -61,18 +71,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

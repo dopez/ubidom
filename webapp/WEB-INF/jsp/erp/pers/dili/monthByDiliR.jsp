@@ -17,16 +17,25 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,부서,직위,사번,성명,정상근무,연장,야간,특근,특근연장,"+
-			"지각,조퇴,외출,결근,연차,반차,LATE_DAY,교육훈련,경조휴가,보건휴가,병가",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70");
-	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,Str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
+			           "지각,조퇴,외출,결근,연차,반차,LATE_DAY,교육훈련,경조휴가,보건휴가,"+
+			           "병가",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,70,70,70,70,70,"+
+			               "70,70,70,70,70,70,70,70,70,70,"+
+			               "70");
+	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,"+
+			             "right,right,right,right,right,right,right,right,right,right,"+
+			             "right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron");
+	gridMain.setColSorting("int,str,str,str,Str,int,int,int,int,int,"+
+			               "int,int,int,int,int,int,int,int,int,int,"+
+			               "int");
 	gridMain.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -47,12 +56,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-	}
-function fn_search(){
-	
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

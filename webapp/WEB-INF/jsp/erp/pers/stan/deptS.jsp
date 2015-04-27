@@ -16,8 +16,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,부서코드,본부명,부서명,파트명,부서명(조회기준),부서전체명,적용일자,원가구분,사용여부",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,left,left,left,center,center,center");
 	gridMain.setColTypes("ron,ro,ed,ed,ed,ed,ed,dhxCalendarA,coro,ch");
@@ -25,18 +25,6 @@ $(document).ready(function(){
 	gridMain.init();	
 
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

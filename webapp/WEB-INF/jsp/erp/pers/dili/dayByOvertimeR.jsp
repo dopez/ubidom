@@ -16,14 +16,21 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서,직위,성명,출근시간,퇴근시간,연장시간,근무시간,야근시간,특근,특근잔업",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,center,center,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,date,date,int,int,int,int,int");
-	gridMain.attachFooter(",총계,,,,,,,,,");
+	gridMain.setHeader("No,부서,직위,성명,출근시간,퇴근시간,연장시간,근무시간,야근시간,특근,"+
+			           "특근잔업",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("center,left,left,left,center,center,right,right,right,right,"+
+			             "right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,"+
+			             "ron");
+	gridMain.setColSorting("int,str,str,str,date,date,int,int,int,int,"+
+			               "int");
+	gridMain.attachFooter(",총계,,,,,,,,,"+
+			              "");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -32,12 +39,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

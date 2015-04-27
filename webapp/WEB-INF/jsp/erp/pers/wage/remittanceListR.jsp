@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,은행명,사번,사원명,계좌번호,예금주명,실지급액,지급일자",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,left,left,right,center");
 	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ro");
@@ -45,9 +45,6 @@ function fn_monthLen(month){
 }
 function fn_search(){
 	gfn_load_popup('은행','common/bankPOP');
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

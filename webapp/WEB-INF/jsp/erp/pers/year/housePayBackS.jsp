@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,부서,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100");
 	gridMst.setColAlign("center,left,left,left,left");
 	gridMst.setColTypes("ron,ro,ro,ro,ro");
@@ -27,8 +27,8 @@ $(document).ready(function(){
 	gridDtl01 = subLayout.cells("b").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl01.setHeader("No,임대인(대주),임대인사업자번호(주민번호),주택유형,주택면적(m2),임대인(주소),계약기간 시작,계약기간 종료,연간월세액,세액공제액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl01.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridDtl01.setColAlign("center,left,left,left,right,left,center,center,right,right");
 	gridDtl01.setColTypes("ron,ro,ro,ro,ron,ro,ro,ro,ron,ron");
@@ -42,8 +42,8 @@ $(document).ready(function(){
 	gridDtl02 = subLayout.cells("c").attachGrid();
 	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl02.setHeader("No,임대인(대주),임대인사업자번호(주민번호),계약기간 시작,계약기간 종료,차입금이자율,차입금상환액계,원금,이자,공제금액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl02.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 	gridDtl02.setColAlign("center,left,left,center,center,right,right,right,right,right");
 	gridDtl02.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron");
@@ -57,8 +57,8 @@ $(document).ready(function(){
 	gridDtl03 = subLayout.cells("d").attachGrid();
 	gridDtl03.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl03.setHeader("No,임대인(대주),임대인사업자번호(주민번호),주택유형,주택면적(m2),임대인(주소),계약기간 시작,계약기간 종료,전세보증금",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl03.setInitWidths("100,100,100,100,100,100,100,100,100");
 	gridDtl03.setColAlign("center,left,left,left,right,left,center,center,right");
 	gridDtl03.setColTypes("ron,ro,ro,ro,ron,ro,ro,ro,ron");
@@ -95,12 +95,6 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	     }	
 	 } 
 } 
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

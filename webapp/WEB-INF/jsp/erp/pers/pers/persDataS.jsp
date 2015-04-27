@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,사원번호,성명,부서",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100");
 	gridMain.setColAlign("center,right,left,left");
 	gridMain.setColTypes("ron,ron,ro,ro");
@@ -33,21 +33,7 @@ $(document).ready(function(){
 	calMain.hideTime();
 	var t = dateformat(new Date());
 	byId("stDate").value = t; byId("edDate").value = t; byId("isDate").value = t; byId("tsDate").value = t; byId("tjDate").value = t;
-	
-
 });
-function fn_search(){
-
-}
-function fn_save(){
-	
-}
-function fn_new(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

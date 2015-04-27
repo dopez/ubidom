@@ -16,7 +16,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100");
 	gridMst.setColAlign("center,right,left,left,left,left");
 	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
@@ -27,8 +28,8 @@ $(document).ready(function(){
 	gridDtl01 = subLayout.cells("b").attachGrid();
 	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl01.setHeader("No,관계,성명,주민등록번호,직장명,직위,학력,거주지",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl01.setInitWidths("100,100,100,100,100,100,100,100");
 	gridDtl01.setColAlign("center,left,left,left,left,left,left,left");
 	gridDtl01.setColTypes("ron,ed,ed,ed,ed,ed,ed,ed");
@@ -40,8 +41,8 @@ $(document).ready(function(){
 	gridDtl02 = subLayout.cells("c").attachGrid();
 	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl02.setHeader("No,시작일,종료일,계약내용,보험료,보험금,보험회사",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;"]);
 	gridDtl02.setInitWidths("100,100,100,100,100,100,100");
 	gridDtl02.setColAlign("center,center,center,left,right,right,left");
 	gridDtl02.setColTypes("ron,dhxCalendarA,dhxCalendarA,ed,edn,edn,ed");
@@ -51,18 +52,6 @@ $(document).ready(function(){
 	subLayout.cells("c").setText("보증보험");
 
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사원번호,성명,부서",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100");
 	gridMst.setColAlign("center,right,left,left");
 	gridMst.setColTypes("ron,ron,ro,ro");
@@ -27,14 +27,19 @@ $(document).ready(function(){
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,발령일,급여구분,근무구분,발령구분,부서코드,발령부서,발령직군,근무형태,발령직위,발령직책,급여사업장",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,center,center,center,center,left,left,center,center,center,center,center");
-	gridDtl.setColTypes("ron,dhxCalendarA,coro,coro,coro,ed,ed,coro,coro,coro,coro,coro");
-	gridDtl.setColSorting("int,date,str,str,str,str,str,str,str,str,str,str");
+	gridDtl.setHeader("No,발령일,급여구분,근무구분,발령구분,부서코드,발령부서,발령직군,근무형태,발령직위,"+
+			          "발령직책,급여사업장",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100");
+	gridDtl.setColAlign("center,center,center,center,center,left,left,center,center,center,"+
+			            "center,center");
+	gridDtl.setColTypes("ron,dhxCalendarA,coro,coro,coro,ed,ed,coro,coro,coro,"+
+			            "coro,coro");
+	gridDtl.setColSorting("int,date,str,str,str,str,str,str,str,str,"+
+			              "str,str");
 	gridDtl.init();
 	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -45,7 +50,7 @@ $(document).ready(function(){
 		
 		toolbar.attachEvent("onClick", function(id) {
 			if(id == "btn5"){
-				fn_row_insert();
+				gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,",1);
 			}
 		});
 		
@@ -55,18 +60,6 @@ $(document).ready(function(){
 			}
 		}
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,",1);
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

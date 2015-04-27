@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,부서명,사번,성명,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,left");
 	gridMain.setColTypes("ron,ro,ro,ro,ro");
@@ -47,9 +47,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-function fn_search(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

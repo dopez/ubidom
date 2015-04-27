@@ -16,15 +16,20 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,근무일자,부서,직책,사번,성명,근태구분,출근,퇴근,정상,연장,야근,외출,조퇴,지각,총근무,휴일구분,요일",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,center,center,center,right,right,right,right,right,right,right,center,center");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,coro,ro,ro,ron,ron,ron,ron,ron,ron,ron,coro,coro");
-	gridMain.setColSorting("int,date,str,str,int,str,str,date,date,int,int,int,int,int,int,int,str,str");
+	gridMain.setHeader("No,근무일자,부서,직책,사번,성명,근태구분,출근,퇴근,정상,"+
+			           "연장,야근,외출,조퇴,지각,총근무,휴일구분,요일",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100,100,100,100,100");
+	gridMain.setColAlign("center,center,left,left,left,left,center,center,center,right,"+
+			             "right,right,right,right,right,right,center,center");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,coro,ro,ro,ron,"+
+			             "ron,ron,ron,ron,ron,ron,coro,coro");
+	gridMain.setColSorting("int,date,str,str,int,str,str,date,date,int,"+
+			               "int,int,int,int,int,int,str,str");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -33,18 +38,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

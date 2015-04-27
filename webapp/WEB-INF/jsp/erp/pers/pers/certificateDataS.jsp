@@ -15,13 +15,19 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,발급일자,발급번호,구분,성명,부서명,담당업무,신청일자,용도,제출처,발급자,매수",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,right,center,left,left,left,center,left,left,left,right");
-	gridMain.setColTypes("ron,dhxCalendarA,edn,coro,ed,ed,ed,dhxCalendarA,ed,ed,ed,edn");
-	gridMain.setColSorting("int,date,int,str,str,str,str,date,str,str,str,int");
+	gridMain.setHeader("No,발급일자,발급번호,구분,성명,부서명,담당업무,신청일자,용도,제출처,"+
+			           "발급자,매수",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100");
+	gridMain.setColAlign("center,center,right,center,left,left,left,center,left,left,"+
+			             "left,right");
+	gridMain.setColTypes("ron,dhxCalendarA,edn,coro,ed,ed,ed,dhxCalendarA,ed,ed,"+
+			             "ed,edn");
+	gridMain.setColSorting("int,date,int,str,str,str,str,date,str,str,"+
+			               "str,int");
 	gridMain.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
@@ -31,18 +37,6 @@ $(document).ready(function(){
 	byId("stDate").value = t;
 	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

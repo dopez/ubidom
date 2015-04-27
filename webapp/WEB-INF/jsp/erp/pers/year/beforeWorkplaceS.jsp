@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,부서,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100");
 	gridMst.setColAlign("center,left,left,left,left");
 	gridMst.setColTypes("ron,ro,ro,ro,ro");
@@ -28,10 +28,10 @@ $(document).ready(function(){
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("사업자등록번호,사업장명,급여총액,상여총액,국민연금,국외근로,건강보험,기타비과세,고용보험,야간근로,"+
 			          "소득세,주민세,농특세,퇴직연금,연구기관 연구비,기업연구소 연구비,시작일,종료일",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 	                      "100,100,100,100,100,120,100,100");
 	gridDtl.setColAlign("left,left,right,right,right,right,right,right,right,right,"+
@@ -41,26 +41,10 @@ $(document).ready(function(){
 	gridDtl.setColSorting("str,str,int,int,int,int,int,int,int,int,"+
 	                      "int,int,int,int,int,int,date,date");
 	gridDtl.init();	
-
-	  
+ 
     var t = new Date().getFullYear();
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,19 +16,14 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100");
 	gridMain.setColAlign("center,right,left,left,left,left");
 	gridMain.setColTypes("ron,ron,ro,ro,ro,ro");
 	gridMain.setColSorting("int,str,str,str,str,str");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -15,21 +15,21 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서명,사번,성명,직책,학력,결혼구분,주민번호,입사일,우편번호,주소",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,right,left,left,left,left,left,center,left,left");
-	gridMain.setColTypes("ron,ro,ron,ro,ro,ro,ro,ro,ro,ro,ro");
-	gridMain.setColSorting("int,str,int,str,str,str,str,str,date,str,str");
+	gridMain.setHeader("No,부서명,사번,성명,직책,학력,결혼구분,주민번호,입사일,우편번호,"+
+			           "주소",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100");
+	gridMain.setColAlign("center,left,right,left,left,left,left,left,center,left,"+
+			             "left");
+	gridMain.setColTypes("ron,ro,ron,ro,ro,ro,ro,ro,ro,ro,"+
+			             "ro");
+	gridMain.setColSorting("int,str,int,str,str,str,str,str,date,str,"+
+			               "str");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

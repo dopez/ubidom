@@ -18,7 +18,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,부서,직위,사번,성명,입사일",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100");
 	gridMst.setColAlign("center,left,left,left,left,center");
 	gridMst.setColTypes("ron,ro,ro,ro,ro,ro");
@@ -29,7 +30,7 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,변경일자,사용유무,갯수",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100");
 	gridDtl.setColAlign("center,center,left,right");
 	gridDtl.setColTypes("ron,dhxCalendarA,ed,edn");
@@ -52,12 +53,6 @@ function fn_year(flag){
 		t = t-1;
 		byId("stDate").value = t;
 	}
-}
-function fn_search(){
-	
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

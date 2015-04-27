@@ -16,7 +16,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100");
 	gridMst.setColAlign("center,right,left,left,left,left");
 	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
@@ -27,26 +28,14 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,자격구분,자격증명,자격등급,수당,취득일자,시행처",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100");
 	gridDtl.setColAlign("center,left,left,left,right,center,left");
 	gridDtl.setColTypes("ron,ed,ed,ed,edn,dhxCalendarA,left");
 	gridDtl.setColSorting("int,str,str,str,int,str,str");
 	gridDtl.init();	
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

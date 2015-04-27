@@ -19,11 +19,11 @@ $(document).ready(function(){
 	gridMain.setHeader("부서명,성명,입사일,근속년수,1월,2월,3월,4월,5월,6월,"+
 			           "7월,8월,9월,10월,11월,12월,급여총계(3개월),상여총계,급여평균,상여평균,"+
 			           "전체계,추계액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 	                       "100,100,100,100,100,100,100,100,100,100,"+
 	                       "100,100");
@@ -58,12 +58,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-	}
-function fn_search(){
-	
-}
-function fn_print(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

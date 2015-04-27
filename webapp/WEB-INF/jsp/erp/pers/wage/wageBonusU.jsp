@@ -16,35 +16,53 @@ $(document).ready(function(){
 	
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,직위,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,식대보조금,자가운전보조,년차수당,"+
-			"기타수당,상여,급여총액,국민연금,건강보험,고용보험,장기요양보험,소득세,지방소득세,연말정산건강,연말정산소득,연말정산지,기타공제,차감액,지급액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMst.setColTypes("ron,ro,ro,ro,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn");
-	gridMst.setColSorting("int,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
+	gridMst.setHeader("No,사번,성명,직위,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,"+
+			          "식대보조금,자가운전보조,년차수당,기타수당,상여,급여총액,국민연금,건강보험,고용보험,장기요양보험,"+
+			          "소득세,지방소득세,연말정산건강,연말정산소득,연말정산지,기타공제,차감액,지급액",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;"]);
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100,100,100,100,100,100,100,100,"+
+			              "100,100,100,100,100,100,100,100");
+	gridMst.setColAlign("center,left,left,left,right,right,right,right,right,right,"+
+		             	"right,right,right,right,right,right,right,right,right,right,"+
+			            "right,right,right,right,right,right,right,right");
+	gridMst.setColTypes("ron,ro,ro,ro,edn,edn,edn,edn,edn,edn,"+
+			            "edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,"+
+			            "edn,edn,edn,edn,edn,edn,edn,edn");
+	gridMst.setColSorting("int,str,str,str,int,int,int,int,int,int,"+
+			              "int,int,int,int,int,int,int,int,int,int,"+
+			              "int,int,int,int,int,int,int,int");
 	gridMst.init();	
 	subLayout.cells("a").setWidth(403);
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,사번,성명,직위,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,식대보조금,자가운전보조,년차수당,"+
-			"기타수당,상여,급여총액,국민연금,건강보험,고용보험,장기요양보험,소득세,지방소득세,연말정산건강,연말정산소득,연말정산지,기타공제,차감액,지급액",null,
+	gridDtl.setHeader("No,사번,성명,직위,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,"+
+			"식대보조금,자가운전보조,년차수당,기타수당,상여,급여총액,국민연금,건강보험,고용보험,장기요양보험,"+
+			"소득세,지방소득세,연말정산건강,연말정산소득,연말정산지,기타공제,차감액,지급액",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			 "text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,edn");
-	gridDtl.setColSorting("int,str,str,str,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int");
+	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+            "100,100,100,100,100,100,100,100,100,100,"+
+            "100,100,100,100,100,100,100,100");
+	gridDtl.setColAlign("center,left,left,left,right,right,right,right,right,right,"+
+       	"right,right,right,right,right,right,right,right,right,right,"+
+          "right,right,right,right,right,right,right,right");
+	gridDtl.setColTypes("ron,ro,ro,ro,edn,edn,edn,edn,edn,edn,"+
+          "edn,edn,edn,edn,edn,edn,edn,edn,edn,edn,"+
+          "edn,edn,edn,edn,edn,edn,edn,edn");
+	gridDtl.setColSorting("int,str,str,str,int,int,int,int,int,int,"+
+            "int,int,int,int,int,int,int,int,int,int,"+
+            "int,int,int,int,int,int,int,int");
 	gridDtl.init();	
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
@@ -64,12 +82,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-function fn_search(){
-	
-}
-function fn_save(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

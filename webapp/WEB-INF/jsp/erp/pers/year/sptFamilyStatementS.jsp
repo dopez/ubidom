@@ -22,7 +22,7 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,사번,성명,부서,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,left");
 	gridMain.setColTypes("ron,ro,ro,ro,ro");
@@ -34,21 +34,6 @@ $(document).ready(function(){
 	var t = new Date().getFullYear();
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

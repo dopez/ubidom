@@ -16,23 +16,21 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,사번,성명,부서,직위,총지급액,총급여액,근로소득공제,근로소득금액,중(전)근무지결정세액,"+
-			"주(현)근무지기납부세액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,140,140");
-	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,str,int,int,int,int,int,int");
+			           "주(현)근무지기납부세액",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,140,"+
+			               "140");
+	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,"+
+		                 "right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ron,ron,ron,ron,ron,"+
+			             "ron");
+	gridMain.setColSorting("int,str,str,str,str,int,int,int,int,int,"+
+			               "int");
 	gridMain.init();		
 	
 });
-function fn_search(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

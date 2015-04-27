@@ -17,7 +17,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100");
 	gridMst.setColAlign("center,left,left,left");
 	gridMst.setColTypes("ron,ro,ro,ro");
@@ -30,7 +30,7 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,사번,성명,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100");
 	gridDtl.setColAlign("center,left,left,left");
 	gridDtl.setColTypes("ron,ro,ro,ro");
@@ -56,15 +56,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

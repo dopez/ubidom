@@ -14,27 +14,12 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,근속년수,지급월수",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100");
 	gridMain.setColAlign("center,center,center");
 	gridMain.setColTypes("ron,ron,ron");
 	gridMain.setColSorting("int,int,int");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

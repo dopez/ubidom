@@ -14,15 +14,6 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
    	subLayout.cells("a").attachObject("bootContainer2");
 });
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

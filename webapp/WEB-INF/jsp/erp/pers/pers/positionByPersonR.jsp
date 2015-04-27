@@ -16,8 +16,8 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("직위명,영업부,총괄,생산부,경영지원실,기술연구부,품질관리부",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100");
 	gridMain.setColAlign("left,left,left,left,left,left,left");
 	gridMain.setColTypes("ro,ron,ron,ron,ron,ron,ron");
@@ -41,13 +41,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-
-function fn_search(){
-	
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

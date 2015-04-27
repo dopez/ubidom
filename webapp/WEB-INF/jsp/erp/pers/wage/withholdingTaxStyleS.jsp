@@ -19,11 +19,11 @@ $(document).ready(function(){
 	gridMain.setHeader("No,성명,주민번호,기본급,직책수당,연장수당,심야수당,특근수당,휴일수당,식대보조금,"+
 			           "자가운전보조금,년차수당,기타수당,상여,국민연금,건강보험,고용보험,장기요양보험,소득세,지방소득세,"+
 			           "건강보험연말정산,연말정산소득세,연말정산지방소득세,기타공제",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 	                       "100,100,100,100,100,100,100,100,100,100,"+
 	                       "120,100,120,100");
@@ -55,12 +55,6 @@ function fn_monthLen(month){
 			initMonth = month;
 		}
 		return initMonth;
-}
-function fn_search(){
-	
-}
-function fn_excel(){
-	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

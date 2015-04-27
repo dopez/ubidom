@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,사번,성명,부서,직위",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100");
 	gridMst.setColAlign("center,left,left,left,left");
 	gridMst.setColTypes("ron,ro,ro,ro,ro");
@@ -27,8 +27,8 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,공제구분,항목구분,금융기관,계좌번호,납입금액,소득/세액공제금액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,120");
 	gridDtl.setColAlign("center,left,center,left,left,right,right");
 	gridDtl.setColTypes("ron,ro,coro,ed,ed,edn,edn");
@@ -38,21 +38,6 @@ $(document).ready(function(){
     var t = new Date().getFullYear();
 	byId("stDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

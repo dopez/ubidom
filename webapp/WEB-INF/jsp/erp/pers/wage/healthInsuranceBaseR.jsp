@@ -15,26 +15,21 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서,직위,사번,성명,취득일자,증번호,보수월액(현),보험료율(현),산정보험료(현),보수월액(전),보험료율(전),산정보험료(전),금액차",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,left,center,left,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,str,str,str,str,date,str,int,int,int,int,int,int,int");
+	gridMain.setHeader("No,부서,직위,사번,성명,취득일자,증번호,보수월액(현),보험료율(현),산정보험료(현),"+
+			           "보수월액(전),보험료율(전),산정보험료(전),금액차",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100");
+	gridMain.setColAlign("center,left,left,left,left,center,left,right,right,right,"+
+			             "right,right,right,right");
+	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ron,ron,ron,"+
+			             "ron,ron,ron,ron");
+	gridMain.setColSorting("int,str,str,str,str,date,str,int,int,int,"+
+			               "int,int,int,int");
 	gridMain.init();	
 });
-
-function fn_search(){
-	
-}
-function fn_save(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -15,23 +15,23 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서명,20세이하,21~25,26~30,31~35,36~40,41~45,46~50,51~55,56~60,61세이상,합계,평균",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			"text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,right,right,right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ron,ro,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("int,int,int,int,int,int,int,int,int,int,int,int,int,int");
-	gridMain.attachFooter(",연령합계,,,,,,,,,,,,");
+	gridMain.setHeader("No,부서명,20세이하,21~25,26~30,31~35,36~40,41~45,46~50,51~55,"+
+			           "56~60,61세이상,합계,평균",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
+			               "100,100,100,100");
+	gridMain.setColAlign("center,left,right,right,right,right,right,right,right,right,"+
+			             "right,right,right,right");
+	gridMain.setColTypes("ron,ro,ron,ron,ron,ron,ron,ron,ron,ron,"+
+			             "ron,ron,ron,ron");
+	gridMain.setColSorting("int,int,int,int,int,int,int,int,int,int,"+
+			               "int,int,int,int");
+	gridMain.attachFooter(",연령합계,,,,,,,,,"+
+			              ",,,");
 	gridMain.init();	
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
