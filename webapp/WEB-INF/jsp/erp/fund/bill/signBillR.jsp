@@ -66,6 +66,7 @@ $(document).ready(function(){
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
                           </div>
                      </div>
+                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
                               <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">

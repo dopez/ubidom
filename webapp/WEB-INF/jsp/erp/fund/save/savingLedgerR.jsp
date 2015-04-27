@@ -7,7 +7,7 @@ var gridMain;
 var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(4,[1,8,9],"1C");
-	//수탁어음현황
+	//적금원장조회
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -40,7 +40,38 @@ $(document).ready(function(){
 	byId("edDate").value = t;
 	byId("stDate2").value = t;
 	byId("edDate2").value = t;
+	
+	checkStatus('chk1');
+	checkStatus('chk2');
 });
+function checkStatus(name){
+	  if(name == 'chk1'){
+		if($("input[name="+name+"]:checked").is(":checked")){
+			$("#stDate").attr("disabled", false);
+			$("#calpicker1").attr("disabled", false);
+			$("#edDate").attr("disabled",false);
+			$("#calpicker2").attr("disabled", false);
+		}else{
+			$("#stDate").attr("disabled", true);
+			$("#calpicker1").attr("disabled", true);
+			$("#edDate").attr("disabled",true);
+			$("#calpicker2").attr("disabled", true);
+		}
+	  }
+	  if(name == 'chk2'){	
+			if($("input[name="+name+"]:checked").is(":checked")){
+				$("#stDate2").attr("disabled", false);
+				$("#calpicker3").attr("disabled", false);
+				$("#edDate2").attr("disabled",false);
+				$("#calpicker4").attr("disabled", false);
+			}else{
+				$("#stDate2").attr("disabled", true);
+				$("#calpicker3").attr("disabled", true);
+				$("#edDate2").attr("disabled",true);
+				$("#calpicker4").attr("disabled", true);
+			}
+		  } 
+	}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -49,12 +80,14 @@ $(document).ready(function(){
 	  <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-8 col-md-8">
-				<label class="col-sm-2 col-md-2 control-label" for="textinput">
-				 1.가입기간
-				 </label>
-				<div class="col-sm-1 col-md-1">
-				  <input type="checkbox" name="dateGubn" id="dateGubn" value="1">
-				</div>
+				<div class="col-sm-2 col-md-2">
+			      <label class="col-sm-8 col-md-8 control-label" for="textinput">
+				    1.가입기간 
+				  </label>
+				  <div class="col-sm-2 col-md-2">
+				     <input type="checkbox" name="chk1" id="chk1" value="y" onclick="checkStatus('chk1')">
+				  </div>
+			    </div>		
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
@@ -79,12 +112,14 @@ $(document).ready(function(){
 	    <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-8 col-md-8">
-				<label class="col-sm-2 col-md-2 control-label" for="textinput">
-				 2.만기기간
-				 </label>
-				<div class="col-sm-1 col-md-1">
-				  <input type="checkbox" name="dateGubn2" id="dateGubn2" value="1">
-				</div>
+			    <div class="col-sm-2 col-md-2">
+			      <label class="col-sm-8 col-md-8 control-label" for="textinput">
+				    2.만기기간 
+				  </label>
+				  <div class="col-sm-2 col-md-2">
+				     <input type="checkbox" name="chk2" id="chk2" value="y" onclick="checkStatus('chk2')">
+				  </div>
+			    </div>
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">

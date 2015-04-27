@@ -39,7 +39,39 @@ $(document).ready(function(){
 	byId("edDate").value = t;
 	byId("stDate2").value = t;
 	byId("edDate2").value = t;
+	
+	checkStatus('chk1');
+	checkStatus('chk2');
+	
 });
+function checkStatus(name){
+  if(name == 'chk1'){
+	if($("input[name="+name+"]:checked").is(":checked")){
+		$("#stDate").attr("disabled", false);
+		$("#calpicker1").attr("disabled", false);
+		$("#edDate").attr("disabled",false);
+		$("#calpicker2").attr("disabled", false);
+	}else{
+		$("#stDate").attr("disabled", true);
+		$("#calpicker1").attr("disabled", true);
+		$("#edDate").attr("disabled",true);
+		$("#calpicker2").attr("disabled", true);
+	}
+  }
+  if(name == 'chk2'){	
+		if($("input[name="+name+"]:checked").is(":checked")){
+			$("#stDate2").attr("disabled", false);
+			$("#calpicker3").attr("disabled", false);
+			$("#edDate2").attr("disabled",false);
+			$("#calpicker4").attr("disabled", false);
+		}else{
+			$("#stDate2").attr("disabled", true);
+			$("#calpicker3").attr("disabled", true);
+			$("#edDate2").attr("disabled",true);
+			$("#calpicker4").attr("disabled", true);
+		}
+	  } 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -53,7 +85,7 @@ $(document).ready(function(){
 				    발행기간 
 				  </label>
 				  <div class="col-sm-2 col-md-2">
-				     <input type="checkbox" name="val" id="val" value="y">
+				     <input type="checkbox" name="chk1" id="chk1" value="y" onclick="checkStatus('chk1')">
 				  </div>
 			    </div>		
 				<div class="col-sm-6 col-md-6">
@@ -86,7 +118,7 @@ $(document).ready(function(){
 				    만기기간 
 				  </label>
 				  <div class="col-sm-2 col-md-2">
-				     <input type="checkbox" name="mval" id="mval" value="y">
+				     <input type="checkbox" name="chk2" id="chk2" value="y" onclick="checkStatus('chk2')">
 				  </div>
 			    </div>
 				<div class="col-sm-6 col-md-6">

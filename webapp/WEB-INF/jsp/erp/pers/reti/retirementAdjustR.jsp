@@ -22,7 +22,7 @@ $(document).ready(function(){
       <div class="row">
 	     <div class="form-group form-group-sm">
 		    <div class="col-sm-8 col-md-8">
-			   <div class="col-sm-2 col-md-2">
+			   <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
 			     <input type="button" name="tiriR" id="tiriR" class="form-control btn btn-default btn-xs" value="퇴직금자료조회">
 			   </div>
 			   <label class="col-sm-2 col-md-2 control-label" for="textinput">
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	 <div class="row">
 	     <div class="form-group form-group-sm">
 		    <div class="col-sm-8 col-md-8">
-			   <div class="col-sm-2 col-md-2">
+			   <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
 			     <input type="button" name="tsdt" id="tsdt" class="form-control btn btn-default btn-xs" value="퇴직금산출자료">
 			   </div>
 			   <div class="col-sm-2 col-md-2">

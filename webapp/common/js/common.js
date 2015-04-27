@@ -19,7 +19,7 @@ function gfn_gridLoad(url, data, grid, callback) {
 	}).done(function(jsonData) {
 		if(jsonData!="") {
 			rtn = {"total_count":jsonData.length, "pos":0, "data":jsonData};
-			alert(jsonData.length);
+			//alert(jsonData.length);
 			grid.load(rtn);		
 			if (callback != null) { 
 				callback();

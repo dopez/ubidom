@@ -41,7 +41,6 @@ public class TestController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String jsonData = request.getParameter("jsonData");
-		System.out.println(jsonData.toString());
 		List<Test> list = new ArrayList<Test>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Test>>(){});

@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 $(document).ready(function(){
 	Ubi.setContainer(4,[1,8,9],"2E");
-	//받을어음등록
+	//받을어음등현황
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
