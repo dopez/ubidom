@@ -59,7 +59,7 @@
                         
                         
                         //삭제
-                          toolbar.attachEvent("onClick", function(id) {
+                    /*       toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn4") {
                             	for(var i = mygrid.getRowsNum(); i > 0; i--){
 	                            	
@@ -86,9 +86,9 @@
 	                        		}
                             	}
                             }
-                        })
+                        }) */
                         
-                        /*
+                       
                            toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn4") {
                         			if(!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?	
@@ -114,8 +114,7 @@
                         			MsgManager.alertMsg("WRN002");
                         		}
                         })
-                        */
-                
+                       
                         //한줄삭제
                            toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn6") {

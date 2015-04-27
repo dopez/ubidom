@@ -29,7 +29,7 @@ $(document).ready(function(){
 	                     "ra");
 	gridMain.setColSorting("str,str,str,str,int,int,int,int,int,int,"+
 	                       "na");
-	gridMain.attachFooter("합계,,,,,,,,,0,"+
+	gridMain.attachFooter("합계,,,,,,,0,0,0,"+
 	                      "");
 	gridMain.init();	
 

@@ -135,7 +135,7 @@ $(document).ready(function(){
 			         설비코드
 			        </label>
 			        <div class="col-sm-2 col-md-2">
-			          <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','prod1/equiCodePOP')">
+			          <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_big_load_popup(403,400,'설비코드','prod1/equiCodePOP')">
 			        </div>
 		        </div>
 	         </div>

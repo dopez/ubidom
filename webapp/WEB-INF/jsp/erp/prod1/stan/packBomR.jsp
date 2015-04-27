@@ -15,7 +15,7 @@ $(document).ready(function(){
 	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("Level,포장코드,포장명,규격,단위,수량,사용일지,사용유무,공정,순서,"+
+	gridMain.setHeader("Level,포장코드,포장명,규격,단위,수량,사용일자,사용유무,공정,순서,"+
 			           "구분,비고",null,
 			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",

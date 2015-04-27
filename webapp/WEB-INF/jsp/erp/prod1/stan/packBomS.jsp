@@ -67,7 +67,7 @@ $(document).ready(function(){
 				포장코드
 		  </label>
 			<div class="col-sm-2 col-md-2">
-			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs">		
+			    <input type="text" name="packCode" id="packCode" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('자재코드','common/matrCodePOP')">		
 			</div>
 		  <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				포장명

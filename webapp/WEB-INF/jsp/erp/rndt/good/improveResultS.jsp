@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst,gridDtl;   
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,2,3,4,6],"2E");
+	Ubi.setContainer(2,[1,2,3,4,5,6],"2E");
 	//개선결과등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();

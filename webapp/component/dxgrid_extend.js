@@ -296,7 +296,6 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	}
 
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -411,7 +410,7 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
-dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
+/*dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -439,10 +438,8 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
 //	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
-		alert(1);
 		return null;
 	} else {
-		alert(2);
 		if (jsonStr.length > 0) {
 			jsonStr = '[' + jsonStr + ']';
 		} else {
@@ -453,11 +450,11 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	}
 
 	return jsonStr;
-};
+};*/
 
 
 //멀티삭제 MULTI DELETE 
-/*dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
+dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -481,7 +478,6 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	 }
 	
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -494,4 +490,4 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	}
 
 	return jsonStr;
-};*/
+};

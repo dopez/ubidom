@@ -84,7 +84,7 @@ $(document).ready(function(){
 	
 	function doOnRowDblClicked(rowId,colId){
 		if(colId==7){
-		gfn_load_popup('담당','qual/chargePOP');
+		gfn_big_load_popup(403,300,'담당','qual/chargePOP');
 		}
 	}
 });

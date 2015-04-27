@@ -29,9 +29,9 @@ $(document).ready(function(){
 			             "ron");
 	gridMain.setColSorting("date,str,date,str,str,str,str,int,int,int,"+
 			               "int");
-	gridMain.attachFooter(",소계,,,,,,0,0,0,"+
+	gridMain.attachFooter(",소계,,,,,,,0,0,"+
 			              "0");
-	gridMain.attachFooter(",합계,,,,,,0,0,0,"+
+	gridMain.attachFooter(",합계,,,,,,,0,0,"+
 			              "0");
 	gridMain.init();	
 

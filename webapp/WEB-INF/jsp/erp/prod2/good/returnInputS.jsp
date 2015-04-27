@@ -40,7 +40,7 @@ $(document).ready(function(){
     
     function doOnRowDblClicked(rowId,colId){
 		if(colId==1){
-			gfn_load_popup('모재코드','common/metalCodePOP');
+			gfn_big_load_popup(403,400,'모재코드','prod2/metalCodePOP');
 		   }
 	}
 });
@@ -90,7 +90,7 @@ $(document).ready(function(){
 			 거래처
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="supplyComp" id="supplyComp" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('거래처','common/supplyCompCodePOP')">
+			  <input name="supplyComp" id="supplyComp" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('거래처','common/supplyCompPOP')">
 			</div>
 		  </div>
 	  </div>

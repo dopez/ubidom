@@ -16,12 +16,12 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("사번,부서,성명",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100");
-	gridMain.setColAlign("left,left,left");
-	gridMain.setColTypes("ro,ro,ro");
-	gridMain.setColSorting("str,str,str");
+	gridMain.setHeader("사번,성명,진행중,시료수량",null,
+			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+	gridMain.setInitWidths("100,100,100,100");
+	gridMain.setColAlign("left,left,right,right");
+	gridMain.setColTypes("ro,ro,ron,ron");
+	gridMain.setColSorting("str,str,int,int");
 	gridMain.init(); 
 });
 </script>

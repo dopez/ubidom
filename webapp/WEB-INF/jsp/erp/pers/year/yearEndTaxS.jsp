@@ -5,7 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,4,8],"2U");
+	Ubi.setContainer(3,[1,3,4,8],"2U");
 	//연말정산
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -90,10 +90,16 @@ $(document).ready(function(){
 		  </div>
 	  </div>
 	</div>
-   <div class="row">
+	<div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
-			<div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 전체선택
+			 </label>
+			<div class="col-sm-1 col-md-1">
+			  <input name="choice" id="choice" type="checkbox" value="y" placeholder="">
+			</div>
+			<div class="col-sm-2 col-md-2">
 			  <input name="standa" id="standa" type="button" value="기초자료가져오기" placeholder="" class="form-control btn btn-default btn-xs">
 			</div>
 			<div class="col-sm-2 col-md-2">
@@ -101,18 +107,6 @@ $(document).ready(function(){
 			</div>
 			<div class="col-sm-2 col-md-2">
 			  <input name="disk" id="disk" type="button" value="연말정산디스켓작업" placeholder="" class="form-control btn btn-default btn-xs">
-			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 전체선택
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="choice" id="choice" type="checkbox" value="y" placeholder="">
 			</div>
 		  </div>
 	  </div>

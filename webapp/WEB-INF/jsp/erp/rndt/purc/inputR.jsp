@@ -29,9 +29,9 @@ $(document).ready(function(){
 			             "ro,ro");
 	gridMain.setColSorting("date,str,str,str,str,str,str,int,int,int,"+
 			               "date,str");
-	gridMain.attachFooter("일계,,,,,,,0,,0,"+
+	gridMain.attachFooter("일계,,,,,,,,,0,"+
 			              ",");
-	gridMain.attachFooter("합계,,,,,,,0,,0,"+
+	gridMain.attachFooter("합계,,,,,,,,,0,"+
 			              ",");
 	gridMain.init();	
 

@@ -23,8 +23,8 @@ $(document).ready(function(){
 	gridMain.setColAlign("center,left,right,right,left,center,right,right,right,left");
 	gridMain.setColTypes("ro,ro,ron,ron,ro,ro,ron,ron,ron,ro");
 	gridMain.setColSorting("date,str,int,int,str,str,int,int,int,str");
-	gridMain.attachFooter(",소계,0,0,0,,0,0,0,");
-	gridMain.attachFooter(",합계,0,0,0,,0,0,0,");
+	gridMain.attachFooter(",소계,,,,,0,0,0,");
+	gridMain.attachFooter(",합계,,,,,0,0,0,");
 	gridMain.init();	
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);

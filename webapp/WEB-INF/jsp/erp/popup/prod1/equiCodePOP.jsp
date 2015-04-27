@@ -16,7 +16,7 @@ $(document).ready(function(){
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("설비코드,설비명,규격,사용공정",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("70,70,70,70");
+	gridMain.setInitWidths("100,100,100,100");
 	gridMain.setColAlign("left,left,left,left");
 	gridMain.setColTypes("ro,ro,ro,ro");
 	gridMain.setColSorting("str,str,str,str");

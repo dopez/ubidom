@@ -14,7 +14,7 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,모재명,규격,주기",null,
+	gridMain.setHeader("코드,모재명,규격,재질",null,
 			["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100");
 	gridMain.setColAlign("left,left,left,left");

@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;  
 var calMain;
+var cName = '생산';
+var cName2 = '포장';
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,2,3,4,5,6],"2E");
 	//생산포장/지시등록
@@ -40,13 +42,13 @@ $(document).ready(function(){
 			          "생산/포장",null,
 			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;"]);
+			          "text-align:center;","text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 			              "100");
 	gridDtl.setColAlign("center,left,left,left,left,center,right,right,right,right,"+
 			            "center");
 	gridDtl.setColTypes("ron,ro,ro,ro,ro,dhxCalendarA,ron,ron,ron,edn,"+
-			            "ch");
+			            "radioCell");
 	gridDtl.setColSorting("int,str,str,str,str,date,int,int,int,int,"+
 			              "na");
 	gridDtl.init();	
@@ -62,7 +64,7 @@ $(document).ready(function(){
 		
 	function doOnCheck(rowId,colId){
 		if(colId==12){
-			gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,",1);
+			gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,",1);
 		  }
 	}
 		
@@ -77,7 +79,35 @@ $(document).ready(function(){
 			gfn_load_popup('제품코드','common/goodsCodePOP');
 		   }
 	}
-});
+}); 
+var eXcell_radioCell = function(cell){
+	  if (cell){
+	      this.cell = cell;
+	      this.grid = this.cell.parentNode.grid;
+	   }
+	 this.setValue=function(val){
+		 
+	       var row_id=this.cell.parentNode.idd;
+	       var value, value1, value2;
+	       var cellIndex = this.cell._cellIndex;
+	       if((val=='Y') || val=='y')
+	           value = "<input type='radio' name='myradio" + row_id + "_"+ cellIndex +"' value='Y' checked/>"+cName+"";
+	       else
+	          value= "<input type='radio' name='myradio" + row_id + "_"+ cellIndex +"' value='Y'/> "+cName+""; 
+	       if((val=='N') || val=='n')
+	          value1 = "<input type='radio' name='myradio" + row_id + "_"+ cellIndex +"' value='N' checked/>"+cName2+"";
+	       else
+	          value1= "<input type='radio' name='myradio" + row_id + "_"+ cellIndex +"' value='N'/>"+cName2+"";
+	           value2 = value+value1;
+
+	    this.setCValue(value2);
+	} 
+	this.getValue=function(val){
+	   var row_id=this.cell.parentNode.idd;
+	   return value;   
+}};
+
+eXcell_radioCell.prototype = new eXcell;
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -16,7 +16,7 @@ $(document).ready(function(){
     
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,고객명",null,
+	gridMain.setHeader("고객코드,고객명",null,
 			["text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("150,150");
 	gridMain.setColAlign("left,left");

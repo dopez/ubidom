@@ -5,17 +5,13 @@
 var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,8,9],"1C");
+	Ubi.setContainer(0,[1,8,9],"1C");
 	//신뢰성항목기준정보조회
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
-    
-	uClayout = layout.cells("b").attachLayout("1C");
-               subLayout.cells("a").setHeight(1);
-	
-    uClayout.cells("a").hideHeader();
-	gridMain = uClayout.cells("a").attachGrid();
+ 
+	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,등록자,종류,항목,#cspan,세부내역,코드",null,
 			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;",
