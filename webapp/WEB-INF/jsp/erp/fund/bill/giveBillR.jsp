@@ -17,9 +17,9 @@ $(document).ready(function(){
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,어음종류,발행은행,어음번호,어음금액,발행일,만기일,비고,거래처,계정,"+
 			           "세목,전표일자(발행일),전표No(발행일),전표일자(만기일),전표No(만기일)",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 	                       "100,100,100,100,100");
 	gridMain.setColAlign("center,left,left,left,right,center,center,left,left,left,"+
@@ -30,7 +30,8 @@ $(document).ready(function(){
 	                       "str,date,date,date,date");
 	gridMain.init();	
 
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},{input:"stDate2",button:"calpicker3"},{input:"edDate2",button:"calpicker4"}]);
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},
+	                                    {input:"stDate2",button:"calpicker3"},{input:"edDate2",button:"calpicker4"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
@@ -39,12 +40,6 @@ $(document).ready(function(){
 	byId("stDate2").value = t;
 	byId("edDate2").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

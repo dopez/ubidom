@@ -17,9 +17,9 @@ $(document).ready(function(){
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,발행일,수금거래처명,발행인,발행은행,어음번호,어음종류,만기일,금액,어음잔액,"+
 			            "배서금액계,할인금액계,만기금액",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;"]);
+			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			            "text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
                            "100,100,100");
 	gridMst.setColAlign("center,center,left,left,left,left,left,center,right,right,"+
@@ -33,10 +33,10 @@ $(document).ready(function(){
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridDtl.setHeader("No,수금번호,어음번호,금액,발행은행,만기일,구분,배서/할인금액계,배서/할인일자,배서/할인처,"+
-			            "배서/할인사항",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;"]);
+			          "배서/할인사항",null,
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;"]);
 	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
                           "100");
 	gridDtl.setColAlign("center,left,left,right,left,center,left,right,center,left,"+
@@ -53,18 +53,7 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 	byId("edDate").value = t;
-	byId("stDate2").value = t;
-	byId("edDate2").value = t;
 });
-function fn_search(){
-	
-}
-function fn_excel(){
-	
-}
-function fn_print(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

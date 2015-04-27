@@ -16,10 +16,10 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,발행일,수금업체,발행인,발행은행,어음번호,어음종류,만기일,금액,어음잔액,"+
-			            "배서금액계,할인금액계,만기금액,수금번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			           "배서금액계,할인금액계,만기금액,수금번호",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
                            "100,100,100,100");
 	gridMain.setColAlign("center,center,left,left,left,left,left,center,right,right,"+
@@ -30,7 +30,8 @@ $(document).ready(function(){
                            "int,int,int,int");
 	gridMain.init();	
 
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},{input:"stDate2",button:"calpicker3"},{input:"edDate2",button:"calpicker4"}]);
+	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},
+	                                    {input:"stDate2",button:"calpicker3"},{input:"edDate2",button:"calpicker4"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
@@ -39,21 +40,6 @@ $(document).ready(function(){
 	byId("stDate2").value = t;
 	byId("edDate2").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_row_insert(){
-	
-}
-function fn_row_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

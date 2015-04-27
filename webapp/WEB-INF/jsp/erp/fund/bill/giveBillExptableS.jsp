@@ -18,13 +18,13 @@ $(document).ready(function(){
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("선택,발행일,발행은행,어음번호,어음금액,만기일,비고,거래처,계정명,전표일자(발행일),"+
 			           "전표No(발행일),전표일자(만기일),전표No(만기일),결제계좌번호",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
 	                       "100,100,100,100");
 	gridMain.setColAlign("center,center,left,left,right,center,left,left,left,center,"+
-	           "center,center,center,left");
+	                     "center,center,center,left");
 	gridMain.setColTypes("ra,ro,ro,ro,ron,ro,ro,ro,ro,ro,"+
 	                     "ro,ro,ro,ro");
 	gridMain.setColSorting("na,date,str,str,int,date,str,str,str,date,"+
@@ -40,9 +40,6 @@ $(document).ready(function(){
 	byId("stDate2").value = t;
 	byId("edDate2").value = t;
 });
-function fn_search(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

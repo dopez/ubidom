@@ -14,8 +14,8 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMst.setHeader("No,인수일,은행,결제계좌번호,시작번호,종료번호,매수",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			          "text-align:center;","text-align:center;"]);
 	gridMst.setInitWidths("100,100,100,100,100,100,100");
 	gridMst.setColAlign("center,center,left,left,right,right,right");
 	gridMst.setColTypes("ron,dhxCalendarA,ed,ed,edn,edn,edn");
@@ -34,17 +34,5 @@ $(document).ready(function(){
 	gridDtl.init();	
 
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

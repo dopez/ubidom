@@ -4,7 +4,6 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4,5],"1C");
 	//수탁어음현황
@@ -31,29 +30,7 @@ $(document).ready(function(){
 	gridMain.setColSorting("int,str,str,str,str,date,date,int,int,int,"+
 	                       "int,date,str,Str,str,str,na,na");
 	gridMain.init();	
-	
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
-	calMain.loadUserLanguage("ko");
-	calMain.hideTime();
-	var t = dateformat(new Date());
-	byId("stDate").value = t;
-	byId("edDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_new(){
-	
-}
-function fn_save(){
-	
-}
-function fn_delete(){
-	
-}
-function fn_row_insert(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

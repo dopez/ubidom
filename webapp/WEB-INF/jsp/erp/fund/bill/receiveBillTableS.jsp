@@ -17,10 +17,10 @@ $(document).ready(function(){
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("No,어음번호,어음종류,발행은행,발행일,만기일,금액,거래처,계좌번호,수탁은행,"+
-			            "전표일자,전표No",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			 "text-align:center;","text-align:center;"]);
+			           "전표일자,전표No",null,
+			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
+			           "text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
                            "100,100");
 	gridMain.setColAlign("center,left,left,left,center,center,right,left,left,left,"+
@@ -39,15 +39,6 @@ $(document).ready(function(){
 	byId("edDate").value = t;
 	byId("jpDate").value = t;
 });
-function fn_search(){
-	
-}
-function fn_row_delete(){
-	
-}
-function fn_excel(){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
