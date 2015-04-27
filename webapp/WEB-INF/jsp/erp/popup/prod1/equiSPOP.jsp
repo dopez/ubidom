@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
 $(document).ready(function(){
-	Ubi.setContainer(0,[1],"1C");
+	Ubi.setContainer(0,[3,4,5,6],"1C");
 	//설비가동 등록창
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();

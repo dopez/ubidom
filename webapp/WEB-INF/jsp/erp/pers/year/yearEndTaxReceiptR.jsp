@@ -40,15 +40,6 @@ $(document).ready(function(){
     m = fn_monthLen(m);
 	byId("stDate").value = t+"/"+m;
 });
-function fn_monthLen(month){
-	 var initMonth;
-		if(month < 10){		
-			initMonth = "0"+month;
-		}else{
-			initMonth = month;
-		}
-		return initMonth;
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
