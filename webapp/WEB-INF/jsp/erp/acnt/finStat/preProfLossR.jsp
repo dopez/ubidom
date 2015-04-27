@@ -22,7 +22,7 @@
                 gridMain.setColSorting("int,str,int,int,int,int");
                 gridMain.init();
 
-                calMain = new dhtmlXCalendarObject([{
+                /* calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
                     button: "calpicker1"
                 }]);
@@ -52,7 +52,29 @@
                         byId("stDate").value = t + "/" + m;
                     }
                 }
+            } */
+            calMain = new dhtmlXCalendarObject([{
+                input: "stDate",
+                button: "calpicker1"
+            }]);
+            calMain.loadUserLanguage("ko");
+            calMain.setDateFormat("%Y/%m");
+            calMain.hideTime();
+            var t = new Date().getFullYear();
+            var m = +new Date().getMonth() + 1;
+            m = fn_monthLen(m);
+            byId("stDate").value = t + "/" + m;
+        });
+
+        function fn_monthLen(month) {
+            var initMonth;
+            if (month < 10) {
+                initMonth = "0" + month;
+            } else {
+                initMonth = month;
             }
+            return initMonth;
+        }
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
         <div id="bootContainer">
@@ -62,7 +84,7 @@
                         <div class="col-sm-8 col-md-8">
                             <div class="form-group form-group-sm">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">기준년월</label>
-                                <div class="col-sm-2 col-md-2">
+                                <!-- <div class="col-sm-2 col-md-2">
                                     <div class="col-sm-6 col-md-6">
                                         <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
@@ -72,7 +94,15 @@
                                     <div class="col-sm-3 col-md-3">
                                         <input type="button" id="" class="form-control btn btn-default btn-xs" value="▼" onclick="calYearAdder(2)">
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="col-sm-2 col-md-2">
+	                                <div class="col-sm-10 col-md-10">
+	                                    <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+	                                </div>
+	                                <div class="col-sm-2 col-md-2">
+	                                    <input type="button" id="calpicker1" class="calicon form-control">
+	                                </div>
+	                            </div>
                             </div>
                         </div>
                     </div>

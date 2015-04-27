@@ -42,13 +42,13 @@
             	byId("stDate").value = t;
             })
             
-            function calYearAdder(n) {
+/*             function calYearAdder(n) {
 				if(n==1){
 					byId("stDate").value++;
 				}else{
 					byId("stDate").value--;
 				}
-			}
+			} */
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
@@ -59,6 +59,19 @@
 					<div class="row">
 						<div class="col-sm-8 col-md-8">
 							<div class="form-group form-group-sm">
+								<label class=" col-sm-2 col-md-2 control-label" for="textinput">
+									연도 </label>
+								<div class="col-sm-2 col-md-2">
+									<div class="col-sm-10 col-md-10">
+										<input name="stDate" id="stDate" type="text" value=""
+											placeholder="" class="form-control input-xs">
+									</div>
+									<div class="col-sm-2 col-md-2">
+										<input type="button" id="calpicker1" class="calicon form-control">
+									</div>
+								</div>
+							</div>
+							<!-- <div class="form-group form-group-sm">
 								<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 									기준년도 </label>
 								<div class="col-sm-2 col-md-2">
@@ -73,7 +86,7 @@
 											<input type="button" id="" class="form-control btn btn-default btn-xs" value="▼" onclick="calYearAdder(2)">
 										</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="form-group form-group-sm">
 								<div class="col-sm-offset-2 col-md-offset-2 col-sm-2 col-md-2">
 								<input name="" id="" type="button" value="마&nbsp;&nbsp;감"

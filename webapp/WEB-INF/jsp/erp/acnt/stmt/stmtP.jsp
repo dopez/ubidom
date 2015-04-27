@@ -56,14 +56,18 @@
                                     <input type="text" class="form-control input-xs" name="" id="" value="" ondblclick="gfn_load_popup('발의부서','common/deptCodePOP')">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                	<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                                    	<input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                    </div>
                                 </div>
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">담당자</label>
                                 <div class="col-sm-1 col-md-1">
                                     <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                	<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                                    	<input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
