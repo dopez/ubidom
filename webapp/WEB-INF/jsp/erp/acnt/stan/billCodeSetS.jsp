@@ -16,7 +16,7 @@
                 subLayout.cells("a").setWidth(302);
 
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMst.setHeader("No,Seq,명세서명");
                 gridMst.setInitWidths("100,100,100");
                 gridMst.setColAlign("center,center,center");
@@ -25,7 +25,7 @@
                 gridMst.init();
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridDtl.setHeader("계정명,세목명,코드");
                 gridDtl.setInitWidths("100,100,100");
                 gridDtl.setColAlign("center,center,center");

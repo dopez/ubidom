@@ -13,7 +13,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 
     gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
     gridMain.setHeader("방문,유선,불량분석,견적가격조정,Test진행,"+
     					"기술지원,자료작성,컴프레인,계");
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");

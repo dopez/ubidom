@@ -15,7 +15,7 @@
                 layout.cells("b").attachObject("bootContainer2");
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); 
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); 
                 gridMain.setHeader("No,받는사람,주소,금액,인쇄");
                 gridMain.setInitWidths("100,100,100,100,100");
                 gridMain.setColAlign("center,center,left,right,center");

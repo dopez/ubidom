@@ -17,7 +17,7 @@ $(document).ready(function() {
 	//grid	
 	
 	gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridMain.setHeader("No,장비코드,장비명,규격,용도,교정항목,교정주기,교정기간,최종교정일자,교정예정일자");
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
     gridMain.setColAlign("center,left,left,left,left,center,center,center,center,center");

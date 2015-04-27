@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //8
                 gridMain.setHeader("No,계정,세목,전기이월,당기증가,당기감소,기말잔액");
                 gridMain.attachFooter(",총계,#cspan,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");

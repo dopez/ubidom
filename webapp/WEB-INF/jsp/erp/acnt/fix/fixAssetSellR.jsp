@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,처분구분,처리일자,자산코드,자산명,"+
                 					"취득일,수량,취득금액,상각누계액,당기잔액,"+
                 					"처분금액,처분내용");

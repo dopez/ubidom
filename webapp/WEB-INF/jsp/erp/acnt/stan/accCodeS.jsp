@@ -16,7 +16,7 @@
             layout.cells("b").attachObject("bootContainer2");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //13
                 gridMain.setHeader("대분류명,중분류명,소분류명,계정,계정명,세목,세목명,계정코드,타계정,차대구분,사용구분,사용분류,경비사용유무");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center,center");

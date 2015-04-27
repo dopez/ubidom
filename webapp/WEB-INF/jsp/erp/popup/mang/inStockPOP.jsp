@@ -7,7 +7,7 @@ var gridMain;
 var toolbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
-	//공급업체코드 도우미
+	//입고내역 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
@@ -30,6 +30,17 @@ $(document).ready(function(){
 							"str,str,str,int,int,"+
 							"int");
 	gridMain.init(); 
+    calMain = new dhtmlXCalendarObject([{
+        input: "stDate",
+        button: "calpicker1"
+    }, {
+        input: "edDate",
+        button: "calpicker2"
+    }]);
+    calMain.loadUserLanguage("ko");
+    calMain.hideTime();
+    var t = dateformat(new Date());
+    byId("stDate").value = t;
 });
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //25
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //25
                 gridMain.setHeader("No,구분,승인번호,발의부서,전표번호,계정과목,차변,대변,과표,적요,거래처,번호,시작일,종료일,수량,환율,이율" + 
                 				   "매입구분,매출구분,화폐단위,수량단위,담당자,승인자,매입전자발행,전자세금계산서발행구분");
                 gridMain.attachFooter("&nbsp;,전표계,#cspan,#cspan,#cspan,#cspan,0,0");

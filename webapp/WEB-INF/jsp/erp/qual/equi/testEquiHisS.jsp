@@ -13,7 +13,7 @@
                 layout.cells("b").attachObject("bootContainer");
                
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMst.setHeader("장비코드, 장비명", null, []);
                 gridMst.setInitWidths("100,100");
                 gridMst.setColAlign("left,left");
@@ -22,7 +22,7 @@
                 gridMst.init();
                 
                 gridDtl = subLayout.cells("c").attachGrid();//col7
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridDtl.setHeader("No,항목코드,주기,주기단위,교정기간,최초점검일", null, []);
                 gridDtl.setInitWidths("100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,center,center");

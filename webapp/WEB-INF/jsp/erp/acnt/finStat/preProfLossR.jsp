@@ -14,7 +14,7 @@
                 layout.cells("b").attachObject("bootContainer");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,계정,전년동월,전년누계,당월,누계");
                 gridMain.setInitWidths("100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,right,right,right,right");

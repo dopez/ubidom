@@ -17,7 +17,7 @@
                 subLayout.cells("a").setWidth(802);
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMain.setHeader("대분류명,중분류명,소분류명,계정,계정명,세목,세목명,계정코드");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,center,center,center,center,center");

@@ -15,7 +15,7 @@
                 layout.cells("b").attachObject("bootContainer2");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,일자,등급,지역", null, []);
                 gridMain.setInitWidths("50,100,100,300");
                 gridMain.setColAlign("center,center,center,left");

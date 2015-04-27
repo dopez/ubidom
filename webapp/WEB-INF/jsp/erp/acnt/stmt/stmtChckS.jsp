@@ -19,7 +19,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("차/대변이 틀린 전표리스트 입니다.");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //8
                 gridMain.setHeader("No,전표일자,전표번호,차변,대변,잔액,승인일자,승인번호");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,right,right,right,center,center");

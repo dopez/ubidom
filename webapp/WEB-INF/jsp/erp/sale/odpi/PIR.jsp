@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //16
 
                 gridMain.setHeader("No,PI No,고객,매출구분,담당,고객PO No,결제조건,인도조건,선적항,도착항,선적일자,결제은행,특이사항,품목코드,품명,포장,단위,통화단위,단가,수량,금액,구분");
                 gridMain.attachFooter("&nbsp;,소계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,&nbsp;");

@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //35
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //35
                 gridMain.setHeader("No,Shipment,선적일자,입고일자,정산일자,"+
                 					"Inv No,팔레트 NO,컨테이너 No,공급처명,SC No,"+
                 					"재질,품목명,규격,수량(중량),단가,"+

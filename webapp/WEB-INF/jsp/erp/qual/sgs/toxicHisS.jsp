@@ -15,7 +15,7 @@ $(document).ready(function() {
 	//grid	
 	/* layout.cells("b").setHeight(900); */
 	gridMain = layout.cells("b").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
     gridMain.setHeader("No,시험종류,시료코드,시료명,시험주기,최종시험일자");
     gridMain.setInitWidths("100,100,100,100,100,100");
     gridMain.setColAlign("center,center,center,center,center,center");

@@ -20,20 +20,20 @@
 				subLayout.cells("a").showHeader();
 				subLayout.cells("a").setText("의뢰내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //15 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //15 col
                 gridMst.setHeader("No,의뢰일자,의뢰부서,의뢰자,공급업체,품명,규격,단위,수량,단가,금액,납기일자,용도,첨부,선택", null,[]);
                 
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,left,left,left,center,right,right,right,center,center,center,center");
                 gridMst.setColTypes("ron,dhxCalendar,ed,ed,ed,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,ed,ra");
-                gridMst.setColSorting("int,date,str,str,str,str,str,str,int,int,int,date,str,str,str");
+                gridMst.setColSorting("int,date,str,str,str,str,str,str,int,int,int,date,str,str,na");
                 gridMst.init();
 
                 //down
   				subLayout.cells("b").showHeader();
 				subLayout.cells("b").setText("접수내역");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //10col
                 gridDtl.setHeader("No,의뢰번호,품명,규격,단위,입고수량,단가,금액,납기일자,용도");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,right,right,right,center,center");
@@ -50,9 +50,29 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
-
+			
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn1"){
+        				fn_insert();
+        			}
+        		});
+                gridDtl.attachEvent("onRowSelect", function(id,ind){
+                 	gridDtl.editCell();
+                 	});
+                 gridMst.attachEvent("onRowSelect", function(id,ind){
+                 	gridMst.editCell();
+                 	});
+                 	
+                 gridMst.attachEvent("onCheck",doOnCheck);
+                 function doOnCheck(rowId,colId){
+            		if(colId==14){
+            			gridDtl.addRow(gridDtl.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+            		}
+            	}
             })
-
+			 function fn_insert() {
+			 		gridMst.addRow(gridMst.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,",1);
+			 }
         </script>
         <style>
 

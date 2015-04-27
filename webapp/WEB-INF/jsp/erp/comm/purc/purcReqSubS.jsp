@@ -21,12 +21,12 @@ $( document ).ready(function() {
 	
 	
 	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //10 col
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
 	gridMain.setHeader("No,품목코드,품명,규격,단위,수량,단가,금액,납기일자,용도,첨부", null, 
 				[]);
 	gridMain.setInitWidths("50,200,200,150,100,100,100,100,100,200,100");       
 	gridMain.setColAlign("center,left,left,left,center,right,right,right,center,center,center");     
-	gridMain.setColTypes("ro,ed,ed,ed,ed,edn,edn,edn,ed,ed,ed"); 
+	gridMain.setColTypes("ro,ro,ro,ed,ed,edn,edn,edn,ed,ed,ed"); 
 	gridMain.setColSorting("str,str,str,str,str,int,int,int,date,str,str");
 	gridMain.init();
 	/* subLayout.cells("a").appendObject("tdisLabel01").init(); */
@@ -50,10 +50,14 @@ $( document ).ready(function() {
 				gfn_load_popup('품목코드','common/itemPOP');
 			}
 		}
+        gridMain.attachEvent("onRowSelect", function(id,ind){
+         	gridMain.editCell();
+      	});
     })
         
     function fn_insert() {
-    		gridMain.addRow(gridMain.getUID(),"1,,,,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,",1);
+			
+    		gridMain.addRow(gridMain.getUID(),"1,,,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
 	}
 
 </script>

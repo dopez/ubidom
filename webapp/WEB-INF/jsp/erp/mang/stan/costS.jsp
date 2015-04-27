@@ -18,7 +18,7 @@
                 //left grid	
                 subLayout.cells("a").setWidth(203);
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //2col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //2col
                 gridMst.setHeader("고객코드,고객명", null, []);
                 gridMst.setInitWidths("100,100");
                 gridMst.setColAlign("left,center");
@@ -28,14 +28,36 @@
 
                 //right grid
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //17col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //17col
                 gridDtl.setHeader("품목코드,품명,규격,단위,통화단위,단가,적용일자", null, []);
                 gridDtl.setInitWidths("100,100,100,100,100,100,100");
                 gridDtl.setColAlign("left,left,left,center,right,right,center");
-                gridDtl.setColTypes("ed,ed,ed,ed,coro,edn,dhxCalendar");
+                gridDtl.setColTypes("ro,ro,ed,ed,coro,edn,dhxCalendar");
                 gridDtl.setColSorting("str,str,str,str,str,int,date");
                 gridDtl.init();
+                
+                gridDtl.attachEvent("onRowSelect", function(id,ind){
+                 	gridDtl.editCell();
+                 	});
+              //항목삽입
+                toolbar.attachEvent("onClick", function(id) {
+        			if(id == "btn5"){
+        				fn_insert();
+        			}
+        		});
+                //popUp
+                gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+        			if(colId==0 || colId==1){
+        				gfn_load_popup('품목코드','common/itemCodePOP');
+        			}
+        		}
             })
+                
+            function fn_insert() {
+            		gridDtl.addRow(gridDtl.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        	}
+
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>

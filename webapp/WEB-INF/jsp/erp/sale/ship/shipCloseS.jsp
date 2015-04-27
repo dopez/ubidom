@@ -18,7 +18,7 @@
 
             //grid	
             gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //15
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //15
                 gridMain.setHeader("No,수주번호,담당,고객,품목코드,품명,포장,단위,수량,납기일자,수주,#cspan,#cspan,출하수량,#cspan,출하일자,마감");
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,수량,단가,금액,수량,금액,#rspan,#rspan");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

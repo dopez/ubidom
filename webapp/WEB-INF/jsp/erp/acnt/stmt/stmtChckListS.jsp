@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //16
                 gridMain.setHeader("No,승인일자,승인번호,구분,계정과목,"+
                 					"세목명,차변,대변,적요,귀속부서,"+
                 					"거래처,관리항목,발의부서,발의자,전표일자"+

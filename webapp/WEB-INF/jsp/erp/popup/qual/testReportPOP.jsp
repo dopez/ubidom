@@ -15,7 +15,7 @@ $(document).ready(function(){
     
     
     gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridMain.setHeader("No,의뢰번호,약품,제조LOT No,시료,코팅장비,위치,시험장비,시험자,비고");
     
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,");

@@ -13,7 +13,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
     
     gridMst = subLayout.cells("a").attachGrid();
-    gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+    gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //9
     gridMst.setHeader("No,계정,세목,귀속부서,차변금액,대변금액,거래처,적요,번호(어음·계좌·L/C)");
     gridMst.attachFooter(",전표합계,#cspan,#cspan,0,0,(차액)");
     gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");

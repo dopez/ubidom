@@ -16,7 +16,7 @@
                 layout.cells("b").attachObject("bootContainer2");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //8
                 gridMain.setHeader("No,계정,거래처,귀속부서,관리번호,원가구분,금액,#cspan");
                 gridMain.attachHeader("#rspan,적요,#cspan,#cspan,#cspan,#cspan,차변금액,대변금액");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100");

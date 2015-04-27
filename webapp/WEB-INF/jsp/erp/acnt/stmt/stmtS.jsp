@@ -19,7 +19,7 @@
 				
                 //grid	
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMst.setHeader("전표일자,구분,계정번호,계정명,차변금액,대변금액,적요,거래처명,사업부");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,right,right,center,left,left");
@@ -28,7 +28,7 @@
                 gridMst.init();
 
                 gridDtl = subLayout.cells("c").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //13
                 gridDtl.setHeader("번호,계정명,세목,차변금액,대변금액,거래처,적요,번호,일자,과표,매입구분,매출구분,전자구분");
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,0,0");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

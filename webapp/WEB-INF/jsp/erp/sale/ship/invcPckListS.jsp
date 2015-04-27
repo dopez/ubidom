@@ -20,18 +20,18 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("수주내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); 
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); 
                 gridMst.setHeader("No,수주번호,고객PO No,품목코드,품명,포장,단위,통화단위,단가,수량,금액,결제조건,인도조건,선적항,도착항,납기일자,선택");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,left,left,left,left,center,center,center,right,right,right,center,center,center,center,center,center");
-                gridMst.setColTypes("ron,ed,ed,ed,ed,ed,ed,ed,edn,edn,edn,ed,ed,ed,ed,dhxCalendar,ch");
-                gridMst.setColSorting("int,str,str,str,str,str,str,str,int,int,int,str,str,str,str,date,str");
+                gridMst.setColTypes("ron,ed,ed,ed,ed,ed,ed,ed,edn,edn,edn,ed,ed,ed,ed,dhxCalendar,ra");
+                gridMst.setColSorting("int,str,str,str,str,str,str,str,int,int,int,str,str,str,str,date,na");
                 gridMst.init();
 
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("Invoice/Packing List 내역");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //16
                 gridDtl.setHeader("No,인쇄,In No,품목코드,품명,단위,통화단위,단가,수량,금액,중량,CBM,결제조건,인도조건,선적항,도착항");
                 gridDtl.attachFooter("&nbsp;,#cspan,합계,#cspan,#cspan,#cspan,#cspan,0,0,0,0");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
@@ -51,7 +51,34 @@
                 calStDate.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                //항목삽입
+                toolbar.attachEvent("onClick", function(id) {
+                    if (id == "btn1") {
+                        fn_insert();
+                    }
+
+                });
+
+                //edit cell
+                gridDtl.attachEvent("onRowSelect", function(id, ind) {
+                    gridDtl.editCell();
+                });
+                gridMst.attachEvent("onRowSelect", function(id, ind) {
+                    gridMst.editCell();
+                });
+                
+                gridMst.attachEvent("onCheck", doOnCheck);
+                function doOnCheck(rowId, colId) {
+                    if (colId == 16) {
+                        gridDtl.addRow(gridDtl.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST", 1);
+                    }
+                }
             })
+
+            function fn_insert() {
+                gridMst.addRow(gridMst.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,", 1);
+
+            }
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>

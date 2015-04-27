@@ -52,7 +52,7 @@
                     //1st grid
                     var tab1GridMst = tab1.cells("a").attachGrid();
                     
-                    tab1GridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");//col 9
+                    tab1GridMst.setImagePath("/component/dhtmlxGrid/imgs/");//col 9
                     tab1GridMst.setHeader("No,일자,고객,장비,모재,약품,상태,첨부,선택");
                     tab1GridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                     tab1GridMst.setColAlign("center,dhxCalendar,left,left,left,left,center,center,center");
@@ -62,7 +62,7 @@
                     
                     //2nd grid
                     var tab1GridDtl = tab1.cells("b").attachGrid();
-                    tab1GridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab1GridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab1GridDtl.setHeader("No,조치내용,첨부");
                     tab1GridDtl.setInitWidths("100,700,100");
                     tab1GridDtl.setColAlign("center,left,center");
@@ -77,7 +77,7 @@
                     //1st grid
                     var tab2GridMst = tab2.cells("a").attachGrid();
                     
-                    tab2GridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");//col 9
+                    tab2GridMst.setImagePath("/component/dhtmlxGrid/imgs/");//col 9
                     tab2GridMst.setHeader("No,일자,고객,장비,모재,약품,상태,첨부,선택");
                     tab2GridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                     tab2GridMst.setColAlign("center,dhxCalendar,left,left,left,left,center,center,center");
@@ -87,7 +87,7 @@
                     
                     //2nd grid
                     var tab2GridDtl = tab2.cells("b").attachGrid(); //col 15
-                    tab2GridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab2GridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab2GridDtl.setHeader("No,설비,모재코드,모재명,약품,조건,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식,비고");
                     tab2GridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                     tab2GridDtl.setColAlign("center,center,left,left,left,center,right,right,right,right,right,right,right,right,center,center");
@@ -102,7 +102,7 @@
                     //1st grid
                     var tab3GridMst = tab3.cells("a").attachGrid();
                     
-                    tab3GridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");//col 9
+                    tab3GridMst.setImagePath("/component/dhtmlxGrid/imgs/");//col 9
                     tab3GridMst.setHeader("No,일자,고객,장비,모재,약품,상태,첨부,선택");
                     tab3GridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                     tab3GridMst.setColAlign("center,dhxCalendar,left,left,left,left,center,center,center");
@@ -112,7 +112,7 @@
                     
                     //2nd grid
                     var tab3GridDtl = tab3.cells("b").attachGrid();
-                    tab3GridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");// col 19
+                    tab3GridDtl.setImagePath("/component/dhtmlxGrid/imgs/");// col 19
                     tab3GridDtl.setHeader("No,고객,소속,성명,목적/용도,완료일,설비,위치,약품,시료명,시료수량,시료처리,결과공유,요구사항,시험종류 및 시험수량,#cspan,#cspan,#cspan,시료특이사항");
                     tab3GridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,종류,항목,시험수량,세부내역,#rspan");
                     tab3GridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

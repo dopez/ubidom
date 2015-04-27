@@ -5,7 +5,7 @@ var layout, toolbar, subLayout;
 var gridMain;
 $( document ).ready(function() {
 	
-	Ubi.setContainer(1,[1,2,3,4,5,6],"2U"); 
+	Ubi.setContainer(1,[1,2,3,4],"2U"); 
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout();
@@ -13,7 +13,7 @@ $( document ).ready(function() {
 	
 	layout.cells("b").attachObject("bootContainer");
 	gridMain = subLayout.cells("a").attachGrid(); 
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("Buyer코드, Buyer명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,");       

@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("부서,1월,#cspan,#cspan,"+
                 					"2월,#cspan,#cspan,"+
                 					"3월,#cspan,#cspan,"+
@@ -77,7 +77,7 @@
                 gridMain.setColSorting("str");
                 gridMain.init();
 /*                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("부서,장비,비품,원자재,소모품,계");
                 gridMain.attachFooter("계,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100");

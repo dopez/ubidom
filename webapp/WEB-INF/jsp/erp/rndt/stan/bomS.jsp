@@ -23,7 +23,7 @@
 
 
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMst.setHeader("계정번호,계정일자,사유", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
 
                 gridMst.setInitWidths("100,100,780");
@@ -36,7 +36,7 @@
                 gridDtl = subLayout.cells("c").attachGrid();
                 subLayout.cells("c").showHeader();
                 subLayout.cells("c").setText("BOM");
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 
                 gridDtl.setHeader("순번,공정,자재코드,자재명,소요량,Loss율", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
 

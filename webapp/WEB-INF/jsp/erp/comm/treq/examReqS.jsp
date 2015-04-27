@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //16
                 gridMain.setHeader("No,완료일자,설비,위치,약품,시료명,시료수량,시료처리,결과공유,시험종류 및 시험수량,#cspan,#cspan,#cspan,요구사항,목적/용도,시료특이사항", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,종류,항목,세부내역,시험수량,#rspan,#rspan,#rspan");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
@@ -102,7 +102,7 @@
                                     <input name="reqComp" id="reqComp" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('의뢰회사','common/customPOP')">
                                 </div>
 	                            <div class="col-sm-3 col-md-3">
-	                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록" class="btn btn-default btn-xs form-control" onclick="gfn_load_popup('시험공유자등록','comm/shareEmpPOP')">
+	                                <input type="button" id="btnExamShare" name="btnExamShare" value="시험결과공유자등록" class="btn btn-default btn-xs form-control" onclick="gfn_big_load_popup(500,300,'시험공유자등록','comm/shareEmpPOP')">
 	                            </div>
                             </div>
                         </div>

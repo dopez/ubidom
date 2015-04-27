@@ -6,7 +6,7 @@ var gridMain;
 var calMain;
 $( document ).ready(function() {
 	
-	Ubi.setContainer(3,[1,2,3,4,5,6],"2E"); //배합작업등록
+	Ubi.setContainer(3,[2,3,4,5,6],"2E"); //배합작업등록
 	
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -21,7 +21,7 @@ $( document ).ready(function() {
 	
 	
 	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //7 col
+	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");      //7 col
 	gridMst.setHeader("No,제품코드,제품명,배합수량,배합중량,Batch,선택", null, 
 					["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.attachFooter("합계,#cspan,#cspan,0,0,", 
@@ -29,13 +29,13 @@ $( document ).ready(function() {
 	
 	gridMst.setInitWidths("50,100,150,100,100,100,50");       
 	gridMst.setColAlign("center,left,left,right,right,right,center");     
-	gridMst.setColTypes("ro,ro,ro,ed,ed,ed,ch"); 
+	gridMst.setColTypes("ro,ro,ro,ed,ed,ed,ra"); 
 	gridMst.setColSorting("str,str,str,str,str,str,str");
 	gridMst.init();
 	
 	//down
 	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //6col
+	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");      //6col
 	gridDtl.setHeader("No,원료코드,원료명,단위소요량,배합수량,투입중량", null,
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
 	gridDtl.attachFooter("합계,#cspan,#cspan,#cspan,0,0",
@@ -54,7 +54,34 @@ $( document ).ready(function() {
     calMain.hideTime();
     var t = dateformat(new Date());
     byId("stDate").value = t;
+    //항목삽입
+    toolbar.attachEvent("onClick", function(id) {
+        if (id == "btn2") {
+            fn_insert();
+        }
+
+    });
+
+    //edit cell
+    gridDtl.attachEvent("onRowSelect", function(id, ind) {
+        gridDtl.editCell();
+    });
+    gridMst.attachEvent("onRowSelect", function(id, ind) {
+        gridMst.editCell();
+    });
+    
+    gridMst.attachEvent("onCheck", doOnCheck);
+    function doOnCheck(rowId, colId) {
+        if (colId == 6) {
+            gridDtl.addRow(gridDtl.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST", 1);
+        }
+    }
 })
+
+function fn_insert() {
+    gridMst.addRow(gridMst.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,", 1);
+
+}
 
 </script>
 <style>
@@ -109,23 +136,12 @@ $( document ).ready(function() {
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 제품군 </label>
 					<div class="col-sm-4 col-md-4">
-						
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						 <input type="radio"
-							name="productStringGbn" value="1" checked="checked">1군
-						 
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						 <input type="radio"
-							name="productStringGbn" value="2">2군
-						
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						 <input type="radio"
-							name="productStringGbn" value="3">3군
-						
-						</div>
-					
+					  <input type="radio"
+						name="productStringGbn" value="1" checked="checked">1군
+					  <input type="radio"
+						name="productStringGbn" value="2">2군
+					  <input type="radio"
+						name="productStringGbn" value="3">3군
 					</div>
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 제품군 </label>

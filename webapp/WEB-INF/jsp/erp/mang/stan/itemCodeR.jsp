@@ -16,7 +16,7 @@
                         layout.cells("b").attachObject("bootContainer2");
 
                         gridMain = subLayout.cells("a").attachGrid();
-                        gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //col 9
+                        gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //col 9
                         gridMain.setHeader("구분,대분류,중분류,소분류,품목코드,품목명,규격,단위,포장단위", null, []);
                         gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
                         gridMain.setColAlign("center,center,center,center,left,left,left,center,center");

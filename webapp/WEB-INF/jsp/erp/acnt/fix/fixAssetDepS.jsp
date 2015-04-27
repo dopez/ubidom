@@ -20,7 +20,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("모든자산에 대해 상각을 합니다.(전표자동생성)  월상각은 년상각의 1/12에 해당하는 값으로 처리됩니다.");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,자산코드,자산명,취득일,취득부서,"+
                 					"수량,취득금액,상각율,전기말상각누계액,전기말미상각잔액,"+
                 					"당기증가,당기감소,당기말금액,당월상각액,당기상각액,"+

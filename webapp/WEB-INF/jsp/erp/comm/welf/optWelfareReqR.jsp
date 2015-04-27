@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //19
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //19
                 gridMain.setHeader("No,신청일자,신청자,사용가능포인트,신청포인트,신청항목,첨부", null, []);
                 gridMain.setInitWidths("50,105,105,105,105,105,105");
                 gridMain.setColAlign("center,center,center,center,center,center,center");

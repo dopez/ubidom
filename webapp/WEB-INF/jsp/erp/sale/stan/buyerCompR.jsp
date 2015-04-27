@@ -16,7 +16,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridMain.setHeader("코드,buyer명,대표자명,주소,담당자,전화번호,팩스번호,이메일,홈페이지");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,center,center,center,center,center");

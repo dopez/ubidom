@@ -20,20 +20,19 @@
 			subLayout.cells("a").showHeader();
 			subLayout.cells("a").setText("접수내역");
             gridMst = subLayout.cells("a").attachGrid();
-            gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11 col
+            gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //11 col
             gridMst.setHeader("No,의뢰일자,의뢰부서,의뢰자,접수자,의뢰금액,품의금액,공급업체,비고,첨부,선택");
-            
             gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
             gridMst.setColAlign("center,center,center,center,center,right,right,left,center,center,center");
-            gridMst.setColTypes("ron,dhxCalendar,ed,ed,ed,edn,edn,ed,ed,ed,ed,ra");
-            gridMst.setColSorting("int,date,str,str,str,int,int,str,str,str,str");
+            gridMst.setColTypes("ron,dhxCalendar,ed,ed,ed,edn,edn,ed,ed,ed,ra");
+            gridMst.setColSorting("int,date,str,str,str,int,int,str,str,str,na");
             gridMst.init();
 
             //down
-				subLayout.cells("b").showHeader();
+			subLayout.cells("b").showHeader();
 			subLayout.cells("b").setText("접수상세내역");
             gridDtl = subLayout.cells("b").attachGrid();
-            gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11col
+            gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //11col
             gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,납품장소,용도,선택");
             gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
             gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
@@ -63,10 +62,23 @@
     				gfn_load_popup('공급업체','common/supplyCompPOP');
     			}
     		}
+            gridDtl.attachEvent("onRowSelect", function(id,ind){
+             	gridDtl.editCell();
+             	});
+             gridMst.attachEvent("onRowSelect", function(id,ind){
+             	gridMst.editCell();
+             	});
+             	
+             gridMst.attachEvent("onCheck",doOnCheck);
+             function doOnCheck(rowId,colId){
+        		if(colId==10){
+        			gridDtl.addRow(gridDtl.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        		}
+        	}
         })
             
         function fn_insert() {
-        		gridMst.addRow(gridMst.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        		gridMst.addRow(gridMst.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,,TEST,TEST,",1);
     	}
     </script>
         <style>

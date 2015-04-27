@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //19
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //19
                 gridMain.setHeader("No,생산일자,생산자,모재코드,모재명,약품,수량,#cspan,#cspan,조건,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식,비고", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,양품,불량,계,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan");
                 gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

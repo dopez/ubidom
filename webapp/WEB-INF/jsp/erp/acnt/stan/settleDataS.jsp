@@ -17,7 +17,7 @@
 
                 subLayout.cells("a").setWidth(702);
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMst.setHeader("No,출력순서,출력명,그룹,식,Chk,DSP");
                 gridMst.setInitWidths("100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,left,center,center,center,center");
@@ -26,7 +26,7 @@
                 gridMst.init();
 
                 gridDtl01 = subLayout.cells("c").attachGrid();
-                gridDtl01.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridDtl01.setHeader("대분류명,중분류명,소분류명,계정,계정명,세목,세목명,계정코드");
                 gridDtl01.setInitWidths("100,100,100,100,100,100,100,100");
                 gridDtl01.setColAlign("center,center,center,center,center,center,center,center,center");
@@ -35,7 +35,7 @@
                 gridDtl01.init();
                 
                 gridDtl02 = subLayout.cells("b").attachGrid();
-                gridDtl02.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridDtl02.setHeader("No,계정명,세목명,식,공식,계정코드");
                 gridDtl02.setInitWidths("100,100,100,100,100,100");
                 gridDtl02.setColAlign("center,left,left,center,center,left");

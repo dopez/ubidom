@@ -20,7 +20,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("시험대기내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //15
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //15
                 gridMst.setHeader("No,시험담당자,결과통보일자,의뢰일자,회사,소속,성명,장비,위치,약품,시료명,시료수량,시료처리,요구사항,선택");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,left,left,center,left,center,center,center,right,center,center,center");
@@ -31,7 +31,7 @@
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("시험결과 데이터");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //22
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //22
                 gridDtl.setHeader("No,의뢰번호,시료,위치,초기접촉각,#cspan,#cspan,#cspan,시험방법,#cspan,#cspan,#cspan,온도,습도");
                 gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,1P,2P,3P,평균,1P,2P,3P,평균,#rspan,#rspan");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");

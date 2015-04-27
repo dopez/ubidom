@@ -21,7 +21,7 @@ $( document ).ready(function() {
 	
 	
 	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //12 col
+	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");      //12 col
 	gridMst.setHeader("No,일자,작업자,제품코드,제품명,제품재고,재공재고,적정재고,미출하수량,과부족수량,배합중량,생산예정수량", null, 
 					["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
 	gridMst.attachFooter("일계,#cspan,#cspan,#cspan,#cspan,0,0,0,0,0,0,0", 
@@ -108,29 +108,14 @@ $( document ).ready(function() {
 					<label class=" col-sm-2 col-md-2 control-label"
 						for="textinput"> 제품군 </label>
 					<div class="col-sm-4 col-md-4">
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						  <input type="radio"
-							name="productStringGbn" value="1" checked="checked">1군
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						  <input type="radio"
-							name="productStringGbn" value="2">2군
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-						  <input type="radio"
-							name="productStringGbn" value="3">3군
-						</div>
+					  <input type="radio"
+						name="productStringGbn" value="1" checked="checked">1군
+					  <input type="radio"
+						name="productStringGbn" value="2">2군
+					  <input type="radio"
+						name="productStringGbn" value="3">3군
 					</div>
-					<label class=" col-sm-2 col-md-2 control-label"
-						for="textinput"> 제품군 </label>
-					<div class="col-sm-2 col-md-2">
-					<select class="form-control input-sm">
-						<option>1군</option>
-						<option>2군</option>
-						<option>3군</option>
-					</select>
-					</div>
-					</div>
+				</div>
 			</div>
 		</div>
 	</form>

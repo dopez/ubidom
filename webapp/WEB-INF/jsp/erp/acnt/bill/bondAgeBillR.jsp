@@ -19,7 +19,7 @@
                 gridMain = subLayout.cells("a").attachGrid();
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("외상매출금에 대해서 기준일자까지의 거래처별 연령별 금액을 나타냅니다.");
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //3
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //3
                 gridMain.setHeader("거래처코드,거래처명,1.90일(3월)이내,2.180일(6월)이내,3.270일(9월)이내,4.365일(1년)이내,5.730일(2년)이내,6.730일(2년)이상,합계");
                 gridMain.attachFooter("총계,#cspan,0,0,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,200,200,200,200,200,200,100");

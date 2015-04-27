@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMain.setHeader("No,승인번호,계정과목,세목,거래처,적요,차변,대변,잔액");
                 gridMain.attachFooter(",일계,#cspan,#cspan,#cspan,#cspan,0,0,0");
                 gridMain.attachFooter(",월계,#cspan,#cspan,#cspan,#cspan,0,0,0");

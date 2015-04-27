@@ -21,7 +21,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("발주내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7 col
                 gridMst.setHeader("No,품의일자,품의자,의뢰부서,의뢰자,공급업체,결재금액");
                 gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,0");
                 gridMst.setInitWidths("100,100,100,100,100,100,100");
@@ -35,7 +35,7 @@
                 subLayout.cells("b").setText("발주상세내역");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,납품장소", null, []);
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
                 gridDtl.setInitWidths("50,100,100,100,100,100,100,100,100");

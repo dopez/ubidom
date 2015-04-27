@@ -14,7 +14,7 @@
                 layout.cells("b").attachObject("bootContainer");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,잔액,합계,계정명,합계,잔액");
                 gridMain.attachFooter(",0,0,합계,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100");

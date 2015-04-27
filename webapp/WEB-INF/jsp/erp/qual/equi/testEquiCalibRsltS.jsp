@@ -20,7 +20,7 @@ $( document ).ready(function() {
 	gridMst = subLayout.cells("a").showHeader();
 	gridMst = subLayout.cells("a").setText("검교정대상 시험장비");
 	gridMst = subLayout.cells("a").attachGrid();
-    gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridMst.setHeader("No,장비코드,장비명,규격,용도,교정항목,교정주기,교정기간,최종교정일자,교정예정일자,선택");
     gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
     gridMst.setColAlign("center,left,left,left,left,center,center,center,center,center,center");
@@ -31,7 +31,7 @@ $( document ).ready(function() {
     gridDtl = subLayout.cells("b").showHeader();
 	gridDtl = subLayout.cells("b").setText("검교정결과");
 	gridDtl = subLayout.cells("b").attachGrid();
-    gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridDtl.setHeader("No,장비코드,장비명,규격,용도,교정항목,교정주기,교정기간,검교정기간,교정비용,검교정결과");
     gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");
     gridDtl.setColAlign("center,left,left,left,left,center,center,center,center,center,center");

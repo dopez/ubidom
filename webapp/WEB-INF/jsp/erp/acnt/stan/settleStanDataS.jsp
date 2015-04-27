@@ -14,7 +14,7 @@
                 layout.cells("b").attachObject("bootContainer");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMain.setHeader("No,코드,항목명,금액");
                 gridMain.setInitWidths("100,100,100,100");
                 gridMain.setColAlign("center,center,center,right");

@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMain.setHeader("No,입고일자,품목,규격,단위,수량,단가,금액,반품사유", null, []);
                 gridMain.setInitWidths("50,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,left,left,center,right,right,right,left");

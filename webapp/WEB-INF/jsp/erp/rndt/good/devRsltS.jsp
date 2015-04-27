@@ -58,7 +58,7 @@
 
 
                     //1번탭
-                    tab1.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab1.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab1.setHeader("No,내  용", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
                     tab1.setInitWidths("50,656");
                     tab1.setColAlign("left,left");
@@ -67,7 +67,7 @@
                     tab1.init();
 
                     //2번탭
-                    tab2.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab2.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab2.setHeader("No, 내  용", null, ["text-align:center;", "text-align:center;"]);
                     tab2.setInitWidths("50,656");
                     tab2.setColAlign("left,left");
@@ -76,7 +76,7 @@
                     tab2.init();
 
                     //3번탭
-                    tab3.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab3.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab3.setHeader("No, 내  용", null, ["text-align:center;", "text-align:center;"]);
                     tab3.setInitWidths("50,656");
                     tab3.setColAlign("left,left");
@@ -89,7 +89,7 @@
                     tab4.cells("a").setText("1.수준");
                     tab4.cells("b").setText("2. 개발목표 주요 Spec 및 차별화 Point");
                     var tab4Grid1 = tab4.cells("a").attachGrid();
-                    tab4Grid1.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab4Grid1.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab4Grid1.setHeader("구분, 계획(변경),변경", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
                     tab4Grid1.setInitWidths("100,300,300");
                     tab4Grid1.setColAlign("left,left,left");
@@ -97,7 +97,7 @@
                     tab4Grid1.setColSorting("str,str,str");
                     tab4Grid1.init();
                     var tab4Grid = tab4.cells("b").attachGrid();
-                    tab4Grid.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab4Grid.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab4Grid.setHeader("No, 주요 Spec 및 차별화 Point", null, ["text-align:center;", "text-align:center;"]);
                     tab4Grid.setInitWidths("50,800");
                     tab4Grid.setColAlign("left,left");
@@ -114,7 +114,7 @@
                     var tab5Grid1 = tab5.cells("a").attachObject("patentInfo");
 
                     var tab5Grid = tab5.cells("b").attachGrid();
-                    tab5Grid.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab5Grid.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab5Grid.setHeader("구분,특허,#cspan,논문,#cspan", null, []);
                     tab5Grid.attachHeader("#rspan,국내,해외,국내,해외")
                     tab5Grid.setInitWidths("100,100,100,100,100");
@@ -126,7 +126,7 @@
 
 
                     //6번탭
-                    tab6.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab6.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab6.setHeader("항목,계획,실적", null, []);
                     tab6.attachFooter("계, , ,", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
                     tab6.attachFooter("투임MM, , ,", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
@@ -137,7 +137,7 @@
                     tab6.init();
 
                     //7번탭
-                    tab7.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                    tab7.setImagePath("/component/dhtmlxGrid/imgs/");
                     tab7.setHeader("No, 내  용", null, ["text-align:center;", "text-align:center;"]);
                     tab7.setInitWidths("50,756");
                     tab7.setColAlign("left,left");
@@ -168,39 +168,7 @@
                         subToolbar(a + i, devPlanTabbar.tabs("a" + i), [3, 4, 5, 6]);
                     }
 
-
-
                 })
-                //tool bar//
-            var subToolbar = function(tbar, sublo, btn_id_array) {
-
-                tbar = sublo.attachToolbar();
-
-                var size = 18;
-
-                tbar.clearAll();
-                tbar.setIconSize(18);
-                tbar.setIconsPath("/images/button/dhtmlx/");
-                tbar.loadStruct("/common/json/button.json", fn_onLoad);
-
-                function fn_onLoad() {
-
-                    var item_id_set_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-                    for (var i = 0; i < btn_id_array.length; i++) {
-                        var index = item_id_set_arr.indexOf(btn_id_array[i]);
-                        if (index > -1) {
-                            item_id_set_arr.splice(index, 1);
-                        }
-                    }
-
-                    for (var i = 0; i < item_id_set_arr.length; i++) {
-
-                        tbar.removeItem("btn" + item_id_set_arr[i]); // item
-                        tbar.removeItem("sep" + item_id_set_arr[i]); // seperator
-                    }
-                }
-            }
         </script>
         <style>
         </style>
@@ -289,46 +257,6 @@
                 </form>
             </div>
         </div>
-        <!-- <div id="devGoalChange">
-	<div class="col-sm-6">
-		<div class="row">
-			<label for="" class="col-sm-offset-1">&nbsp;</label>
-		</div>
-		<div class="row">
-			<div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-10 col-sm-10 col-md-10">
-				<div class="table">
-					<table class="table table-striped table-bordered"
-						style="text-align: center;">
-						<thead>
-							<tr>
-								<th style="width: 100px;">구분</th>
-								<th>계획</th>
-								<th>변경</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>제품</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>기술</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>목표재료비</td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div> -->
         <div id="patentInfo">
             <form action="" class="form-horizontal" style="padding-top: 10px; padding-left: 5px; padding-bottom: 5px; margin: 0px;" id="frmMain02">
                 <div class="row">

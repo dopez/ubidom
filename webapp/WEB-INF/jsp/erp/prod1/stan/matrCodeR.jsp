@@ -14,7 +14,7 @@
 	    layout.cells("b").attachObject("bootContainer");
 
 		gridMain = subLayout.cells("a").attachGrid();
-		gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+		gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 		gridMain.setHeader("구분,자재코드,자재명,규격,단위,포장단위,발주단위,입고단위", null,
 				          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
 				           "text-align:center;","text-align:center;","text-align:center;"]);

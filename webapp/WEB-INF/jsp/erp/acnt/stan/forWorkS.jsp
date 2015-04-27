@@ -18,7 +18,7 @@
                 
 
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMst.setHeader("대분류명,중분류명,소분류명,계정,계정명,세목,세목명,계정코드");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,center,center,center,center,center");
@@ -26,7 +26,7 @@
                 gridMst.setColSorting("str,str,str,str,str,str,str,int");
                 gridMst.init();
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //17
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //17
                 gridDtl.setHeader("No,계정코드,계정명,세목명,차변금액,대변금액,거래처,L/C·계좌·어음번호,시작일,종료일,과표,수량단위,수량,화폐단위,환율,이율,원가구분");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,110,100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,left,left,left,right,right,left,left,center,center,right,center,right,center,right,right,center");

@@ -6,7 +6,7 @@ var gridMst,gridDtl;
 var calMain;
 $( document ).ready(function() {
 	
-	Ubi.setContainer(3,[2,3,4,5,6],"2E"); //품의서결재현황
+	Ubi.setContainer(3,[2,3,4],"2E"); //품의서결재현황
 	
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -19,7 +19,7 @@ $( document ).ready(function() {
 	
 	//up
 	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
+	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");     
 	gridMst.setHeader("종류,일자,품의자,제목,금액,기간");
 	gridMst.setInitWidths("100,100,100,100,100,100");       
 	gridMst.setColAlign("center,center,center,left,right,center");     
@@ -30,7 +30,7 @@ $( document ).ready(function() {
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("내용");
 	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
+	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");     
 	gridDtl.setHeader("No,내용", null, 
 				[]);
 	gridDtl.setInitWidths("100,880");       

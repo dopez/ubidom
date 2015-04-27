@@ -20,7 +20,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("SGS 의뢰대상내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMst.setHeader("No,시험종류,시료명,시험주기,최종시험일자,시험예정일자,선택");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,center,center,center,center");
@@ -31,7 +31,7 @@
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("SGS 의뢰내역");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridDtl.setHeader("No,시험종류,시료명,시험주기,최종시험일자,시험예정일자,의뢰기간,의뢰금액");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,center,center,center,center,right");

@@ -16,7 +16,7 @@ $( document ).ready(function() {
 
 	//grid	
 	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //11col
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //11col
 	gridMain.setHeader("개정번호,품목코드,품명,규격,단위,수량,Loss율,공정,승인일자,종료일자,비고", null,
 						[]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100");       

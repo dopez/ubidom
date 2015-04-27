@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,발행일자,만기일자,거래처코드,거래처명,어음번호,금액");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,left,left,right");

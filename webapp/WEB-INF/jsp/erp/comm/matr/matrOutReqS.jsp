@@ -21,7 +21,7 @@ $( document ).ready(function() {
 	
 	
 	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");     
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");     
 	gridMain.setHeader("No,재료코드,재료명,규격,단위,수량,사용일자,용도", null, 
 				[]);
 	gridMain.setInitWidths("50,150,200,150,100,100,100,200");       

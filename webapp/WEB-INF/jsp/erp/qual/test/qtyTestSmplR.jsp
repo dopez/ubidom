@@ -19,7 +19,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,시험항목코드,시험항목명,시험건수,시료수량");
                 gridMain.attachFooter("&nbsp;,합계,#cspan,0,0");
                 gridMain.setInitWidths("100,100,100,100,100");

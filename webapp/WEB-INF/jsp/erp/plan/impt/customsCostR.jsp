@@ -19,7 +19,7 @@
 				subLayout.cells("a").showHeader();
 				subLayout.cells("a").setText("1. 기간, 2. 거래처, 3. 항목");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,발생일자,거래처,비용항목,비용명,"+
                 					"Inv No,거래처명,대표자재상품,대표자재상품명,금액,"+
                 					"VAT,총금액");

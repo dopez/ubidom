@@ -14,7 +14,7 @@
                 layout.cells("b").attachObject("bootContainer");
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMain.setHeader("No,계정,합계,"+
                 					"1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월");
                 gridMain.attachFooter(",계,0,"+

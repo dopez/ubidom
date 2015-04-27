@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("차변,#cspan,#cspan,계정과목,대변,#cspan,#cspan");
                 gridMain.attachHeader("합계,대체,현금(출금),#rspan,현금(입금),대체,합계");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");

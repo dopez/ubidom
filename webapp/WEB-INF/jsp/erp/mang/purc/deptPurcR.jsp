@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("부서,1월,2월,3월,4월,5월,6월,7월,8월,9월,10월,11월,12월,계");
                 gridMain.attachFooter("계,0,0,0,0,0,0,0,0,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");

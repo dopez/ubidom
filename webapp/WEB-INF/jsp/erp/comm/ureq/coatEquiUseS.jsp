@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [2, 1, 3, 4, 5, 6], "1C"); //개발계획조회
+                Ubi.setContainer(3, [1,2,3,4], "1C"); //코팅설비사용의뢰등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //14
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //14
                 gridMain.setHeader("No,코팅설비코드,8시,#cspan,9시,#cspan,10시,#cspan,11시,#cspan,12시,#cspan,13시,#cspan,14시,#cspan,15시,#cspan,16시,#cspan,17시,#cspan," +
                     "18시,#cspan,19시,#cspan,20시,#cspan,21시,#cspan,22시,#cspan,23시,#cspan,24시,#cspan,1시,#cspan,2시,#cspan,3시,#cspan,4시,#cspan,5시,#cspan,6시,#cspan,7시,#cspan", null, []);
                 gridMain.setInitWidths("100,100,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30");

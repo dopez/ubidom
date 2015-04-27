@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //3
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //3
                 gridMain.setHeader("코드,거래처,금액");
                 gridMain.attachFooter("&nbsp;,합계,0");
                 gridMain.setInitWidths("100,100,100");

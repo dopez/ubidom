@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,내용년수,상각율,비고");
                 gridMain.setInitWidths("100,100,100,100");
                 gridMain.setColAlign("center,center,right,center");

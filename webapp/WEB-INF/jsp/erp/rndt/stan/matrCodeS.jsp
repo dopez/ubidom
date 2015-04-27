@@ -18,7 +18,7 @@
 
                         //left grid//
                         gridMain = subLayout.cells("a").attachGrid();
-                        gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                        gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                         gridMain.setHeader("자재코드,자재명", null, [
                             "text-align:center;", "text-align:center;"
                         ]);

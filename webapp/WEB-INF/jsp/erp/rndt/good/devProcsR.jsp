@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //17
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //17
                 gridMain.setHeader("구분,시작일자,종료일자,과제번호,과제명,진행현황(월),#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,1,2,3,4,5,6,7,8,9,10,11,12", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.setInitWidths("100,100,100,150,200,30,30,30,30,30,30,30,30,30,30,30,30");
@@ -99,20 +99,9 @@
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                     구분 </label>
                                 <div class="col-sm-4 col-md-4">
-
-                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                        <input type="radio" name="devGbn" value="1" checked="checked">개발
-
-                                    </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                        <input type="radio" name="devGbn" value="2">개선
-
-                                    </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                        <input type="radio" name="devGbn" value="3">전체
-
-                                    </div>
-
+                                  <input type="radio" name="devGbn" value="1" checked="checked">개발
+                                  <input type="radio" name="devGbn" value="2">개선
+                                  <input type="radio" name="devGbn" value="3">전체
                                 </div>
                             </div>
                         </div>

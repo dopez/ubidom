@@ -13,7 +13,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
     layout.cells("b").attachObject("bootContainer");
     girdMain = subLayout.cells("a").attachGrid();
-    girdMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13
+    girdMain.setImagePath("/component/dhtmlxGrid/imgs/"); //13
     girdMain.setHeader("번호,계정명,세목,차변금액,대변금액,거래처,적요,번호,귀속부서,화폐단위,환율,이율,원가구분,일자,과표,매입구분,매출구분,배서/할인,지급처/은행,전자구분");
     girdMain.attachFooter("&nbsp;,합계,#cspan,0,0");
     girdMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

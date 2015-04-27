@@ -19,7 +19,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("발주품의내용");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //5
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //5
                 gridMst.setHeader("No,Seller,Current Unit,Amount,선택", null, []);
                 gridMst.setInitWidths("50,100,100,100,100");
                 gridMst.setColAlign("center,left,left,right,center");
@@ -31,7 +31,7 @@
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("Commodity And Description");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("Commodity,Unit,P/U,Current Unit,Unit Price,Order Qty,Amount,결재구분,Remark", null, []);
                 gridDtl.attachFooter("&nbsp;,Total,#cspan,#cspan,0,0,0,&nbsp;,#cspan", null, []);
                 gridDtl.setInitWidths("50,100,100,100,100,100,100,100,100");
