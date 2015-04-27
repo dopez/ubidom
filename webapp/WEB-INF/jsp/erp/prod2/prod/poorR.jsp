@@ -7,7 +7,7 @@ var gridMain;
 var calMain;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8,9],"1C");
-	//모재별생산실적
+	//불량현황
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 

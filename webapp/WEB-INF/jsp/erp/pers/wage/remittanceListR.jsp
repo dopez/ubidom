@@ -34,18 +34,6 @@ $(document).ready(function(){
     m = fn_monthLen(m);
 	byId("stDate").value = t1+"/"+m;
 });
-function fn_monthLen(month){
-	 var initMonth;
-		if(month < 10){		
-			initMonth = "0"+month;
-		}else{
-			initMonth = month;
-		}
-		return initMonth;
-}
-function fn_search(){
-	gfn_load_popup('은행','common/bankPOP');
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -105,7 +93,7 @@ function fn_search(){
 					<input name="bankNum" id="bankNum" type="text" value="" placeholder="" class="form-control input-xs">
 				 </div>
 				 <div class="col-sm-2 col-md-2">
-					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch" onclick="fn_search()">
+					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('은행','common/bankPOP')">
 					  <span class="glyphicon glyphicon-search"></span>
 					</button>
 				 </div>

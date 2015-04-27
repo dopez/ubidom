@@ -55,30 +55,6 @@ $(document).ready(function(){
 	var tbrlayout = subLayout.cells("d");
 	subToolbar(toolbar,tbrlayout,[3,5,6]);
 });
-
- var subToolbar = function(toolbar,sublayout,btn_id_array){
-	toolbar = sublayout.attachToolbar();
-		
-	var size = 18;
-	toolbar.setIconSize(18);
-	toolbar.setIconsPath("/images/button/dhtmlx/");
-	toolbar.loadStruct("/common/json/button.json",fn_onLoad);
-
-	function fn_onLoad(){
-	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
-	    	
-	  for(var i=0; i< btn_id_array.length; i++){
-	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
-	       if (index > -1){
-	             item_id_set_arr.splice(index, 1);
-	          }
-	      }
-	  for(var i=0; i<item_id_set_arr.length; i++){
-	      toolbar.removeItem("btn"+item_id_set_arr[i]);	
-	      toolbar.removeItem("sep"+item_id_set_arr[i]);
-	     }	
-	 } 
-} 
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
