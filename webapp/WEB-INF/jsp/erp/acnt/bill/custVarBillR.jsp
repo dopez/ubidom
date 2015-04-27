@@ -82,7 +82,7 @@
                             <div class="form-group form-group-sm">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                                 <div class="col-sm-4 col-md-4">
-                                    <input name="gbn" id="" type="radio" value="" placeholder="" class="">계정
+                                    <input name="gbn" id="" type="radio" value="" placeholder="" class="" checked="checked">계정
                                     <input name="gbn" id="" type="radio" value="" placeholder="" class="">세목
                                 </div>
                             </div>

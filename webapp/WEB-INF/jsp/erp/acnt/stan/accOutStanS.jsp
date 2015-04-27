@@ -34,13 +34,13 @@
             	byId("stDate").value = t;
             })
             
-            function calYearAdder(n) {
+/*             function calYearAdder(n) {
 				if(n==1){
 					byId("stDate").value++;
 				}else{
 					byId("stDate").value--;
 				}
-			}
+			} */
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
@@ -54,6 +54,15 @@
 								<label class=" col-sm-2 col-md-2 control-label" for="textinput">
 									기준년도 </label>
 								<div class="col-sm-2 col-md-2">
+									<div class="col-sm-10 col-md-10">
+										<input name="stDate" id="stDate" type="text" value=""
+											placeholder="" class="form-control input-xs">
+									</div>
+									<div class="col-sm-2 col-md-2">
+										<input type="button" id="calpicker1" class="calicon form-control">
+									</div>
+								</div>
+								<!-- <div class="col-sm-2 col-md-2">
 										<div class="col-sm-6 col-md-6">
 											<input name="stDate" id="stDate" type="text" value=""
 												placeholder="" class="form-control input-xs">
@@ -64,7 +73,7 @@
 										<div class="col-sm-3 col-md-3">
 											<input type="button" id="" class="form-control btn btn-default btn-xs" value="▼" onclick="calYearAdder(2)">
 										</div>
-								</div>
+								</div> -->
 								<label class=" col-sm-2 col-md-2 control-label" for="textinput">계정분류</label>
                             <div class="col-sm-2 col-md-2">
                                 <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('계정분류','common/accCodePOP')">
