@@ -26,7 +26,12 @@ $(document).ready(function(){
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("관련부서");
 	var sLayout1 = subLayout.cells("a");
-	subToolbar('toolbar1',sLayout1,[5,6]);
+	var subTbr1 = subToolbar('toolbar1',sLayout1,[5,6]);
+	subTbr1.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMst.addRow(gridMst.getUID(),"1,,",1);
+		  }
+	});
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
@@ -42,7 +47,12 @@ $(document).ready(function(){
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("개선의뢰내용");
 	var sLayout2 = subLayout.cells("b");
-	subToolbar('toolbar2',sLayout2,[5,6]);
+	var subTbr2 = subToolbar('toolbar2',sLayout2,[5,6]);
+	subTbr2.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridDtl.addRow(gridDtl.getUID(),"1,,,,,",1);
+		  }
+	});
 	
 	function doOnRowDblClicked1(rowId,colId){
 		if(colId==1){
@@ -60,42 +70,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 });
-
- var subToolbar = function(toolbar1,sublayout,btn_id_array){
-	 var tblstr = toolbar1;
-	toolbar1 = sublayout.attachToolbar();
-	toolbar1.attachEvent("onClick", function(id) {
-		if(id == "btn5"){
-			
-		  if(tblstr == 'toolbar1'){
-			  gridMst.addRow(gridMst.getUID(),"1,,",1);
-		  }
-		  if(tblstr == 'toolbar2'){
-			  gridDtl.addRow(gridDtl.getUID(),"1,,,,,",1);
-		  }	
-		}
-	});
-	
-	var size = 18;
-	toolbar1.setIconSize(18);
-	toolbar1.setIconsPath("/images/button/dhtmlx/");
-	toolbar1.loadStruct("/common/json/button.json",fn_onLoad);
-
-	function fn_onLoad(){
-	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
-	    	
-	  for(var i=0; i< btn_id_array.length; i++){
-	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
-	       if (index > -1){
-	             item_id_set_arr.splice(index, 1);
-	          }
-	      }
-	  for(var i=0; i<item_id_set_arr.length; i++){
-	      toolbar1.removeItem("btn"+item_id_set_arr[i]);	
-	      toolbar1.removeItem("sep"+item_id_set_arr[i]);
-	     }	
-	 } 
-} 
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

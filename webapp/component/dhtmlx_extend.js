@@ -193,4 +193,5 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	      toolbar.removeItem("sep"+item_id_set_arr[i]);
 	     }	
 	 } 
+	return toolbar;
 }

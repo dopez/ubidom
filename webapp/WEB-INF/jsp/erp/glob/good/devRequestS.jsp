@@ -26,7 +26,12 @@ $(document).ready(function(){
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("관련부서");
 	var sLayout1 = subLayout.cells("a");
-	subToolbar('toolbar1',sLayout1,[5,6]);
+	var subTbr = subToolbar('toolbar1',sLayout1,[5,6]);
+	subTbr.attachEvent("onClick", function(id) {
+		if(id == "btn5"){
+			gridMst.addRow(gridMst.getUID(),"1,,",1);
+		  }
+	});
 	
 	gridDtl = subLayout.cells("b").attachGrid();
 	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
@@ -54,39 +59,6 @@ $(document).ready(function(){
 		}
 	}
 });
-
- var subToolbar = function(toolbar1,sublayout,btn_id_array){
-	var tbr = toolbar1;
-	 toolbar1 = sublayout.attachToolbar();
-
-	toolbar1.attachEvent("onClick", function(id) {
-		if(tbr == 'toolbar1'){
-		if(id == "btn5"){
-			gridMst.addRow(gridMst.getUID(),"1,,",1);
-		  }
-		}
-	});
-	
-	var size = 18;
-	toolbar1.setIconSize(18);
-	toolbar1.setIconsPath("/images/button/dhtmlx/");
-	toolbar1.loadStruct("/common/json/button.json",fn_onLoad);
-
-	function fn_onLoad(){
-	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
-	    	
-	  for(var i=0; i< btn_id_array.length; i++){
-	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
-	       if (index > -1){
-	             item_id_set_arr.splice(index, 1);
-	          }
-	      }
-	  for(var i=0; i<item_id_set_arr.length; i++){
-	      toolbar1.removeItem("btn"+item_id_set_arr[i]);	
-	      toolbar1.removeItem("sep"+item_id_set_arr[i]);
-	     }	
-	 } 
-} 
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

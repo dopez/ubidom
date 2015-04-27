@@ -44,16 +44,6 @@ $(document).ready(function(){
     t = new Date().getFullYear();
 	byId("stDate").value = t;
 });
-function fn_year(flag){
-	if(flag==1){
-		t = t+1;
-		byId("stDate").value = t;
-	}
-	if(flag==2){
-		t = t-1;
-		byId("stDate").value = t;
-	}
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -66,18 +56,13 @@ function fn_year(flag){
 			  기준년도 
 			</label>
 			<div class="col-sm-2 col-md-2">
-                  <div class="col-sm-6 col-md-6">
+                  <div class="col-sm-10 col-md-10">
                       <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
-                  <div class="col-sm-6 col-md-6">
-                      <div class="col-sm-6 col-md-6">
-					    <input type="button" name="btnUp" id="btnUp" class="form-control btn btn-default btn-xs"  value="▲" onclick="fn_year(1)">
-				      </div>
-				      <div class="col-sm-6 col-md-6">
-					    <input type="button" name="btnDown" id="btnDown" class="form-control btn btn-default btn-xs" value="▼" onclick="fn_year(2)">
-				      </div>
-                 </div>              
-             </div>
+                  <div class="col-sm-2 col-md-2">
+                         <input type="button" id="calpicker" class="calicon form-control">
+                  </div>              
+            </div>
 		 </div>
 	    </div>
       </div>

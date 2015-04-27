@@ -31,7 +31,8 @@ $(document).ready(function(){
 	                       "date,date,date,str");
 	gridMain.init();	
 
-	calMain = new dhtmlXCalendarObject([{input:"biDate",button:"calpicker1"},{input:"jpDate",button:"calpicker2"},{input:"stDate",button:"calpicker3"},{input:"edDate",button:"calpicker4"}]);
+	calMain = new dhtmlXCalendarObject([{input:"biDate",button:"calpicker1"},{input:"jpDate",button:"calpicker2"},
+	                                    {input:"stDate",button:"calpicker3"},{input:"edDate",button:"calpicker4"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
