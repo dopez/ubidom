@@ -17,7 +17,7 @@
                         layout.cells("b").attachObject("bootContainer");
                     	
                     	gridMain = subLayout.cells("a").attachGrid(); 
-                    	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
+                    	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      
                     	gridMain.setHeader("No,설비코드,설비명,적용일자,모재,"+
                     						"약품명,온도,진공도,에칭,어시스트,"+
                     						"두께,Rate,에칭,방식");

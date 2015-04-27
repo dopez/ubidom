@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	    //grid	
 	    gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridMain.setHeader("No,발행번호,시험일자,약품,발행부수,&nbsp;,회사,소속,성명,목적/용도");
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,");
     gridMain.setColAlign("center,center,center,center,center,center,center,center,center,center");

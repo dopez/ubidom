@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //28
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //28
                 gridMain.setHeader("공급사,품목코드,품명,단위,출고실적,#cspan,#cspan,예상출고,#cspan,재고,#cspan,과부족,#cspan,통관대기,#cspan,#cspan,#cspan,#cspan,#cspan,미선적현황,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,합계", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,3개월전,1개월전,당월,차월,차차월,수량,사용일수,수량,일수,&nbsp;,&nbsp;,&nbsp;,&nbsp;,&nbsp;,소계,&nbsp;,&nbsp;,&nbsp;,&nbsp;,&nbsp;,&nbsp;,&nbsp;,소계,#rspan", []);
                 gridMain.setInitWidths("50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50");

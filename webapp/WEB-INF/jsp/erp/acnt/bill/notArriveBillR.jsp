@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //3
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //3
                 gridMain.setHeader("No,L/C번호,금액");
                 gridMain.attachFooter(",총계,0");
                 gridMain.setInitWidths("100,100,100");

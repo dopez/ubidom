@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,구분,매수,공급가액,부가세액");
                 gridMain.attachFooter(",매입계,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100");

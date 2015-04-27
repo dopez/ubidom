@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 8, 9], "1C"); //L/C등록
+                Ubi.setContainer(3, [2,3,4,5,6], "1C"); //L/C등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -21,7 +21,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("제비용");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //28
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //28
                 gridMain.setHeader("No,비용코드,비목,금액", null, []);
                 gridMain.setInitWidths("100,100,100,100");
                 gridMain.setColAlign("center,left,left,right");

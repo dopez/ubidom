@@ -7,7 +7,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(3, [1, 4, 8, 9], "2E"); //출입신청결재
+                Ubi.setContainer(3, [1, 9], "2E"); //출입신청결재
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -23,13 +23,13 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("결제내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7 col
                 gridMst.setHeader("작성일자,작성자,출입자 정보,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,결재,#cspan,#cspan,#cspan", null, []);
                 gridMst.attachHeader("#rspan,#rspan,성명,직위,소속,시작일자,종료일자,기간,신청사유,작성,검토,검토,승인", []);
 
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center,center");
-                gridMst.setColTypes("dhxCalendar,ed,ed,ed,ed,dhxCalendar,dhxCalendar,dhxCalendar,ed,ed,ch,ch,ch");
+                gridMst.setColTypes("dhxCalendar,ro,ro,ro,ro,dhxCalendar,dhxCalendar,ro,ro,ro,radioCell,radioCell,radioCell");
                 gridMst.init();
 
                 //down
@@ -37,11 +37,11 @@
                 subLayout.cells("b").setText("출입지역신청");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("등급,지역,신청,지역,신청,지역,신청,지역,신청", null, []);
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,center,center,center,center");
-                gridDtl.setColTypes("ron,ed,ra,ed,ra,ed,ra,ed,ra");
+                gridDtl.setColTypes("ron,ro,ra,ro,ra,ro,ra,ro,ra");
                 gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str,str");
                 gridDtl.init();
 
@@ -58,7 +58,44 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
 
+             //항목삽입
+                   toolbar.attachEvent("onClick", function(id) {
+           			if(id == "btn1"){
+           				fn_insert();
+           			}
+           		});
             })
+               function fn_insert() {
+               		gridMst.addRow(gridMst.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,,,",1);
+               		
+           	}
+
+///////////////////////two radio in 1 col/////////////////////////
+				function eXcell_radioCell(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			        var value = "<input type='radio' name='myradio" + row_id + "' value='0'/>가";
+			        value += "<input type='radio' name='myradio" + row_id + "' value='1'/>부";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       //return {value};
+			       return this.cell.firstChild.value;
+			    }
+			}
+			
+			eXcell_radioCell.prototype = new eXcell; 
+		////////////////////////////////////////////////////////////////////////
+
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">

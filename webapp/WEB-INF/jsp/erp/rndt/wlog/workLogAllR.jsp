@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,담당,일자,종류,관리번호,내용,첨부", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.setInitWidths("50,100,100,100,150,400,50");
                 gridMain.setColAlign("center,center,center,center,left,left,center");
@@ -90,20 +90,11 @@
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
-                                <div class="col-sm-5 col-md-5">
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <input type="radio" name="dairyGbn" value="1" checked="checked">개발
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <input type="radio" name="dairyGbn" value="2">개선
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <input type="radio" name="dairyGbn" value="3">일반
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <input type="radio" name="dairyGbn" value="4">전체
-                                    </div>
-
+                                <div class="col-sm-4 col-md-4">
+                                   <input type="radio" name="dairyGbn" value="1" checked="checked">개발
+                                   <input type="radio" name="dairyGbn" value="2">개선
+                                   <input type="radio" name="dairyGbn" value="3">일반
+                                   <input type="radio" name="dairyGbn" value="4">전체
                                 </div>
                             </div>
                         </div>

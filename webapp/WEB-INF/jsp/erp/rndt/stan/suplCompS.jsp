@@ -13,7 +13,7 @@ $( document ).ready(function() {
 	
 	layout.cells("b").attachObject("bootContainer");
 	gridMain = subLayout.cells("a").attachGrid(); 
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("공급업체코드, 공급업체명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,");       
@@ -145,7 +145,7 @@ function fn_search(){
 				</label>
 				<div class="col-sm-3 col-md-3">
 					<div class="col-sm-4 col-md-4">
-					  <input type="radio" name="postGbn" id="postGbn" value="도로명">도로명
+					  <input type="radio" name="postGbn" id="postGbn" value="도로명" checked="checked">도로명
 					</div>
 				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="postGbn" id="postGbn" value="지번">지번
@@ -212,7 +212,7 @@ function fn_search(){
 				</label>
 				<div class="col-sm-3 col-md-3">
 					<div class="col-sm-4 col-md-4">
-					  <input type="radio" name="dealGbn" id="dealGbn" value="거래">거래
+					  <input type="radio" name="dealGbn" id="dealGbn" value="거래" checked="checked">거래
 					</div>
 				    <div class="col-sm-5 col-md-5">
 					   <input type="radio" name="dealGbn" id="dealGbn" value="거래중지">거래중지

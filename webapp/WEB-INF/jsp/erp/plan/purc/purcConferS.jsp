@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //11
                 gridMain.setHeader("No,공급업체,품목코드,품명,규격,단위,수량,단가,금액,납기일자,납품장소", null, []);
                 gridMain.attachFooter("소계,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,&nbsp;,&nbsp;", []);
                 gridMain.attachFooter("합계,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0,&nbsp;,&nbsp;", []);

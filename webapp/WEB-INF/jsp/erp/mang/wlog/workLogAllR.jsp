@@ -17,7 +17,7 @@
 
                 //grid	page19
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,일자,담당,내용,첨부");
                 gridMain.setInitWidths("100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,left,left,center");

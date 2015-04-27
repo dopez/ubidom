@@ -15,7 +15,7 @@ $(document).ready(function(){
     
     
     gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
     gridMain.setHeader("No,항목코드,항목,주기,주기단위,최초점검일");
     
     gridMain.setInitWidths("100,100,100,100,100,100");

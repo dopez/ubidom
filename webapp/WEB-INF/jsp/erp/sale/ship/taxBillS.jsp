@@ -6,7 +6,7 @@
             var calStDate;
             $(document).ready(function() {
 
-                Ubi.setContainer(4, [1, 2, 3, 4, 5, 6], "2E"); //세금계싼서생성
+                Ubi.setContainer(4, [1, 3, 4, 5, 6], "2E"); //세금계싼서생성
 
              	layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -18,17 +18,17 @@
 
                 //grid	
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMst.setHeader("No,고객,공급가액,세액,발행일자,구분,발행");
                 gridMst.attachFooter("&nbsp;,합계,0,0");
-                gridMst.setInitWidths("100,100,100,100,100,100,100");
+                gridMst.setInitWidths("100,100,100,100,100,130,100");
                 gridMst.setColAlign("center,left,right,right,center,center,center");
-                gridMst.setColTypes("ron,ed,edn,edn,dhxCalendar,ch,ch");
+                gridMst.setColTypes("ron,ed,edn,edn,dhxCalendar,radioCell,ra");
                 gridMst.setColSorting("int,str,int,int,date,str,str");
                 gridMst.init();
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("No,출하일자,고객,품명,규격,수량,단가,공급가액,세액");
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,0,0,0,0");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100");
@@ -45,7 +45,45 @@
                 calStDate.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                function doOnRowDblClicked(rowId,colId){
+                	gridDtl.addRow(gridDtl.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+        		}
+                toolbar.attachEvent("onClick", function(id) {
+           			if(id == "btn1"){
+           				fn_insert();
+           			}
+           		});
             })
+               function fn_insert() {
+               		gridMst.addRow(gridMst.getUID(),"TEST,TEST,TEST,TEST,TEST,,",1);
+               		
+           	}
+            ///////////////////////two radio in 1 col/////////////////////////
+				function eXcell_radioCell(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			        var value = "<input type='radio' name='myradio" + row_id + "' value='0'/>청구";
+			        value += "<input type='radio' name='myradio" + row_id + "' value='1'/>영수";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       //return {value};
+			       return this.cell.firstChild.value;
+			    }
+			}
+			
+			eXcell_radioCell.prototype = new eXcell; 
+		////////////////////////////////////////////////////////////////////////
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%; ">
         </div>

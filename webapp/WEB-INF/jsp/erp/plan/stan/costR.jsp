@@ -5,7 +5,7 @@ var layout, toolbar, subLayout
 var gridMain;
 $( document ).ready(function() {
 	
-	Ubi.setContainer(2,[1,2,3,4,5,6],"1C"); //매출단가조회
+	Ubi.setContainer(2,[1,8,9],"1C"); //매출단가조회
 
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -14,7 +14,7 @@ $( document ).ready(function() {
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = subLayout.cells("a").attachGrid(); 
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //9
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //9
 	gridMain.setHeader("고객코드,고객명,품목코드,품명,규격,단위,통화단위,단가,적용일자", null, 
 					[]);
 	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,");       

@@ -17,7 +17,7 @@
 	
 	            //grid	
 	            gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,일자,고객,종류,관리번호,내용,첨부", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.setInitWidths("50,100,100,100,150,400,50");
                 gridMain.setColAlign("center,center,center,center,left,left,center");

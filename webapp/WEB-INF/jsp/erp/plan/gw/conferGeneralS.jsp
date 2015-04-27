@@ -25,7 +25,7 @@ $( document ).ready(function() {
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText("품의내용");
 	gridMain = subLayout.cells("b").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //10 col
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
 	gridMain.setHeader("No,내용", null, 
 				[]);
 	gridMain.setInitWidths("100,880");       

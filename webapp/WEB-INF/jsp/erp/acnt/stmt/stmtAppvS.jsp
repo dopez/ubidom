@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMst.setHeader("전표일자,No,발의부서,발행자,전표구분,승인여부,승인일자,승인No,결재구분");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,left,center,center,center,center,center,center");
@@ -26,7 +26,7 @@
                 gridMst.init();
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //8
                 gridDtl.setHeader("No,계정,세목,귀속부서,차변금액,대변금액,거래처,적요,번호(어음·계좌·L/C)");
                 gridDtl.attachFooter(",전표합계,#cspan,#cspan,0,0,(차액)");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100");

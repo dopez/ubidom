@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //13
                 
                 gridMain.setHeader("No,작업일자,발행일자,고객,품목코드,품명,규격,수량,공급가액,세액,구분,청구/영수,인쇄");
                 gridMain.attachFooter("&nbsp;,일계,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0");

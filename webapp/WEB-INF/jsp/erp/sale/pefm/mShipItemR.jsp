@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,품목,1월,#cspan,#cspan,2월,#cspan,#cspan,3월,#cspan,#cspan,4월,#cspan,#cspan,5월,#cspan,#cspan,6월,#cspan,#cspan,7월,#cspan,#cspan,8월,#cspan,#cspan,9월,#cspan,#cspan,10월,#cspan,#cspan,11월,#cspan,#cspan,12월,#cspan,#cspan,합계,#cspan,#cspan");
                 gridMain.attachHeader("#rspan,#rspan,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액,수량,단가,금액");
                 gridMain.attachFooter("&nbsp,합계,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");

@@ -21,7 +21,7 @@
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("전자세금계산서");
                 gridMain = subLayout.cells("b").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("일련번호,사업자등록번호,상호(법인명),매수,공급가액"+
                 					",세액,비고");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");

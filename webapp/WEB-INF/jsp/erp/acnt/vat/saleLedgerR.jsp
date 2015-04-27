@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //11
                 gridMain.setHeader("No,적용일자,전표일자,번호,발의부서,"+
                 					"거래처,거래처명,사업자번호,"+
                 					"공급가액,세액,비고");

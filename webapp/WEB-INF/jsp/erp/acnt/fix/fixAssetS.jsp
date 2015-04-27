@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,자산코드,자산명,취득일자,품의번호,"+
                 					"수량,취득금액,내용년수,상각방법,상각율,"+
                 					"잔존가액,취득부서,상태구분,재평가년수,재평가금액,"+

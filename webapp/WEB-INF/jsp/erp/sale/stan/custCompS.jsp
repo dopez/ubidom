@@ -13,7 +13,7 @@ $( document ).ready(function() {
 	
 	layout.cells("b").attachObject("bootContainer");
 	gridMain = subLayout.cells("a").attachGrid(); 
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      
 	gridMain.setHeader("고객코드, 고객명, 사업자번호", null, 
 					["text-align:center;","text-align:center;","text-align:center;"]);
 	gridMain.setInitWidths("100,100,100,");       

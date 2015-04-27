@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10
                 gridMain.setHeader("No,자산분류,기초잔액,당기증가,당기감소,당기기말잔액,전기말상각누계,당기상각액,당기말상각누계,당기말미상각잔액");
                 gridMain.attachFooter(",계,0,0,0,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,110");

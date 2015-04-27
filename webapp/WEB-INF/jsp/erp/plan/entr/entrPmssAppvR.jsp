@@ -23,7 +23,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("결재내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7 col
                 gridMst.setHeader("작성일자,작성자,출입자 정보,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan", null, []);
                 gridMst.attachHeader("#rspan,#rspan,성명,직위,소속,시작일자,종료일자,기간,신청사유", []);
 
@@ -37,7 +37,7 @@
                 subLayout.cells("b").setText("출입지역신청");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("등급,지역,허가,지역,허가,지역,허가,지역,허가", null, []);
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,center,center,center,center");

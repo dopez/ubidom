@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     //grid	
     gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //10
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10
     gridMain.setHeader("No,검교정일자,장비코드,장비명,규격,용도,교정항목,교정주기,교정기간,최종교정일자,교정예정일자,검교정결과,검교정비용,검교정기관");
     gridMain.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,&nbsp;");
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100");

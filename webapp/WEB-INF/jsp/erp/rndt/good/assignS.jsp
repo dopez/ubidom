@@ -18,21 +18,19 @@ $( document ).ready(function() {
 
 	
 	//up
-	
-	
 	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //10 col
+	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col 
 	gridMst.setHeader("No, 관리번호,납기일자,고객,요청자,품목코드,품명,사용설비,상태,선택", null, 
 					["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",]);
-	gridMst.setInitWidths("50,100,100,200,100,150,150,200,200,50");       
+	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100");       
 	gridMst.setColAlign("center,left,center,left,center,left,left,left,left,center");     
-	gridMst.setColTypes("ro,ed,ed,ed,ed,ed,ed,ed,ed,ch"); 
-	gridMst.setColSorting("str,str,str,str,str,str,str,str,str,str");
+	gridMst.setColTypes("ro,ed,ed,ed,ed,ed,ed,ed,ed,ra"); 
+	gridMst.setColSorting("str,str,str,str,str,str,str,str,str,na");
 	gridMst.init();
-	/* subLayout.cells("a").appendObject("thisLabel01").init(); */
-//down
+	
+	//down
 	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //11col
+	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");      //11col
 	gridDtl.setHeader("No, 관리번호,고객,요청자,품목코드,품명,사용설비,상태,담당자,납기일자,완료일자", null,
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
 	gridDtl.setInitWidths("50,100,200,100,150,150,200,200,100,100,100");       
@@ -69,10 +67,20 @@ $( document ).ready(function() {
      gridDtl.attachEvent("onRowSelect", function(id,ind){
      	gridDtl.editCell();
      	});
+     gridMst.attachEvent("onRowSelect", function(id,ind){
+     	gridMst.editCell();
+     	});
+     	
+     gridMst.attachEvent("onCheck",doOnCheck);
+     function doOnCheck(rowId,colId){
+		if(colId==9){
+			gridDtl.addRow(gridDtl.getUID(),"1,1111,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+		}
+	}
  })
      
  function fn_insert() {
- 		gridDtl.addRow(gridDtl.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,100,100.00,10000.00,TEST",1);
+ 		gridMst.addRow(gridMst.getUID(),"1,1111,2015-04-27,TEST,TEST,1111,TEST,TEST,TEST,",1);
 	}
 
 

@@ -16,7 +16,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("※ 전기는 전기말 기준 내역이 조회됩니다.");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMain.setHeader("No,계정,당기,#cspan,전기,#cspan");
                 gridMain.attachHeader("#rspan,#rspan,,,,");
                 gridMain.attachFooter(",계,0,0,0,0");

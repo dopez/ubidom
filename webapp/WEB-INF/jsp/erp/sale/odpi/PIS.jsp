@@ -6,7 +6,7 @@
             var calStDate;
             $(document).ready(function() {
 
-            	Ubi.setContainer(4, [1, 2, 3, 4, 5, 6], "1C"); //PI발행등록
+            	Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //PI발행등록
 
             	layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //15
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //15
                 gridMain.setHeader("No,수주번호,품목코드,품명,포장,단위,통화단위,단가,수량,금액,결제조건,인도조건,선적항,도착항,납기일자");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,left,left,left,center,center,center,right,right,right,center,center,center,center,center");

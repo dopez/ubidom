@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMain.setHeader("No,계정코드,계정과목,기초잔액,당기증가액,당기감소액,기말잔액,대손충당금,B/S가액");
                 gridMain.attachFooter(",합계,#cspan,0,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");

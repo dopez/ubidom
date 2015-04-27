@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //15
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //15
                 gridMain.setHeader("No,의뢰일자,접수일자,시험담당자,결과통보일자,회사,소속,성명,목적/용도,요청일,완료일,시료명,시료수량,시료처리,요구사항");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center,center,center,center");

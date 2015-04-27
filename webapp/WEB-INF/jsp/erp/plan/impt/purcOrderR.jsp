@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //19
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //19
                 gridMain.setHeader("PO No,공급사,대표품목,통화,금액,결제조건,#cspan,#cspan,인도조건,선적요구일자,선적구분,선적일자,입항일자,BL No,Invoice No,신고일자,면정번호,입고,#cspan", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,종류,L/C No,결제일자,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,일자,장소", []);
                 gridMain.attachFooter("합계,#cspan,#cspan,#cspan,0,&nbsp;", []);

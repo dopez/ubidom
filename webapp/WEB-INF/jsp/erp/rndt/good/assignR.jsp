@@ -17,7 +17,7 @@ $( document ).ready(function() {
 
 	//grid	
 	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //12col
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //12col
 	gridMain.setHeader("No, 배정일자,관리번호,고객,요청자,품목코드,품명,사용설비,상태,담당자,납기일자,완료일자", null,
 						["text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;","text-align:center;vertical-align:middle;"]);
 	gridMain.setInitWidths("50,100,100,200,100,150,150,200,200,100,100,100");       

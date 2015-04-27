@@ -26,7 +26,7 @@
                 rightLayout.cells("b").hideHeader();
 
                 gridMst = rightLayout.cells("b").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMst.setHeader("PO No,비용항목,거래처,발생일자,금액,부가세 구분,부가세", null, []);
                 gridMst.setInitWidths("100,100,100,100,100,100,100,");
                 gridMst.setColAlign("center,center,center,center,right,center,right");
@@ -35,7 +35,7 @@
                 gridMst.init();
 
                 gridDtl = subLayout.cells("c").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("Inv No,PO No,품목코드,품명,수량,단가,금액,신고금액,통화단위,환율,입고금액,단위원가,물대,비율,관세배부,비율,비용배부,비율,입고량", null, []);
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,right,right,right,right,right,right,right,right,right,right,center,right,center,right,right");

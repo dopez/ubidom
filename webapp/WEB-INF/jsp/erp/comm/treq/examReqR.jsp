@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //20
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //20
                 gridMain.setHeader("No,의뢰일자,의뢰자,소속,의뢰회사,완료일자,설비,위치,약품,시료명,시료수량,시료처리,결과공유,시험종류 및 시험 수량,#cspan,#cspan,#cspan,요구사항,목적/용도,시료특이사항", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,종류,항목,세부내역,시험수량,#rspan,#rspan,#rspan", []);
                 gridMain.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100,50,50,50,50,100,100,100");

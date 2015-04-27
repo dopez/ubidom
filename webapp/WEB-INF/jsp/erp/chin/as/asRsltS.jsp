@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); 
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); 
                 gridMst.setHeader("No,일자,고객,장비,모재,약품,상태,첨부,선택");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,center,center,center,center,center,center");
@@ -26,7 +26,7 @@
                 gridMst.init();
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridDtl.setHeader("No,코팅작업,시험의뢰,성적서 제출,개선요청,특이사항");
                 gridDtl.setInitWidths("100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,center,center,center,center");

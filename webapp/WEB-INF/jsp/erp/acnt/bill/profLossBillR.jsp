@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //5
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //5
                 gridMain.setHeader("No,계정명,세목코드,세목명,금액");
                 gridMain.attachFooter(",총계,#cspan,#cspan,0");
                 gridMain.setInitWidths("100,100,100,100,100");

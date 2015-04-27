@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //12col
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //12col
                 gridMain.setHeader("No,장비코드,장비명,규격,사용용도,구입일자,구입처,전화번호,구입금액,제작일자,사용기간,사용유무");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,left,left,left,center,center,center,center,right,center,center,center");

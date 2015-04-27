@@ -18,7 +18,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,구분,고객,전월미수금잔액,당월매출,당월수금,미수금잔액");
                 gridMain.attachFooter("&nbsp,합계,#cspan,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");
@@ -93,15 +93,9 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                             <div class="col-sm-4 col-md-4">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="1" checked="checked">전체
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="2">내수
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <input type="radio" name="searchGbn" value="3">수출
-                                </div>
+                               <input type="radio" name="searchGbn" value="1" checked="checked">전체
+                               <input type="radio" name="searchGbn" value="2">내수
+                               <input type="radio" name="searchGbn" value="3">수출
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(1, [1, 2, 3, 4], "3E"); //amend 등록
+                Ubi.setContainer(1, [2, 3, 4,5,6], "3E"); //amend 등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -23,7 +23,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("L/C 내용");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //11 col
                 gridMst.setHeader("L/C No,L/C 종류,개설은행,Open Date,Expiry Date,보험여부,B/L 도착일자,결재일자,비고,선택", null, []);
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,center,center,left,center,center,center,center,center,center");
@@ -36,7 +36,7 @@
                 subLayout.cells("b").setText("amend 내용");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("No,내용", null, []);
                 gridDtl.setInitWidths("50,950");
                 gridDtl.setColAlign("center,left");
@@ -55,9 +55,34 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                //항목삽입
+                toolbar.attachEvent("onClick", function(id) {
+                    if (id == "btn2") {
+                        fn_insert();
+                    }
 
+                });
+
+                //edit cell
+                gridDtl.attachEvent("onRowSelect", function(id, ind) {
+                    gridDtl.editCell();
+                });
+                gridMst.attachEvent("onRowSelect", function(id, ind) {
+                    gridMst.editCell();
+                });
+                
+                gridMst.attachEvent("onCheck", doOnCheck);
+                function doOnCheck(rowId, colId) {
+                    if (colId == 9) {
+                        gridDtl.addRow(gridDtl.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST", 1);
+                    }
+                }
             })
-        </script>
+
+            function fn_insert() {
+                gridMst.addRow(gridMst.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,", 1);
+
+            }        </script>
         <style>
         </style>
         <div id="container" style="position: relative; width: 100%; height: 100%;">

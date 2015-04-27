@@ -21,13 +21,13 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("품의내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //12 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //12 col
                 gridMst.setHeader("No,품의자,의뢰부서,의뢰자,공급업체,품의금액,결재금액,선택,결재,#cspan,#cspan,#cspan", null,[]);
                 gridMst.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,작성,검토,검토,승인", []);
                 gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,0,0");
                 gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100");
                 gridMst.setColAlign("center,left,left,left,left,right,right,center,center,center,center,center");
-                gridMst.setColTypes("ron,ed,ed,ed,ed,edn,edn,ra,ch,ch,ch,ch");
+                gridMst.setColTypes("ron,ro,ro,ro,ro,ron,ron,ra,ro,radioCell,radioCell,radioCell");
                 gridMst.setColSorting("int,str,str,str,str,int,int,na,na,na,na,na");
                 gridMst.init();
 
@@ -36,13 +36,13 @@
                 subLayout.cells("b").setText("품의상세내역");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //13col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //13col
                 gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,용도,구매제외사유,선택,#cspan,#cspan", null, []);
                 gridDtl.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,구매,보류,취소", []);
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
                 gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100");
                 gridDtl.setColAlign("center,center,left,center,left,left,left,left,center,center,center,center");
-                gridDtl.setColTypes("ron,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,ed,ra,ra,ra");
+                gridDtl.setColTypes("ron,ro,ro,ro,ron,ron,ron,ro,ro,ro,radioCell01,radioCell02,radioCell03");
                 gridDtl.setColSorting("int,str,str,str,int,int,int,date,str,str,na,na,na");
                 gridDtl.init();
 
@@ -59,7 +59,116 @@
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
 
-            })
+             //항목삽입
+                   toolbar.attachEvent("onClick", function(id) {
+           			if(id == "btn1"){
+           				fn_insert();
+           			}
+           		});
+                   //popUp
+
+                   gridMst.attachEvent("onCheck",doOnCheck);
+                   function doOnCheck(rowId,colId){
+              		if(colId==7){
+              			gridDtl.addRow(gridDtl.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,,,",1);
+	              		}
+	              	}
+               })
+                   
+               function fn_insert() {
+               		gridMst.addRow(gridMst.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,,TEST,,,,",1);
+               		
+           	}
+
+///////////////////////two radio in 1 col/////////////////////////
+				function eXcell_radioCell(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			        var value = "<input type='radio' name='myradio" + row_id + "' value='0'/>결재";
+			        value += '<br/>';
+			        value += "<input type='radio' name='myradio" + row_id + "' value='1'/>반려";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       //return {value};
+			       return this.cell.firstradioCellild.value;
+			    }
+			}
+			
+			eXcell_radioCell.prototype = new eXcell; 
+			
+			function eXcell_radioCell01(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+				        var value = "<input type='radio' name='radioPurc" + row_id + "' value='1'/>";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       return this.cell.firstChild.value;
+			    }
+			}
+			eXcell_radioCell01.prototype = new eXcell; 
+			
+			function eXcell_radioCell02(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+				        var value = "<input type='radio' name='radioPurc" + row_id + "' value='2'/>";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       return this.cell.firstChild.value;
+			    }
+			}
+			eXcell_radioCell02.prototype = new eXcell; 
+			
+			function eXcell_radioCell03(cell) 
+			{
+			    if (cell) 
+			    {
+			        this.cell = cell;
+			        this.grid = this.cell.parentNode.grid;
+			    }
+			    this.setValue=function(val) 
+			    {
+			        var row_id=this.cell.parentNode.idd;
+				        var value = "<input type='radio' name='radioPurc" + row_id + "' value='3'/>";
+			        this.setCValue(value);
+			    }
+			    this.getValue=function(val)
+			    {
+			        var row_id=this.cell.parentNode.idd;
+			       return this.cell.firstChild.value;
+			    }
+			}
+			eXcell_radioCell03.prototype = new eXcell; 
+		////////////////////////////////////////////////////////////////////////
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">

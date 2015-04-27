@@ -16,7 +16,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,시험종류,시료명,시험주기,최종시험일자,시험예정일자,의뢰기간,의뢰금액");
                 gridMain.attachFooter("&nbsp;,합계,#cspan,#cspan,#cspan,#cspan,#cspan,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");

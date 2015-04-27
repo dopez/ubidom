@@ -23,7 +23,7 @@
 
                         //left grid//
                         gridMst = differentLayout.cells("a").attachGrid();
-                        gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                        gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
                         gridMst.setHeader("설비코드, 설비명", null, [
                             "text-align:center;", "text-align:center;"
                         ]);
@@ -42,7 +42,7 @@
 
                         rightLayout.cells("b").setText("증착조건");
                         gridDtl = rightLayout.cells("b").attachGrid();
-                        gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                        gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
                         gridDtl.setHeader("No,모재,약품명,온도,진공도,에칭,어시스트,두께,Rate,에칭,방식", null, []);
                         gridDtl.setInitWidths("50,100,150,50,100,100,150,100,100,100,100");
                         gridDtl.setColAlign("center,left,left,center,center,right,right,right,right,right,right");

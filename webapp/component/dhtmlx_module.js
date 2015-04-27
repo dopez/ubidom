@@ -1,3 +1,5 @@
+
+
 var Ubi = (function () {
 var config = {
 layout:null,
@@ -67,8 +69,10 @@ searchArea:null
     
     config.layout = new dhtmlXLayoutObject(f_layout_default_opt);
 
-
-
+	    $(window).resize(function(){
+	    	config.layout.setSizes();
+	    });
+    	
 
     };
     
@@ -116,7 +120,11 @@ searchArea:null
     var setSubLayout = function(pattern,cellId){
     
     config.subLayout = config.layout.cells(cellId).attachLayout(pattern);
-        
+    
+    $(window).resize(function(){
+    	config.subLayout.setSizes();
+    });
+    
     config.subLayout.forEachItem(doItemAction);
         
         function doItemAction(cell) {

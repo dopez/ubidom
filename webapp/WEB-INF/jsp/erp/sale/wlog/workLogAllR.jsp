@@ -17,7 +17,7 @@
 
                 //grid	page19
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,담당,일자,종류,고객,내용,첨부");
                 gridMain.setInitWidths("100,100,100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,left,left,center");
@@ -47,9 +47,7 @@
                 //popUp
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 function doOnRowDblClicked(rowId,colId){
-        			if(colId==1){
         				gfn_big_load_popup(910,500,'','sale/workLogPOP');
-        			}
         		}
             })
                 

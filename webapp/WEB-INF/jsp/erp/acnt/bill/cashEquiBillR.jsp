@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //5
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //5
                 gridMain.setHeader("No,과목,거래처,구좌번호,금액");
                 gridMain.attachFooter("&nbsp;,#cspan,#cspan,계,0");
                 gridMain.attachFooter("&nbsp;,#cspan,#cspan,합계,0");

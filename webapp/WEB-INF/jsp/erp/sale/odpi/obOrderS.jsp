@@ -17,11 +17,11 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //17
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //17
                 gridMain.setHeader("No,품목코드,품명,포장,단위,통화단위,단가,수량,금액,납기일자,납품장소,재고수량,출고요청,생산의뢰,품검요청,개발요청,구분");
-                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");
+                gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,150");
                 gridMain.setColAlign("center,left,left,center,center,right,right,right,right,center,center,right,center,center,center,center,center");
-                gridMain.setColTypes("ron,ed,ed,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,edn,ch,ch,ch,ch,ch");
+                gridMain.setColTypes("ron,ed,ed,ed,ed,ed,edn,edn,edn,dhxCalendar,ed,edn,ch,ch,ch,ch,radioCell");
                 gridMain.setColSorting("int,str,str,str,str,str,int,int,int,date,str,int,str,str,str,str,str");
                 gridMain.init();
 
@@ -50,8 +50,33 @@
             })
                 
             function fn_insert() {
-            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+            		gridMain.addRow(gridMain.getUID(),"TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,radioCell",1);
         	}
+///////////////////////two radio in 1 col/////////////////////////
+		function eXcell_radioCell(cell) 
+	{
+	    if (cell) 
+	    {
+	        this.cell = cell;
+	        this.grid = this.cell.parentNode.grid;
+	    }
+	    this.setValue=function(val) 
+	    {
+	        var row_id=this.cell.parentNode.idd;
+	        var value = "<input type='radio' name='myradio" + row_id + "' value='0' checked='checked'/>매출";
+	        value += "<input type='radio' name='myradio" + row_id + "' value='1'/>Sample";
+	        this.setCValue(value);
+	    }
+	    this.getValue=function(val)
+	    {
+	        var row_id=this.cell.parentNode.idd;
+	       //return {value};
+	       return this.cell.firstChild.value;
+	    }
+	}
+	
+	eXcell_radioCell.prototype = new eXcell; 
+////////////////////////////////////////////////////////////////////////
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>

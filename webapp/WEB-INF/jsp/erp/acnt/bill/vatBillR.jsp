@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //7
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //7
                 gridMain.setHeader("No,계정명,공급가액(차변),세액(차변),공급가액(대변),세액(대변),공급가액(잔액),세액(잔액)");
                 gridMain.attachFooter(",합계,0,0,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100");

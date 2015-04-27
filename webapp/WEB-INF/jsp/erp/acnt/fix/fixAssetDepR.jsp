@@ -14,7 +14,7 @@
                 layout.cells("b").attachObject("bootContainer");
 
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridMst.setHeader("No,구분,계정,취득원가,전기말상각누계액,"+
                 					"상각기초가액,당기증가,당기감소,감가상각누계 당기감소액, 당기상각액,"+
                 					"당기말상각누계액,기말잔액");
@@ -33,7 +33,7 @@
                 gridMst.init();
                 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //6
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //6
                 gridDtl.setHeader("No,계정코드,계정명,세목명,코드,"+
 			                		"자산명,취득일,처분일,취득부서,수량,"+
 			                		"취득원가,내용년수,상각율,상각종류,자산상태,"+

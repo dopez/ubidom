@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     //grid	
     gridMain = subLayout.cells("a").attachGrid();
-    gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //25
+    gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //25
     gridMain.setHeader("No,의뢰번호,약품,제품LOT No,시료,코팅장비,위치,#cspan,#cspan,#cspan,#cspan,#cspan,시험방법,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,변화도,온도,습도,시험장비,시험자,비고");
     gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,1P,2P,3P,4P,5P,평균,1P,2P,3P,4P,5P,6P,최소값,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan");
     gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

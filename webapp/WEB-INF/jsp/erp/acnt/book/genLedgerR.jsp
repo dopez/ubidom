@@ -18,7 +18,7 @@
                 //grid	
                 subLayout.cells("a").setWidth(102);
                 girdMst = subLayout.cells("a").attachGrid();
-                girdMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                girdMst.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 girdMst.setHeader("계정");
                 girdMst.setInitWidths("100");
                 girdMst.setColAlign("center");
@@ -30,7 +30,7 @@
                 subLayout.cells("b").showHeader();
                 subLayout.cells("b").setText("※ 해당항목 더블클릭 시 전표내역 POP");
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridDtl.setHeader("계정,승인일자,전표일자,번호,차변,대변,잔액");
                 gridDtl.attachFooter(",월계,#cspan,#cspan,0,0,0");
                 gridDtl.attachFooter(",누계,#cspan,#cspan,0,0,0");

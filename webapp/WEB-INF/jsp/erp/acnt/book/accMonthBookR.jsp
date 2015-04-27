@@ -17,7 +17,7 @@
                 layout.cells("b").attachObject("bootContainer");
                 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMain.setHeader("No,회계기간,차변금액,대변금액,차인잔액");
                 gridMain.attachFooter(",계,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100");

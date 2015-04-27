@@ -19,7 +19,7 @@
 
                         //left grid//
                         gridMain = subLayout.cells("a").attachGrid();
-                        gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");
+                        gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                         gridMain.setHeader("제품코드, 제품명", null, [
                             "text-align:center;", "text-align:center;"
                         ]);

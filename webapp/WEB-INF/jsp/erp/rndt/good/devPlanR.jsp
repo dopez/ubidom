@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMain.setHeader("보고일자, 보고자, 출시예정일, 적용제품, 과제명, 개발예산(천원),개발기간,#cspan,#cspan", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", ]);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,시작,종료,일수", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
                 gridMain.attachFooter("개발예산 Total,#cspan,#cspan,#cspan,#cspan,0,,#cspan,,#cspan", ["font-weight:bold;text-align:right;vertical-align:middle;", "font-weight:bold;text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;", "font-weight:bold;text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;", "text-align:right;vertical-align:middle;"]);

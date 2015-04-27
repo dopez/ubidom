@@ -18,7 +18,7 @@
                 
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //
                 gridMain.setHeader("중분류,소분류,계정,세목,제품별배부기준");
                 gridMain.setInitWidths("100,100,100,100,100");
                 gridMain.setColAlign("center,center,center,center,left");

@@ -19,7 +19,7 @@
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("※ 해당항목 더블클릭 시 전표내역 POP");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //25
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //25
                 gridMain.setHeader("계정명,귀속부서,승인일자,No,전표일자,No,발의자,발의부서,귀속부서,세목명,차변,대변,잔액,과표,적요,번호,시작일,종료일" + 
                 				   "수량,환율,이율,원가구분,화폐단위,수량단위");
                 gridMain.attachFooter(",#cspan,월계,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan,0,0,0");

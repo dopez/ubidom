@@ -18,7 +18,7 @@
                 //grid	
 
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //16
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //16
                 gridMain.setHeader("L/C No,종류,개설은행,금액,통화단위,Open Date,Expiry Date,보험여부,B/L 도착일자,결제일자,비고,제비용,#cspan,Amend,#cspan,#cspan", null, []);
                 gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,명,금액,일자,내용,금액", []);
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100");

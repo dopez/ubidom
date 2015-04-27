@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //8
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //8
                 gridMain.setHeader("전표일자,계정코드,차변,대변,적요,거래처,부가세구분,귀속부서", null, []);
                 gridMain.attachFooter("소계,#cspan,0,0,#cspan,#cspan,#cspan,#cspan", []);
                 gridMain.attachFooter("합계,#cspan,0,0,#cspan,#cspan,#cspan,#cspan", []);

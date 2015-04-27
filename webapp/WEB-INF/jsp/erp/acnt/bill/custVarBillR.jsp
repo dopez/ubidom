@@ -17,7 +17,7 @@
 
                 //grid	
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //9
                 gridMain.setHeader("No,계정코드,계정명,거래처코드,거래처,전기이월,당기증가,당기감소,기말잔액");
                 gridMain.attachFooter(",계,#cspan,#cspan,#cspan,0,0,0,0");
                 gridMain.setInitWidths("100,100,100,100,100,100,100,100,100");

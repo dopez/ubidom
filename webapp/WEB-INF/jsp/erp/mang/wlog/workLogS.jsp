@@ -17,7 +17,7 @@
 
             //grid	
             gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //5
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //5
                 gridMain.setHeader("No,내용,첨부");
                 gridMain.setInitWidths("100,100,100");
                 gridMain.setColAlign("center,left,center");

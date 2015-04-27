@@ -20,7 +20,7 @@
 				subLayout.cells("a").showHeader();
 				subLayout.cells("a").setText("발주내역");
                 gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //11 col
+                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //11 col
                 gridMst.setHeader("No,발주일자,발주자,의뢰부서,의뢰자,공급업체,품목,규격,단위,발주수량,입고수량,미입고수량,입고", null,[]);
                 
                 gridMst.setInitWidths("50,100,100,100,100,100,100,100,100,100,100,100,100");
@@ -34,7 +34,7 @@
 				subLayout.cells("b").setText("입고상세내역");
 
                 gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/Custonent/dhtmlxGrid/imgs/"); //9col
+                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
                 gridDtl.setHeader("No,품명,규격,단위,입고수량,단가,금액,납기일자,납품장소", null, []);
                 gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0");
                 
@@ -54,8 +54,35 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
+                
+                //항목삽입
+                toolbar.attachEvent("onClick", function(id) {
+                    if (id == "btn2") {
+                        fn_insert();
+                    }
 
+                });
+
+                //edit cell
+                gridDtl.attachEvent("onRowSelect", function(id, ind) {
+                    gridDtl.editCell();
+                });
+                gridMst.attachEvent("onRowSelect", function(id, ind) {
+                    gridMst.editCell();
+                });
+                
+                gridMst.attachEvent("onCheck", doOnCheck);
+                function doOnCheck(rowId, colId) {
+                    if (colId == 12) {
+                        gridDtl.addRow(gridDtl.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST", 1);
+                    }
+                }
             })
+
+            function fn_insert() {
+                gridMst.addRow(gridMst.getUID(), "TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,", 1);
+
+            }
 
         </script>
         <style>

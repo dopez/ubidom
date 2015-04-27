@@ -18,7 +18,7 @@ $( document ).ready(function() {
 	//grid	
 	
 	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/Custonent/dhtmlxGrid/imgs/");      //14
+	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //14
 	gridMain.setHeader("No,접수일자,접수자,의뢰일자,의뢰자,공급업체,품목코드,품명,규격,단위,수량,단가,금액,납기일자,용도,첨부");
 	gridMain.setInitWidths("100,100,100,100,100,150,150,200,200,100,100,100,100,100,100,50");       
 	gridMain.setColAlign("center,center,center,center,center,left,left,left,center,center,right,right,right,center,center,center");     
