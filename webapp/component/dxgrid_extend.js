@@ -22,6 +22,39 @@ var dxGrid = function(divId, autoHeight){
 	}
 };
 
+dxGrid.prototype.atchHeader = function(){
+	this.atchHeaderName = new Array();
+}
+
+dxGrid.prototype.addAtchHeader = function(val){
+	this.atchHeaderName.push(val.atchHeaderName);
+}
+
+dxGrid.prototype.attachHeader = function(headers){
+	this.dxObj.attachHeader(headers);
+}
+
+dxGrid.prototype.atchHeaderInit = function(){
+	this.attachHeader(this.atchHeaderName.join(","));
+}
+
+dxGrid.prototype.atchFooter = function(){
+	this.atchFooterName = new Array();
+}
+
+dxGrid.prototype.addAtchFooter = function(val){
+	this.atchFooterName.push(val.atchFooterName);
+}
+
+dxGrid.prototype.attachFooter = function(headers){
+	this.dxObj.attachFooter(headers);
+}
+
+dxGrid.prototype.atchFooterInit = function(){
+	this.attachFooter(this.atchFooterName.join(","));
+}
+
+
 dxGrid.prototype.addHeader = function(val){
 	this.headerName.push(val.name);
 	this.headerColId.push(val.colId);
@@ -149,6 +182,10 @@ dxGrid.prototype.getActTypeColIdx = function(){
 dxGrid.prototype.setUserData = function(rowId, key, val) {
 	this.dxObj.setUserData(rowId, key, val);
 };
+
+dxGrid.prototype.getUserData = function(){
+	return this.dxObj.getUserData("","pk");
+}
 
 dxGrid.prototype.getCellValue = function(rowId, columnId ) {
 	return this.dxObj.cells(rowId, columnId).getValue();
@@ -296,6 +333,7 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	}
 
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -410,7 +448,7 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
-/*dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
+dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -438,8 +476,10 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
 //	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
+		alert(1);
 		return null;
 	} else {
+		alert(2);
 		if (jsonStr.length > 0) {
 			jsonStr = '[' + jsonStr + ']';
 		} else {
@@ -450,11 +490,11 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 	}
 
 	return jsonStr;
-};*/
+};
 
 
 //멀티삭제 MULTI DELETE 
-dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
+/*dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -478,6 +518,7 @@ dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	 }
 	
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -489,5 +530,40 @@ dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 		}
 	}
 
+	return jsonStr;
+};*/
+
+
+//멀티삭제 MULTI DELETE pk값으로 삭제하기
+dxGrid.prototype.getJsonMultiRowDel = function(pkCol) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
+		var row = '{';
+			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+				  colId = this.dxObj.getColumnId(j);
+				  if(colId == pkCol){
+					  colVal = this.dxObj.cells2(i,j).getValue();
+					   row += '"' + colId + '": "' + colVal + '",';
+					}
+				 }
+			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';	
+	    }
+	
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	if(!gfn_checkXSS(jsonStr, true)) {
+		return null;
+	} else {
+		if (jsonStr.length > 0) {
+			jsonStr = '[' + jsonStr + ']';
+		} else {
+			MsgManager.alertMsg("WRN008");
+			return null;
+		}
+	}
 	return jsonStr;
 };

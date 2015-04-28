@@ -13,24 +13,80 @@ $(document).ready(function() {
   layout.cells("b").attachObject("bootContainer2");
 
   gridMst = new dxGrid(subLayout.cells("a"), false);
-                        
-  gridMst.addHeader({name:"품목코드", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
-  gridMst.addHeader({name:"품목명", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
-  gridMst.addHeader({name:"규격", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
-  gridMst.setColSort("str");	
-  gridMst.setColSort("str,str,str");	
-  gridMst.setUserData("","pk","itemCode");
-  gridMst.init();
+       
+  gridMst.addHeader({name:"품목별현황", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
+  gridMst.addHeader({name:"#cspan", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
+  gridMst.addHeader({name:"#cspan", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
 
+  
+  gridMst.atchHeader();
+  gridMst.addAtchHeader({atchHeaderName:"품목별현황" ,colId:"itemCode",width:"15", align:"center", type:"ed"});
+  gridMst.addAtchHeader({atchHeaderName:"품목명", colId:"itemName", 	width:"15", align:"center", type:"ed"});
+  gridMst.addAtchHeader({atchHeaderName:"규격",colId:"itemSize", 	width:"15", align:"center", type:"ed"});
+  gridMst.atchHeaderInit();
+  
+  gridMst.setColSort("str");	
+  gridMst.setUserData("","pk","itemCode");
+  
+  gridMst.atchFooter();
+  gridMst.addAtchFooter({atchFooterName:"합계"});
+  gridMst.addAtchFooter({atchFooterName:"0"});
+  gridMst.addAtchFooter({atchFooterName:"0"});
+  gridMst.atchFooterInit();
+  
+  gridMst.init();
+  
+ 
+  //조회
+	toolbar.attachEvent("onClick", function(id) {
+	      if (id == "btn1") {
+	           fn_loadGridList();
+	         }
+	});
+	//실제 조회로직
+	function fn_loadGridList() {
+	    gfn_gridLoad("/erp/subTest", {}, gridMst, fn_setCount);
+	};
+    //callback 함수
+   function fn_setCount() {
+   };
+  
   //한줄추가
-  toolbar.attachEvent("onClick", function(id) {
+   toolbar.attachEvent("onClick", function(id) {
       if (id == "btn5") {
           var totalColNum = gridMst.getColumnCount();
           var data = new Array(totalColNum);
                 gridMst.addRow(data, 0, 2);
-          }
+       }
+   });
+      
+ //전체삭제 - pk값만으로 삭제하기
+	toolbar.attachEvent("onClick", function(id) {
+		var str = "삭제하시겠습니까?";
+	     if (id == "btn4") {
+	        if(confirm(str)){
+	           var jsonStr = gridMst.getJsonMultiRowDel(gridMst.getUserData());
+		       if (jsonStr == null || jsonStr.length <= 0){
+		        	 return;
+		           }
+		       $("#jsonData").val(jsonStr);
+		       $.ajax({
+		               url : "/erp/subTest/delTest",
+		               type : "POST",
+		               data : $("#pform").serialize(),
+		               async : true,
+		               success : function(data) {
+		                        MsgManager.alertMsg("INF003");
+		                        fn_loadGridList();
+		                  }
+		                }); 
+	        }else{
+	        	alert("변경된내역이 없습니다.");
+	        }        			   	        
+	   }
 });
-                    	
+  
+  
 //저장 - 수정
  toolbar.attachEvent("onClick", function(id) {
      if (id == "btn3") {
@@ -52,30 +108,7 @@ $(document).ready(function() {
      }
 });
 
-	//전체삭제
-	toolbar.attachEvent("onClick", function(id) {
-	     if (id == "btn4") {
-	        if(!MsgManager.confirmMsg("INF002")){
-	           var jsonStr = gridMst.getJsonMultiRowDelete();
-		       if (jsonStr == null || jsonStr.length <= 0){
-		        	 return;
-		           }
-		       $("#jsonData").val(jsonStr);
-		       $.ajax({
-		               url : "/erp/gTest/grid_test",
-		               type : "POST",
-		               data : $("#pform").serialize(),
-		               async : true,
-		               success : function(data) {
-		                        MsgManager.alertMsg("INF003");
-		                        fn_loadGridList();
-		                  }
-		                }); 
-	        }else{
-	        	MsgManager.alertMsg("WRN004");
-	        }        			   	        
-	   }
-});
+	
 	                       
 	//한줄삭제
 	toolbar.attachEvent("onClick", function(id) {
@@ -111,20 +144,6 @@ $(document).ready(function() {
 	                }
 	        }
 	 });
-	                                   
-	 //조회
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn1") {
-	           fn_loadGridList();
-	         }
-	});
-	//실제 조회로직
-	function fn_loadGridList() {
-	    gfn_gridLoad("/erp/gTest", {}, gridMst, fn_setCount);
-	};
-   //callback 함수
-   function fn_setCount() {
-  };
 })
 </script>
 <form id="pform" name="pform" method="post">
@@ -145,7 +164,7 @@ $(document).ready(function() {
                          </div>
                           <div class="col-sm-3 col-md-3">
                                 <div class="col-md-offset-1 col-sm-offset-1 col-sm-11 col-md-11">
-                                    <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="iName" id="iName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                           </div>
                           <label class="col-sm-2 col-md-2 control-label" for="textinput"> 

@@ -19,9 +19,10 @@ function gfn_gridLoad(url, data, grid, callback) {
 	}).done(function(jsonData) {
 		if(jsonData!="") {
 			rtn = {"total_count":jsonData.length, "pos":0, "data":jsonData};
-			//alert(jsonData.length);
-			grid.load(rtn);		
+			grid.load(rtn);	
+			alert(jsonData.length);
 			if (callback != null) { 
+				
 				callback();
 			}
         } else {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.user.dao.SubTestDao">
+
+	<resultMap id="SubTestMap" type="SubTest"/>
+
+	 <select id="prsSelTest" statementType="CALLABLE" >
+		 {call SP_ITEM_CODE_SERCH(#{P_NAME},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=SubTestMap, javaType=ResultSet})}	
+	</select>
+ 
+  	<insert id="prsInsTest" statementType="CALLABLE" parameterType="SubTest">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</insert>
+
+	<update id="prsUpdTest" statementType="CALLABLE" parameterType="SubTest">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</update>
+  	
+  	<delete id="prsDelTest" statementType="CALLABLE" parameterType="SubTest">
+  		{call SP_ITEM_CODE_SAVE(#{cudKey},#{itemCode},#{itemName},#{itemSize})}	
+  	</delete>
+
+    <insert id="insTest" parameterType="SubTest">
+        INSERT INTO TBL_ITEM_CODE(ITEM_CODE,ITEM_NAME,ITEM_SIZE) 
+  		 VALUES(#{itemCode},#{itemName},#{itemSize})
+  	</insert>
+
+   <update id="updTest" parameterType="SubTest">
+        UPDATE TBL_ITEM_CODE
+          SET  ITEM_NAME = #{itemName},
+               ITEM_SIZE = #{itemSize}
+         WHERE  ITEM_CODE = #{itemCode}
+  	</update>
+  	
+  	<delete id="delTest" parameterType="SubTest">
+  	    DELETE FROM TBL_ITEM_CODE  WHERE ITEM_CODE = #{itemCode}
+  	</delete>
+  	
+  	<select id="selTest" parameterType="SubTest" resultType="SubTest">
+  	     SELECT ITEM_CODE,ITEM_NAME,ITEM_SIZE
+                FROM   TBL_ITEM_CODE
+                WHERE  ITEM_CLS1 = '1'
+                  <choose>
+                    <when test="itemName != null and itemName != ''">
+                      AND  ITEM_NAME LIKE #{itemName}
+                    </when>
+                  </choose>
+  	</select>
+</mapper>
