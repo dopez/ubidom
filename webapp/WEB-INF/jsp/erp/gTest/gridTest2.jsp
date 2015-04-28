@@ -14,28 +14,58 @@ $(document).ready(function() {
 
   gridMst = new dxGrid(subLayout.cells("a"), false);
        
-  gridMst.addHeader({name:"품목별현황", 	colId:"itemCode", 		width:"15", align:"center", type:"ed"});
-  gridMst.addHeader({name:"#cspan", 		colId:"itemName", 	width:"15", align:"center", type:"ed"});
-  gridMst.addHeader({name:"#cspan", 		colId:"itemSize", 	width:"15", align:"center", type:"ed"});
-
-  
-  gridMst.atchHeader();
-  gridMst.addAtchHeader({atchHeaderName:"품목별현황" ,colId:"itemCode",width:"15", align:"center", type:"ed"});
-  gridMst.addAtchHeader({atchHeaderName:"품목명", colId:"itemName", 	width:"15", align:"center", type:"ed"});
-  gridMst.addAtchHeader({atchHeaderName:"규격",colId:"itemSize", 	width:"15", align:"center", type:"ed"});
-  gridMst.atchHeaderInit();
-  
+  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"combo"});
+  gridMst.addHeader({name:"#cspan", 	colId:"itemName", 	width:"15", align:"center", type:"ro"});
+  gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"15", align:"center", type:"ed"});
   gridMst.setColSort("str");	
   gridMst.setUserData("","pk","itemCode");
+  
+  gridMst.atchHeader();
+  gridMst.addAtchHeader({atchHeaderName:"품목코드"});
+  gridMst.addAtchHeader({atchHeaderName:"품목명"});
+  gridMst.addAtchHeader({atchHeaderName:"규격"});
+  gridMst.atchHeaderInit();
   
   gridMst.atchFooter();
   gridMst.addAtchFooter({atchFooterName:"합계"});
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
-  
+
   gridMst.init();
   
+  var combo=gridMst.getColumnCombo(0);
+  combo.load({
+		template: {
+		    columns: [
+		        {header: "품목코드", width: 110, option: "#itemCode#"},
+		        {header: "품목명", width: 100, option: "#itemName#"},
+		    ]
+		},
+		options: [
+		    {value: "1", text:
+		        {itemCode: "Austria", itemName:"Vienna"}
+		    },
+		    {value: "2", text:
+		        {itemCode: "Belarus", itemName:"Minsk"}
+		    },
+		    {value: "3", text:
+		        {itemCode: "Cameroon", itemName: "Yaoundé"}
+		    },
+		    {value: "4", text:
+		        {itemCode: "Canada", itemName: "Ottawa"}
+		    }
+		]
+		
+	}); 
+  	
+  combo.attachEvent("onClose", doOnClose);
+  
+  function doOnClose(){
+	  alert(gridMst.getColumnCount());
+	  gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(combo.getSelectedText().itemCode);
+	  gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(combo.getSelectedText().itemName);
+  }
  
   //조회
 	toolbar.attachEvent("onClick", function(id) {
