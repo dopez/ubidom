@@ -11,3 +11,6 @@ div.gridbox_dhx_skyblue.gridbox table.hdr td {
 div.gridbox_dhx_skyblue.gridbox table.hdr td div.hdrcell {
   padding-left: 0px;
 }
+div.dhxcombolist_dhx_skyblue.dhxcombolist_hdr {
+	height: 28px;
+}
