@@ -26,9 +26,10 @@ function byId(id) {
 	return document.getElementById(id);
 } 
 
-function dateformat(date){  
+function dateformat(date){ 
 	var isdate= date;      
-        var yyyy = isdate.getFullYear().toString();                                    
+
+        var yyyy = isdate.getFullYear().toString();       
         var mm = (isdate.getMonth()+1).toString();       
         var dd  = isdate.getDate().toString();                                   
         return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
