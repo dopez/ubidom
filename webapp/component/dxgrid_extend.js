@@ -191,8 +191,8 @@ dxGrid.prototype.getCellValue = function(rowId, columnId ) {
 	return this.dxObj.cells(rowId, columnId).getValue();
 };
 
-dxGrid.prototype.attachEvent = function(eName, fName) {
-	this.dxObj.attachEvent(eName, fName);
+dxGrid.prototype.attachEvent = function(eName,fName) {
+	   this.dxObj.attachEvent(eName,fName);
 };
 
 dxGrid.prototype.load = function(json) {

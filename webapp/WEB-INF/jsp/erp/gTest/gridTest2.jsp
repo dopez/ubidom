@@ -3,8 +3,9 @@
 <script type="text/javascript">
 var layout, toolbar, subLayout;
 var gridMst, gridDtl;
+var combo;
 $(document).ready(function() {
-   Ubi.setContainer(1, [1, 2, 3, 4, 5, 6], "2U");
+   Ubi.setContainer(1, [1, 2, 3, 4, 5, 6,9], "2U");
 
    layout = Ubi.getLayout();
    toolbar = Ubi.getToolbar();
@@ -31,42 +32,69 @@ $(document).ready(function() {
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
-
   gridMst.init();
-  
-  var combo=gridMst.getColumnCombo(0);
-  combo.load({
-		template: {
-		    columns: [
-		        {header: "품목코드", width: 110, option: "#itemCode#"},
-		        {header: "품목명", width: 100, option: "#itemName#"},
-		    ]
-		},
-		options: [
-		    {value: "1", text:
-		        {itemCode: "Austria", itemName:"Vienna"}
-		    },
-		    {value: "2", text:
-		        {itemCode: "Belarus", itemName:"Minsk"}
-		    },
-		    {value: "3", text:
-		        {itemCode: "Cameroon", itemName: "Yaoundé"}
-		    },
-		    {value: "4", text:
-		        {itemCode: "Canada", itemName: "Ottawa"}
-		    }
-		]
-		
-	}); 
-  	
-  combo.attachEvent("onClose", doOnClose);
-  
-  function doOnClose(){
-	  alert(gridMst.getColumnCount());
-	  gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(combo.getSelectedText().itemCode);
-	  gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(combo.getSelectedText().itemName);
+
+  gridMst.attachEvent("onRowSelect",doOnRowSelect);
+  function doOnRowSelect(id,ind){
+	   if(ind==0){
+		   gfn_load_popup("품목코드","/common/testCodePOP");
+	   }
   }
- 
+  
+/*  combo=gridMst.getColumnCombo(0);
+   combo.load({
+	  template: {
+		columns: [
+		   {header: "품목코드", width: 100, option: "#itemCode#"},
+		   {header: "품목명", width: 100, option: "#itemName#"},
+		   ]
+	   },
+	   options: [
+			{value: "0", text:
+			  {itemCode: "품목코드", itemName: "품명"}
+			}
+		  ]
+  }); 
+   
+   gridMst.attachEvent("onRowSelect",doOnRowSelect);
+   function doOnRowSelect(id,ind){
+	   if(ind==0){
+		   doOnOpen();
+	   }
+   }
+  combo.enableFilteringMode(true);
+  combo.attachEvent("onOpen",doOnOpen);
+		 
+  
+  function doOnOpen(){
+	  $.ajax({
+			"url":"/erp/subTest",
+			"type":"get",
+			"data":{}
+		    }).done(function(jsonData) {
+				if(jsonData!="") {
+				
+					for(var i=0;i<=jsonData.length;i++){
+			        	combo.addOption([
+		                  {value: i, text:
+		                  {"itemCode": jsonData[i].itemCode,
+		                  "itemName":jsonData[i].itemName}}   
+			            ]);
+		           }
+					
+		        }else {
+		          alert("No Data");
+		        }
+			});	
+  }
+  
+    combo.attachEvent("onClose", doOnClose);
+	  
+	function doOnClose(){
+		gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(combo.getSelectedText().itemCode);
+		gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(combo.getSelectedText().itemName);
+	} */  
+   
   //조회
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
@@ -89,7 +117,7 @@ $(document).ready(function() {
                 gridMst.addRow(data, 0, 2);
        }
    });
-      
+  
  //전체삭제 - pk값만으로 삭제하기
 	toolbar.attachEvent("onClick", function(id) {
 		var str = "삭제하시겠습니까?";
