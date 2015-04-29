@@ -14,23 +14,15 @@ $( document ).ready(function() {
 	
 	//form//
 	layout.cells("b").attachObject("bootContainer2");
-	
-
-	
 	//up
-	
-	
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");     
-	gridMain.setHeader("No,제품코드,제품명,단위,수량,사용일자,용도", null, 
-				[]);
+	gridMain.setHeader("No,제품코드,제품명,단위,수량,사용일자,용도", null,[]);
 	gridMain.setInitWidths("50,150,200,100,100,100,200");       
 	gridMain.setColAlign("center,left,left,center,right,center,center");     
 	gridMain.setColTypes("ro,ro,ro,ed,edn,dhxCalendarA,ed"); 
 	gridMain.setColSorting("str,str,str,str,int,date,str");
 	gridMain.init();
-	
-
 	//calRangeDate
 	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	 calMain.loadUserLanguage("ko");
@@ -51,6 +43,7 @@ $( document ).ready(function() {
 				gfn_load_popup('제품코드','common/goodsCodePOP');
 			}
 		}
+      
     })
         
     function fn_insert() {
@@ -58,12 +51,6 @@ $( document ).ready(function() {
 	}
 
 </script>
-<style>
-            table {
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
@@ -104,89 +91,7 @@ $( document ).ready(function() {
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group form-group-sm">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td id="appv" rowspan="2">
-                                            결
-                                            <br>
-                                            <br>재
-                                        </td>
-                                        <td id="appv">작성</td>
-                                        <td id="appv">검토</td>
-                                        <td id="appv">검토</td>
-                                        <td id="appv">승인</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <jsp:include page="appvTable.jsp"></jsp:include>
                             </div>
                         </div>
                     </div>
