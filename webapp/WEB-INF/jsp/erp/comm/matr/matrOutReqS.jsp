@@ -41,6 +41,7 @@ $( document ).ready(function() {
         toolbar.attachEvent("onClick", function(id) {
 			if(id == "btn5"){
 				fn_insert();
+
 			}
 		});
         //popUp
@@ -50,6 +51,7 @@ $( document ).ready(function() {
 				gfn_load_popup('재료코드','common/materialsCodePOP');
 			}
 		}
+
     })
         
     function fn_insert() {
@@ -96,7 +98,8 @@ $( document ).ready(function() {
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group form-group-sm">
-                               <jsp:include page="appvTable.jsp"></jsp:include>
+                               <%-- <jsp:include page="../../common/appvTable.jsp"></jsp:include> --%>
+                               <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/erp/common/appvTable.jsp"></jsp:include>
                             </div>
                         </div>
                     </div>

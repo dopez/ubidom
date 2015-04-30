@@ -62,7 +62,7 @@ $( document ).ready(function() {
 		 combo01.load({
 						template: {
 						    //input: "#ITEM_NAME#, #ITEM_CODE#",
-						    input: "#ITEM_CODE# #ITEM_NAME#",
+						    input: "#ITEM_CODE#",
 						    columns: [
 						        {header: "ITEM_CODE", width: 110, css: "ITEM_CODE", option: "#ITEM_CODE#"},
 						        {header: "ITEM_NAME", width: 100, css: "ITEM_NAME", option: "#ITEM_NAME#"},
@@ -86,17 +86,21 @@ $( document ).ready(function() {
 		combo01.enableFilteringMode(true);
 		combo01.enableAutocomplete(true);
 		//combo01.getSelectedText(combo01.getSelectedValue());
-		gridMain.cells(gridMain.getUID(),1).setValue("done");
+		//gridMain.cells(gridMain.getUID(),1).setValue("done");
 		//alert(gridMain.getColumnId(0));
 		//gridMain.cells2(gridMain.getRowIndex()+1,2).setValue("done");
 		
- 		combo01.attachEvent("onChange", function() {
- 			//console.log(combo01.getComboText());
- 			/* combo02.setComboValue(combo01.getSelectedValue());
- 			combo02.setComboText("canada"); */
- 			//gridMain.cells(gridMain.getUID(),2).setValue("is it working?");
-
-			
+ 		combo01.attachEvent("onClose", function() {
+ 			//var totalRowNum = gridMain.getRowsNum()-1;
+ 			//for(i=1; i<=totalRowNum; i++){
+ 			//alert(i);
+ 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
+ 			
+ 			//}
+ 			//gridMain.cells2(1,2).setValue("done");
+ 			//gridMain.cells(gridMain.getRowId(1),2).setValue("done");
+ 			
+ 			//alert(gridMain.getRowId(1));
 		}) 
  		
 /* 		var combo02 = gridMain.getColumnCombo(2);
@@ -142,8 +146,9 @@ $( document ).ready(function() {
     })
         
     function fn_insert() {
-			
-    		gridMain.addRow(gridMain.getUID(),"1,,,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
+		var totalColNum = gridMain.getRowsNum();
+	    var data = new Array(totalColNum);
+	          gridMain.addRow(data, 0, 2);
 	}
 	
 	//var cbTest = gridMain.getColumncombo01(1);

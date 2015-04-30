@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [2, 3, 4, 5, 6], "1C"); //출장품의등록
+                Ubi.setContainer(2, [2, 3, 4, 5, 6], "1C"); //교육품의등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -14,12 +14,12 @@
 
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
-                layout.cells("b").setHeight(175);
+                layout.cells("b").setHeight(250);
 
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("교육내용");
                 gridMain = subLayout.cells("a").attachGrid();
-                gridMain.setImagePath("/component/dhtmlxGrid/imgs/"); //10 col
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMain.setHeader("No,내용", null, []);
                 gridMain.setInitWidths("100,880");
                 gridMain.setColAlign("center,left");
@@ -27,7 +27,7 @@
                 gridMain.setColSorting("str,str");
                 gridMain.init();
 
-              //calRangeDate
+                //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
                     input: "setDate",
                     button: "calpicker1"
@@ -82,61 +82,68 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group form-group-sm">
-                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                        교육제목 </label>
-                                    <div class="col-sm-6 col-md-6">
-	                                    <div class="col-sm-9 col-md-9">
-	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row_line_for_appv_table">
+	                    <div class="row">
+	                        <div class="col-sm-8 col-md-8">
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        교육제목 </label>
+	                                    <div class="col-sm-6 col-md-6">
+		                                    <div class="col-sm-9 col-md-9">
+		                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+		                                    </div>
 	                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
+	                                </div>
+	                            </div>
+	                            <div class="row">
                                 <div class="form-group form-group-sm">
                                     <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                                         교육비 </label>
                                     <div class="col-sm-6 col-md-6">
 	                                    <div class="col-sm-9 col-md-9">
-	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관련부서','common/requestPOP')">
+	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="">
 	                                    </div>
 	                                    <label class="col-sm-1 col-md-1 control-label" for="textinput">
                                         원 </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group form-group-sm">
-                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                        교육기간 </label>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="col-sm-10 col-md-10">
-                                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2">
-                                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
-                                            </div>
-                                        </div>
-                                        <label class="col-sm-1 col-md-1 control-label" for="textinput">~</label>
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="col-sm-10 col-md-10">
-                                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2">
-                                                <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group form-group-sm">
-                                <jsp:include page="appvTable.jsp"></jsp:include>
-                            </div>
-                        </div>
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        교육기간 </label>
+	                                    <div class="col-sm-6 col-md-6">
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+	                                            </div>
+	                                        </div>
+	                                        <label class="col-sm-1 col-md-1 control-label" for="textinput">~</label>
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-4 col-sm-4">
+	                            <div class="form-group form-group-sm">
+	                                <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/erp/common/appvTable.jsp"></jsp:include>
+	                            </div>
+	                        </div>
+	                    </div>
                     </div>
                 </form>
             </div>

@@ -14,7 +14,7 @@
 
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
-                layout.cells("b").setHeight(175);
+                layout.cells("b").setHeight(250);
 
                 subLayout.cells("a").showHeader();
                 subLayout.cells("a").setText("품의내용");
@@ -45,8 +45,6 @@
                 byId("stDate").value = t;
                 byId("edDate").value = t;
                 
-                //결재 항목
-                gfn_appv_table_append();
             })
         </script>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
@@ -84,59 +82,66 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group form-group-sm">
-                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                        제목 </label>
-                                    <div class="col-sm-6 col-md-6">
-	                                    <div class="col-sm-9 col-md-9">
-	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
-	                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group form-group-sm">
-                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                        관련부서 </label>
-                                    <div class="col-sm-6 col-md-6">
-	                                    <div class="col-sm-9 col-md-9">
-	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관련부서','common/requestPOP')">
-	                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group form-group-sm">
-                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                        처리기한 </label>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="col-sm-10 col-md-10">
-                                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2">
-                                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
-                                            </div>
-                                        </div>
-                                        <label class="col-sm-1 col-md-1 control-label" for="textinput">~</label>
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="col-sm-10 col-md-10">
-                                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2">
-                                                <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group form-group-sm">
-                                <jsp:include page="appvTable.jsp"></jsp:include>
-                            </div>
-                        </div>
+                    </div>
+                    <br/>
+                    <div class="row_line_for_appv_table">
+	                    <div class="row">
+	                        <div class="col-sm-8 col-md-8">
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        제목 </label>
+	                                    <div class="col-sm-6 col-md-6">
+		                                    <div class="col-sm-9 col-md-9">
+		                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        관련부서 </label>
+	                                    <div class="col-sm-6 col-md-6">
+		                                    <div class="col-sm-9 col-md-9">
+		                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관련부서','common/requestPOP')">
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        처리기한 </label>
+	                                    <div class="col-sm-6 col-md-6">
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+	                                            </div>
+	                                        </div>
+	                                        <label class="col-sm-1 col-md-1 control-label" for="textinput">~</label>
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-4 col-sm-4">
+	                            <div class="form-group form-group-sm">
+	                                <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/erp/common/appvTable3col.jsp"></jsp:include>
+	                            </div>
+	                        </div>
+	                    </div>
                     </div>
                 </form>
             </div>

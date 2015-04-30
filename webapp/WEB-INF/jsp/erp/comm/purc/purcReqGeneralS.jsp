@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group form-group-sm">
-                                <jsp:include page="appvTable.jsp"></jsp:include>
+                                <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/erp/common/appvTable.jsp"></jsp:include>
                             </div>
                         </div>
                     </div>
