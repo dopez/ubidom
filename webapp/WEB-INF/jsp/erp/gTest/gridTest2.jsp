@@ -37,10 +37,21 @@ $(document).ready(function() {
   gridMst.attachEvent("onRowSelect",doOnRowSelect);
   function doOnRowSelect(id,ind){
 	   if(ind==0){
-		   gfn_load_popup("품목코드","/common/testCodePOP");
+		 var pop =   gfn_load_popup("품목코드","common/testCodePOP");
+	
+		var ifr=pop.getFrame();
+
+		//console.log(ifr.contentWindow.frameElement.contentDocument);
+		//ifr.myFunc();
+	
+		console.log(ifr.contentWindow);
+		
+		//console.log(ifr.contentWindow.frameElement.contentDocument.activeElement);
 	   }
   }
-  
+	function myFunc(){
+		alert("부모");
+	}
 /*  combo=gridMst.getColumnCombo(0);
    combo.load({
 	  template: {

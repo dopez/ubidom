@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var orinGrid;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//품목코드 도우미
@@ -18,6 +19,7 @@ $(document).ready(function(){
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("품목코드,품목명",null,
 			["text-align:center;","text-align:center;"]);
+	gridMain.setColumnIds("itemCode,itemName");
 	gridMain.setInitWidths("150,150");
 	gridMain.setColAlign("left,left");
 	gridMain.setColTypes("ro,ro");
@@ -26,19 +28,48 @@ $(document).ready(function(){
 	
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	           fn_loadGridList();
+	           fn_loadGridList("/erp/subTest", {}, gridMain, fn_PopValue);
 	         }
 	});
 	//실제 조회로직
-	function fn_loadGridList() {
-	    gfn_gridLoad("/erp/subTest", {}, gridMain, fn_setCount);
+	function fn_loadGridList(url, data, grid, callback) {
+			var rtn = "";
+			$.ajax({
+				"url":url,
+				"type":"get",
+				"data":data
+			}).done(function(jsonData) {
+				if(jsonData!="") {
+					rtn = {"data":jsonData};
+					grid.clearAll();
+					grid.parse(rtn, "js");
+					setGridHeight();
+					if (callback != null) { 
+						callback();
+					}
+		        } else {
+		        	grid.clearAll();
+		        	alert("No Data");
+		        }
+			});
 	};
-   //callback 함수
-   function fn_setCount() {
- };
+	
+	function myFunc(){
+		alert("자식");
+	}
+	  
+	  function fn_PopValue(){
+		  parent.dhxWins.window("w1").fMsg();
+		 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	  }
+ 
+	  function doOnRowDblClicked(rId,cInd){
+		  var row = rId-1;
+		  var cell = cInd;
+		  var itemCode = gridMain.cells2(row,cell).getValue();
+		  var itemName = gridMain.cells2(row,cell+1).getValue();
+	  }
 });
-
-
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

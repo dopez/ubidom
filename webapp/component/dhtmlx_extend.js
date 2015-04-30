@@ -151,7 +151,6 @@ function gfn_load_popup(subject,view_path){
 	var eleId = "container";
 	dhxWins = new dhtmlXWindows();
 	dhxWins.attachViewportTo(eleId);
-		
 	w1 = dhxWins.createWindow(eleId, 50, 80, 320, 300);
 	     dhxWins.window(eleId).setText(subject);
 	// iframe, get
@@ -162,8 +161,7 @@ function gfn_big_load_popup(width,height,subject,view_path){
 	var w1;
 	var eleId = "container";
 	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(eleId);
-		
+	dhxWins.attachViewportTo(eleId);	
 	w1 = dhxWins.createWindow(eleId, 50, 80, width, height);
 	     dhxWins.window(eleId).setText(subject);
 	// iframe, get
