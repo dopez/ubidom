@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-04-29T11:12:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sysUser" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96bc5f64-c28e-424a-bb7e-37958b839b94">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -101,7 +99,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LOGID}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="M/d/yy">
+			<textField isStretchWithOverflow="true">
 				<reportElement x="414" y="0" width="138" height="20" uuid="66cd8854-978e-437f-8ff1-4b7aa005134c"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
