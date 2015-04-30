@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>ceko</name><driver>oracle.jdbc.driver.OracleDriver</driver><username>ceko</username><password>ceko</password><savePassword>true</savePassword><url>jdbc:oracle:thin:@175.209.128.74:1521/ORCL</url><database></database><serverAddress></serverAddress><classpath>C:\app\Administrator\product\11.2.0\dbhome_1\jdbc\lib\ojdbc6.jar</classpath></jdbcDataAdapter>

@@ -46,7 +46,7 @@
                 gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str,str,");
                 gridDtl.init();
 
-                //calRangeDate
+                /* //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
                     button: "calpicker1"
@@ -57,7 +57,13 @@
                 calMain.loadUserLanguage("ko");
                 calMain.hideTime();
                 var t = dateformat(new Date());
-                byId("stDate").value = t;
+                byId("stDate").value = t; */
+                calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+            	calMain.loadUserLanguage("ko");
+            	calMain.hideTime();
+            	var t = dateformat(new Date());
+            	byId("stDate").value = t;
+            	byId("edDate").value = t;
 
             })
         </script>

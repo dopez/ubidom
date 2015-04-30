@@ -1,134 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript">
-var layout, toolbar, subLayout;
-var gridMain;
-var calMain;
-$( document ).ready(function() {
-	
-	Ubi.setContainer(2,[2,3,4,5,6],"2E"); //교육품의등록
-	
-	layout = Ubi.getLayout();
-    toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout();
-	
-	//form//
-	layout.cells("b").attachObject("bootContainer2");
-	
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <script type="text/javascript">
+            var layout, toolbar, subLayout;
+            var gridMain;
+            var calMain;
+            $(document).ready(function() {
 
-	
-	//up
-	
-	subLayout.cells("a").attachObject("tableAppv");
-	subLayout.cells("a").setHeight(132);
-	
-	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("교육내용");
-	gridMain = subLayout.cells("b").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
-	gridMain.setHeader("No,내용", null, 
-				[]);
-	gridMain.setInitWidths("100,880");       
-	gridMain.setColAlign("center,left");     
-	gridMain.setColTypes("ro,txt"); 
-	gridMain.setColSorting("str,str");
-	gridMain.init();
+                Ubi.setContainer(2, [2, 3, 4, 5, 6], "1C"); //교육품의등록
 
-	//calRangeDate
-	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"}]);
-	 calMain.loadUserLanguage("ko");
-	 calMain.hideTime();
-		var t = dateformat(new Date());
-		byId("stDate").value = t;
+                layout = Ubi.getLayout();
+                toolbar = Ubi.getToolbar();
+                subLayout = Ubi.getSubLayout();
 
-})
+                //form//
+                layout.cells("b").attachObject("bootContainer2");
+                layout.cells("b").setHeight(250);
 
-</script>
-<style>
-table{
-	text-align: center;
-}
-</style>
-<div id="container"
-	style="position: relative; widtd: 100%; height: 100%;">
-	</div>
-<div id="bootContainer2">
-<div class="container">
-	<form class="form-horizontal"
-		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
-		id="frmMain">
-		<div class="row">
-			<div class="col-sm-8 col-md-8">
-				<div class="row">
-					<div class="form-group form-group-sm">
-						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
-							일자 </label>
-						<div class="col-sm-2 col-md-2">
-							
-								<div class="col-sm-10 col-md-10">
-									<input name="stDate" id="stDate" type="text" value=""
-										placeholder="" class="form-control input-xs">
-								</div>
-								<div class="col-sm-2 col-md-2">
-									<input type="button" id="calpicker1" class="calicon form-control">
-								</div>
-							
-						</div>
-						<div class="col-sm-1 col-md-1">
-							<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-								<input name="seqNo" id="seqNo" type="text" value=""
-									placeholder="" class="form-control input-xs"
-									disabled="disabled">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group form-group-sm">
-						<label class=" col-sm-2 col-md-2 control-label" for="textinput">
-							작성자 </label>
-						<div class="col-sm-2 col-md-2">
-							<input name="regEmpName" id="regEmpName" type="text" value=""
-								placeholder="" class="form-control input-xs">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-	</div>
-</div>
-<div id="tableAppv">
-<div class="container">
-	<form class="form-horizontal"
-		style="padding-top: 10px; padding-bottom: 5px; margin: 0px;"
-		id="frmMain02">
-		<div class="row">
+                subLayout.cells("a").showHeader();
+                subLayout.cells("a").setText("교육내용");
+                gridMain = subLayout.cells("a").attachGrid();
+                gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
+                gridMain.setHeader("No,내용", null, []);
+                gridMain.setInitWidths("100,880");
+                gridMain.setColAlign("center,left");
+                gridMain.setColTypes("ro,txt");
+                gridMain.setColSorting("str,str");
+                gridMain.init();
 
-			<table class="col-md-offset-1 table table-bordered">
-				<tr>
-					<td class="col-md-1">교육제목</td>
-					<td class="col-md-6"></td>
-					<td class="col-md-1" rowspan="3"><br>결<br>
-					<br>재</td>
-					<td class="col-md-1" >작성</td>
-					<td class="col-md-1">검토</td>
-					<td class="col-md-1">검토</td>
-					<td class="col-md-1">승인</td>
-				</tr>
-				<tr>
-					<td>교육비</td>
-					<td></td>
-					<td rowspan="2"></td>
-					<td rowspan="2"></td>
-					<td rowspan="2"></td>
-					<td rowspan="2"></td>
-				</tr>
-				<tr>
-					<td>교육기간</td>
-				<td></td>
-				</tr>
-			</table>
-		</div>
-	</form></div>
-</div>
+                //calRangeDate
+                calMain = new dhtmlXCalendarObject([{
+                    input: "setDate",
+                    button: "calpicker1"
+                }, {
+                    input: "stDate",
+                    button: "calpicker2"
+                }, {
+                    input: "edDate",
+                    button: "calpicker3"
+                }]);
+                calMain.loadUserLanguage("ko");
+                calMain.hideTime();
+                var t = dateformat(new Date());
+                byId("setDate").value = t;
+                byId("stDate").value = t;
+                byId("edDate").value = t;
+                
+            })
+        </script>
+        <div id="container" style="position: relative; widtd: 100%; height: 100%;">
+        </div>
+        <div id="bootContainer2">
+            <div class="container">
+                <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+                                        일자 </label>
+                                    <div class="col-sm-2 col-md-2">
+                                        <div class="col-sm-10 col-md-10">
+                                            <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                        </div>
+                                        <div class="col-sm-2 col-md-2">
+                                            <input type="button" id="calpicker1" class="calicon form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1">
+                                        <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                                            <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+                                        작성자 </label>
+                                    <div class="col-sm-2 col-md-2">
+                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row_line_for_appv_table">
+	                    <div class="row">
+	                        <div class="col-sm-8 col-md-8">
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        교육제목 </label>
+	                                    <div class="col-sm-6 col-md-6">
+		                                    <div class="col-sm-9 col-md-9">
+		                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs">
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+                                        교육비 </label>
+                                    <div class="col-sm-6 col-md-6">
+	                                    <div class="col-sm-9 col-md-9">
+	                                        <input name="" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="">
+	                                    </div>
+	                                    <label class="col-sm-1 col-md-1 control-label" for="textinput">
+                                        원 </label>
+                                    </div>
+                                </div>
+                            </div>
+	                            <div class="row">
+	                                <div class="form-group form-group-sm">
+	                                    <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+	                                        교육기간 </label>
+	                                    <div class="col-sm-6 col-md-6">
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+	                                            </div>
+	                                        </div>
+	                                        <label class="col-sm-1 col-md-1 control-label" for="textinput">~</label>
+	                                        <div class="col-sm-4 col-md-4">
+	                                            <div class="col-sm-10 col-md-10">
+	                                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+	                                            </div>
+	                                            <div class="col-sm-2 col-md-2">
+	                                                <input type="button" id="calpicker3" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-4 col-sm-4">
+	                            <div class="form-group form-group-sm">
+	                                <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/erp/common/appvTable.jsp"></jsp:include>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
