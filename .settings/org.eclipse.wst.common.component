@@ -4,8 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resource"/>
         <wb-resource deploy-path="/" source-path="/webapp" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="java-output-path" value="/bip/target/classes"/>
-        <property name="context-root" value="erp"/>
+        <property name="context-root" value="ubidom"/>
     </wb-module>
 </project-modules>
