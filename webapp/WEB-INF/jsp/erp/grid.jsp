@@ -6,7 +6,7 @@ var myMenu;
 
 $(function() {
 	
-	fncMenuConf();
+	//fncMenuConf();
 	
 	mygrid = new dxGrid("gridDiv", false);
 	
