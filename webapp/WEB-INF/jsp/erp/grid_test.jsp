@@ -47,7 +47,6 @@ $(function() {
 		data[rnumColIdx] = '0';
 		myGrid.addRow(data, myGrid.getRowsNum()+1, 1);
 		editCol = editCol + (myGrid.getRowsNum()-1) + ";";
-		alert(editCol);
 	});
 
 	$("#btnSave").click(function(){
@@ -109,7 +108,6 @@ function fn_GridCheck(selectedRowId, chkColumnId) {
     if(myGrid.getDxObj().cells2(selectedRowId-1,chkColumnId).getValue()=="1") {
     	delCol = delCol + ";";
     }
-	alert(delCol);
 }
 </script>
 
