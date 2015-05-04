@@ -27,6 +27,7 @@ import org.apache.ibatis.type.Alias;
 public class Test implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private int rnum;
 	private String itemCode;
 	private String itemName;
 	private String itemSize;
@@ -52,6 +53,14 @@ public class Test implements Serializable {
 
 	public void setCudKey(String cudKey) {
 		this.cudKey = cudKey;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getItemCode() {

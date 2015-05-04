@@ -1,7 +1,8 @@
 /*######################################
  * dhtmlx Common Variables & Function
 *#####################################*/
-
+var editCol = "";
+var delCol = "";
 var chkCol = "chk";
 var editStatCol = "editStat";
 var cudKeyCol = "cudKey";
@@ -47,8 +48,9 @@ function setUpdateAcType(obj, rowId){
 	var cudKeyColIdx = obj.getColIndexById(cudKeyCol);
 	if (cudKeyColIdx >= 0) {
 		var cell = obj.cells(rowId, cudKeyColIdx);
-		if(cell.getValue() != actInsert) {
+		if(cell.getValue() != actInsert && cell.getValue() != actUpdate) {
 			cell.setValue(actUpdate);
+			editCol = editCol + (rowId-1) + ";";
 			var editStatColIdx = obj.getColIndexById(editStatCol);
 			if(editStatColIdx >= 0) {
 				var x = obj.cells(rowId, editStatColIdx);

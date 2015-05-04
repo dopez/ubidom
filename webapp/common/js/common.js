@@ -39,6 +39,25 @@ function gfn_gridLoad(url, data, grid, callback) {
 	});
 }
 
+function gfn_gridLoadXml(url, data, grid, callback) {
+	var rtn = "";
+	
+	$.ajax({
+		"url":url,
+		"type":"get",
+		"data":data
+	}).done(function(xmlStr) {
+		if(xmlStr!="") {
+			grid.getDxObj().clearAll();
+			grid.getDxObj().loadXMLString(xmlStr);
+			if (callback != null) callback();
+        } else {
+        	grid.getDxObj().clearAll();
+        	alert("No Data");
+        }
+	});
+}
+
 //object empty 여부 체크. Undefined, null, '', 배열 혹은 json의 길이가 0이면 true를 반환한다.
 function gfn_isEmpty(obj) {
 	var isBlack = function(string){

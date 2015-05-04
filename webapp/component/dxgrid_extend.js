@@ -1,9 +1,9 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
-	this.dxObj = divId.attachGrid();
-	//this.dxObj = new dhtmlXGridObject(divId);
+	//this.dxObj = divId.attachGrid();
+	this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
-	this.dxObj.setSkin("dhx_skyblue");
+	//this.dxObj.setSkin("dhxgrid_skyblue");
 	this.dxObj.setDateFormat("%Y-%m-%d");
 	this.dxObj.attachEvent("onEditCell", gfn_gridEditCell);
 	
@@ -299,6 +299,49 @@ dxGrid.prototype.getJsonUpdated = function(excludeCols) {
 	return jsonStr;
 };
 
+dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	var arr = editCol.split(";");
+	
+	for(var i = 0; i < arr.length-1; i++) {
+		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+		var gubun = this.dxObj.cells2(arr[i],cudColIdx).getValue().toUpperCase();
+
+		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
+			var row = '{';
+			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
+				colId = this.dxObj.getColumnId(j);
+				colNm = this.dxObj.getColLabel(j);
+				colVal = this.dxObj.cells2(arr[i],j).getValue();
+				
+				if(!gfn_validation(colId, colNm, colVal) ) {
+					this.dxObj.selectCell(arr[i], j, false, true, false);
+					return null;
+				}
+	
+				if(colId != "editStat" && colId != "chk") {
+					row += '"' + colId + '": "' + colVal + '",';
+				}
+			}
+			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+		}
+	}
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	
+	if (jsonStr.length > 0) {
+		jsonStr = '[' + jsonStr + ']';
+	} else {
+		MsgManager.alertMsg("WRN004");
+		return null;
+	}
+	
+	return jsonStr;
+};
+
 //Get Json from checked rows 
 dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
@@ -333,7 +376,7 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	}
 
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	alert(jsonStr);
+
 	if(!gfn_checkXSS(jsonStr, true)) {
 		return null;
 	} else {
@@ -343,6 +386,51 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 			MsgManager.alertMsg("WRN008");
 			return null;
 		}
+	}
+	
+	return jsonStr;
+};
+
+dxGrid.prototype.getJsonChecked2 = function(chkIdx, excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	var arr = delCol.split(";");
+
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
+		var row = '{';
+		if(this.dxObj.cells2(arr[i],chkIdx).getValue()=="1") {
+			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+				colId = this.dxObj.getColumnId(j);
+				colNm = this.dxObj.getColLabel(j);
+				colVal = this.dxObj.cells2(arr[i],j).getValue();
+				
+				if(!gfn_validation(colId, colNm, colVal) ) {
+					this.dxObj.selectCell(arr[i], j, false, false, false);
+					return null;
+				}
+				
+				if(colId != "editStat" && colId != "chk") {
+					if(colId!="cudKey") {
+						row += '"' + colId + '": "' + colVal + '",';
+					} else {
+						row += '"' + colId + '": "' + actDelete + '",';
+					}
+				}
+			}
+			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+		}
+	}
+
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+
+	if (jsonStr.length > 0) {
+		jsonStr = '[' + jsonStr + ']';
+	} else {
+		MsgManager.alertMsg("WRN008");
+		return null;
 	}
 	
 	return jsonStr;

@@ -38,11 +38,14 @@ MsgManager.prototype = {
 	},
 	confirmMsg : function(msgCd, repList){
 		//메시지를 confirm으로 표시
+		return confirm(this.getMsg(msgCd, repList));
+		/*
 		return dhtmlx.confirm({
 			title:"알 림",
 			ok:"네", cancel:"아니오",
 			text:this.getMsg(msgCd, repList)
 		});
+		*/
 	},
 	isMsgExists : function(msgCd){
 		//메시지 존재여부를 반환
