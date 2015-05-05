@@ -109,7 +109,11 @@ $(function() {
 	});
 
 	$("#btnPdf").click(function(){
-		mygrid.getDxObj().toPDF("http://175.209.128.74/grid-pdf/generate");
+		mygrid.getDxObj().toPDF("http://localhost/grid-pdf/generate");
+	});
+
+	$("#btnExcel").click(function(){
+		mygrid.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 	});
 });
 
@@ -184,6 +188,7 @@ function fncSelectItem(tree, id) {
 			<input type="button" value="저장" id="btnSave">&nbsp;
 			<input type="button" value="삭제" id="btnRemove">&nbsp;&nbsp;
 			<input type="button" value="PDF" id="btnPdf">&nbsp;&nbsp;
+			<input type="button" value="XLS" id="btnExcel">&nbsp;&nbsp;
 			<b>Total</b> : <span id = "totalCount"></span>건
 		</div>
 		<div class="grid-basic" style="width:100%;height:100%">
