@@ -9,8 +9,8 @@ $(function() {
 	myGrid.addHeader({name:"삭제", 		colId:"chk", 		width:"5", 	align:"center", type:"ch"});
 	myGrid.addHeader({name:"번호", 		colId:"rnum", 		width:"10", align:"center", type:"ro"});
 	myGrid.addHeader({name:"품목코드", 	colId:"itemCode", 	width:"25", align:"center", type:"ed"});
-	myGrid.addHeader({name:"품목명", 		colId:"itemName", 	width:"27", align:"center", type:"ed"});
-	myGrid.addHeader({name:"규격", 		colId:"itemSize", 	width:"28", align:"center", type:"ed"});
+	myGrid.addHeader({name:"품목명", 		colId:"itemName", 	width:"25", align:"center", type:"ed"});
+	myGrid.addHeader({name:"규격", 		colId:"itemSize", 	width:"25", align:"center", type:"ed"});
 	myGrid.attachEvent("onCheck", fn_GridCheck);
 	myGrid.init();
 	myGrid.getDxObj().enableSmartRendering(true);
@@ -127,4 +127,4 @@ function fn_GridCheck(selectedRowId, chkColumnId) {
 	</div>
 </div>
 
-<div id="gridDiv" style="width:100%;height:100%; background-color:white;overflow:hidden"></div>
+<div id="gridDiv" style="width:100%;height:95%; background-color:white;overflow:hidden"></div>
