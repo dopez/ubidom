@@ -20,11 +20,7 @@ function gfn_gridLoad(url, data, grid, callback) {
 		if(jsonData!="") {
 			rtn = {"total_count":jsonData.length, "pos":0, "data":jsonData};
 			grid.load(rtn);	
-			alert(jsonData.length);
-			if (callback != null) { 
-				
-				callback();
-			}
+			if(callback != null) callback();
         } else {
         	grid.getDxObj().clearAll();
         	alert("No Data");

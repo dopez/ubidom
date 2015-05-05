@@ -127,4 +127,4 @@ function fn_GridCheck(selectedRowId, chkColumnId) {
 	</div>
 </div>
 
-<div id="gridDiv" style="width:700px; height:100%; background-color:white;overflow:hidden"></div>
+<div id="gridDiv" style="width:100%;height:100%; background-color:white;overflow:hidden"></div>
