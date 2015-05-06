@@ -27,6 +27,11 @@ public class ReportController {
 		List<Map<String, Object>> list = userService.selUser();
 		return JasperReportUtil.render("simpleReport", list, "pdf");
 	}
+	@RequestMapping("/testPdf")
+	public ModelAndView testPdf(HttpServletRequest request, HttpServletResponse response) {
+		List<Map<String, Object>> list = userService.selItem();
+		return JasperReportUtil.render("testReport", list, "pdf");
+	}
 
 	@RequestMapping("/reportExcel")
 	public ModelAndView reportExcel(HttpServletRequest request, HttpServletResponse response) {

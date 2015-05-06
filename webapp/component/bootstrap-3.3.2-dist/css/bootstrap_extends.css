@@ -97,9 +97,8 @@ margin-top: 5px;
 	text-align: left;
 }
 .row_line_for_appv_table{
-	border-width:2px;
-	/* border-top:1px;	
-	border-left:1px; */	
-	border-style:groove;
+	border-width:1px;
+	border-color:#ddd;
+	border-style:solid;
 	padding: 20px 60px 0px 0px;
  }

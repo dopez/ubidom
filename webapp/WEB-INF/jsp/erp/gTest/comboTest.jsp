@@ -51,17 +51,12 @@ $( document ).ready(function() {
 				gfn_load_popup('품목코드','common/itemPOP');
 			}
 		} */
-        gridMain.attachEvent("onRowSelect", function(id,ind){
-         	gridMain.editCell();
-      	});
+
 		
 	////combo01//////////////////////////////////////////////////////
 		var combo01=gridMain.getColumnCombo(1);
-		//combo.load("/common/xml/multicolumn_data.xml");
-		//combo01.load("/common/xml/data.json");
 		 combo01.load({
 						template: {
-						    //input: "#ITEM_NAME#, #ITEM_CODE#",
 						    input: "#ITEM_CODE#",
 						    columns: [
 						        {header: "ITEM_CODE", width: 110, css: "ITEM_CODE", option: "#ITEM_CODE#"},
@@ -69,96 +64,49 @@ $( document ).ready(function() {
 						    ]
 						},
 						options: [
-						    {value: "1", text:
-						        {ITEM_CODE: "Austria", ITEM_NAME:"Vienna"}
-						    },
-						    {value: "2", text:
-						        {ITEM_CODE: "Belarus", ITEM_NAME:"Minsk"}
-						    },
-						    {value: "3", selected: 1, text:
-						        {ITEM_CODE: "Cameroon", ITEM_NAME: "Yaoundé"}
-						    },
-						    {value: "4", text:
-						        {ITEM_CODE: "Canada", ITEM_NAME: "Ottawa"}
-						    }
+						    
 						]
 					}); 
 		combo01.enableFilteringMode(true);
 		combo01.enableAutocomplete(true);
-		//combo01.getSelectedText(combo01.getSelectedValue());
-		//gridMain.cells(gridMain.getUID(),1).setValue("done");
-		//alert(gridMain.getColumnId(0));
-		//gridMain.cells2(gridMain.getRowIndex()+1,2).setValue("done");
-		
+        gridMain.attachEvent("onRowSelect", function(id,ind){
+        	gridMain.editCell();
+        	if(ind==1){
+     		   doOnOpen();
+     	   }
+      	});
+ 		function doOnOpen(){
+ 			$.ajax({
+ 				"url":"/erp/subTest",
+ 				"type":"get",
+ 				"data":{}
+ 			    }).done(function(jsonData) {
+ 					if(jsonData!="") {
+ 					
+ 						for(var i=0;i<=jsonData.length;i++){
+ 				        	combo01.addOption([
+ 			                  {value: i, text:
+ 			                  {"ITEM_CODE": jsonData[i].itemCode,
+ 			                  "ITEM_NAME":jsonData[i].itemName}}   
+ 				            ]);
+ 			           }
+ 						
+ 			        }else {
+ 			          alert("No Data");
+ 			        }
+ 				});	
+ 			
+ 		}
  		combo01.attachEvent("onClose", function() {
- 			//var totalRowNum = gridMain.getRowsNum()-1;
- 			//for(i=1; i<=totalRowNum; i++){
- 			//alert(i);
  			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
- 			
- 			//}
- 			//gridMain.cells2(1,2).setValue("done");
- 			//gridMain.cells(gridMain.getRowId(1),2).setValue("done");
- 			
- 			//alert(gridMain.getRowId(1));
 		}) 
- 		
-/* 		var combo02 = gridMain.getColumnCombo(2);
-		combo02.disable();
-		combo01.attachEvent("onChange", function(value){
-			value = combo01.getSelectedValue();
-			combo02.clearAll();
-			combo02.setComboValue(null);
-			combo02.setComboText("");
-			if (value == null) {
-				combo02.disable();
-			} else {
-				combo02.enable();
-				combo02.load("/common/xml/data.json");
-			}
-		}); */
-		
-		
-/*         mycombo = new dhtmlXcombo01("combo01_zone_script", "combo01_script", 200);
-        mycombo.setTemplate({
-            input: "#capital#, #country#",
-            columns: [
-                {header: "&nbsp;",  width:  40, css: "flag",    option: "#flag#"},
-                {header: "Capital", width:  80, css: "capital", option: "#capital#"},
-                {header: "Country", width: 110, css: "country", option: "#country#"},
-                {header: "Proverb", width: 250, css: "proverb", option: "#proverb#"}
-            ]
-        });
-        mycombo.addOption([
-                           {value: "1", text:
-                               {flag: "../austria.png", country: "Austria", capital:"Vienna"}
-                           },
-                           {value: "2", text:
-                               {flag: "../belarus.png", country: "Belarus", capital:"Minsk"}
-                           },
-                           {value: "3", selected: 1, text:
-                               {flag: "../cameroon.png",country: "Cameroon", capital: "Yaoundé"}
-                           },
-                           {value: "4", text:
-                               {flag: "../canada.png", country: "Canada", capital: "Ottawa"}
-                           }
-                       ]); */
     })
-        
     function fn_insert() {
 		var totalColNum = gridMain.getRowsNum();
 	    var data = new Array(totalColNum);
 	          gridMain.addRow(data, 0, 2);
 	}
-	
-	//var cbTest = gridMain.getColumncombo01(1);
 </script>
-<style>
-            table {
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>
         <div id="bootContainer2">
@@ -203,93 +151,6 @@ $( document ).ready(function() {
                                         <input name="rqstName" id="rqstName" type="text" value="" placeholder="" class="form-control input-xs">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group form-group-sm">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td id="appv" rowspan="2">
-                                            결
-                                            <br>
-                                            <br>재
-                                        </td>
-                                        <td id="appv">작성</td>
-                                        <td id="appv">검토</td>
-                                        <td id="appv">검토</td>
-                                        <td id="appv">승인</td>
-                                    </tr>
-                                    <tr>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td id="appv" class="col-md-3">
-                                            <div class="col-sm-8 col-md-8 appvBottomPadding">
-                                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                                            </div>
-                                            <div class="col-sm-4 col-md-4">
-                                                <button type="button" class="btn btn-default form-control" name="" id="" onclick="gfn_load_popup('결재자 선택','common/empPOP')">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <select class="form-control input-xs">
-                                                    <option>미결</option>
-                                                    <option>전결</option>
-                                                    <option>무결</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
                             </div>
                         </div>
                     </div>
