@@ -92,6 +92,10 @@ $(function() {
 			MsgManager.alertMsg("WRN002");
 		}
 	});
+
+	$("#btnPrint").click(function() {
+		myGrid.getDxObj().printView();
+	});
 });
 
 function fn_loadGridList() {
@@ -105,8 +109,20 @@ function fn_setCount() {
 }
 
 function fn_GridCheck(selectedRowId, chkColumnId) {
-    if(myGrid.getDxObj().cells2(selectedRowId-1,chkColumnId).getValue()=="1") {
-    	delCol = delCol + ";";
+	var idx = selectedRowId-1;
+    if(myGrid.getDxObj().cells2(idx,chkColumnId).getValue()=="1") {
+    	delCol = delCol + idx + ";";
+    } else {
+    	var arr = delCol.split(";");
+    	for(var i=0; i < arr.length-1; i++) {
+    		if(arr[i]==idx) {
+    			arr = $.grep(arr, function(n,j){
+					return n != arr[i];
+				});
+        		delCol = arr.join(";");
+        		return;
+    		}
+    	}
     }
 }
 </script>
@@ -121,7 +137,8 @@ function fn_GridCheck(selectedRowId, chkColumnId) {
 			<input type="button" value="조회" id="btnSearch">&nbsp;
 			<input type="button" value="추가" id="btnAdd">&nbsp;
 			<input type="button" value="저장" id="btnSave">&nbsp;
-			<input type="button" value="삭제" id="btnRemove">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="삭제" id="btnRemove">&nbsp;
+			<input type="button" value="인쇄" id="btnPrint">&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>Total</b> : <span id = "totalCount"></span>건
 		</div>
 	</div>
