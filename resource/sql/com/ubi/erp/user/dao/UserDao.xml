@@ -28,6 +28,10 @@
 			PERSONNO,PERSONNAME,LOGID,PASS_CHANGE_DT 
 		FROM SYS_USER
 	</select>
+	<select id="selUser" resultType="hashmap">
+		SELECT ITEM_CODE, ITEM_NAME, ST_DATE,SYS_DATE
+		FROM TBL_ITEM_CODE
+	</select>
 	
 	
 	<select id="selMenu" resultType="Menu">

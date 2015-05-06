@@ -11,6 +11,8 @@ import com.ubi.erp.user.domain.User;
 @Repository
 public interface UserDao {
 
+	List<Map<String, Object>> selItem();
+
 	User getUser(Map<String, Object> param);
 
 	List<Map<String, Object>> selUser();

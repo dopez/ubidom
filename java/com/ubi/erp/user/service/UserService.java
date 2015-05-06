@@ -35,4 +35,8 @@ public class UserService
 	public void getMenu(Map<String, Object> param) {
 		dao.getMenu(param);
 	}
+
+	public List<Map<String, Object>> selItem() {
+		return dao.selItem();
+	}
 }
