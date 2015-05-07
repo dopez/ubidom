@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-04-30T15:14:59 -->
+<!-- 2015-05-07T11:28:24 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f60ed1bc-0eeb-4020-8b4e-dc5cce8d30c4">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ceko"/>
+	<style name="Style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC" fontName="HY견고딕" fontSize="9"/>
+		</conditionalStyle>
+	</style>
 	<queryString language="SQL">
 		<![CDATA[SELECT ITEM_CODE, ITEM_NAME, ITEM_UNIT,ST_DATE,SYS_DATE
-FROM TBL_ITEM_CODE]]>
+FROM TBL_ITEM_CODE WHERE  ITEM_CLS1 = '1']]>
 	</queryString>
 	<field name="ITEM_CODE" class="java.lang.String"/>
 	<field name="ITEM_NAME" class="java.lang.String"/>
@@ -86,11 +92,8 @@ FROM TBL_ITEM_CODE]]>
 	</columnHeader>
 	<detail>
 		<band height="20">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="821b74e0-169f-40c1-83e4-f98bedc61761"/>
-			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="138" height="20" uuid="af05ec38-448d-44d5-9a04-adb3c69f71fe">
+				<reportElement style="Style1" x="0" y="0" width="138" height="20" uuid="af05ec38-448d-44d5-9a04-adb3c69f71fe">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -100,7 +103,7 @@ FROM TBL_ITEM_CODE]]>
 				<textFieldExpression><![CDATA[$F{ITEM_CODE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="138" y="0" width="138" height="20" uuid="391f8db9-73cc-4e92-94aa-c4e62a1fb740">
+				<reportElement style="Style1" x="138" y="0" width="138" height="20" uuid="391f8db9-73cc-4e92-94aa-c4e62a1fb740">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
@@ -109,7 +112,7 @@ FROM TBL_ITEM_CODE]]>
 				<textFieldExpression><![CDATA[$F{ITEM_NAME}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="276" y="0" width="138" height="20" uuid="de99d76d-fa88-4c67-9d67-cf97321314d4">
+				<reportElement style="Style1" x="276" y="0" width="138" height="20" uuid="de99d76d-fa88-4c67-9d67-cf97321314d4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
@@ -118,7 +121,7 @@ FROM TBL_ITEM_CODE]]>
 				<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy/MM/dd").format($F{SYS_DATE}))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement x="414" y="0" width="138" height="20" uuid="bdfe6cc3-3aba-4dde-b497-b05d8f703e2f">
+				<reportElement style="Style1" x="414" y="0" width="138" height="20" uuid="bdfe6cc3-3aba-4dde-b497-b05d8f703e2f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
