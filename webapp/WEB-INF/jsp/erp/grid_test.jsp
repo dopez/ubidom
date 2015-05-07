@@ -70,7 +70,7 @@ $(function() {
 	
 	$("#btnRemove").click(function() {
 		if(myGrid.isSelRows(1)) {
-			if(!MsgManager.confirmMsg("INF002")) {
+			if(!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?
 				return;
 			}
 		
