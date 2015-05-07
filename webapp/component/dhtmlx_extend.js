@@ -134,20 +134,6 @@ $(window).resize(function(){
 	}
 });
 
-/*function gfn_load_popup(eleId,view_path){
-function gfn_load_popup(subject,view_path){
-	var w1;
-	var eleId = "container";
-	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(eleId);
-
-	w1 = dhxWins.createWindow(eleId, 20, 30, 320, 300);
-    dhxWins.window(eleId).setText(subject);
-	// iframe, get
-	w1.attachURL("/erp/popup/"+view_path+".do");
-	return w1;
-}*/
-
 function gfn_load_popup(subject,view_path){
 	var w1;
 	var eleId = "container";
@@ -196,7 +182,7 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	return toolbar;
 }	
 
-function gfn_load_popup1(eleId,view_path,isModal){
+function gfn_load_pop(eleId,view_path,isModal){
 	var pLayout;
 	var default_bln = false;
 	if(isModal){
@@ -218,31 +204,15 @@ function gfn_load_popup1(eleId,view_path,isModal){
 	dhxWins.window(eleId).progressOn();
 	dhxWins.window(eleId).setModal(default_bln);
 	pLayout = w1.attachLayout("1C");
-	    w1.attachEvent("onClose", function(win){
-//	     parent.contensW...
-//	     win.hide();
-//	         return false;
-	    	win.close();
-	    	return false;
-	    });
+    pLayout.attachEvent("onContentLoaded", function(id){
 	    
-	    pLayout.attachEvent("onContentLoaded", function(id){
-	    
-	    pLayout.cells(id).hideHeader();
-	    var ifr = pLayout.cells(id).getFrame();
-	dhxWins.window(eleId).setDimension(ifr.contentWindow.width,ifr.contentWindow.height);
-	w1.setText(ifr.contentWindow.title);
-	var elem = ifr.contentWindow.document.getElementById("bootContainer2"); // javascript 사용방법
-//	ifr.contentWindow.aa();// javascript 사용방법
-	// var title = $(ifr).contents().find("title"); //jquery 사용방법
-	// $(ifr)[0].aa();jquery 사용방법
+	pLayout.cells(id).hideHeader();
+	var ifr = pLayout.cells(id).getFrame();
+	dhxWins.window(eleId).setDimension(ifr.contentWindow.config.width,ifr.contentWindow.config.height);
+	w1.setText(ifr.contentWindow.config.title);
+	var elem = ifr.contentWindow.document.getElementById("bootContainer2");
 	dhxWins.window(eleId).progressOff();
 	pLayout.cells(id).setSizes();
 	});
-	    pLayout.cells("a").attachURL("/erp/popup/"+view_path+".do");
-}
-
-var value;
-function setValue(value){
-	this.value = value;
+	 pLayout.cells("a").attachURL("/erp/popup/"+view_path+".do");
 }

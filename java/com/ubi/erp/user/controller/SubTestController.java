@@ -1,6 +1,7 @@
 package com.ubi.erp.user.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.cmm.util.JasperReportUtil;
 import com.ubi.erp.user.domain.SubTest;
+import com.ubi.erp.user.domain.Test;
 import com.ubi.erp.user.service.SubTestService;
 
 @RestController
@@ -50,7 +52,16 @@ public class SubTestController {
 	
 	@RequestMapping("/report/reportTest")
 	public ModelAndView reportPdf(HttpServletRequest request, HttpServletResponse response) {
+		//일반 쿼리문
 		List<Map<String, Object>> list = subTestService.reportTest();
+		
+		// 프로시져
+		/*Map<String, Object> map = new HashMap<String, Object>();
+		map.put("P_NAME", "%");
+		map.put("P_RST",null);
+		subTestService.prsSelTest(map);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("P_RST");
+		*/
 		return JasperReportUtil.render("reportTest",list, "pdf");
 	}
 	

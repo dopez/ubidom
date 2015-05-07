@@ -6,11 +6,12 @@ var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
 var orinGrid;
-var width=303;
-var height=500;
-var title="품목코드";	
-var itemCode;
-var itemName;
+var config={
+	title:"품목코드",
+	id:"itemCode",
+	width:"300",
+	height:"500"
+}
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//품목코드 도우미
@@ -28,8 +29,7 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","itemCode");
 	gridMain.init(); 
 	
-	var value =  parent.window.value;
-	var params = "itemCode=" + value;
+	var params = "itemCode=" + parent.fn_onOpenPop();
 	gfn_gridLoad("/erp/subTest",params, gridMain, fn_PopValue);
 	
 	
@@ -47,9 +47,10 @@ $(document).ready(function(){
 	 function doOnRowDblClicked(rId,cInd){
 		  var row = rId-1;
 		  var cell = cInd;
-		  itemCode = gridMain.setCells2(row,cell).getValue();
-		  itemName = gridMain.setCells2(row,cell+1).getValue();
-		
+		  var itemCode = gridMain.setCells2(row,0).getValue();
+		  var itemName = gridMain.setCells2(row,1).getValue();
+		  var arr = [{"itemCode":itemCode,"itemName":itemName}];
+		  parent.fn_onClosePop(config.id,arr)
 	  }
 });
 </script>

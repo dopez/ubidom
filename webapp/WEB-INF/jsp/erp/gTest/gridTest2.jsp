@@ -4,7 +4,8 @@
 var layout, toolbar, subLayout;
 var gridMst, gridDtl;
 var combo;
-$(document).ready(function() {
+var value;
+$(function() {
    Ubi.setContainer(1, [1, 2, 3, 4, 5, 6, 9], "2U");
 
    layout = Ubi.getLayout();
@@ -15,7 +16,7 @@ $(document).ready(function() {
 
   gridMst = new dxGrid(subLayout.cells("a"), false);
        
-  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"ed"});
+  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"ro"});
   gridMst.addHeader({name:"#cspan", 	colId:"itemName", 	width:"15", align:"center", type:"ro"});
   gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"15", align:"center", type:"ed"});
   gridMst.setColSort("str");	
@@ -33,85 +34,16 @@ $(document).ready(function() {
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
   gridMst.init();
-  gridMst.attachEvent("onRowSelect",doOnRowSelect);
   gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
-  
-  function doOnRowSelect(id,ind){
-	  gridMst.editCell();
-	  	if(ind==1){
-			   doOnOpen();
-		   }
-  }
-  
+
   function doOnRowDblClicked(id,ind){
 	   if(ind==0){
 		// var pop =  gfn_load_popup("품목코드","common/testCodePOP");
-		var value =   gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
-		setValue(value);
-		var pop =  gfn_load_popup1("w1","common/testCodeExtendPOP",true);
-		popClose(pop);
-	   }
-  }
-  
-  function popClose(pop){
-	  console.log(pop);
-	  
-  }
-  
-/*  combo=gridMst.getColumnCombo(0);
-   combo.load({
-	  template: {
-		columns: [
-		   {header: "품목코드", width: 100, option: "#itemCode#"},
-		   {header: "품목명", width: 100, option: "#itemName#"},
-		   ]
-	   },
-	   options: [
-			{value: "0", text:
-			  {itemCode: "품목코드", itemName: "품명"}
-			}
-		  ]
-  }); 
-   
-   gridMst.attachEvent("onRowSelect",doOnRowSelect);
-   function doOnRowSelect(id,ind){
-	   if(ind==0){
-		   doOnOpen();
+		value =   gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
+	    gfn_load_pop("w1","common/testCodeExtendPOP",true); 
 	   }
    }
-  combo.enableFilteringMode(true);
-  combo.attachEvent("onOpen",doOnOpen);
-		 
-  
-  function doOnOpen(){
-	  $.ajax({
-			"url":"/erp/subTest",
-			"type":"get",
-			"data":{}
-		    }).done(function(jsonData) {
-				if(jsonData!="") {
-				
-					for(var i=0;i<=jsonData.length;i++){
-			        	combo.addOption([
-		                  {value: i, text:
-		                  {"itemCode": jsonData[i].itemCode,
-		                  "itemName":jsonData[i].itemName}}   
-			            ]);
-		           }
-					
-		        }else {
-		          alert("No Data");
-		        }
-			});	
-  }
-  
-    combo.attachEvent("onClose", doOnClose);
-	  
-	function doOnClose(){
-		gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(combo.getSelectedText().itemCode);
-		gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(combo.getSelectedText().itemName);
-	} */  
-   
+
 	//pdf
 	toolbar.attachEvent("onClick",function(id){
 		if(id == "btn9"){
@@ -125,13 +57,6 @@ $(document).ready(function() {
 	           fn_loadGridList();
 	         }
 	});
-	//실제 조회로직
-	function fn_loadGridList() {
-	    gfn_gridLoad("/erp/subTest", {}, gridMst, fn_setCount);
-	};
-    //callback 함수
-   function fn_setCount() {
-   };
   
   //한줄추가
    toolbar.attachEvent("onClick", function(id) {
@@ -142,33 +67,41 @@ $(document).ready(function() {
        }
    });
   
- //전체삭제 - pk값만으로 삭제하기
+ //전체삭제 - 한줄씩 읽어오면서
 	toolbar.attachEvent("onClick", function(id) {
-		var str = "삭제하시겠습니까?";
+		 var str = "삭제하시겠습니까?";
 	     if (id == "btn4") {
 	        if(confirm(str)){
-	           var jsonStr = gridMst.getJsonMultiRowDel(gridMst.getUserData());
-		       if (jsonStr == null || jsonStr.length <= 0){
-		        	 return;
-		           }
-		       $("#jsonData").val(jsonStr);
-		       $.ajax({
-		               url : "/erp/subTest/delTest",
-		               type : "POST",
-		               data : $("#pform").serialize(),
-		               async : true,
-		               success : function(data) {
-		                        MsgManager.alertMsg("INF003");
-		                        fn_loadGridList();
-		                  }
-		                }); 
+	        	for(var i = gridMst.getRowsNum(); i > 0; i--){
+	            	
+	            	if(gridMst.isDelRows(i)) {
+		
+	        		    var jsonStr = mygrid.getJsonMultiRowDelete(i);
+	        		    alert(jsonStr);
+	        			if (jsonStr == null || jsonStr.length <= 0) return;
+						
+	    				$("#jsonData").val(jsonStr);
+	        	        $.ajax({
+	        				url : "/erp/gTest/grid_test",
+	        		        type : "POST",
+	        		        data : $("#pform").serialize(),
+	        		        async : true,
+	        		        success : function(data) {
+	        		        	//MsgManager.alertMsg("INF003");
+	        					//fn_loadGridList();
+	        		        }
+	        			});
+	        	        
+	        		}else {
+	        			MsgManager.alertMsg("WRN002");
+	        		}
+	        	}
 	        }else{
 	        	alert("변경된내역이 없습니다.");
 	        }        			   	        
 	   }
 });
-  
-  
+ 
 //저장 - 수정
  toolbar.attachEvent("onClick", function(id) {
      if (id == "btn3") {
@@ -227,6 +160,31 @@ $(document).ready(function() {
 	        }
 	 });
 })
+
+ function fn_onOpenPop(){
+	return value;
+}
+
+  function fn_onClosePop(pName,data){
+	if(pName=="itemCode"){
+		var i;
+		for(i=0;i<data.length;i++){
+			 gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(data[i].itemCode);
+			 gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(data[i].itemName);
+			byId("itemCode").value = gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
+			byId("itemName").value = gridMst.setCells2(gridMst.getSelectedRowIndex(),1).getValue();
+			}
+				  
+	}	  
+ }
+ //실제 조회로직
+ function fn_loadGridList() {
+	 var params = "itemName=" + $("#itemName").val();
+	    gfn_gridLoad("/erp/subTest",params, gridMst, fn_setCount);
+	};
+  //callback 함수
+ function fn_setCount() {
+ };
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
@@ -239,18 +197,18 @@ $(document).ready(function() {
                  <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                          <label class="col-sm-2 col-md-2 control-label" for="textinput">
-                                                             품목코드
+                          품목코드
                          </label>
                          <div class="col-sm-2 col-md-2">
-                               <input name="pCode" id="pCode" type="text" value="" placeholder="" class="form-control input-xs">
+                               <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                          </div>
                           <div class="col-sm-3 col-md-3">
                                 <div class="col-md-offset-1 col-sm-offset-1 col-sm-11 col-md-11">
-                                    <input name="iName" id="iName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                           </div>
                           <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
-                                                                 구분 
+                            구분 
                           </label>
                           <div class="col-sm-2 col-md-2">
                               <select class="form-control input-xs">
