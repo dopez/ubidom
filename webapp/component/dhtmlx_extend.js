@@ -195,3 +195,54 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	 } 
 	return toolbar;
 }	
+
+function gfn_load_popup1(eleId,view_path,isModal){
+	var pLayout;
+	var default_bln = false;
+	if(isModal){
+	default_bln = true;
+	}
+	dhxWins = new dhtmlXWindows();
+	if(!$('#'+eleId).length){
+	if(dhxWins.isWindow(eleId)){
+	while (dhxWins.isWindow(eleId)) {
+	var number = eleId.replace(/[^0-9]/g, '');
+	eleId = eleId.replace(/\d+/g, '')+number++;
+	}
+	}
+	var $div = $('<div/>').appendTo('#container');
+	$div.attr('id', eleId);
+	}
+	w1 = dhxWins.createWindow(eleId, 20, 30, 800, 500);
+	dhxWins.window(eleId).centerOnScreen();
+	dhxWins.window(eleId).progressOn();
+	dhxWins.window(eleId).setModal(default_bln);
+	pLayout = w1.attachLayout("1C");
+	    w1.attachEvent("onClose", function(win){
+//	     parent.contensW...
+//	     win.hide();
+//	         return false;
+	    	win.close();
+	    	return false;
+	    });
+	    
+	    pLayout.attachEvent("onContentLoaded", function(id){
+	    
+	    pLayout.cells(id).hideHeader();
+	    var ifr = pLayout.cells(id).getFrame();
+	dhxWins.window(eleId).setDimension(ifr.contentWindow.width,ifr.contentWindow.height);
+	w1.setText(ifr.contentWindow.title);
+	var elem = ifr.contentWindow.document.getElementById("bootContainer2"); // javascript 사용방법
+//	ifr.contentWindow.aa();// javascript 사용방법
+	// var title = $(ifr).contents().find("title"); //jquery 사용방법
+	// $(ifr)[0].aa();jquery 사용방법
+	dhxWins.window(eleId).progressOff();
+	pLayout.cells(id).setSizes();
+	});
+	    pLayout.cells("a").attachURL("/erp/popup/"+view_path+".do");
+}
+
+var value;
+function setValue(value){
+	this.value = value;
+}

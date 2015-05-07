@@ -663,3 +663,7 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
 };
+
+dxGrid.prototype.editCell = function(){
+	return this.dxObj.editCell();
+}

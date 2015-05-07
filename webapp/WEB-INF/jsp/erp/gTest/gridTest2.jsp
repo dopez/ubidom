@@ -15,7 +15,7 @@ $(document).ready(function() {
 
   gridMst = new dxGrid(subLayout.cells("a"), false);
        
-  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"combo"});
+  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"ed"});
   gridMst.addHeader({name:"#cspan", 	colId:"itemName", 	width:"15", align:"center", type:"ro"});
   gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"15", align:"center", type:"ed"});
   gridMst.setColSort("str");	
@@ -33,21 +33,31 @@ $(document).ready(function() {
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
   gridMst.init();
-
   gridMst.attachEvent("onRowSelect",doOnRowSelect);
+  gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+  
   function doOnRowSelect(id,ind){
+	  gridMst.editCell();
+	  	if(ind==1){
+			   doOnOpen();
+		   }
+  }
+  
+  function doOnRowDblClicked(id,ind){
 	   if(ind==0){
-		 var pop =   gfn_load_popup("품목코드","common/testCodePOP");
-
-		//console.log(ifr.contentWindow.frameElement.contentDocument);
-		//ifr.myFunc();
-		
-		//console.log(ifr.contentWindow.frameElement.contentDocument.activeElement);
+		// var pop =  gfn_load_popup("품목코드","common/testCodePOP");
+		var value =   gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
+		setValue(value);
+		var pop =  gfn_load_popup1("w1","common/testCodeExtendPOP",true);
+		popClose(pop);
 	   }
   }
-	function myFunc(){
-		alert("부모");
-	}
+  
+  function popClose(pop){
+	  console.log(pop);
+	  
+  }
+  
 /*  combo=gridMst.getColumnCombo(0);
    combo.load({
 	  template: {
