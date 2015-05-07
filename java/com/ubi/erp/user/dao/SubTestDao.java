@@ -19,4 +19,6 @@ public interface SubTestDao {
 	int updTest(SubTest subTest);
 	int delTest(SubTest subTest);
 	List<SubTest> selTest(SubTest subTest);
+	
+	List<Map<String,Object>> reportTest();
 }

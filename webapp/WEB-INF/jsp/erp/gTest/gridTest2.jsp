@@ -5,7 +5,7 @@ var layout, toolbar, subLayout;
 var gridMst, gridDtl;
 var combo;
 $(document).ready(function() {
-   Ubi.setContainer(1, [1, 2, 3, 4, 5, 6,9], "2U");
+   Ubi.setContainer(1, [1, 2, 3, 4, 5, 6, 9], "2U");
 
    layout = Ubi.getLayout();
    toolbar = Ubi.getToolbar();
@@ -38,13 +38,9 @@ $(document).ready(function() {
   function doOnRowSelect(id,ind){
 	   if(ind==0){
 		 var pop =   gfn_load_popup("품목코드","common/testCodePOP");
-	
-		var ifr=pop.getFrame();
 
 		//console.log(ifr.contentWindow.frameElement.contentDocument);
 		//ifr.myFunc();
-	
-		console.log(ifr.contentWindow);
 		
 		//console.log(ifr.contentWindow.frameElement.contentDocument.activeElement);
 	   }
@@ -106,6 +102,13 @@ $(document).ready(function() {
 		gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(combo.getSelectedText().itemName);
 	} */  
    
+	//pdf
+	toolbar.attachEvent("onClick",function(id){
+		if(id == "btn9"){
+			window.open('/erp/subTest/report/reportTest.do','rpt','');
+		}
+	});
+	
   //조회
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
@@ -226,7 +229,7 @@ $(document).ready(function() {
                  <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                          <label class="col-sm-2 col-md-2 control-label" for="textinput">
-                          품목코드
+                                                             품목코드
                          </label>
                          <div class="col-sm-2 col-md-2">
                                <input name="pCode" id="pCode" type="text" value="" placeholder="" class="form-control input-xs">
@@ -237,7 +240,7 @@ $(document).ready(function() {
                                 </div>
                           </div>
                           <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
-                            구분 
+                                                                 구분 
                           </label>
                           <div class="col-sm-2 col-md-2">
                               <select class="form-control input-xs">

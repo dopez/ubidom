@@ -47,4 +47,10 @@
                     </when>
                   </choose>
   	</select>
+  	
+  	<select id="reportTest" resultMap="SubTestMap">
+		SELECT
+			ITEM_CODE,ITEM_NAME,ITEM_SIZE
+		FROM TBL_ITEM_CODE WHERE  ITEM_CLS1 = '1'
+	</select>
 </mapper>

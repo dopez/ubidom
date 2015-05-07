@@ -51,4 +51,8 @@ public class SubTestService {
 	public List<SubTest> selTest(SubTest subTest) {
 		return dao.selTest(subTest);
 	}
+	
+	public List<Map<String, Object>> reportTest(){
+		return dao.reportTest();
+	}
 }
