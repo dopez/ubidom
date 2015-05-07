@@ -21,4 +21,5 @@ public interface SubTestDao {
 	List<SubTest> selTest(SubTest subTest);
 	
 	List<Map<String,Object>> reportTest();
+	List<SubTest> selComp(SubTest subTest);
 }

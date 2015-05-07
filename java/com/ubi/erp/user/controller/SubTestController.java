@@ -35,6 +35,11 @@ public class SubTestController {
 		List<SubTest> list = subTestService.selTest(subTest);
 		return list;
 	}
+	@RequestMapping(value="/selComp", method = RequestMethod.GET)
+	public List<SubTest> selComp(HttpServletRequest request, HttpServletResponse response,SubTest subTest) throws Exception {
+		List<SubTest> list = subTestService.selComp(subTest);
+		return list;
+	}
 	
 	@RequestMapping(value = "/delTest", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)

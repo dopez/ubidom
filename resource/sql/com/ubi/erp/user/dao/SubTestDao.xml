@@ -50,6 +50,16 @@
                     </when>
                   </choose>
   	</select>
+  	<select id="selComp" parameterType="SubTest" resultType="SubTest">
+  	     SELECT CUST_CODE,CUST_KOR_NAME
+		 FROM TBL_CUSTCODE
+		 WHERE CUST_CODE LIKE 'L%'
+                  <choose>
+                    <when test="custCode != null and custCode != ''">
+                    AND CUST_CODE LIKE '%' || #{custCode} || '%'
+                    </when>
+                  </choose>
+  	</select>
   	
   	<select id="reportTest" resultMap="SubTestMap">
 		SELECT

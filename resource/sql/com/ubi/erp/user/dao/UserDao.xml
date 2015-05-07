@@ -5,6 +5,7 @@
 
 	<resultMap id="UserMap" type="User"/>
 	<resultMap id="MenuMap" type="Menu"/>
+
 	
 	<select id="getUser" statementType="CALLABLE">
 		{ call SP_LOGIN_RESULT (
@@ -27,6 +28,11 @@
 		SELECT
 			PERSONNO,PERSONNAME,LOGID,PASS_CHANGE_DT 
 		FROM SYS_USER
+	</select>
+	<select id="selItem" resultType="hashmap">
+		SELECT
+			ITEM_CODE,ITEM_NAME,ST_DATE,SYS_DATE 
+		FROM TBL_ITEM_CODE WHERE  ITEM_CLS1 = '1'
 	</select>
 	
 	<select id="selMenu" resultType="Menu">
