@@ -55,4 +55,9 @@ public class SubTestService {
 	public List<Map<String, Object>> reportTest(){
 		return dao.reportTest();
 	}
+
+	public List<SubTest> selComp(SubTest subTest) {
+		// TODO Auto-generated method stub
+		return dao.selComp(subTest);
+	}
 }
