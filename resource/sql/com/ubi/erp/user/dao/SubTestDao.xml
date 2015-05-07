@@ -42,8 +42,9 @@
                 FROM   TBL_ITEM_CODE
                 WHERE  ITEM_CLS1 = '1'
                   <choose>
-                    <when test="itemName != null and itemName != ''">
-                      AND  ITEM_NAME LIKE #{itemName}
+                    <when test="itemCode != null and itemCode != ''">
+                    <!--  // AND  ITEM_CODE LIKE #{itemCode} -->
+                    AND ITEM_CODE like '%' || #{itemCode} || '%'
                     </when>
                   </choose>
   	</select>

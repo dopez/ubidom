@@ -1,7 +1,7 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
-	//this.dxObj = divId.attachGrid();
-	this.dxObj = new dhtmlXGridObject(divId);
+	this.dxObj = divId.attachGrid();
+	//this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
 	this.dxObj.setDateFormat("%Y-%m-%d");
@@ -663,3 +663,7 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
 };
+
+dxGrid.prototype.editCell = function(){
+	return this.dxObj.editCell();
+}
