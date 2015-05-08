@@ -12,13 +12,14 @@ $(function() {
    toolbar = Ubi.getToolbar();
    subLayout = Ubi.getSubLayout();
 
-  layout.cells("b").attachObject("bootContainer2");
-
+  layout.cells("b").attachObject("bootContainer");
+  subLayout.cells("b").attachObject("bootContainer2");
+  subLayout.cells("a").setWidth(600);
   gridMst = new dxGrid(subLayout.cells("a"), false);
        
-  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 		width:"15", align:"center", type:"ro"});
-  gridMst.addHeader({name:"#cspan", 	colId:"itemName", 	width:"15", align:"center", type:"ro"});
-  gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"15", align:"center", type:"ed"});
+  gridMst.addHeader({name:"품목별현황", colId:"itemCode", 	width:"33", align:"center", type:"ro"});
+  gridMst.addHeader({name:"#cspan", 	colId:"itemName", 	width:"33", align:"center", type:"ro"});
+  gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"33", align:"center", type:"ed"});
   gridMst.setColSort("str");	
   gridMst.setUserData("","pk","itemCode");
   
@@ -58,9 +59,18 @@ $(function() {
   //조회
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	           fn_loadGridList();
+	    	  fn_loadGridList();
 	         }
 	});
+  
+   //신규
+	toolbar.attachEvent("onClick", function(id) {
+	      if (id == "btn2") {
+	           gridMst.clearAll();
+	           document.getElementById("frmMain").reset();
+	         }
+	});
+  
   
   //한줄추가
    toolbar.attachEvent("onClick", function(id) {
@@ -80,7 +90,7 @@ $(function() {
              if (jsonStr == null || jsonStr.length <= 0) return;
               $("#jsonData").val(jsonStr);
                 $.ajax({
-                  url : "/erp/subTest/delTest",
+                  url : "/erp/subTest/prcsTest",
                   type : "POST",
                   data : $("#pform").serialize(),
                   async : true,
@@ -173,7 +183,7 @@ $(function() {
     <input type="hidden" id="jsonData" name="jsonData" />
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
-<div id="bootContainer2">
+<div id="bootContainer">
       <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
           <div class="container">
              <div class="row">
@@ -205,4 +215,108 @@ $(function() {
               </div>
           </div>
      </form>
+</div>
+<div id="bootContainer2" style="position: relative; width: 100%; height: 100%;">
+  <div class="container">	
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
+	   <div class="col-sm-10 col-md-10">
+		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 사원번호 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				성명 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>
+ 		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 성명(한자) 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="nameHan" id="nameHan" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				성명(영문) 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="nameEng" id="nameEng" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>
+ 		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 주민등록번호 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="jumin" id="jumin" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				부서명 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>
+ 		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 전화번호 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="phone" id="phone" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				직무명 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="job" id="job" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>
+ 		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 휴대번호 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="handPhone" id="handPhone" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				직책명 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="positionName" id="positionName" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>
+ 		 <div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 이메일 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				 <input name="email" id="email" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				세콤ID 
+			  </label>
+			  <div class="col-sm-2 col-md-2">
+				  <input name="cecom" id="cecom" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		 </div>	   
+	   </div>
+	</form>
+  </div>	
 </div>

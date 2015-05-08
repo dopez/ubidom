@@ -617,3 +617,7 @@ dxGrid.prototype.editCell = function(){
 dxGrid.prototype.printView = function(before,after){
 	return this.dxObj.printView(before,after);
 }
+
+dxGrid.prototype.clearAll = function(flag){
+	return this.dxObj.clearAll(flag);
+}

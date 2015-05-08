@@ -1,12 +1,10 @@
 package com.ubi.erp.user.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,29 +42,13 @@ public class SubTestController {
 		testService.selTest(map);
 		return (List<Test>) map.get("P_RST");
 	}
-	
-
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<SubTest> selTest(HttpServletRequest request, HttpServletResponse response,SubTest subTest) throws Exception {
 		List<SubTest> list = subTestService.selTest(subTest);
 		return list;
 	}
-	
-	@RequestMapping(value = "/delTest", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void delTest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String jsonData = request.getParameter("jsonData");
-		List<SubTest> list = new ArrayList<SubTest>();
-		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<SubTest>>(){});
-		
-		for(SubTest subTest : list) {
-			subTestService.delTest(subTest);
-		}
-		
-	}
-	
+
 	@RequestMapping("/report/reportTest")
 	public ModelAndView reportPdf(HttpServletRequest request, HttpServletResponse response) {
 		//일반 쿼리문
