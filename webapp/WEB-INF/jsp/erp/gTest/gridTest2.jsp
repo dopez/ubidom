@@ -34,7 +34,7 @@ $(function() {
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
   gridMst.init();
-  gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+  gridMst.attachEvent("onRowSelect",doOnRowDblClicked);
 
   function doOnRowDblClicked(id,ind){
 	   if(ind==0){
@@ -47,7 +47,11 @@ $(function() {
 	//pdf
 	toolbar.attachEvent("onClick",function(id){
 		if(id == "btn9"){
-			window.open('/erp/subTest/report/reportTest.do','rpt','');
+			//pdf 로직
+			//window.open('/erp/subTest/report/reportTest.do','rpt','');
+			
+			//해당 Grid 프린트뷰
+			gridMst.printView();
 		}
 	});
 	
@@ -67,98 +71,79 @@ $(function() {
        }
    });
   
- //전체삭제 - 한줄씩 읽어오면서
-	toolbar.attachEvent("onClick", function(id) {
-		 var str = "삭제하시겠습니까?";
-	     if (id == "btn4") {
-	        if(confirm(str)){
-	        	for(var i = gridMst.getRowsNum(); i > 0; i--){
-	            	
-	            	if(gridMst.isDelRows(i)) {
-		
-	        		    var jsonStr = mygrid.getJsonMultiRowDelete(i);
-	        		    alert(jsonStr);
-	        			if (jsonStr == null || jsonStr.length <= 0) return;
-						
-	    				$("#jsonData").val(jsonStr);
-	        	        $.ajax({
-	        				url : "/erp/gTest/grid_test",
-	        		        type : "POST",
-	        		        data : $("#pform").serialize(),
-	        		        async : true,
-	        		        success : function(data) {
-	        		        	//MsgManager.alertMsg("INF003");
-	        					//fn_loadGridList();
-	        		        }
-	        			});
-	        	        
-	        		}else {
-	        			MsgManager.alertMsg("WRN002");
-	        		}
-	        	}
-	        }else{
-	        	alert("변경된내역이 없습니다.");
-	        }        			   	        
-	   }
-});
- 
-//저장 - 수정
- toolbar.attachEvent("onClick", function(id) {
-     if (id == "btn3") {
-       var jsonStr = gridMst.getJsonUpdated();
-       if (jsonStr == null || jsonStr.length <= 0){
-    	   return;
-          }            		
-       $("#jsonData").val(jsonStr);               
-       $.ajax({
-               url : "/erp/gTest/grid_test",
-               type : "POST",
-               data : $("#pform").serialize(),
-               async : true,
-               success : function(data) {
-                          MsgManager.alertMsg("INF001");
-                          fn_loadGridList();
-                        }
-            });
-     }
-});
+ //전체삭제
+   toolbar.attachEvent("onClick", function(id) {
+     if (id == "btn4") {
+        if(MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?	
+        	 var jsonStr = gridMst.getJsonMultiRowDelete();
 
-	
-	                       
-	//한줄삭제
-	toolbar.attachEvent("onClick", function(id) {
-	     if (id == "btn6") {
-	         var rodIdx = gridMst.getSelectedRowId();
-	         if(gridMst.isDelRows(rodIdx)) {
-	             if(!MsgManager.confirmMsg("INF002")) {
-	                return;
-	                } else {
-	                   if(!mygrid.chkUnsavedRows()) {
-	                       return;
-	                     }
-	                 }
-	                        			
-	           var jsonStr = gridMst.getJsonRowDelete(rodIdx);
-	           if (jsonStr == null || jsonStr.length <= 0){
-	        	   return;
-	             }
-	
-	           $("#jsonData").val(jsonStr);
-	           $.ajax({
-	                   url : "/erp/gTest/grid_test",
-	                   type : "POST",
-	                   data : $("#pform").serialize(),
-	                   async : true,
-	                   success : function(data) {
-	                            MsgManager.alertMsg("INF003");
-	                        	fn_loadGridList();
-	                        	}
-	                   });       	        
-	              }else {
-	                    MsgManager.alertMsg("WRN002");
-	                }
-	        }
-	 });
+             if (jsonStr == null || jsonStr.length <= 0) return;
+              $("#jsonData").val(jsonStr);
+                $.ajax({
+                  url : "/erp/subTest/delTest",
+                  type : "POST",
+                  data : $("#pform").serialize(),
+                  async : true,
+                  success : function(data) {
+                  MsgManager.alertMsg("INF003");
+                  fn_loadGridList();
+                   }
+               });
+        		
+        }else{
+        	MsgManager.alertMsg("WRN004");
+         }
+      }
+  });
+ 
+ //저장 - 수정
+   toolbar.attachEvent("onClick", function(id) {
+     if (id == "btn3") {
+      var jsonStr = gridMst.getJsonUpdated2();
+      if (jsonStr == null || jsonStr.length <= 0) return;        		
+         $("#jsonData").val(jsonStr);                      
+         $.ajax({
+            url : "/erp/subTest/prcsTest",
+            type : "POST",
+            data : $("#pform").serialize(),
+            async : true,
+            success : function(data) {
+            MsgManager.alertMsg("INF001");
+            }
+       });
+      }
+   });  
+
+ //한줄삭제
+   toolbar.attachEvent("onClick", function(id) {
+    if (id == "btn6") {
+       var rodIdx = gridMst.getSelectedRowId();
+       if(gridMst.isDelRows(rodIdx)) {
+          if(MsgManager.confirmMsg("INF002")) {
+        	  if(gridMst.chkUnsavedRow()) {
+        		  var jsonStr = gridMst.getJsonRowDel(rodIdx);
+                  if (jsonStr == null || jsonStr.length <= 0) return;
+                  $("#jsonData").val(jsonStr);
+                      $.ajax({
+                       url : "/erp/subTest/prcsTest",
+                       type : "POST",
+                       data : $("#pform").serialize(),
+                       async : true,
+                       success : function(data) {
+                       MsgManager.alertMsg("INF003");
+                        }
+                  });
+        	  }
+        	 
+           } else {
+            	 MsgManager.alertMsg("WRN004");
+             } 
+        }else {
+            MsgManager.alertMsg("WRN002");
+         }
+     }
+  });
+ 
 })
 
  function fn_onOpenPop(){

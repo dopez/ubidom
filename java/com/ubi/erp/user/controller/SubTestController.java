@@ -1,10 +1,12 @@
 package com.ubi.erp.user.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,6 +45,8 @@ public class SubTestController {
 		return (List<Test>) map.get("P_RST");
 	}
 	
+
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<SubTest> selTest(HttpServletRequest request, HttpServletResponse response,SubTest subTest) throws Exception {
 		List<SubTest> list = subTestService.selTest(subTest);
@@ -84,6 +88,7 @@ public class SubTestController {
 		String jsonData = request.getParameter("jsonData");
 		List<Test> list = new ArrayList<Test>();
 		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(jsonData);
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Test>>(){});
 		
 		
@@ -97,5 +102,25 @@ public class SubTestController {
 			}
 		}
 	}
-
+	
+	@RequestMapping(value = "/prcsTest", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsSubTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String jsonData = request.getParameter("jsonData");
+		List<SubTest> list = new ArrayList<SubTest>();
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(jsonData);
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<SubTest>>(){});
+		
+		
+		for(SubTest subTest : list) {
+			if("CREATE_VALUE".equals(subTest.getCudKey())) {
+				subTestService.insTest(subTest);
+			}else if("UPDATE_VALUE".equals(subTest.getCudKey())){
+				subTestService.updTest(subTest);
+			}else if("DELETE_VALUE".equals(subTest.getCudKey())){
+				subTestService.delTest(subTest);
+			}
+		}
+	}
 }

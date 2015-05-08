@@ -134,6 +134,7 @@ $(window).resize(function(){
 	}
 });
 
+//삭제될 popup 로직
 function gfn_load_popup(subject,view_path){
 	var w1;
 	var eleId = "container";
@@ -145,6 +146,7 @@ function gfn_load_popup(subject,view_path){
 	w1.attachURL("/erp/popup/"+view_path+".do");
 	return w1;
 }
+//삭제될 popup 로직
 function gfn_big_load_popup(width,height,subject,view_path){
 	var w1;
 	var eleId = "container";
@@ -182,6 +184,7 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	return toolbar;
 }	
 
+//실제 사용될 popup로직
 function gfn_load_pop(eleId,view_path,isModal){
 	var pLayout;
 	var default_bln = false;

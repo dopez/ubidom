@@ -338,30 +338,6 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	return jsonStr;
 };
 
-dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
-	this.dxObj.editStop();
-	var jsonStr = "";
-	var colId = "";
-	var colNm = "";
-	var colVal = "";
-	var arr = [];
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		   var row={};
-			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
-					colId = this.dxObj.getColumnId(j);
-					colVal = this.dxObj.cells2(i,j).getValue();
-						if(colId !="cudKey") {
-							row[colId]=colVal;
-						} else {
-							row[colId]=actDelete;
-						}
-			  }
-              arr.push(row);
-            
-	 }
-	 jsonStr = JSON.stringify(arr);
-	return jsonStr;
-};
 
 
 //Get Json from checked rows 
@@ -413,53 +389,8 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
-dxGrid.prototype.getJsonChecked2 = function(chkIdx, excludeCols) {
-	this.dxObj.editStop();
-	var jsonStr = "";
-	var colId = "";
-	var colNm = "";
-	var colVal = "";
-	var arr = delCol.split(";");
-
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		var row = '{';
-		if(this.dxObj.cells2(arr[i],chkIdx).getValue()=="1") {
-			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
-				colId = this.dxObj.getColumnId(j);
-				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(arr[i],j).getValue();
-				
-				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(arr[i], j, false, false, false);
-					return null;
-				}
-				
-				if(colId != "editStat" && colId != "chk") {
-					if(colId!="cudKey") {
-						row += '"' + colId + '": "' + colVal + '",';
-					} else {
-						row += '"' + colId + '": "' + actDelete + '",';
-					}
-				}
-			}
-			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
-		}
-	}
-
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-
-	if (jsonStr.length > 0) {
-		jsonStr = '[' + jsonStr + ']';
-	} else {
-		MsgManager.alertMsg("WRN008");
-		return null;
-	}
-	
-	return jsonStr;
-};
-
 //Get Json from checked rows 특수기호 추가
-dxGrid.prototype.getJsonChecked3 = function(chkIdx, excludeCols) {
+dxGrid.prototype.getJsonChecked2 = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -528,6 +459,26 @@ dxGrid.prototype.chkUnsavedRows = function() {
 				} else {
 					return false;
 				}
+			} else {
+				this.dxObj.deleteRow(this.dxObj.getRowId(i));
+				i--;
+			}
+		}
+	}
+	return true;
+};
+//메세지 안나오게 한 로직
+dxGrid.prototype.chkUnsavedRow = function() {
+	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
+		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
+		if (cudColVal == actInsert) {
+			if(!isDelRow) {
+				isDelRow = true;
+				this.dxObj.deleteRow(this.dxObj.getRowId(i));
+				i--;
 			} else {
 				this.dxObj.deleteRow(this.dxObj.getRowId(i));
 				i--;
@@ -625,9 +576,6 @@ dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
 	 return jsonStr;
 };
 
-
-
-
 //멀티삭제 MULTI DELETE 
 dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	this.dxObj.editStop();
@@ -647,13 +595,12 @@ dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 							row[colId]=actDelete;
 						}
 			  }
-              arr.push(row);
-            
+             arr.push(row);  
+             
 	 }
 	 jsonStr = JSON.stringify(arr);
 	return jsonStr;
 };
-
 
 dxGrid.prototype.getColumnCombo = function(column_index){
 	return this.dxObj.getColumnCombo(column_index);
@@ -665,4 +612,8 @@ dxGrid.prototype.setCells2 = function(row_index,col) {
 
 dxGrid.prototype.editCell = function(){
 	return this.dxObj.editCell();
+}
+
+dxGrid.prototype.printView = function(before,after){
+	return this.dxObj.printView(before,after);
 }
