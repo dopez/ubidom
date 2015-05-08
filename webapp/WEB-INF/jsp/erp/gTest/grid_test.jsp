@@ -39,13 +39,13 @@
                         //저장 - 수정
                         toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn3") {
-                            	var jsonStr = mygrid.getJsonUpdated();
+                            	var jsonStr = mygrid.getJsonUpdated2();
                         		if (jsonStr == null || jsonStr.length <= 0) return;
                         		
                                 $("#jsonData").val(jsonStr);
                                 
                         		$.ajax({
-                        			url : "/erp/gTest/grid_test",
+                        			url : "/erp/subTest/grid_test",
                         	        type : "POST",
                         	        data : $("#pform").serialize(),
                         	        async : true,
@@ -55,10 +55,9 @@
                         	        }
                         		});
                             }
-                        })
+                        }); 
                         
-                        
-                        //삭제
+                        //한줄씩 멀티삭제
                     /*       toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn4") {
                             	for(var i = mygrid.getRowsNum(); i > 0; i--){
@@ -88,7 +87,7 @@
                             }
                         }) */
                         
-                       
+                         //전체삭제
                            toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn4") {
                         			if(!MsgManager.confirmMsg("INF002")) { //삭제하시겠습니까?	
@@ -100,7 +99,7 @@
 
                     				$("#jsonData").val(jsonStr);
                         	        $.ajax({
-                        				url : "/erp/gTest/grid_test",
+                        				url : "/erp/subTest/grid_test",
                         		        type : "POST",
                         		        data : $("#pform").serialize(),
                         		        async : true,
@@ -129,12 +128,12 @@
                         				}
                         			}
                         			
-                        		    var jsonStr = mygrid.getJsonRowDelete(rodIdx);
+                        		    var jsonStr = mygrid.getJsonRowDel(rodIdx);
                         			if (jsonStr == null || jsonStr.length <= 0) return;
 
                     				$("#jsonData").val(jsonStr);
                         	        $.ajax({
-                        				url : "/erp/gTest/grid_test",
+                        				url : "/erp/subTest/grid_test",
                         		        type : "POST",
                         		        data : $("#pform").serialize(),
                         		        async : true,
@@ -156,20 +155,8 @@
                                 	fn_loadGridList();
                                 }
                             })
-                       	//항목추가
-                        toolbar.attachEvent("onClick", function(id) {
-                            if (id == "btn5") {
-                            	var totalColNum = mygrid.getColumnCount();
-                        		var item_code = mygrid.getColIndexById('item_code');
-                        		var data = new Array(totalColNum);
-                        		data[item_code] = 'TE5T';
-
-                        		
-                        		mygrid.addRow(data, 0, 2);
-                            }
-                        })
                         
-                        //항목삭제
+        /*                 //항목삭제
                         toolbar.attachEvent("onClick", function(id) {
                             if (id == "btn6") {
 
@@ -201,31 +188,11 @@
                                     alert(345);
                                 }
                             }
-                          //저장
-                            toolbar.attachEvent("onClick", function(id) {
-                                if (id == "btn3") {
-                                	var jsonStr = mygrid.getJsonUpdated();
-                            		if (jsonStr == null || jsonStr.length <= 0) return;
-                            		
-                                    $("#jsonData").val(jsonStr);
-                                    
-                            		$.ajax({
-                            			url : "/erp/gTest/grid_test",
-                            	        type : "POST",
-                            	        data : $("#pform").serialize(),
-                            	        async : true,
-                            	        success : function(data) {
-                            	        	MsgManager.alertMsg("INF001");
-                            				fn_loadGridList();
-                            	        }
-                            		});
-                                }
-                            })
-                        })
+                        }) */
 
                     })
             function fn_loadGridList() {
-                gfn_gridLoad("/erp/gTest", {}, mygrid, fn_setCount);
+                gfn_gridLoad("/erp/subTest/selTest", {}, mygrid, fn_setCount);
             }
             function fn_setCount() {
             	$("#totalCount").text(mygrid.getRowsNum());

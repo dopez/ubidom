@@ -171,8 +171,6 @@ $(function() {
 		for(i=0;i<data.length;i++){
 			 gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(data[i].itemCode);
 			 gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(data[i].itemName);
-			byId("itemCode").value = gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
-			byId("itemName").value = gridMst.setCells2(gridMst.getSelectedRowIndex(),1).getValue();
 			}
 				  
 	}	  
