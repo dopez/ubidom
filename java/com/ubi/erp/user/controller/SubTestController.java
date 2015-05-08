@@ -22,6 +22,7 @@ import com.ubi.erp.cmm.util.JasperReportUtil;
 import com.ubi.erp.user.domain.SubTest;
 import com.ubi.erp.user.domain.Test;
 import com.ubi.erp.user.service.SubTestService;
+import com.ubi.erp.user.service.TestService;
 
 @RestController
 @RequestMapping(value="/erp/subTest")
@@ -29,32 +30,25 @@ public class SubTestController {
 
 	@Autowired
 	private SubTestService subTestService;
+	@Autowired
+    private TestService testService;
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selTest", method = RequestMethod.GET)
+	public List<Test> selGridTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("P_NAME", "%");
+		map.put("P_RST",null);
+		testService.selTest(map);
+		return (List<Test>) map.get("P_RST");
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<SubTest> selTest(HttpServletRequest request, HttpServletResponse response,SubTest subTest) throws Exception {
 		List<SubTest> list = subTestService.selTest(subTest);
 		return list;
 	}
-	@RequestMapping(value="/selComp", method = RequestMethod.GET)
-	public List<SubTest> selComp(HttpServletRequest request, HttpServletResponse response,SubTest subTest) throws Exception {
-		List<SubTest> list = subTestService.selComp(subTest);
-		return list;
-	}
-	
-	@RequestMapping(value = "/delTest", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void delTest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String jsonData = request.getParameter("jsonData");
-		List<SubTest> list = new ArrayList<SubTest>();
-		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<SubTest>>(){});
-		
-		for(SubTest subTest : list) {
-			subTestService.delTest(subTest);
-		}
-		
-	}
-	
+
 	@RequestMapping("/report/reportTest")
 	public ModelAndView reportPdf(HttpServletRequest request, HttpServletResponse response) {
 		//일반 쿼리문
@@ -70,13 +64,15 @@ public class SubTestController {
 		return JasperReportUtil.render("reportTest",list, "pdf");
 	}
 	
-	/*@RequestMapping(value = "/grid_test", method = RequestMethod.POST)
+	@RequestMapping(value = "/grid_test", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String jsonData = request.getParameter("jsonData");
 		List<Test> list = new ArrayList<Test>();
 		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(jsonData);
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Test>>(){});
+		
 		
 		for(Test test : list) {
 			if("CREATE_VALUE".equals(test.getCudKey())) {
@@ -87,5 +83,26 @@ public class SubTestController {
 				testService.delTest(test);
 			}
 		}
-	}*/
+	}
+	
+	@RequestMapping(value = "/prcsTest", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsSubTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String jsonData = request.getParameter("jsonData");
+		List<SubTest> list = new ArrayList<SubTest>();
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(jsonData);
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<SubTest>>(){});
+		
+		
+		for(SubTest subTest : list) {
+			if("CREATE_VALUE".equals(subTest.getCudKey())) {
+				subTestService.insTest(subTest);
+			}else if("UPDATE_VALUE".equals(subTest.getCudKey())){
+				subTestService.updTest(subTest);
+			}else if("DELETE_VALUE".equals(subTest.getCudKey())){
+				subTestService.delTest(subTest);
+			}
+		}
+	}
 }
