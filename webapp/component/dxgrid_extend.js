@@ -628,12 +628,9 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
-<<<<<<< HEAD
 };
-=======
-};
+
 
 dxGrid.prototype.editCell = function(){
 	return this.dxObj.editCell();
 }
->>>>>>> branch 'master' of https://github.com/dopez/ubidom.git
