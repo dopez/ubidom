@@ -15,19 +15,6 @@ $(function() {
 	myGrid.init();
 	myGrid.getDxObj().enableSmartRendering(true);
 	myGrid.getDxObj().setAwaitedRowHeight(25);
-	
-	/*
-	myGrid = new dhtmlXGridObject('gridDiv');
-	myGrid.setImagePath("/component/dhtmlxGrid/imgs/");
-	myGrid.setHeader("rnum,itemCode,itemName,itemSize");
-	myGrid.setColumnIds("no,itemCode,itemName,itemSize");
-	myGrid.setInitWidths("50,200,200,200");
-	myGrid.setColAlign("center,center,center,center");
-	myGrid.setColTypes("ro,ed,ed,ed");
-	myGrid.init();
-	myGrid.enableSmartRendering(true);
-	myGrid.setAwaitedRowHeight(25);
-	*/
 
 	g_dxRules = {
 		itemCode : [r_notEmpty, r_minLen + "|2"],
