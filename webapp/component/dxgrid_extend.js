@@ -308,32 +308,39 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	var arr = [];
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
+	var arr = editCol.split(";");
+	
+	for(var i = 0; i < arr.length-1; i++) {
 		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
+		var gubun = this.dxObj.cells2(arr[i],cudColIdx).getValue().toUpperCase();
 
 		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
-			var row={};
+			var row = '{';
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(i,j).getValue();
+				colVal = this.dxObj.cells2(arr[i],j).getValue();
 				
 				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(i, j, false, true, false);
+					this.dxObj.selectCell(arr[i], j, false, true, false);
 					return null;
 				}
 	
 				if(colId != "editStat" && colId != "chk") {
-					row[colId]=colVal;
+					row += '"' + colId + '": "' + colVal + '",';
 				}
 			}
-			arr.push(row);
+			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
 		}
 	}
-	jsonStr = JSON.stringify(arr);
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
 	
+	if (jsonStr.length > 0) {
+		jsonStr = '[' + jsonStr + ']';
+	} else {
+		MsgManager.alertMsg("WRN004");
+		return null;
+	}
 	
 	return jsonStr;
 };
@@ -396,33 +403,42 @@ dxGrid.prototype.getJsonChecked2 = function(chkIdx, excludeCols) {
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	var arr = [];
+	var arr = delCol.split(";");
+
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		var row={};
-		if(this.dxObj.cells2(i,chkIdx).getValue()=="1") {
+		var row = '{';
+		if(this.dxObj.cells2(arr[i],chkIdx).getValue()=="1") {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(i,j).getValue();
+				colVal = this.dxObj.cells2(arr[i],j).getValue();
 				
 				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(i, j, false, false, false);
+					this.dxObj.selectCell(arr[i], j, false, false, false);
 					return null;
 				}
 				
 				if(colId != "editStat" && colId != "chk") {
 					if(colId!="cudKey") {
-						row[colId]=colVal;
+						row += '"' + colId + '": "' + colVal + '",';
 					} else {
-						row[colId]=actDelete;
+						row += '"' + colId + '": "' + actDelete + '",';
 					}
 				}
 			}
-			arr.push(row);
+			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
 		}
 	}
-	 jsonStr = JSON.stringify(arr);
-	 
+
+	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+
+	if (jsonStr.length > 0) {
+		jsonStr = '[' + jsonStr + ']';
+	} else {
+		MsgManager.alertMsg("WRN008");
+		return null;
+	}
+	
 	return jsonStr;
 };
 
