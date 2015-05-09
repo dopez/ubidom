@@ -5,6 +5,7 @@ var layout, toolbar, subLayout;
 var gridMain;
 var calMain;
 var combo01;
+var rtn;
 $( document ).ready(function() {
 	
 	Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //구매의뢰(원부자재)등록
@@ -19,17 +20,101 @@ $( document ).ready(function() {
 
 	
 	//up
+	subGrid = new dhtmlXGridObject('gridbox_sub');
+			subGrid.setImagePath("/component/dhtmlxGrid/imgs/");
+			subGrid.setHeader("업체코드,업체명,업태");
+			subGrid.setInitWidths("100,100,100");
+			subGrid.enableAutoHeight(true);
+			subGrid.setColTypes("ro,ro,ro");
+			subGrid.setColumnIds("itemCode","itemName,itemSize");
+			subGrid.init();
+			subGrid.setUserData("","pk","itemCode");
+			subGrid.load('',function(){
+				gridMain = subLayout.cells("a").attachGrid();
+				gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
+				gridMain.setHeader("No,품목코드,품명,업체코드,업체명,수량,단가,금액,납기일자,용도,첨부");
+				gridMain.setInitWidths("50,200,200,150,100,100,100,100,100,200,100");       
+				gridMain.setColAlign("center,left,left,left,center,right,right,right,center,center,center");     
+				gridMain.setColTypes("ro,combo,ro,grid,ro,edn,edn,edn,ed,ed,ed"); 
+				gridMain.setColSorting("str,str,str,str,str,int,int,int,date,str,str");
+				gridMain.setSubGrid(subGrid,3,1);
+				gridMain.init();
+				
+				var combo01=gridMain.getColumnCombo(1);
+				 combo01.load({
+								template: {
+								    input: "#ITEM_CODE#",
+								    columns: [
+								        {header: "ITEM_CODE", width: 110, option: "#ITEM_CODE#"},
+								        {header: "ITEM_NAME", width: 100, option: "#ITEM_NAME#"},
+								    ]
+								},
+								options: [
+								    
+								]
+							}); 
+				combo01.enableFilteringMode(true);
+				combo01.enableAutocomplete(true);
+		        gridMain.attachEvent("onRowSelect", function(id,ind){
+		        	gridMain.editCell();
+		        	if(ind==1){
+		     		   doOnOpen();
+		     	   }else if(ind==3){
+		     		   doSubGridLoad();
+		     	   }
+		      	});
+		 		function doOnOpen(){
+		 			$.ajax({
+		 				"url":"/erp/subTest",
+		 				"type":"get",
+		 				"data":{}
+		 			    }).done(function(jsonData) {
+		 					if(jsonData!="") {
+		 					
+		 						for(var i=0;i<=jsonData.length;i++){
+		 				        	combo01.addOption([
+		 			                  {value: i, text:
+		 			                  {"ITEM_CODE": jsonData[i].itemCode,
+		 			                  "ITEM_NAME":jsonData[i].itemName}}   
+		 				            ]);
+		 			           }
+		 						
+		 			        }else {
+		 			          alert("No Data");
+		 			        }
+		 				});	
+		 			
+		 		}
+		 		function doSubGridLoad(){
+		 			 var rtn = "";
+			 			
+			 			$.ajax({
+			 				"url":"/erp/subTest",
+			 				"type":"get",
+			 				"data":{}
+			 			}).done(function(jsonData) {
+			 				if(jsonData!="") {
+			 					rtn = {"data":jsonData};
+			 					subGrid.parse(rtn, "js");
+			 					subGrid.load(rtn);	
+			 		        } else {
+			 		        	subGrid.clearAll();
+			 		        	alert("No Data");
+			 		        }
+			 			});
+		 		}
+		 	   function fn_setCount() {
+		 		  alert(subGrid.getColumnId(0));
+		 	    };
+		 		combo01.attachEvent("onClose", function() {
+		 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
+				}) 
+			})
+		
 	
+
+	/* subLayout.cells("a").appendObject("tdisLabel01").init(); */
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
-	gridMain.setHeader("No,품목코드,품명,규격,단위,수량,단가,금액,납기일자,용도,첨부", null, 
-				[]);
-	gridMain.setInitWidths("50,200,200,150,100,100,100,100,100,200,100");       
-	gridMain.setColAlign("center,left,left,left,center,right,right,right,center,center,center");     
-	gridMain.setColTypes("ro,combo,combo,ed,ed,edn,edn,edn,ed,ed,ed"); 
-	gridMain.setColSorting("str,str,str,str,str,int,int,int,date,str,str");
-	gridMain.init();
 	//calRangeDate
 	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"}]);
 	 calMain.loadUserLanguage("ko");
@@ -42,7 +127,7 @@ $( document ).ready(function() {
 				fn_insert();
 			}
 		});
-
+        //popUp
 /*         gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
         function doOnRowDblClicked(rowId,colId){
 			if(colId==1){
@@ -51,62 +136,29 @@ $( document ).ready(function() {
 		} */
 
 		
-	////combo01 combo02//////////////////////////////////////////////////////
-		var combo01=gridMain.getColumnCombo(1);
-		var combo02=gridMain.getColumnCombo(2);
-		
-		fn_comboMake(combo01,"#ITEM_CODE#");
-		fn_comboMake(combo02,"#ITEM_NAME#");
-		
+	////combo01//////////////////////////////////////////////////////
+		/* var combo01=gridMain.getColumnCombo(1);
+		 combo01.load({
+						template: {
+						    input: "#ITEM_CODE#",
+						    columns: [
+						        {header: "ITEM_CODE", width: 110, css: "ITEM_CODE", option: "#ITEM_CODE#"},
+						        {header: "ITEM_NAME", width: 100, css: "ITEM_NAME", option: "#ITEM_NAME#"},
+						    ]
+						},
+						options: [
+						    
+						]
+					}); 
+		combo01.enableFilteringMode(true);
+		combo01.enableAutocomplete(true);
         gridMain.attachEvent("onRowSelect", function(id,ind){
         	gridMain.editCell();
         	if(ind==1){
-     		   doOnOpen(combo01);
-     	   }else if(ind==2){
-     		   doOnOpen(combo02);
-     	   }else if(ind==3){
-     		   gfn_load_popup1("w1","common/supplyCompCodePOP",true);
+     		   doOnOpen();
      	   }
       	});
-
-   		combo01.attachEvent("onClose", function() {
- 		alert(combo01.getSelectedText().ITEM_NAME);
- 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
-		})
- 		combo02.attachEvent("onClose", function() {
- 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),1).setValue(combo02.getSelectedText().ITEM_CODE);
-		}) 
-		
-/*  		fn_onClose(gridMain,combo01,2,'ITEM_NAME');
-		function fn_onClose(gridName,comboName,cId,optName){
- 				var getSId = gridName.getSelectedId();
- 				var getSText = comboName.getSelectedText().optName;
- 				alert(getSText);
- 			comboName.attachEvent("onClose", function() {
- 				alert(comboName.getSelectedText().optName);
- 				gridName.cells2(gridName.getRowIndex(getSId),cId).setValue(getSText);
- 			})
- 		} */
-		fn_comboReadOnly(combo01);
-		fn_comboReadOnly(combo02);
-		function fn_comboMake(combo,toInput){
-			 combo.load({
-					template: {
-					    input: toInput,
-					    columns: [
-					        {header: "ITEM_CODE", width: 110, css: "ITEM_CODE", option: "#ITEM_CODE#"},
-					        {header: "ITEM_NAME", width: 100, css: "ITEM_NAME", option: "#ITEM_NAME#"},
-					    ]
-					},
-					options: [
-					    
-					]
-				}); 
-			combo.enableFilteringMode(true);
-			combo.enableAutocomplete(true);
-			combo.allowFreeText(true);
-		}
- 		function doOnOpen(combo){
+ 		function doOnOpen(){
  			$.ajax({
  				"url":"/erp/subTest",
  				"type":"get",
@@ -115,7 +167,7 @@ $( document ).ready(function() {
  					if(jsonData!="") {
  					
  						for(var i=0;i<=jsonData.length;i++){
- 				        	combo.addOption([
+ 				        	combo01.addOption([
  			                  {value: i, text:
  			                  {"ITEM_CODE": jsonData[i].itemCode,
  			                  "ITEM_NAME":jsonData[i].itemName}}   
@@ -128,15 +180,10 @@ $( document ).ready(function() {
  				});	
  			
  		}
-		function fn_comboReadOnly(combo){
-				combo.attachEvent("onChange", function(){
-				combo.allowFreeText(false);
-				combo.readonly(true);
-				combo.enableFilteringMode(false);
-				combo.enableAutocomplete(false);
-			});
-		}
-		////combo End//////////////////////////////////////////////////////
+ 		combo01.attachEvent("onClose", function() {
+ 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
+		})  */
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     })
     function fn_insert() {
 		var totalColNum = gridMain.getRowsNum();
@@ -146,6 +193,7 @@ $( document ).ready(function() {
 </script>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>
+        <div id="gridbox_sub" style="width:310px; height:150px; background-color:white; overflow: auto;"></div>
         <div id="bootContainer2">
             <div class="container">
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">

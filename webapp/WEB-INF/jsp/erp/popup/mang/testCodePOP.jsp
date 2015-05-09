@@ -25,19 +25,16 @@ $(document).ready(function(){
 	gridMain.setColTypes("ro,ro");
 	gridMain.setColSorting("str,str");
 	gridMain.init(); 
-
+	
 	orinGrid = parent.window.gridMst;
 	var getValue = orinGrid.setCells2(orinGrid.getSelectedRowIndex(),0).getValue();
-	var params = "itemCode=" + getValue;
-	fn_loadGridList("/erp/subTest",params, gridMain, fn_PopValue);
+	alert(getValue);
 	
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	    	  var params = "itemCode=" + $("#itemCode").val();
-	          fn_loadGridList("/erp/subTest",params, gridMain, fn_PopValue);
+	           fn_loadGridList("/erp/subTest", {}, gridMain, fn_PopValue);
 	         }
 	});
-	
 	//실제 조회로직
 	function fn_loadGridList(url, data, grid, callback) {
 			var rtn = "";
@@ -73,6 +70,8 @@ $(document).ready(function(){
 		  var itemName = gridMain.cells2(row,cell+1).getValue();
 		 orinGrid.setCells2(orinGrid.getSelectedRowIndex(),0).setValue(itemCode);
 		 orinGrid.setCells2(orinGrid.getSelectedRowIndex(),1).setValue(itemName);
+		 
+		 console.log(window);
 	  }
 });
 </script>
@@ -84,7 +83,7 @@ $(document).ready(function(){
 			 품목명
 			</label>
 			<div class="col-xs-6">
-			  <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

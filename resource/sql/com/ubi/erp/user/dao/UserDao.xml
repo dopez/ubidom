@@ -5,6 +5,7 @@
 
 	<resultMap id="UserMap" type="User"/>
 	<resultMap id="MenuMap" type="Menu"/>
+
 	
 	<select id="getUser" statementType="CALLABLE">
 		{ call SP_LOGIN_RESULT (

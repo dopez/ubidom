@@ -5,7 +5,7 @@
 
 	<resultMap id="SubTestMap" type="SubTest"/>
 
-	 <select id="prsSelTest" statementType="CALLABLE" >
+	 <select id="prsSelTest" statementType="CALLABLE">
 		 {call SP_ITEM_CODE_SERCH(#{P_NAME},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=SubTestMap, javaType=ResultSet})}	
 	</select>
  
@@ -42,9 +42,28 @@
                 FROM   TBL_ITEM_CODE
                 WHERE  ITEM_CLS1 = '1'
                   <choose>
+                    <when test="itemCode != null and itemCode != ''">
+                    AND ITEM_CODE like '%' || #{itemCode} || '%'
+                    </when>
                     <when test="itemName != null and itemName != ''">
-                      AND  ITEM_NAME LIKE #{itemName}
+                    AND ITEM_NAME like '%' || #{itemName} || '%'
                     </when>
                   </choose>
   	</select>
+  	<select id="selComp" parameterType="SubTest" resultType="SubTest">
+  	     SELECT CUST_CODE,CUST_KOR_NAME
+		 FROM TBL_CUSTCODE
+		 WHERE CUST_CODE LIKE 'L%'
+                  <choose>
+                    <when test="custCode != null and custCode != ''">
+                    AND CUST_CODE LIKE '%' || #{custCode} || '%'
+                    </when>
+                  </choose>
+  	</select>
+  	
+  	<select id="reportTest" resultMap="SubTestMap">
+		SELECT
+			ITEM_CODE,ITEM_NAME,ITEM_SIZE
+		FROM TBL_ITEM_CODE WHERE  ITEM_CLS1 = '1'
+	</select>
 </mapper>

@@ -1,7 +1,7 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
-	//this.dxObj = divId.attachGrid();
-	this.dxObj = new dhtmlXGridObject(divId);
+	this.dxObj = divId.attachGrid();
+	//this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
 	this.dxObj.setDateFormat("%Y-%m-%d");
@@ -186,6 +186,8 @@ dxGrid.prototype.setUserData = function(rowId, key, val) {
 dxGrid.prototype.getUserData = function(){
 	return this.dxObj.getUserData("","pk");
 }
+
+
 
 dxGrid.prototype.getCellValue = function(rowId, columnId ) {
 	return this.dxObj.cells(rowId, columnId).getValue();
@@ -562,7 +564,6 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	 }
 	
 	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-//	alert(jsonStr);
 	if(!gfn_checkXSS(jsonStr, true)) {
 		alert(1);
 		return null;
@@ -580,9 +581,8 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
-
 //멀티삭제 MULTI DELETE 
-/*dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
+dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
@@ -619,42 +619,8 @@ dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
 	}
 
 	return jsonStr;
-};*/
-
-
-//멀티삭제 MULTI DELETE pk값으로 삭제하기
-dxGrid.prototype.getJsonMultiRowDel = function(pkCol) {
-	this.dxObj.editStop();
-	var jsonStr = "";
-	var colId = "";
-	var colNm = "";
-	var colVal = "";
-	
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		var row = '{';
-			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
-				  colId = this.dxObj.getColumnId(j);
-				  if(colId == pkCol){
-					  colVal = this.dxObj.cells2(i,j).getValue();
-					   row += '"' + colId + '": "' + colVal + '",';
-					}
-				 }
-			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';	
-	    }
-	
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	if(!gfn_checkXSS(jsonStr, true)) {
-		return null;
-	} else {
-		if (jsonStr.length > 0) {
-			jsonStr = '[' + jsonStr + ']';
-		} else {
-			MsgManager.alertMsg("WRN008");
-			return null;
-		}
-	}
-	return jsonStr;
 };
+
 
 dxGrid.prototype.getColumnCombo = function(column_index){
 	return this.dxObj.getColumnCombo(column_index);
@@ -662,4 +628,12 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
+<<<<<<< HEAD
 };
+=======
+};
+
+dxGrid.prototype.editCell = function(){
+	return this.dxObj.editCell();
+}
+>>>>>>> branch 'master' of https://github.com/dopez/ubidom.git
