@@ -5,10 +5,13 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
-var width = 303;
-var height = 300;
-var title="공급업체코드";
-var compId, compName;
+var config={
+		title : "공급업체코드",
+		id:"custCode",
+		width:"300",
+		height:"500"
+}
+
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//공급업체코드 도우미
@@ -18,55 +21,34 @@ $(document).ready(function(){
     
     layout.cells("b").attachObject("bootContainer");
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("공급업체코드,공급업체명");
-	gridMain.setColumnIds("compCode,compName");
-	gridMain.setInitWidths("150,150");
-	gridMain.setColAlign("left,left");
-	gridMain.setColTypes("ro,ro");
-	gridMain.setColSorting("str,str");
-	gridMain.setUserData("","pk","compCode");
+	gridMain = new dxGrid(subLayout.cells("a"), true);
+	gridMain.addHeader({name:"공급업체코드", colId:"custCode", 	width:"15", align:"center", type:"ro"});
+	gridMain.addHeader({name:"공급업체명", colId:"custName", 	width:"15", align:"center", type:"ro"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","custCode");
 	gridMain.init(); 
+	
 	fn_gridPopLoad();
 	
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	    	  /* var params = "itemCode=" + $("#itemCode").val();
-	    	  fn_gridPopLoad();*/
+	    	  fn_gridPopLoad();
 	         }
 	});
 	function fn_gridPopLoad(){
-		fn_loadGridList("/erp/subTest/selComp",{},gridMain,fn_toParentGrid);
+				var param = "custName=" + parent.popValue;
+				alert(param);
+		if(param == null || param == ''){
+				var param = 'custName="%"';
+		}
+				gfn_gridLoad("/erp/comboTest/selComp",param,gridMain,fn_toParent);
 	}
-	function fn_loadGridList(url, data, grid, callback) {
-		var rtn = "";
-		$.ajax({
-			"url":url,
-			"type":"get",
-			"data":data
-		}).done(function(jsonData) {
-			if(jsonData!="") {
-				rtn = {"data":jsonData};
-				grid.clearAll();
-				grid.parse(rtn, "js");
-				setGridHeight();
-				if (callback != null) { 
-					callback();
-				}
-	        } else {
-	        	grid.clearAll();
-	        	alert("No Data");
-	        }
+
+	function fn_toParent(){
+		gridMain.attachEvent("onRowDblClicked",function(rId,cInd){
+			var row = rId-1;
+			parent.popValue = gridMain.setCells2(row,1).getValue();
 		});
-};
-	function fn_toParentGrid(){
-			//alert("5");
-			/* gridMain.attachEvent("onRowDblClicked", function(rId,cInd){
-			compId=gridMain.cells2(rId-1,cInd).getCellValue();
-			compId=gridMain.cells2(rId-1,cInd+1).getCellValue();
-			
-		}) */
 	}
 });
 </script>

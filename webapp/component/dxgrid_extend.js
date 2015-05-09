@@ -301,48 +301,44 @@ dxGrid.prototype.getJsonUpdated = function(excludeCols) {
 	return jsonStr;
 };
 
+//Get Json from CUD rows 특수기호 포함
 dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	var arr = editCol.split(";");
-	
-	for(var i = 0; i < arr.length-1; i++) {
+	var arr = [];
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-		var gubun = this.dxObj.cells2(arr[i],cudColIdx).getValue().toUpperCase();
+		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
 
 		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
-			var row = '{';
+			var row={};
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(arr[i],j).getValue();
+				colVal = this.dxObj.cells2(i,j).getValue();
 				
 				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(arr[i], j, false, true, false);
+					this.dxObj.selectCell(i, j, false, true, false);
 					return null;
 				}
 	
 				if(colId != "editStat" && colId != "chk") {
-					row += '"' + colId + '": "' + colVal + '",';
+					row[colId]=colVal;
 				}
 			}
-			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+			arr.push(row);
 		}
 	}
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
+	jsonStr = JSON.stringify(arr);
 	
-	if (jsonStr.length > 0) {
-		jsonStr = '[' + jsonStr + ']';
-	} else {
-		MsgManager.alertMsg("WRN004");
-		return null;
-	}
 	
 	return jsonStr;
 };
+
+
 
 //Get Json from checked rows 
 dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
@@ -393,50 +389,43 @@ dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
+//Get Json from checked rows 특수기호 추가
 dxGrid.prototype.getJsonChecked2 = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	var arr = delCol.split(";");
-
+	var arr = [];
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		var row = '{';
-		if(this.dxObj.cells2(arr[i],chkIdx).getValue()=="1") {
+		var row={};
+		if(this.dxObj.cells2(i,chkIdx).getValue()=="1") {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(arr[i],j).getValue();
+				colVal = this.dxObj.cells2(i,j).getValue();
 				
 				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(arr[i], j, false, false, false);
+					this.dxObj.selectCell(i, j, false, false, false);
 					return null;
 				}
 				
 				if(colId != "editStat" && colId != "chk") {
 					if(colId!="cudKey") {
-						row += '"' + colId + '": "' + colVal + '",';
+						row[colId]=colVal;
 					} else {
-						row += '"' + colId + '": "' + actDelete + '",';
+						row[colId]=actDelete;
 					}
 				}
 			}
-			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+			arr.push(row);
 		}
 	}
-
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-
-	if (jsonStr.length > 0) {
-		jsonStr = '[' + jsonStr + ']';
-	} else {
-		MsgManager.alertMsg("WRN008");
-		return null;
-	}
-	
+	 jsonStr = JSON.stringify(arr);
+	 
 	return jsonStr;
 };
+
 
 dxGrid.prototype.setUseYnCol = function(colIdx) {
 	var useYnJson = [{"cd":"Y", "cdNm":"사용"},{"cd":"N", "cdNm":"미사용"}];
@@ -470,6 +459,26 @@ dxGrid.prototype.chkUnsavedRows = function() {
 				} else {
 					return false;
 				}
+			} else {
+				this.dxObj.deleteRow(this.dxObj.getRowId(i));
+				i--;
+			}
+		}
+	}
+	return true;
+};
+//메세지 안나오게 한 로직
+dxGrid.prototype.chkUnsavedRow = function() {
+	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
+		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
+		if (cudColVal == actInsert) {
+			if(!isDelRow) {
+				isDelRow = true;
+				this.dxObj.deleteRow(this.dxObj.getRowId(i));
+				i--;
 			} else {
 				this.dxObj.deleteRow(this.dxObj.getRowId(i));
 				i--;
@@ -538,47 +547,33 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 	return jsonStr;
 };
 
-dxGrid.prototype.getJsonMultiRowDelete = function(chkIdx, excludeCols) {
+//한줄삭제 row delete 특수기호추가
+dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	
-	for(var i = this.dxObj.getRowsNum(); i > 0; i--){
-	//	alert("i="+i+"chkIdx="+chkIdx);
+	var arr = [];
+	chkIdx = chkIdx -1;
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
 		if(i == chkIdx) {
-		   var row = '{';
+			var row={};
 			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 					colId = this.dxObj.getColumnId(j);
-					colVal = this.dxObj.cells2(chkIdx-1,j).getValue();
-					
+					colVal = this.dxObj.cells2(chkIdx,j).getValue();
+
 						if(colId !="cudKey") {
-							row += '"' + colId + '": "' + colVal + '",';
+							row[colId]=colVal;
 						} else {
-							row += '"' + colId + '": "' + actDelete + '",';
+							row[colId]=actDelete;
 						}
 				}
-				jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';			
+			     arr.push(row);
 		 }
 	 }
-	
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	if(!gfn_checkXSS(jsonStr, true)) {
-		alert(1);
-		return null;
-	} else {
-		alert(2);
-		if (jsonStr.length > 0) {
-			jsonStr = '[' + jsonStr + ']';
-		} else {
-			alert(2);
-			MsgManager.alertMsg("WRN008");
-			return null;
-		}
-	}
-
-	return jsonStr;
+	 jsonStr = JSON.stringify(arr);
+	 return jsonStr;
 };
 
 //멀티삭제 MULTI DELETE 
@@ -588,39 +583,24 @@ dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-
+	var arr = [];
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		   var row = '{';
+		   var row={};
 			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 					colId = this.dxObj.getColumnId(j);
 					colVal = this.dxObj.cells2(i,j).getValue();
-
 						if(colId !="cudKey") {
-							row += '"' + colId + '": "' + colVal + '",';
+							row[colId]=colVal;
 						} else {
-							row += '"' + colId + '": "' + actDelete + '",';
+							row[colId]=actDelete;
 						}
-				}
-				jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
-				
+			  }
+             arr.push(row);  
+             
 	 }
-	
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	
-	if(!gfn_checkXSS(jsonStr, true)) {
-		return null;
-	} else {
-		if (jsonStr.length > 0) {
-			jsonStr = '[' + jsonStr + ']';
-		} else {
-			MsgManager.alertMsg("WRN008");
-			return null;
-		}
-	}
-
+	 jsonStr = JSON.stringify(arr);
 	return jsonStr;
 };
-
 
 dxGrid.prototype.getColumnCombo = function(column_index){
 	return this.dxObj.getColumnCombo(column_index);
@@ -628,12 +608,16 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
-<<<<<<< HEAD
-};
-=======
 };
 
 dxGrid.prototype.editCell = function(){
 	return this.dxObj.editCell();
 }
->>>>>>> branch 'master' of https://github.com/dopez/ubidom.git
+
+dxGrid.prototype.printView = function(before,after){
+	return this.dxObj.printView(before,after);
+}
+
+dxGrid.prototype.clearAll = function(flag){
+	return this.dxObj.clearAll(flag);
+}

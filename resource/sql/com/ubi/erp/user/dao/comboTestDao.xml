@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.user.dao.comboTestDao">
+	<resultMap id="comboTestMap" type="comboTest">
+		<id column="id" property="id"/>
+		<result column="CUST_CODE" property="custCode"/>
+		<result column="CUST_KOR_NAME" property="custName"/>
+	</resultMap>
+  	<select id="selComp" parameterType="comboTest" resultMap="comboTestMap">
+  	     SELECT CUST_CODE,CUST_KOR_NAME
+		 FROM TBL_CUSTCODE
+		 WHERE CUST_CODE LIKE 'L%'
+          <choose>
+            <when test="custCode != null and custCode != ''">
+            AND CUST_CODE LIKE '%' || #{custCode} || '%'
+            </when>
+            <when test="custName != null and custName != ''">
+            AND CUST_KOR_NAME like '%' || #{custName} || '%'
+            </when>
+          </choose>
+  	</select>
+</mapper>

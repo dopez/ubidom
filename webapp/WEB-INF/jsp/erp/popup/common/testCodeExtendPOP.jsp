@@ -50,7 +50,8 @@ $(document).ready(function(){
 		  var itemCode = gridMain.setCells2(row,0).getValue();
 		  var itemName = gridMain.setCells2(row,1).getValue();
 		  var arr = [{"itemCode":itemCode,"itemName":itemName}];
-		  parent.fn_onClosePop(config.id,arr)
+		  parent.fn_onClosePop(config.id,arr);
+		  parent.dhxWins.window("w1").close();
 	  }
 });
 </script>

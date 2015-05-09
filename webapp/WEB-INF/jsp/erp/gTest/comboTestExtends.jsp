@@ -7,7 +7,7 @@ var calMain;
 var combo01;
 $( document ).ready(function() {
 	
-	Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //구매의뢰(원부자재)등록
+	Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //combo_sample
 	
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -16,19 +16,13 @@ $( document ).ready(function() {
 	//form//
 	layout.cells("b").attachObject("bootContainer2");
 	
-
+	gridMain = new dxGrid(subLayout.cells("a"), true);
 	
-	//up
-	
-	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");      //10 col
-	gridMain.setHeader("No,품목코드,품명,규격,단위,수량,단가,금액,납기일자,용도,첨부", null, 
-				[]);
-	gridMain.setInitWidths("50,200,200,150,100,100,100,100,100,200,100");       
-	gridMain.setColAlign("center,left,left,left,center,right,right,right,center,center,center");     
-	gridMain.setColTypes("ro,combo,combo,ed,ed,edn,edn,edn,ed,ed,ed"); 
-	gridMain.setColSorting("str,str,str,str,str,int,int,int,date,str,str");
+	gridMain.addHeader({name:"No", colId:"gridNo", width:"10", type:"ed"});
+	gridMain.addHeader({name:"품목코드", colId:"itemCode", width:"10", type:"combo"});
+	gridMain.addHeader({name:"품목명", colId:"itemName", width:"10", type:"ro"});
+	gridMain.setColSort("str");
+	gridMain.setUserData("","pk","itemCode");
 	gridMain.init();
 	//calRangeDate
 	 calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"}]);
@@ -36,57 +30,42 @@ $( document ).ready(function() {
 	 calMain.hideTime();
 		var t = dateformat(new Date());
 		byId("stDate").value = t;
+        gridMain.attachEvent("onRowSelect", function(id,ind){
+        	gridMain.editCell();
+        	if(ind==1){
+     		   doOnOpen(combo01);
+     	   }else if(ind==2){
+     		   gfn_load_pop("w1","common/supplyCompCodePOP",true);
+     	   }
+      	});
 		//항목삽입
         toolbar.attachEvent("onClick", function(id) {
 			if(id == "btn5"){
 				fn_insert();
 			}
 		});
-	////combo01 combo02//////////////////////////////////////////////////////
+		//Combo
 		var combo01=gridMain.getColumnCombo(1);
-		var combo02=gridMain.getColumnCombo(2);
-		
-		fn_comboMake(combo01,"#ITEM_CODE#");
-		fn_comboMake(combo02,"#ITEM_NAME#");
-		
-        gridMain.attachEvent("onRowSelect", function(id,ind){
-        	gridMain.editCell();
-        	if(ind==1){
-     		   doOnOpen(combo01);
-     	   }else if(ind==2){
-     		   doOnOpen(combo02);
-     	   }else if(ind==3){
-     		   gfn_load_popup1("w1","common/supplyCompCodePOP",true);
-     	   }
-      	});
-
-   		combo01.attachEvent("onClose", function() {
- 		alert(combo01.getSelectedText().ITEM_NAME);
- 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),2).setValue(combo01.getSelectedText().ITEM_NAME);
-		})
- 		combo02.attachEvent("onClose", function() {
- 			gridMain.cells2(gridMain.getRowIndex(gridMain.getSelectedId()),1).setValue(combo02.getSelectedText().ITEM_CODE);
-		}) 
-		
-/*  		fn_onClose(gridMain,combo01,2,'ITEM_NAME');
-		function fn_onClose(gridName,comboName,cId,optName){
- 				var getSId = gridName.getSelectedId();
- 				var getSText = comboName.getSelectedText().optName;
- 				alert(getSText);
- 			comboName.attachEvent("onClose", function() {
- 				alert(comboName.getSelectedText().optName);
- 				gridName.cells2(gridName.getRowIndex(getSId),cId).setValue(getSText);
- 			})
- 		} */
+		fn_comboMake(combo01,"#itemCode#","품목코드",100,"#itemCode#","품목명",100,"#itemName#");
 		fn_comboReadOnly(combo01);
-		fn_comboReadOnly(combo02);
-		function fn_comboMake(combo,toInput){
+   		combo01.attachEvent("onClose", function() {
+ 			gridMain.setCells2(gridMain.getSelectedRowIndex(),2).setValue(combo01.getSelectedText().itemName);
+		})
+		//Combo End
+    })
+		function fn_comboMake(combo,toInput,hName,hWidth,optName,hName2,hWidth2,optName2){
+			
+ 			/* var comboHeader = "";
+			comboHeader += '{'+'header:'+'"'+hName+'"'+',width:'+hWidth+', option:'+'"'+optName+'"'+'},';
+			comboHeader += '{'+'header:'+'"'+hName2+'"'+',width:'+hWidth2+', option:'+'"'+optName2+'"'+'}';
+			alert(comboHeader); */ 
 			 combo.load({
 					template: {
 					    input: toInput,
 					    columns: [
-					        {header: "ITEM_CODE", width: 110, css: "ITEM_CODE", option: "#ITEM_CODE#"},
-					        {header: "ITEM_NAME", width: 100, css: "ITEM_NAME", option: "#ITEM_NAME#"},
+					        //comboHeader
+					        {header: "itemCode", width: 110,  option: "#itemCode#"},
+					        {header: "itemName", width: 100,  option: "#itemName#"}
 					    ]
 					},
 					options: [
@@ -97,6 +76,19 @@ $( document ).ready(function() {
 			combo.enableAutocomplete(true);
 			combo.allowFreeText(true);
 		}
+		
+/* 			var comboHeader = {header:"",width:"",option:""};
+			comboHeader.header = new Array();
+			comboHeader.width = new Array();
+			comboHeader.option = new Array();
+			var setComHeader = function(val){
+				comboHeader.header.push(val.name);
+				comboHeader.width.push(val.width);
+				comboHeader.option.push(val.option);
+			}
+			var sample = setComHeader({name:"품목코드", width:"100", option:"#itemName#"});
+			alert(sample); */
+		
  		function doOnOpen(combo){
  			$.ajax({
  				"url":"/erp/subTest",
@@ -104,12 +96,11 @@ $( document ).ready(function() {
  				"data":{}
  			    }).done(function(jsonData) {
  					if(jsonData!="") {
- 					
- 						for(var i=0;i<=jsonData.length;i++){
+						for(var i=0;i<=jsonData.length;i++){
  				        	combo.addOption([
  			                  {value: i, text:
- 			                  {"ITEM_CODE": jsonData[i].itemCode,
- 			                  "ITEM_NAME":jsonData[i].itemName}}   
+ 			                  {itemCode: jsonData[i].itemCode,
+ 			                  itemName:jsonData[i].itemName}}   
  				            ]);
  			           }
  						
@@ -117,7 +108,6 @@ $( document ).ready(function() {
  			          alert("No Data");
  			        }
  				});	
- 			
  		}
 		function fn_comboReadOnly(combo){
 				combo.attachEvent("onChange", function(){
@@ -127,13 +117,12 @@ $( document ).ready(function() {
 				combo.enableAutocomplete(false);
 			});
 		}
-		////combo End//////////////////////////////////////////////////////
-    })
     function fn_insert() {
 		var totalColNum = gridMain.getRowsNum();
 	    var data = new Array(totalColNum);
 	          gridMain.addRow(data, 0, 2);
 	}
+var popValue = $('#supplCompName').val();
 </script>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>
@@ -167,7 +156,7 @@ $( document ).ready(function() {
                                 <div class="form-group form-group-sm">
                                     <label class="col-sm-2 col-md-2 control-label" for="textinput">공급업체</label>
                                     <div class="col-sm-2 col-md-2">
-                                        <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체','common/supplyCompCodePOP')">
+                                        <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_pop('w1','common/supplyCompCodePOP',false)">
                                     </div>
                                 </div>
                             </div>
