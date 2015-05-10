@@ -205,6 +205,14 @@ dxGrid.prototype.load = function(json) {
 	setGridHeight();
 };
 
+dxGrid.prototype.loadXML = function(xmlStr) {
+	var pk = this.dxObj.getUserData("","pk");
+	this.dxObj.clearAll();
+	this.dxObj.loadXMLString(xmlStr);
+	if(pk!="") this.dxObj.setUserData("","pk", pk);
+	setGridHeight();
+};
+
 dxGrid.prototype.getAutoVal = function(val) {
 	var calc = val;
 	for(var i = 1; i < (this.dxObj.hdrLabels).length; i++) {

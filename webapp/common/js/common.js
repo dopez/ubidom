@@ -45,8 +45,7 @@ function gfn_gridLoadXml(url, data, grid, callback) {
 		"data":data
 	}).done(function(xmlStr) {
 		if(xmlStr!="") {
-			grid.getDxObj().clearAll();
-			grid.getDxObj().loadXMLString(xmlStr);
+			grid.loadXML(xmlStr);
 			if (callback != null) callback();
         } else {
         	grid.getDxObj().clearAll();
