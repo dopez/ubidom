@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ubi.erp.pers.dao.DeptDao;
 import com.ubi.erp.pers.domain.Dept;
+
 @Service
 public class DeptService {
 	private DeptDao dao;
@@ -23,6 +24,10 @@ public class DeptService {
 
 	public void crudDept(Dept dept) {
 		dao.crudDept(dept);
+	}
+
+	public void selDeptCode(Map<String, Object> map) {
+		dao.selDeptCode(map);
 	}
 
 }

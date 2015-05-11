@@ -104,9 +104,14 @@ $(document).ready(function(){
 			alert("우측 그리드 row 삭제");
 		}
 	})
-	//좌측 그리드 로우 더블클릭 시 우측 그리드 조회
+	//좌측 그리드 로우 더블클릭 시 이벤트
+	gridMst.attachEvent("onRowSelect", function(id,ind){
+    	gridMst.editCell();
+    	
+  	});
  	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
-		
+	//우측 그리드 조회
+	alert("조회");
 	})
 });
 

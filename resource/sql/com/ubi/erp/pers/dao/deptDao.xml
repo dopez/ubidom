@@ -12,5 +12,9 @@
   	<insert id="crudDept" statementType="CALLABLE" parameterType="Dept">
   		{call SP_PERS_DEPTS_SAVE(#{cudKey},#{compId},#{postCode},#{stDate},#{endDate},#{postName},#{costKind},#{sysEmpNo},#{postNameMst})}	
   	</insert>
+  	
+  	<select id="selDeptCode" statementType="CALLABLE">
+		 {call SP_PERS_DEPTS_SCH1(#{compId},#{postName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DeptMap, javaType=ResultSet})}	
+	</select>
 
 </mapper>

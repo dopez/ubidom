@@ -10,4 +10,6 @@ public interface DeptDao {
 
 	void crudDept(Dept dept);
 
+	void selDeptCode(Map<String, Object> param);
+
 }

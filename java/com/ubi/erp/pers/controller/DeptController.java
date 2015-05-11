@@ -29,34 +29,19 @@ public class DeptController {
 	private DeptService deptService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.POST)
 	public List<Dept> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
+		String postCode = request.getParameter("postCode");
+		String postName = request.getParameter("postName");
 		map.put("compId", compId);
-		map.put("postCode", "%");
-		map.put("postName", "%");
+		map.put("postCode", postCode);
+		map.put("postName", postName);
 		map.put("o_cursor", null);
 		deptService.selDept(map);
 		List<Dept> list = (List<Dept>) map.get("o_cursor");
 		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/prsSelDept", method = RequestMethod.POST)
-	public List<Dept> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
-		String postName = "%";
-		if(!request.getParameter("postName").equals("") ||  request.getParameter("postName") != null){
-			postName = request.getParameter("postName");
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("compId", compId);
-		map.put("postCode", "%");
-		map.put("postName", postName);
-		map.put("o_cursor", null);
-		deptService.selDept(map);
-		return (List<Dept>) map.get("o_cursor");
 	}
 
 	@RequestMapping(value = "/prcsDept", method = RequestMethod.POST)
@@ -67,16 +52,43 @@ public class DeptController {
 		String jsonData = request.getParameter("jsonData");
 		List<Dept> list = new ArrayList<Dept>();
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println(jsonData);
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Dept>>(){});
 
 		for (Dept dept : list) {
-			System.out.println(dept.getPostName());
 			dept.setPostNameMst(dept.getPostName());
 			dept.setSysEmpNo(sysEmpNo);
 			dept.setCompId(compId);
 			deptService.crudDept(dept);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selDeptCode",method = RequestMethod.GET)
+	public List<Dept> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
+		map.put("postName", "%");
+		map.put("o_cursor", null);
+		deptService.selDeptCode(map);
+		List<Dept> list = (List<Dept>) map.get("o_cursor");
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/prsSelDeptCode", method = RequestMethod.POST)
+	public List<Dept> prsSelDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String postName = "%";
+		if(!request.getParameter("postName").equals("") ||  request.getParameter("postName") != null){
+			postName = request.getParameter("postName");
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("compId", compId);
+		map.put("postName", postName);
+		map.put("o_cursor", null);
+		deptService.selDept(map);
+		return (List<Dept>) map.get("o_cursor");
 	}
 
 }
