@@ -131,7 +131,6 @@ $(document).ready(function(){
 	         }
 	     }
 	  });
-
 });
 //get방식 조회로직
 function fn_loadGridList() {
@@ -143,7 +142,6 @@ function fn_loadGridList2() {
 };
  //callback 함수
 function fn_deptCallBack() {
-
 };
 </script>
 <form id="pform" name="pform" method="post">
