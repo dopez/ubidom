@@ -25,7 +25,7 @@ function gfn_gridLoad(url, data, grid, callback) {
 			}
         } else {
         	grid.getDxObj().clearAll();
-        	alert("조회된 데이터가 없습니다.");    	
+        	 MsgManager.alertMsg("INF004");    	
         	/*
         	var data = new Array(grid.getDxObj().getColumnCount());
         	data[0] = "NO DATA";

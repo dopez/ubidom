@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("Dept")
 public class Dept implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String no;
 	private String compId;
 	private String postCode;
 	private String stDate;
@@ -22,10 +23,11 @@ public class Dept implements Serializable {
 		super();
 	}
 
-	public Dept(String compId, String postCode, String stDate, String endDate,
-			String postName, String costKind, String sysEmpNo, String sysDate,
-			String postNameMst, String cudKey) {
+	public Dept(String no, String compId, String postCode, String stDate,
+			String endDate, String postName, String costKind, String sysEmpNo,
+			String sysDate, String postNameMst, String cudKey) {
 		super();
+		this.no = no;
 		this.compId = compId;
 		this.postCode = postCode;
 		this.stDate = stDate;
@@ -36,6 +38,14 @@ public class Dept implements Serializable {
 		this.sysDate = sysDate;
 		this.postNameMst = postNameMst;
 		this.cudKey = cudKey;
+	}
+
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
 	}
 
 	public String getCompId() {

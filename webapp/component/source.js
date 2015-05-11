@@ -2,7 +2,6 @@
  * 
  */
 function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
-                
 	$.ajax({
        url: url,
        type: "POST",
@@ -18,9 +17,9 @@ function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
         grid.clearAll();
         grid.parse(data, "js");
                     	
-      if(msgCode != undefined){
+      /*if(msgCode != undefined){
           MsgManager.alertMsg(msgCode);
-        }
+        }*/
       },
       complete: function() {
            layout.progressOff();

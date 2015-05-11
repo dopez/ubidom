@@ -159,7 +159,7 @@ $(function() {
 
  function fn_onOpenPop(){
 	return value;
-}
+};
 
   function fn_onClosePop(pName,data){
 	if(pName=="itemCode"){
@@ -170,7 +170,7 @@ $(function() {
 			}
 				  
 	}	  
- }
+ };
  //실제 조회로직
  function fn_loadGridList() {
 	 var params = "itemName=" + $("#itemName").val();

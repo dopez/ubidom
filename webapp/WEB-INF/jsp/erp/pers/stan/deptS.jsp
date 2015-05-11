@@ -18,9 +18,12 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"50", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","postCode");
-	gridMst.init();
+	gridMst.init(); 
+	gridMst.attachEvent("onRowSelect",doOnRowSelect);
+	
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
+	gridDtl.addHeader({name:"NO", colId:"no", width:"5", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"15", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"시작일", colId:"stDate", width:"15", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"종료일", 	colId:"endDate", width:"15", align:"center", type:"ro"});
@@ -29,15 +32,20 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
+	fn_loadGridListCode();
 	
-	fn_loadGridList();
+	function doOnRowSelect(id,ind){
+		var postCode = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+		var postName = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),1).getValue();
+		fn_loadGridList(postCode,postName);
+	}
 	
 	var combo=gridDtl.getColumnCombo(5);
 	combo.load({
 		template: {
 		    input: "#costKind#",
 		    columns: [
-		        {header: "원가구분", width: 110,  option: "#costKind#"}
+		        {header: "원가구분", width: 100,  option: "#costKind#"}
 		    ]
 		},
 		options: [
@@ -64,7 +72,7 @@ $(document).ready(function(){
 	//조회
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	    	  fn_loadGridList2();
+	    	  fn_loadGridListCode();
 	      }
 	});
 	
@@ -81,7 +89,7 @@ $(document).ready(function(){
 	           async : true,
 	           success : function(data) {
 	           MsgManager.alertMsg("INF001");
-	           fn_loadGridList();
+	           fn_loadGridListCode();
 	            }
 	       });
 	      }
@@ -92,12 +100,14 @@ $(document).ready(function(){
 	   if (id == "btn5") {
 	     var totalColNum = gridDtl.getColumnCount();
 	     var data = new Array(totalColNum);
+	     var noColIdx = gridDtl.getColIndexById("no");
 	     var stDateColIdx = gridDtl.getColIndexById('stDate');
 	     var endDateColIdx = gridDtl.getColIndexById('endDate');
 		 var data = new Array(totalColNum);
+		    data[noColIdx] = gridDtl.getRowsNum()+1;
 			data[stDateColIdx] = dateformat2(new Date());
 			data[endDateColIdx] = "99991231";
-	        gridDtl.addRow(data, 0, 5);
+	        gridDtl.addRow(data, gridDtl.getRowsNum()+1, 5);
 	       }
 	   });
 	
@@ -105,6 +115,7 @@ $(document).ready(function(){
 	   toolbar.attachEvent("onClick", function(id) {
 	    if (id == "btn6") {
 	       var rodIdx = gridDtl.getSelectedRowId();
+	       var rodid = gridDtl.getSelectedRowIndex();
 	       if(gridDtl.isDelRows(rodIdx)) {
 	          if(MsgManager.confirmMsg("INF002")) {
 	        	  if(gridDtl.chkUnsavedRow()) {
@@ -133,18 +144,41 @@ $(document).ready(function(){
 	  });
 
 });
-//get방식 조회로직
-function fn_loadGridList() {
-	    gfn_gridLoad("/erp/dept",params, gridDtl, fn_deptCallBack);
+//get방식 dept 조회로직
+function fn_loadGridList(code,name) {
+	var params =  "postCode=" + code;
+		params += "&postName=" + name;
+	    gfn_callAjaxForGrid(gridDtl,params,"/erp/dept",subLayout.cells("b"),"INF004");
 };
-function fn_loadGridList2() {
-	 var params = "postName=" + $("#postName").val();
-	 gfn_callAjaxForGrid(gridDtl,params,"/erp/dept/prsSelDept",subLayout.cells("b"),"INF004");
+
+//get방식 deptCode 조회로직
+function fn_loadGridListCode() {
+	    gfn_gridLoad("/erp/dept/selDeptCode",[], gridMst, fn_loadGridListCodeCB);
 };
- //callback 함수
-function fn_deptCallBack() {
+
+ // fn_loadGridList callback 함수
+function fn_loadGridListCB() {
 
 };
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+	fn_loadGridList('11100','임원');
+};
+
+function fn_onOpenPop(){
+	var value =  $("#postName").val();
+	return value;
+};
+
+  function fn_onClosePop(pName,data){
+	if(pName=="postCode"){
+		var i;
+		for(i=0;i<data.length;i++){
+			 gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(data[i].postCode);
+			 gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(data[i].postName);
+		}		  
+	}	  
+ };
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
@@ -160,7 +194,7 @@ function fn_deptCallBack() {
 			 부서명
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_pop('w1','common/deptCodePOP',true)">
 			</div>
 		  </div>
 	  </div>

@@ -5,6 +5,13 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var orinGrid;
+var config={
+		title:"부서코드",
+		id:"postCode",
+		width:"300",
+		height:"500"
+	}
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//부서코드 도우미
@@ -12,28 +19,52 @@ $(document).ready(function(){
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
     
-    layout.cells("b").attachObject("bootContainer");
+    layout.cells("b").attachObject("bootContainer2");
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("부서코드,부서명",null,
-			["text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("150,150");
-	gridMain.setColAlign("left,left");
-	gridMain.setColTypes("ro,ro");
-	gridMain.setColSorting("str,str");
-	gridMain.init(); 
+    gridMain = new dxGrid(subLayout.cells("a"), false);
+	
+    gridMain.addHeader({name:"부서코드", colId:"postCode", 	width:"14", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서명", 	 colId:"postName", 	width:"14", align:"center", type:"ro"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","postCode");
+	gridMain.init();
+	
+/* 	var params = "itemCode=" + parent.fn_onOpenPop();
+	gfn_gridLoad("/erp/subTest",params, gridMain, fn_PopValue);
+	
+	
+	toolbar.attachEvent("onClick", function(id) {
+	      if (id == "btn1") {
+	    	  var params = "itemCode=" + $("#itemCode").val();
+	    	  gfn_gridLoad("/erp/subTest",params, gridMain, fn_PopValue);
+	         }
+	});
+	
+	 function fn_PopValue(){
+		 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	 }
+	 
+	 function doOnRowDblClicked(rId,cInd){
+		  var row = rId-1;
+		  var cell = cInd;
+		  var postCode = gridMain.setCells2(row,0).getValue();
+		  var postName = gridMain.setCells2(row,1).getValue();
+		  var arr = [{"postCode":postCode,"postName":postName}];
+		  parent.fn_onClosePop(config.id,arr);
+		  parent.dhxWins.window("w1").close();
+	  } */
+
 });
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
-<div id="bootContainer" style="position: relative;">
+<div id="bootContainer2" style="position: relative;">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
 			 부서명
 			</label>
 			<div class="col-xs-6">
-			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

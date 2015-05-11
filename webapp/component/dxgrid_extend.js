@@ -1,7 +1,7 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
 	this.dxObj = divId.attachGrid();
-	//  this.dxObj = new dhtmlXGridObject(divId);
+	//this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
 	this.dxObj.setDateFormat("%Y%m%d");
@@ -320,7 +320,6 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
 		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
-
 		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
 			var row={};
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
@@ -332,10 +331,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 					this.dxObj.selectCell(i, j, false, true, false);
 					return null;
 				}
-	
-				if(colId != "editStat" && colId != "chk") {
-					row[colId]=colVal;
-				}
+				  row[colId]=colVal;
 			}
 			arr.push(row);
 		}
@@ -481,6 +477,29 @@ dxGrid.prototype.chkUnsavedRows = function() {
 			}
 		}
 	}
+	return true;
+};
+//한줄만 삭제
+dxGrid.prototype.chkUnsavedRows = function() {
+	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+
+	var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
+	if (cudColVal == actInsert) {
+			if(!isDelRow) {
+				if(MsgManager.confirmMsg("WRN007")) {
+					isDelRow = true;
+					this.dxObj.deleteRow(this.dxObj.getRowId(i));
+					i--;
+				} else {
+					return false;
+				}
+			} else {
+				this.dxObj.deleteRow(this.dxObj.getRowId(i));
+				i--;
+			}
+		}
+
 	return true;
 };
 //메세지 안나오게 한 로직
