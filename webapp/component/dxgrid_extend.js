@@ -4,7 +4,7 @@ var dxGrid = function(divId, autoHeight){
 	//  this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
-	this.dxObj.setDateFormat("%Y-%m-%d");
+	this.dxObj.setDateFormat("%Y%m%d");
 	this.dxObj.attachEvent("onEditCell", gfn_gridEditCell);
 	
 	this.headerName = new Array();
@@ -316,40 +316,32 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
-	var arr = editCol.split(";");
-	
-	for(var i = 0; i < arr.length-1; i++) {
+	var arr = [];
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-		var gubun = this.dxObj.cells2(arr[i],cudColIdx).getValue().toUpperCase();
+		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
 
 		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
-			var row = '{';
+			var row={};
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				colVal = this.dxObj.cells2(arr[i],j).getValue();
+				colVal = this.dxObj.cells2(i,j).getValue();
 				
 				if(!gfn_validation(colId, colNm, colVal) ) {
-					this.dxObj.selectCell(arr[i], j, false, true, false);
+					this.dxObj.selectCell(i, j, false, true, false);
 					return null;
 				}
 	
 				if(colId != "editStat" && colId != "chk") {
-					row += '"' + colId + '": "' + colVal + '",';
+					row[colId]=colVal;
 				}
 			}
-			jsonStr += row.substring(0, row.lastIndexOf(',')) + '},';
+			arr.push(row);
 		}
 	}
-	jsonStr = jsonStr.substring(0, jsonStr.lastIndexOf(','));
-	
-	if (jsonStr.length > 0) {
-		jsonStr = '[' + jsonStr + ']';
-	} else {
-		MsgManager.alertMsg("WRN004");
-		return null;
-	}
-	
+	jsonStr = JSON.stringify(arr);
+
 	return jsonStr;
 };
 
@@ -644,4 +636,12 @@ dxGrid.prototype.printView = function(before,after){
 
 dxGrid.prototype.clearAll = function(flag){
 	return this.dxObj.clearAll(flag);
+}
+
+dxGrid.prototype.setColumnHidden = function(ind,state){
+	return this.dxObj.setColumnHidden(ind,state);
+}
+
+dxGrid.prototype.parse = function(data,type){
+	return this.dxObj.parse(data,type);
 }
