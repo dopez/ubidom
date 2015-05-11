@@ -27,6 +27,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"부서명", colId:"postName", width:"20", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setColSort("str");
+	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
 	
 	fn_loadGridList();
@@ -99,12 +100,41 @@ $(document).ready(function(){
 	        gridDtl.addRow(data, 0, 5);
 	       }
 	   });
+	
+	//한줄삭제
+	   toolbar.attachEvent("onClick", function(id) {
+	    if (id == "btn6") {
+	       var rodIdx = gridDtl.getSelectedRowId();
+	       if(gridDtl.isDelRows(rodIdx)) {
+	          if(MsgManager.confirmMsg("INF002")) {
+	        	  if(gridDtl.chkUnsavedRow()) {
+	        		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
+	                  if (jsonStr == null || jsonStr.length <= 0) return;
+	                  $("#jsonData").val(jsonStr);
+	                      $.ajax({
+	                       url : "/erp/dept/prcsDept",
+	                       type : "POST",
+	                       data : $("#pform").serialize(),
+	                       async : true,
+	                       success : function(data) {
+	                       MsgManager.alertMsg("INF003");
+	                       fn_loadGridList();
+	                        }
+	                  });
+	        	  }
+	        	 
+	           } else {
+	            	 MsgManager.alertMsg("WRN004");
+	             } 
+	        }else {
+	            MsgManager.alertMsg("WRN002");
+	         }
+	     }
+	  });
 
 });
 //get방식 조회로직
 function fn_loadGridList() {
-	 var params = "postName=" + $("#postName").val();
-	    gfn_gridLoad("/erp/dept",params, gridMst, fn_deptCallBack);
 	    gfn_gridLoad("/erp/dept",params, gridDtl, fn_deptCallBack);
 };
 function fn_loadGridList2() {
