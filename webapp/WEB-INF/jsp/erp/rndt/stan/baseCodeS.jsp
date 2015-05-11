@@ -21,7 +21,8 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"코드명", colId:"codeName", width:"50", type:"ed"});
 	gridMst.setColSort("str");
 	gridMst.setUserData("","pk","code");
-	gridMst.init();	
+	gridMst.init();
+
 	
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
@@ -34,18 +35,13 @@ $(document).ready(function(){
 	gridDtl.setUserData("","pk","innerCode");
 	gridDtl.init();	
 	
-//	gridMstCode = gridMst.getCellValue(gridMst.getSelectedRowIndex(),gridMst.getColIndexById('code'));
-	//var gridMstCode = gridMst.getCellValue(gridMst.getSelectedRowId(),0).getValue();
-	//var gridMstCode = gridMst.getSelectedRowIndex()+1;
 	//상위 버튼 동작 이벤트
 	toolbar.attachEvent("onClick", function(id){
 		//조회 버튼 동작
 		if(id == "btn1"){
 			alert("조회");
-			//var param = {V_COMP:"100", V_CODE:"%",V_NAME:"%"};
 			var params = "codeName=" + $("#baseName").val();
-			alert(params);
-			//gfn_gridLoad("/erp/rndt/baseCodeS/baseCodeMstSel",params, gridMst,fn_callBack);
+			//gfn_gridLoad("/erp/rndt/baseCodeS/getBaseCodeMstSel",params, gridMst,fn_callBack);
 			gfn_callAjaxForGrid(gridMst,params,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),"INF004");
 		}
 		//신규 버튼 동작
@@ -71,7 +67,9 @@ $(document).ready(function(){
 		           
 		            }
 		       });
-			var jsonStr2 = gridDtl.getJsonUpdated2();
+	 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+			alert("codeMain");
+	 		var jsonStr2 = gridDtl.getJsonUpdated2();
 		    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
 		        $("#jsonData2").val(jsonStr2);                      
 		        $.ajax({
@@ -104,18 +102,25 @@ $(document).ready(function(){
 			alert("우측 그리드 row 삭제");
 		}
 	})
+	
 	//좌측 그리드 로우 더블클릭 시 이벤트
+ 	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
+/*  		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+		fn_loadGridDtl(codeMain); */
+	})
+	
+	//그리드 onRowSelect edit
 	gridMst.attachEvent("onRowSelect", function(id,ind){
     	gridMst.editCell();
-    	
+ 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+		fn_loadGridDtl(codeMain);
   	});
- 	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
-	//우측 그리드 조회
-	alert("조회");
-	})
 });
 
-		//gfn_gridLoad("/erp/rndt/baseCodeS/baseCodeDtlSel",param,gridDtl,fn_callBack);
+function fn_loadGridDtl(code){
+	var param = "code=" + code;
+    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/baseCodeDtlSel",subLayout.cells("b"),"INF004");
+}
 function fn_callBack(){
 	alert("isDone?");
 }

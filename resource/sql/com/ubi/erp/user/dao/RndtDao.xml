@@ -8,12 +8,15 @@
 	 <select id="selBaseCode" statementType="CALLABLE" >
 		 {call SP_COMM_BASECODES_SCH1(#{compId},#{code},#{codeName},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=RndtMap, javaType=ResultSet})}	
 	</select>
+	 <select id="selInterCode" statementType="CALLABLE" >
+		 {call SP_COMM_BASECODES_SCH2(#{compId},#{code},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=RndtMap, javaType=ResultSet})}	
+	</select>
 	
 	<insert id="crudRndt" statementType="CALLABLE" parameterType="Rndt">
   		{call SP_COMM_baseCodeS_Save1(#{cudKey},#{compId,jdbcType=VARCHAR},#{code},#{codeName},#{sysEmpNo})}	
   	</insert>
 	<insert id="crudDtlRndt" statementType="CALLABLE" parameterType="Rndt">
-  		{call SP_COMM_baseCodeS_Save1(#{cudKey},#{compId,jdbcType=VARCHAR},#{code},#{innerCode},#{innerCodeName},#{addVar},#{descRmk},#{sysEmpNo})}	
+  		{call SP_COMM_baseCodeS_Save2(#{cudKey},#{compId,jdbcType=VARCHAR},#{code},#{innerCode},#{innerCodeName},#{addVar},#{descRmk},#{sysEmpNo})}	
   	</insert>
 <!-- 	 <select id="selBaseCode" statementType="CALLABLE" >
 		 {call SP_COMM_BASECODES_SCH1(#{comp},#{code},#{codeName},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=RndtMap, javaType=ResultSet})}	

@@ -32,7 +32,7 @@ public class RndtController {
 	private RndtService rndtService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/baseCodeS/baseCodeMstSelee", method = RequestMethod.GET)
+	@RequestMapping(value = "/baseCodeS/getBaseCodeMstSel", method = RequestMethod.GET)
 	public List<Rndt> baseCodeMstSel(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -52,7 +52,7 @@ public class RndtController {
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/baseCodeS/baseCodeMstSel", method = RequestMethod.POST)
-	public List<Dept> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<Rndt> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String codeName="";
 		if(request.getParameter("codeName").equals("") ||  request.getParameter("codeName") == null){
@@ -66,7 +66,21 @@ public class RndtController {
 		map.put("codeName", codeName);
 		map.put("P_RST", null);
 		rndtService.selBaseCode(map);
-		return (List<Dept>) map.get("P_RST");
+		return (List<Rndt>) map.get("P_RST");
+	}	
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/baseCodeS/baseCodeDtlSel", method = RequestMethod.POST)
+		public List<Rndt> baseCodeDtlSel(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+			String compId = (String) session.getAttribute("compId");
+			String code = request.getParameter("code");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("compId", compId);
+			map.put("code", code);
+			map.put("P_RST", null);
+			rndtService.selInterCode(map);
+			/*List<Rndt> list = (List<Rndt>) map.get("P_RST");
+			return list;*/
+			return (List<Rndt>) map.get("P_RST");
 	}
 	@RequestMapping(value = "/codeSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
@@ -87,7 +101,7 @@ public class RndtController {
 			rndtService.crudRndt(rndt);
 		}
 	}
-	@RequestMapping(value = "/codeSaveDtl", method = RequestMethod.POST)
+	@RequestMapping(value = "/baseCodeS/codeSaveDtl", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void codeSaveDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");

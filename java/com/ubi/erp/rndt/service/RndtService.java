@@ -32,4 +32,9 @@ public class RndtService {
 		dao.crudDtlRndt(rndt);
 		
 	}
+
+	public void selInterCode(Map<String, Object> map) {
+		dao.selInterCode(map);
+		
+	}
 }
