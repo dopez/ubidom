@@ -54,6 +54,7 @@ public class LoginController {
 				session.setAttribute("uname", user.getCustName());
 				session.setAttribute("empNo", user.getEmpNo());
 				session.setAttribute("empName", user.getEmpName());
+				session.setAttribute("compId", "100");
 				System.out.println("empNo"+ user.getEmpNo());
 				System.out.println("empName"+ user.getEmpName());
 				map.put("rtnCode", "1");

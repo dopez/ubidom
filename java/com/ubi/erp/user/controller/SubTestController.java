@@ -75,11 +75,11 @@ public class SubTestController {
 		
 		
 		for(Test test : list) {
-			if("CREATE_VALUE".equals(test.getCudKey())) {
+			if("INSERT".equals(test.getCudKey())) {
 				testService.insTest(test);
-			}else if("UPDATE_VALUE".equals(test.getCudKey())){
+			}else if("UPDATE".equals(test.getCudKey())){
 				testService.updTest(test);
-			}else if("DELETE_VALUE".equals(test.getCudKey())){
+			}else if("DELETE".equals(test.getCudKey())){
 				testService.delTest(test);
 			}
 		}
@@ -96,11 +96,11 @@ public class SubTestController {
 		
 		
 		for(SubTest subTest : list) {
-			if("CREATE_VALUE".equals(subTest.getCudKey())) {
+			if("INSERT".equals(subTest.getCudKey())) {
 				subTestService.insTest(subTest);
-			}else if("UPDATE_VALUE".equals(subTest.getCudKey())){
+			}else if("UPDATE".equals(subTest.getCudKey())){
 				subTestService.updTest(subTest);
-			}else if("DELETE_VALUE".equals(subTest.getCudKey())){
+			}else if("DELETE".equals(subTest.getCudKey())){
 				subTestService.delTest(subTest);
 			}
 		}

@@ -36,6 +36,7 @@ $(document).ready(function(){
 	         }
 	});
 	function fn_gridPopLoad(){
+				alert(parent.popValue);
 				var param = "custName=" + parent.popValue;
 				alert(param);
 		if(param == null || param == ''){

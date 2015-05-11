@@ -49,10 +49,10 @@ $(function() {
 	toolbar.attachEvent("onClick",function(id){
 		if(id == "btn9"){
 			//pdf 로직
-			//window.open('/erp/subTest/report/reportTest.do','rpt','');
+			window.open('/erp/subTest/report/reportTest.do','rpt','');
 			
 			//해당 Grid 프린트뷰
-			gridMst.printView();
+			//gridMst.printView();
 		}
 	});
 	
@@ -141,6 +141,7 @@ $(function() {
                        async : true,
                        success : function(data) {
                        MsgManager.alertMsg("INF003");
+                       fn_loadGridList();
                         }
                   });
         	  }
@@ -158,7 +159,7 @@ $(function() {
 
  function fn_onOpenPop(){
 	return value;
-}
+};
 
   function fn_onClosePop(pName,data){
 	if(pName=="itemCode"){
@@ -169,7 +170,7 @@ $(function() {
 			}
 				  
 	}	  
- }
+ };
  //실제 조회로직
  function fn_loadGridList() {
 	 var params = "itemName=" + $("#itemName").val();

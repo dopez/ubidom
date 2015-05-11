@@ -5,6 +5,7 @@ var layout, toolbar, subLayout;
 var gridMain;
 var calMain;
 var combo01;
+var popValue = $('#supplCompName').val();
 $( document ).ready(function() {
 	
 	Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //combo_sample
@@ -42,6 +43,12 @@ $( document ).ready(function() {
         toolbar.attachEvent("onClick", function(id) {
 			if(id == "btn5"){
 				fn_insert();
+			}
+		});
+        
+        toolbar.attachEvent("onClick", function(id) {
+			if(id == "btn1"){
+				alert(popValue);
 			}
 		});
 		//Combo
@@ -122,7 +129,7 @@ $( document ).ready(function() {
 	    var data = new Array(totalColNum);
 	          gridMain.addRow(data, 0, 2);
 	}
-var popValue = $('#supplCompName').val();
+
 </script>
         <div id="container" style="position: relative; widtd: 100%; height: 100%;">
         </div>

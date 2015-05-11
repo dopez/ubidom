@@ -6,9 +6,9 @@ var delCol = "";
 var chkCol = "chk";
 var editStatCol = "editStat";
 var cudKeyCol = "cudKey";
-var actInsert = "CREATE_VALUE";
-var actUpdate = "UPDATE_VALUE";
-var actDelete = "DELETE_VALUE";
+var actInsert = "INSERT";
+var actUpdate = "UPDATE";
+var actDelete = "DELETE";
 var gAutoHeight = true;
 var gridHeight = -50;
 var editIcon = "<img src=/images/common/caution01.png>";
@@ -218,4 +218,15 @@ function gfn_load_pop(eleId,view_path,isModal){
 	pLayout.cells(id).setSizes();
 	});
 	 pLayout.cells("a").attachURL("/erp/popup/"+view_path+".do");
+}
+
+function gfn_setNumberFormat(grid,colArr,format) {
+	 var defaultFormat = "0,000";
+	                if(format == undefined)
+	 format = defaultFormat;
+	 for (var i = 0; i < colArr.length; i++) {
+	                    var colIndex = grid.getColIndexById(colArr[i]);
+	                    
+	   grid.setNumberFormat(format, colIndex);
+	                }
 }

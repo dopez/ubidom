@@ -5,18 +5,15 @@ import java.io.Serializable;
 import org.apache.ibatis.type.Alias;
 
 @Alias("User")
-public class User implements Serializable
-{
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String custCode;
 	private String custName;
 	private String empNo;
 	private String empName;
-	
-	
-	
-	
+	private String compId;
+
 	public String getEmpName() {
 		return empName;
 	}
@@ -48,5 +45,17 @@ public class User implements Serializable
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-	
+
+	public String getCompId() {
+		return compId;
+	}
+
+	public void setCompId(String compId) {
+		this.compId = compId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }
