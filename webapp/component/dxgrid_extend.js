@@ -1,7 +1,7 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
 	this.dxObj = divId.attachGrid();
-	//this.dxObj = new dhtmlXGridObject(divId);
+	//  this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
 	this.dxObj.setDateFormat("%Y-%m-%d");

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMain;
+var gridMst, gridDtl;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,3,5,6],"1C");
 	//부서등록
@@ -13,16 +13,12 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서코드,본부명,부서명,파트명,부서명(조회기준),부서전체명,적용일자,원가구분,사용여부",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,left,left,left,center,center,center");
-	gridMain.setColTypes("ron,ro,ed,ed,ed,ed,ed,dhxCalendarA,coro,ch");
-	gridMain.setColSorting("int,str,str,str,str,str,str,date,na,na");
-	gridMain.init();	
+	gridMst = new dxGrid(subLayout.cells("a"), false);
+	
+	gridMst.addHeader({name:"부서코드", colId:"deptCode", width:"33", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서명", 	colId:"deptName", width:"33", align:"center", type:"ro"});
+	gridMst.setColSort("str");	
+	gridMst.setUserData("","pk","itemCode");
 
 });
 </script>
