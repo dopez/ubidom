@@ -27,11 +27,12 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"NO", colId:"no", width:"5", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"15", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"시작일", colId:"stDate", width:"15", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"종료일", 	colId:"endDate", width:"15", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"종료일", 	colId:"endDate", width:"15", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"부서명", colId:"postName", width:"20", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
+	gridDtl.setColumnHidden(0,true);
 	gridDtl.init();
 
 	var combo=gridDtl.getColumnCombo(5);
@@ -54,16 +55,12 @@ $(document).ready(function(){
    
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		
 	});
 
   	combo.attachEvent("onClose", function() {
 		gridDtl.setCells2(gridDtl.getSelectedRowIndex(gridDtl.getSelectedRowId()),5).setValue(combo.getSelectedText().costKind);
 	});
-		
-
-
-
+  	
 });
 
 function fn_add(){
@@ -74,7 +71,7 @@ function fn_add(){
     var endDateColIdx = gridDtl.getColIndexById('endDate');
 	 var data = new Array(totalColNum);
 	    data[noColIdx] = gridDtl.getRowsNum()+1;
-		data[stDateColIdx] = dateformat2(new Date());
+		data[stDateColIdx] = dateformat(new Date());
 		data[endDateColIdx] = "9999/12/31";
        gridDtl.addRow(data);
 }
@@ -94,7 +91,7 @@ function fn_delete(){
                       async : true,
                       success : function(data) {
                       MsgManager.alertMsg("INF003");
-                      fn_loadGridList();
+                      fn_loadGridListCode(fn_value(),1);
                        }
                  });
        	   }
@@ -117,7 +114,7 @@ function fn_save(){
 	           async : true,
 	           success : function(data) {
 	           MsgManager.alertMsg("INF001");
-	           fn_loadGridListCode();
+	           fn_loadGridListCode(fn_value(),1);
 	            }
 	       });
 }
@@ -125,8 +122,7 @@ function doOnRowSelect(id,ind){
 	var obj = {};
 	obj.postCode= gridMst.setCells(id,0).getValue();
 	obj.postName= gridMst.setCells(id,1).getValue();
-	
-	fn_loadGridList(obj);
+	fn_loadGridList(obj,2);
 }
 function fn_comboReadOnly(combo){
 	combo.attachEvent("onChange", function(){
@@ -137,30 +133,56 @@ function fn_comboReadOnly(combo){
 	});
 };	
 function fn_search(){
-	fn_loadGridListCode();
+	var params = fn_value();
+	fn_loadGridListCode(params,1);
 }
 // dept 조회로직
-function fn_loadGridList(params) {
-	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),fn_loadGridListCB);
+function fn_loadGridList(params,flag) {
+		var callbackFn;
+		if(flag == 1){
+			callbackFn = fn_loadGridListCB;
+		}else{
+			callbackFn = fn_loadGridList2CB;
+		}
+	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),callbackFn);
 };
 
 //get방식 deptCode 조회로직
-function fn_loadGridListCode() {
-	var params ="postName=" + $("#postName").val();
-	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB); 
+function fn_loadGridListCode(params,flag) {
+	var callbackFn;
+	if(flag == 1){
+		callbackFn = fn_loadGridListCodeCB;
+	}else{
+		callbackFn = fn_loadGridListCode2CB;
+	}
+	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),callbackFn); 
 };
 
  // fn_loadGridList callback 함수
-function fn_loadGridListCB() {
-
+function fn_loadGridListCB(data) {
+	var obj={};
+	obj.postName=data[0].postName;
+	obj.postCode=data[0].postCode;
+	fn_loadGridListCode(obj,2);
 };
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB(data) {
 	var obj={};
 	obj.postName=data[0].postName;
 	obj.postCode=data[0].postCode;
-	fn_loadGridList(obj);
+	fn_loadGridList(obj,2);
 };
+//fn_loadGridList2callback 함수
+function fn_loadGridList2CB(data) {
+};
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCode2CB(data) {
+};
+
+function fn_value(){
+	var params ="postName=" + $("#postName").val();
+	return params;
+}
 
 function fn_onOpenPop(){
 	var value =  $("#postName").val();
@@ -170,10 +192,13 @@ function fn_onOpenPop(){
 function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
 		var i;
+		var obj={};
 		for(i=0;i<data.length;i++){
 			var params =  "postName=" + data[i].postName;
-			gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
-			fn_loadGridList(data[i].postCode,data[i].postName);
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			fn_loadGridListCode(obj,1);
+			$("#postName").val(obj.postName);
 		}		  
 	}	  
  };

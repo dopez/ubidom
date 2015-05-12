@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.pers.domain.Dept;
+import com.ubi.erp.pers.domain.DeptS;
 import com.ubi.erp.rndt.domain.Rndt;
 import com.ubi.erp.rndt.service.RndtService;
 

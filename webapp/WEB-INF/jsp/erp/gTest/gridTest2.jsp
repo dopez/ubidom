@@ -22,7 +22,7 @@ $(function() {
   gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"33", align:"center", type:"ed"});
   gridMst.setColSort("str");	
   gridMst.setUserData("","pk","itemCode");
-  
+  gridMst.enableSmartRendering(true,5);
   gridMst.atchHeader();
   gridMst.addAtchHeader({atchHeaderName:"품목코드"});
   gridMst.addAtchHeader({atchHeaderName:"품목명"});
