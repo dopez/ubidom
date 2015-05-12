@@ -6,16 +6,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ubi.erp.rndt.dao.RndtDao;
-import com.ubi.erp.rndt.domain.Rndt;
+import com.ubi.erp.rndt.dao.BaseCodeSDao;
+import com.ubi.erp.rndt.domain.BaseCodeS;
 
 @Service
-public class RndtService {
-	private RndtDao dao;
+public class BaseCodeSService {
+	private BaseCodeSDao dao;
 
 	@Autowired
 	public void setSqlSession(SqlSession sqlSession) {
-		dao = sqlSession.getMapper(RndtDao.class);
+		dao = sqlSession.getMapper(BaseCodeSDao.class);
 	}
 
 	public void selBaseCode(Map<String, Object> map) {
@@ -23,13 +23,13 @@ public class RndtService {
 		
 	}
 
-	public void crudRndt(Rndt rndt) {
-		dao.crudRndt(rndt);
+	public void crudRndt(BaseCodeS basecodss) {
+		dao.crudRndt(basecodss);
 		
 	}
 
-	public void crudDtlRndt(Rndt rndt) {
-		dao.crudDtlRndt(rndt);
+	public void crudDtlRndt(BaseCodeS basecodss) {
+		dao.crudDtlRndt(basecodss);
 		
 	}
 

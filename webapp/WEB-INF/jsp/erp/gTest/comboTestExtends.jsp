@@ -60,6 +60,9 @@ $( document ).ready(function() {
 		})
 		//Combo End
     })
+    
+    
+    
 		function fn_comboMake(combo,toInput,hName,hWidth,optName,hName2,hWidth2,optName2){
 			
  			/* var comboHeader = "";
