@@ -37,105 +37,10 @@ $(document).ready(function(){
 	
 	fn_loadGridMst();
 	gridDtl.clearAll();
-	//상위 버튼 동작 이벤트
-	toolbar.attachEvent("onClick", function(id){
-		//조회 버튼 동작
-		if(id == "btn1"){
-			alert("조회");
-			fn_loadGridMst();
-			gridDtl.clearAll();
-		}
-		//신규 버튼 동작
-		if(id == "btn2"){
-			alert("좌측 그리드 row 추가");
-			var totalColNum = gridMst.getColumnCount();
-          	var data = new Array(totalColNum);
-            gridMst.addRow(data, 0, 2);
-		}
-		//저장 버튼 동작
-		if(id == "btn3"){
-			alert("변경 사항 저장");
-			var jsonStr = gridMst.getJsonUpdated2();
-		    if (jsonStr == null || jsonStr.length <= 0) return;        		
-		        $("#jsonData").val(jsonStr);                      
-		        $.ajax({
-		           url : "/erp/rndt/baseCodeS/codeSave",
-		           type : "POST",
-		           data : $("#hiddenform").serialize(),
-		           async : true,
-		           success : function(data) {
-		           MsgManager.alertMsg("INF001");
-		           gridMst.clearAll();
-		           fn_loadGridMst();
-		            }
-		       });
-	 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-	 		var jsonStr2 = gridDtl.getJsonUpdated2();
-		    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
-		    if (codeMain == null || codeMain.length <= 0) return;        		
-		        $("#jsonData2").val(jsonStr2);
-		        $("#gridMstCode").val(codeMain);
-		        $.ajax({
-		           url : "/erp/rndt/baseCodeS/codeSaveDtl",
-		           type : "POST",
-		           data : $("#hiddenform").serialize(),
-		           async : true,
-		           success : function(data) {
-		           MsgManager.alertMsg("INF001");
-		           
-		            }
-		       });
-			
-		}
-		//삭제 버튼 동작
-		if(id == "btn4"){
-			alert("좌측 그리드 select row 삭제(하위항목까지)");
-	        var rodIdx = gridMst.getSelectedRowId();
-	        var rodid = gridMst.getSelectedRowIndex();
-	        if(gridMst.isDelRows(rodIdx)) {
-	           if(MsgManager.confirmMsg("INF002")) {
-	         	  if(gridMst.chkUnsavedRow()) {
-	         		  var jsonStr = gridMst.getJsonRowDel(rodIdx);
-	                   if (jsonStr == null || jsonStr.length <= 0) return;
-	                   $("#jsonData").val(jsonStr);
-	                       $.ajax({
-	                        url : "/erp/rndt/baseCodeS/codeSave",
-	                        type : "POST",
-	                        data : $("#hiddenform").serialize(),
-	                        async : true,
-	                        success : function(data) {
-	                        MsgManager.alertMsg("INF003");
-	            			fn_gridDtlDel();
-	            			fn_loadGridMst();
-	                         }
-	                   });
-	        	   }
-	            } else {
-	            	 MsgManager.alertMsg("WRN004");
-	              } 
-	         }else {
-	             MsgManager.alertMsg("WRN002");
-	          }
-		}
-		//한줄삽입 버튼 동작
-		if(id == "btn5"){
-			alert("우측 그리드 row 추가");
-			var totalColNum = gridDtl.getColumnCount();
-          	var data = new Array(totalColNum);
-          	gridDtl.addRow(data, 0, 2);
-		}
-		//한줄삭제 버튼 동작
-		if(id == "btn6"){
-			alert("우측 그리드 row 삭제");
-			fn_gridDtlDel();
-	     }
-	})
-	
 	//좌측 그리드 로우 더블클릭 시 이벤트
  	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
 
 	})
-	
 	//그리드 onRowSelect edit
 	gridMst.attachEvent("onRowSelect", function(id,ind){
     	gridMst.editCell();
@@ -146,16 +51,109 @@ $(document).ready(function(){
 		gridDtl.editCell();
   	});
 });
-function fn_loadGridMst(){
-	var params = "codeName=" + $("#baseName").val();
-	//gfn_gridLoad("/erp/rndt/baseCodeS/getBaseCodeMstSel",params, gridMst,fn_callBack);
-	gfn_callAjaxForGrid(gridMst,params,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),fn_loadGridMstCallBack);
-	//gridDtl.clearAll();
+//doc Ready End
+//btn function Start
+function fn_search(){
+	fn_loadGridMst();
+	gridDtl.clearAll();
 }
+//신규 버튼 동작
+function fn_new(){
+	var totalColNum = gridMst.getColumnCount();
+  	var data = new Array(totalColNum);
+    gridMst.addRow(data);
+  	var totalRowNum = gridMst.getRowsNum()-1;
+    gridMst.selectRow(totalRowNum);
+}
+//저장 버튼 동작
+function fn_save(){
+	var jsonStr = gridMst.getJsonUpdated2();
+    if (jsonStr == null || jsonStr.length <= 0) return;        		
+        $("#jsonData").val(jsonStr);                      
+        $.ajax({
+           url : "/erp/rndt/baseCodeS/codeSave",
+           type : "POST",
+           data : $("#hiddenform").serialize(),
+           async : true,
+           success : function(data) {
+           MsgManager.alertMsg("INF001");
+           gridMst.clearAll();
+           fn_loadGridMst();
+            }
+       });
+		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+		var jsonStr2 = gridDtl.getJsonUpdated2();
+    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
+    if (codeMain == null || codeMain.length <= 0) return;        		
+        $("#jsonData2").val(jsonStr2);
+        $("#gridMstCode").val(codeMain);
+        $.ajax({
+           url : "/erp/rndt/baseCodeS/codeSaveDtl",
+           type : "POST",
+           data : $("#hiddenform").serialize(),
+           async : true,
+           success : function(data) {
+           MsgManager.alertMsg("INF001");
+           
+            }
+       });
+}
+//삭제 버튼 동작
+function fn_remove(){
+    var rodIdx = gridMst.getSelectedRowId();
+    var rodid = gridMst.getSelectedRowIndex();
+    if(gridMst.isDelRows(rodIdx)) {
+       if(MsgManager.confirmMsg("INF002")) {
+     	  if(gridMst.chkUnsavedRow()) {
+     		  var jsonStr = gridMst.getJsonRowDel(rodIdx);
+               if (jsonStr == null || jsonStr.length <= 0) return;
+               $("#jsonData").val(jsonStr);
+                   $.ajax({
+                    url : "/erp/rndt/baseCodeS/codeSave",
+                    type : "POST",
+                    data : $("#hiddenform").serialize(),
+                    async : true,
+                    success : function(data) {
+                    MsgManager.alertMsg("INF003");
+        			fn_loadGridMst();
+        			fn_gridDtlDel();
+                     }
+               });
+    	   }
+        } else {
+        	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+}
+//한줄삽입 버튼 동작
+function fn_add(){
+	var totalColNum = gridDtl.getColumnCount();
+  	var data = new Array(totalColNum);
+  	gridDtl.addRow(data);
+  	var totalRowNum = gridDtl.getRowsNum()-1;
+  	gridDtl.selectRow(totalRowNum);
+  	
+}
+//한줄삭제 버튼 동작
+function fn_delete(){
+	fn_gridDtlDel();
+}
+//좌측 그리드 로드
+function fn_loadGridMst(){
+	var inputParams={}
+	inputParams.codeName = $("#baseName").val();
+	inputParams.code = $("#baseCode").val();
+	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),fn_loadGridMstCallBack);
+	gridDtl.clearAll();
+}
+//우측 그리드 로드
 function fn_loadGridDtl(code){
 	var param = "code=" + code;
     gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/baseCodeDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
 }
+//우측 그리드 삭제
 function fn_gridDtlDel(){
     var rodIdx = gridDtl.getSelectedRowId();
     var rodid = gridDtl.getSelectedRowIndex();
@@ -177,6 +175,7 @@ function fn_gridDtlDel(){
                     success : function(data) {
                     MsgManager.alertMsg("INF003");
                     console.log(codeMain);
+                    gridDtl.clearAll()
              		fn_loadGridDtl(codeMain);
                      }
                });
@@ -188,11 +187,12 @@ function fn_gridDtlDel(){
          MsgManager.alertMsg("WRN002");
       }
 }
-function fn_loadGridDtlCallBack(data){
-	//alert(data[0].innerCode);
-}
+//우측 그리드 콜백함수
 function fn_loadGridMstCallBack(){
 	
+}
+//우측 그리드 콜백함수
+function fn_loadGridDtlCallBack(data){
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">

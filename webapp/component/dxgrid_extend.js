@@ -666,3 +666,6 @@ dxGrid.prototype.setColumnHidden = function(ind,state){
 dxGrid.prototype.parse = function(data,type){
 	return this.dxObj.parse(data,type);
 }
+dxGrid.prototype.selectRow = function(rIndex,fl,preserve,show){
+	return this.dxObj.selectRow(rIndex,fl,preserve,show);
+}

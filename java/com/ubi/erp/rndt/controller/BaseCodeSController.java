@@ -56,15 +56,24 @@ public class BaseCodeSController {
 	@RequestMapping(value = "/baseCodeMstSel", method = RequestMethod.POST)
 	public List<BaseCodeS> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
-		String codeName="";
-		if(request.getParameter("codeName").equals("") ||  request.getParameter("codeName") == null){
+		String codeName;
+		String code;
+		
+		if(request.getParameter("code").equals("")){
+			code = "%";
+		}else{
+			code = request.getParameter("code");
+		}
+		
+		if(request.getParameter("codeName").equals("")){
 			codeName = "%";
 		}else{
 			codeName = request.getParameter("codeName");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("compId", compId);
-		map.put("code", "%");
+		map.put("code", code);
+		//map.put("code", "%");
 		map.put("codeName", codeName);
 		map.put("P_RST", null);
 		baseCodeSService.selBaseCode(map);
