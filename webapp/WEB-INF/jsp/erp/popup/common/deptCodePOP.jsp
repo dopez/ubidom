@@ -32,12 +32,8 @@ $(document).ready(function(){
 	var params = "postName=" + parent.fn_onOpenPop();
 	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
 	
-	
 	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn1") {
-	    	  var params = "postName=" + $("#postName").val();
-	    	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
-	         }
+	      fn_search();
 	});
 
 	 function doOnRowDblClicked(rId,cInd){
@@ -51,6 +47,10 @@ $(document).ready(function(){
 	  } 
 
 });
+function fn_search(){
+	 var params = "postName=" + $("#postName").val();
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
+}
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {
 };

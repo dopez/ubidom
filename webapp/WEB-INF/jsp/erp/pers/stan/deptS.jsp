@@ -19,8 +19,9 @@ $(document).ready(function(){
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","postCode");
 	gridMst.init(); 
-	gridMst.attachEvent("onRowSelect",doOnRowSelect);
 	
+	gridMst.attachEvent("onRowSelect",doOnRowSelect);
+	fn_search();
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO", colId:"no", width:"5", align:"center", type:"ro"});
@@ -32,14 +33,7 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
-	fn_loadGridListCode();
-	
-	function doOnRowSelect(id,ind){
-		var postCode = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-		var postName = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),1).getValue();
-		fn_loadGridList(postCode,postName);
-	}
-	
+
 	var combo=gridDtl.getColumnCombo(5);
 	combo.load({
 		template: {
@@ -53,32 +47,66 @@ $(document).ready(function(){
           {value: 2, text:{costKind: "제조"}}
 		]
 	}); 
+	
    combo.enableFilteringMode(true);
    combo.enableAutocomplete(true);
    combo.allowFreeText(true);
    
-   function fn_comboReadOnly(combo){
-		combo.attachEvent("onChange", function(){
-		combo.allowFreeText(false);
-		combo.readonly(true);
-		combo.enableFilteringMode(false);
-		combo.enableAutocomplete(false);
+	$("#postName").dblclick(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		
 	});
-  };	
-  combo.attachEvent("onClose", function() {
+
+  	combo.attachEvent("onClose", function() {
 		gridDtl.setCells2(gridDtl.getSelectedRowIndex(gridDtl.getSelectedRowId()),5).setValue(combo.getSelectedText().costKind);
 	});
 		
-	//조회
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn1") {
-	    	  fn_loadGridListCode();
-	      }
-	});
-	
-	//저장 - 수정
-	toolbar.attachEvent("onClick", function(id) {
-	  if (id == "btn3") {
+
+
+
+});
+
+function fn_add(){
+    var totalColNum = gridDtl.getColumnCount();
+    var data = new Array(totalColNum);
+    var noColIdx = gridDtl.getColIndexById("no");
+    var stDateColIdx = gridDtl.getColIndexById('stDate');
+    var endDateColIdx = gridDtl.getColIndexById('endDate');
+	 var data = new Array(totalColNum);
+	    data[noColIdx] = gridDtl.getRowsNum()+1;
+		data[stDateColIdx] = dateformat2(new Date());
+		data[endDateColIdx] = "9999/12/31";
+       gridDtl.addRow(data);
+}
+function fn_delete(){
+      var rodIdx = gridDtl.getSelectedRowId();
+      var rodid = gridDtl.getSelectedRowIndex();
+      if(gridDtl.isDelRows(rodIdx)) {
+         if(MsgManager.confirmMsg("INF002")) {
+       	  if(gridDtl.chkUnsavedRow()) {
+       		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
+                 if (jsonStr == null || jsonStr.length <= 0) return;
+                 $("#jsonData").val(jsonStr);
+                     $.ajax({
+                      url : "/erp/deptS/prcsDept",
+                      type : "POST",
+                      data : $("#pform").serialize(),
+                      async : true,
+                      success : function(data) {
+                      MsgManager.alertMsg("INF003");
+                      fn_loadGridList();
+                       }
+                 });
+       	   }
+          } else {
+           	 MsgManager.alertMsg("WRN004");
+            } 
+       }else {
+           MsgManager.alertMsg("WRN002");
+        }
+}
+
+function fn_save(){
 	  var jsonStr = gridDtl.getJsonUpdated2();
 	    if (jsonStr == null || jsonStr.length <= 0) return;        		
 	        $("#jsonData").val(jsonStr);                      
@@ -92,76 +120,46 @@ $(document).ready(function(){
 	           fn_loadGridListCode();
 	            }
 	       });
-	      }
-	 });
+}
+function doOnRowSelect(id,ind){
+	var obj = {};
+	obj.postCode= gridMst.setCells(id,0).getValue();
+	obj.postName= gridMst.setCells(id,1).getValue();
 	
-	//한줄추가
-	 toolbar.attachEvent("onClick", function(id) {
-	   if (id == "btn5") {
-	     var totalColNum = gridDtl.getColumnCount();
-	     var data = new Array(totalColNum);
-	     var noColIdx = gridDtl.getColIndexById("no");
-	     var stDateColIdx = gridDtl.getColIndexById('stDate');
-	     var endDateColIdx = gridDtl.getColIndexById('endDate');
-		 var data = new Array(totalColNum);
-		    data[noColIdx] = gridDtl.getRowsNum()+1;
-			data[stDateColIdx] = dateformat2(new Date());
-			data[endDateColIdx] = "99991231";
-	        gridDtl.addRow(data, gridDtl.getRowsNum()+1, 5);
-	       }
-	   });
-	
-	//한줄삭제
-	   toolbar.attachEvent("onClick", function(id) {
-	    if (id == "btn6") {
-	       var rodIdx = gridDtl.getSelectedRowId();
-	       var rodid = gridDtl.getSelectedRowIndex();
-	       if(gridDtl.isDelRows(rodIdx)) {
-	          if(MsgManager.confirmMsg("INF002")) {
-	        	  if(gridDtl.chkUnsavedRow()) {
-	        		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
-	                  if (jsonStr == null || jsonStr.length <= 0) return;
-	                  $("#jsonData").val(jsonStr);
-	                      $.ajax({
-	                       url : "/erp/deptS/prcsDept",
-	                       type : "POST",
-	                       data : $("#pform").serialize(),
-	                       async : true,
-	                       success : function(data) {
-	                       MsgManager.alertMsg("INF003");
-	                       fn_loadGridListCode();
-	                        }
-	                  });
-	        	  }
-	        	 
-	           } else {
-	            	 MsgManager.alertMsg("WRN004");
-	             } 
-	        }else {
-	            MsgManager.alertMsg("WRN002");
-	         }
-	     }
-	  });
-
-});
+	fn_loadGridList(obj);
+}
+function fn_comboReadOnly(combo){
+	combo.attachEvent("onChange", function(){
+	combo.allowFreeText(false);
+	combo.readonly(true);
+	combo.enableFilteringMode(false);
+	combo.enableAutocomplete(false);
+	});
+};	
+function fn_search(){
+	fn_loadGridListCode();
+}
 // dept 조회로직
-function fn_loadGridList(code,name) {
-	var params =  "postCode=" + code;
-		params += "&postName=" + name;
-	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),"INF004");
+function fn_loadGridList(params) {
+	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),fn_loadGridListCB);
 };
 
-// deptCode 조회로직
+//get방식 deptCode 조회로직
 function fn_loadGridListCode() {
-	var params =  "postName=" + $("#postName").val();
-	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
+	var params ="postName=" + $("#postName").val();
+	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB); 
 };
 
+ // fn_loadGridList callback 함수
+function fn_loadGridListCB() {
+
+};
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB(data) {
-	var postCode = gridMst.getRowsNum();
-	alert(data);
-	fn_loadGridList();
+	var obj={};
+	obj.postName=data[0].postName;
+	obj.postCode=data[0].postCode;
+	fn_loadGridList(obj);
 };
 
 function fn_onOpenPop(){
@@ -169,7 +167,7 @@ function fn_onOpenPop(){
 	return value;
 };
 
-  function fn_onClosePop(pName,data){
+function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
 		var i;
 		for(i=0;i<data.length;i++){
@@ -179,6 +177,7 @@ function fn_onOpenPop(){
 		}		  
 	}	  
  };
+
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
@@ -194,7 +193,7 @@ function fn_onOpenPop(){
 			 부서명
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_pop('w1','common/deptCodePOP',true)">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>

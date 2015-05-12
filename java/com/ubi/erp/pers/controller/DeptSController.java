@@ -53,7 +53,6 @@ public class DeptSController {
 		List<Dept> list = new ArrayList<Dept>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Dept>>(){});
-
 		for (Dept dept : list) {
 			dept.setPostNameMst(dept.getPostName());
 			dept.setSysEmpNo(sysEmpNo);
@@ -67,7 +66,7 @@ public class DeptSController {
 	public List<Dept> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String postName;
-		if(request.getParameter("postName").equals(" ")){
+		if(request.getParameter("postName").equals("")){
 			postName = "%";
 		}else{
 			postName = request.getParameter("postName");

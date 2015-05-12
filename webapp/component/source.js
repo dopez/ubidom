@@ -1,7 +1,10 @@
-/**
+/**functin(a,b,c
+ * [a,b,c]
  * 
  */
-function gfn_callAjaxForGrid(grid,param,url,layout,callback){
+function gfn_callAjaxForGrid(grid,param,url,layout,callbackFn){
+	
+	
 	$.ajax({
        url: url,
        type: "POST",
@@ -12,15 +15,18 @@ function gfn_callAjaxForGrid(grid,param,url,layout,callback){
        beforeSend: function() {
             layout.progressOn();
        },
-       success: function(data) {
-                    	
+       	
+       	success: function(data,status) {
         grid.clearAll();
         grid.parse(data, "js");
-        callback(data);
+        callbackFn.call(this,data);
+ 
+      },
+      failure: function (data) {
+          alert(data.d);
       },
       complete: function() {
            layout.progressOff();
-           
        },
        error: function(xhr) { // if error occured
           MsgManager.alertMsg("WRN040");
@@ -51,7 +57,7 @@ function gfn_callAjaxForForm(formId,param,url){
 	$.ajax({
           url: url,
           type: "POST",
-          contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+          contentType: 'application/json; charset=UTF-8', // default content type (mime-type)
           data: param,
           async: true,
           dataType: "json", 
