@@ -32,9 +32,8 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
-	gridDtl.setColumnHidden(0,true);
 	gridDtl.init();
-
+	gridDtl.setColumnHidden(0,true);
 	var combo=gridDtl.getColumnCombo(5);
 	combo.load({
 		template: {
