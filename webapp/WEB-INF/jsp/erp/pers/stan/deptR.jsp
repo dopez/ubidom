@@ -21,9 +21,8 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"종료일", 	 colId:"endDate", width:"15", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
-	gridMain.setColumnHidden(0,true);
 	gridMain.init();
-	
+	gridMain.setColumnHidden(0,true);
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	});
