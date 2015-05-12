@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Rndt")
-public class Rndt implements Serializable {
+@Alias("BaseCodeS")
+public class BaseCodeS implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String code;
@@ -19,10 +19,10 @@ public class Rndt implements Serializable {
 	private String addVar;
 	private String descRmk;
 	
-	public Rndt() {
+	public BaseCodeS() {
 		super();
 	}
-	public Rndt(String code, String codeName, String compId, String cudKey,
+	public BaseCodeS(String code, String codeName, String compId, String cudKey,
 			String sysEmpNo, String sysDate, String innerCode,
 			String innerCodeName, String addVar, String descRmk) {
 		super();
