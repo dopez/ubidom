@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.pers.dao.DeptRDao">
+
+	<resultMap id="DeptRMap" type="Dept"/>
+	
+ 	<select id="selDeptR" statementType="CALLABLE">
+		 {call SP_PERS_DEPTS_SCH(#{compId},#{postCode},#{postName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DeptRMap, javaType=ResultSet})}	
+	</select>
+
+	<select id="totalDeptR" parameterType="Dept" resultType="int">
+    select count(*) from TBL_POST_CODE
+       <where>
+         <choose>
+           <when test="postName != null and postName != ''">
+              POST_NAME like '%' || #{postName} || '%'
+            </when>
+          </choose>
+       </where>
+    </select>
+
+</mapper>

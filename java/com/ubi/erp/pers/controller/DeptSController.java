@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubi.erp.pers.domain.Dept;
-import com.ubi.erp.pers.service.DeptService;
+import com.ubi.erp.pers.service.DeptSService;
 
 @RestController
-@RequestMapping(value = "/erp/dept")
-public class DeptController {
+@RequestMapping(value = "/erp/deptS")
+public class DeptSController {
 	
 	@Autowired
-	private DeptService deptService;
+	private DeptSService deptSService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
-	public List<Dept> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<Dept> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session,Dept dept) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String postCode = request.getParameter("postCode");
@@ -39,7 +39,7 @@ public class DeptController {
 		map.put("postCode", postCode);
 		map.put("postName", postName);
 		map.put("o_cursor", null);
-		deptService.selDept(map);
+		deptSService.selDeptS(map);
 		List<Dept> list = (List<Dept>) map.get("o_cursor");
 		return list;
 	}
@@ -58,37 +58,27 @@ public class DeptController {
 			dept.setPostNameMst(dept.getPostName());
 			dept.setSysEmpNo(sysEmpNo);
 			dept.setCompId(compId);
-			deptService.crudDept(dept);
+			deptSService.crudDeptS(dept);
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selDeptCode",method = RequestMethod.GET)
+	@RequestMapping(value = "/selDeptCode", method = RequestMethod.POST)
 	public List<Dept> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
-		map.put("compId", compId);
-		map.put("postName", "%");
-		map.put("o_cursor", null);
-		deptService.selDeptCode(map);
-		List<Dept> list = (List<Dept>) map.get("o_cursor");
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/prsSelDeptCode", method = RequestMethod.POST)
-	public List<Dept> prsSelDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
-		String postName = "%";
-		if(!request.getParameter("postName").equals("") ||  request.getParameter("postName") != null){
+		String postName;
+		if(request.getParameter("postName").equals(" ")){
+			postName = "%";
+		}else{
 			postName = request.getParameter("postName");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("compId", compId);
 		map.put("postName", postName);
 		map.put("o_cursor", null);
-		deptService.selDept(map);
-		return (List<Dept>) map.get("o_cursor");
+		deptSService.selDeptCodeS(map);
+		List<Dept> list = (List<Dept>) map.get("o_cursor");
+		return list;
 	}
 
 }

@@ -6,28 +6,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ubi.erp.pers.dao.DeptDao;
+import com.ubi.erp.pers.dao.DeptRDao;
 import com.ubi.erp.pers.domain.Dept;
 
 @Service
-public class DeptService {
-	private DeptDao dao;
+public class DeptRService {
+	private DeptRDao dao;
 
 	@Autowired
 	public void setSqlSession(SqlSession sqlSession) {
-		dao = sqlSession.getMapper(DeptDao.class);
+		dao = sqlSession.getMapper(DeptRDao.class);
 	}
 
-	public void selDept(Map<String, Object> map) {
-		dao.selDept(map);
+	public void selDeptR(Map<String, Object> map) {
+		dao.selDeptR(map);
 	}
 
-	public void crudDept(Dept dept) {
-		dao.crudDept(dept);
-	}
-
-	public void selDeptCode(Map<String, Object> map) {
-		dao.selDeptCode(map);
+	public int totalDeptR(Dept dept) {
+		return dao.totalDeptR(dept);
 	}
 
 }

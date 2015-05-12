@@ -1,7 +1,7 @@
 /**
  * 
  */
-function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
+function gfn_callAjaxForGrid(grid,param,url,layout,callback){
 	$.ajax({
        url: url,
        type: "POST",
@@ -16,13 +16,11 @@ function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
                     	
         grid.clearAll();
         grid.parse(data, "js");
-                    	
-      /*if(msgCode != undefined){
-          MsgManager.alertMsg(msgCode);
-        }*/
+        callback(data);
       },
       complete: function() {
            layout.progressOff();
+           
        },
        error: function(xhr) { // if error occured
           MsgManager.alertMsg("WRN040");

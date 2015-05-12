@@ -47,7 +47,7 @@ $(document).ready(function(){
 
 function fn_loadGridList() {
 	 var params = "postName=" + $("#postName").val();
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/dept/prsSelDept",subLayout.cells("a"),"INF004");
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/deptR",subLayout.cells("a"),"INF004");
 };
 
 function fn_onOpenPop(){

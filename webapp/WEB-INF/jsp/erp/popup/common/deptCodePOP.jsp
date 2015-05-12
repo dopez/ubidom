@@ -28,22 +28,18 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
-	
-/* 	var params = "itemCode=" + parent.fn_onOpenPop();
-	gfn_gridLoad("/erp/subTest",params, gridMain, fn_PopValue);
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	var params = "postName=" + parent.fn_onOpenPop();
+	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
 	
 	
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
-	    	  var params = "itemCode=" + $("#itemCode").val();
-	    	  gfn_gridLoad("/erp/subTest",params, gridMain, fn_PopValue);
+	    	  var params = "postName=" + $("#postName").val();
+	    	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
 	         }
 	});
-	
-	 function fn_PopValue(){
-		 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	 }
-	 
+
 	 function doOnRowDblClicked(rId,cInd){
 		  var row = rId-1;
 		  var cell = cInd;
@@ -52,9 +48,12 @@ $(document).ready(function(){
 		  var arr = [{"postCode":postCode,"postName":postName}];
 		  parent.fn_onClosePop(config.id,arr);
 		  parent.dhxWins.window("w1").close();
-	  } */
+	  } 
 
 });
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer2" style="position: relative;">

@@ -83,7 +83,7 @@ $(document).ready(function(){
 	    if (jsonStr == null || jsonStr.length <= 0) return;        		
 	        $("#jsonData").val(jsonStr);                      
 	        $.ajax({
-	           url : "/erp/dept/prcsDept",
+	           url : "/erp/deptS/prcsDept",
 	           type : "POST",
 	           data : $("#pform").serialize(),
 	           async : true,
@@ -123,13 +123,13 @@ $(document).ready(function(){
 	                  if (jsonStr == null || jsonStr.length <= 0) return;
 	                  $("#jsonData").val(jsonStr);
 	                      $.ajax({
-	                       url : "/erp/dept/prcsDept",
+	                       url : "/erp/deptS/prcsDept",
 	                       type : "POST",
 	                       data : $("#pform").serialize(),
 	                       async : true,
 	                       success : function(data) {
 	                       MsgManager.alertMsg("INF003");
-	                       fn_loadGridList();
+	                       fn_loadGridListCode();
 	                        }
 	                  });
 	        	  }
@@ -144,25 +144,24 @@ $(document).ready(function(){
 	  });
 
 });
-//get방식 dept 조회로직
+// dept 조회로직
 function fn_loadGridList(code,name) {
 	var params =  "postCode=" + code;
 		params += "&postName=" + name;
-	    gfn_callAjaxForGrid(gridDtl,params,"/erp/dept",subLayout.cells("b"),"INF004");
+	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),"INF004");
 };
 
-//get방식 deptCode 조회로직
+// deptCode 조회로직
 function fn_loadGridListCode() {
-	    gfn_gridLoad("/erp/dept/selDeptCode",[], gridMst, fn_loadGridListCodeCB);
+	var params =  "postName=" + $("#postName").val();
+	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
 };
 
- // fn_loadGridList callback 함수
-function fn_loadGridListCB() {
-
-};
 //fn_loadGridListCode callback 함수
-function fn_loadGridListCodeCB() {
-	fn_loadGridList('11100','임원');
+function fn_loadGridListCodeCB(data) {
+	var postCode = gridMst.getRowsNum();
+	alert(data);
+	fn_loadGridList();
 };
 
 function fn_onOpenPop(){
@@ -174,8 +173,9 @@ function fn_onOpenPop(){
 	if(pName=="postCode"){
 		var i;
 		for(i=0;i<data.length;i++){
-			 gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(data[i].postCode);
-			 gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(data[i].postName);
+			var params =  "postName=" + data[i].postName;
+			gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
+			fn_loadGridList(data[i].postCode,data[i].postName);
 		}		  
 	}	  
  };
