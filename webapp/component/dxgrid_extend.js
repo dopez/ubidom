@@ -675,8 +675,8 @@ dxGrid.prototype.parse = function(data,type){
 
 dxGrid.prototype.selectRow = function(rIndex,fl,preserve,show){
 	return this.dxObj.selectRow(rIndex,fl,preserve,show);
+}
 
 dxGrid.prototype.enableSmartRendering = function(flag,rowNum){
 	return this.dxObj.enableSmartRendering(flag,rowNum);
-}
 }
