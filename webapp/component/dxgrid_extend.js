@@ -4,9 +4,9 @@ var dxGrid = function(divId, autoHeight){
 	//this.dxObj = new dhtmlXGridObject(divId);
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
-	this.dxObj.setDateFormat("%Y%m%d");
+	this.dxObj.setDateFormat("%Y/%m/%d");
 	this.dxObj.attachEvent("onEditCell", gfn_gridEditCell);
-	
+
 	this.headerName = new Array();
 	this.headerColId = new Array();
 	this.headerWidth = new Array();
@@ -20,6 +20,12 @@ var dxGrid = function(divId, autoHeight){
 		gAutoHeight = true;
 		this.dxObj.enableAutoHeight(true);
 	}
+	
+	/*this.dxObj.insertColumn(0,'&nbsp;','cntr',10,'na','left','top',"center","#CCE2FE");
+	this.dxObj.splitAt(1);
+		for(var i=0;i<this.dxObj.getRowsNum();i++){
+			this.dxObj.cells2(i,0).setValue();
+		}*/
 };
 
 dxGrid.prototype.atchHeader = function(){
@@ -666,6 +672,11 @@ dxGrid.prototype.setColumnHidden = function(ind,state){
 dxGrid.prototype.parse = function(data,type){
 	return this.dxObj.parse(data,type);
 }
+
 dxGrid.prototype.selectRow = function(rIndex,fl,preserve,show){
 	return this.dxObj.selectRow(rIndex,fl,preserve,show);
+
+dxGrid.prototype.enableSmartRendering = function(flag,rowNum){
+	return this.dxObj.enableSmartRendering(flag,rowNum);
+}
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.pers.dao.DeptRDao;
-import com.ubi.erp.pers.domain.Dept;
 
 @Service
 public class DeptRService {
@@ -20,10 +19,6 @@ public class DeptRService {
 
 	public void selDeptR(Map<String, Object> map) {
 		dao.selDeptR(map);
-	}
-
-	public int totalDeptR(Dept dept) {
-		return dao.totalDeptR(dept);
 	}
 
 }

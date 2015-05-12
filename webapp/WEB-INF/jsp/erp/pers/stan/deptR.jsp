@@ -21,35 +21,41 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"종료일", 	 colId:"endDate", width:"15", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
+	gridMain.setColumnHidden(0,true);
 	gridMain.init();
 	
-	//조회
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn1") {
-	    	  fn_loadGridList();
-	      }
+	$("#postName").dblclick(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	});
 
-	//엑셀
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn8") {
-	    	  gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
-	      }
-	});
-	
-	//엑셀
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn9") {
-	    	  gridMain.getDxObj().printView();
-	      }
-	});
 });
-
-function fn_loadGridList() {
-	 var params = "postName=" + $("#postName").val();
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/deptR",subLayout.cells("a"),"INF004");
+//조회
+function fn_search(){
+	var obj={};
+	obj.postName = $("#postName").val();
+	obj.historyKind = $('input[name="historyKind"]:checked').val();
+	fn_loadGridList(obj);
+};
+//엑셀
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+ };
+ 
+function  fn_print(){
+	var url = "/erp/deptR/report/deptR.do";
+	url = url + "?postName=" + $("#postName").val();
+	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
+	window.open(url,'rpt','');
+	//gridMain.getDxObj().printView();
+ }
+ 
+function fn_loadGridList(params) {
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/deptR",subLayout.cells("a"),fn_loadGridListCB);
 };
 
+function fn_loadGridListCB(data) {
+	
+};
 function fn_onOpenPop(){
 	var value =  $("#postName").val();
 	return value;
@@ -58,12 +64,18 @@ function fn_onOpenPop(){
   function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
 		var i;
+		var obj={};
 		for(i=0;i<data.length;i++){
-			 gridMst.setCells2(gridMst.getSelectedRowIndex(),0).setValue(data[i].postCode);
-			 gridMst.setCells2(gridMst.getSelectedRowIndex(),1).setValue(data[i].postName);
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			obj.historyKind = $('input[name="historyKind"]:checked').val();
+			 fn_loadGridList(obj);
+			 $("#postName").val(obj.postName);
 		}		  
 	}	  
  };
+
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -76,7 +88,7 @@ function fn_onOpenPop(){
 			 부서명
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_pop('w1','common/deptCodePOP',true)">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
@@ -89,11 +101,11 @@ function fn_onOpenPop(){
 			   </label>
 			   <div class="col-sm-3 col-md-3">
 				   <div class="col-sm-4 col-md-4">
-					  <input type="radio" name="gubn" id="gubn" value="현재" checked="checked">현재
+					  <input type="radio" name="historyKind" id="historyKind" value="C" checked="checked">현재
 				   </div>
 				   <div class="col-sm-6 col-md-6">
-						<input type="radio" name="gubn" id="gubn" value="HISTORY">HISTORY
-					 </div>
+						<input type="radio" name="historyKind" id="historyKind" value="H">HISTORY
+				  </div>
 			   </div>
 		   </div>
 	    </div>

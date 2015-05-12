@@ -5,26 +5,44 @@
 var layout,toolbar,subLayout;
 var gridMain;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,8],"1C");
+	Ubi.setContainer(2,[1,8,9],"1C");
 	//제코드조회
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
-	
+    
+    //attach search Condition div
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,Code분류,분류명,내부코드,내부코드명,참조변수,비고",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,right,left");
-	gridMain.setColTypes("ron,ron,ro,ron,ro,ron,ro");
-	gridMain.setColSorting("int,int,str,int,str,int,str");
+	//grid init
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"코드분류", colId:"code", width:"10", type:"ro"});
+	gridMain.addHeader({name:"코드분류명", colId:"codeName", width:"10", type:"ro"});
+	gridMain.addHeader({name:"내부코드", colId:"innerCode", width:"10", type:"ro"});
+	gridMain.addHeader({name:"내부코드명", colId:"innerCodeName", width:"10", type:"ro"});
+	gridMain.addHeader({name:"참조변수", colId:"addVar", width:"10", type:"ro"});
+	gridMain.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ro"});
+	gridMain.setColSort("str");
+	gridMain.setUserData("","pk","code");
+	//gridMain.enableSmartRendering(true,5);
 	gridMain.init();	
-	
+	fn_loadGridMain();
 });
+function fn_search(){
+	fn_loadGridMain();
+}
+function fn_loadGridMain(){
+	gridMain.clearAll();
+	var inputParams={}
+	inputParams.baseCode = $("#baseCode").val();
+	inputParams.baseName = $("#baseName").val();
+	inputParams.innerCode = $("#innerCode").val();
+	inputParams.innerCodeName = $("#innerCodeName").val();
+	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/baseCodeR",subLayout.cells("a"),fn_loadGridMainCallBack);
+}
+function fn_loadGridMainCallBack(){
+	//call back function
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -32,14 +50,36 @@ $(document).ready(function(){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
       <div class="row">
 		<div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-		  <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
+		   <div class="col-sm-8 col-md-8">
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				코드분류
-				</label>
-			<div class="col-sm-2 col-md-2">
-			    <input type="text" name="codeBranch" id="codeBranch" value="" placeholder="" class="form-control input-xs">		
-			</div>
-		 </div>
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			   <input type="text" name="baseCode" id="baseCode" value="" placeholder="" class="form-control input-xs">		
+			 </div>
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
+				코드분류명
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			   <input type="text" name="baseName" id="baseName" value="" placeholder="" class="form-control input-xs">		
+             </div>
+		  </div>
+	    </div>
+		<div class="form-group form-group-sm">
+		   <div class="col-sm-8 col-md-8">
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
+				내부코드
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			   <input type="text" name="innerCode" id="innerCode" value="" placeholder="" class="form-control input-xs">		
+			 </div>
+			 <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
+				내부코드명
+			 </label>
+			 <div class="col-sm-2 col-md-2">
+			   <input type="text" name="innerCodeName" id="innerCodeName" value="" placeholder="" class="form-control input-xs">		
+             </div>
+		  </div>
 	    </div>
       </div>      
   </form>

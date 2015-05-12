@@ -28,32 +28,31 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	var params = "postName=" + parent.fn_onOpenPop();
-	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
+	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
 	
 	toolbar.attachEvent("onClick", function(id) {
 	      fn_search();
 	});
-
-	 function doOnRowDblClicked(rId,cInd){
-		  var row = rId-1;
-		  var cell = cInd;
-		  var postCode = gridMain.setCells2(row,0).getValue();
-		  var postName = gridMain.setCells2(row,1).getValue();
-		  var arr = [{"postCode":postCode,"postName":postName}];
-		  parent.fn_onClosePop(config.id,arr);
-		  parent.dhxWins.window("w1").close();
-	  } 
-
 });
 function fn_search(){
 	 var params = "postName=" + $("#postName").val();
-	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),"INF004");
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
 }
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 };
+
+function doOnRowDblClicked(rId,cInd){
+	  var row = rId-1;
+	  var cell = cInd;
+	  var postCode = gridMain.setCells2(row,0).getValue();
+	  var postName = gridMain.setCells2(row,1).getValue();
+	  var arr = [{"postCode":postCode,"postName":postName}];
+	  parent.fn_onClosePop(config.id,arr);
+	  parent.dhxWins.window("w1").close();
+} 
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer2" style="position: relative;">

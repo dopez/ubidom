@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.pers.dao.DeptSDao;
-import com.ubi.erp.pers.domain.Dept;
+import com.ubi.erp.pers.domain.DeptS;
 
 @Service
 public class DeptSService {
@@ -22,16 +22,16 @@ public class DeptSService {
 		dao.selDeptS(map);
 	}
 
-	public void crudDeptS(Dept dept) {
-		dao.crudDeptS(dept);
+	public void crudDeptS(DeptS deptS) {
+		dao.crudDeptS(deptS);
 	}
 
 	public void selDeptCodeS(Map<String, Object> map) {
 		dao.selDeptCodeS(map);
 	}
 
-	public int totalDeptS(Dept dept) {
-		return dao.totalDeptS(dept);
+	public int totalDeptS(DeptS deptS) {
+		return dao.totalDeptS(deptS);
 	}
 
 }
