@@ -3,8 +3,7 @@
  * 
  */
 function gfn_callAjaxForGrid(grid,param,url,layout,callbackFn){
-	
-	
+
 	$.ajax({
        url: url,
        type: "POST",
@@ -53,7 +52,6 @@ $.fn.serializeObject = function serializeObject(){
 };
 
 function gfn_callAjaxForForm(formId,param,url){
-				
 	$.ajax({
           url: url,
           type: "POST",

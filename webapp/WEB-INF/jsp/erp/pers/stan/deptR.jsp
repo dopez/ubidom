@@ -14,15 +14,15 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no", width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",       width:"5", align:"center", type:"cntr"});
 	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ro"});
-	gridMain.addHeader({name:"시작일",   colId:"stDate", width:"10", align:"center", type:"ro"});
-	gridMain.addHeader({name:"종료일", 	 colId:"endDate", width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"시작일",   colId:"stDate",   width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"10", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
-	gridMain.setColumnHidden(0,true);
+	
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	});

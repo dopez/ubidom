@@ -14,8 +14,8 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	subLayout.cells("a").setWidth(250);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"50", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"50", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"45", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"45", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","postCode");
 	gridMst.init(); 
@@ -24,16 +24,18 @@ $(document).ready(function(){
 	fn_search();
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO", colId:"no", width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"NO",       colId:"no",       width:"5",  align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"시작일", colId:"stDate", width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"종료일", 	colId:"endDate", width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"부서명", colId:"postName", width:"10", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"시작일",   colId:"stDate",   width:"10", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"종료일", 	colId:"endDate",  width:"10", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
-	gridDtl.setColumnHidden(0,true);
+	
+	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
+	
 	var combo=gridDtl.getColumnCombo(5);
 	combo.load({
 		template: {
@@ -85,6 +87,7 @@ function fn_delete(){
       if(gridDtl.isDelRows(rodid)) {
          if(MsgManager.confirmMsg("INF002")) {
        	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
+       		  return
        	  }else{
        		 var jsonStr = gridDtl.getJsonRowDel(rodid);
              if (jsonStr == null || jsonStr.length <= 0) return;
@@ -129,6 +132,11 @@ function doOnRowSelect(id,ind){
 	obj.postName= gridMst.setCells(id,1).getValue();
 	fn_loadGridList(obj,2);
 }
+
+function doOnEmptyClick(ev){
+	gridDtl.clearSelection();
+}
+
 function fn_comboReadOnly(combo){
 	combo.attachEvent("onChange", function(){
 	combo.allowFreeText(false);

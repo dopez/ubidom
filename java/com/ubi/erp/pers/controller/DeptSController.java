@@ -47,7 +47,6 @@ public class DeptSController {
 			list.get(i).setStDate(df.dateToString2(list.get(i).getStDate()));
 			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
 		}
-		
 		return list;
 	}
 
@@ -55,7 +54,7 @@ public class DeptSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
-		String sysEmpNo = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
 		List<DeptS> list = new ArrayList<DeptS>();
 		ObjectMapper mapper = new ObjectMapper();

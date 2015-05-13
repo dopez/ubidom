@@ -30,8 +30,4 @@ public class DeptSService {
 		dao.selDeptCodeS(map);
 	}
 
-	public int totalDeptS(DeptS deptS) {
-		return dao.totalDeptS(deptS);
-	}
-
 }

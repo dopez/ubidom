@@ -12,6 +12,4 @@ public interface DeptSDao {
 
 	void selDeptCodeS(Map<String, Object> param);
 
-	int totalDeptS(DeptS deptS);
-
 }

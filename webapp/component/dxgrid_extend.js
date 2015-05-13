@@ -21,11 +21,6 @@ var dxGrid = function(divId, autoHeight){
 		this.dxObj.enableAutoHeight(true);
 	}
 	
-	/*this.dxObj.insertColumn(0,'&nbsp;','cntr',10,'na','left','top',"center","#CCE2FE");
-	this.dxObj.splitAt(1);
-		for(var i=0;i<this.dxObj.getRowsNum();i++){
-			this.dxObj.cells2(i,0).setValue();
-		}*/
 };
 
 dxGrid.prototype.atchHeader = function(){
@@ -76,7 +71,6 @@ dxGrid.prototype.init = function() {
 	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
 	this.setColSort("str");
-	
 	this.dxObj.init();
 	
 	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
@@ -673,4 +667,8 @@ dxGrid.prototype.selectRow = function(rIndex,fl,preserve,show){
 
 dxGrid.prototype.enableSmartRendering = function(flag,rowNum){
 	return this.dxObj.enableSmartRendering(flag,rowNum);
+}
+
+dxGrid.prototype.clearSelection = function(){
+	return this.dxObj.clearSelection();
 }

@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,2,3,4],"2U");
+	Ubi.setContainer(1,[1,2,3,4],"2U");
 	//인사자료등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -16,66 +16,164 @@ $(document).ready(function(){
 	
 	subLayout.cells("a").setWidth(403);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO", colId:"no", width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사원번호", colId:"empNo", width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"성명", colId:"empName", width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서", colId:"deptName", width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",       width:"25", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
 	
+	fn_search();
 	subLayout.cells("b").attachObject("bootContainer2");
 	
-	$("#deptName").dblclick(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"deptName":$(this).val()});
+	$("#postName").dblclick(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	});
 	
 	$("#persAppointBtn").click(function(){
 		gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
 	});
 	
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},{input:"isDate",button:"calpicker3"},
-	{input:"tsDate",button:"calpicker4"},{input:"tjDate",button:"calpicker5"}]);
+	calMain = new dhtmlXCalendarObject([{input:"amryDate1",button:"calpicker1"},{input:"amryDate2",button:"calpicker2"},{input:"enterDate",button:"calpicker3"},
+	{input:"retireDate",button:"calpicker4"},{input:"retireMidDate",button:"calpicker5"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
-	var t = dateformat(new Date());
-	byId("stDate").value = t; byId("edDate").value = t; byId("isDate").value = t; byId("tsDate").value = t; byId("tjDate").value = t;
+	fn_calValue();
 });
+
+function fn_calValue(){
+	var t = dateformat(new Date());
+	byId("amryDate1").value = t; byId("amryDate2").value = t; 
+	byId("enterDate").value = t; byId("retireDate").value = t; byId("retireMidDate").value = t;
+};
+
+function fn_search(){
+	fn_loadGridList(); 
+};
+
+function fn_new(){
+	document.getElementById("frmMain").reset();
+	fn_calValue();
+};
+
+function checkBox_value(inputId){
+	var chVal = 0;
+	if(document.getElementById(inputId).checked){
+		chVal = 1;
+	}
+	return chVal;
+}
+
+function fn_save(){
+	var obj = {};
+	obj.postNo = $("#postNo").val();
+	obj.postName = $("#postName").val();
+	obj.empNo = $("#empNo").val();
+	obj.korName = $("#korName").val();
+	obj.engName = $("#engName").val();
+	obj.chaName = $("#chaName").val();
+	obj.regiNumb = $("#regiNumb").val();
+	obj.jikwee = $("#jikwee").val();
+	obj.jikmu = $("#jikmu").val();
+	obj.jikchak = $("#jikchak").val();
+	obj.address = $("#address").val();
+	obj.baseAddrs = $("#baseAddrs").val();
+	obj.tel = $("#tel").val();
+	obj.handPhone = $("#handPhone").val();
+	obj.email = $("#email").val();
+	obj.character = $("#character").val();
+	obj.taste = $("#taste").val();
+	obj.partCont = $("#partCont").val();
+	obj.length = $("#length").val();
+	obj.weight = $("#weight").val();
+	obj.blood = $("#blood").val();
+	obj.eyeLeft = $("#eyeLeft").val();
+	obj.eyeRight = $("#eyeRight").val();
+	obj.disaYn = $("#disaYn").val();
+	obj.bldKind = checkBox_value("bldKind");
+	obj.disorderYn = checkBox_value("disorderYn");
+	obj.disorderCont = $("#disorderCont").val();
+	obj.armyKind = $("#armyKind").val();
+	obj.amryBarch = $("#amryBarch").val();
+	obj.armyGd = $("#armyGd").val();
+	obj.armyYn = $("#armyYn").val();
+	obj.armyNo = $("#armyNo").val();
+	obj.amryDate1 = $("#amryDate1").val();
+	obj.amryDate2 = $("#amryDate2").val();
+	obj.enterDate = $("#enterDate").val();
+	obj.retireDate = $("#retireDate").val();
+	obj.retireMidDate = $("#retireMidDate").val();
+	obj.bankCode = $("#bankCode").val();
+	obj.bankNumb = $("#bankNumb").val();
+	obj.religion = $("#religion").val();
+	obj.armySpcase = checkBox_value("armySpcase");
+	obj.armyMerit = checkBox_value("armyMerit");
+	gfn_callAjaxForForm("frmMain",obj,"/erp/persDataS/prcsPersData");
+};
+
+function fn_remove(){
+    var rodid = gridMain.getSelectedRowId();
+    var rodIdx = gridMain.getSelectedRowIndex();
+    if(gridMain.isDelRows(rodid)) {
+       if(MsgManager.confirmMsg("INF002")) {
+     	  if(gridMain.chkUnsavedRow(rodIdx,rodid)) {
+     		  return
+     	  }else{
+     		 var jsonStr = gridMain.getJsonRowDel(rodid);
+           if (jsonStr == null || jsonStr.length <= 0) return;
+            $("#jsonData").val(jsonStr);
+                $.ajax({
+                 url : "/erp/persDataS/prcsPersData",
+                 type : "POST",
+                 data : $("#pform").serialize(),
+                 async : true,
+                 success : function(data) {
+                 MsgManager.alertMsg("INF003");
+                 fn_loadGridList();
+                }
+            });
+     	   }   	 
+        } else {
+         	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+};
+
+function fn_loadGridList(){
+    gfn_callAjaxForGrid(gridMain,{},"/erp/persDataS/selLeft",subLayout.cells("a"),fn_loadGridListCB);
+};
+function fn_loadGridListCB(data){
+
+};
+
+function fn_onOpenPop(){
+	var value =  $("#postName").val();
+	return value;
+};
+
+function fn_onClosePop(pName,data){
+	if(pName=="postCode"){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			$("#postName").val(obj.postName);
+		}		  
+	}	  
+ };
 </script>
+<form id="pform" name="pform" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 직군
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
-			  </select>
-			</div>
-			<label class="col-sm-1 col-md-1 control-label" for="textinput">
-			 근무
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <select name="work" id="work" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="재직">재직</option>
-			   <option value="휴직">휴직</option>
-			   <option value="퇴직">퇴직</option>
-			  </select>
-			</div>
-		  </div>
-	  </div>
-	</div>
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
 	<div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -83,13 +181,13 @@ $(document).ready(function(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			 <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 성명
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			<div class="col-sm-2 col-md-2" style="margin-left: 5px;">
 			  <input name="persAppointBtn" id="persAppointBtn" type="button" value="인사발령" placeholder="" class="form-control btn btn-default btn-xs">
@@ -135,7 +233,7 @@ $(document).ready(function(){
 				성명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -145,13 +243,13 @@ $(document).ready(function(){
 				 성명(한자) 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="nameHan" id="nameHan" type="text" value="" placeholder="" class="form-control input-xs">
+				 <input name="chaName" id="chaName" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				성명(영문) 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="nameEng" id="nameEng" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="engName" id="engName" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -161,13 +259,13 @@ $(document).ready(function(){
 				 주민등록번호 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="jumin" id="jumin" type="text" value="" placeholder="" class="form-control input-xs">
+				 <input name="regiNumb" id="regiNumb" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				부서명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -177,13 +275,13 @@ $(document).ready(function(){
 				 전화번호 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="phone" id="phone" type="text" value="" placeholder="" class="form-control input-xs">
+				 <input name="tel" id="tel" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				직무명 
+				직위명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="job" id="job" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="jikwee" id="jikwee" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -196,10 +294,10 @@ $(document).ready(function(){
 				 <input name="handPhone" id="handPhone" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				직책명 
+				직무명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="positionName" id="positionName" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="jikmu" id="jikmu" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>
@@ -212,10 +310,10 @@ $(document).ready(function(){
 				 <input name="email" id="email" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				세콤ID 
+				직책명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="cecom" id="cecom" type="text" value="" placeholder="" class="form-control input-xs">
+				  <input name="jikchak" id="jikchak" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		 </div>	   
@@ -223,13 +321,13 @@ $(document).ready(function(){
 	   <div class="row">
 		   <div class="form-group form-group-sm">
 		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 주소 
+				 우편번호 
 			  </label>
-			  <div class="col-sm-6 col-md-6">
-				 <div class="col-sm-11 col-md-11">
+			  <div class="col-sm-2 col-md-2">
+				 <div class="col-sm-10 col-md-10">
 					<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
 				 </div>
-				 <div class="col-sm-1 col-md-1">
+				 <div class="col-sm-2 col-md-2">
 					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch" onclick="fn_search()">
 					  <span class="glyphicon glyphicon-search"></span>
 					</button>
@@ -240,10 +338,20 @@ $(document).ready(function(){
  		<div class="row">
 		   <div class="form-group form-group-sm">
 		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
+				 주소 
+			  </label>
+			  <div class="col-sm-6 col-md-6">
+				 <input name="address" id="address" type="text" value="" placeholder="" class="form-control input-xs">
+			  </div>
+		   </div>
+ 		</div>
+ 		<div class="row">
+		   <div class="form-group form-group-sm">
+		      <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				 본적 
 			  </label>
 			  <div class="col-sm-6 col-md-6">
-				 <input name="addr2" id="addr2" type="text" value="" placeholder="" class="form-control input-xs">
+				 <input name="baseAddrs" id="baseAddrs" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 		   </div>
  		</div>
@@ -254,19 +362,19 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-				      <input name="char" id="char" type="text" value="" placeholder="" class="form-control input-xs">
+				      <input name="character" id="character" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     취미 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="hobby" id="hobby" type="text" value="" placeholder="" class="form-control input-xs">
+				      <input name="taste" id="taste" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     특기 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <input name="spec" id="spec" type="text" value="" placeholder="" class="form-control input-xs">
+				     <input name="partCont" id="partCont" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 		     </div>
 		   </div>
@@ -284,36 +392,20 @@ $(document).ready(function(){
 				     신장 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="height" id="height" type="text" value="" placeholder="" class="form-control input-xs">
+				      <input name="length" id="length" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     혈액형 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <input name="blod" id="blod" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 학력 
-			    </label>
-			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-2 col-md-2">
-				      <input name="academic" id="academic" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     결혼구분 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-			         <select name="wedding" id="wedding" class="form-control input-xs">
-			           <option value="미혼">미혼</option>
-			           <option value="기혼">기혼</option>
+			         <select name="blood" id="blood"  class="form-control input-xs">
+			           <option value="A">A형</option>
+			           <option value="B">B형</option>
+			           <option value="AB">AB형</option>
+			           <option value="O">O형</option>
 			         </select>
 			       </div>
-		     </div>
+		       </div>
 		   </div>
  		</div>
  		<div class="row">
@@ -324,17 +416,26 @@ $(document).ready(function(){
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
 			          <div class="col-sm-6 col-md-6">
-			             <input name="EyeLeft" id="EyeLeft" type="text" value="" placeholder="" class="form-control input-xs">
+			             <input name="eyeLeft" id="eyeLeft" type="text" value="" placeholder="" class="form-control input-xs">
 			          </div>
 				      <div class="col-sm-6 col-md-6">
-			             <input name="EyeRight" id="EyeRight" type="text" value="" placeholder="" class="form-control input-xs">
+			             <input name="eyeRight" id="eyeRight" type="text" value="" placeholder="" class="form-control input-xs">
 			          </div>
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     색맹구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-			         <input name="colorEye" id="colorEye" value="" type="checkbox">
+			         <input name="bldKind" id="bldKind" value="1" type="checkbox">
+			       </div>
+			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
+				     결혼구분 
+			       </label>
+			       <div class="col-sm-2 col-md-2">
+			         <select name="disaYn" id="disaYn" class="form-control input-xs">
+			           <option value="0">미혼</option>
+			           <option value="1">기혼</option>
+			         </select>
 			       </div>
 		     </div>
 		   </div>
@@ -346,10 +447,10 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-1 col-md-1">
-			          <input name="empty" id="empty" type="checkbox" value="">
+			          <input name="disorderYn" id="disorderYn" type="checkbox" value="1">
 			       </div>
 			       <div class="col-sm-6 col-md-6">
-			         <input name="jang" id="jang" value="" type="text" class="form-control input-xs">
+			         <input name="disorderCont" id="disorderCont" value="" type="text" class="form-control input-xs">
 			       </div>
 		     </div>
 		   </div>
@@ -361,7 +462,12 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-			          <input name="religion" id="religion" type="text" value="" class="form-control input-xs">
+			          <select name="religion" id="religion"  class="form-control input-xs">
+			          	<option value="무교">무교</option>
+			          	<option value="기독교">기독교</option>
+			          	<option value="천주교">천주교</option>
+			          	<option value="불교">불교</option>
+			          </select>
 			       </div>
 		     </div>
 		   </div>
@@ -373,19 +479,19 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-				      <input name="amyType" id="amyType" type="text" value="" placeholder="" class="form-control input-xs">
+				      <input name="armyKind" id="armyKind" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     병과 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="amyType1" id="amyType1" type="text" value="" placeholder="" class="form-control input-xs">
+				      <input name="amryBarch" id="amryBarch" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     계급 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <input name="amyType2" id="amyType2" type="text" value="" placeholder="" class="form-control input-xs">
+				     <input name="armyGd" id="armyGd" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 		     </div>
 		   </div>
@@ -397,21 +503,21 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-				      <input name="bohun" id="bohun" type="checkbox" value="" placeholder="" >
+				      <input name="armyMerit" id="armyMerit" type="checkbox" value="1" placeholder="" >
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     특례유무 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="tle" id="tle" type="checkbox" value="" placeholder="" >
+				      <input name="armySpcase" id="armySpcase" type="checkbox" value="1" placeholder="" >
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     재대구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <select name="jede" id="jde" class="form-control input-xs">
-				      <option value="만기재대">만기재대</option>
-				      <option value="소집해제">소집해제</option>
+				     <select name="armyYn" id="armyYn" class="form-control input-xs">
+				      <option value="1">만기재대</option>
+				      <option value="0">소집해제</option>
 				     </select>
 			       </div>
 		     </div>
@@ -426,19 +532,19 @@ $(document).ready(function(){
 			       <div class="col-sm-7 col-md-7">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs" name="amryDate1" id="amryDate1" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
-                              <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                              <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'amryDate2', 'max')">
                           </div>
                      </div>
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                              <input type="text" class="form-control input-xs" name="amryDate2" id="amryDate2" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
-                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'amryDate1', 'min')">
                           </div>
                        </div> 
                  </div>
@@ -446,7 +552,7 @@ $(document).ready(function(){
 				     군번 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="amyNum" id="amyNum" type="checkbox" value="" placeholder="" >
+				      <input name="armyNo" id="armyNo" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 		     </div>
 		   </div>
@@ -459,7 +565,7 @@ $(document).ready(function(){
 			    <div class="col-sm-6 col-md-6">
                     <div class="col-sm-2 col-md-2">
                          <div class="col-sm-11 col-md-11">
-                              <input type="text" class="form-control input-xs" name="isDate" id="isDate" value="">
+                              <input type="text" class="form-control input-xs" name="enterDate" id="enterDate" value="">
                          </div>
                          <div class="col-sm-1 col-md-1">
                               <input type="button" id="calpicker3" class="calicon form-control">
@@ -470,7 +576,7 @@ $(document).ready(function(){
 			         </label>
                        <div class="col-sm-2 col-md-2">
                          <div class="col-sm-11 col-md-11">
-                              <input type="text" class="form-control input-xs" name="tsDate" id="tsDate" value="">
+                              <input type="text" class="form-control input-xs" name="retireDate" id="retireDate" value="">
                          </div>
                          <div class="col-sm-1 col-md-1">
                               <input type="button" id="calpicker4" class="calicon form-control">
@@ -480,7 +586,9 @@ $(document).ready(function(){
 				     사업장구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="saup" id="saup" type="text" value="" placeholder="" class="form-control input-xs">
+			       	  <select name="compId" id="compId"  class="form-control input-xs">
+			       	    <option value="100">본점</option>
+			       	  </select>
 			       </div>
 		     </div>
 		   </div>
@@ -493,49 +601,23 @@ $(document).ready(function(){
 			    <div class="col-sm-6 col-md-6">
                     <div class="col-sm-2 col-md-2">
                          <div class="col-sm-11 col-md-11">
-                              <input type="text" class="form-control input-xs" name="tjDate" id="tjDate" value="">
+                              <input type="text" class="form-control input-xs" name="retireMidDate" id="retireMidDate" value="">
                          </div>
                          <div class="col-sm-1 col-md-1">
                               <input type="button" id="calpicker5" class="calicon form-control">
                           </div>
                      </div>
-                     <div class="col-sm-5 col-md-5">
-                     <label class="col-sm-5 col-md-5 control-label" for="textinput"> 
-				     국민연금 
+                     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
+				     은행 
 			         </label>
-                       <div class="col-sm-1 col-md-1">
-                         <input name="gmyg" id="gmyg" type="checkbox" value="" placeholder="" >
+                       <div class="col-sm-2 col-md-2">
+                              <input name="bankCode" id="bankCode" value="" type="text" class="form-control input-xs" >
                      </div>
-                     <label class="col-sm-5 col-md-5 control-label" for="textinput"> 
-				     고용보험 
-			         </label>
-                       <div class="col-sm-1 col-md-1">
-                         <input name="gybh" id="gybh" type="checkbox" value="" placeholder="" >
-                     </div>
-                     </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     급여대장미표시부분 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				      <input name="bubun" id="bubun" type="checkbox" value="" placeholder="" >
-			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 은행 
-			    </label>
-			    <div class="col-sm-6 col-md-6">
-                    <div class="col-sm-2 col-md-2">
-                        <input type="text" name="bank" id="bank" class="form-control input-xs"> 
-                     </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
+			       <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
 				     계좌번호 
 			       </label>
-			       <div class="col-sm-7 col-md-7">
-				      <input type="text" name="bankNum" id="bankNum" class="form-control input-xs">
+			       <div class="col-sm-4 col-md-4">
+				      <input name="bankNumb" id="bankNumb" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 		     </div>
 		   </div>
