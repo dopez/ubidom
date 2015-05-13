@@ -49,6 +49,8 @@ var Ubi = (function() {
 	    
 	var setLayout = function(){
 	    config.layout = new dhtmlXLayoutObject(f_layout_default_opt);
+        config.layout.cells("a").fixSize(true,true);
+        config.layout.cells("b").fixSize(true,true);
 	    $(window).resize(function(){
 	    	config.layout.setSizes();
 	    });

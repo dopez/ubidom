@@ -22,7 +22,6 @@ $(function() {
   gridMst.addHeader({name:"#cspan", 	colId:"itemSize", 	width:"33", align:"center", type:"ed"});
   gridMst.setColSort("str");	
   gridMst.setUserData("","pk","itemCode");
-  gridMst.enableSmartRendering(true,10);
   gridMst.atchHeader();
   gridMst.addAtchHeader({atchHeaderName:"품목코드"});
   gridMst.addAtchHeader({atchHeaderName:"품목명"});
@@ -35,6 +34,7 @@ $(function() {
   gridMst.addAtchFooter({atchFooterName:"0"});
   gridMst.atchFooterInit();
   gridMst.init();
+  gridMst.enableSmartRendering(true,10);
   gridMst.attachEvent("onRowSelect",doOnRowDblClicked);
 
   function doOnRowDblClicked(id,ind){

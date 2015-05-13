@@ -61,16 +61,19 @@ $( document ).ready(function() {
 	mainLayout.cells("b").setWidth(220);
 	mainLayout.cells("a").setHeight(50);
 	mainLayout.cells("a").fixSize(false, true);
-	mainLayout.cells("b").fixSize(true, false);
-	mainLayout.cells("b").fixSize(false, true);
+	//mainLayout.cells("b").fixSize(true, false);
+	//mainLayout.cells("b").fixSize(false, true);
 	
-// 	mainLayout.cells("a").collapse();
-// 	mainLayout.cells("d").collapse();
+	mainLayout.cells("c").fixSize(true, true);
+	mainLayout.cells("b").fixSize(true, true);
+	//mainLayout.cells("a").collapse();
+ 	//mainLayout.cells("d").collapse();
 
 	mainTabbar.attachEvent("onSelect", function(id, lastId){
 
 		mainMenu.getDxObj().selectItem(id);
-		//mainMenu.getDxObj().focusItem(id); Tabbar 클릭시 Tree scroll이 해당위치로 이동
+		//Tabbar 클릭시 Tree scroll이 해당위치로 이동
+		mainMenu.getDxObj().focusItem(id); 
 		return true;
 	});
 	

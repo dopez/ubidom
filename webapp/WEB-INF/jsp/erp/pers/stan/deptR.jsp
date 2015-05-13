@@ -15,10 +15,10 @@ $(document).ready(function(){
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no", width:"10", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"15", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서명",   colId:"postName", width:"15", align:"center", type:"ro"});
-	gridMain.addHeader({name:"시작일",   colId:"stDate", width:"15", align:"center", type:"ro"});
-	gridMain.addHeader({name:"종료일", 	 colId:"endDate", width:"15", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"시작일",   colId:"stDate", width:"10", align:"center", type:"ro"});
+	gridMain.addHeader({name:"종료일", 	 colId:"endDate", width:"10", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
