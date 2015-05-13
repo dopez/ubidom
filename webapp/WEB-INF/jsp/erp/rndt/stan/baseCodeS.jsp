@@ -15,10 +15,10 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");//attach search Condition div
 	
 	//좌측 그리드 config
-	subLayout.cells("a").setWidth(403);
+	subLayout.cells("a").setWidth(250);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"코드", colId:"code", width:"50", type:"ed"});
-	gridMst.addHeader({name:"코드명", colId:"codeName", width:"50", type:"ed"});
+	gridMst.addHeader({name:"코드", colId:"code", width:"30", align:"center",type:"ed"});
+	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",type:"ed"});
 	gridMst.setColSort("str");
 	gridMst.setUserData("","pk","code");
 	gridMst.init();
@@ -27,31 +27,42 @@ $(document).ready(function(){
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	/* gridDtl.addHeader({name:"No", colId:"rowNo", width:"10", type:"ro"}); */
-	gridDtl.addHeader({name:"내부코드", colId:"innerCode", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"내부코드명", colId:"innerCodeName", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"변수", colId:"addVar", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ed"});
+	gridDtl.addHeader({name:"내부코드", colId:"interCode", width:"5", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ed"});
+	gridDtl.addHeader({name:"변수", colId:"addVar", width:"5", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"5", align:"center",type:"ed"});
 	gridDtl.setColSort("str");
-	gridDtl.setUserData("","pk","innerCode");
+	gridDtl.setUserData("","pk","interCode");
 	gridDtl.init();	
 	
 	fn_loadGridMst();
 	gridDtl.clearAll();
-	//좌측 그리드 로우 더블클릭 시 이벤트
- 	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
+	fn_gridMstEdit("off");
+	gridMst.selectRow(0);
+	//gridMst.selectRow(0,true,true,true);
 
-	})
-	//그리드 onRowSelect edit
-	gridMst.attachEvent("onRowSelect", function(id,ind){
-    	gridMst.editCell();
- 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-		fn_loadGridDtl(codeMain);
-  	});
-	gridDtl.attachEvent("onRowSelect", function(id,ind){
+ 	gridDtl.attachEvent("onRowSelect", function(id,ind){
 		gridDtl.editCell();
   	});
+	getFirstParam();
 });
 //doc Ready End
+function getFirstParam(){
+	var FirstP = gridMst.getCellValue(gridMst.getRowId(0),0);
+	fn_loadGridDtl(FirstP);
+}
+	//그리드 onRowSelect edit
+function fn_gridMstEdit(flag){
+	gridMst.attachEvent("onRowSelect", function(id,ind){
+	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+	if(flag=="on"){
+		gridMst.editCell();
+	}else if(flag=="off"){
+		gridMst.editStop();
+	}
+		fn_loadGridDtl(codeMain);
+  	});
+}
 //btn function Start
 function fn_search(){
 	fn_loadGridMst();
@@ -64,6 +75,7 @@ function fn_new(){
     gridMst.addRow(data);
   	var totalRowNum = gridMst.getRowsNum()-1;
     gridMst.selectRow(totalRowNum);
+	fn_gridMstEdit("on");
 }
 //저장 버튼 동작
 function fn_save(){
@@ -79,6 +91,7 @@ function fn_save(){
            MsgManager.alertMsg("INF001");
            gridMst.clearAll();
            fn_loadGridMst();
+           fn_gridMstEdit("off");
             }
        });
 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
@@ -94,7 +107,10 @@ function fn_save(){
            async : true,
            success : function(data) {
            MsgManager.alertMsg("INF001");
-           
+           var totalRowNum = gridMst.getRowsNum()-1;
+    	   gridMst.selectRow(totalRowNum);
+           var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+           fn_loadGridDtl(codeMain);
             }
        });
 }
@@ -134,7 +150,6 @@ function fn_add(){
   	gridDtl.addRow(data);
   	var totalRowNum = gridDtl.getRowsNum()-1;
   	gridDtl.selectRow(totalRowNum);
-  	
 }
 //한줄삭제 버튼 동작
 function fn_delete(){
@@ -214,8 +229,10 @@ function fn_loadGridDtlCallBack(data){
 				<div class="col-sm-2 col-md-2">
 				 <input type="text" name="baseCode" id="baseCode" value="" placeholder="" class="form-control input-xs">
 				</div>
-				<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
+				<div class="col-sm-3 col-md-3">
+				<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
 				 <input type="text" name="baseName" id="baseName" value="" placeholder="" class="form-control input-xs">
+				</div>
 				</div>
 			  </div>
 		  </div>

@@ -656,6 +656,9 @@ dxGrid.prototype.setCells = function(row_id,col) {
 dxGrid.prototype.editCell = function(){
 	return this.dxObj.editCell();
 }
+dxGrid.prototype.editStop = function(ode){
+	return this.dxObj.editStop(ode);
+}
 
 dxGrid.prototype.printView = function(before,after){
 	return this.dxObj.printView(before,after);

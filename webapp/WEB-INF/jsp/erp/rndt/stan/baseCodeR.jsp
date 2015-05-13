@@ -18,13 +18,13 @@ $(document).ready(function(){
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"코드분류", colId:"code", width:"10", type:"ro"});
 	gridMain.addHeader({name:"코드분류명", colId:"codeName", width:"10", type:"ro"});
-	gridMain.addHeader({name:"내부코드", colId:"innerCode", width:"10", type:"ro"});
-	gridMain.addHeader({name:"내부코드명", colId:"innerCodeName", width:"10", type:"ro"});
+	gridMain.addHeader({name:"내부코드", colId:"interCode", width:"10", type:"ro"});
+	gridMain.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ro"});
 	gridMain.addHeader({name:"참조변수", colId:"addVar", width:"10", type:"ro"});
 	gridMain.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ro"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","code");
-	//gridMain.enableSmartRendering(true,5);
+	gridMain.enableSmartRendering(true,50);
 	gridMain.init();	
 	fn_loadGridMain();
 });
@@ -36,8 +36,8 @@ function fn_loadGridMain(){
 	var inputParams={}
 	inputParams.baseCode = $("#baseCode").val();
 	inputParams.baseName = $("#baseName").val();
-	inputParams.innerCode = $("#innerCode").val();
-	inputParams.innerCodeName = $("#innerCodeName").val();
+	inputParams.interCode = $("#innerCode").val();
+	inputParams.interName = $("#innerName").val();
 	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/baseCodeR",subLayout.cells("a"),fn_loadGridMainCallBack);
 }
 function fn_loadGridMainCallBack(){
@@ -77,7 +77,7 @@ function fn_loadGridMainCallBack(){
 				내부코드명
 			 </label>
 			 <div class="col-sm-2 col-md-2">
-			   <input type="text" name="innerCodeName" id="innerCodeName" value="" placeholder="" class="form-control input-xs">		
+			   <input type="text" name="innerName" id="innerName" value="" placeholder="" class="form-control input-xs">		
              </div>
 		  </div>
 	    </div>
