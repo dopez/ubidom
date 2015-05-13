@@ -24,7 +24,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ro"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","code");
-	gridMain.enableSmartRendering(true,50);
+	gridMain.enableSmartRendering(true,50,50);
 	gridMain.init();	
 	fn_loadGridMain();
 });

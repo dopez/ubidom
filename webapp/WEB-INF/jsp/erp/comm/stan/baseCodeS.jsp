@@ -105,18 +105,21 @@ function fn_save(){
            MsgManager.alertMsg("INF001");
            var totalRowNum = gridMst.getRowsNum()-1;
     	   gridMst.selectRow(totalRowNum);
-           fn_loadGridDtl(codeMain);
+           gridDtl.clearAll()
+    	   fn_loadGridDtl(codeMain);
             }
        });
 }
 //삭제 버튼 동작
 function fn_remove(){
-    var rodIdx = gridMst.getSelectedRowId();
-    var rodid = gridMst.getSelectedRowIndex();
-    if(gridMst.isDelRows(rodIdx)) {
+    var rodId = gridMst.getSelectedRowId();
+    var rodIdx = gridMst.getSelectedRowIndex();
+    if(gridMst.isDelRows(rodId)) {
        if(MsgManager.confirmMsg("INF002")) {
-     	  if(gridMst.chkUnsavedRow()) {
-     		  var jsonStr = gridMst.getJsonRowDel(rodIdx);
+     	  if(gridMst.chkUnsavedRow(rodIdx,rodId)) {
+     		  return;
+          }else{
+     		   var jsonStr = gridMst.getJsonRowDel(rodId);
                if (jsonStr == null || jsonStr.length <= 0) return;
                $("#jsonData").val(jsonStr);
                    $.ajax({
@@ -128,7 +131,7 @@ function fn_remove(){
                     MsgManager.alertMsg("INF003");
         			fn_loadGridMst(0);
         			fn_gridDtlDel();
-                     }
+                   }
                });
     	   }
         } else {
@@ -171,18 +174,20 @@ function fn_loadGridDtl(code){
 }
 //우측 그리드 삭제
 function fn_gridDtlDel(){
-    var rodIdx = gridDtl.getSelectedRowId();
-    var rodid = gridDtl.getSelectedRowIndex();
-    if(gridDtl.isDelRows(rodIdx)) {
+	var rodId = gridDtl.getSelectedRowId();
+    var rodIdx = gridDtl.getSelectedRowIndex();
+    if(gridDtl.isDelRows(rodId)) {
        if(MsgManager.confirmMsg("INF002")) {
-     	  if(gridDtl.chkUnsavedRow()) {
-     		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
+     	  if(gridDtl.chkUnsavedRow(rodIdx,rodId)) {
+     		  return
+          }else{
+     		  var jsonStr = gridDtl.getJsonRowDel(rodId);
   	 		  var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
   		   	  if (codeMain == null || codeMain.length <= 0) return;        		
               if (jsonStr == null || jsonStr.length <= 0) return;
   	           $("#gridMstCode").val(codeMain);
                $("#jsonData2").val(jsonStr);
-               console.log('param',$("#hiddenform").serialize());		
+               console.log('param',$("#hiddenform").serialize());
                    $.ajax({
                     url : "/erp/rndt/baseCodeS/codeSaveDtl",
                     type : "POST",
@@ -190,10 +195,9 @@ function fn_gridDtlDel(){
                     async : true,
                     success : function(data) {
                     MsgManager.alertMsg("INF003");
-                    console.log(codeMain);
                     gridDtl.clearAll()
              		fn_loadGridDtl(codeMain);
-                     }
+                   }
                });
     	   }
         } else {
