@@ -80,25 +80,26 @@ function fn_add(){
        gridDtl.addRow(data);
 }
 function fn_delete(){
-      var rodIdx = gridDtl.getSelectedRowId();
-      var rodid = gridDtl.getSelectedRowIndex();
-      if(gridDtl.isDelRows(rodIdx)) {
+      var rodid = gridDtl.getSelectedRowId();
+      var rodIdx = gridDtl.getSelectedRowIndex();
+      if(gridDtl.isDelRows(rodid)) {
          if(MsgManager.confirmMsg("INF002")) {
-       	  if(gridDtl.chkUnsavedRow()) {
-       		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
-                 if (jsonStr == null || jsonStr.length <= 0) return;
-                 $("#jsonData").val(jsonStr);
-                     $.ajax({
-                      url : "/erp/deptS/prcsDept",
-                      type : "POST",
-                      data : $("#pform").serialize(),
-                      async : true,
-                      success : function(data) {
-                      MsgManager.alertMsg("INF003");
-                      fn_loadGridListCode(fn_value(),1);
-                       }
-                 });
-       	   }
+       	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
+       	  }else{
+       		 var jsonStr = gridDtl.getJsonRowDel(rodid);
+             if (jsonStr == null || jsonStr.length <= 0) return;
+              $("#jsonData").val(jsonStr);
+                  $.ajax({
+                   url : "/erp/deptS/prcsDept",
+                   type : "POST",
+                   data : $("#pform").serialize(),
+                   async : true,
+                   success : function(data) {
+                   MsgManager.alertMsg("INF003");
+                   fn_loadGridListCode(fn_value(),1);
+                  }
+              });
+       	   }   	 
           } else {
            	 MsgManager.alertMsg("WRN004");
             } 
@@ -138,7 +139,7 @@ function fn_comboReadOnly(combo){
 };	
 function fn_search(){
 	var params = fn_value();
-	fn_loadGridListCode(params,1);
+	fn_loadGridListCode(params,1); 
 }
 // dept 조회로직
 function fn_loadGridList(params,flag) {

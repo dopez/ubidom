@@ -462,29 +462,6 @@ dxGrid.prototype.setHiddenCols = function(cols) {
 	}
 };
 
-dxGrid.prototype.chkUnsavedRows = function() {
-	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-	var isDelRow = false;
-	
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
-		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
-		if (cudColVal == actInsert) {
-			if(!isDelRow) {
-				if(MsgManager.confirmMsg("WRN007")) {
-					isDelRow = true;
-					this.dxObj.deleteRow(this.dxObj.getRowId(i));
-					i--;
-				} else {
-					return false;
-				}
-			} else {
-				this.dxObj.deleteRow(this.dxObj.getRowId(i));
-				i--;
-			}
-		}
-	}
-	return true;
-};
 //한줄만 삭제
 dxGrid.prototype.chkUnsavedRows = function() {
 	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
@@ -509,9 +486,22 @@ dxGrid.prototype.chkUnsavedRows = function() {
 	return true;
 };
 //메세지 안나오게 한 로직
-dxGrid.prototype.chkUnsavedRow = function() {
+dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
 	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
 	var isDelRow = false;
+	var cudColVal = this.dxObj.cells2(rowNum,cudColIdx).getValue();
+	if (cudColVal == actInsert) {
+		isDelRow = true;
+			this.dxObj.deleteRow(rowId);
+	}
+	return isDelRow;
+};
+
+//메세지 안나오게 한 로직
+/*dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
+	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	var cudColVal = this.dxObj.cells2(rowNum,cudColIdx).getValue();
 	
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
@@ -527,7 +517,8 @@ dxGrid.prototype.chkUnsavedRow = function() {
 		}
 	}
 	return true;
-};
+};*/
+
 
 dxGrid.prototype.isSelRows = function(colIdx) {
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
