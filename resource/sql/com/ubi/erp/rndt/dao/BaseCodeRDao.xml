@@ -4,26 +4,16 @@
 <mapper namespace="com.ubi.erp.rndt.dao.BaseCodeRDao">
 
 	<!-- <resultMap id="BaseCodeRMap" type="BaseCodeR"/> -->
-	<resultMap type="BaseCodeR" id="BaseCodeRMap">
-	<id column="id" property="id"/>
-    <result property="code" column="CODE" />
-    <result property="codeName" column="CODE_NAME"/>
-    <result property="compId" column="COMP"/>
-    <result property="sysEmpNo" column="SYS_EMP_NO"/>
-    <result property="innerCode" column="INTER_CODE"/>
-    <result property="innerCodeName" column="INTER_NAME"/>
-    <result property="addVar" column="ADD_VAR"/>
-    <result property="descRmk" column="DESCRIPTION"/>
-</resultMap>
+	<resultMap type="BaseCodeR" id="BaseCodeRMap"/>
 
  	<select id="selBaseCodeR" statementType="CALLABLE">
 		 {call 
 		 	SP_COMM_baseCodeR_Sch(
-		 		#{compId},
+		 		#{comp},
 		 		#{code},
 		 		#{codeName},
-		 		#{innerCode},
-		 		#{innerCodeName},
+		 		#{interCode},
+		 		#{interName},
 		 		#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=BaseCodeRMap, javaType=ResultSet}
 		 	)
 		 }	

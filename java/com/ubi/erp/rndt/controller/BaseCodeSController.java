@@ -55,7 +55,7 @@ public class BaseCodeSController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/baseCodeMstSel", method = RequestMethod.POST)
 	public List<BaseCodeS> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
+		String comp = (String) session.getAttribute("compId");
 		String codeName;
 		String code;
 		
@@ -71,7 +71,7 @@ public class BaseCodeSController {
 			codeName = request.getParameter("codeName");
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("compId", compId);
+		map.put("comp", comp);
 		map.put("code", code);
 		//map.put("code", "%");
 		map.put("codeName", codeName);
@@ -83,23 +83,20 @@ public class BaseCodeSController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/baseCodeDtlSel", method = RequestMethod.POST)
 	public List<BaseCodeS> baseCodeDtlSel(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
+		String comp = (String) session.getAttribute("compId");
 		String code = request.getParameter("code");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("compId", compId);
+		map.put("comp", comp);
 		map.put("code", code);
 		map.put("P_RST", null);
 		baseCodeSService.selInterCode(map);
 		List<BaseCodeS> innerCodeList = (List<BaseCodeS>) map.get("P_RST");
-		for(int i=0;i<innerCodeList.size();i++){
-			System.out.println(innerCodeList.get(i).getInnerCode());
-		}
 		return innerCodeList;
 	}
 	@RequestMapping(value = "/codeSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void codeSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
+		String comp = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
 		List<BaseCodeS> list = new ArrayList<BaseCodeS>();
@@ -110,14 +107,14 @@ public class BaseCodeSController {
 			System.out.println(basecodss.getCode());
 			basecodss.setCode(basecodss.getCode());
 			basecodss.setSysEmpNo(sysEmpNo);
-			basecodss.setCompId(compId);
+			basecodss.setComp(comp);
 			baseCodeSService.crudRndt(basecodss);
 		}
 	}
 	@RequestMapping(value = "/codeSaveDtl", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void codeSaveDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
+		String comp = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData2");
 		String code = request.getParameter("gridMstCode");
@@ -131,7 +128,7 @@ public class BaseCodeSController {
 		for (BaseCodeS basecodss : list) {
 			logger.debug("list"+list);
 			basecodss.setCode(code);
-			basecodss.setCompId(compId);
+			basecodss.setComp(comp);
 			basecodss.setSysEmpNo(sysEmpNo);
 			baseCodeSService.crudDtlRndt(basecodss);
 		}
