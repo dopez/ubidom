@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,2,3,4],"2U");
+	Ubi.setContainer(2,[1,2,3,4],"2U");
 	//인사자료등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -14,18 +14,25 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,사원번호,성명,부서",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100");
-	gridMain.setColAlign("center,right,left,left");
-	gridMain.setColTypes("ron,ron,ro,ro");
-	gridMain.setColSorting("int,int,str,str");
-	gridMain.init();	
 	subLayout.cells("a").setWidth(403);
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO", colId:"no", width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사원번호", colId:"empNo", width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명", colId:"empName", width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서", colId:"deptName", width:"25", align:"center", type:"ro"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","no");
+	gridMain.init(); 
 	
 	subLayout.cells("b").attachObject("bootContainer2");
+	
+	$("#deptName").dblclick(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"deptName":$(this).val()});
+	});
+	
+	$("#persAppointBtn").click(function(){
+		gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
+	});
 	
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"},{input:"isDate",button:"calpicker3"},
 	{input:"tsDate",button:"calpicker4"},{input:"tjDate",button:"calpicker5"}]);
@@ -55,13 +62,7 @@ $(document).ready(function(){
 			   <option value="기술직">기술직</option>
 			  </select>
 			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 근무
 			 </label>
 			<div class="col-sm-2 col-md-2">
@@ -82,26 +83,20 @@ $(document).ready(function(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 성명
 			 </label>
 			<div class="col-sm-2 col-md-2">
 			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			<div class="col-sm-2 col-md-2" style="margin-left: 5px;">
-			  <input name="pers" id="pers" type="button" value="인사발령" placeholder="" class="form-control btn btn-default btn-xs">
+			  <input name="persAppointBtn" id="persAppointBtn" type="button" value="인사발령" placeholder="" class="form-control btn btn-default btn-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>          
+	</div>         
   </form>
  </div> 
 </div>
