@@ -66,56 +66,19 @@ function checkBox_value(inputId){
 }
 
 function fn_save(){
-	var obj = {};
-	obj.postNo = $("#postNo").val();
-	obj.postName = $("#postName").val();
-	obj.empNo = $("#empNo").val();
-	obj.korName = $("#korName").val();
-	obj.engName = $("#engName").val();
-	obj.chaName = $("#chaName").val();
-	obj.regiNumb = $("#regiNumb").val();
-	obj.jikwee = $("#jikwee").val();
-	obj.jikmu = $("#jikmu").val();
-	obj.jikchak = $("#jikchak").val();
-	obj.address = $("#address").val();
-	obj.baseAddrs = $("#baseAddrs").val();
-	obj.tel = $("#tel").val();
-	obj.handPhone = $("#handPhone").val();
-	obj.email = $("#email").val();
-	obj.character = $("#character").val();
-	obj.taste = $("#taste").val();
-	obj.partCont = $("#partCont").val();
-	obj.length = $("#length").val();
-	obj.weight = $("#weight").val();
-	obj.blood = $("#blood").val();
-	obj.eyeLeft = $("#eyeLeft").val();
-	obj.eyeRight = $("#eyeRight").val();
-	obj.disaYn = $("#disaYn").val();
+	/* var obj = {};
 	obj.bldKind = checkBox_value("bldKind");
 	obj.disorderYn = checkBox_value("disorderYn");
-	obj.disorderCont = $("#disorderCont").val();
-	obj.armyKind = $("#armyKind").val();
-	obj.amryBarch = $("#amryBarch").val();
-	obj.armyGd = $("#armyGd").val();
-	obj.armyYn = $("#armyYn").val();
-	obj.armyNo = $("#armyNo").val();
-	obj.amryDate1 = $("#amryDate1").val();
-	obj.amryDate2 = $("#amryDate2").val();
-	obj.enterDate = $("#enterDate").val();
-	obj.retireDate = $("#retireDate").val();
-	obj.retireMidDate = $("#retireMidDate").val();
-	obj.bankCode = $("#bankCode").val();
-	obj.bankNumb = $("#bankNumb").val();
-	obj.religion = $("#religion").val();
 	obj.armySpcase = checkBox_value("armySpcase");
-	obj.armyMerit = checkBox_value("armyMerit");
+	obj.armyMerit = checkBox_value("armyMerit"); */
+	var params = $("#frmMain").serialize();
 	
-	$.post("/erp/persDataS/prcsPersData",obj,mockup);
-	//gfn_callAjaxForForm("frmMain",obj,"/erp/persDataS/prcsPersData");
+	$.post("/erp/persDataS/prcsPersData",params,mockup);
+	//gfn_callAjaxForForm("frmMain",params,"/erp/persDataS/prcsPersData");
 };
 
 function mockup(){
-alert("asdsd");	
+	
 }
 function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
