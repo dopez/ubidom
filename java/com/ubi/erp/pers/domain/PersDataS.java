@@ -29,8 +29,8 @@ public class PersDataS implements Serializable {
 	private String character; // 성격
 	private String taste; // 취미
 	private String partCont; // 특기
-	private int length; // 신장
-	private int weight; // 몸무게
+	private String length; // 신장
+	private String weight; // 몸무게
 	private String blood; // 혈액형
 	private String eyeLeft; // 좌시력
 	private String eyeRight; // 우시력
@@ -65,8 +65,8 @@ public class PersDataS implements Serializable {
 			String korName, String engName, String chaName, String regiNumb,
 			String jikwee, String jikmu, String jikchak, String address,
 			String baseAddrs, String tel, String handPhone, String email,
-			String character, String taste, String partCont, int length,
-			int weight, String blood, String eyeLeft, String eyeRight,
+			String character, String taste, String partCont, String length,
+			String weight, String blood, String eyeLeft, String eyeRight,
 			String disaYn, String bldKind, String disorderYn,
 			String disorderCont, String armyKind, String armyJong,
 			String amryBarch, String armyGd, String armyYn, String armyNo,
@@ -301,19 +301,19 @@ public class PersDataS implements Serializable {
 		this.partCont = partCont;
 	}
 
-	public int getLength() {
+	public String getLength() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void setLength(String length) {
 		this.length = length;
 	}
 
-	public int getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 

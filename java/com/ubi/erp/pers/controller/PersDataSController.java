@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,10 +66,9 @@ public class PersDataSController {
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		System.out.println(request.getParameter("email"));
-		String jsonData = request.getParameter("frmMain");
-		List<PersDataS> list = new ArrayList<PersDataS>();
-		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<PersDataS>>(){});
+		
+		System.out.println(persDataS.getEmail());
+	
 		DateFormatUtil df = new DateFormatUtil();
 		
 		/*for(PersDataS persDataS : list) {

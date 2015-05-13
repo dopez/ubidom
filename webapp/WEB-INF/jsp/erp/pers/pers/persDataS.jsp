@@ -109,9 +109,14 @@ function fn_save(){
 	obj.religion = $("#religion").val();
 	obj.armySpcase = checkBox_value("armySpcase");
 	obj.armyMerit = checkBox_value("armyMerit");
-	gfn_callAjaxForForm("frmMain",obj,"/erp/persDataS/prcsPersData");
+	
+	$.post("/erp/persDataS/prcsPersData",obj,mockup);
+	//gfn_callAjaxForForm("frmMain",obj,"/erp/persDataS/prcsPersData");
 };
 
+function mockup(){
+alert("asdsd");	
+}
 function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
     var rodIdx = gridMain.getSelectedRowIndex();
