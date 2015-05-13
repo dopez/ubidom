@@ -43,10 +43,6 @@ $(document).ready(function(){
   	});
 });
 //doc Ready End
-/* function getFirstParam(){
-	var FirstP = gridMst.getCellValue(gridMst.getRowId(0),0);
-	fn_loadGridDtl(FirstP);
-} */
 	//그리드 onRowSelect edit
 function fn_gridMstEdit(flag){
 	gridMst.attachEvent("onRowSelect", function(id,ind){
@@ -60,6 +56,7 @@ function fn_gridMstEdit(flag){
   	});
 }
 //btn function Start
+//조회 버튼 동작
 function fn_search(){
 	fn_loadGridMst(0);
 	//gridDtl.clearAll();
