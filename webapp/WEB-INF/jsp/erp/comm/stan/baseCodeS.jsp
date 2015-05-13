@@ -62,7 +62,7 @@ function fn_gridMstEdit(flag){
 //btn function Start
 function fn_search(){
 	fn_loadGridMst(0);
-	//gridDtl.clearAll();
+	fn_gridMstEdit("off");
 }
 //신규 버튼 동작
 function fn_new(){
@@ -86,7 +86,7 @@ function fn_save(){
            success : function(data) {
            MsgManager.alertMsg("INF001");
            gridMst.clearAll();
-           fn_loadGridMst();
+           fn_loadGridMst(0);
            fn_gridMstEdit("off");
             }
        });
@@ -105,7 +105,6 @@ function fn_save(){
            MsgManager.alertMsg("INF001");
            var totalRowNum = gridMst.getRowsNum()-1;
     	   gridMst.selectRow(totalRowNum);
-           var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
            fn_loadGridDtl(codeMain);
             }
        });
@@ -193,8 +192,7 @@ function fn_gridDtlDel(){
                     MsgManager.alertMsg("INF003");
                     console.log(codeMain);
                     gridDtl.clearAll()
-                    var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-                    fn_loadGridDtl(codeMain);
+             		fn_loadGridDtl(codeMain);
                      }
                });
     	   }
@@ -210,7 +208,6 @@ function fn_First_loadGridMst(data){
 	fn_loadGridDtl(data[0].code);
 }
 function fn_loadGridMstCallBack(data){
-	//fn_loadGridDtl(data);
 }
 //우측 그리드 콜백함수
 function fn_loadGridDtlCallBack(data){
