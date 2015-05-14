@@ -8,7 +8,11 @@ import org.apache.ibatis.type.Alias;
 public class MenuS implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private String cudKey;
+	
+	private String compId;
+	
 	private String menucd;
 
 	private String menugbn;
@@ -22,6 +26,8 @@ public class MenuS implements Serializable {
 	private String seq;
 
 	private String exegbn;
+	
+	private String scrnParm;
 
 	private String uri;
 	
@@ -90,6 +96,30 @@ public class MenuS implements Serializable {
 		this.seq = seq;
 	}
 
+	public String getCompId() {
+		return compId;
+	}
+
+	public void setCompId(String compId) {
+		this.compId = compId;
+	}
+
+	public String getCudKey() {
+		return cudKey;
+	}
+
+	public void setCudKey(String cudKey) {
+		this.cudKey = cudKey;
+	}
+
+	public String getScrnParm() {
+		return scrnParm;
+	}
+
+	public void setScrnParm(String scrnParm) {
+		this.scrnParm = scrnParm;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -98,10 +128,12 @@ public class MenuS implements Serializable {
 		super();
 	}
 
-	public MenuS(String menucd, String menugbn, String pmenucd,
-			String menuname, String agValue, String seq, String exegbn,
+	public MenuS(String cudKey,String compId, String menucd, String menugbn, String pmenucd,
+			String menuname, String agValue, String seq, String exegbn, String scrnParm,
 			String uri) {
 		super();
+		this.cudKey = cudKey;
+		this.compId = compId;
 		this.menucd = menucd;
 		this.menugbn = menugbn;
 		this.pmenucd = pmenucd;
@@ -109,6 +141,7 @@ public class MenuS implements Serializable {
 		this.agValue = agValue;
 		this.seq = seq;
 		this.exegbn = exegbn;
+		this.scrnParm = scrnParm;
 		this.uri = uri;
 	}
 }
