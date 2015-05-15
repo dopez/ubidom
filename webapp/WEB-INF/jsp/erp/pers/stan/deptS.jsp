@@ -33,7 +33,7 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
-	
+	gridDtl.dxObj.enableDragAndDrop(true);
 	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
 	
 	var combo=gridDtl.getColumnCombo(5);
@@ -197,8 +197,12 @@ function fn_value(){
 	return params;
 }
 
-function fn_onOpenPop(){
-	var value =  $("#postName").val();
+function fn_onOpenPop(pName){
+	var value;
+	if(pName=="postCode"){
+		value =  $("#postName").val();	  
+	  }
+	
 	return value;
 };
 

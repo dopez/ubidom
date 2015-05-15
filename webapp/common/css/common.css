@@ -14,3 +14,6 @@ img{border:0;}
 .grid-basic td {min-height:27px; font-family:"굴림","gulim"; color:#444444; border-bottom:1px solid #e5e5e5; background:none;}
 .grid-basic .left {padding:0 20px; text-align:left;}
 .dhx_combo_select{font-size:12px; background-color:#fff; overflow:hidden;cursor:default;position:absolute;height:auto;z-index:600;}
+
+/* validation label color 변경*/
+label.error{color:red;}

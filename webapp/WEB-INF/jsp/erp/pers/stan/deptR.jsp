@@ -55,8 +55,13 @@ function fn_loadGridList(params) {
 function fn_loadGridListCB(data) {
 	
 };
-function fn_onOpenPop(){
-	var value =  $("#postName").val();
+
+function fn_onOpenPop(pName){
+	var value;
+	if(pName=="postCode"){
+		value =  $("#postName").val();	  
+	  }
+	
 	return value;
 };
 

@@ -14,12 +14,17 @@
 	</select>
 	
 		<insert id="crudPersDataS" statementType="CALLABLE" parameterType="PersDataS">
-  		{call SP_PERS_DEPTS_SAVE(
-  		#{cudKey},#{compId},#{empNo},#{korName},#{engName},#{chaName},#{regiNumb},#{postCode},#{jikwee},#{jikmu},
-  		#{jikchak},#{postNo},#{address},#{tel},#{handPhone},#{email},#{character},#{taste},#{partCont},#{length},
-  		#{weight},#{blood},#{eyeLeft},#{eyeRight},#{disaYn},#{bldKind},#{disorderYn},#{disorderCont},#{armyKind},#{armyJong},
-  		#{amryBarch},#{armyGd},#{armyYn},#{armyNo},#{amryDate1},#{amryDate2},#{enterDate},#{retireDate},#{retireMidDate},#{bankCode},
-  		#{bankNumb},#{sysEmpNo}
+  		{call SP_PERS_PERSDATAS_SAVE(
+  		#{cudKey},#{compId},#{empNo},#{korName},#{engName},
+  		#{chaName},#{regiNumb},#{postCode},#{jikwee},#{jikmu},
+  		#{jikchak},#{postNo},#{address},#{baseAddrs},#{tel},
+  		#{handPhone},#{email},#{character},#{taste},#{partCont},
+  		#{length},#{weight},#{blood},#{eyeLeft},#{eyeRight},
+  		#{disaYn},#{bldKind},#{disorderYn},#{disorderCont},#{armyKind},
+  		#{armyJong},#{amryBarch},#{armyGd},#{armyYn},#{armyNo},
+  		#{amryDate1},#{amryDate2},#{religion},#{armySpcase},#{armyMerit},
+  		#{enterDate},#{retireDate},#{retireMidDate},#{bankCode},#{bankNumb},
+  		#{sysEmpNo}
   		)}	
   	</insert>
   	

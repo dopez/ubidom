@@ -588,7 +588,6 @@ dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
 			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 					colId = this.dxObj.getColumnId(j);
 					colVal = this.dxObj.cells2(chkIdx,j).getValue();
-
 						if(colId !="cudKey") {
 							row[colId]=colVal;
 						} else {
@@ -672,3 +671,13 @@ dxGrid.prototype.enableSmartRendering = function(flag,rowNum){
 dxGrid.prototype.clearSelection = function(){
 	return this.dxObj.clearSelection();
 }
+
+dxGrid.prototype.filterBy = function(colIndex,value,status){
+	return this.dxObj.filterBy(colIndex,value,status);
+}
+
+dxGrid.prototype.filterByAll = function(){
+	return this.dxObj.filterByAll();
+}
+
+

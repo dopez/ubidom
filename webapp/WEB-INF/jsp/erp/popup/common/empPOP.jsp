@@ -5,6 +5,12 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var config={
+		title:"사원",
+		id:"empNo",
+		width:"300",
+		height:"500"
+	}
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//사원 도우미
@@ -14,16 +20,16 @@ $(document).ready(function(){
     
     layout.cells("b").attachObject("bootContainer");
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("코드,사원명",null,
-			["text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("150,150");
-	gridMain.setColAlign("left,left");
-	gridMain.setColTypes("ro,ro");
-	gridMain.setColSorting("str,str");
-	gridMain.init(); 
+   gridMain = new dxGrid(subLayout.cells("a"), false);
+	
+    gridMain.addHeader({name:"코드", colId:"empNo", 	width:"14", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사원명", 	 colId:"korName", 	width:"14", align:"center", type:"ro"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","empNo");
+	gridMain.init();
+
 });
+
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -33,7 +39,7 @@ $(document).ready(function(){
 			 사원명
 			</label>
 			<div class="col-xs-6">
-			  <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

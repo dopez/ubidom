@@ -9,14 +9,24 @@ public class DateFormatUtil {
 	SimpleDateFormat stringFormat = new SimpleDateFormat("yyyyMMdd");
 
 	public String dateToString(String stDate) throws ParseException {
+		String orinDate;
+		if(stDate ==null || stDate.equals("")){
+			orinDate = stDate;
+		}else{
 		Date date = dateFormat.parse(stDate);
-		String orinDate = stringFormat.format(date);
+		orinDate = stringFormat.format(date);
+		}
 		return orinDate;
 	}
 
 	public String dateToString2(String stDate) throws ParseException {
+		String orinDate;
+		if(stDate ==null || stDate.equals("")){
+			orinDate = stDate;
+		}else{
 		Date date = stringFormat.parse(stDate);
-		String orinDate = dateFormat.format(date);
+		orinDate = dateFormat.format(date);
+		}
 		return orinDate;
 	}
 

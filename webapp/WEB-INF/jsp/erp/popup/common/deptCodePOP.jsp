@@ -5,7 +5,6 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
-var orinGrid;
 var config={
 		title:"부서코드",
 		id:"postCode",
@@ -28,12 +27,8 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
-	var params = "postName=" + parent.fn_onOpenPop();
+	var params = "postName=" + parent.fn_onOpenPop(config.id);
 	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
-	
-	toolbar.attachEvent("onClick", function(id) {
-	      fn_search();
-	});
 });
 function fn_search(){
 	 var params = "postName=" + $("#postName").val();

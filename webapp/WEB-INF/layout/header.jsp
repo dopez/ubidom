@@ -33,4 +33,5 @@ response.setDateHeader("Expires", 0);
 <script type="text/javascript" src="/component/dhtmlxCalendar/dhtmlxcalendar.js"></script>
 <link rel="stylesheet" href="/component/dhtmlxCalendar/skins/dhtmlxcalendar_dhx_skyblue.css"/>
 <link rel="stylesheet" type="text/css" href="/component/dxcalendar_extend.css" />
-
+<!-- validation ko 추가 -->
+<script type="text/javascript" src="/component/jquery-validation-1.13.1/localization/messages_ko.js"></script>
