@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
@@ -46,11 +47,9 @@ $(document).ready(function(){
 	    }
 	 });
     
-    $("#empName").keyup(function(e) {
-	    if (e.keyCode == '13') {
-	      gridMain.filterBy(2,byId("empName").value);
-	    }
-	 });
+     $("#btnSearch").click(function(){
+    	 execDaumPostcode();
+	}); 
     
 	$("#persAppointBtn").click(function(){
 		gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
@@ -64,16 +63,32 @@ $(document).ready(function(){
 	
 	byId("cudKey").value = "INSERT";
 });
-
+		
 function doOnRowSelect(id, ind){
 	byId("cudKey").value = "UPDATE";
-	 $("input[name=empNo]").attr("disabled",true);
+	disableValue(2);
 	var obj={};
 	obj.compId= gridMain.setCells(id,4).getValue();
 	obj.empNo= gridMain.setCells(id,1).getValue();
 	fn_loadFormList(obj);
 	
 }
+
+function disableValue(flag){
+	if(flag == 1){
+	  $("input[name=empNo]").attr("disabled",false);
+	  $("input[name=jikwee]").attr("disabled",false);
+	  $("input[name=jikmu]").attr("disabled",false);
+	  $("input[name=jikchak]").attr("disabled",false);
+	}else{
+	  $("input[name=empNo]").attr("disabled",true);
+	  $("input[name=jikwee]").attr("disabled",true);
+	  $("input[name=jikmu]").attr("disabled",true);
+	  $("input[name=jikchak]").attr("disabled",true);
+	}
+	
+}
+
 function fn_calValue(){
 	var t = dateformat(new Date());
 	byId("amryDate1").value = t; 
@@ -90,15 +105,39 @@ function fn_new(){
 	byId("frmMain").reset();
 	byId("frmSearch").reset();
 	fn_calValue();
+	disableValue(1);
 	byId("cudKey").value = "INSERT";
 };
 
-function fn_save(){
-	 $("input[name=empNo]").attr("disabled",false);
+ function fn_save(){
+	 disableValue(1);
 	var params = $("#frmMain").serialize();
 	$.post("/erp/persDataS/prcsPersData",params,prcsPersDtaCB);
 	//gfn_callAjaxForForm("frmMain",params,"/erp/persDataS/prcsPersData");
-};
+}; 
+
+/* function fn_save(){
+	 $("input[name=empNo]").attr("disabled",false);
+	$("#frmMain").validate();
+	var params = $("#frmMain").serialize();
+	$('#frmMain').submit();
+	if($("#frmMain").valid()){
+		$.ajax(
+				 {
+				   type:'POST',
+				   url:"/erp/persDataS/prcsPersData",
+				   data:params,
+				   success:function(data)
+				     {
+				    	 prcsPersDtaCB(data);
+				     }
+				   });
+	}else{
+		return false;
+	} 
+	//$.post("/erp/persDataS/prcsPersData",params,prcsPersDtaCB);
+	//gfn_callAjaxForForm("frmMain",params,"/erp/persDataS/prcsPersData");
+}; */
 
 function prcsPersDtaCB(){
 	fn_loadGridList();
@@ -110,7 +149,7 @@ function fn_remove(){
     if(gridMain.isDelRows(rodid)) {
        if(MsgManager.confirmMsg("INF002")) {
     	   byId("cudKey").value = "DELETE";
-    	   $("input[name=empNo]").attr("disabled",false);
+    	   disableValue(1);
                 $.ajax({
                  url : "/erp/persDataS/prcsPersData",
                  type : "POST",
@@ -177,6 +216,41 @@ function fn_onClosePop(pName,data){
 		}		  
 	}	  
  };
+ 
+ function execDaumPostcode() {
+     new daum.Postcode({
+         oncomplete: function(data) {
+             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+             // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+             var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+             var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+             // 법정동명이 있을 경우 추가한다.
+             if(data.bname !== ''){
+                 extraRoadAddr += data.bname;
+             }
+             // 건물명이 있을 경우 추가한다.
+             if(data.buildingName !== ''){
+                 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+             }
+             // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+             if(extraRoadAddr !== ''){
+                 extraRoadAddr = ' (' + extraRoadAddr + ')';
+             }
+             // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+             if(fullRoadAddr !== ''){
+                 fullRoadAddr += extraRoadAddr;
+             }
+
+             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              document.getElementById("postNo").value = data.postcode1+"-"+data.postcode2;
+             document.getElementById("address").value = fullRoadAddr;
+             document.getElementById("baseAddrs").value = data.jibunAddress; 
+         }
+     }).open();
+ }
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
@@ -215,6 +289,16 @@ function fn_onClosePop(pName,data){
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 	  <input type="hidden" id="cudKey" name="cudKey" />
 	  <input type="hidden" id="postCode" name="postCode" />
+	  <input type="hidden" id="character" name="character" />
+	  <input type="hidden" id="taste" name="taste" />
+	  <input type="hidden" id="partCont" name="partCont" />
+	  <input type="hidden" id="armyKind" name="armyKind" />
+	  <input type="hidden" id="amryBarch" name="amryBarch" />
+	  <input type="hidden" id="armyGd" name="armyGd" />
+	  <input type="hidden" id="weight" name="weight" value="0" />
+	  <input type="hidden" id="length" name="length" value="0" />
+      <input type="hidden" id="armyNo" name="armyNo" />
+      <input type="hidden" id="armySpcase" name="armySpcase" />
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">
@@ -342,7 +426,7 @@ function fn_onClosePop(pName,data){
 					<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs" required="required">
 				 </div>
 				 <div class="col-sm-2 col-md-2">
-					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch" onclick="fn_search()">
+					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch">
 					  <span class="glyphicon glyphicon-search"></span>
 					</button>
 				 </div>
@@ -372,41 +456,22 @@ function fn_onClosePop(pName,data){
  		<div class="row">
 		   <div class="form-group form-group-sm">
 		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 성격 
+				 시력좌우 
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-				      <input name="character" id="character" type="text" value="" placeholder="" class="form-control input-xs">
+				       <div class="col-sm-6 col-md-6">
+			             <input name="eyeLeft" id="eyeLeft" type="text" value="" placeholder="" class="form-control input-xs">
+			          </div>
+				      <div class="col-sm-6 col-md-6">
+			             <input name="eyeRight" id="eyeRight" type="text" value="" placeholder="" class="form-control input-xs">
+			          </div>
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     취미 
+				     색맹구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="taste" id="taste" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     특기 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				     <input name="partCont" id="partCont" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 몸무게 
-			    </label>
-			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-2 col-md-2">
-				      <input name="weight" id="weight" type="text" value="0" placeholder="" class="form-control input-xs">
-			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     신장 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				      <input name="length" id="length" type="text" value="0" placeholder="" class="form-control input-xs">
+				     <input name="bldKind" id="bldKind" value="1" type="checkbox">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     혈액형 
@@ -425,22 +490,14 @@ function fn_onClosePop(pName,data){
  		<div class="row">
 		   <div class="form-group form-group-sm">
 		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 시력좌우 
+				 장애유무 
 			    </label>
 			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-2 col-md-2">
-			          <div class="col-sm-6 col-md-6">
-			             <input name="eyeLeft" id="eyeLeft" type="text" value="" placeholder="" class="form-control input-xs">
-			          </div>
-				      <div class="col-sm-6 col-md-6">
-			             <input name="eyeRight" id="eyeRight" type="text" value="" placeholder="" class="form-control input-xs">
-			          </div>
+			       <div class="col-sm-1 col-md-1">
+			          <input name="disorderYn" id="disorderYn" type="checkbox" value="1">
 			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     색맹구분 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-			         <input name="bldKind" id="bldKind" value="1" type="checkbox">
+			       <div class="col-sm-6 col-md-6">
+			         <input name="disorderCont" id="disorderCont" value="" type="text" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     결혼구분 
@@ -457,73 +514,22 @@ function fn_onClosePop(pName,data){
  		<div class="row">
 		   <div class="form-group form-group-sm">
 		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 장애유무
-			    </label>
-			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-1 col-md-1">
-			          <input name="disorderYn" id="disorderYn" type="checkbox" value="1">
-			       </div>
-			       <div class="col-sm-6 col-md-6">
-			         <input name="disorderCont" id="disorderCont" value="" type="text" class="form-control input-xs">
-			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 종교
+				 종교 
 			    </label>
 			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
-			          <select name="religion" id="religion"  class="form-control input-xs">
+				      <select name="religion" id="religion"  class="form-control input-xs">
 			          	<option value="무교">무교</option>
 			          	<option value="기독교">기독교</option>
 			          	<option value="천주교">천주교</option>
 			          	<option value="불교">불교</option>
 			          </select>
 			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 군별 
-			    </label>
-			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-2 col-md-2">
-				      <input name="armyKind" id="armyKind" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     병과 
+				     보훈대상 
 			       </label>
-			       <div class="col-sm-2 col-md-2">
-				      <input name="amryBarch" id="amryBarch" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     계급 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				     <input name="armyGd" id="armyGd" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
-		     </div>
-		   </div>
- 		</div>
- 		<div class="row">
-		   <div class="form-group form-group-sm">
-		        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
-				 보훈대상 
-			    </label>
-			    <div class="col-sm-6 col-md-6">
 			       <div class="col-sm-2 col-md-2">
 				      <input name="armyMerit" id="armyMerit" type="checkbox" value="1" placeholder="" >
-			       </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     특례유무 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				      <input name="armySpcase" id="armySpcase" type="checkbox" value="1" placeholder="" >
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     재대구분 
@@ -532,6 +538,7 @@ function fn_onClosePop(pName,data){
 				     <select name="armyYn" id="armyYn" class="form-control input-xs">
 				      <option value="1">만기재대</option>
 				      <option value="0">소집해제</option>
+				      <option value="2">면제</option>
 				     </select>
 			       </div>
 		     </div>
@@ -562,12 +569,6 @@ function fn_onClosePop(pName,data){
                           </div>
                        </div> 
                  </div>
-			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
-				     군번 
-			       </label>
-			       <div class="col-sm-2 col-md-2">
-				      <input name="armyNo" id="armyNo" type="text" value="" placeholder="" class="form-control input-xs">
-			       </div>
 		     </div>
 		   </div>
  		</div>
