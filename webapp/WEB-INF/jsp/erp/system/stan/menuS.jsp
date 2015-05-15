@@ -22,7 +22,7 @@ $(document).ready(function(){
 	
 	//우측 그리드 config
 	gridMain = new dxGrid(subLayout.cells("b"), false);
-	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"ro"});//화면순서
+	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"cntr"});//화면순서
 	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"8", type:"combo"});//화면구분(폴더/윈도우)
 	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
 	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", type:"ed"});
@@ -35,7 +35,8 @@ $(document).ready(function(){
 	
 	//grid 드래그 앤 드랍
 	gridMain.dxObj.enableDragAndDrop(true);
-	
+	//grid 멀티셀렉트
+	gridMain.dxObj.enableMultiselect(true);
 	//콤보박스 (드랍다운 리스트)
 	var comboGbn = gridMain.getColumnCombo(1);
 	comboGbn.addOption("0","폴더");
@@ -45,9 +46,19 @@ $(document).ready(function(){
 	gridMain.attachEvent("onRowSelect", function(id,ind){
 		gridMain.editCell();
  	});
+	gridMain.attachEvent("onDrop",fn_onDrop);
 });
 //doc Ready End
-
+function fn_onDrop(){
+  	var selRowId = gridMain.getSelectedRowId();
+	var selRowIdx = gridMain.getSelectedRowIndex(selRowId);
+	var totalRowNum = gridMain.getRowsNum();
+	do{
+		gridMain.setCells2(selRowIdx,"0").setValue(selRowIdx-1);
+		selRowIdx++;
+	}
+	while(selRowIdx < totalRowNum);
+}
 //조회 버튼 동작
 function fn_search(){
 	fn_treeMainConf();
@@ -55,14 +66,29 @@ function fn_search(){
 }
 // 신규버튼 테스트
 function fn_new(){
-	
+  	var selRowId = gridMain.getSelectedRowId();
+	var selRowIdx = gridMain.getSelectedRowIndex(selRowId);
+	var totalRowNum = gridMain.getRowsNum();
+	do{
+		gridMain.setCells2(selRowIdx,"0").setValue(selRowIdx+1);
+		
+		selRowIdx++;
+	}
+	while(selRowIdx-1==totalRowNum);
 }
 //저장 버튼 동작
 function fn_save(){
-	var totalRowNum = gridMain.getRowsNum();
-	for (i = 0; i<=totalRowNum, ++i;){
-	  	gridMain.setCells2(gridMain.dxObj.getRowIndex(gridMain.getRowId(i-1)),0).setValue(i);
-	}
+/* 저장 될 때 seq 입력	
+*
+*   var totalRowNum = gridMain.getRowsNum();
+*	for (i = 0; i<totalRowNum, ++i;){
+*	  	if(i==totalRowNum-1){
+*	  		fn_gridMainSave();
+*	  	}else{
+*			gridMain.setCells2(i,0).setValue(i+1);
+*	  	}
+*	}
+*/
 	var jsonStr = gridMain.getJsonUpdated2();
     if (jsonStr == null || jsonStr.length <= 0) return;        		
         $("#jsonData").val(jsonStr);
@@ -121,7 +147,6 @@ function fn_delete(){
 }
 /*--------트리 config / load start--------*/
 function fn_treeMainConf(flag){
-
 	var req = $.ajax({
 		url: "/erp/system/menuS",
 		type: "get",
@@ -167,7 +192,7 @@ var fn_treeMainLoad = function(param,flag) {
 /*--------트리 select action--------*/
 var fncSelectItem = function(tree, id) {
 	var exegbn = "";
-	try { // folder
+	try { //tree open&close
 		exegbn = tree.getUserData(id, "exegbn");
 		if(exegbn=="0" && tree.getDxObj().getOpenState(id)==1) {
 			tree.getDxObj().closeItem(id);
@@ -192,13 +217,6 @@ function fn_loadGridMain(menucd){
 }
 function fn_callBack(data){
 	
-}
-function fn_autoSeq(){
- 	//순서 자동 입력 
-	var totalRowNum = gridMain.getRowsNum();
-	for (i = 0; i<=totalRowNum, ++i;){
-	  	gridMain.setCells2(gridMain.dxObj.getRowIndex(gridMain.getRowId(i-1)),0).setValue(i);
-	}
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
