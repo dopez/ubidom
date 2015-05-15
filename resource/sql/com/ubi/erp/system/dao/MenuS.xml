@@ -22,5 +22,20 @@
 			)
 		}
 	</select>
-		
+	<insert id="crudMenuS" statementType="CALLABLE" parameterType="MenuS">
+  		{call SP_SYSTEM_MENUS_SAVE(
+  			#{cudKey},
+  			#{compId},
+  			#{menucd},
+  			#{menugbn},
+  			#{pmenucd},
+  			#{menuname},
+  			#{agValue},
+  			#{seq},
+  			#{exegbn},
+  			#{scrnParm, jdbcType=VARCHAR},
+  			#{uri}
+  			)
+  		}	
+  	</insert>
 </mapper>

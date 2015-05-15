@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.system.dao.MenuSDao;
+import com.ubi.erp.system.domain.MenuS;
 
 
 
@@ -26,6 +27,11 @@ public class MenuSService
 
 	public void selMenucd(Map<String, Object> map) {
 		dao.selMenucd(map);
+		
+	}
+
+	public void crudMenuS(MenuS menuS) {
+		dao.crudMenuS(menuS);
 		
 	}
 }

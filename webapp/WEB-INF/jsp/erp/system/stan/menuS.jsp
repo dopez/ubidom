@@ -5,7 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMain,treeMain;
 $(document).ready(function(){
-	Ubi.setContainer(0,[1,3,5,6],"2U");
+	Ubi.setContainer(0,[1,2,3,5,6],"2U");
 	//시스템 메뉴 등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -22,49 +22,62 @@ $(document).ready(function(){
 	
 	//우측 그리드 config
 	gridMain = new dxGrid(subLayout.cells("b"), false);
-	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"ed"});//화면순서
-	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"10", type:"combo"});//화면구분(폴더/윈도우)
-	gridMain.addHeader({name:"메뉴코드", colId:"menucd", width:"10", type:"ed"});
-	gridMain.addHeader({name:"메뉴명", colId:"menuename", width:"15", type:"ed"});
+	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"ro"});//화면순서
+	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"8", type:"combo"});//화면구분(폴더/윈도우)
+	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
+	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", type:"ed"});
 	gridMain.addHeader({name:"URI", colId:"uri", width:"25", type:"ed"});
 	gridMain.addHeader({name:"웹매개변수", colId:"agValue", width:"7", type:"ed"});
 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","menucd");
 	gridMain.init();
+	
+	//grid 드래그 앤 드랍
+	gridMain.dxObj.enableDragAndDrop(true);
+	
+	//콤보박스 (드랍다운 리스트)
+	var comboGbn = gridMain.getColumnCombo(1);
+	comboGbn.addOption("0","폴더");
+	comboGbn.addOption("1","윈도우");
+	
+	//onselect edit cell
 	gridMain.attachEvent("onRowSelect", function(id,ind){
 		gridMain.editCell();
  	});
-	//콤보박스 (드랍다운 리스트)
-	var comboGbn = gridMain.getColumnCombo(1);
-	comboGbn.load({
-		template: {
-		    input: "#menugbn#",
-		    columns: [
-		        {header: "화면구분", width: 110,  option: "#menugbn#"}
-		    ]
-		},
-		options: [
-		    {value:"0", text:{menugbn:"폴더"}},
-		    {value:"1", text:{menugbn:"윈도우"}},
-		]
-	})
-	
 });
 //doc Ready End
 
 //조회 버튼 동작
 function fn_search(){
 	fn_treeMainConf();
+	gridMain.clearAll();
 }
-
+// 신규버튼 테스트
+function fn_new(){
+	
+}
 //저장 버튼 동작
 function fn_save(){
-	//var isCK = gridMain.setCells2(gridMain.getSelectedRowIndex(gridMain.getSelectedRowId()),6).isChecked();
-	var isC = gridMain.dxObj.cells(getRowId(1),6).isChecked();
-	console.log(isC);
-	alert("왜 안되!!!");
-	alert(isC);
+	var totalRowNum = gridMain.getRowsNum();
+	for (i = 0; i<=totalRowNum, ++i;){
+	  	gridMain.setCells2(gridMain.dxObj.getRowIndex(gridMain.getRowId(i-1)),0).setValue(i);
+	}
+	var jsonStr = gridMain.getJsonUpdated2();
+    if (jsonStr == null || jsonStr.length <= 0) return;        		
+        $("#jsonData").val(jsonStr);
+        $.ajax({
+           url : "/erp/system/menuS/crudMenuS",
+           type : "POST",
+           data : $("#hiddenform").serialize(),
+           async : true,
+           success : function(data) {
+           gridMain.clearAll();
+           MsgManager.alertMsg("INF001");
+           var menucd = $("#Pmenucd").val()
+           fn_loadGridMain(menucd);
+           }
+       });
 }
 //한줄삽입
 function fn_add(){
@@ -76,10 +89,38 @@ function fn_add(){
 }
 //한줄삭제
 function fn_delete(){
-	
+	      var rodid = gridMain.getSelectedRowId();
+	      var rodIdx = gridMain.getSelectedRowIndex();
+	      if(gridMain.isDelRows(rodid)) {
+	         if(MsgManager.confirmMsg("INF002")) {
+	       	  if(gridMain.chkUnsavedRow(rodIdx,rodid)) {
+	       		  return
+	       	  }else{
+	       		 var jsonStr = gridMain.getJsonRowDel(rodid);
+	             if (jsonStr == null || jsonStr.length <= 0) return;
+	              $("#jsonData").val(jsonStr);
+	                  $.ajax({
+	                   url : "/erp/system/menuS/crudMenuS",
+	                   type : "POST",
+	                   data : $("#hiddenform").serialize(),
+	                   async : true,
+	                   success : function(data) {
+	                   MsgManager.alertMsg("INF003");
+	                   gridMain.clearAll();
+	                   var menucd = $("#Pmenucd").val()
+	                   fn_loadGridMain(menucd);
+	                  }
+	              });
+	       	   }   	 
+	          } else {
+	           	 MsgManager.alertMsg("WRN004");
+	            } 
+	       }else {
+	           MsgManager.alertMsg("WRN002");
+	        }
 }
 /*--------트리 config / load start--------*/
-function fn_treeMainConf(){
+function fn_treeMainConf(flag){
 
 	var req = $.ajax({
 		url: "/erp/system/menuS",
@@ -89,10 +130,10 @@ function fn_treeMainConf(){
     	   subLayout.cells("a").progressOn();
 	    },
 	    success:
-	    	function(jsonData) {
+	    	function(jsonData,flag) {
 			if("[]"!=JSON.stringify(jsonData)) {
 				var data = {menuTree:jsonData};
-				fn_treeMainLoad(data);
+				fn_treeMainLoad(data,flag);
 			} else {
 				MsgManager.alertMsg("WRN040");
 			}
@@ -102,7 +143,7 @@ function fn_treeMainConf(){
         }
 	});
 }
-var fn_treeMainLoad = function(param) {
+var fn_treeMainLoad = function(param,flag) {
 	if(treeMain!=null) {
 		treeMain.destructor();
 	}
@@ -114,13 +155,18 @@ var fn_treeMainLoad = function(param) {
 	});
 	
 	treeMain.load("menucd", "pmenucd", "menuname", treeMain);
+/* 	if (flag==0){
+	var firstMenucd = param.menuTree[0].menucd;
+	fn_loadGridMain(firstMenucd);
+	}else{
+		alert("is it working?");
+	} */
 }
-/*--------트리 config / load start--------*/
+/*--------트리 config / load end--------*/
 
 /*--------트리 select action--------*/
 var fncSelectItem = function(tree, id) {
 	var exegbn = "";
-	var menucd = id;
 	try { // folder
 		exegbn = tree.getUserData(id, "exegbn");
 		if(exegbn=="0" && tree.getDxObj().getOpenState(id)==1) {
@@ -129,32 +175,34 @@ var fncSelectItem = function(tree, id) {
 			tree.getDxObj().openItem(id);
 			tree.getDxObj().selectItem(id, false, false);
 		}
-		console.log(menucd);
-		fn_loadGridMain(id);
 	} catch(e){
 		alert(e);
 	}
 	
-	if(exegbn=="1") { // item 
-		
-		var flag = true;
-		var uri = tree.getUserData(id, "uri");
-	
-		var menuItemText = tree.getDxObj().getItemText(id);
-		alert("uri = "+uri+"menuName = "+menuItemText);
-		
+	if(exegbn=="0") { // 우측 그리드 조회 
+		fn_loadGridMain(id);
+		$("#Pmenucd").val(id);
 	}
+
 }
 /*--------트리 select action--------*/
 function fn_loadGridMain(menucd){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridMain,param,"/erp/system/menuS/selMenucd",subLayout.cells("a"),fn_callBack);
+	gfn_callAjaxForGrid(gridMain,param,"/erp/system/menuS/selMenucd",subLayout.cells("b"),fn_callBack);
 }
-function fn_callBack(){
-	console.log("good");
+function fn_callBack(data){
+	
+}
+function fn_autoSeq(){
+ 	//순서 자동 입력 
+	var totalRowNum = gridMain.getRowsNum();
+	for (i = 0; i<=totalRowNum, ++i;){
+	  	gridMain.setCells2(gridMain.dxObj.getRowIndex(gridMain.getRowId(i-1)),0).setValue(i);
+	}
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
+    <input type="hidden" id="Pmenucd" name="Pmenucd" />
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
