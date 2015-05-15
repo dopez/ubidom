@@ -46,6 +46,7 @@ public class PersDataSController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = persDataS.getCompId();
 		String empNo = persDataS.getEmpNo();
+		String postName = persDataS.getPostName();
 		map.put("compId", compId);
 		map.put("empNo", empNo);
 		map.put("o_cursor", null);
@@ -53,6 +54,7 @@ public class PersDataSController {
 		List<PersDataS> list = (List<PersDataS>) map.get("o_cursor");
 		DateFormatUtil df = new DateFormatUtil();
 		for(int i = 0; i<list.size();i++){
+			list.get(i).setPostName(postName);
 			list.get(i).setEnterDate(df.dateToString2(list.get(i).getEnterDate()));
 			list.get(i).setAmryDate1(df.dateToString2(list.get(i).getAmryDate1()));
 			list.get(i).setAmryDate2(df.dateToString2(list.get(i).getAmryDate2()));

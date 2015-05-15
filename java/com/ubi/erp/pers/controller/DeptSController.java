@@ -65,14 +65,13 @@ public class DeptSController {
 			deptS.setPostNameMst(deptS.getPostName());
 			deptS.setSysEmpNo(sysEmpNo);
 			deptS.setCompId(compId);
+			deptS.setStDate(df.dateToString(deptS.getStDate()));
+			deptS.setEndDate(df.dateToString(deptS.getEndDate()));
 			if("INSERT".equals(deptS.getCudKey())) {
-				deptS.setStDate(df.dateToString(deptS.getStDate()));
-				deptS.setEndDate(df.dateToString(deptS.getEndDate()));
 				deptSService.crudDeptS(deptS);
 			}else if("UPDATE".equals(deptS.getCudKey())){
 				deptSService.crudDeptS(deptS);
 			}else if("DELETE".equals(deptS.getCudKey())){
-				deptS.setStDate(df.dateToString(deptS.getStDate()));
 				deptSService.crudDeptS(deptS);
 			}
 		}

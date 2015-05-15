@@ -5,7 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,3,5,6],"2U");
+	Ubi.setContainer(1,[1,2,3,5,6],"2U");
 	//부서등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",       colId:"no",       width:"5",  align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"시작일",   colId:"stDate",   width:"10", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"종료일", 	colId:"endDate",  width:"10", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ed"});
@@ -33,9 +33,17 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
-	gridDtl.dxObj.enableDragAndDrop(true);
-	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
 	
+	g_dxRules = {
+			postCode : [r_notEmpty, r_len + "|5"],
+			stDate : [r_notEmpty],
+			endDate : [r_notEmpty],
+			postName : [r_notEmpty],
+			costKind : [r_notEmpty]
+		};
+	
+	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
+
 	var combo=gridDtl.getColumnCombo(5);
 	combo.load({
 		template: {
@@ -68,15 +76,30 @@ $(document).ready(function(){
 	});
   	
 });
+function fn_new(){
+	 gridDtl.clearAll();
+	var totalColNum = gridDtl.getColumnCount();
+    var data = new Array(totalColNum);
+    var noColIdx = gridDtl.getColIndexById("no");
+    var stDateColIdx = gridDtl.getColIndexById('stDate');
+    var endDateColIdx = gridDtl.getColIndexById('endDate');
+	var data = new Array(totalColNum);
+	    data[noColIdx] = gridDtl.getRowsNum()+1;
+		data[stDateColIdx] = dateformat(new Date());
+		data[endDateColIdx] = "9999/12/31";
+        gridDtl.addRow(data);
+}
 
 function fn_add(){
     var totalColNum = gridDtl.getColumnCount();
     var data = new Array(totalColNum);
     var noColIdx = gridDtl.getColIndexById("no");
+    var postCodeIdx = gridDtl.getColIndexById("postCode");
     var stDateColIdx = gridDtl.getColIndexById('stDate');
     var endDateColIdx = gridDtl.getColIndexById('endDate');
 	 var data = new Array(totalColNum);
 	    data[noColIdx] = gridDtl.getRowsNum()+1;
+	     data[postCodeIdx] = gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
 		data[stDateColIdx] = dateformat(new Date());
 		data[endDateColIdx] = "9999/12/31";
        gridDtl.addRow(data);
@@ -113,7 +136,7 @@ function fn_delete(){
 
  function fn_save(){
 	  var jsonStr = gridDtl.getJsonUpdated2();
-	    if (jsonStr == null || jsonStr.length <= 0) return;        		
+	    if (jsonStr == null || jsonStr.length <= 0) return;         		
 	        $("#jsonData").val(jsonStr);                      
 	        $.ajax({
 	           url : "/erp/deptS/prcsDept",
@@ -161,7 +184,7 @@ function fn_loadGridList(params,flag) {
 	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),callbackFn);
 };
 
-//get방식 deptCode 조회로직
+// deptCode 조회로직
 function fn_loadGridListCode(params,flag) {
 	var callbackFn;
 	if(flag == 1){
@@ -188,9 +211,11 @@ function fn_loadGridListCodeCB(data) {
 };
 //fn_loadGridList2callback 함수
 function fn_loadGridList2CB(data) {
+
 };
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCode2CB(data) {
+	
 };
 
 function fn_value(){

@@ -680,4 +680,6 @@ dxGrid.prototype.filterByAll = function(){
 	return this.dxObj.filterByAll();
 }
 
-
+dxGrid.prototype.changeCellType = function(rowInd,cellIndex,type){
+	return this.dxObj.changeCellType(rowInd,cellIndex,type);
+}

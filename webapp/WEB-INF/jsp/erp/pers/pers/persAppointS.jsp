@@ -74,27 +74,16 @@ $(document).ready(function(){
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			  발행일자 
+			  구분 
 			</label>
 			<div class="col-sm-2 col-md-2">
-                  <div class="col-sm-10 col-md-10">
-                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                  </div>
-                  <div class="col-sm-2 col-md-2">
-                         <input type="button" id="calpicker" class="calicon form-control">
-                  </div>              
-             </div>
-             <label class="col-sm-1 col-md-1 control-label" for="textinput">
-			  구분
-			 </label>
-			 <div class="col-sm-2 col-md-2">
-			    <div class="col-sm-6 col-md-6">
+                  <div class="col-sm-6 col-md-6">
 			       <input type="radio" name="gubn" id="gubn" value="재직" checked="checked">재직
 			    </div>
 			    <div class="col-sm-6 col-md-6">
 			       <input type="radio" name="gubn" id="gubn" value="퇴직">퇴직
-			    </div>
-			</div>
+			    </div>           
+             </div>
 		 </div>
 	    </div>
       </div>
