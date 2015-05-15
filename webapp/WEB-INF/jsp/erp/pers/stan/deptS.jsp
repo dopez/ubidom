@@ -111,7 +111,7 @@ function fn_delete(){
         }
 }
 
-function fn_save(){
+ function fn_save(){
 	  var jsonStr = gridDtl.getJsonUpdated2();
 	    if (jsonStr == null || jsonStr.length <= 0) return;        		
 	        $("#jsonData").val(jsonStr);                      
@@ -125,7 +125,8 @@ function fn_save(){
 	           fn_loadGridListCode(fn_value(),1);
 	            }
 	       });
-}
+} 
+ 
 function doOnRowSelect(id,ind){
 	var obj = {};
 	obj.postCode= gridMst.setCells(id,0).getValue();

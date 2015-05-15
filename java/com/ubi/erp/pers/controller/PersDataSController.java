@@ -72,7 +72,6 @@ public class PersDataSController {
 		// checkBox null Check
 		persDataS.setBldKind(nullCheck(persDataS.getBldKind()));
 		persDataS.setDisorderYn(nullCheck(persDataS.getDisorderYn()));
-		persDataS.setArmySpcase(nullCheck(persDataS.getArmySpcase()));
 		persDataS.setArmyMerit(nullCheck(persDataS.getArmyMerit()));
 		// calendar format check
 		persDataS.setEnterDate(df.dateToString(persDataS.getEnterDate()));
