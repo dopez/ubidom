@@ -47,6 +47,12 @@ $(document).ready(function(){
 	    }
 	 });
     
+    $("#empName").keyup(function(e) {
+	    if (e.keyCode == '13') {
+	      gridMain.filterBy(2,byId("empName").value);
+	    }
+	 });
+    
      $("#btnSearch").click(function(){
     	 execDaumPostcode();
 	}); 
@@ -70,6 +76,7 @@ function doOnRowSelect(id, ind){
 	var obj={};
 	obj.compId= gridMain.setCells(id,4).getValue();
 	obj.empNo= gridMain.setCells(id,1).getValue();
+	obj.postName = gridMain.setCells(id,3).getValue();
 	fn_loadFormList(obj);
 	
 }
@@ -77,11 +84,13 @@ function doOnRowSelect(id, ind){
 function disableValue(flag){
 	if(flag == 1){
 	  $("input[name=empNo]").attr("disabled",false);
+	  $("input[name=postName]").attr("disabled",false);
 	  $("input[name=jikwee]").attr("disabled",false);
 	  $("input[name=jikmu]").attr("disabled",false);
 	  $("input[name=jikchak]").attr("disabled",false);
 	}else{
 	  $("input[name=empNo]").attr("disabled",true);
+	  $("input[name=postName]").attr("disabled",true);
 	  $("input[name=jikwee]").attr("disabled",true);
 	  $("input[name=jikmu]").attr("disabled",true);
 	  $("input[name=jikchak]").attr("disabled",true);
@@ -110,34 +119,35 @@ function fn_new(){
 };
 
  function fn_save(){
-	 disableValue(1);
-	var params = $("#frmMain").serialize();
-	$.post("/erp/persDataS/prcsPersData",params,prcsPersDtaCB);
-	//gfn_callAjaxForForm("frmMain",params,"/erp/persDataS/prcsPersData");
-}; 
-
-/* function fn_save(){
-	 $("input[name=empNo]").attr("disabled",false);
-	$("#frmMain").validate();
-	var params = $("#frmMain").serialize();
-	$('#frmMain').submit();
-	if($("#frmMain").valid()){
-		$.ajax(
-				 {
-				   type:'POST',
-				   url:"/erp/persDataS/prcsPersData",
-				   data:params,
-				   success:function(data)
-				     {
-				    	 prcsPersDtaCB(data);
-				     }
-				   });
+   f_dxRules = {
+	   empNo : ["사원번호",r_notEmpty,r_len + "|7"],
+	   korName : ["성명",r_notEmpty],
+       regiNumb: ["주민번호",r_notEmpty,r_len + "|14"],
+       postName: ["부서",r_notEmpty],
+       jikwee: ["직위",r_notEmpty],
+       jikchak: ["직무",r_notEmpty],
+       postNo: ["우편번호",r_notEmpty],
+       address: ["주소",r_notEmpty],
+       enterDate: ["입사날짜",r_notEmpty]
+	};
+   
+	if(gfn_formValidation('frmMain')){
+		 disableValue(1);
+		var params = $("#frmMain").serialize();
+	     $.ajax(
+			{
+			  type:'POST',
+			  url:"/erp/persDataS/prcsPersData",
+			  data:params,
+			  success:function(data)
+			  {
+				MsgManager.alertMsg("INF001"); 
+			    prcsPersDtaCB(data);
+			  }
+		   });
 	}else{
-		return false;
 	} 
-	//$.post("/erp/persDataS/prcsPersData",params,prcsPersDtaCB);
-	//gfn_callAjaxForForm("frmMain",params,"/erp/persDataS/prcsPersData");
-}; */
+}; 
 
 function prcsPersDtaCB(){
 	fn_loadGridList();
@@ -205,51 +215,41 @@ function fn_onClosePop(pName,data){
 			$("#postName").val(obj.postName);
 			$("#postCode").val(obj.postCode);
 		}		  
-	}else if(pName=="empNo"){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			obj.empNo=data[i].empNo;
-			obj.korName=data[i].korName;
-			$("#empNo").val(obj.empNo);
-			$("#empName").val(obj.korName);
-		}		  
-	}	  
+	}
  };
  
  function execDaumPostcode() {
+	 var width = 500;
+	 var height = 600;
+	 var name = '우편번호 검색';
      new daum.Postcode({
          oncomplete: function(data) {
-             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+             var fullRoadAddr = data.roadAddress; 
+             var extraRoadAddr = ''; 
 
-             // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-             var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-             var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-             // 법정동명이 있을 경우 추가한다.
              if(data.bname !== ''){
                  extraRoadAddr += data.bname;
              }
-             // 건물명이 있을 경우 추가한다.
              if(data.buildingName !== ''){
                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
              }
-             // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
              if(extraRoadAddr !== ''){
                  extraRoadAddr = ' (' + extraRoadAddr + ')';
              }
-             // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
              if(fullRoadAddr !== ''){
                  fullRoadAddr += extraRoadAddr;
              }
 
-             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-              document.getElementById("postNo").value = data.postcode1+"-"+data.postcode2;
+             document.getElementById("postNo").value = data.postcode1+"-"+data.postcode2;
              document.getElementById("address").value = fullRoadAddr;
              document.getElementById("baseAddrs").value = data.jibunAddress; 
          }
-     }).open();
+     }).open({
+    	    q: $("#postNo").val(),
+    	    left: (window.screen.width / 2) - (width / 2),
+    	    top: (window.screen.height / 2) - (height / 2),
+    	    popupName: name
+     });
  }
 </script>
 <form id="pform" name="pform" method="post">
@@ -259,7 +259,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
-	<input type="hidden" id="empNo" name="empNo" />
 	<div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -325,13 +324,13 @@ function fn_onClosePop(pName,data){
 				 사원번호 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				 <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				성명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		 </div>
@@ -347,7 +346,7 @@ function fn_onClosePop(pName,data){
 				성명(영문) 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="engName" id="engName" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				  <input name="engName" id="engName" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		 </div>
@@ -357,13 +356,13 @@ function fn_onClosePop(pName,data){
 				 주민등록번호 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="regiNumb" id="regiNumb" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				 <input name="regiNumb" id="regiNumb" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				부서명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		 </div>
@@ -379,7 +378,7 @@ function fn_onClosePop(pName,data){
 				직위명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="jikwee" id="jikwee" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				  <input name="jikwee" id="jikwee" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		 </div>
@@ -389,7 +388,7 @@ function fn_onClosePop(pName,data){
 				 휴대번호 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="handPhone" id="handPhone" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				 <input name="handPhone" id="handPhone" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				직무명 
@@ -405,13 +404,13 @@ function fn_onClosePop(pName,data){
 				 이메일 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				 <input name="email" id="email" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				 <input name="email" id="email" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 			  <label class="col-sm-1 col-md-1 control-label" for="textinput"> 
 				직책명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="jikchak" id="jikchak" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				  <input name="jikchak" id="jikchak" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		 </div>	   
@@ -423,7 +422,7 @@ function fn_onClosePop(pName,data){
 			  </label>
 			  <div class="col-sm-2 col-md-2">
 				 <div class="col-sm-8 col-md-8">
-					<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+					<input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs" >
 				 </div>
 				 <div class="col-sm-2 col-md-2">
 					<button type="button" class="form-control btn btn-default btn-xs" name="btnSearch" id="btnSearch">
@@ -439,7 +438,7 @@ function fn_onClosePop(pName,data){
 				 주소 
 			  </label>
 			  <div class="col-sm-6 col-md-6">
-				 <input name="address" id="address" type="text" value="" placeholder="" class="form-control input-xs" required="required">
+				 <input name="address" id="address" type="text" value="" placeholder="" class="form-control input-xs" >
 			  </div>
 		   </div>
  		</div>
@@ -581,7 +580,7 @@ function fn_onClosePop(pName,data){
 			       <div class="col-sm-7 col-md-7">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="enterDate" id="enterDate" value="" required="required">
+                              <input type="text" class="form-control input-xs" name="enterDate" id="enterDate" value="" >
                          </div>
                          <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker3" class="calicon form-control">
