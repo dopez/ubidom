@@ -15,114 +15,208 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");//attach search Condition div
 	
 	//좌측 그리드 config
-	subLayout.cells("a").setWidth(400);
+	subLayout.cells("a").setWidth(250);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"코드", colId:"code", width:"50", type:"ed"});
-	gridMst.addHeader({name:"코드명", colId:"codeName", width:"50", type:"ed"});
+	gridMst.addHeader({name:"코드", colId:"code", width:"30", align:"center",type:"ed"});
+	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",type:"ed"});
 	gridMst.setColSort("str");
 	gridMst.setUserData("","pk","code");
-	gridMst.init();	
+	gridMst.init();
+
 	
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	/* gridDtl.addHeader({name:"No", colId:"rowNo", width:"10", type:"ro"}); */
-	gridDtl.addHeader({name:"내부코드", colId:"innerCode", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"내부코드명", colId:"innerCodeName", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"변수", colId:"addVar", width:"10", type:"ed"});
-	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ed"});
+	gridDtl.addHeader({name:"내부코드", colId:"interCode", width:"5", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ed"});
+	gridDtl.addHeader({name:"변수", colId:"addVar", width:"5", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"5", align:"center",type:"ed"});
 	gridDtl.setColSort("str");
-	gridDtl.setUserData("","pk","innerCode");
+	gridDtl.setUserData("","pk","interCode");
 	gridDtl.init();	
 	
-//	gridMstCode = gridMst.getCellValue(gridMst.getSelectedRowIndex(),gridMst.getColIndexById('code'));
-	//var gridMstCode = gridMst.getCellValue(gridMst.getSelectedRowId(),0).getValue();
-	//var gridMstCode = gridMst.getSelectedRowIndex()+1;
-	//상위 버튼 동작 이벤트
-	toolbar.attachEvent("onClick", function(id){
-		//조회 버튼 동작
-		if(id == "btn1"){
-			alert("조회");
-			//var param = {V_COMP:"100", V_CODE:"%",V_NAME:"%"};
-			var params = "codeName=" + $("#baseName").val();
-			alert(params);
-			//gfn_gridLoad("/erp/rndt/baseCodeS/baseCodeMstSel",params, gridMst,fn_callBack);
-			gfn_callAjaxForGrid(gridMst,params,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),"INF004");
-		}
-		//신규 버튼 동작
-		if(id == "btn2"){
-			alert("좌측 그리드 row 추가");
-			var totalColNum = gridMst.getColumnCount();
-          	var data = new Array(totalColNum);
-            gridMst.addRow(data, 0, 2);
-		}
-		//저장 버튼 동작
-		if(id == "btn3"){
-			alert("변경 사항 저장");
-			var jsonStr = gridMst.getJsonUpdated2();
-		    if (jsonStr == null || jsonStr.length <= 0) return;        		
-		        $("#jsonData").val(jsonStr);                      
-		        $.ajax({
-		           url : "/erp/rndt/codeSave",
-		           type : "POST",
-		           data : $("#hiddenform").serialize(),
-		           async : true,
-		           success : function(data) {
-		           MsgManager.alertMsg("INF001");
-		           
-		            }
-		       });
-			var jsonStr2 = gridDtl.getJsonUpdated2();
-		    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
-		        $("#jsonData2").val(jsonStr2);                      
-		        $.ajax({
-		           url : "/erp/rndt/codeSaveDtl",
-		           type : "POST",
-		           data : $("#hiddenform").serialize(),
-		           async : true,
-		           success : function(data) {
-		           MsgManager.alertMsg("INF001");
-		           
-		            }
-		       });
-			
-		}
-		//삭제 버튼 동작
-		if(id == "btn4"){
-			//alert(gridMstCode);
-			alert("좌측 그리드 select row 삭제(하위항목까지)");
-		}
-		//한줄삽입 버튼 동작
-		if(id == "btn5"){
-			alert("우측 그리드 row 추가");
-			var totalColNum = gridDtl.getColumnCount();
-          	var data = new Array(totalColNum);
-          	
-          	gridDtl.addRow(data, 0, 2);
-		}
-		//한줄삭제 버튼 동작
-		if(id == "btn6"){
-			alert("우측 그리드 row 삭제");
-		}
-	})
-	//좌측 그리드 로우 더블클릭 시 이벤트
-	gridMst.attachEvent("onRowSelect", function(id,ind){
-    	gridMst.editCell();
-    	
-  	});
- 	gridMst.attachEvent("onRowDblClicked",function(rId,cInd){
-	//우측 그리드 조회
-	alert("조회");
-	})
-});
+	fn_loadGridMst(1);
+	fn_gridMstEdit("off");
 
-		//gfn_gridLoad("/erp/rndt/baseCodeS/baseCodeDtlSel",param,gridDtl,fn_callBack);
-function fn_callBack(){
-	alert("isDone?");
+ 	gridDtl.attachEvent("onRowSelect", function(id,ind){
+		gridDtl.editCell();
+  	});
+});
+//doc Ready End
+	//그리드 onRowSelect edit
+function fn_gridMstEdit(flag){
+	gridMst.attachEvent("onRowSelect", function(id,ind){
+	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+	if(flag=="on"){
+		gridMst.editCell();
+	}else if(flag=="off"){
+		gridMst.editStop();
+	}
+		fn_loadGridDtl(codeMain);
+  	});
+}
+//btn function Start
+//조회 버튼 동작
+function fn_search(){
+	fn_loadGridMst(0);
+	//gridDtl.clearAll();
+}
+//신규 버튼 동작
+function fn_new(){
+	var totalColNum = gridMst.getColumnCount();
+  	var data = new Array(totalColNum);
+  	var totalRowNum = gridMst.getRowsNum()-1;
+    gridMst.addRow(data);
+    gridMst.selectRow(totalRowNum);
+	fn_gridMstEdit("on");
+}
+//저장 버튼 동작
+function fn_save(){
+	var jsonStr = gridMst.getJsonUpdated2();
+    if (jsonStr == null || jsonStr.length <= 0) return;        		
+        $("#jsonData").val(jsonStr);                      
+        $.ajax({
+           url : "/erp/rndt/baseCodeS/codeSave",
+           type : "POST",
+           data : $("#hiddenform").serialize(),
+           async : true,
+           success : function(data) {
+           MsgManager.alertMsg("INF001");
+           gridMst.clearAll();
+           fn_loadGridMst();
+           fn_gridMstEdit("off");
+            }
+       });
+		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+		var jsonStr2 = gridDtl.getJsonUpdated2();
+	    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
+	    if (codeMain == null || codeMain.length <= 0) return;        		
+        $("#jsonData2").val(jsonStr2);
+        $("#gridMstCode").val(codeMain);
+        $.ajax({
+           url : "/erp/rndt/baseCodeS/codeSaveDtl",
+           type : "POST",
+           data : $("#hiddenform").serialize(),
+           async : true,
+           success : function(data) {
+           MsgManager.alertMsg("INF001");
+           var totalRowNum = gridMst.getRowsNum()-1;
+    	   gridMst.selectRow(totalRowNum);
+           var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+           fn_loadGridDtl(codeMain);
+            }
+       });
+}
+//삭제 버튼 동작
+function fn_remove(){
+    var rodIdx = gridMst.getSelectedRowId();
+    var rodid = gridMst.getSelectedRowIndex();
+    if(gridMst.isDelRows(rodIdx)) {
+       if(MsgManager.confirmMsg("INF002")) {
+     	  if(gridMst.chkUnsavedRow()) {
+     		  var jsonStr = gridMst.getJsonRowDel(rodIdx);
+               if (jsonStr == null || jsonStr.length <= 0) return;
+               $("#jsonData").val(jsonStr);
+                   $.ajax({
+                    url : "/erp/rndt/baseCodeS/codeSave",
+                    type : "POST",
+                    data : $("#hiddenform").serialize(),
+                    async : true,
+                    success : function(data) {
+                    MsgManager.alertMsg("INF003");
+        			fn_loadGridMst(0);
+        			fn_gridDtlDel();
+                     }
+               });
+    	   }
+        } else {
+        	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+}
+//한줄삽입 버튼 동작
+function fn_add(){
+	var totalColNum = gridDtl.getColumnCount();
+  	var data = new Array(totalColNum);
+  	gridDtl.addRow(data);
+  	var totalRowNum = gridDtl.getRowsNum()-1;
+  	gridDtl.selectRow(totalRowNum);
+}
+//한줄삭제 버튼 동작
+function fn_delete(){
+	fn_gridDtlDel();
+}
+//좌측 그리드 로드
+function fn_loadGridMst(flag){
+	var inputParams={}
+	inputParams.codeName = $("#baseName").val();
+	inputParams.code = $("#baseCode").val();
+	var callBackGbn;
+	if(flag == 1){
+		callBackGbn = fn_First_loadGridMst;
+	}else if(flag == 0){
+		callBackGbn = fn_loadGridMstCallBack;
+	}
+	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),callBackGbn);
+	gridDtl.clearAll();
+}
+//우측 그리드 로드
+function fn_loadGridDtl(code){
+	var param = "code=" + code;
+    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/baseCodeDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
+}
+//우측 그리드 삭제
+function fn_gridDtlDel(){
+    var rodIdx = gridDtl.getSelectedRowId();
+    var rodid = gridDtl.getSelectedRowIndex();
+    if(gridDtl.isDelRows(rodIdx)) {
+       if(MsgManager.confirmMsg("INF002")) {
+     	  if(gridDtl.chkUnsavedRow()) {
+     		  var jsonStr = gridDtl.getJsonRowDel(rodIdx);
+  	 		  var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+  		   	  if (codeMain == null || codeMain.length <= 0) return;        		
+              if (jsonStr == null || jsonStr.length <= 0) return;
+  	           $("#gridMstCode").val(codeMain);
+               $("#jsonData2").val(jsonStr);
+               console.log('param',$("#hiddenform").serialize());		
+                   $.ajax({
+                    url : "/erp/rndt/baseCodeS/codeSaveDtl",
+                    type : "POST",
+                    data : $("#hiddenform").serialize(),
+                    async : true,
+                    success : function(data) {
+                    MsgManager.alertMsg("INF003");
+                    console.log(codeMain);
+                    gridDtl.clearAll()
+                    var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+                    fn_loadGridDtl(codeMain);
+                     }
+               });
+    	   }
+        } else {
+        	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+}
+//좌측 그리드 콜백함수
+function fn_First_loadGridMst(data){
+	fn_loadGridDtl(data[0].code);
+}
+function fn_loadGridMstCallBack(data){
+	//fn_loadGridDtl(data);
+}
+//우측 그리드 콜백함수
+function fn_loadGridDtlCallBack(data){
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
     <input type="hidden" id="jsonData2" name="jsonData2" />
+    <input type="hidden" id="gridMstCode" name="gridMstCode" />
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -131,15 +225,19 @@ function fn_callBack(){
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
-		   <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
-				코드
-		   </label>
-			<div class="col-sm-1 col-md-1">
-			 <input type="text" name="baseCode" id="baseCode" value="" placeholder="" class="form-control input-xs">
-			</div>
-			<div class="col-sm-2 col-md-2" style="margin-left: 10px;">
-			 <input type="text" name="baseName" id="baseName" value="" placeholder="" class="form-control input-xs">
-			</div>
+			  <div class="col-sm-6 col-md-6">
+			   <label class="col-sm-4 col-md-4 control-label" for="textinput"> 
+					코드
+			   </label>
+				<div class="col-sm-2 col-md-2">
+				 <input type="text" name="baseCode" id="baseCode" value="" placeholder="" class="form-control input-xs">
+				</div>
+				<div class="col-sm-3 col-md-3">
+				<div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+				 <input type="text" name="baseName" id="baseName" value="" placeholder="" class="form-control input-xs">
+				</div>
+				</div>
+			  </div>
 		  </div>
 	    </div>
       </div>     

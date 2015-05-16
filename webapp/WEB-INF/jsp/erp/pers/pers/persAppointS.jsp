@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"2U");
+	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -14,34 +14,39 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사원번호,성명,부서",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100");
-	gridMst.setColAlign("center,right,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro");
-	gridMst.setColSorting("int,int,str,str");
-	gridMst.init();	
-	subLayout.cells("a").setWidth(403);
+	subLayout.cells("a").setWidth(350);
+	gridMst = new dxGrid(subLayout.cells("a"), false);
+	gridMst.addHeader({name:"No",       colId:"no",       width:"15", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"empName",  width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서", 	colId:"deptName", width:"25", align:"center", type:"ro"});
+	gridMst.setColSort("str");	
+	gridMst.setUserData("","pk","no");
+	gridMst.init(); 
 	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,발령일,급여구분,근무구분,발령구분,부서코드,발령부서,발령직군,근무형태,발령직위,"+
-			          "발령직책,급여사업장",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			              "100,100");
-	gridDtl.setColAlign("center,center,center,center,center,left,left,center,center,center,"+
-			            "center,center");
-	gridDtl.setColTypes("ron,dhxCalendarA,coro,coro,coro,ed,ed,coro,coro,coro,"+
-			            "coro,coro");
-	gridDtl.setColSorting("int,date,str,str,str,str,str,str,str,str,"+
-			              "str,str");
-	gridDtl.init();
+	gridDtl = new dxGrid(subLayout.cells("b"), false);
+	gridDtl.addHeader({name:"No",         colId:"no",       width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령일",     colId:"empNo",    width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"급여구분",   colId:"empName",  width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"근무구분",   colId:"deptName", width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령구분",   colId:"no",       width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"부서코드",   colId:"empNo",    width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령부서",   colId:"empName",  width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직군",   colId:"deptName", width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"근무형태",   colId:"no",       width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직위",   colId:"empNo",    width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직책",   colId:"empName",  width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"급여사업장", colId:"deptName", width:"10", align:"center", type:"ro"});
+	gridDtl.setColSort("str");	
+	gridDtl.setUserData("","pk","no");
+	gridDtl.init(); 
+	
 	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
+	$("#deptName").dblclick(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"deptName":$(this).val()});
+	});
+
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
@@ -69,36 +74,19 @@ $(document).ready(function(){
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			  발행일자 
+			  구분 
 			</label>
 			<div class="col-sm-2 col-md-2">
-                  <div class="col-sm-10 col-md-10">
-                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
-                  </div>
-                  <div class="col-sm-2 col-md-2">
-                         <input type="button" id="calpicker" class="calicon form-control">
-                  </div>              
+                  <div class="col-sm-6 col-md-6">
+			       <input type="radio" name="gubn" id="gubn" value="재직" checked="checked">재직
+			    </div>
+			    <div class="col-sm-6 col-md-6">
+			       <input type="radio" name="gubn" id="gubn" value="퇴직">퇴직
+			    </div>           
              </div>
 		 </div>
 	    </div>
       </div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 구분
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <div class="col-sm-6 col-md-6">
-			    <input type="radio" name="gubn" id="gubn" value="재직" checked="checked">재직
-			  </div>
-			  <div class="col-sm-6 col-md-6">
-			    <input type="radio" name="gubn" id="gubn" value="퇴직">퇴직
-			  </div>
-			</div>
-		  </div>
-	  </div>
-	</div> 
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -106,23 +94,18 @@ $(document).ready(function(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+		  
+		  <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 성명
-			 </label>
-			<div class="col-sm-2 col-md-2">
+		  </label>
+		  <div class="col-sm-2 col-md-2">
 			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
-			</div>
 		  </div>
+	   </div>
 	  </div>
-	</div>   
+	</div> 
   </form>
  </div> 
 </div>

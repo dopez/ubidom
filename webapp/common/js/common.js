@@ -1,5 +1,6 @@
 /* Validation Rule */
 var g_dxRules = null;
+var f_dxRules = null;
 var r_notEmpty = "notEmpty";
 var r_onlyNumber = "onlyNumber";
 var r_specialChar = "specialChar";
@@ -142,7 +143,7 @@ function gfn_checkXSS(chkValue, bolMsg)
 }
 
 /* ---------------------
-* Validation Check Start */
+*Grid Validation Check Start */
 function gfn_validation(colId, colNm, colVal){
 	if (g_dxRules == null) return true;
 	
@@ -154,7 +155,7 @@ function gfn_validation(colId, colNm, colVal){
 
 function gfn_ruleCheck(colNm, colVal, rules){
 	var rule;
-	
+
 	for(var i = 0; i < rules.length; i++) {
 		
 		if(rules[i].split("|").length == 1) {
@@ -206,5 +207,58 @@ function gfn_ruleCheck(colNm, colVal, rules){
 		}
 	}
 	
+	return true;
+}
+
+/*Form Validation Check Start */
+function gfn_formValidation(form){
+	var flag = false;
+	 var els = $('#'+form).find(':input').get();
+	 if (f_dxRules == null) return true;
+ $.each(els, function() {
+	 var rule = f_dxRules[this.name];
+	 if(typeof rule == 'undefined' || rule == null || rule == "") return true;
+	   flag = gfn_formCheck(rule,this.name,form);
+		return  flag;
+  });
+
+ 	return flag;
+}
+
+function gfn_formCheck(rules,name,form){
+	var rule;
+	for(var i = 0; i < rules.length; i++) {
+		
+		if(rules[i].split("|").length == 1) {
+			
+			rule = rules[i];
+			if (rule==r_notEmpty) {
+				 if($('#'+name).val()==''){
+					 MsgManager.formAlertMsg(rules[0]+"은(는) 필수 항목입니다.",form,name);
+					 return false;
+				 }
+			} 
+		} else {
+			ruleName = rules[0];
+			rule = rules[i].split("|");
+	
+			if (rule[0]==r_len) {
+				if($('#'+name).val().length != rule[1]){
+					 MsgManager.formAlertMsg(ruleName+"의 입력값은 "+ rule[1] + "자리 입니다.",form,name);
+					 return false;
+				 }
+			} else if (rule[0]==r_minLen) {
+				if($('#'+name).val().length < rule[1]){
+					 MsgManager.formAlertMsg(ruleName+"의 최소 입력값은 "+ rule[1] + "자리 입니다.",form,name);
+					 return false;
+				 }
+			} else if (rule[0]==r_maxLen) {
+				if($('#'+name).val().length > rule[1]){
+					 MsgManager.formAlertMsg(ruleName+"의 최대 입력값은 "+ rule[1] + "자리 입니다.",form,name);
+					 return false;
+				 }
+			}
+		}
+	}
 	return true;
 }

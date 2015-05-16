@@ -50,6 +50,11 @@ MsgManager.prototype = {
 	isMsgExists : function(msgCd){
 		//메시지 존재여부를 반환
 		return gfn_nvl2(eval("__msgLib." + msgCd), false, true);
+	},
+	formAlertMsg : function(message,frmName,inputName){
+		dhtmlx.alert(message, function(result){
+			document.forms[frmName].elements[inputName].focus();
+		});
 	}
 };
 

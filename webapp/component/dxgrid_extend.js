@@ -1,12 +1,15 @@
 // set common configuration of grid
 var dxGrid = function(divId, autoHeight){
-	this.dxObj = divId.attachGrid();
-	//this.dxObj = new dhtmlXGridObject(divId);
+	if(typeof divId =="string"){
+		this.dxObj = new dhtmlXGridObject(divId);
+	}else{
+		this.dxObj = divId.attachGrid();
+	}
 	this.dxObj.setImagePath("/component/dhtmlxGrid/imgs/");
 	//this.dxObj.setSkin("dhxgrid_skyblue");
-	this.dxObj.setDateFormat("%Y%m%d");
+	this.dxObj.setDateFormat("%Y/%m/%d");
 	this.dxObj.attachEvent("onEditCell", gfn_gridEditCell);
-	
+
 	this.headerName = new Array();
 	this.headerColId = new Array();
 	this.headerWidth = new Array();
@@ -20,6 +23,7 @@ var dxGrid = function(divId, autoHeight){
 		gAutoHeight = true;
 		this.dxObj.enableAutoHeight(true);
 	}
+	
 };
 
 dxGrid.prototype.atchHeader = function(){
@@ -70,7 +74,6 @@ dxGrid.prototype.init = function() {
 	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
 	this.setColSort("str");
-	
 	this.dxObj.init();
 	
 	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
@@ -456,29 +459,6 @@ dxGrid.prototype.setHiddenCols = function(cols) {
 	}
 };
 
-dxGrid.prototype.chkUnsavedRows = function() {
-	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-	var isDelRow = false;
-	
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
-		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
-		if (cudColVal == actInsert) {
-			if(!isDelRow) {
-				if(MsgManager.confirmMsg("WRN007")) {
-					isDelRow = true;
-					this.dxObj.deleteRow(this.dxObj.getRowId(i));
-					i--;
-				} else {
-					return false;
-				}
-			} else {
-				this.dxObj.deleteRow(this.dxObj.getRowId(i));
-				i--;
-			}
-		}
-	}
-	return true;
-};
 //한줄만 삭제
 dxGrid.prototype.chkUnsavedRows = function() {
 	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
@@ -503,9 +483,22 @@ dxGrid.prototype.chkUnsavedRows = function() {
 	return true;
 };
 //메세지 안나오게 한 로직
-dxGrid.prototype.chkUnsavedRow = function() {
+dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
 	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
 	var isDelRow = false;
+	var cudColVal = this.dxObj.cells2(rowNum,cudColIdx).getValue();
+	if (cudColVal == actInsert) {
+		isDelRow = true;
+			this.dxObj.deleteRow(rowId);
+	}
+	return isDelRow;
+};
+
+//메세지 안나오게 한 로직
+/*dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
+	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	var cudColVal = this.dxObj.cells2(rowNum,cudColIdx).getValue();
 	
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
@@ -521,7 +514,8 @@ dxGrid.prototype.chkUnsavedRow = function() {
 		}
 	}
 	return true;
-};
+};*/
+
 
 dxGrid.prototype.isSelRows = function(colIdx) {
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
@@ -597,7 +591,6 @@ dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
 			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
 					colId = this.dxObj.getColumnId(j);
 					colVal = this.dxObj.cells2(chkIdx,j).getValue();
-
 						if(colId !="cudKey") {
 							row[colId]=colVal;
 						} else {
@@ -644,9 +637,14 @@ dxGrid.prototype.getColumnCombo = function(column_index){
 dxGrid.prototype.setCells2 = function(row_index,col) {
 	return  this.dxObj.cells2(row_index, col);
 };
-
+dxGrid.prototype.setCells = function(row_id,col) {
+	return  this.dxObj.cells(row_id, col);
+};
 dxGrid.prototype.editCell = function(){
 	return this.dxObj.editCell();
+}
+dxGrid.prototype.editStop = function(ode){
+	return this.dxObj.editStop(ode);
 }
 
 dxGrid.prototype.printView = function(before,after){
@@ -663,4 +661,28 @@ dxGrid.prototype.setColumnHidden = function(ind,state){
 
 dxGrid.prototype.parse = function(data,type){
 	return this.dxObj.parse(data,type);
+}
+
+dxGrid.prototype.selectRow = function(rIndex,fl,preserve,show){
+	return this.dxObj.selectRow(rIndex,fl,preserve,show);
+}
+
+dxGrid.prototype.enableSmartRendering = function(flag,rowNum){
+	return this.dxObj.enableSmartRendering(flag,rowNum);
+}
+
+dxGrid.prototype.clearSelection = function(){
+	return this.dxObj.clearSelection();
+}
+
+dxGrid.prototype.filterBy = function(colIndex,value,status){
+	return this.dxObj.filterBy(colIndex,value,status);
+}
+
+dxGrid.prototype.filterByAll = function(){
+	return this.dxObj.filterByAll();
+}
+
+dxGrid.prototype.changeCellType = function(rowInd,cellIndex,type){
+	return this.dxObj.changeCellType(rowInd,cellIndex,type);
 }

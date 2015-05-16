@@ -1,7 +1,9 @@
-/**
+/**functin(a,b,c
+ * [a,b,c]
  * 
  */
-function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
+function gfn_callAjaxForGrid(grid,param,url,layout,callbackFn){
+
 	$.ajax({
        url: url,
        type: "POST",
@@ -12,14 +14,15 @@ function gfn_callAjaxForGrid(grid,param,url,layout,msgCode){
        beforeSend: function() {
             layout.progressOn();
        },
-       success: function(data) {
-                    	
+       	
+       	success: function(data,status) {
         grid.clearAll();
         grid.parse(data, "js");
-                    	
-      /*if(msgCode != undefined){
-          MsgManager.alertMsg(msgCode);
-        }*/
+        callbackFn.call(this,data);
+ 
+      },
+      failure: function (data) {
+          alert(data.d);
       },
       complete: function() {
            layout.progressOff();
@@ -49,11 +52,10 @@ $.fn.serializeObject = function serializeObject(){
 };
 
 function gfn_callAjaxForForm(formId,param,url){
-				
 	$.ajax({
           url: url,
           type: "POST",
-          contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+          contentType: 'application/json; charset=UTF-8', // default content type (mime-type)
           data: param,
           async: true,
           dataType: "json", 
@@ -72,7 +74,6 @@ function gfn_callAjaxForForm(formId,param,url){
 };
 
 function gfn_setDataInFrom($form,data){
-	
        var els = $form.find(':input').get(); // get input elements from Form
        if(typeof data != 'object') {
 			data = {};
@@ -97,3 +98,32 @@ function gfn_setDataInFrom($form,data){
 			return $(this);
 	  }
 };	 
+
+function gfn_callAjaxForGridToFrom(param,url,layout,callbackFn){
+	$.ajax({
+       url: url,
+       type: "POST",
+       contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+       data: param,
+       async: true,
+       dataType: "json", 
+       beforeSend: function() {
+            layout.progressOn();
+       },
+       	
+       	success: function(data,status) {
+        callbackFn.call(this,data);
+ 
+      },
+      failure: function (data) {
+          alert(data.d);
+      },
+      complete: function() {
+           layout.progressOff();
+       },
+       error: function(xhr) { // if error occured
+          MsgManager.alertMsg("WRN040");
+          console.log(xhr.statusText + xhr.responseText);
+        }
+    });
+}

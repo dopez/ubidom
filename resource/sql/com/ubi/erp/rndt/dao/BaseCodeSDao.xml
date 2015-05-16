@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.rndt.dao.BaseCodeSDao">
+
+<resultMap type="BaseCodeS" id="BaseCodeSMap"/>
+
+	 <select id="selBaseCode" statementType="CALLABLE" >
+		 {call SP_COMM_BASECODES_SCH1(#{comp},#{code},#{codeName},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=BaseCodeSMap, javaType=ResultSet})}	
+	</select>
+	 <select id="selInterCode" statementType="CALLABLE" >
+		 {call 
+		 	SP_COMM_baseCodeS_Sch2(
+		 		#{comp},
+		 		#{code},
+		 		#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=BaseCodeSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	
+	<insert id="crudRndt" statementType="CALLABLE" parameterType="BaseCodeS">
+  		{call SP_COMM_baseCodeS_Save1(#{cudKey},#{comp,jdbcType=VARCHAR},#{code},#{codeName},#{sysEmpNo})}	
+  	</insert>
+	<insert id="crudDtlRndt" statementType="CALLABLE" parameterType="BaseCodeS">
+  		{call SP_COMM_baseCodeS_Save2(#{cudKey},#{comp,jdbcType=VARCHAR},#{code},#{interCode},#{interName},#{addVar},#{descRmk},#{sysEmpNo})}	
+  	</insert>
+</mapper>

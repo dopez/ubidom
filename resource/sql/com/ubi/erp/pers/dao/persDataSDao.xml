@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.pers.dao.PersDataSDao">
+
+	<resultMap id="PersDataSMap" type="PersDataS"/>
+	
+ 	<select id="selPersDataSL" statementType="CALLABLE">
+		 {call SP_PERS_PERSDATAS_SCH1(#{compId},#{postCode},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PersDataSMap, javaType=ResultSet})}	
+	</select>
+	
+	<select id="selPersDataSR" statementType="CALLABLE">
+		 {call SP_PERS_PERSDATAS_SCH2(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PersDataSMap, javaType=ResultSet})}	
+	</select>
+	
+		<insert id="crudPersDataS" statementType="CALLABLE" parameterType="PersDataS">
+  		{call SP_PERS_PERSDATAS_SAVE(
+  		#{cudKey},#{compId},#{empNo},#{korName},#{engName},
+  		#{chaName},#{regiNumb},#{postCode},#{jikwee},#{jikmu},
+  		#{jikchak},#{postNo},#{address},#{baseAddrs},#{tel},
+  		#{handPhone},#{email},#{character},#{taste},#{partCont},
+  		#{length},#{weight},#{blood},#{eyeLeft},#{eyeRight},
+  		#{disaYn},#{bldKind},#{disorderYn},#{disorderCont},#{armyKind},
+  		#{armyJong},#{amryBarch},#{armyGd},#{armyYn},#{armyNo},
+  		#{amryDate1},#{amryDate2},#{religion},#{armySpcase},#{armyMerit},
+  		#{enterDate},#{retireDate},#{retireMidDate},#{bankCode},#{bankNumb},
+  		#{sysEmpNo}
+  		)}	
+  	</insert>
+  	
+</mapper>

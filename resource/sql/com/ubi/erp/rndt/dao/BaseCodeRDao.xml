@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.rndt.dao.BaseCodeRDao">
+
+	<!-- <resultMap id="BaseCodeRMap" type="BaseCodeR"/> -->
+	<resultMap type="BaseCodeR" id="BaseCodeRMap"/>
+
+ 	<select id="selBaseCodeR" statementType="CALLABLE">
+		 {call 
+		 	SP_COMM_baseCodeR_Sch(
+		 		#{comp},
+		 		#{code},
+		 		#{codeName},
+		 		#{interCode},
+		 		#{interName},
+		 		#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=BaseCodeRMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	
+</mapper>

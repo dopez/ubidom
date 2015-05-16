@@ -77,3 +77,15 @@ dxTree.prototype._jsonToJSArray = function(nodeNm, parentNodeNm, textNm){
 	this.nodeData = nodeData;
 	return rtnArray;
 };
+dxTree.prototype.enableSmartCheckboxes = function(mode){
+	return this.dxObj.enableSmartCheckboxes(mode);
+}
+dxTree.prototype.enableThreeStateCheckboxes = function(mode){
+	return this.dxObj.enableThreeStateCheckboxes(mode);
+}
+dxTree.prototype.enableCheckBoxes = function(mode,hidden){
+	return this.dxObj.enableCheckBoxes(mode,hidden);
+}
+dxTree.prototype.destructor = function(){
+	return this.dxObj.destructor();
+}

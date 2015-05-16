@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Dept")
-public class Dept implements Serializable {
+@Alias("DeptR")
+public class DeptR implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String no;
 	private String compId;
@@ -14,18 +14,16 @@ public class Dept implements Serializable {
 	private String endDate;
 	private String postName;
 	private String costKind;
-	private String sysEmpNo;
-	private String sysDate;
-	private String postNameMst;
+	private String historyKind;
 	private String cudKey;
 
-	public Dept() {
+	public DeptR() {
 		super();
 	}
 
-	public Dept(String no, String compId, String postCode, String stDate,
-			String endDate, String postName, String costKind, String sysEmpNo,
-			String sysDate, String postNameMst, String cudKey) {
+	public DeptR(String no, String compId, String postCode, String stDate,
+			String endDate, String postName, String costKind,
+			String historyKind, String cudKey) {
 		super();
 		this.no = no;
 		this.compId = compId;
@@ -34,9 +32,7 @@ public class Dept implements Serializable {
 		this.endDate = endDate;
 		this.postName = postName;
 		this.costKind = costKind;
-		this.sysEmpNo = sysEmpNo;
-		this.sysDate = sysDate;
-		this.postNameMst = postNameMst;
+		this.historyKind = historyKind;
 		this.cudKey = cudKey;
 	}
 
@@ -96,28 +92,12 @@ public class Dept implements Serializable {
 		this.costKind = costKind;
 	}
 
-	public String getSysEmpNo() {
-		return sysEmpNo;
+	public String getHistoryKind() {
+		return historyKind;
 	}
 
-	public void setSysEmpNo(String sysEmpNo) {
-		this.sysEmpNo = sysEmpNo;
-	}
-
-	public String getSysDate() {
-		return sysDate;
-	}
-
-	public void setSysDate(String sysDate) {
-		this.sysDate = sysDate;
-	}
-
-	public String getPostNameMst() {
-		return postNameMst;
-	}
-
-	public void setPostNameMst(String postNameMst) {
-		this.postNameMst = postNameMst;
+	public void setHistoryKind(String historyKind) {
+		this.historyKind = historyKind;
 	}
 
 	public String getCudKey() {
