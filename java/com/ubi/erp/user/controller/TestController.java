@@ -65,11 +65,11 @@ public class TestController {
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Test>>(){});
 		
 		for(Test test : list) {
-			if("CREATE_VALUE".equals(test.getCudKey())) {
+			if ("CREATE".equals(test.getCudKey())) {
 				testService.insTest(test);
-			} else if ("UPDATE_VALUE".equals(test.getCudKey())) {
+			} else if ("UPDATE".equals(test.getCudKey())) {
 				testService.updTest(test);
-			} else if ("DELETE_VALUE".equals(test.getCudKey())) {
+			} else if ("DELETE".equals(test.getCudKey())) {
 				testService.delTest(test);
 			}
 		}
