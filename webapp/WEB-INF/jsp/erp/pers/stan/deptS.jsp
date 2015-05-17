@@ -21,7 +21,8 @@ $(document).ready(function(){
 	gridMst.init(); 
 	
 	gridMst.attachEvent("onRowSelect",doOnRowSelect);
-	fn_search();
+	var params = fn_value();
+	fn_loadGridListCode(params,1);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",       colId:"no",       width:"5",  align:"center", type:"cntr"});
@@ -76,34 +77,45 @@ $(document).ready(function(){
 	});
   	
 });
+function fn_cellChange(flag){
+	if(flag==1){
+		gridDtl.dxObj.setColumnExcellType(1,"ed");
+	  }else{
+		gridDtl.dxObj.setColumnExcellType(1,"ro");
+	  }
+ }
+
 function fn_new(){
 	 gridDtl.clearAll();
-	var totalColNum = gridDtl.getColumnCount();
-    var data = new Array(totalColNum);
-    var noColIdx = gridDtl.getColIndexById("no");
-    var stDateColIdx = gridDtl.getColIndexById('stDate');
-    var endDateColIdx = gridDtl.getColIndexById('endDate');
-	var data = new Array(totalColNum);
-	    data[noColIdx] = gridDtl.getRowsNum()+1;
-		data[stDateColIdx] = dateformat(new Date());
-		data[endDateColIdx] = "9999/12/31";
-        gridDtl.addRow(data);
+	 fn_addRow(1);
+     fn_cellChange(1);       
+}
+function fn_add(){
+	fn_addRow(2);
+   
 }
 
-function fn_add(){
-    var totalColNum = gridDtl.getColumnCount();
-    var data = new Array(totalColNum);
-    var noColIdx = gridDtl.getColIndexById("no");
-    var postCodeIdx = gridDtl.getColIndexById("postCode");
-    var stDateColIdx = gridDtl.getColIndexById('stDate');
-    var endDateColIdx = gridDtl.getColIndexById('endDate');
-	 var data = new Array(totalColNum);
-	    data[noColIdx] = gridDtl.getRowsNum()+1;
-	     data[postCodeIdx] = gridMst.setCells2(gridMst.getSelectedRowIndex(),0).getValue();
-		data[stDateColIdx] = dateformat(new Date());
-		data[endDateColIdx] = "9999/12/31";
-       gridDtl.addRow(data);
+function fn_addRow(flag){
+	var postCodeValue;
+	 if(flag ==1){
+		postCodeValue = "";
+	}else{
+		postCodeValue = gridDtl.setCells2(0,1).getValue();
+	}
+	 var totalColNum = gridDtl.getColumnCount();
+	    var data = new Array(totalColNum);
+	    var noColIdx = gridDtl.getColIndexById("no");
+	    var postCodeIdx = gridDtl.getColIndexById("postCode");
+	    var stDateColIdx = gridDtl.getColIndexById('stDate');
+	    var endDateColIdx = gridDtl.getColIndexById('endDate');
+		 var data = new Array(totalColNum);
+		    data[noColIdx] = gridDtl.getRowsNum()+1;
+		    data[postCodeIdx] = postCodeValue;
+			data[stDateColIdx] = dateformat(new Date());
+			data[endDateColIdx] = "9999/12/31";
+	       gridDtl.addRow(data);
 }
+
 function fn_delete(){
       var rodid = gridDtl.getSelectedRowId();
       var rodIdx = gridDtl.getSelectedRowIndex();
@@ -155,6 +167,7 @@ function doOnRowSelect(id,ind){
 	obj.postCode= gridMst.setCells(id,0).getValue();
 	obj.postName= gridMst.setCells(id,1).getValue();
 	fn_loadGridList(obj,2);
+	fn_cellChange(2);
 }
 
 function doOnEmptyClick(ev){
@@ -171,7 +184,8 @@ function fn_comboReadOnly(combo){
 };	
 function fn_search(){
 	var params = fn_value();
-	fn_loadGridListCode(params,1); 
+	fn_loadGridListCode(params,1);
+	fn_cellChange(2); 
 }
 // dept 조회로직
 function fn_loadGridList(params,flag) {
