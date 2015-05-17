@@ -11,7 +11,6 @@
 
         layout.cells("b").attachObject("bootContainer2");
 
-    	//저장
     	toolbar.attachEvent("onClick", function(id) {
     		if (id == "btn3") {
     			$("#frmMain").submit();
