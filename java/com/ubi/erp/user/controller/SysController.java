@@ -46,13 +46,13 @@ public class SysController {
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<Sys>>(){});
 		
 		for(Sys sys : list) {
-			if("CREATE_VALUE".equals(sys.getCudKey())) {
+			if ("CREATE".equals(sys.getCudKey())) {
 				sys.setCreator("C2000000");
 				sysService.insSys(sys);
-			} else if("UPDATE_VALUE".equals(sys.getCudKey())) {
+			} else if ("UPDATE".equals(sys.getCudKey())) {
 				sys.setEditor("C2000000");
 				sysService.updSys(sys);
-			} else if ("DELETE_VALUE".equals(sys.getCudKey())) {
+			} else if ("DELETE".equals(sys.getCudKey())) {
 				sysService.delSys(sys);
 			}
 		}
