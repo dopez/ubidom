@@ -32,7 +32,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"변수", colId:"addVar", width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"5", align:"center",type:"ed"});
 	gridDtl.setColSort("str");
-	gridDtl.setUserData("","pk","interCode");
+	gridDtl.setUserData("","pk","");
 	gridDtl.init();	
 	
 	fn_loadGridMst(1);
@@ -96,6 +96,7 @@ function fn_save(){
 	    if (codeMain == null || codeMain.length <= 0) return;        		
         $("#jsonData2").val(jsonStr2);
         $("#gridMstCode").val(codeMain);
+        console.log(jsonStr2);
         $.ajax({
            url : "/erp/rndt/baseCodeS/codeSaveDtl",
            type : "POST",
@@ -103,10 +104,10 @@ function fn_save(){
            async : true,
            success : function(data) {
            MsgManager.alertMsg("INF001");
-           var totalRowNum = gridMst.getRowsNum()-1;
-    	   gridMst.selectRow(totalRowNum);
            gridDtl.clearAll()
     	   fn_loadGridDtl(codeMain);
+    	   gridMst.selectRow(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()));
+           
             }
        });
 }

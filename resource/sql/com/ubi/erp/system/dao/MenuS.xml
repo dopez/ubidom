@@ -38,4 +38,32 @@
   			)
   		}	
   	</insert>
+  	<select id="selNoAuthList" statementType="CALLABLE">
+		{ call SP_SYSTEM_MENUS_SCH3(
+				#{V_COMP_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{V_MENUCD, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MenuSMap}
+			)
+		}
+	</select>
+  	<select id="selAuthList" statementType="CALLABLE">
+		{ call SP_SYSTEM_MENUS_SCH4(
+				#{V_COMP_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{V_MENUCD, mode=IN, jdbcType=VARCHAR, javaType=string},
+				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MenuSMap}
+			)
+		}
+	</select>
+		<insert id="authSave" statementType="CALLABLE" parameterType="MenuS">
+  		{call SP_SYSTEM_MENUS_AUTH_SAVE(
+  			#{cudKey},
+  			#{compId},
+  			#{menucd},
+  			#{groupgbn},
+  			#{multicd},
+  			#{modauthority, jdbcType=VARCHAR},
+  			#{prnauthority, jdbcType=VARCHAR}
+  			)
+  		}	
+  	</insert>
 </mapper>
