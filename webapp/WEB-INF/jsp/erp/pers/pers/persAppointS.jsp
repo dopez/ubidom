@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
-var calMain;
+var status;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
@@ -16,60 +16,285 @@ $(document).ready(function(){
 	
 	subLayout.cells("a").setWidth(350);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"No",       colId:"no",       width:"15", align:"center", type:"ro"});
+	gridMst.addHeader({name:"No",       colId:"no",       width:"15", align:"center", type:"cntr"});
 	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"empName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서", 	colId:"deptName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서", 	colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사업장", 	colId:"compId",   width:"25", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
-	gridMst.setUserData("","pk","no");
+	gridMst.setUserData("","pk","empNo");
 	gridMst.init(); 
+	gridMst.setColumnHidden(4,true);
+	gridMst.attachEvent("onRowSelect",gridMstOnRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"No",         colId:"no",       width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령일",     colId:"empNo",    width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"급여구분",   colId:"empName",  width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"근무구분",   colId:"deptName", width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령구분",   colId:"no",       width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"부서코드",   colId:"empNo",    width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령부서",   colId:"empName",  width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직군",   colId:"deptName", width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"근무형태",   colId:"no",       width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직위",   colId:"empNo",    width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직책",   colId:"empName",  width:"5", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"급여사업장", colId:"deptName", width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"No",         colId:"no",       width:"5",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"발령일",     colId:"balDate",  width:"10", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"급여구분",   colId:"payGbn",   width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"근무구분",   colId:"serveGbn", width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"발령구분",   colId:"balGbn",   width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령부서",   colId:"postName", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직군",   colId:"jikgun",   width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"발령직무",   colId:"jikmu",    width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"발령직위",   colId:"jikwee",   width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"발령직책",   colId:"jikchak",  width:"7",  align:"center", type:"combo"});
+	gridDtl.addHeader({name:"급여사업장", colId:"compId",   width:"7",  align:"center", type:"combo"});
+	//가 저장될 gridColumns
+	gridDtl.addHeader({name:"사원번호",       colId:"empNo",      width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"급여구분코드",   colId:"payGbnNm",   width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"근무구분코드",   colId:"serveGbnNm", width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령구분코드",   colId:"balGbnNm",   width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직군코드",   colId:"jikgunNm",   width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직무코드",   colId:"jikmuNm",    width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직위코드",   colId:"jikweeNm",   width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"발령직책코드",   colId:"jikchakNm",  width:"10", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"급여사업장코드", colId:"compIdNm",   width:"10", align:"center", type:"ro"});
 	gridDtl.setColSort("str");	
-	gridDtl.setUserData("","pk","no");
+	gridDtl.setUserData("","pk","empNo");
 	gridDtl.init(); 
+	gridDtl.setColumnHidden(12,true);
+	gridDtl.setColumnHidden(13,true);
+	gridDtl.setColumnHidden(14,true);
+	gridDtl.setColumnHidden(15,true);
+	gridDtl.setColumnHidden(16,true);
+	gridDtl.setColumnHidden(17,true);
+	gridDtl.setColumnHidden(18,true);
+	gridDtl.setColumnHidden(19,true);
+	gridDtl.setColumnHidden(20,true);
+	//근무형태 grid에서 항목 제외
+	fn_search();
+	gridDtl.attachEvent("onRowSelect",gridDtlOnRowSelect);
 	
-	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	
-	$("#deptName").dblclick(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"deptName":$(this).val()});
+	$("#postName").click(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		status = 2;
 	});
-
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
-	calMain.loadUserLanguage("ko");
-	calMain.hideTime();	   
-	    var t = dateformat(new Date());
-		byId("stDate").value = t;
-		
-		toolbar.attachEvent("onClick", function(id) {
-			if(id == "btn5"){
-				gridDtl.addRow(gridDtl.getUID(),"1,,,,,,,,,,,",1);
-			}
-		});
-		
-		function doOnRowDblClicked(rowId,colId){
-			if(colId==5 || colId ==6){
-			gfn_load_popup('부서코드','common/deptCodePOP');
-			}
-		}
+	    
+	    $("#empName").keyup(function(e) {
+		    if (e.keyCode == '13') {
+		      gridMst.filterBy(2,byId("empName").value);
+		    }
+		 });
 });
+function fn_save(){
+	 var jsonStr = gridDtl.getJsonUpdated2();
+    if (jsonStr == null || jsonStr.length <= 0) return;         		
+        $("#jsonData").val(jsonStr);                      
+        $.ajax({
+           url : "/erp/persAppointS/prcsPersAppoint",
+           type : "POST",
+           data : $("#pform").serialize(),
+           async : true,
+           success : function(data) {
+           MsgManager.alertMsg("INF001");
+           fn_search();
+            }
+       }); 
+}
+function fn_search(){
+	fn_loadGridLeftList();
+	gridDtl.clearAll(); 
+}
+function fn_loadGridLeftList(){
+	var obj={};
+	obj.postCode = $('#postCode').val();
+	obj.empNo = $('#empNo').val();
+	obj.serveGbn= $('input[name="serveGbn"]:checked').val();
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/persAppointS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+};
+function fn_loadGridLeftListCB(data){
+	$('#postCode').val('');
+};
+function gridMstOnRowSelect(id,ind){
+	var obj={};
+	obj.compId = gridMst.setCells(id,4).getValue();
+	obj.empNo = gridMst.setCells(id,1).getValue();
+	fn_loadGridRightList(obj);
+	fn_startSetCombo(id);
+}
+function gridDtlOnRowSelect(id,ind){
+	if(ind==5){
+	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
+	}
+	gridDtl.editCell();
+}
+function fn_startSetCombo(id){
+	var combo01 = gridDtl.getColumnCombo(2);
+	fn_comboLoad(combo01,gridDtl.getColumnId(2),id,"P001",2,13);
+	var combo02 = gridDtl.getColumnCombo(3);
+	fn_comboLoad(combo02,gridDtl.getColumnId(3),id,"P002",3,14);
+	var combo03 = gridDtl.getColumnCombo(4);
+	fn_comboLoad(combo03,gridDtl.getColumnId(4),id,"P003",4,15);
+	var combo04 = gridDtl.getColumnCombo(7);
+	fn_comboLoad(combo04,gridDtl.getColumnId(7),id,"P004",7,16);
+	var combo05 = gridDtl.getColumnCombo(8);
+	fn_comboLoad(combo05,gridDtl.getColumnId(8),id,"P005",8,17);
+	var combo06 = gridDtl.getColumnCombo(9);
+	fn_comboLoad(combo06,gridDtl.getColumnId(9),id,"004",9,18);
+	var combo07 = gridDtl.getColumnCombo(10);
+	fn_comboLoad(combo07,gridDtl.getColumnId(10),id,"P006",10,19);
+	var combo08 = gridDtl.getColumnCombo(11);
+	fn_comboLoad(combo08,gridDtl.getColumnId(11),id,"000",11,20);
+}
+function fn_loadGridRightList(params){
+	gfn_callAjaxForGrid(gridDtl,params,"/erp/persAppointS/selRight",subLayout.cells("b"),fn_loadGridRightListCB);
+}
+function fn_loadGridRightListCB(data){
+	if(data == ''){
+		return false;
+	}else{
+		for(var i = 0; i<data.length;i++){
+			gridDtl.setCells2(i,2).setValue(data[i].payGbnNm);
+			gridDtl.setCells2(i,13).setValue(data[i].payGbn);
+			gridDtl.setCells2(i,3).setValue(data[i].serveGbnNm);
+			gridDtl.setCells2(i,14).setValue(data[i].serveGbn);
+			gridDtl.setCells2(i,4).setValue(data[i].balGbnNm);
+			gridDtl.setCells2(i,15).setValue(data[i].balGbn);
+			gridDtl.setCells2(i,7).setValue(data[i].jikgunNm);
+			gridDtl.setCells2(i,16).setValue(data[i].jikgun);
+			gridDtl.setCells2(i,8).setValue(data[i].jikmuNm);
+			gridDtl.setCells2(i,17).setValue(data[i].jikmu);
+			gridDtl.setCells2(i,10).setValue(data[i].jikchakNm);
+			gridDtl.setCells2(i,19).setValue(data[i].jikchak);
+			gridDtl.setCells2(i,11).setValue(data[i].compIdNm);
+			gridDtl.setCells2(i,20).setValue(data[i].compId);
+			gridDtl.setCells2(i,9).setValue(data[i].jikweeNm);
+			gridDtl.setCells2(i,18).setValue(data[i].jikwee);
+		}	
+	}
+}
+
+function fn_add(){
+	var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{
+	 var totalColNum = gridDtl.getColumnCount();
+	    var data = new Array(totalColNum);
+	    var balDateColIdx = gridDtl.getColIndexById('balDate');
+		var empNoColIdx = gridDtl.getColIndexById('empNo');    
+	        data[balDateColIdx] = dateformat(new Date());
+	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
+		    gridDtl.addRow(data);
+	}
+}
+
+function fn_delete(){
+    var rodid = gridDtl.getSelectedRowId();
+    var rodIdx = gridDtl.getSelectedRowIndex();
+    if(gridDtl.isDelRows(rodid)) {
+       if(MsgManager.confirmMsg("INF002")) {
+     	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
+     		  return
+     	  }else{
+     		 var jsonStr = gridDtl.getJsonRowDel(rodid);
+           if (jsonStr == null || jsonStr.length <= 0) return;
+            $("#jsonData").val(jsonStr);
+                $.ajax({
+                 url : "/erp/persAppointS/prcsPersAppoint",
+                 type : "POST",
+                 data : $("#pform").serialize(),
+                 async : true,
+                 success : function(data) {
+                 MsgManager.alertMsg("INF003");
+                 fn_search();
+                }
+            });
+     	   }   	 
+        } else {
+         	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+}
+
+function fn_comboLoad(comboId,inputName,rowId,params,colIndx,mockIndx){
+	comboId.load({
+		template: {
+		    input: "#interCode#",
+		    input: "#interName#",
+		    columns: [
+		        {header: "내부코드", width: 100,  option: "#interCode#"},
+		        {header: "코드명",   width: 100,  option: "#interName#"}
+		    ]
+		},
+		options: [
+		]
+	}); 
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	var obj={};
+	obj.compId = gridMst.setCells(rowId,4).getValue();
+	obj.code = params;
+	doOnOpen(comboId,obj,colIndx,mockIndx);
+}
+function doOnOpen(comboId,params,colIndx,mockIndx){
+		$.ajax({
+			"url":"/erp/persAppointS/selBaseCode",
+			"type":"post",
+			"data":params
+		    }).done(function(jsonData) {
+				if(jsonData!="") {
+				for(var i=0;i<=jsonData.length;i++){
+					comboId.addOption([
+		                  {value: i, text:
+		                  {interCode: jsonData[i].interCode,
+		                   interName:jsonData[i].interName}}   
+			            ]);
+		           }
+					
+		        }else {
+		          alert("No Data");
+		        }
+  });	
+
+ 	comboId.attachEvent("onClose", function() {
+	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),colIndx).setValue(comboId.getSelectedText().interName);
+	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),mockIndx).setValue(comboId.getSelectedText().interCode);
+	});	
+};
+function fn_onOpenPop(pName){
+	var value;
+	if(pName=="postCode"){
+		value =  '';
+	  }
+	
+	return value;
+};
+
+function fn_onClosePop(pName,data){
+	if(pName=="postCode"){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			if(status == 1){
+				gridDtl.setCells2(gridDtl.getSelectedRowIndex(),5).setValue(obj.postCode);
+				gridDtl.setCells2(gridDtl.getSelectedRowIndex(),6).setValue(obj.postName);
+			}else{
+				$('#postName').val(obj.postName);
+				$('#postCode').val(obj.postCode);
+				status = 1;
+			}
+			
+		}		  
+	}	  
+ };
 </script>
+<form id="pform" name="pform" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+     <input type="hidden" id="postCode" name="postCode" />
+     <input type="hidden" id="empNo" name="empNo" />
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -78,10 +303,10 @@ $(document).ready(function(){
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-6 col-md-6">
-			       <input type="radio" name="gubn" id="gubn" value="재직" checked="checked">재직
+			       <input type="radio" name="serveGbn" id="serveGbn" value="1" checked="checked">재직
 			    </div>
 			    <div class="col-sm-6 col-md-6">
-			       <input type="radio" name="gubn" id="gubn" value="퇴직">퇴직
+			       <input type="radio" name="serveGbn" id="serveGbn" value="2">퇴직
 			    </div>           
              </div>
 		 </div>
@@ -94,14 +319,14 @@ $(document).ready(function(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  
 		  <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 성명
 		  </label>
 		  <div class="col-sm-2 col-md-2">
-			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
 		  </div>
 	   </div>
 	  </div>

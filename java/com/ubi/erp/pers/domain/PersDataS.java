@@ -55,7 +55,7 @@ public class PersDataS implements Serializable {
 	private String armySpcase; // 병력특례유무
 	private String armyMerit; // 보훈유무
 	private String cudKey;
-
+	
 	public PersDataS() {
 		super();
 	}

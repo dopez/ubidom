@@ -92,7 +92,6 @@ function fn_new(){
 }
 function fn_add(){
 	fn_addRow(2);
-   
 }
 
 function fn_addRow(flag){
@@ -104,16 +103,13 @@ function fn_addRow(flag){
 	}
 	 var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
-	    var noColIdx = gridDtl.getColIndexById("no");
 	    var postCodeIdx = gridDtl.getColIndexById("postCode");
 	    var stDateColIdx = gridDtl.getColIndexById('stDate');
 	    var endDateColIdx = gridDtl.getColIndexById('endDate');
-		 var data = new Array(totalColNum);
-		    data[noColIdx] = gridDtl.getRowsNum()+1;
 		    data[postCodeIdx] = postCodeValue;
 			data[stDateColIdx] = dateformat(new Date());
 			data[endDateColIdx] = "9999/12/31";
-	       gridDtl.addRow(data);
+	        gridDtl.addRow(data);
 }
 
 function fn_delete(){
