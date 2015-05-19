@@ -21,17 +21,17 @@ public class MenuSService
 		dao = sqlSession.getMapper(MenuSDao.class);
 	}
 
-	public void getMenu(Map<String, Object> param) {
-		dao.getMenu(param);
+	public void selMenu(Map<String, Object> param) {
+		dao.selMenu(param);
 	}
 
-	public void selMenucd(Map<String, Object> map) {
-		dao.selMenucd(map);
+	public void selMenuDtl(Map<String, Object> map) {
+		dao.selMenuDtl(map);
 		
 	}
 
-	public void crudMenuS(MenuS menuS) {
-		dao.crudMenuS(menuS);
+	public void prcsMenuS(MenuS menuS) {
+		dao.prcsMenuS(menuS);
 		
 	}
 
@@ -44,7 +44,7 @@ public class MenuSService
 		
 	}
 
-	public void authSave(MenuS menuS) {
-		dao.authSave(menuS);		
+	public void prcsAuthSave(MenuS menuS) {
+		dao.prcsAuthSave(menuS);		
 	}
 }

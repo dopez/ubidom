@@ -5,10 +5,10 @@
 
 <resultMap type="BaseCodeS" id="BaseCodeSMap"/>
 
-	 <select id="selBaseCode" statementType="CALLABLE" >
+	 <select id="selBaseCodeMst" statementType="CALLABLE" >
 		 {call SP_COMM_BASECODES_SCH1(#{comp},#{code},#{codeName},#{P_RST, mode=OUT, jdbcType=CURSOR, resultMap=BaseCodeSMap, javaType=ResultSet})}	
 	</select>
-	 <select id="selInterCode" statementType="CALLABLE" >
+	 <select id="selBaseCodeDtl" statementType="CALLABLE" >
 		 {call 
 		 	SP_COMM_baseCodeS_Sch2(
 		 		#{comp},
@@ -18,10 +18,10 @@
 		 }	
 	</select>
 	
-	<insert id="crudRndt" statementType="CALLABLE" parameterType="BaseCodeS">
+	<insert id="prcsCodeSave" statementType="CALLABLE" parameterType="BaseCodeS">
   		{call SP_COMM_baseCodeS_Save1(#{cudKey},#{comp,jdbcType=VARCHAR},#{code},#{codeName},#{sysEmpNo})}	
   	</insert>
-	<insert id="crudDtlRndt" statementType="CALLABLE" parameterType="BaseCodeS">
+	<insert id="prcsCodeDtlSave" statementType="CALLABLE" parameterType="BaseCodeS">
   		{call SP_COMM_baseCodeS_Save2(#{cudKey},#{comp,jdbcType=VARCHAR},#{code},#{interCode},#{interName},#{addVar},#{descRmk},#{sysEmpNo})}	
   	</insert>
 </mapper>

@@ -42,14 +42,15 @@ function fn_search(){
 	fn_noAuthList();
 	fn_authList();
 }
+
+//저장 버튼 동작
 function fn_save(){
         var jsonStr = gridMst.getJsonUpdated2();
-        console.log(jsonStr);
         if (jsonStr == null || jsonStr.length <= 0) return;
         $("#jsonData").val(jsonStr);
         $("#Pmenucd").val(menucd);
         $.ajax({
-            url: "/erp/system/menuS/authSave",
+            url: "/erp/system/menuS/prcsAuthSave",
             type: "POST",
             data: $("#hiddenform").serialize(),
             async: true,
@@ -63,41 +64,7 @@ function fn_save(){
         });
     
 }
-// 한줄 삭제 (테스트용);
-function fn_delete() {
-    var selRowID = gridMst.getSelectedRowId();
-    var selRowIDx = gridMst.getSelectedRowIndex();
-    if (gridMst.isDelRows(selRowID)) {
-        if (MsgManager.confirmMsg("INF002")) {
-            if (gridMst.chkUnsavedRow(selRowIDx, selRowID)) {
-                return
-            } else {
-                var jsonStr = gridMst.getJsonRowDel(selRowID);
-                if (jsonStr == null || jsonStr.length <= 0) return;
-                $("#jsonData").val(jsonStr);
-                $("#Pmenucd").val(menucd);
-                console.log($("#hiddenform").serialize());
-                $.ajax({
-                    url: "/erp/system/menuS/authSave",
-                    type: "POST",
-                    data: $("#hiddenform").serialize(),
-                    async: true,
-                    success: function(data) {
-                        MsgManager.alertMsg("INF003");
-                        gridMst.clearAll();
-                        fn_authList();
-                        gridDtl.clearAll();
-                        fn_noAuthList();
-                    }
-                });
-            }
-        } else {
-            MsgManager.alertMsg("WRN004");
-        }
-    } else {
-        MsgManager.alertMsg("WRN002");
-    }
-}
+
 //우측 그리드 조회
 function fn_noAuthList(){
 	var param = "menucd="+menucd;
@@ -189,7 +156,7 @@ function fn_btnDel(){
                 $("#Pmenucd").val(menucd);
                 console.log($("#hiddenform").serialize());
                 $.ajax({
-                    url: "/erp/system/menuS/authSave",
+                    url: "/erp/system/menuS/prcsAuthSave",
                     type: "POST",
                     data: $("#hiddenform").serialize(),
                     async: true,
@@ -205,6 +172,17 @@ function fn_btnDel(){
     } else {
         MsgManager.alertMsg("WRN002");
     }
+}
+//cudkey chk 
+function fn_chkUnsavedRow(rowNum,rowId){
+	var cudColIdx = gridMst.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	var cudColVal = gridMst.dxObj.cells2(rowNum,cudColIdx).getValue();
+	if (cudColVal == actInsert) {
+		isDelRow = true;
+		fn_MstToDtl();
+	}
+	return isDelRow;
 }
 
 //좌측 그리드에서 우측그리드로 row 이동
@@ -229,17 +207,6 @@ function fn_MstToDtl(){
 	gridDtl.selectRow(totalRowNum);
 }
 
-//cudkey chk 
-function fn_chkUnsavedRow(rowNum,rowId){
-	var cudColIdx = gridMst.dxObj.getColIndexById(cudKeyCol);
-	var isDelRow = false;
-	var cudColVal = gridMst.dxObj.cells2(rowNum,cudColIdx).getValue();
-	if (cudColVal == actInsert) {
-		isDelRow = true;
-		fn_MstToDtl();
-	}
-	return isDelRow;
-}
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

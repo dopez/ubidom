@@ -18,23 +18,23 @@ public class BaseCodeSService {
 		dao = sqlSession.getMapper(BaseCodeSDao.class);
 	}
 
-	public void selBaseCode(Map<String, Object> map) {
-		dao.selBaseCode(map);
+	public void selBaseCodeMst(Map<String, Object> map) {
+		dao.selBaseCodeMst(map);
 		
 	}
 
-	public void crudRndt(BaseCodeS basecodss) {
-		dao.crudRndt(basecodss);
+	public void prcsCodeSave(BaseCodeS basecodss) {
+		dao.prcsCodeSave(basecodss);
 		
 	}
 
-	public void crudDtlRndt(BaseCodeS basecodss) {
-		dao.crudDtlRndt(basecodss);
+	public void prcsCodeDtlSave(BaseCodeS basecodss) {
+		dao.prcsCodeDtlSave(basecodss);
 		
 	}
 
-	public void selInterCode(Map<String, Object> map) {
-		dao.selInterCode(map);
+	public void selBaseCodeDtl(Map<String, Object> map) {
+		dao.selBaseCodeDtl(map);
 		
 	}
 }
