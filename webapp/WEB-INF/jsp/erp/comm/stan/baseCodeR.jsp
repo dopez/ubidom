@@ -43,6 +43,9 @@ function fn_loadGridMain(){
 function fn_loadGridMainCallBack(){
 	//call back function
 }
+function fn_print(){
+	gridMain.printView('<div>before</div>','<strong>after</strong>');	
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain,treeMain;
 var menuNameParam;
 $(document).ready(function(){
-	Ubi.setContainer(0,[1,2,3,5,6],"2U");
+	Ubi.setContainer(0,[1,3,5,6],"2U");
 	//시스템 메뉴 등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -28,8 +28,8 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", type:"ed"});
 	gridMain.addHeader({name:"URI", colId:"uri", width:"25", type:"ed"});
 	gridMain.addHeader({name:"웹매개변수", colId:"agValue", width:"7", type:"ed"});
-	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
- 	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
+	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
+ 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","menucd");
 	gridMain.init();
@@ -37,54 +37,54 @@ $(document).ready(function(){
 	//대분류 메뉴 로드
 	fn_loadGridMain('0000000000');
 	
-	//grid 드래그 앤 드랍
+	//드래그 앤 드랍
 	gridMain.dxObj.enableDragAndDrop(true);
  	gridMain.attachEvent("onDrop",fn_onDrop);
-	
+ 	
 	//콤보박스 (드랍다운 리스트)
 	var comboGbn = gridMain.getColumnCombo(1);
 	comboGbn.addOption("0","폴더");
 	comboGbn.addOption("1","윈도우");
-	var comboGbn2 = gridMain.getColumnCombo(6);
+	/* var comboGbn2 = gridMain.getColumnCombo(6);
 	comboGbn2.addOption("1","사용");
-	comboGbn2.addOption("0","미사용");	
+	comboGbn2.addOption("0","미사용"); */	
 	
 	//onselect edit cell
   	gridMain.attachEvent("onRowSelect", function(id,ind){
 		gridMain.editCell();
- 	}); 
+ 	});
 	
 	//더블 클릭 시 팝업
- 	gridMain.attachEvent("onRowDblClicked",fn_load_pop);
+ 	gridMain.attachEvent("onRowDblClicked",fn_loadPop);
 	
 	// 체크 값
-	gridMain.attachEvent("onCheck",testCk);
+	gridMain.attachEvent("onCheck",fn_useGbnChk);
 });
 //doc Ready End
 
-//row drag n drop
+//로우 드랍 시
 function fn_onDrop() {
      var totalRowNum = gridMain.getRowsNum();
  	 for(var i=0;i<totalRowNum;i++){
-		gridMain.setCells2(i,0).setValue();
+		gridMain.setCells2(i,0).setValue(i+1);
+		gridMain.setCells2(i,7).setValue("UPDATE");
  	 }
 }
-    
-function testCk(selRowId,colnum) {
+
+//사용구분 체크 시
+function fn_useGbnChk(selRowId,colnum) {
   var selRowIdx = selRowId-1;
-  console.log("selRowIdx = "+selRowIdx);
-  console.log("selRowId = "+selRowId);
   var checkState = gridMain.setCells2(selRowIdx, colnum).getValue();
    if (checkState == 1) {
       gridMain.setCells2(selRowIdx, colnum).setValue(1);
   } else if(checkState == 0){
       gridMain.setCells2(selRowIdx, colnum).setValue(0);
   }
-   console.log("checkState = " + checkState);
+   gridMain.setCells2(selRowIdx,7).setValue("UPDATE");
 }
 
-//row dbl click
-function fn_load_pop() {
+//팝업
+function fn_loadPop() {
         var selRowId = gridMain.getSelectedRowId();
         var selRowIdx = gridMain.getSelectedRowIndex(selRowId);
         menuNameParam = gridMain.setCells2(selRowIdx, "3").getValue(selRowIdx - 1);
@@ -97,6 +97,7 @@ function fn_search() {
     fn_treeMainConf();
     gridMain.clearAll();
     fn_loadGridMain('0000000000');
+    $("#Pmenucd").val(0);
 }
 
 //저장 버튼 동작
@@ -108,24 +109,33 @@ function fn_save(){
 	
     fn_saveGridMain();
 }
+//저장 로직
 function fn_saveGridMain(){
-    var jsonStr = gridMain.getJsonUpdated2();
-    if (jsonStr == null || jsonStr.length <= 0) return;
-    $("#jsonData").val(jsonStr);
-	console.log(jsonStr.length);
-    $.ajax({
-        url: "/erp/system/menuS/prcsMenuS",
-        type: "POST",
-        data: $("#hiddenform").serialize(),
-        async: true,
-        success: function(data) {
-            gridMain.clearAll();
-            MsgManager.alertMsg("INF001");
-            var menucd = $("#Pmenucd").val()
-            fn_loadGridMain(menucd);
-        }
-    });
+	var jsonStr = gridMain.getJsonUpdated2();
+    var jsonStrSubString = jsonStr.substring(0, 2);
+    if (jsonStrSubString == "[]"){
+    	dhtmlx.alert("변경된 사항이 없습니다.");
+    }else{
+	    if ($("#Pmenucd").val()==0){
+	    	$("#Pmenucd").val('0000000000');
+	    }
+	    $("#jsonData").val(jsonStr);
+	     $.ajax({
+	        url: "/erp/system/menuS/prcsMenuS",
+	        type: "POST",
+	        data: $("#hiddenform").serialize(),
+	        async: true,
+	        success: function(data) {
+	            gridMain.clearAll();
+	            MsgManager.alertMsg("INF001");
+            
+	            var menucd = $("#Pmenucd").val()
+	            fn_loadGridMain(menucd);
+	        }
+	    });
+    }
 }
+
 //한줄삽입
 function fn_add(){
 	var totalColNum = gridMain.getColumnCount();
@@ -136,6 +146,7 @@ function fn_add(){
   	gridMain.addRow(data);
   	gridMain.selectRow(totalRowNum);
 }
+
 //한줄삭제
 function fn_delete() {
     var rodid = gridMain.getSelectedRowId();
@@ -146,6 +157,7 @@ function fn_delete() {
                 return
             } else {
                 var jsonStr = gridMain.getJsonRowDel(rodid);
+                console.log(jsonStr);
                 if (jsonStr == null || jsonStr.length <= 0) return;
                 $("#jsonData").val(jsonStr);
                 $.ajax({
@@ -158,6 +170,7 @@ function fn_delete() {
                         gridMain.clearAll();
                         var menucd = $("#Pmenucd").val()
                         fn_loadGridMain(menucd);
+
                     }
                 });
             }
