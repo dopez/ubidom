@@ -158,8 +158,11 @@ public class MenuSController {
 		
 		String groupgbn = "0";
 		
+		/***프로시져에서 처리***/
 		String modauthority = "";
+		
 		String prnauthority = "";
+		
 		List<MenuS> list = new ArrayList<MenuS>();
 		
 		ObjectMapper mapper = new ObjectMapper();

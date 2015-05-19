@@ -12,7 +12,7 @@ var config={
 var menuname = parent.menuNameParam; //메뉴이름
 var menucd = parent.menucdParam; //메뉴코드
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,3,6],"3W");
+	Ubi.setContainer(1,[1,3],"3W");
 	//권한등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -39,7 +39,6 @@ $(document).ready(function(){
 
 //조회 버튼 동작
 function fn_search(){
-	alert(parent.menuNameParam);
 	fn_noAuthList();
 	fn_authList();
 }
@@ -56,32 +55,39 @@ function fn_save(){
             async: true,
             success: function(data) {
                 MsgManager.alertMsg("INF001");
+                gridMst.clearAll();
+                fn_authList();
+                gridDtl.clearAll();
+                fn_noAuthList();
             }
         });
     
 }
 // 한줄 삭제 (테스트용);
 function fn_delete() {
-    var rodid = gridMain.getSelectedRowId();
-    var rodIdx = gridMain.getSelectedRowIndex();
-    if (gridMain.isDelRows(rodid)) {
+    var selRowID = gridMst.getSelectedRowId();
+    var selRowIDx = gridMst.getSelectedRowIndex();
+    if (gridMst.isDelRows(selRowID)) {
         if (MsgManager.confirmMsg("INF002")) {
-            if (gridMain.chkUnsavedRow(rodIdx, rodid)) {
+            if (gridMst.chkUnsavedRow(selRowIDx, selRowID)) {
                 return
             } else {
-                var jsonStr = gridMain.getJsonRowDel(rodid);
+                var jsonStr = gridMst.getJsonRowDel(selRowID);
                 if (jsonStr == null || jsonStr.length <= 0) return;
                 $("#jsonData").val(jsonStr);
+                $("#Pmenucd").val(menucd);
+                console.log($("#hiddenform").serialize());
                 $.ajax({
-                    url: "/erp/system/menuS/crudMenuS",
+                    url: "/erp/system/menuS/authSave",
                     type: "POST",
                     data: $("#hiddenform").serialize(),
                     async: true,
                     success: function(data) {
                         MsgManager.alertMsg("INF003");
-                        gridMain.clearAll();
-                        var menucd = $("#Pmenucd").val()
-                        fn_loadGridMain(menucd);
+                        gridMst.clearAll();
+                        fn_authList();
+                        gridDtl.clearAll();
+                        fn_noAuthList();
                     }
                 });
             }
@@ -173,8 +179,39 @@ function fn_btnAdd(){
 function fn_btnDel(){
     var selRowId = gridMst.getSelectedRowId();
     var selRowIdx = gridMst.getSelectedRowIndex(selRowId);
-    
-    var multicd = gridMst.setCells2(selRowIdx, "0").getValue(selRowIdx - 1);
+	 if (gridMst.isDelRows(selRowId)) {
+            if (fn_chkUnsavedRow(selRowIdx, selRowId)) {
+                return
+            } else {
+                var jsonStr = gridMst.getJsonRowDel(selRowId);
+                if (jsonStr == null || jsonStr.length <= 0) return;
+                $("#jsonData").val(jsonStr);
+                $("#Pmenucd").val(menucd);
+                console.log($("#hiddenform").serialize());
+                $.ajax({
+                    url: "/erp/system/menuS/authSave",
+                    type: "POST",
+                    data: $("#hiddenform").serialize(),
+                    async: true,
+                    success: function(data) {
+                        MsgManager.alertMsg("INF003");
+                        gridMst.clearAll();
+                        fn_authList();
+                        gridDtl.clearAll();
+                        fn_noAuthList();
+                    }
+                });
+            }
+    } else {
+        MsgManager.alertMsg("WRN002");
+    }
+}
+
+//좌측 그리드에서 우측그리드로 row 이동
+function fn_MstToDtl(){
+	var selRowId = gridMst.getSelectedRowId();
+    var selRowIdx = gridMst.getSelectedRowIndex(selRowId);
+	var multicd = gridMst.setCells2(selRowIdx, "0").getValue(selRowIdx - 1);
     var pname = gridMst.setCells2(selRowIdx, "1").getValue(selRowIdx - 1);
 	
     var totalColNum = gridDtl.getColumnCount();
@@ -190,6 +227,18 @@ function fn_btnDel(){
   	gridMst.dxObj.deleteRow(selRowId);
 	gridDtl.addRow(data);
 	gridDtl.selectRow(totalRowNum);
+}
+
+//cudkey chk 
+function fn_chkUnsavedRow(rowNum,rowId){
+	var cudColIdx = gridMst.dxObj.getColIndexById(cudKeyCol);
+	var isDelRow = false;
+	var cudColVal = gridMst.dxObj.cells2(rowNum,cudColIdx).getValue();
+	if (cudColVal == actInsert) {
+		isDelRow = true;
+		fn_MstToDtl();
+	}
+	return isDelRow;
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">

@@ -101,23 +101,17 @@ function fn_new() {
 }
 //저장 버튼 동작
 function fn_save(){
-    var totalRowNum = gridMain.getRowsNum();
-    for (i = 0; i < totalRowNum; i++) {
-        var menugbnVal = gridMain.setCells2(i, 1).getValue();
-        var menunameVal = gridMain.setCells2(i, 3).getValue();
-        var uriVal = gridMain.setCells2(i, 4).getValue();
-    }
-    if (menugbnVal == null || menugbnVal.length <= 0) {
-        alert("화면구분은 필수입력항목 입니다.");
-    } else if ((menunameVal == null || menunameVal.length <= 0)) {
-        alert("화면명은 필수입력항목 입니다.");
-    } else if ((uriVal == null || uriVal.length <= 0)) {
-        alert("URI는 필수입력항목 입니다.");
-    } else {
+	
+	g_dxRules = {
+			menugbn : [r_notEmpty],
+			menuname : [r_notEmpty, r_minLen + "|2"],
+			uri : [r_notEmpty]
+		};
+
         var jsonStr = gridMain.getJsonUpdated2();
-        console.log(jsonStr);
         if (jsonStr == null || jsonStr.length <= 0) return;
         $("#jsonData").val(jsonStr);
+
         $.ajax({
             url: "/erp/system/menuS/crudMenuS",
             type: "POST",
@@ -130,8 +124,9 @@ function fn_save(){
                 fn_loadGridMain(menucd);
             }
         });
-    }
+    
 }
+
 //한줄삽입
 function fn_add(){
 	var totalColNum = gridMain.getColumnCount();
