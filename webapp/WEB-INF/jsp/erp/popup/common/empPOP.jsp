@@ -22,14 +22,32 @@ $(document).ready(function(){
     
    gridMain = new dxGrid(subLayout.cells("a"), false);
 	
-    gridMain.addHeader({name:"코드", colId:"empNo", 	width:"14", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사원명", 	 colId:"korName", 	width:"14", align:"center", type:"ro"});
+    gridMain.addHeader({name:"코드",   colId:"empNo", 	width:"14", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사원명", colId:"korName", width:"14", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","empNo");
 	gridMain.init();
-
+	//var params = "empNo=" + parent.fn_onOpenPop(config.id);
+	//gfn_callAjaxForGrid(gridMain,params,"/erp/persDataS/selempPop",subLayout.cells("a"),fn_loadGridListCodeCB);
 });
+/* function fn_search(){
+	 var params = "empNo=" + $("#empNo").val();
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
+}
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+};
 
+function doOnRowDblClicked(rId,cInd){
+	  var row = rId-1;
+	  var cell = cInd;
+	  var postCode = gridMain.setCells2(row,0).getValue();
+	  var postName = gridMain.setCells2(row,1).getValue();
+	  var arr = [{"postCode":postCode,"postName":postName}];
+	  parent.fn_onClosePop(config.id,arr);
+	  parent.dhxWins.window("w1").close();
+} */ 
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

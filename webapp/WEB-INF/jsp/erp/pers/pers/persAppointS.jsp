@@ -71,11 +71,10 @@ $(document).ready(function(){
 		status = 2;
 	});
 	    
-	    $("#empName").keyup(function(e) {
-		    if (e.keyCode == '13') {
-		      gridMst.filterBy(2,byId("empName").value);
-		    }
-		 });
+/* 	$("#korName").click(function(){
+		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+	}); */
+	
 });
 function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
@@ -235,22 +234,18 @@ function doOnOpen(comboId,params,colIndx,mockIndx){
 		$.ajax({
 			"url":"/erp/persAppointS/selBaseCode",
 			"type":"post",
-			"data":params
-		    }).done(function(jsonData) {
-				if(jsonData!="") {
-				for(var i=0;i<=jsonData.length;i++){
-					comboId.addOption([
-		                  {value: i, text:
-		                  {interCode: jsonData[i].interCode,
-		                   interName:jsonData[i].interName}}   
-			            ]);
-		           }
-					
-		        }else {
-		          alert("No Data");
-		        }
-  });	
-
+			"data":params,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				comboId.addOption([
+				  {value: i, text:
+				  {interCode: list[i].interCode,
+				   interName: list[i].interName}}   
+				   ]);	
+			    }
+			}
+	  });	
  	comboId.attachEvent("onClose", function() {
 	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),colIndx).setValue(comboId.getSelectedText().interName);
 	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),mockIndx).setValue(comboId.getSelectedText().interCode);
@@ -260,17 +255,17 @@ function fn_onOpenPop(pName){
 	var value;
 	if(pName=="postCode"){
 		value =  '';
-	  }
-	
+	 }else if(pName == "empNo"){
+		 value = '';
+	 }
 	return value;
 };
 
 function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
 	if(pName=="postCode"){
-		var i;
-		var obj={};
 		for(i=0;i<data.length;i++){
-			var params =  "postName=" + data[i].postName;
 			obj.postName=data[i].postName;
 			obj.postCode=data[i].postCode;
 			if(status == 1){
@@ -283,6 +278,13 @@ function fn_onClosePop(pName,data){
 			}
 			
 		}		  
+	}else if(pName == "empNo"){
+		for(i=0;i<data.length;i++){
+			obj.korName=data[i].korName;
+			obj.empNo=data[i].empNo;
+				$('#korName').val(obj.korName);
+				$('#empNo').val(obj.empNo);
+		}
 	}	  
  };
 </script>
@@ -326,7 +328,7 @@ function fn_onClosePop(pName,data){
 			 성명
 		  </label>
 		  <div class="col-sm-2 col-md-2">
-			  <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 		  </div>
 	   </div>
 	  </div>
