@@ -8,15 +8,15 @@ import com.ubi.erp.system.domain.MenuS;
 
 @Repository
 public interface MenuSDao {
-	void getMenu(Map<String, Object> param);
+	void selMenu(Map<String, Object> param);
 
-	void selMenucd(Map<String, Object> map);
+	void selMenuDtl(Map<String, Object> map);
 
-	void crudMenuS(MenuS menuS);
+	void prcsMenuS(MenuS menuS);
 
 	void selNoAuthList(Map<String, Object> map);
 
 	void selAuthList(Map<String, Object> map);
 
-	void authSave(MenuS menuS);
+	void prcsAuthSave(MenuS menuS);
 }

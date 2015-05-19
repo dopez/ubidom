@@ -35,7 +35,7 @@ public class MenuSController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.GET)
-	public List<MenuS> getMenu(HttpServletRequest request, HttpServletResponse response) {
+	public List<MenuS> selMenu(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session = request.getSession(true);
 	
@@ -45,7 +45,7 @@ public class MenuSController {
 
 		param.put("P_RST", null);
 		
-		menuSService.getMenu(param);
+		menuSService.selMenu(param);
 
 		logger.debug("P_RST" + (List<MenuS>) param.get("P_RST"));
 
@@ -53,8 +53,8 @@ public class MenuSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selMenucd", method = RequestMethod.POST)
-	public List<MenuS> selMenucd(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value = "/selMenuDtl", method = RequestMethod.POST)
+	public List<MenuS> selMenuDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
 		
@@ -68,16 +68,16 @@ public class MenuSController {
 		
 		map.put("P_RST", null);
 		
-		menuSService.selMenucd(map);
+		menuSService.selMenuDtl(map);
 		
 		List<MenuS> menuList = (List<MenuS>) map.get("P_RST");
 		
 		return menuList;
 	}
 	
-	@RequestMapping(value = "/crudMenuS", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsMenuS", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void crudMenuS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void prcsMenuS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String compId = (String) session.getAttribute("compId");
 		
@@ -97,13 +97,13 @@ public class MenuSController {
 			menuS.setCompId(compId);
 			menuS.setPmenucd(pmenucd);
 			menuS.setScrnParm(scrnParm);
-			menuSService.crudMenuS(menuS);
+			menuSService.prcsMenuS(menuS);
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selNoAuthList", method = RequestMethod.POST)
-	public List<MenuS> selNoAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<MenuS> prcsNoAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
 		
@@ -125,7 +125,7 @@ public class MenuSController {
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selAuthList", method = RequestMethod.POST)
-	public List<MenuS> selAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<MenuS> prcsAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
 		
@@ -146,9 +146,9 @@ public class MenuSController {
 		return authList;
 	}
 	
-	@RequestMapping(value = "/authSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsAuthSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void authSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void prcsAuthSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String compId = (String) session.getAttribute("compId");
 		
@@ -175,7 +175,7 @@ public class MenuSController {
 			menuS.setGroupgbn(groupgbn);
 			menuS.setModauthority(modauthority);
 			menuS.setPrnauthority(prnauthority);
-			menuSService.authSave(menuS);
+			menuSService.prcsAuthSave(menuS);
 		}
 	}
 }

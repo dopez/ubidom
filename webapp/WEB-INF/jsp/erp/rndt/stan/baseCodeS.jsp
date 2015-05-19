@@ -65,7 +65,7 @@ function fn_search(){
 function fn_new(){
 	var totalColNum = gridMst.getColumnCount();
   	var data = new Array(totalColNum);
-  	var totalRowNum = gridMst.getRowsNum()-1;
+  	var totalRowNum = gridMst.getRowsNum()+1;
     gridMst.addRow(data);
     gridMst.selectRow(totalRowNum);
 	fn_gridMstEdit("on");
@@ -76,7 +76,7 @@ function fn_save(){
     if (jsonStr == null || jsonStr.length <= 0) return;        		
         $("#jsonData").val(jsonStr);                      
         $.ajax({
-           url : "/erp/rndt/baseCodeS/codeSave",
+           url : "/erp/rndt/baseCodeS/prcsCodeSave",
            type : "POST",
            data : $("#hiddenform").serialize(),
            async : true,
@@ -87,6 +87,7 @@ function fn_save(){
            fn_gridMstEdit("off");
             }
        });
+        
 		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
 		var jsonStr2 = gridDtl.getJsonUpdated2();
 	    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
@@ -94,7 +95,7 @@ function fn_save(){
         $("#jsonData2").val(jsonStr2);
         $("#gridMstCode").val(codeMain);
         $.ajax({
-           url : "/erp/rndt/baseCodeS/codeSaveDtl",
+           url : "/erp/rndt/baseCodeS/prcsCodeDtlSave",
            type : "POST",
            data : $("#hiddenform").serialize(),
            async : true,
@@ -153,19 +154,20 @@ function fn_loadGridMst(flag){
 	var inputParams={}
 	inputParams.codeName = $("#baseName").val();
 	inputParams.code = $("#baseCode").val();
+/* 	if(inputParams.codeName) */
 	var callBackGbn;
 	if(flag == 1){
 		callBackGbn = fn_First_loadGridMst;
 	}else if(flag == 0){
 		callBackGbn = fn_loadGridMstCallBack;
 	}
-	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),callBackGbn);
+	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/prcsBaseCodeMst",subLayout.cells("a"),callBackGbn);
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
 function fn_loadGridDtl(code){
 	var param = "code=" + code;
-    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/baseCodeDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
+    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/prcsBaseCodeDtl",subLayout.cells("b"),fn_loadGridDtlCallBack);
 }
 //우측 그리드 삭제
 function fn_gridDtlDel(){

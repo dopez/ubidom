@@ -43,11 +43,8 @@ $(document).ready(function(){
   	});
 });
 //doc Ready End
-/* function getFirstParam(){
-	var FirstP = gridMst.getCellValue(gridMst.getRowId(0),0);
-	fn_loadGridDtl(FirstP);
-} */
-	//그리드 onRowSelect edit
+
+//그리드 onRowSelect edit
 function fn_gridMstEdit(flag){
 	gridMst.attachEvent("onRowSelect", function(id,ind){
 	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
@@ -68,48 +65,67 @@ function fn_search(){
 function fn_new(){
 	var totalColNum = gridMst.getColumnCount();
   	var data = new Array(totalColNum);
-  	var totalRowNum = gridMst.getRowsNum()-1;
+  	var totalRowNum = gridMst.getRowsNum();
     gridMst.addRow(data);
     gridMst.selectRow(totalRowNum);
 	fn_gridMstEdit("on");
 }
+
 //저장 버튼 동작
-function fn_save(){
-	var jsonStr = gridMst.getJsonUpdated2();
-    if (jsonStr == null || jsonStr.length <= 0) return;        		
-        $("#jsonData").val(jsonStr);                      
-        $.ajax({
-           url : "/erp/rndt/baseCodeS/codeSave",
-           type : "POST",
-           data : $("#hiddenform").serialize(),
-           async : true,
-           success : function(data) {
-           MsgManager.alertMsg("INF001");
-           gridMst.clearAll();
-           fn_loadGridMst(0);
-           fn_gridMstEdit("off");
+function fn_save() {
+    var jsonStr = gridMst.getJsonUpdated2();
+    var jsonStrSubString = jsonStr.substring(0, 2);
+    $("#jsonData").val(jsonStr);
+
+    var jsonStr2 = gridDtl.getJsonUpdated2();
+    var jsonStrSubString2 = jsonStr2.substring(0, 2);
+    $("#jsonData2").val(jsonStr2);
+
+    if (jsonStrSubString == "[]" && jsonStrSubString2 == "[]") {
+        dhtmlx.alert("변경된 코드가 없습니다.");
+    } else {
+        if (jsonStrSubString == "[]") {
+            if (jsonStrSubString2 == "[]") {
+                dhtmlx.alert("변경된 코드가 없습니다.");
+            } else {
+                fn_dtlSave();
             }
-       });
-		var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-		var jsonStr2 = gridDtl.getJsonUpdated2();
-	    if (jsonStr2 == null || jsonStr2.length <= 0) return;        		
-	    if (codeMain == null || codeMain.length <= 0) return;        		
-        $("#jsonData2").val(jsonStr2);
-        $("#gridMstCode").val(codeMain);
-        console.log(jsonStr2);
-        $.ajax({
-           url : "/erp/rndt/baseCodeS/codeSaveDtl",
-           type : "POST",
-           data : $("#hiddenform").serialize(),
-           async : true,
-           success : function(data) {
-           MsgManager.alertMsg("INF001");
-           gridDtl.clearAll()
-    	   fn_loadGridDtl(codeMain);
-    	   gridMst.selectRow(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()));
-           
-            }
-       });
+        } else {
+            fn_mstSave();
+        }
+    }
+}
+function fn_mstSave(){
+    $.ajax({
+       url : "/erp/rndt/baseCodeS/prcsCodeSave",
+       type : "POST",
+       data : $("#hiddenform").serialize(),
+       async : true,
+       success : function(data) {
+       MsgManager.alertMsg("INF001");
+       gridMst.clearAll();
+       fn_loadGridMst(0);
+       fn_gridMstEdit("off");
+        }
+   });
+}
+function fn_dtlSave(){
+	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+    $("#gridMstCode").val(codeMain);
+	alert($("#hiddenform").serialize());
+    $.ajax({
+       url : "/erp/rndt/baseCodeS/prcsCodeDtlSave",
+       type : "POST",
+       data : $("#hiddenform").serialize(),
+       async : true,
+       success : function(data) {
+       MsgManager.alertMsg("INF001");
+       gridDtl.clearAll()
+	   fn_loadGridDtl(codeMain);
+	   gridMst.selectRow(gridMst.getSelectedRowId()-1);
+	   //gridMst.selectRow(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()));
+       }
+   });
 }
 //삭제 버튼 동작
 function fn_remove(){
@@ -124,14 +140,14 @@ function fn_remove(){
                if (jsonStr == null || jsonStr.length <= 0) return;
                $("#jsonData").val(jsonStr);
                    $.ajax({
-                    url : "/erp/rndt/baseCodeS/codeSave",
+                    url : "/erp/rndt/baseCodeS/prcsCodeSave",
                     type : "POST",
                     data : $("#hiddenform").serialize(),
                     async : true,
                     success : function(data) {
                     MsgManager.alertMsg("INF003");
         			fn_loadGridMst(0);
-        			fn_gridDtlDel();
+        			fn_gridMstEdit("off");
                    }
                });
     	   }
@@ -159,19 +175,27 @@ function fn_loadGridMst(flag){
 	var inputParams={}
 	inputParams.codeName = $("#baseName").val();
 	inputParams.code = $("#baseCode").val();
+	if(inputParams.codeName==null ||inputParams.codeName==""){
+		inputParams.codeName = "%";
+	}
+	if(inputParams.code==null ||inputParams.codeName==""){
+		inputParams.code = "%";
+	}
+	
 	var callBackGbn;
 	if(flag == 1){
 		callBackGbn = fn_First_loadGridMst;
 	}else if(flag == 0){
 		callBackGbn = fn_loadGridMstCallBack;
 	}
-	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/baseCodeMstSel",subLayout.cells("a"),callBackGbn);
+	
+	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/selBaseCodeMst",subLayout.cells("a"),callBackGbn);
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
 function fn_loadGridDtl(code){
 	var param = "code=" + code;
-    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/baseCodeDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
+    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/selBaseCodeDtl",subLayout.cells("b"),fn_loadGridDtlCallBack);
 }
 //우측 그리드 삭제
 function fn_gridDtlDel(){
@@ -190,7 +214,7 @@ function fn_gridDtlDel(){
                $("#jsonData2").val(jsonStr);
                console.log('param',$("#hiddenform").serialize());
                    $.ajax({
-                    url : "/erp/rndt/baseCodeS/codeSaveDtl",
+                    url : "/erp/rndt/baseCodeS/prcsCodeDtlSave",
                     type : "POST",
                     data : $("#hiddenform").serialize(),
                     async : true,

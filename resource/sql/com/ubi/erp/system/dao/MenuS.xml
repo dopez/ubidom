@@ -7,14 +7,14 @@
 	<resultMap id="MenuSMap" type="MenuS"/>
 
 		
-	<select id="getMenu" statementType="CALLABLE">
+	<select id="selMenu" statementType="CALLABLE">
 		{ call SP_SYSTEM_MENUS_SCH1(
 				#{EMP_NO, mode=IN, jdbcType=VARCHAR, javaType=string},
 				#{P_RST, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=MenuSMap}
 			)
 		}
 	</select>
-	<select id="selMenucd" statementType="CALLABLE">
+	<select id="selMenuDtl" statementType="CALLABLE">
 		{ call SP_SYSTEM_MENUS_SCH2(
 				#{V_COMP_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
 				#{V_CODE, mode=IN, jdbcType=VARCHAR, javaType=string},
@@ -22,7 +22,7 @@
 			)
 		}
 	</select>
-	<insert id="crudMenuS" statementType="CALLABLE" parameterType="MenuS">
+	<insert id="prcsMenuS" statementType="CALLABLE" parameterType="MenuS">
   		{call SP_SYSTEM_MENUS_SAVE(
   			#{cudKey},
   			#{compId},
@@ -54,7 +54,7 @@
 			)
 		}
 	</select>
-		<insert id="authSave" statementType="CALLABLE" parameterType="MenuS">
+		<insert id="prcsAuthSave" statementType="CALLABLE" parameterType="MenuS">
   		{call SP_SYSTEM_MENUS_AUTH_SAVE(
   			#{cudKey},
   			#{compId},

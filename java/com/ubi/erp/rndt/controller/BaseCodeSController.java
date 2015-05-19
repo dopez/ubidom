@@ -33,69 +33,39 @@ public class BaseCodeSController {
 	@Autowired
 	private BaseCodeSService baseCodeSService;
 	private static final Logger logger = LoggerFactory.getLogger(BaseCodeSController.class);
+
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getBaseCodeMstSel", method = RequestMethod.GET)
-	public List<BaseCodeS> baseCodeMstSel(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		System.out.println(compId);
-/*		map.put("V_COMP", "100");
-		map.put("V_CODE", "%");
-		map.put("V_NAME", "%");
-*/		
-		map.put("compId", compId);
-		map.put("code", "%");
-		map.put("codeName", "%");
-		map.put("P_RST",null);
-		baseCodeSService.selBaseCode(map);
-		List<BaseCodeS> codeList = (List<BaseCodeS>) map.get("P_RST");
-		//return (List<Rndt>) map.get("P_RST");
-		return codeList;
-	}
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/baseCodeMstSel", method = RequestMethod.POST)
-	public List<BaseCodeS> prsSelDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value = "/selBaseCodeMst", method = RequestMethod.POST)
+	public List<BaseCodeS> selBaseCodeMst(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
-		String codeName;
-		String code;
+		String codeName = request.getParameter("codeName");
+		String code = request.getParameter("code");
 		
-		if(request.getParameter("code").equals("")){
-			code = "%";
-		}else{
-			code = request.getParameter("code");
-		}
-		
-		if(request.getParameter("codeName").equals("")){
-			codeName = "%";
-		}else{
-			codeName = request.getParameter("codeName");
-		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comp", comp);
 		map.put("code", code);
-		//map.put("code", "%");
 		map.put("codeName", codeName);
 		map.put("P_RST", null);
-		baseCodeSService.selBaseCode(map);
+		baseCodeSService.selBaseCodeMst(map);
 		List<BaseCodeS> list  = (List<BaseCodeS>) map.get("P_RST");
 		return list;
 	}	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/baseCodeDtlSel", method = RequestMethod.POST)
-	public List<BaseCodeS> baseCodeDtlSel(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value = "/selBaseCodeDtl", method = RequestMethod.POST)
+	public List<BaseCodeS> selBaseCodeDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String code = request.getParameter("code");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comp", comp);
 		map.put("code", code);
 		map.put("P_RST", null);
-		baseCodeSService.selInterCode(map);
+		baseCodeSService.selBaseCodeDtl(map);
 		List<BaseCodeS> innerCodeList = (List<BaseCodeS>) map.get("P_RST");
 		return innerCodeList;
 	}
-	@RequestMapping(value = "/codeSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsCodeSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void codeSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void prcsCodeSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
@@ -108,12 +78,12 @@ public class BaseCodeSController {
 			basecodss.setCode(basecodss.getCode());
 			basecodss.setSysEmpNo(sysEmpNo);
 			basecodss.setComp(comp);
-			baseCodeSService.crudRndt(basecodss);
+			baseCodeSService.prcsCodeSave(basecodss);
 		}
 	}
-	@RequestMapping(value = "/codeSaveDtl", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsCodeDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void codeSaveDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void prcsCodeDtlSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData2");
@@ -130,7 +100,7 @@ public class BaseCodeSController {
 			basecodss.setCode(code);
 			basecodss.setComp(comp);
 			basecodss.setSysEmpNo(sysEmpNo);
-			baseCodeSService.crudDtlRndt(basecodss);
+			baseCodeSService.prcsCodeDtlSave(basecodss);
 		}
 	}
 	

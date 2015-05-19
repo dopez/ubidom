@@ -12,7 +12,6 @@ $(document).ready(function(){
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 
-	
 	//좌측 트리 그리드
 	subLayout.cells("a").setWidth(300);
 	treeMain = subLayout.cells("a").attachTree();
@@ -34,6 +33,9 @@ $(document).ready(function(){
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","menucd");
 	gridMain.init();
+	
+	//대분류 메뉴 로드
+	fn_loadGridMain('0000000000');
 	
 	//grid 드래그 앤 드랍
 	gridMain.dxObj.enableDragAndDrop(true);
@@ -80,6 +82,7 @@ function testCk(selRowId,colnum) {
   }
    console.log("checkState = " + checkState);
 }
+
 //row dbl click
 function fn_load_pop() {
         var selRowId = gridMain.getSelectedRowId();
@@ -88,44 +91,41 @@ function fn_load_pop() {
         menucdParam = gridMain.setCells2(selRowIdx, "2").getValue(selRowIdx - 1);
         gfn_load_pop('w1', 'system/authPOP', true, menuNameParam);
     }
+
 //조회 버튼 동작
 function fn_search() {
     fn_treeMainConf();
     gridMain.clearAll();
+    fn_loadGridMain('0000000000');
 }
-// 신규버튼 테스트
-function fn_new() {
 
-   
-}
 //저장 버튼 동작
 function fn_save(){
-	
 	g_dxRules = {
 			menugbn : [r_notEmpty],
-			menuname : [r_notEmpty, r_minLen + "|2"],
-			uri : [r_notEmpty]
+			menuname : [r_notEmpty, r_minLen + "|2"]
 		};
-
-        var jsonStr = gridMain.getJsonUpdated2();
-        if (jsonStr == null || jsonStr.length <= 0) return;
-        $("#jsonData").val(jsonStr);
-		alert(jsonStr.length);
-        $.ajax({
-            url: "/erp/system/menuS/crudMenuS",
-            type: "POST",
-            data: $("#hiddenform").serialize(),
-            async: true,
-            success: function(data) {
-                gridMain.clearAll();
-                MsgManager.alertMsg("INF001");
-                var menucd = $("#Pmenucd").val()
-                fn_loadGridMain(menucd);
-            }
-        });
-    
+	
+    fn_saveGridMain();
 }
-
+function fn_saveGridMain(){
+    var jsonStr = gridMain.getJsonUpdated2();
+    if (jsonStr == null || jsonStr.length <= 0) return;
+    $("#jsonData").val(jsonStr);
+	console.log(jsonStr.length);
+    $.ajax({
+        url: "/erp/system/menuS/prcsMenuS",
+        type: "POST",
+        data: $("#hiddenform").serialize(),
+        async: true,
+        success: function(data) {
+            gridMain.clearAll();
+            MsgManager.alertMsg("INF001");
+            var menucd = $("#Pmenucd").val()
+            fn_loadGridMain(menucd);
+        }
+    });
+}
 //한줄삽입
 function fn_add(){
 	var totalColNum = gridMain.getColumnCount();
@@ -149,7 +149,7 @@ function fn_delete() {
                 if (jsonStr == null || jsonStr.length <= 0) return;
                 $("#jsonData").val(jsonStr);
                 $.ajax({
-                    url: "/erp/system/menuS/crudMenuS",
+                    url: "/erp/system/menuS/prcsMenuS",
                     type: "POST",
                     data: $("#hiddenform").serialize(),
                     async: true,
@@ -169,7 +169,7 @@ function fn_delete() {
     }
 }
 /*--------트리 config / load start--------*/
-function fn_treeMainConf(flag){
+function fn_treeMainConf(){
 	var req = $.ajax({
 		url: "/erp/system/menuS",
 		type: "get",
@@ -178,10 +178,10 @@ function fn_treeMainConf(flag){
     	   subLayout.cells("a").progressOn();
 	    },
 	    success:
-	    	function(jsonData,flag) {
+	    	function(jsonData) {
 			if("[]"!=JSON.stringify(jsonData)) {
 				var data = {menuTree:jsonData};
-				fn_treeMainLoad(data,flag);
+				fn_treeMainLoad(data);
 			} else {
 				MsgManager.alertMsg("WRN040");
 			}
@@ -191,7 +191,7 @@ function fn_treeMainConf(flag){
         }
 	});
 }
-var fn_treeMainLoad = function(param,flag) {
+var fn_treeMainLoad = function(param) {
 	if(treeMain!=null) {
 		treeMain.destructor();
 	}
@@ -203,12 +203,7 @@ var fn_treeMainLoad = function(param,flag) {
 	});
 	
 	treeMain.load("menucd", "pmenucd", "menuname", treeMain);
-/* 	if (flag==0){
-	var firstMenucd = param.menuTree[0].menucd;
-	fn_loadGridMain(firstMenucd);
-	}else{
-		alert("is it working?");
-	} */
+
 }
 /*--------트리 config / load end--------*/
 
@@ -236,7 +231,7 @@ var fncSelectItem = function(tree, id) {
 /*--------트리 select action--------*/
 function fn_loadGridMain(menucd){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridMain,param,"/erp/system/menuS/selMenucd",subLayout.cells("b"),fn_callBack);
+	gfn_callAjaxForGrid(gridMain,param,"/erp/system/menuS/selMenuDtl",subLayout.cells("b"),fn_callBack);
 }
 function fn_callBack(data){
 	

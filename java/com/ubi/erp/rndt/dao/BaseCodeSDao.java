@@ -8,11 +8,11 @@ import com.ubi.erp.rndt.domain.BaseCodeS;
 
 @Repository
 public interface BaseCodeSDao {
-	void selBaseCode(Map<String, Object> param);
+	void selBaseCodeMst(Map<String, Object> param);
 
-	void crudRndt(BaseCodeS basecodss);
+	void prcsCodeSave(BaseCodeS basecodss);
 
-	void crudDtlRndt(BaseCodeS basecodss);
+	void prcsCodeDtlSave(BaseCodeS basecodss);
 
-	void selInterCode(Map<String, Object> param);
+	void selBaseCodeDtl(Map<String, Object> param);
 }
