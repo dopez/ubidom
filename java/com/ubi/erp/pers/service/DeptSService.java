@@ -22,8 +22,8 @@ public class DeptSService {
 		dao.selDeptS(map);
 	}
 
-	public void crudDeptS(DeptS deptS) {
-		dao.crudDeptS(deptS);
+	public void prcsDeptS(DeptS deptS) {
+		dao.prcsDeptS(deptS);
 	}
 
 	public void selDeptCodeS(Map<String, Object> map) {

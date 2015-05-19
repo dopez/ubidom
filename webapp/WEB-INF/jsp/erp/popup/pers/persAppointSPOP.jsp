@@ -70,29 +70,45 @@ function fn_search(){
 	var params = parent.fn_onOpenPop(config.id);
 		empNo = params.empNo;
 		compId = params.compId;
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/persAppointS/selRight",subLayout.cells("a"),fn_loadGridListCB);
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/pers/pers/persAppointS/selRight",subLayout.cells("a"),fn_loadGridListCB);
 }
 function fn_loadGridListCB(data){
 	if(data == ''){
 		return false;
 	}else{
 		for(var i = 0; i<data.length;i++){
-			gridMain.setCells2(i,2).setValue(data[i].payGbnNm);
-			gridMain.setCells2(i,13).setValue(data[i].payGbn);
-			gridMain.setCells2(i,3).setValue(data[i].serveGbnNm);
-			gridMain.setCells2(i,14).setValue(data[i].serveGbn);
-			gridMain.setCells2(i,4).setValue(data[i].balGbnNm);
-			gridMain.setCells2(i,15).setValue(data[i].balGbn);
-			gridMain.setCells2(i,7).setValue(data[i].jikgunNm);
-			gridMain.setCells2(i,16).setValue(data[i].jikgun);
-			gridMain.setCells2(i,8).setValue(data[i].jikmuNm);
-			gridMain.setCells2(i,17).setValue(data[i].jikmu);
-			gridMain.setCells2(i,10).setValue(data[i].jikchakNm);
-			gridMain.setCells2(i,19).setValue(data[i].jikchak);
-			gridMain.setCells2(i,11).setValue(data[i].compIdNm);
-			gridMain.setCells2(i,20).setValue(data[i].compId);
-			gridMain.setCells2(i,9).setValue(data[i].jikweeNm);
-			gridMain.setCells2(i,18).setValue(data[i].jikwee);
+			if(data[i].payGbn != null){
+				   gridMain.setCells2(i,2).setValue(data[i].payGbnNm);
+				   gridMain.setCells2(i,13).setValue(data[i].payGbn);
+				}
+				if(data[i].serveGbn  != null){
+					gridMain.setCells2(i,3).setValue(data[i].serveGbnNm);
+					gridMain.setCells2(i,14).setValue(data[i].serveGbn);
+				}
+				if(data[i].balGbn  != null){
+					gridMain.setCells2(i,4).setValue(data[i].balGbnNm);
+					gridMain.setCells2(i,15).setValue(data[i].balGbn);
+			    }
+				if(data[i].jikgun  != null){
+					gridMain.setCells2(i,7).setValue(data[i].jikgunNm);
+					gridMain.setCells2(i,16).setValue(data[i].jikgun);
+			    }
+				if(data[i].jikmu  != null){
+					gridMain.setCells2(i,8).setValue(data[i].jikmuNm);
+					gridMain.setCells2(i,17).setValue(data[i].jikmu);
+				}
+				if(data[i].jikchak != null){
+					gridMain.setCells2(i,10).setValue(data[i].jikchakNm);
+					gridMain.setCells2(i,19).setValue(data[i].jikchak);
+				}
+				if(data[i].compId  != null){
+					gridMain.setCells2(i,11).setValue(data[i].compIdNm);
+					gridMain.setCells2(i,20).setValue(data[i].compId);
+				}
+				if(data[i].jikwee  != null){
+					gridMain.setCells2(i,9).setValue(data[i].jikweeNm);
+					gridMain.setCells2(i,18).setValue(data[i].jikwee); 
+				}
 		}	
 	}
 }
@@ -101,7 +117,7 @@ function fn_save(){
     if (jsonStr == null || jsonStr.length <= 0) return;         		
         $("#jsonData").val(jsonStr);                      
         $.ajax({
-           url : "/erp/persAppointS/prcsPersAppoint",
+           url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
            type : "POST",
            data : $("#pform").serialize(),
            async : true,
@@ -118,7 +134,7 @@ function fn_remove(){
         if (jsonStr == null || jsonStr.length <= 0) return;
          $("#jsonData").val(jsonStr);
            $.ajax({
-             url : "/erp/persAppointS/prcsPersAppoint",
+             url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
              type : "POST",
              data : $("#pform").serialize(),
              async : true,
@@ -153,7 +169,7 @@ function fn_delete(){
 	           if (jsonStr == null || jsonStr.length <= 0) return;
 	            $("#jsonData").val(jsonStr);
 	                $.ajax({
-	                 url : "/erp/persAppointS/prcsPersAppoint",
+	                 url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
 	                 type : "POST",
 	                 data : $("#pform").serialize(),
 	                 async : true,
@@ -213,7 +229,7 @@ function fn_comboLoad(comboId,inputName,rowId,params,colIndx,mockIndx){
 }
 function doOnOpen(comboId,params,colIndx,mockIndx){
 		$.ajax({
-			"url":"/erp/persAppointS/selBaseCode",
+			"url":"/erp/pers/pers/persAppointS/selBaseCode",
 			"type":"post",
 			"data":params,
 			"success" : function(data){

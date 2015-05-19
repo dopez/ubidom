@@ -124,7 +124,7 @@ function fn_delete(){
              if (jsonStr == null || jsonStr.length <= 0) return;
               $("#jsonData").val(jsonStr);
                   $.ajax({
-                   url : "/erp/deptS/prcsDept",
+                   url : "/erp/pers/stan/deptS/prcs",
                    type : "POST",
                    data : $("#pform").serialize(),
                    async : true,
@@ -147,7 +147,7 @@ function fn_delete(){
 	    if (jsonStr == null || jsonStr.length <= 0) return;         		
 	        $("#jsonData").val(jsonStr);                      
 	        $.ajax({
-	           url : "/erp/deptS/prcsDept",
+	           url : "/erp/pers/stan/deptS/prcs",
 	           type : "POST",
 	           data : $("#pform").serialize(),
 	           async : true,
@@ -191,7 +191,7 @@ function fn_loadGridList(params,flag) {
 		}else{
 			callbackFn = fn_loadGridList2CB;
 		}
-	    gfn_callAjaxForGrid(gridDtl,params,"/erp/deptS",subLayout.cells("b"),callbackFn);
+	    gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/stan/deptS/selGridDtl",subLayout.cells("b"),callbackFn);
 };
 
 // deptCode 조회로직
@@ -202,7 +202,7 @@ function fn_loadGridListCode(params,flag) {
 	}else{
 		callbackFn = fn_loadGridListCode2CB;
 	}
-	gfn_callAjaxForGrid(gridMst,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),callbackFn); 
+	gfn_callAjaxForGrid(gridMst,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),callbackFn); 
 };
 
  // fn_loadGridList callback 함수

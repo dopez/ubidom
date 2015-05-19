@@ -8,7 +8,7 @@ public interface DeptSDao {
 
 	void selDeptS(Map<String, Object> param);
 
-	void crudDeptS(DeptS deptS);
+	void prcsDeptS(DeptS deptS);
 
 	void selDeptCodeS(Map<String, Object> param);
 

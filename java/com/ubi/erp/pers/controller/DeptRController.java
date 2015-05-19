@@ -21,13 +21,13 @@ import com.ubi.erp.pers.domain.DeptR;
 import com.ubi.erp.pers.service.DeptRService;
 
 @RestController
-@RequestMapping(value = "/erp/deptR")
+@RequestMapping(value = "/erp/pers/stan/deptR")
 public class DeptRController {
 	@Autowired
 	private DeptRService deptRService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/selGridMain",method = RequestMethod.POST)
 	public List<DeptR> selDeptR(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String postName;

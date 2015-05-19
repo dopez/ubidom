@@ -20,7 +20,7 @@ import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
 
 @RestController
-@RequestMapping(value = "/erp/persDataS")
+@RequestMapping(value = "/erp/pers/pers/persDataS")
 public class PersDataSController {
 
 	@Autowired
@@ -85,11 +85,11 @@ public class PersDataSController {
 		persDataS.setArmyJong(persDataS.getArmyKind());
 
 		if("INSERT".equals(persDataS.getCudKey())) {
-			persDataSService.crudDeptS(persDataS);
+			persDataSService.prcsPersDataS(persDataS);
 		}else if("UPDATE".equals(persDataS.getCudKey())){
-			persDataSService.crudDeptS(persDataS);
+			persDataSService.prcsPersDataS(persDataS);
 		}else if("DELETE".equals(persDataS.getCudKey())){
-			persDataSService.crudDeptS(persDataS);
+			persDataSService.prcsPersDataS(persDataS);
 		}	
 	}
 

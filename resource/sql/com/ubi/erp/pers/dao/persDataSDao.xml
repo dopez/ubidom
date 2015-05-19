@@ -13,7 +13,7 @@
 		 {call SP_PERS_PERSDATAS_SCH2(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PersDataSMap, javaType=ResultSet})}	
 	</select>
 	
-		<insert id="crudPersDataS" statementType="CALLABLE" parameterType="PersDataS">
+		<insert id="prcsPersDataS" statementType="CALLABLE" parameterType="PersDataS">
   		{call SP_PERS_PERSDATAS_SAVE(
   		#{cudKey},#{compId},#{empNo},#{korName},#{engName},
   		#{chaName},#{regiNumb},#{postCode},#{jikwee},#{jikmu},

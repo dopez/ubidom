@@ -41,7 +41,7 @@ function fn_excel(){
  };
  
 function  fn_print(){
-	var url = "/erp/deptR/report/deptR.do";
+	var url = "/erp/pers/stan/deptR/report/deptR.do";
 	url = url + "?postName=" + $("#postName").val();
 	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
 	window.open(url,'rpt','');
@@ -49,11 +49,7 @@ function  fn_print(){
  }
  
 function fn_loadGridList(params) {
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/deptR",subLayout.cells("a"),fn_loadGridListCB);
-};
-
-function fn_loadGridListCB(data) {
-	
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptR/selGridMain",subLayout.cells("a"));
 };
 
 function fn_onOpenPop(pName){

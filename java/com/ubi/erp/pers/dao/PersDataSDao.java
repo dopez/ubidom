@@ -10,6 +10,6 @@ public interface PersDataSDao {
 
 	void selPersDataSR(Map<String, Object> param);
 
-	void crudPersDataS(PersDataS persDataS);
+	void prcsPersDataS(PersDataS persDataS);
 
 }
