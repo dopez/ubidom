@@ -23,7 +23,7 @@ import com.ubi.erp.pers.domain.PersAppointS;
 import com.ubi.erp.pers.service.PersAppointSService;
 
 @RestController
-@RequestMapping(value = "/erp/persAppointS")
+@RequestMapping(value = "/erp/pers/pers/persAppointS")
 public class PersAppointSController {
 	
 	@Autowired
@@ -98,13 +98,13 @@ public class PersAppointSController {
 			persAppointS.setCompId(persAppointS.getCompIdNm());
 			
 			if("INSERT".equals(persAppointS.getCudKey())) {
-				persAppointSService.crudPersAppointS(persAppointS);
+				persAppointSService.prcsPersAppointS(persAppointS);
 			}else if("UPDATE".equals(persAppointS.getCudKey())){
 				
-				persAppointSService.crudPersAppointS(persAppointS);
+				persAppointSService.prcsPersAppointS(persAppointS);
 			}else if("DELETE".equals(persAppointS.getCudKey())){
 				
-				persAppointSService.crudPersAppointS(persAppointS);
+				persAppointSService.prcsPersAppointS(persAppointS);
 			}
 		}
 	}
@@ -112,6 +112,26 @@ public class PersAppointSController {
 	@RequestMapping(value = "/selBaseCode",method = RequestMethod.POST)
 	public List<PersAppointS> selTest(HttpServletRequest request, HttpServletResponse response,PersAppointS persAppointS) throws Exception {
 		List<PersAppointS> list = persAppointSService.selPersBaseCode(persAppointS);
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selEmpPop",method = RequestMethod.POST)
+	public List<PersAppointS> selEmpPop(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersAppointS persAppointS) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String compId = (String) session.getAttribute("compId");
+		String korName;
+		if(request.getParameter("korName").equals("")){
+			korName = "%";
+		}else{
+			korName = request.getParameter("korName");
+		}
+		map.put("compId", compId);
+		map.put("empNo", "%");
+		map.put("korName", korName);
+		map.put("o_cursor", null);
+		persAppointSService.selEmpPop(map);
+		List<PersAppointS> list = (List<PersAppointS>) map.get("o_cursor");
 		return list;
 	}
 }

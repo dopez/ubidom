@@ -27,11 +27,16 @@ public class PersAppointSService {
 		dao.selPersAppointSR(map);
 	}
 
-	public void crudPersAppointS(PersAppointS persAppointS) {
-		dao.crudPersAppointS(persAppointS);
+	public void prcsPersAppointS(PersAppointS persAppointS) {
+		dao.prcsPersAppointS(persAppointS);
 	}
 
 	public List<PersAppointS> selPersBaseCode(PersAppointS persAppointS) {
 		return dao.selPersBaseCode(persAppointS);
 	}
+	
+	public void selEmpPop(Map<String, Object> map) {
+		dao.selEmpPop(map);
+	}
+
 }

@@ -11,7 +11,9 @@ public interface PersAppointSDao {
 
 	void selPersAppointSR(Map<String, Object> param);
 
-	void crudPersAppointS(PersAppointS persAppointS);
+	void prcsPersAppointS(PersAppointS persAppointS);
 
 	List<PersAppointS> selPersBaseCode(PersAppointS persAppointS);
+	
+	void selEmpPop(Map<String, Object> param);
 }

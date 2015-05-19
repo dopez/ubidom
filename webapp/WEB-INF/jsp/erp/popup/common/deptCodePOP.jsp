@@ -28,11 +28,11 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
 	var params = "postName=" + parent.fn_onOpenPop(config.id);
-	gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
+	gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),fn_loadGridListCodeCB);
 });
 function fn_search(){
 	 var params = "postName=" + $("#postName").val();
-	  gfn_callAjaxForGrid(gridMain,params,"/erp/deptS/selDeptCode",subLayout.cells("a"),fn_loadGridListCodeCB);
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),fn_loadGridListCodeCB);
 }
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {

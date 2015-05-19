@@ -27,8 +27,8 @@ public class PersDataSService {
 		dao.selPersDataSR(map);
 	}
 
-	public void crudDeptS(PersDataS persDataS) {
-		dao.crudPersDataS(persDataS);
+	public void prcsPersDataS(PersDataS persDataS) {
+		dao.prcsPersDataS(persDataS);
 	}
 
 }

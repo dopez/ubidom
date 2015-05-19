@@ -23,14 +23,14 @@ import com.ubi.erp.pers.domain.DeptS;
 import com.ubi.erp.pers.service.DeptSService;
 
 @RestController
-@RequestMapping(value = "/erp/deptS")
+@RequestMapping(value = "/erp/pers/stan/deptS")
 public class DeptSController {
 	
 	@Autowired
 	private DeptSService deptSService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/selGridDtl",method = RequestMethod.POST)
 	public List<DeptS> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session,DeptS deptS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -50,7 +50,7 @@ public class DeptSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/prcsDept", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcs", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
@@ -68,17 +68,17 @@ public class DeptSController {
 			deptS.setStDate(df.dateToString(deptS.getStDate()));
 			deptS.setEndDate(df.dateToString(deptS.getEndDate()));
 			if("INSERT".equals(deptS.getCudKey())) {
-				deptSService.crudDeptS(deptS);
+				deptSService.prcsDeptS(deptS);
 			}else if("UPDATE".equals(deptS.getCudKey())){
-				deptSService.crudDeptS(deptS);
+				deptSService.prcsDeptS(deptS);
 			}else if("DELETE".equals(deptS.getCudKey())){
-				deptSService.crudDeptS(deptS);
+				deptSService.prcsDeptS(deptS);
 			}
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selDeptCode", method = RequestMethod.POST)
+	@RequestMapping(value = "/selGridMst", method = RequestMethod.POST)
 	public List<DeptS> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String postName;

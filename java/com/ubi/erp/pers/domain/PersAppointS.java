@@ -25,9 +25,9 @@ public class PersAppointS implements Serializable {
 	private String basePay;
 	private String sysEmpNo;
 	private String code;
+	//내부코드, 내부코드명 받아오는 변수
 	private String interCode;
 	private String interName;
-
 	// 가 코드 데이터 set Column
 	private String payGbnNm;
 	private String serveGbnNm;
@@ -40,7 +40,6 @@ public class PersAppointS implements Serializable {
 
 	public PersAppointS() {
 		super();
-
 	}
 
 	public PersAppointS(String no, String compId, String cudKey, String empNo,

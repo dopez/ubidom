@@ -55,74 +55,9 @@ public class PersDataS implements Serializable {
 	private String armySpcase; // 병력특례유무
 	private String armyMerit; // 보훈유무
 	private String cudKey;
-	
+
 	public PersDataS() {
 		super();
-	}
-
-	public PersDataS(String sysEmpNo, String no, String postNo,
-			String postCode, String postName, String compId, String empNo,
-			String korName, String engName, String chaName, String regiNumb,
-			String jikwee, String jikmu, String jikchak, String address,
-			String baseAddrs, String tel, String handPhone, String email,
-			String character, String taste, String partCont, int length,
-			int weight, String blood, String eyeLeft, String eyeRight,
-			String disaYn, String bldKind, String disorderYn,
-			String disorderCont, String armyKind, String armyJong,
-			String amryBarch, String armyGd, String armyYn, String armyNo,
-			String amryDate1, String amryDate2, String enterDate,
-			String retireDate, String retireMidDate, String bankCode,
-			String bankNumb, String religion, String armySpcase,
-			String armyMerit, String cudKey) {
-		super();
-		this.sysEmpNo = sysEmpNo;
-		this.no = no;
-		this.postNo = postNo;
-		this.postCode = postCode;
-		this.postName = postName;
-		this.compId = compId;
-		this.empNo = empNo;
-		this.korName = korName;
-		this.engName = engName;
-		this.chaName = chaName;
-		this.regiNumb = regiNumb;
-		this.jikwee = jikwee;
-		this.jikmu = jikmu;
-		this.jikchak = jikchak;
-		this.address = address;
-		this.baseAddrs = baseAddrs;
-		this.tel = tel;
-		this.handPhone = handPhone;
-		this.email = email;
-		this.character = character;
-		this.taste = taste;
-		this.partCont = partCont;
-		this.length = length;
-		this.weight = weight;
-		this.blood = blood;
-		this.eyeLeft = eyeLeft;
-		this.eyeRight = eyeRight;
-		this.disaYn = disaYn;
-		this.bldKind = bldKind;
-		this.disorderYn = disorderYn;
-		this.disorderCont = disorderCont;
-		this.armyKind = armyKind;
-		this.armyJong = armyJong;
-		this.amryBarch = amryBarch;
-		this.armyGd = armyGd;
-		this.armyYn = armyYn;
-		this.armyNo = armyNo;
-		this.amryDate1 = amryDate1;
-		this.amryDate2 = amryDate2;
-		this.enterDate = enterDate;
-		this.retireDate = retireDate;
-		this.retireMidDate = retireMidDate;
-		this.bankCode = bankCode;
-		this.bankNumb = bankNumb;
-		this.religion = religion;
-		this.armySpcase = armySpcase;
-		this.armyMerit = armyMerit;
-		this.cudKey = cudKey;
 	}
 
 	public String getSysEmpNo() {

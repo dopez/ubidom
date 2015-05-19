@@ -9,7 +9,7 @@
 		 {call SP_PERS_DEPTS_SCH(#{compId},#{postCode},#{postName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DeptSMap, javaType=ResultSet})}	
 	</select>
  
-  	<insert id="crudDeptS" statementType="CALLABLE" parameterType="DeptS">
+  	<insert id="prcsDeptS" statementType="CALLABLE" parameterType="DeptS">
   		{call SP_PERS_DEPTS_SAVE(#{cudKey},#{compId},#{postCode},#{stDate},#{endDate},#{postName},#{costKind},#{sysEmpNo},#{postNameMst})}	
   	</insert>
   	
