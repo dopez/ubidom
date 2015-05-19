@@ -92,7 +92,7 @@ public class PersDataSController {
 			persDataSService.crudDeptS(persDataS);
 		}	
 	}
-	
+
 	public String nullCheck(String value){
 		if(value == null){
 			value = "0";

@@ -45,7 +45,7 @@ function  fn_print(){
 	url = url + "?postName=" + $("#postName").val();
 	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
 	window.open(url,'rpt','');
-	//gridMain.getDxObj().printView();
+	//gridMain.printView();
  }
  
 function fn_loadGridList(params) {

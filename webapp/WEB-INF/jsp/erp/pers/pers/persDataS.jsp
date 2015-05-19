@@ -37,7 +37,7 @@ $(document).ready(function(){
 	
     $("#postName").keyup(function(e) {
 	    if (e.keyCode == '9') {
-	    	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+	    gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	    }
 	 });
     
@@ -142,14 +142,14 @@ function fn_new(){
 			  success:function(data)
 			  {
 				MsgManager.alertMsg("INF001"); 
-			    prcsPersDtaCB(data);
+			    prcsPersDataCB(data);
 			  }
 		   });
 	}else{
 	} 
 }; 
 
-function prcsPersDtaCB(){
+function prcsPersDataCB(){
 	fn_loadGridList();
 	fn_new();
 }
@@ -199,8 +199,11 @@ function fn_onOpenPop(pName){
 	var value;
 	if(pName=="postCode"){
 		value =  $("#postName").val();	  
-	}else if(pName == "empNo"){
-		value = $("#empName").val();
+	}else if(pName == "persCode"){
+		var obj={};
+		obj.compId= gridMain.setCells2(gridMain.getSelectedRowIndex(),4).getValue();
+		obj.empNo=  gridMain.setCells2(gridMain.getSelectedRowIndex(),1).getValue();
+		value = obj;
 	}
 	return value;
 };
