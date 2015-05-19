@@ -68,18 +68,17 @@ function fn_onDrop() {
  	 }
 }
     
-function testCk() {
-  var selRowId = gridMain.getSelectedRowId();
-  var selRowIdx = gridMain.getSelectedRowIndex(selRowId);
+function testCk(selRowId,colnum) {
+  var selRowIdx = selRowId-1;
   console.log("selRowIdx = "+selRowIdx);
   console.log("selRowId = "+selRowId);
-  var checkState = gridMain.setCells2(selRowIdx, "6").getValue();
+  var checkState = gridMain.setCells2(selRowIdx, colnum).getValue();
    if (checkState == 1) {
-      gridMain.setCells2(selRowIdx, "6").setValue(1);
-      console.log("checkState = " + checkState);
+      gridMain.setCells2(selRowIdx, colnum).setValue(1);
   } else if(checkState == 0){
-      gridMain.setCells2(selRowIdx, "6").setValue(0);
+      gridMain.setCells2(selRowIdx, colnum).setValue(0);
   }
+   console.log("checkState = " + checkState);
 }
 //row dbl click
 function fn_load_pop() {
@@ -111,7 +110,7 @@ function fn_save(){
         var jsonStr = gridMain.getJsonUpdated2();
         if (jsonStr == null || jsonStr.length <= 0) return;
         $("#jsonData").val(jsonStr);
-
+		alert(jsonStr.length);
         $.ajax({
             url: "/erp/system/menuS/crudMenuS",
             type: "POST",

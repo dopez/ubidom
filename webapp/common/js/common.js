@@ -164,22 +164,22 @@ function gfn_ruleCheck(colNm, colVal, rules){
 		
 			if (rule==r_notEmpty) {
 				if (gfn_isEmpty(colVal)) {
-					alert(colNm + "이(가) 빈값입니다.");
+					dhtmlx.alert(colNm + "이(가) 빈값입니다.");
 					return false;
 				}
 			} else if (rule==r_onlyNumber) {
 				if (! gfn_checkNumber(colVal)) {
-					alert(colNm + "는(은) 숫자만 입력가능합니다.");
+					dhtmlx.alert(colNm + "는(은) 숫자만 입력가능합니다.");
 					return false;
 				}
 			} else if (rule==r_specialChar) {
 				if (! gfn_checkXSS(colVal, false)) {
-					alert(colNm + "는(은) 특수문자 입력이 금지되어있습니다.");
+					dhtmlx.alert(colNm + "는(은) 특수문자 입력이 금지되어있습니다.");
 					return false;
 				}
 			} else if (rule==r_alphaNumeric) {
 				if (! gfn_checkAlphaNumeric(colVal, false)) {
-					alert(colNm + "는(은) 영숫자만 입력가능합니다.");
+					dhtmlx.alert(colNm + "는(은) 영숫자만 입력가능합니다.");
 					return false;
 				}
 			}
