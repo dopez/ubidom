@@ -34,4 +34,17 @@ public class MenuSService
 		dao.crudMenuS(menuS);
 		
 	}
+
+	public void selNoAuthList(Map<String, Object> map) {
+		dao.selNoAuthList(map);
+	}
+
+	public void selAuthList(Map<String, Object> map) {
+		dao.selAuthList(map);
+		
+	}
+
+	public void authSave(MenuS menuS) {
+		dao.authSave(menuS);		
+	}
 }

@@ -31,7 +31,20 @@ public class MenuS implements Serializable {
 
 	private String uri;
 	
-
+	private String logid;
+	
+	private String personname;
+	
+	private String multicd;
+	
+	private String pname;
+	
+	private String groupgbn;
+	
+	private String modauthority;
+	
+	private String prnauthority;
+	
 	public String getMenucd() {
 		return menucd;
 	}
@@ -120,6 +133,62 @@ public class MenuS implements Serializable {
 		this.scrnParm = scrnParm;
 	}
 
+	public String getLogid() {
+		return logid;
+	}
+
+	public void setLogid(String logid) {
+		this.logid = logid;
+	}
+
+	public String getPersonname() {
+		return personname;
+	}
+
+	public void setPersonname(String personname) {
+		this.personname = personname;
+	}
+
+	public String getMulticd() {
+		return multicd;
+	}
+
+	public void setMulticd(String multicd) {
+		this.multicd = multicd;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getGroupgbn() {
+		return groupgbn;
+	}
+
+	public void setGroupgbn(String groupgbn) {
+		this.groupgbn = groupgbn;
+	}
+
+	public String getModauthority() {
+		return modauthority;
+	}
+
+	public void setModauthority(String modauthority) {
+		this.modauthority = modauthority;
+	}
+
+	public String getPrnauthority() {
+		return prnauthority;
+	}
+
+	public void setPrnauthority(String prnauthority) {
+		this.prnauthority = prnauthority;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -128,9 +197,11 @@ public class MenuS implements Serializable {
 		super();
 	}
 
-	public MenuS(String cudKey,String compId, String menucd, String menugbn, String pmenucd,
-			String menuname, String agValue, String seq, String exegbn, String scrnParm,
-			String uri) {
+	public MenuS(String cudKey, String compId, String menucd, String menugbn,
+			String pmenucd, String menuname, String agValue, String seq,
+			String exegbn, String scrnParm, String uri, String logid,
+			String personname, String multicd, String pname, String groupgbn,
+			String modauthority, String prnauthority) {
 		super();
 		this.cudKey = cudKey;
 		this.compId = compId;
@@ -143,5 +214,12 @@ public class MenuS implements Serializable {
 		this.exegbn = exegbn;
 		this.scrnParm = scrnParm;
 		this.uri = uri;
+		this.logid = logid;
+		this.personname = personname;
+		this.multicd = multicd;
+		this.pname = pname;
+		this.groupgbn = groupgbn;
+		this.modauthority = modauthority;
+		this.prnauthority = prnauthority;
 	}
 }

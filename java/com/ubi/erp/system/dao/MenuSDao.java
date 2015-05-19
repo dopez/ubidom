@@ -13,4 +13,10 @@ public interface MenuSDao {
 	void selMenucd(Map<String, Object> map);
 
 	void crudMenuS(MenuS menuS);
+
+	void selNoAuthList(Map<String, Object> map);
+
+	void selAuthList(Map<String, Object> map);
+
+	void authSave(MenuS menuS);
 }
