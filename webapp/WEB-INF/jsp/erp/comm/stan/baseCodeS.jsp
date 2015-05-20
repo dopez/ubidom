@@ -112,7 +112,7 @@ function fn_mstSave(){
 function fn_dtlSave(){
 	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
     $("#gridMstCode").val(codeMain);
-	alert($("#hiddenform").serialize());
+	console.log($("#hiddenform").serialize());
     $.ajax({
        url : "/erp/rndt/baseCodeS/prcsCodeDtlSave",
        type : "POST",
