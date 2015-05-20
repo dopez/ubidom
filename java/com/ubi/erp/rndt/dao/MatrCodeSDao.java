@@ -2,7 +2,7 @@ package com.ubi.erp.rndt.dao;
 
 import java.util.Map;
 
-import com.ubi.erp.pers.domain.PersDataS;
+import com.ubi.erp.rndt.domain.MatrCodeS;
 
 public interface MatrCodeSDao {
 
@@ -10,6 +10,6 @@ public interface MatrCodeSDao {
 
 	void selPersDataSR(Map<String, Object> param);
 
-	void prcsPersDataS(PersDataS persDataS);
+	void prcsPersDataS(MatrCodeS persDataS);
 
 }

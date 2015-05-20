@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("PersDataS")
+@Alias("MatrCodeS")
 public class MatrCodeS implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -57,6 +57,32 @@ public class MatrCodeS implements Serializable {
 	private int outUnit2;
 	
 	private String makeCust;
+	
+	private String matrClass;
+	
+	private String packingGroup;
+	
+	private String unNo;
+	
+	private String inputArea;
+	
+	private String disKind;
+	
+	private String inputCust1;
+	
+	private String inputCust2;
+	
+	private String inputCustKind1;
+	
+	private String inputCustKind2;
+	
+	private String minOrderQty;
+	
+	private String origin;
+	
+	private String chemicalKind;
+	
+	 
 	
 	
 	
