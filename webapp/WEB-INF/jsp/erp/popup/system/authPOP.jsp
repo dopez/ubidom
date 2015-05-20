@@ -31,12 +31,51 @@ $(document).ready(function(){
 	//라디오 버튼 클릭 function
 	fn_rdo_onClick();
 	
+	
 	//버튼 클릭 이벤트
 	$("#btnAdd").on("click",fn_btnAdd);
 	$("#btnDel").on("click",fn_btnDel);
 });
 //doc Ready End
 
+//라디오 버튼 클릭 이벤트
+function fn_rdo_onClick() {
+  if (userGbn.checked) {
+  	gridMst = new dxGrid(subLayout.cells("a"), false);
+      gridMst.addHeader({name:"사용자ID", colId:"multicd", 	width:"50", align:"center", type:"ro"});
+  	gridMst.addHeader({name:"사용자명", 	 colId:"pname", 	width:"49", align:"center", type:"ro"});
+  	gridMst.setColSort("str");	
+  	gridMst.setUserData("","pk","multicd");
+  	gridMst.dxObj.enableMultiselect(true);
+  	gridMst.init();
+  	
+  	gridDtl = new dxGrid(subLayout.cells("c"), false);
+  	gridDtl.addHeader({name:"사용자ID", colId:"logid", 	width:"18", align:"center", type:"ro"});
+  	gridDtl.addHeader({name:"사용자명", 	 colId:"personname", 	width:"18", align:"center", type:"ro"});
+  	gridDtl.setColSort("str");	
+  	gridDtl.setUserData("","pk","logid");
+  	gridDtl.dxObj.enableMultiselect(true);
+  	gridDtl.init();
+  	
+  	fn_authList();
+  	fn_noAuthList();
+  	
+  } else {
+  	gridMst = new dxGrid(subLayout.cells("a"), false);
+      gridMst.addHeader({name:"그룹코드", colId:"groupId", 	width:"50", align:"center", type:"ro"});
+  	gridMst.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"48", align:"center", type:"ro"});
+  	gridMst.setColSort("str");	
+  	gridMst.setUserData("","pk","userId");
+  	gridMst.init();
+  	
+  	gridDtl = new dxGrid(subLayout.cells("c"), false);
+  	gridDtl.addHeader({name:"그룹코드", colId:"groupId", 	width:"20", align:"center", type:"ro"});
+  	gridDtl.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"20", align:"center", type:"ro"});
+  	gridDtl.setColSort("str");	
+  	gridDtl.setUserData("","pk","userId");
+  	gridDtl.init();
+  }
+}
 //조회 버튼 동작
 function fn_search(){
 	fn_noAuthList();
@@ -82,131 +121,67 @@ function fn_callBack(){
 	
 }
 
-//라디오 버튼 클릭 이벤트
-function fn_rdo_onClick() {
-  if (userGbn.checked) {
-  	gridMst = new dxGrid(subLayout.cells("a"), false);
-      gridMst.addHeader({name:"사용자ID", colId:"multicd", 	width:"50", align:"center", type:"ro"});
-  	gridMst.addHeader({name:"사용자명", 	 colId:"pname", 	width:"49", align:"center", type:"ro"});
-  	gridMst.setColSort("str");	
-  	gridMst.setUserData("","pk","multicd");
-  	gridMst.init();
-  	
-  	gridDtl = new dxGrid(subLayout.cells("c"), false);
-  	gridDtl.addHeader({name:"사용자ID", colId:"logid", 	width:"18", align:"center", type:"ro"});
-  	gridDtl.addHeader({name:"사용자명", 	 colId:"personname", 	width:"18", align:"center", type:"ro"});
-  	gridDtl.setColSort("str");	
-  	gridDtl.setUserData("","pk","logid");
-  	gridDtl.init();
-  	
-  	fn_authList();
-  	fn_noAuthList();
-  	
-  } else {
-  	gridMst = new dxGrid(subLayout.cells("a"), false);
-      gridMst.addHeader({name:"그룹코드", colId:"groupId", 	width:"50", align:"center", type:"ro"});
-  	gridMst.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"48", align:"center", type:"ro"});
-  	gridMst.setColSort("str");	
-  	gridMst.setUserData("","pk","userId");
-  	gridMst.init();
-  	
-  	gridDtl = new dxGrid(subLayout.cells("c"), false);
-  	gridDtl.addHeader({name:"그룹코드", colId:"groupId", 	width:"20", align:"center", type:"ro"});
-  	gridDtl.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"20", align:"center", type:"ro"});
-  	gridDtl.setColSort("str");	
-  	gridDtl.setUserData("","pk","userId");
-  	gridDtl.init();
-  }
-}
 
 //추가 버튼 이벤트
 function fn_btnAdd(){
-    var selRowId = gridDtl.getSelectedRowId();
-    var selRowIdx = gridDtl.getSelectedRowIndex(selRowId);
-    
-    var logid = gridDtl.setCells2(selRowIdx, "0").getValue(selRowIdx - 1);
-    var personname = gridDtl.setCells2(selRowIdx, "1").getValue(selRowIdx - 1);
+	var selRowId = {};
+    	selRowId = gridDtl.getSelectedRowId();
+   	var selRowIdArr = selRowId.split(",");
+   	
+   	var	logid = {};
+   	var personname = {};
 	
-    var totalColNum = gridMst.getColumnCount();
+   	var totalColNum = gridMst.getColumnCount();
   	var totalRowNum = gridMst.getRowsNum();
   	
   	var multicdColIdx = gridMst.getColIndexById("multicd");
   	var pnameColIdx = gridMst.getColIndexById("pname");
-  	
   	var data = new Array(totalColNum);
-  		data[multicdColIdx] = logid;
-  		data[pnameColIdx] = personname;
   	
-  	gridDtl.dxObj.deleteRow(selRowId);
-	gridMst.addRow(data);
+   	for(i=0;i<selRowIdArr.length;i++){
+	    logid[i] = gridDtl.setCells(selRowIdArr[i], "0").getValue();
+	    personname[i] = gridDtl.setCells(selRowIdArr[i], "1").getValue();
+	    gridDtl.dxObj.deleteRow(selRowIdArr[i]);
+
+	    data[multicdColIdx] = logid[i];
+  		data[pnameColIdx] = personname[i];
+		gridMst.addRow(data);
+   	}
   	gridMst.selectRow(totalRowNum);
 }
 
 //제거 버튼 이벤트
-function fn_btnDel(){
-    var selRowId = gridMst.getSelectedRowId();
-    var selRowIdx = gridMst.getSelectedRowIndex(selRowId);
-	 if (gridMst.isDelRows(selRowId)) {
-            if (fn_chkUnsavedRow(selRowIdx, selRowId)) {
-                return
-            } else {
-                var jsonStr = gridMst.getJsonRowDel(selRowId);
-                if (jsonStr == null || jsonStr.length <= 0) return;
-                $("#jsonData").val(jsonStr);
-                $("#Pmenucd").val(menucd);
-                console.log($("#hiddenform").serialize());
-                $.ajax({
-                    url: "/erp/system/menuS/prcsAuthSave",
-                    type: "POST",
-                    data: $("#hiddenform").serialize(),
-                    async: true,
-                    success: function(data) {
-                        MsgManager.alertMsg("INF003");
-                        gridMst.clearAll();
-                        fn_authList();
-                        gridDtl.clearAll();
-                        fn_noAuthList();
-                    }
-                });
-            }
-    } else {
-        MsgManager.alertMsg("WRN002");
+function fn_btnDel() {
+    var selRowId = {};
+    selRowId = gridMst.getSelectedRowId();
+    var selRowIdx = selRowId - 1;
+    var selRowIdArr = selRowId.split(",");
+    for (i = 0; i < selRowIdArr.length; i++) {
+        if (gridMst.isDelRows(selRowIdArr[i])) {
+            var jsonStr = gridMst.getJsonRowDel(selRowIdArr[i]);
+            if (jsonStr == null || jsonStr.length <= 0) return;
+            $("#jsonData").val(jsonStr);
+            $("#Pmenucd").val(menucd);
+            console.log(jsonStr);
+            console.log($("#hiddenform").serialize());
+            $.ajax({
+                url: "/erp/system/menuS/prcsAuthSave",
+                type: "POST",
+                data: $("#hiddenform").serialize(),
+                async: true,
+                success: function(data) {
+                    gridMst.clearAll();
+                    fn_authList();
+                    gridDtl.clearAll();
+                    fn_noAuthList();
+                }
+            });
+        } else {
+            MsgManager.alertMsg("WRN002");
+        }
     }
+    MsgManager.alertMsg("INF003");
 }
-//cudkey chk 
-function fn_chkUnsavedRow(rowNum,rowId){
-	var cudColIdx = gridMst.dxObj.getColIndexById(cudKeyCol);
-	var isDelRow = false;
-	var cudColVal = gridMst.dxObj.cells2(rowNum,cudColIdx).getValue();
-	if (cudColVal == actInsert) {
-		isDelRow = true;
-		fn_MstToDtl();
-	}
-	return isDelRow;
-}
-
-//좌측 그리드에서 우측그리드로 row 이동
-function fn_MstToDtl(){
-	var selRowId = gridMst.getSelectedRowId();
-    var selRowIdx = gridMst.getSelectedRowIndex(selRowId);
-	var multicd = gridMst.setCells2(selRowIdx, "0").getValue(selRowIdx - 1);
-    var pname = gridMst.setCells2(selRowIdx, "1").getValue(selRowIdx - 1);
-	
-    var totalColNum = gridDtl.getColumnCount();
-  	var totalRowNum = gridDtl.getRowsNum();
-  	
-  	var logidColIdx = gridDtl.getColIndexById("logid");
-  	var personnameColIdx = gridDtl.getColIndexById("personname");
-  	
-  	var data = new Array(totalColNum);
-  		data[logidColIdx] = multicd;
-  		data[personnameColIdx] = pname;
-	
-  	gridMst.dxObj.deleteRow(selRowId);
-	gridDtl.addRow(data);
-	gridDtl.selectRow(totalRowNum);
-}
-
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
