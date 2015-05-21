@@ -33,7 +33,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"급여구분",   colId:"payGbn",   width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"근무구분",   colId:"serveGbn", width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"발령구분",   colId:"balGbn",   width:"7",  align:"center", type:"combo"});
-	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ed"});
 	gridDtl.addHeader({name:"발령부서",   colId:"postName", width:"7",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"발령직군",   colId:"jikgun",   width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"발령직무",   colId:"jikmu",    width:"7",  align:"center", type:"combo"});
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	gridDtl.attachEvent("onRowSelect",gridDtlOnRowSelect);
 	
 	$("#postName").click(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
 		status = 2;
 	});
 	
@@ -270,15 +270,6 @@ function doOnOpen(comboId,params,colIndx,mockIndx){
 	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),colIndx).setValue(comboId.getSelectedText().interName);
 	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),mockIndx).setValue(comboId.getSelectedText().interCode);
 	});	
-};
-function fn_onOpenPop(pName){
-	var value;
-	if(pName=="postCode"){
-		value =  '';
-	 }else if(pName == "empNo"){
-		 value = '';
-	 }
-	return value;
 };
 
 function fn_onClosePop(pName,data){

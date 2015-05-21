@@ -28,8 +28,7 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","empNo");
 	gridMain.init();
-	var params = "korName=" + parent.fn_onOpenPop(config.id);
-	gfn_callAjaxForGrid(gridMain,params,"/erp/pers/pers/persAppointS/selEmpPop",subLayout.cells("a"),fn_loadGridListCodeCB);
+	fn_search();
 });
  function fn_search(){
 	 var params = "korName=" + $("#korName").val();

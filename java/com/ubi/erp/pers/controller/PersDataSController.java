@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
+import com.ubi.erp.user.domain.AttachFile;
 
 @RestController
 @RequestMapping(value = "/erp/pers/pers/persDataS")
@@ -100,5 +102,6 @@ public class PersDataSController {
 		return value;
 	}
 	
+	//파일 업로드 및 삭제 추가
 	
 }

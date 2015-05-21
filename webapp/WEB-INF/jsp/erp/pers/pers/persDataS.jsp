@@ -66,10 +66,11 @@ $(document).ready(function(){
 		}
 	});
 	
-/* 	$("#updImg").click(function(){
+ 	$("#updImg").click(function(){
 		byId("imgName").click();
-		//document.all.imgName.click();
-	}); */
+		fileupload("imgName","target");
+		
+	}); 
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
 	   fn_comboSet(combo01,"004","jikwee");
@@ -316,18 +317,18 @@ function fn_onClosePop(pName,data){
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">
-			  <div class="col-sm-8 col-md-8">
-				 <img  src="#"  height="150px;" id="target">
+			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
+				 <img  src=""  height="150px;" width="400px;" id="target">
 			  </div>
 		   </div>
  		  </div>
 		  <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-2 col-md-2 col-sm-offset-2 col-md-offset-2">
-				 <input name="updImg" id="updImg" type="button" value="첨부" placeholder="" class="form-control btn btn-default btn-xs">
+				 <input name="updImg" id="updImg" type="button" value="첨부" class="form-control btn btn-default btn-xs">
 			  </div>
-			  <div class="col-sm-2 col-md-2">
-				  <input name="delImg" id="delImg" type="button" value="삭제" placeholder="" class="form-control btn btn-default btn-xs">
+			  <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+				  <input name="delImg" id="delImg" type="button" value="삭제" class="form-control btn btn-default btn-xs">
 			  </div>
 		   </div>
  		 </div>

@@ -50,4 +50,3 @@ response.setDateHeader("Expires", 0);
 
 <!-- we code these -->
 <link href="/component/jqueryFileupload/css/dropzone.css" type="text/css" rel="stylesheet" />
-<script src="/component/jqueryFileupload/js/myuploadfunction.js"></script>

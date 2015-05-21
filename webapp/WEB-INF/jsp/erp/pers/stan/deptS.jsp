@@ -69,7 +69,7 @@ $(document).ready(function(){
  	});
    
 	$("#postName").dblclick(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
 	});
 
   	combo.attachEvent("onClose", function() {
@@ -231,15 +231,6 @@ function fn_value(){
 	var params ="postName=" + $("#postName").val();
 	return params;
 }
-
-function fn_onOpenPop(pName){
-	var value;
-	if(pName=="postCode"){
-		value =  $("#postName").val();	  
-	  }
-	
-	return value;
-};
 
 function fn_onClosePop(pName,data){
 	if(pName=="postCode"){

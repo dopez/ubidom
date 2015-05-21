@@ -27,8 +27,7 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
-	var params = "postName=" + parent.fn_onOpenPop(config.id);
-	gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),fn_loadGridListCodeCB);
+	fn_search();
 });
 function fn_search(){
 	 var params = "postName=" + $("#postName").val();

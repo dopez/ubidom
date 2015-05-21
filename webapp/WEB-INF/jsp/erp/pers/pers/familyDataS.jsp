@@ -179,15 +179,7 @@ function fn_loadGridLeftListCB(data){
 function fn_loadGridRightList(params){
 	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/familyDataS/selRight",subLayout.cells("b"));
 }
-function fn_onOpenPop(pName){
-	var value;
-	if(pName=="postCode"){
-		value =  '';
-	 }else if(pName == "empNo"){
-		 value = '';
-	 }
-	return value;
-};
+
 function fn_onClosePop(pName,data){
 	var i;
 	var obj={};

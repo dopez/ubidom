@@ -52,15 +52,6 @@ function fn_loadGridList(params) {
 	 gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptR/selGridMain",subLayout.cells("a"));
 };
 
-function fn_onOpenPop(pName){
-	var value;
-	if(pName=="postCode"){
-		value =  $("#postName").val();	  
-	  }
-	
-	return value;
-};
-
   function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
 		var i;
