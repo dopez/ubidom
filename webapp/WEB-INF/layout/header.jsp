@@ -35,3 +35,4 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet" type="text/css" href="/component/dxcalendar_extend.css" />
 <!-- validation ko 추가 -->
 <script type="text/javascript" src="/component/jquery-validation-1.13.1/localization/messages_ko.js"></script>
+<script type="text/javascript" src="/common/js/jquery.mask.js"></script>
