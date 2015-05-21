@@ -54,7 +54,7 @@ $(document).ready(function(){
 	 });
     
      $("#btnSearch").click(function(){
-    	 execDaumPostcode();
+    	 execDaumPostcode("postNo","address");
 	}); 
     
 	$("#persAppointBtn").click(function(){
@@ -264,41 +264,7 @@ function fn_onClosePop(pName,data){
 		}		  
 	}
  };
- 
- function execDaumPostcode() {
-	 var width = 500;
-	 var height = 600;
-	 var name = '우편번호 검색';
-     new daum.Postcode({
-         oncomplete: function(data) {
-        	 //fullRoadAddress -> 도로명 주소
-             var fullRoadAddr = data.roadAddress; 
-             var extraRoadAddr = ''; 
 
-             if(data.bname !== ''){
-                 extraRoadAddr += data.bname;
-             }
-             if(data.buildingName !== ''){
-                 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-             }
-             if(extraRoadAddr !== ''){
-                 extraRoadAddr = ' (' + extraRoadAddr + ')';
-             }
-             if(fullRoadAddr !== ''){
-                 fullRoadAddr += extraRoadAddr;
-             }
-
-             document.getElementById("postNo").value = data.postcode1+"-"+data.postcode2;
-             
-             document.getElementById("address").value = data.jibunAddress;
-         }
-     }).open({
-    	    q: $("#postNo").val(),
-    	    left: (window.screen.width / 2) - (width / 2),
-    	    top: (window.screen.height / 2) - (height / 2),
-    	    popupName: name
-     });
- }
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
@@ -333,7 +299,7 @@ function fn_onClosePop(pName,data){
 </div>
 <div id="bootContainer2" style="position: relative; width: 100%; height: 100%;">
   <div class="container">	
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
+	<form class="form-horizontal" id="frmMain" name="frmMain" enctype="multipart/form-data" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 	  <input type="hidden" id="cudKey" name="cudKey" />
 	  <input type="hidden" id="postCode" name="postCode" />
 	  <input type="hidden" id="character" name="character" />
@@ -346,22 +312,22 @@ function fn_onClosePop(pName,data){
 	  <input type="hidden" id="length" name="length" value="0" />
       <input type="hidden" id="armyNo" name="armyNo" />
       <input type="hidden" id="armySpcase" name="armySpcase" />
-      
+      <input id="imgName" type="file" name="imgName" style="display: none;">
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-8 col-md-8">
-				 <img alt="" src=""  height="150px;">
+				 <img  src="#"  height="150px;" id="target">
 			  </div>
 		   </div>
  		  </div>
 		  <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-2 col-md-2 col-sm-offset-2 col-md-offset-2">
-				 <input name="upd" id="upd" type="button" value="첨부" placeholder="" class="form-control btn btn-default btn-xs">
+				 <input name="updImg" id="updImg" type="button" value="첨부" placeholder="" class="form-control btn btn-default btn-xs">
 			  </div>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="del" id="del" type="button" value="삭제" placeholder="" class="form-control btn btn-default btn-xs">
+				  <input name="delImg" id="delImg" type="button" value="삭제" placeholder="" class="form-control btn btn-default btn-xs">
 			  </div>
 		   </div>
  		 </div>

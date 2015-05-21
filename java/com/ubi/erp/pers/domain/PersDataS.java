@@ -55,6 +55,7 @@ public class PersDataS implements Serializable {
 	private String armySpcase; // 병력특례유무
 	private String armyMerit; // 보훈유무
 	private String cudKey;
+	private String imgName; // 이미지 이름
 
 	public PersDataS() {
 		super();
@@ -442,6 +443,14 @@ public class PersDataS implements Serializable {
 
 	public void setCudKey(String cudKey) {
 		this.cudKey = cudKey;
+	}
+
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
 	}
 
 	public static long getSerialversionuid() {

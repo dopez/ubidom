@@ -36,3 +36,18 @@ response.setDateHeader("Expires", 0);
 <!-- validation ko 추가 -->
 <script type="text/javascript" src="/component/jquery-validation-1.13.1/localization/messages_ko.js"></script>
 <script type="text/javascript" src="/common/js/jquery.mask.js"></script>
+
+<!-- bootstrap fileupload  추가 -->
+<script src="/component/jqueryFileupload/js/jquery.1.9.1.min.js"></script>
+
+<script src="/component/jqueryFileupload/js/vendor/jquery.ui.widget.js"></script>
+<script src="/component/jqueryFileupload/js/jquery.iframe-transport.js"></script>
+<script src="/component/jqueryFileupload/js/jquery.fileupload.js"></script>
+
+<!-- bootstrap just to have good looking page -->
+<script src="/component/jqueryFileupload/bootstrap/js/bootstrap.min.js"></script>
+<link href="/component/jqueryFileupload/bootstrap-fileresize.css" type="text/css" rel="stylesheet" />
+
+<!-- we code these -->
+<link href="/component/jqueryFileupload/css/dropzone.css" type="text/css" rel="stylesheet" />
+<script src="/component/jqueryFileupload/js/myuploadfunction.js"></script>

@@ -34,6 +34,8 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 			$(".dhx_combo_edit").select();
 		} else if(this.getColType(cInd)=="coro") {
 			$("td.cellselected").css("background","url('/component/dhtmlxGrid/imgs/dhxcombo_arrow_down.gif') no-repeat 97% center #ffffff; border:1px solid #e9e9e9;");			
+		}else if(this.getColType(cInd)=="ch"){
+			setUpdateAcType(this, rId);
 		}
 	} else if((stage == 2)) { // After Editing
 		$("td").css("background","");
@@ -234,4 +236,38 @@ function gfn_setNumberFormat(grid,colArr,format) {
 	                    
 	   grid.setNumberFormat(format, colIndex);
 	                }
+}
+function execDaumPostcode(postName,addressName) {
+	 var width = 500;
+	 var height = 600;
+	 var name = '우편번호 검색';
+    new daum.Postcode({
+        oncomplete: function(data) {
+       	 //fullRoadAddress -> 도로명 주소
+            var fullRoadAddr = data.roadAddress; 
+            var extraRoadAddr = ''; 
+
+            if(data.bname !== ''){
+                extraRoadAddr += data.bname;
+            }
+            if(data.buildingName !== ''){
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            if(fullRoadAddr !== ''){
+                fullRoadAddr += extraRoadAddr;
+            }
+
+            document.getElementById(postName).value = data.postcode1+"-"+data.postcode2;
+            
+            document.getElementById(addressName).value = data.jibunAddress;
+        }
+    }).open({
+   	    q: $("#"+postName).val(),
+   	    left: (window.screen.width / 2) - (width / 2),
+   	    top: (window.screen.height / 2) - (height / 2),
+   	    popupName: name
+    });
 }

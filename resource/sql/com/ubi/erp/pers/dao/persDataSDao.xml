@@ -24,7 +24,7 @@
   		#{armyJong},#{amryBarch},#{armyGd},#{armyYn},#{armyNo},
   		#{amryDate1},#{amryDate2},#{religion},#{armySpcase},#{armyMerit},
   		#{enterDate},#{retireDate},#{retireMidDate},#{bankCode},#{bankNumb},
-  		#{sysEmpNo}
+  		#{sysEmpNo},#{imgName}
   		)}	
   	</insert>
   	
