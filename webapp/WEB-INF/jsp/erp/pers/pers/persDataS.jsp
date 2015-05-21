@@ -195,17 +195,12 @@ function fn_new(){
 			  success:function(data)
 			  {
 				MsgManager.alertMsg("INF001"); 
-			    prcsPersDataCB(data);
+				fn_new();
 			  }
 		   });
 	}else{
 	} 
 }; 
-
-function prcsPersDataCB(){
-	fn_loadGridList();
-	fn_new();
-}
 function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
     var rodIdx = gridMain.getSelectedRowIndex();

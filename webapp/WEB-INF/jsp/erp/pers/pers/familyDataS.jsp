@@ -124,7 +124,7 @@ function fn_save(){
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          fn_search();
+          fn_refreshGrid(gridDtl.getSelectedRowId());
            }
       }); 
 }
@@ -146,7 +146,7 @@ function fn_delete(){
                  async : true,
                  success : function(data) {
                  MsgManager.alertMsg("INF003");
-                 fn_search();
+                 fn_refreshGrid(rodid);
                 }
             });
      	   }   	 
@@ -156,6 +156,12 @@ function fn_delete(){
      }else {
          MsgManager.alertMsg("WRN002");
       }
+}
+function fn_refreshGrid(id){
+	var obj={};
+	  obj.compId = gridDtl.setCells(id,10).getValue();
+	  obj.empNo = gridDtl.setCells(id,9).getValue();
+	  fn_loadGridRightList(obj);
 }
 function fn_loadGridLeftList(){
 	var obj={};

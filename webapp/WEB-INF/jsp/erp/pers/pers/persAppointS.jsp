@@ -77,21 +77,6 @@ $(document).ready(function(){
 	});
  	fn_startSetCombo();
 });
-function fn_save(){
-	 var jsonStr = gridDtl.getJsonUpdated2();
-    if (jsonStr == null || jsonStr.length <= 0) return;         		
-        $("#jsonData").val(jsonStr);                      
-        $.ajax({
-           url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
-           type : "POST",
-           data : $("#pform").serialize(),
-           async : true,
-           success : function(data) {
-           MsgManager.alertMsg("INF001");
-           fn_search();
-            }
-       }); 
-}
 function fn_search(){
 	fn_loadGridLeftList();
 	gridDtl.clearAll(); 
@@ -197,6 +182,21 @@ function fn_add(){
 		    gridDtl.addRow(data);
 	}
 }
+function fn_save(){
+	 var jsonStr = gridDtl.getJsonUpdated2();
+   if (jsonStr == null || jsonStr.length <= 0) return;         		
+       $("#jsonData").val(jsonStr);                      
+       $.ajax({
+          url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
+          type : "POST",
+          data : $("#pform").serialize(),
+          async : true,
+          success : function(data) {
+          MsgManager.alertMsg("INF001");
+          fn_refreshGrid(gridDtl.getSelectedRowId());
+          }
+      }); 
+};
 
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
@@ -216,7 +216,7 @@ function fn_delete(){
                  async : true,
                  success : function(data) {
                  MsgManager.alertMsg("INF003");
-                 fn_search();
+                 fn_refreshGrid(rodid);
                 }
             });
      	   }   	 
@@ -227,7 +227,12 @@ function fn_delete(){
          MsgManager.alertMsg("WRN002");
       }
 }
-
+function fn_refreshGrid(id){
+	var obj={};
+	 obj.empNo = gridDtl.setCells(id,12).getValue();
+	 obj.compId = gridDtl.setCells(id,20).getValue();
+	fn_loadGridRightList(obj);
+}
 function fn_comboLoad(comboId,inputName,params,colIndx,mockIndx){
 	comboId.setTemplate({
 	    input: "#interCode#",

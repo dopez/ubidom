@@ -14,8 +14,8 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	subLayout.cells("a").setWidth(250);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"45", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"45", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"49", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"49", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","postCode");
 	gridMst.init(); 
@@ -130,7 +130,7 @@ function fn_delete(){
                    async : true,
                    success : function(data) {
                    MsgManager.alertMsg("INF003");
-                   fn_loadGridListCode(fn_value(),1);
+                   fn_search();
                   }
               });
        	   }   	 
@@ -153,11 +153,10 @@ function fn_delete(){
 	           async : true,
 	           success : function(data) {
 	           MsgManager.alertMsg("INF001");
-	           fn_loadGridListCode(fn_value(),1);
+	           fn_search();
 	            }
 	       });
 } 
- 
 function doOnRowSelect(id,ind){
 	var obj = {};
 	obj.postCode= gridMst.setCells(id,0).getValue();

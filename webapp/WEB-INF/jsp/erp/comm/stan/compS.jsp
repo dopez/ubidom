@@ -94,7 +94,8 @@ function fn_save(){
 			  success:function(data)
 			  {
 				MsgManager.alertMsg("INF001"); 
-				fn_search();
+				fn_new();
+				disableValue(2);
 			  }
 		   });
 	}else{
