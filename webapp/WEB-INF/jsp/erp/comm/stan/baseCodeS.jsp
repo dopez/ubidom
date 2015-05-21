@@ -185,7 +185,7 @@ function fn_loadGridMst(flag){
 	if(inputParams.codeName==null ||inputParams.codeName==""){
 		inputParams.codeName = "%";
 	}
-	if(inputParams.code==null ||inputParams.codeName==""){
+	if(inputParams.code==null ||inputParams.code==""){
 		inputParams.code = "%";
 	}
 	

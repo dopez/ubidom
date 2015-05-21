@@ -6,10 +6,10 @@ import com.ubi.erp.rndt.domain.MatrCodeS;
 
 public interface MatrCodeSDao {
 
-	void selPersDataSL(Map<String, Object> param);
+	void prcsMatrCodeS(MatrCodeS matrCodeS);
 
-	void selPersDataSR(Map<String, Object> param);
+	void selGridMain(Map<String, Object> map);
 
-	void prcsPersDataS(MatrCodeS persDataS);
+	void selFormMain(Map<String, Object> map);
 
 }

@@ -6,29 +6,32 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ubi.erp.pers.dao.PersDataSDao;
-import com.ubi.erp.pers.domain.PersDataS;
+import com.ubi.erp.rndt.dao.MatrCodeSDao;
+import com.ubi.erp.rndt.domain.MatrCodeS;
 
 @Service
 public class MatrCodeSService {
 
-	private PersDataSDao dao;
+	private MatrCodeSDao dao;
 
 	@Autowired
 	public void setSqlSession(SqlSession sqlSession) {
-		dao = sqlSession.getMapper(PersDataSDao.class);
+		dao = sqlSession.getMapper(MatrCodeSDao.class);
 	}
 
-	public void selPersDataSL(Map<String, Object> map) {
-		dao.selPersDataSL(map);
+	public void prcsMatrCodeS(MatrCodeS matrCodeS) {
+		dao.prcsMatrCodeS(matrCodeS);
+		
 	}
 
-	public void selPersDataSR(Map<String, Object> map) {
-		dao.selPersDataSR(map);
+	public void selGridMain(Map<String, Object> map) {
+		dao.selGridMain(map);
+		
 	}
 
-	public void prcsPersDataS(PersDataS persDataS) {
-		dao.prcsPersDataS(persDataS);
+	public void selFormMain(Map<String, Object> map) {
+		dao.selFormMain(map);
+		
 	}
 
 }

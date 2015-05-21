@@ -237,6 +237,11 @@ function gfn_formCheck(rules,name,form){
 					 MsgManager.formAlertMsg(rules[0]+"은(는) 필수 항목입니다.",form,name);
 					 return false;
 				 }
+			}else if (rule==r_onlyNumber) {
+				if (! gfn_checkNumber($('#'+name).val())) {
+					dhtmlx.alert(rules[0] + "는(은) 숫자만 입력가능합니다.");
+					return false;
+				}
 			} 
 		} else {
 			ruleName = rules[0];
