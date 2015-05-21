@@ -160,11 +160,18 @@ function fn_remove(){
 }
 //한줄삽입 버튼 동작
 function fn_add(){
+	var gridMstSelRow = gridMst.getSelectedRowId();
 	var totalColNum = gridDtl.getColumnCount();
   	var data = new Array(totalColNum);
-  	gridDtl.addRow(data);
-  	var totalRowNum = gridDtl.getRowsNum()-1;
-  	gridDtl.selectRow(totalRowNum);
+  	var totalRowNum = gridDtl.getRowsNum();
+
+	if(gridMstSelRow==null||gridMstSelRow==""||typeof gridMstSelRow =="undefined"){
+		dhtmlx.alert("대분류 코드를 선택하세요");
+	}else{
+		gridDtl.addRow(data);
+		gridDtl.selectRow(totalRowNum);
+	}
+  	
 }
 //한줄삭제 버튼 동작
 function fn_delete(){
