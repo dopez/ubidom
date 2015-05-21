@@ -18,13 +18,13 @@ $(document).ready(function(){
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 	
-	subLayout.cells("a").setWidth(403);
+	subLayout.cells("a").setWidth(300);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",       width:"25", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
 	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사업장",   colId:"compId", width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사업장",   colId:"compId",   width:"25", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
@@ -65,6 +65,11 @@ $(document).ready(function(){
 		   gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
 		}
 	});
+	
+/* 	$("#updImg").click(function(){
+		byId("imgName").click();
+		//document.all.imgName.click();
+	}); */
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
 	   fn_comboSet(combo01,"004","jikwee");

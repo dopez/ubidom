@@ -206,19 +206,14 @@ function fn_startSetCombo(){
 	fn_comboLoad(combo08,gridMain.getColumnId(11),id,"000",11,20);
 }
 function fn_comboLoad(comboId,inputName,rowId,params,colIndx,mockIndx){
-	comboId.load({
-		template: {
-		    input: "#interCode#",
-		    input: "#interName#",
-		    columns: [
-		        {header: "내부코드", width: 100,  option: "#interCode#"},
-		        {header: "코드명",   width: 100,  option: "#interName#"}
-		    ]
-		},
-		options: [ 
-		  
-		]
-	}); 
+	comboId.setTemplate({
+	    input: "#interCode#",
+	    input: "#interName#",
+	    columns: [
+	       {header: "내부코드", width: 100,  option: "#interCode#"},
+		   {header: "코드명",   width: 100,  option: "#interName#"}
+	    ]
+	});
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);

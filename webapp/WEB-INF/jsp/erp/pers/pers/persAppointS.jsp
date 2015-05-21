@@ -75,7 +75,7 @@ $(document).ready(function(){
  	$("#korName").click(function(){
 		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 	});
-	
+ 	fn_startSetCombo();
 });
 function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
@@ -104,6 +104,7 @@ function fn_loadGridLeftList(){
     gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/persAppointS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
 };
 function fn_loadGridLeftListCB(data){
+	byId("frmMain").reset();
 	$('#postCode').val('');
 	$('#empNo').val('');
 };
@@ -112,31 +113,31 @@ function gridMstOnRowSelect(id,ind){
 	obj.compId = gridMst.setCells(id,4).getValue();
 	obj.empNo = gridMst.setCells(id,1).getValue();
 	fn_loadGridRightList(obj);
-	fn_startSetCombo(id);
 }
 function gridDtlOnRowSelect(id,ind){
+	status = 1;
 	if(ind==5){
 	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
 	}
 	gridDtl.editCell();
 }
-function fn_startSetCombo(id){
+function fn_startSetCombo(){
 	var combo01 = gridDtl.getColumnCombo(2);
-	fn_comboLoad(combo01,gridDtl.getColumnId(2),id,"P001",2,13);
+	fn_comboLoad(combo01,gridDtl.getColumnId(2),"P001",2,13);
 	var combo02 = gridDtl.getColumnCombo(3);
-	fn_comboLoad(combo02,gridDtl.getColumnId(3),id,"P002",3,14);
+	fn_comboLoad(combo02,gridDtl.getColumnId(3),"P002",3,14);
 	var combo03 = gridDtl.getColumnCombo(4);
-	fn_comboLoad(combo03,gridDtl.getColumnId(4),id,"P003",4,15);
+	fn_comboLoad(combo03,gridDtl.getColumnId(4),"P003",4,15);
 	var combo04 = gridDtl.getColumnCombo(7);
-	fn_comboLoad(combo04,gridDtl.getColumnId(7),id,"P004",7,16);
+	fn_comboLoad(combo04,gridDtl.getColumnId(7),"P004",7,16);
 	var combo05 = gridDtl.getColumnCombo(8);
-	fn_comboLoad(combo05,gridDtl.getColumnId(8),id,"P005",8,17);
+	fn_comboLoad(combo05,gridDtl.getColumnId(8),"P005",8,17);
 	var combo06 = gridDtl.getColumnCombo(9);
-	fn_comboLoad(combo06,gridDtl.getColumnId(9),id,"004",9,18);
+	fn_comboLoad(combo06,gridDtl.getColumnId(9),"004",9,18);
 	var combo07 = gridDtl.getColumnCombo(10);
-	fn_comboLoad(combo07,gridDtl.getColumnId(10),id,"P006",10,19);
+	fn_comboLoad(combo07,gridDtl.getColumnId(10),"P006",10,19);
 	var combo08 = gridDtl.getColumnCombo(11);
-	fn_comboLoad(combo08,gridDtl.getColumnId(11),id,"000",11,20);
+	fn_comboLoad(combo08,gridDtl.getColumnId(11),"000",11,20);
 }
 function fn_loadGridRightList(params){
 	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/persAppointS/selRight",subLayout.cells("b"),fn_loadGridRightListCB);
@@ -227,24 +228,20 @@ function fn_delete(){
       }
 }
 
-function fn_comboLoad(comboId,inputName,rowId,params,colIndx,mockIndx){
-	comboId.load({
-		template: {
-		    input: "#interCode#",
-		    input: "#interName#",
-		    columns: [
-		        {header: "내부코드", width: 100,  option: "#interCode#"},
-		        {header: "코드명",   width: 100,  option: "#interName#"}
-		    ]
-		},
-		options: [
-		]
-	}); 
+function fn_comboLoad(comboId,inputName,params,colIndx,mockIndx){
+	comboId.setTemplate({
+	    input: "#interCode#",
+	    input: "#interName#",
+	    columns: [
+	       {header: "내부코드", width: 100,  option: "#interCode#"},
+		   {header: "코드명",   width: 100,  option: "#interName#"}
+	    ]
+	});
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);
 	var obj={};
-	obj.compId = gridMst.setCells(rowId,4).getValue();
+	obj.compId = '100';
 	obj.code = params;
 	doOnOpen(comboId,obj,colIndx,mockIndx);
 }
@@ -257,7 +254,7 @@ function doOnOpen(comboId,params,colIndx,mockIndx){
 			  var list = data;
 			  for(var i=0;i<list.length;i++){
 				comboId.addOption([
-				  {value: i, text:
+				  {value: list[i].interCode, text:
 				  {interCode: list[i].interCode,
 				   interName: list[i].interName}}   
 				   ]);	
