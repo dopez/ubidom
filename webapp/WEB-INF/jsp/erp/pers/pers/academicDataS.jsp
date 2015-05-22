@@ -56,9 +56,9 @@ $(document).ready(function(){
 	});
 	
 	combo01 =gridDtl.getColumnCombo(1);
-	fn_comboSet(combo01,1);
+	fn_comboSet(combo01);
 });
-function fn_comboSet(comboId,flag){
+function fn_comboSet(comboId){
 	comboId.setTemplate({
 	    input: "#interName#",
 	    columns: [
