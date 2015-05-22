@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,8 @@ public class PersDataSController {
 			list.get(i).setAmryDate2(df.dateToString2(list.get(i).getAmryDate2()));
 			list.get(i).setRetireDate(df.dateToString2(list.get(i).getRetireDate()));
 			list.get(i).setRetireMidDate(df.dateToString2(list.get(i).getRetireMidDate()));
+			// image 경로
+			//list.get(i).setImgPath(PropertyUtil.getString("attach.basedir") +list.get(i).getImgPath());
 		}
 		return list;
 	}
@@ -99,24 +102,31 @@ public class PersDataSController {
 		}	
 	}
 	
-/*	//파일 List 불러오기
+	//파일 List 불러오기
 
 	//파일 업로드 및 삭제 추가
-	@RequestMapping(value = "/prcsFileUpload")
+	@RequestMapping(value = "/prcsFileUpload",method= RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
 	public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);
 		PersDataS persDataS = new PersDataS();
 		persDataS.setCompId(request.getParameter("imgCompId"));
 		persDataS.setEmpNo(request.getParameter("imgEmpNo"));
+		persDataS.setCompId("100");
+		persDataS.setEmpNo("1230981");
 		persDataS.setImgPath(uploadFileList.get(0).getFilePath());
 		persDataSService.updateImgPath(persDataS);
 	}
 	
-	@RequestMapping(value = "/prcsFileDelete")
-	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,PersDataS persDataS) throws Exception {
-		attachFileService.deleteAttachFilePath(persDataS.getImgPath());
+	@RequestMapping(value = "/prcsFileDelete",method= RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,PersDataS persDataS) throws Exception {	
+		File targetFile = new File(PropertyUtil.getString("attach.basedir") + persDataS.getImgPath());
+		targetFile.delete();
+		//persDataSService.prcsPersDataS(persDataS);
 	}
-	*/
+	
+	
 	public String nullCheck(String value){
 		if(value == null){
 			value = "0";

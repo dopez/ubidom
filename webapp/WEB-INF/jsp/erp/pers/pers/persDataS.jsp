@@ -8,7 +8,7 @@ var gridMain;
 var calMain;
 var combo01, combo02, combo03;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,2,3,4],"2U");
+	Ubi.setContainer(1,[1,2,3,4,9],"2U");
 	//인사자료등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -67,14 +67,22 @@ $(document).ready(function(){
 	});
 	
  	$("#updImg").click(function(){
-		byId("imgPath").click();
-		fileupload("imgPath","target");
+ 		var rowCheck = gridMain.getSelectedRowId();
+ 		if(rowCheck == null){
+ 			return false;
+ 		}else{
+ 			byId("attachFile").click();
+ 			fileupload("attachFile","target");
+ 			fn_search();
+ 		}
 	}); 
  	$("#delImg").click(function(){
+ 		       disableValue(1);
+ 		       byId("cudKey").value = "DELETE";
                  $.ajax({
-                  url : "/erp/pers/pers/persDataS/prcsFileDelete.sc",
+                  url : "/erp/pers/pers/persDataS/prcsFileDelete",
                   type : "POST",
-                  data : $("#attachFile").val(),
+                  data : $("#frmMain").serialize(),
                   async : true,
                   success : function(data) {
                   MsgManager.alertMsg("INF003");
@@ -250,6 +258,8 @@ function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
+	$("imgPath").attr("src",data[0].imgPath);
+	
 }
 function fn_onOpenPop(pName){
 	var value;
@@ -324,12 +334,13 @@ function fn_onClosePop(pName,data){
 	  <input type="hidden" id="length" name="length" value="0" />
       <input type="hidden" id="armyNo" name="armyNo" />
       <input type="hidden" id="armySpcase" name="armySpcase" />
-      <input id="attachFile" type="file" name="attachFile" data-url="/erp/pers/pers/persDataS/prcsFileUpload.sc" multiple style="display: none;">
+      <input type="hidden" id="imgPath" name="imgPath" />
+      <input id="attachFile" type="file" name="attachFile" data-url="/erp/pers/pers/persDataS/prcsFileUpload" multiple style="display: none;">
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
-				 <img  src=""  height="150px;" width="400px;" id="target">
+				 <img  src=""  height="150px;" width="400px;" id="target" name="target">
 			  </div>
 		   </div>
  		  </div>

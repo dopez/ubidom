@@ -160,8 +160,12 @@ function fn_add(){
 		var compIdColIdx =    gridDtl02.getColIndexById('compId');
 		var startDateColIdx = gridDtl02.getColIndexById('startDate');
 		var endDateColIdx =   gridDtl02.getColIndexById('endDate');
+		var premiumColIdx = gridDtl02.getColIndexById('premium');
+		var insuAmtColIdx =   gridDtl02.getColIndexById('insuAmt');
 		    data[startDateColIdx] = dateformat(new Date());
 		    data[endDateColIdx] = dateformat(new Date());
+		    data[premiumColIdx] = 0;
+		    data[insuAmtColIdx] = 0;
  	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
 	        data[compIdColIdx] = gridMst.setCells(rowCheck,4).getValue(); 
 		    gridDtl02.addRow(data);
@@ -178,10 +182,6 @@ function fn_nullCheck(id){
 	}
 }
 function fn_save(){
-	if(gridDtl02.getSelectedRowId() != null){
-		var rowId = gridDtl02.getSelectedRowId();
-		fn_nullCheck(rowId);
-	}
 	 var jsonStr = gridDtl01.getJsonUpdated2();
 	 var jsonStr2 = gridDtl02.getJsonUpdated2();
 	 if(jsonStr == null || jsonStr.length <= 0 ) return;
@@ -195,53 +195,34 @@ function fn_save(){
         async : true,
         success : function(data) {
         MsgManager.alertMsg("INF001");
+        fn_search();
          }
     }); 
 }
 function fn_remove(){
-	
+	isActTab1 = gridTabbar.tabs("a1").isActive();
+    isActTab2 = gridTabbar.tabs("a2").isActive();
+	var rodid = gridDtl01.getSelectedRowId();
+    var rodid2 = gridDtl02.getSelectedRowId();
+	 if(isActTab1){
+		 for(var i=0; i<gridDtl01.getRowsNum();i++){
+			 gridDtl01.cs_deleteRow(gridDtl01.getRowId(i));	 
+		 }
+	 }else if(isActTab2){
+		 for(var i=0; i<gridDtl02.getRowsNum();i++){
+			 gridDtl02.cs_deleteRow(gridDtl02.getRowId(i));	 
+		 }
+	} 
 }
 function fn_delete(){
 	    isActTab1 = gridTabbar.tabs("a1").isActive();
 	    isActTab2 = gridTabbar.tabs("a2").isActive();
 		var rodid = gridDtl01.getSelectedRowId();
-	    var rodIdx = gridDtl01.getSelectedRowIndex();
 	    var rodid2 = gridDtl02.getSelectedRowId();
-	    var rodIdx2 = gridDtl02.getSelectedRowIndex();
 		 if(isActTab1){
-		    if(gridDtl01.isDelRows(rodid)) {
-			   if(MsgManager.confirmMsg("INF002")) {
-			    if(gridDtl01.chkUnsavedRow(rodIdx,rodid)) {
-			    	return
-			   } else{
-			      var jsonStr = gridDtl01.getJsonRowDel(rodid);
-			      if (jsonStr == null || jsonStr.length <= 0) return;
-			         $("#jsonData").val(jsonStr);
-			         fn_prcsGridList();
-			     	}   	 
-			      } else {
-			         MsgManager.alertMsg("WRN004");
-			        } 
-			    }else {
-			      MsgManager.alertMsg("WRN002");
-			      } 
+			 gridDtl01.cs_deleteRow(rodid);
 		 }else if(isActTab2){
-			if(gridDtl02.isDelRows(rodid2)) {
-			   if(MsgManager.confirmMsg("INF002")) {
-			     if(gridDtl02.chkUnsavedRow(rodIdx2,rodid2)) {
-			     		  return
-			     }else{
-			     	var jsonStr2 = gridDtl02.getJsonRowDel(rodid);
-			     if (jsonStr2 == null || jsonStr2.length <= 0) return;
-			         $("#jsonData2").val(jsonStr2);
-			         fn_prcsGridList();
-			    }   	 
-			   } else {
-			     MsgManager.alertMsg("WRN004");
-			      } 
-			 }else {
-			    MsgManager.alertMsg("WRN002");
-			}
+			 gridDtl02.cs_deleteRow(rodid2);
 		}    
 }
 function fn_prcsGridList(){
