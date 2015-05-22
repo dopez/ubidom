@@ -243,7 +243,6 @@ function fn_remove(){
 function fn_loadGridList(){
     gfn_callAjaxForGrid(gridMain,{},"/erp/pers/pers/persDataS/selLeft",subLayout.cells("a"));
 };
-
 function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"/erp/pers/pers/persDataS/selRight",fn_loadFormListCB);
 };
