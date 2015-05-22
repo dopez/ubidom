@@ -30,5 +30,9 @@ public class PersDataSService {
 	public void prcsPersDataS(PersDataS persDataS) {
 		dao.prcsPersDataS(persDataS);
 	}
+	
+	public void updateImgPath(PersDataS persDataS){
+		dao.updateImgPath(persDataS);
+	}
 
 }

@@ -67,9 +67,21 @@ $(document).ready(function(){
 	});
 	
  	$("#updImg").click(function(){
-		byId("imgName").click();
-		fileupload("imgName","target");
-		
+		byId("imgPath").click();
+		fileupload("imgPath","target");
+	}); 
+ 	$("#delImg").click(function(){
+                 $.ajax({
+                  url : "/erp/pers/pers/persDataS/prcsFileDelete.sc",
+                  type : "POST",
+                  data : $("#attachFile").val(),
+                  async : true,
+                  success : function(data) {
+                  MsgManager.alertMsg("INF003");
+                  fn_new();
+                  fn_loadGridList();
+                 }
+             });   	 
 	}); 
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
@@ -313,7 +325,7 @@ function fn_onClosePop(pName,data){
 	  <input type="hidden" id="length" name="length" value="0" />
       <input type="hidden" id="armyNo" name="armyNo" />
       <input type="hidden" id="armySpcase" name="armySpcase" />
-      <input id="imgName" type="file" name="imgName" style="display: none;">
+      <input id="attachFile" type="file" name="attachFile" data-url="/erp/pers/pers/persDataS/prcsFileUpload.sc" multiple style="display: none;">
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">

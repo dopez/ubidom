@@ -33,7 +33,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"급여구분",   colId:"payGbn",   width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"근무구분",   colId:"serveGbn", width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"발령구분",   colId:"balGbn",   width:"7",  align:"center", type:"combo"});
-	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ed"});
+	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"발령부서",   colId:"postName", width:"7",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"발령직군",   colId:"jikgun",   width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"발령직무",   colId:"jikmu",    width:"7",  align:"center", type:"combo"});
@@ -280,8 +280,10 @@ function fn_onClosePop(pName,data){
 			obj.postName=data[i].postName;
 			obj.postCode=data[i].postCode;
 			if(status == 1){
-				gridDtl.setCells2(gridDtl.getSelectedRowIndex(),5).setValue(obj.postCode);
-				gridDtl.setCells2(gridDtl.getSelectedRowIndex(),6).setValue(obj.postName);
+				var selRowIdx = gridDtl.getSelectedRowIndex();
+				gridDtl.setCells2(selRowIdx,5).setValue(obj.postCode);
+				gridDtl.setCells2(selRowIdx,6).setValue(obj.postName);
+				gridDtl.setCells2(selRowIdx,21).setValue("UPDATE");
 			}else{
 				$('#postName').val(obj.postName);
 				$('#postCode').val(obj.postCode);

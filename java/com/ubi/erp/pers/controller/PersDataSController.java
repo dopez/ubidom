@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubi.erp.cmm.file.AttachFileService;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersDataS;
@@ -27,6 +28,9 @@ public class PersDataSController {
 
 	@Autowired
 	private PersDataSService persDataSService;
+	
+	@Autowired
+	private AttachFileService attachFileService;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
@@ -94,14 +98,29 @@ public class PersDataSController {
 			persDataSService.prcsPersDataS(persDataS);
 		}	
 	}
+	
+/*	//파일 List 불러오기
 
+	//파일 업로드 및 삭제 추가
+	@RequestMapping(value = "/prcsFileUpload")
+	public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);
+		PersDataS persDataS = new PersDataS();
+		persDataS.setCompId(request.getParameter("imgCompId"));
+		persDataS.setEmpNo(request.getParameter("imgEmpNo"));
+		persDataS.setImgPath(uploadFileList.get(0).getFilePath());
+		persDataSService.updateImgPath(persDataS);
+	}
+	
+	@RequestMapping(value = "/prcsFileDelete")
+	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,PersDataS persDataS) throws Exception {
+		attachFileService.deleteAttachFilePath(persDataS.getImgPath());
+	}
+	*/
 	public String nullCheck(String value){
 		if(value == null){
 			value = "0";
 		}
 		return value;
 	}
-	
-	//파일 업로드 및 삭제 추가
-	
 }

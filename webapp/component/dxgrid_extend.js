@@ -329,7 +329,6 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
 				colVal = this.dxObj.cells2(i,j).getValue();
-				
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
 					return null;
