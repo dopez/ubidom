@@ -30,33 +30,35 @@
     
 	//calendar
     calStDate = new dhtmlXCalendarObject([{
-        input: "validTime",
+        input: "enterDate",
         button: "calpicker1"
     }, {
-        input: "enterDate",
-        button: "calpicker2"
-    }, {
         input: "useEndDate",
-        button: "calpicker3"
+        button: "calpicker2"
     }]);
     calStDate.loadUserLanguage("ko");
     calStDate.hideTime();
-    var t = dateformat(new Date());
-    byId("validTime").value = t;
-    byId("enterDate").value = t;
-    byId("useEndDate").value = t;
-    
-    //combo
+    fn_calValue();
+  //mask test
+//    $('.unit').mask("#,##0", {reverse: true});
+//    $('.date').mask('####/##/##');
+    //combo(form)
     comboMatrGubn = dhtmlXComboFromSelect("matrGubn");
     comboMatrGubn.addOption("1","자재");
+    comboMatrGubn.readonly(true);
+
     
     comboDisKind = dhtmlXComboFromSelect("disKind");
     comboDisKind.addOption("1","제조");
     comboDisKind.addOption("2","개봉");
+    comboDisKind.readonly(true);
+
     
     comboInspYn = dhtmlXComboFromSelect("inspYn");
-    comboInspYn.addOption("0","무검사");
     comboInspYn.addOption("1","검사");
+    comboInspYn.addOption("2","무검사");
+    comboInspYn.readonly(true);
+
     
     comboChemicalKind = dhtmlXComboFromSelect("chemicalKind");
     comboChemicalKind.addOption("1","산");
@@ -64,57 +66,206 @@
     comboChemicalKind.addOption("3","혼적가능");
     comboChemicalKind.addOption("4","단독선적");
     
-    comboAcctKind = dhtmlXComboFromSelect("acctKind");
-    comboAcctKind.addOption("1","원재료");
-    
     comboUseYn = dhtmlXComboFromSelect("useYn");
     comboUseYn.addOption("1","사용");
     comboUseYn.addOption("2","미사용");
+    comboUseYn.readonly(true);
+
     
-	byId("cudKey").value = "INSERT";
+    comboAcctKind = dhtmlXComboFromSelect("acctKind");
+    comboAcctKind.setTemplate({
+	    input: "#interCode#",
+	    input: "#interName#",
+	    columns: [
+	       {header: "내부코드", width: 100,  option: "#interCode#"},
+		   {header: "코드명",   width: 100,  option: "#interName#"}
+	    ]
+    });
+    comboAcctKind.enableFilteringMode(true);
+    comboAcctKind.enableAutocomplete(true);
+    comboAcctKind.allowFreeText(true);
+	var obj={};
+	obj.code = "J04"
+	doOnOpen(comboAcctKind,obj);
+    comboAcctKind.readonly(true);
+	fn_loadGridMain();
+	gridMain.attachEvent("onRowSelect",doOnRowSelect);
+	fn_disabledInput();
+    fn_new();    
 
 })
 //doc Ready End
 
-//조회 버튼 동작
-function fn_search() {
- 
+function doOnOpen(comboId,params){
+	$.ajax({
+		"url":"/erp/cmm/InterCodeR",
+		"type":"post",
+		"data":params,
+		"success" : function(data){
+		  var list = data;
+		  for(var i=0;i<list.length;i++){
+			comboId.addOption([
+			  {value: i, text:
+			  {interCode: list[i].interCode,
+			   interName: list[i].interName}}   
+			   ]);	
+		    }
+		}
+  });
+};
+
+//calendar value
+function fn_calValue(){
+	var t = dateformat(new Date());
+	byId("enterDate").value = t;
+};
+
+//onRowSelect Handler
+function doOnRowSelect(id, ind){
+	byId("cudKey").value = "UPDATE";
+	var param={};
+	param.matrCode= gridMain.setCells(id,0).getValue();
+	fn_loadFormMain(param);
+}
+function fn_loadFormMain(param){
+	gfn_callAjaxForForm("frmMain",param,"/erp/rndt/stan/matrCodeS/selFormMain",fn_loadFormCallback);
+}
+function fn_loadFormCallback(data){
+	comboAcctKind.setComboValue(data[0].acctKind);
 }
 
+//조회 버튼 동작
+function fn_search() {
+    fn_loadGridMain();
+    fn_new();
+}
+function fn_loadGridMain(){
+	var inputParams={}
+	inputParams.matrCode = $("#mCode").val();
+	inputParams.matrName = $("#mName").val();
+	
+	if(inputParams.matrName==null ||inputParams.matrName==""){
+		inputParams.matrName = "%";
+	}
+	if(inputParams.matrCode==null ||inputParams.matrCode==""){
+		inputParams.matrCode = "%";
+	}
+	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/stan/matrCodeS/selGridMain",subLayout.cells("a"),fn_LoadGridMainCallback);
+}
+function fn_LoadGridMainCallback(){
+	
+}
 //신규 버튼 동작
 function fn_new(){
-	
+	byId("frmMain").reset();
+	byId("frmSearch").reset();
+	fn_calValue();
+    comboUseYn.selectOption(0);
+    comboInspYn.selectOption(1);
+    comboDisKind.selectOption(0);
+    comboMatrGubn.selectOption(0);
+    comboAcctKind.selectOption(2);
+	byId("cudKey").value = "INSERT";	
 }
 
 //저장 버튼 동작
 function fn_save(){
+	//$('.unit').unmask();
+ 	console.log($('#acctKind').val());
 	 f_dxRules = {
 			 matrCode : ["자재코드",r_notEmpty],
-			 matrName : ["자재명",r_notEmpty]
+			 matrName : ["자재명",r_notEmpty],
+			 matrGubn : ["구분",r_notEmpty],
+			 matrSpec : ["규격",r_notEmpty],
+			 matrUnit : ["단위",r_notEmpty],
+			 packUnit : ["포장단위",r_onlyNumber],
+			 morderUnit : ["발주단위",r_onlyNumber],
+			 inputUnit : ["입고단위",r_onlyNumber],
+			 outUnit1 : ["출고단위1",r_onlyNumber],
+			 outUnit2 : ["출고단위2",r_onlyNumber],
+			 minOrderQty : ["최소발주량",r_onlyNumber],
+			 safetyQty : ["안전재고",r_onlyNumber],
+			 leadTime : ["lead time",r_onlyNumber],
+			 totWet : ["총중량",r_onlyNumber],
+			 baseWet : ["순중량",r_onlyNumber],
+			 keepTemp1 : ["보관온도",r_onlyNumber],
+			 keepTemp2 : ["보관온도",r_onlyNumber]
 			};
 		   
-	if(gfn_formValidation('frmMain')){
+ 	if(gfn_formValidation('frmMain')){
+		fn_nullReplaceInt();
+		//byId("enterDate").value = String($("#enterDate").val());
+		//byId("useEndDate").value = String($("#useEndDate").val());
 		var params = $("#frmMain").serialize();
-		var jsonStr = JSON.stringify(params);
-		console.log(jsonStr);
 		console.log(params);
-/*      $.ajax(
+       $.ajax(
 		{
 		  type:'POST',
-		  url:"/erp/pers/pers/persDataS/prcsPersData",
+		  url:"/erp/rndt/stan/matrCodeS/prcsMatrCodeS",
 		  data:params,
 		  success:function(data)
 		  {
 			MsgManager.alertMsg("INF001"); 
-		    prcsPersDataCB(data);
+            fn_new();
+            fn_loadGridMain();
 		  }
-	   }); */
-	} 
+	   }); 
+	}
 }
 
 //삭제 버튼 동작
 function fn_remove(){
-	
+    var selRowId = gridMain.getSelectedRowId();
+    var selRowIdx = gridMain.getSelectedRowIndex();
+    if(gridMain.isDelRows(selRowId)) {
+       if(MsgManager.confirmMsg("INF002")) {
+    	   byId("cudKey").value = "DELETE";
+    	   fn_nullReplaceInt();
+    	   console.log($("#frmMain").serialize());
+                $.ajax({
+                 url : "/erp/rndt/stan/matrCodeS/prcsMatrCodeS",
+                 type : "POST",
+                 data : $("#frmMain").serialize(),
+                 async : true,
+                 success : function(data) {
+                 MsgManager.alertMsg("INF003");
+                 fn_new();
+                 fn_loadGridMain();
+                }
+            });   	 
+        } else {
+         	 MsgManager.alertMsg("WRN004");
+          } 
+     }else {
+         MsgManager.alertMsg("WRN002");
+      }
+};
+//임시 function (int가 null로 넘어 갈 때 로직 필요)
+function fn_nullReplaceInt(){
+	//프로시져로 넘겨 받을 때 integer야 하는 인풋들
+	fn_inputIntValChk('packUnit');
+	fn_inputIntValChk('morderUnit');
+	fn_inputIntValChk('inputUnit');
+	fn_inputIntValChk('outUnit1');
+	fn_inputIntValChk('outUnit2');
+	fn_inputIntValChk('minOrderQty');
+	fn_inputIntValChk('safetyQty');
+	fn_inputIntValChk('leadTime');
+	fn_inputIntValChk('totWet');
+	fn_inputIntValChk('baseWet');
+	fn_inputIntValChk('keepTemp1');
+	fn_inputIntValChk('keepTemp2');
+}
+function fn_inputIntValChk(inputId){
+	if($("#"+inputId).val()==""){
+		$("#"+inputId).val(0);
+	}
+}
+
+function fn_disabledInput(){
+	  $("input[name=toxic]").attr("disabled",true);
+	  $("input[name=hazard]").attr("disabled",true);
+	  $("input[name=restrictHandling]").attr("disabled",true);
 }
 </script>
 
@@ -130,7 +281,7 @@ function fn_remove(){
                     <div class="col-sm-8 col-md-8">
                         <label class="col-sm-2 col-md-2 control-label" for="textinput"> 자재코드 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="mCode" id="Code" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="mCode" id="mCode" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                         <label class="col-sm-1 col-md-1 control-label" for="textinput"> 자재명 </label>
                         <div class="col-sm-3 col-md-3">
@@ -183,7 +334,7 @@ function fn_remove(){
                    </div>
                    <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 포장단위 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="packUnit" id="packUnit" type="text" value="" placeholder="" class="form-control input-xs">
+                       <input name="packUnit" id="packUnit" type="text" value="" placeholder="" class="form-control input-xs unit"/>
                    </div>
                </div>
            </div>
@@ -207,7 +358,7 @@ function fn_remove(){
                    </div>
                    <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 출고단위2 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="outUnit2" id="outUnit2" type="text" value="" placeholder="" class="form-control input-xs">
+                       <input name="outUnit2" id="outUnit2" type="text" value="" placeholder="" class="form-control input-xs unit">
                    </div>
                </div>
            </div>
@@ -251,12 +402,7 @@ function fn_remove(){
                    </div>
                    <label class="col-sm-2 col-md-2 control-label" for="textinput"> 유효기간 </label>
                    <div class="col-sm-2 col-md-2">
-                       <div class="col-sm-10 col-md-10">
-                           <input name="validTime" id="validTime" type="text" value="" placeholder="" class="form-control input-xs">
-                       </div>
-                       <div class="col-sm-2 col-md-2">
-                           <input type="button" id="calpicker1" class="calicon form-control">
-                       </div>
+                        <input name="validTime" id="validTime" type="text" value="" placeholder="" class="form-control input-xs date">
                    </div>
                </div>
            </div>
@@ -319,7 +465,7 @@ function fn_remove(){
                     </div>
                     <label class="  col-sm-2 col-md-2 control-label" for="textinput"> Class </label>
                     <div class="col-sm-2 col-md-2">
-                        <input name="class" id="class" type="text" value="" placeholder="" class="form-control input-xs">
+                        <input name="matrClass" id="matrClass" type="text" value="" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
             </div>
@@ -391,7 +537,7 @@ function fn_remove(){
                     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 등록일자 </label>
                     <div class="col-sm-2 col-md-2">
                         <div class="col-sm-10 col-md-10">
-                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker2" class="calicon form-control">
@@ -400,7 +546,7 @@ function fn_remove(){
                     <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 사용중지일자 </label>
                     <div class="col-sm-2 col-md-2">
                         <div class="col-sm-10 col-md-10">
-                            <input name="useEndDate" id="useEndDate" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="useEndDate" id="useEndDate" type="text" value="" placeholder="" class="form-control input-xs date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker3" class="calicon form-control">

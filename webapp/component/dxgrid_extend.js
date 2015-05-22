@@ -689,3 +689,15 @@ dxGrid.prototype.changeCellType = function(rowInd,cellIndex,type){
 dxGrid.prototype.getColumnId = function(cellIndex){
 	return this.dxObj.getColumnId(cellIndex);
 }
+
+dxGrid.prototype.cs_deleteRow = function(rowId){
+	var colIndex=this.dxObj.getColIndexById("cudKey");
+	var cellObj = this.dxObj.cells(rowId,colIndex);
+
+	if(cellObj.getValue() == "INSERT"){
+		this.dxObj.deleteRow(rowId)
+	}else{
+		cellObj.setValue("DELETE");
+		return this.dxObj.setRowTextStyle(rowId, "font-family:arial;font-style: italic;color:#C0C0C0;");
+	}
+}

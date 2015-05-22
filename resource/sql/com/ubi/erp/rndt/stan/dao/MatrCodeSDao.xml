@@ -5,5 +5,67 @@
 
 	<resultMap id="MatrCodeSMap" type="MatrCodeS"/>
 	
-  	
+  	<insert id="prcsMatrCodeS" statementType="CALLABLE" parameterType="MatrCodeS">
+  		{call SP_RNDT_MATRCODES_SAVE(
+  			#{cudKey},<!-- 1 -->
+  			#{compId},<!--  2-->
+  			#{matrCode},<!-- 3 -->
+  			#{matrName},<!--  4-->
+  			#{matrGubn},<!--  5-->
+  			#{matrSpec},<!--  6-->
+  			#{matrUnit},<!--  7-->
+  			#{packUnit},<!--  8-->
+  			#{morderUnit},<!--9  -->
+  			#{validTime},<!--  10-->
+  			#{leadTime},<!--  11-->
+ 			#{safetyQty},<!-- 12 -->
+  			#{safetyKind},<!-- 13 -->
+  			#{baseWet},<!-- 14 -->
+  			#{totWet},<!-- 15 -->
+  			#{inspYn},<!-- 16 -->
+  			#{keepTemp1},<!-- 17 -->
+  			#{keepTemp2},<!-- 18 -->
+  			#{enterDate},<!-- 19 -->
+  			#{hsCode},<!-- 20 -->
+  			#{useEndDate},<!-- 21 -->
+  			#{useYn},<!-- 22 -->
+  			#{acctKind},<!-- 23 -->
+  			#{inputUnit},<!-- 24 -->
+  			#{outUnit1},<!-- 25 -->
+  			#{outUnit2},<!-- 26 -->
+  			#{makeCust},<!-- 27 -->
+  			#{matrClass},<!-- 28 -->
+  			#{packingGroup},<!-- 29 -->
+  			#{unNo},<!--30  -->
+  			#{inputArea},<!-- 31 -->
+  			#{disKind},<!-- 32 -->
+  			#{inputCust1},<!-- 33 -->
+  			#{inputCust2},<!-- 34 -->
+  			#{inputCustKind1},<!-- 35 -->
+  			#{inputCustKind2},<!--36  -->
+  			#{minOrderQty},<!-- 37 -->
+  			#{origin},<!-- 38 -->
+  			#{chemicalKind},<!-- 39 -->
+  			#{sysEmpNo}<!-- 40 -->
+  		)}
+  	</insert>
+	<select id="selGridMain" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_MATRCODES_SCH1(
+		 		#{V_COMPID},
+		 		#{V_MATR_CODE},
+		 		#{V_MATR_NAME},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MatrCodeSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+  	<select id="selFormMain" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_MATRCODES_SCH2(
+		 		#{V_COMPID},
+		 		#{V_MATR_CODE},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MatrCodeSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 </mapper>
