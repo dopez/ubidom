@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo01;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"2U");
+	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//교육훈련사항등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -28,13 +28,13 @@ $(document).ready(function(){
 	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO",         colId:"no",      width:"5", align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"NO",         colId:"no",      width:"4", align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"교육주관처", colId:"eduCust", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육과정명", colId:"eduName", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육기간",   colId:"eduDate", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육구분",   colId:"gbn",     width:"7", align:"center", type:"combo"});
-	gridDtl.addHeader({name:"교육시간",   colId:"eduTime", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"비고",       colId:"remarks", width:"7", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"교육과정명", colId:"eduName", width:"12", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"교육기간",   colId:"eduDate", width:"12", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"교육구분",   colId:"gbn",     width:"5", align:"center", type:"combo"});
+	gridDtl.addHeader({name:"교육시간",   colId:"eduTime", width:"6", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"비고",       colId:"remarks", width:"17", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"사원번호",   colId:"empNo",   width:"7", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"사업장",     colId:"compId",  width:"7", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"순번",       colId:"seq",     width:"7", align:"center", type:"ro"});
@@ -111,7 +111,7 @@ function fn_save(){
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
        $.ajax({
-          url : "/erp/pers/pers/academicDataS/prcsAcademicDataS",
+          url : "/erp/pers/pers/educationDataS/prcsEducationDataS",
           type : "POST",
           data : $("#pform").serialize(),
           async : true,
@@ -134,7 +134,7 @@ function fn_delete(){
            if (jsonStr == null || jsonStr.length <= 0) return;
             $("#jsonData").val(jsonStr);
                 $.ajax({
-                 url : "/erp/pers/pers/academicDataS/prcsAcademicDataS",
+                 url : "/erp/pers/pers/educationDataS/prcsEducationDataS",
                  type : "POST",
                  data : $("#pform").serialize(),
                  async : true,
@@ -153,8 +153,8 @@ function fn_delete(){
 }
 function fn_refreshGrid(id){
 	var obj={};
-	  obj.compId = gridDtl.setCells(id,9).getValue();
-	  obj.empNo = gridDtl.setCells(id,8).getValue();
+	  obj.compId = gridDtl.setCells(id,8).getValue();
+	  obj.empNo = gridDtl.setCells(id,7).getValue();
 	  fn_loadGridRightList(obj);
 }
 function fn_loadGridLeftList(){
@@ -163,7 +163,7 @@ function fn_loadGridLeftList(){
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/academicDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/educationDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();
@@ -171,7 +171,7 @@ function fn_loadGridLeftListCB(data){
 	$('#empNo').val('');
 };
 function fn_loadGridRightList(params){
-	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/academicDataS/selRight",subLayout.cells("b"));
+	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/educationDataS/selRight",subLayout.cells("b"));
 }
 
 function fn_onClosePop(pName,data){
