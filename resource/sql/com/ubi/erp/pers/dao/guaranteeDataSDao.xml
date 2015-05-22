@@ -13,8 +13,8 @@
 		 {call SP_PERS_GUARANTEEDATAS1_SCH(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=GuaranteeDataSMap, javaType=ResultSet})}	
 	</select>
 	
-		<insert id="prcsGuaranteeDataS1" statementType="CALLABLE" parameterType="PersDataS">
-  		{call SP_PERS_GUARANTEEDATAS_SAVE(
+		<insert id="prcsGuaranteeDataS1" statementType="CALLABLE" parameterType="GuaranteeDataS">
+  		{call SP_PERS_GUARANTEEDATAS1_SAVE(
   		#{cudKey},#{compId},#{empNo},#{seq},#{startDate},
   		#{endDate},#{insuCont},#{premium},#{insuAmt},#{insuComp},
   		#{sysEmpNo}
@@ -25,7 +25,7 @@
 		 {call SP_PERS_GUARANTEEDATAS2_SCH(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=GuaranteeDataSMap, javaType=ResultSet})}	
 	</select>
 	
-		<insert id="prcsGuaranteeDataS2" statementType="CALLABLE" parameterType="PersDataS">
+		<insert id="prcsGuaranteeDataS2" statementType="CALLABLE" parameterType="GuaranteeDataS">
   		{call SP_PERS_GUARANTEEDATAS2_SAVE(
   		#{cudKey},#{compId},#{empNo},#{seq},#{relatKind},
   		#{relatName},#{juminNo},#{compName},#{jikweeName},#{scholName},

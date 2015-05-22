@@ -30,7 +30,7 @@ $(document).ready(function(){
 
 	gridTabbar = subLayout.cells("b").attachTabbar({
        tabs: [{id: "a1",text: "신원보증",active: true}, 
-               {id: "a2",text: "보증보험"}]});
+              {id: "a2",text: "보증보험"}]});
 	
     gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
     gridDtl01.addHeader({name:"NO",           colId:"no",         width:"4", align:"center", type:"cntr"});
@@ -83,9 +83,7 @@ $(document).ready(function(){
 	
 	combo01 =gridDtl01.getColumnCombo(1);
 	fn_comboSet(combo01);
-	
-	 isActTab1 = gridTabbar.tabs("a1").isActive();
-	 isActTab2 = gridTabbar.tabs("a2").isActive();
+
 });
 function fn_comboSet(comboId){
 	var params={};
@@ -105,15 +103,10 @@ function fn_comboSet(comboId){
 		"success" : function(data){
 		  var list = data;
 		  for(var i=0;i<list.length;i++){
-			comboId.addOption([
-			  {value: list[i].interCode, text:
-			  {interCode: list[i].interCode,
-			   interName: list[i].interName}}   
-			   ]);	
+			  comboId.addOption(list[i].interCode,list[i].interName);
 		    }
 		}
   });
-
 comboId.enableFilteringMode(true);
 comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
@@ -126,18 +119,18 @@ function doOnMstRowSelect(id,ind){
 }
 function doOnDtl01RowSelect(id,ind){
     gridDtl01.editCell();
-	var no = gridDtl.setCells(id,0).getValue();
-	var seqValue = gridDtl.setCells(id,10).getValue();
+	var no = gridDtl01.setCells(id,0).getValue();
+	var seqValue = gridDtl01.setCells(id,10).getValue();
 	if(seqValue == ""){
-		gridDtl.setCells(id,10).setValue(no);
+		gridDtl01.setCells(id,10).setValue(no);
 	} 
 }
 function doOnDtl02RowSelect(id,ind){
     gridDtl02.editCell();
-	var no = gridDtl.setCells(id,0).getValue();
-	var seqValue = gridDtl.setCells(id,9).getValue();
+	var no = gridDtl02.setCells(id,0).getValue();
+	var seqValue = gridDtl02.setCells(id,9).getValue();
 	if(seqValue == ""){
-		gridDtl.setCells(id,9).setValue(no);
+		gridDtl02.setCells(id,9).setValue(no);
 	} 
 }
 function fn_search(){
@@ -150,6 +143,8 @@ function fn_add(){
 	if(rowCheck == null){
 		return false;
 	}else{ 
+		 isActTab1 = gridTabbar.tabs("a1").isActive();
+		 isActTab2 = gridTabbar.tabs("a2").isActive();
 	if(isActTab1){
 		var totalColNum = gridDtl01.getColumnCount();
 	    var data = new Array(totalColNum);
@@ -173,56 +168,93 @@ function fn_add(){
 	 }
    }
 }
+function fn_nullCheck(id){
+	var startValue = gridDtl02.setCells(id,1).getValue();
+	var endValue = gridDtl02.setCells(id,1).getValue();
+	if(startValue == ""){
+		gridDtl02.setCells(id,1).setValue(0);
+	}else if(endValue == ""){
+		gridDtl02.setCells(id,2).setValue(0);
+	}
+}
 function fn_save(){
+	if(gridDtl02.getSelectedRowId() != null){
+		var rowId = gridDtl02.getSelectedRowId();
+		fn_nullCheck(rowId);
+	}
 	 var jsonStr = gridDtl01.getJsonUpdated2();
 	 var jsonStr2 = gridDtl02.getJsonUpdated2();
-   if (jsonStr == null || jsonStr.length <= 0 
-		 && jsonStr2 == null || jsonStr2.length <= 0) return;         		
-       $("#jsonData").val(jsonStr);
-       $("#jsonData2").val(jsonStr2);
-       $.ajax({
-          url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-           }
-      }); 
+	 if(jsonStr == null || jsonStr.length <= 0 ) return;
+	 else if(jsonStr2 == null || jsonStr2.length <= 0) return;
+	 $("#jsonData").val(jsonStr);
+     $("#jsonData2").val(jsonStr2);
+     $.ajax({
+        url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
+        type : "POST",
+        data : $("#pform").serialize(),
+        async : true,
+        success : function(data) {
+        MsgManager.alertMsg("INF001");
+         }
+    }); 
 }
-
+function fn_remove(){
+	
+}
 function fn_delete(){
+	    isActTab1 = gridTabbar.tabs("a1").isActive();
+	    isActTab2 = gridTabbar.tabs("a2").isActive();
 		var rodid = gridDtl01.getSelectedRowId();
 	    var rodIdx = gridDtl01.getSelectedRowIndex();
 	    var rodid2 = gridDtl02.getSelectedRowId();
 	    var rodIdx2 = gridDtl02.getSelectedRowIndex();
-	    if(gridDtl01.isDelRows(rodid) && gridDtl02.isDelRows(rodid2)) {
-	       if(MsgManager.confirmMsg("INF002")) {
-	     	  if(gridDtl01.chkUnsavedRow(rodIdx,rodid) && gridDtl02.chkUnsavedRow(rodIdx2,rodid2)) {
-	     		  return
-	     	  }else{
-	     		 var jsonStr = gridDtl01.getJsonRowDel(rodid);
-	     		 var jsonStr2 = gridDtl02.getJsonRowDel(rodid);
-	           if (jsonStr == null || jsonStr.length <= 0
-	        		& jsonStr2 == null || jsonStr2.length <= 0) return;
-	            $("#jsonData").val(jsonStr);
-	            $("#jsonData2").val(jsonStr2);
-	                $.ajax({
-	                 url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
-	                 type : "POST",
-	                 data : $("#pform").serialize(),
-	                 async : true,
-	                 success : function(data) {
-	                 MsgManager.alertMsg("INF003");
-	                }
-	            });
-	     	   }   	 
-	        } else {
-	         	 MsgManager.alertMsg("WRN004");
-	          } 
-	     }else {
-	         MsgManager.alertMsg("WRN002");
-	      }
+		 if(isActTab1){
+		    if(gridDtl01.isDelRows(rodid)) {
+			   if(MsgManager.confirmMsg("INF002")) {
+			    if(gridDtl01.chkUnsavedRow(rodIdx,rodid)) {
+			    	return
+			   } else{
+			      var jsonStr = gridDtl01.getJsonRowDel(rodid);
+			      if (jsonStr == null || jsonStr.length <= 0) return;
+			         $("#jsonData").val(jsonStr);
+			         fn_prcsGridList();
+			     	}   	 
+			      } else {
+			         MsgManager.alertMsg("WRN004");
+			        } 
+			    }else {
+			      MsgManager.alertMsg("WRN002");
+			      } 
+		 }else if(isActTab2){
+			if(gridDtl02.isDelRows(rodid2)) {
+			   if(MsgManager.confirmMsg("INF002")) {
+			     if(gridDtl02.chkUnsavedRow(rodIdx2,rodid2)) {
+			     		  return
+			     }else{
+			     	var jsonStr2 = gridDtl02.getJsonRowDel(rodid);
+			     if (jsonStr2 == null || jsonStr2.length <= 0) return;
+			         $("#jsonData2").val(jsonStr2);
+			         fn_prcsGridList();
+			    }   	 
+			   } else {
+			     MsgManager.alertMsg("WRN004");
+			      } 
+			 }else {
+			    MsgManager.alertMsg("WRN002");
+			}
+		}    
+}
+function fn_prcsGridList(){
+	 $.ajax({
+         url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
+         type : "POST",
+         data : $("#pform").serialize(),
+         async : true,
+         success : function(data) {
+         MsgManager.alertMsg("INF003");
+         fn_search();
+       }
+    });
 }
 function fn_loadGridLeftList(){
 	var obj={};
@@ -238,8 +270,8 @@ function fn_loadGridLeftListCB(data){
 	$('#empNo').val('');
 };
 function fn_loadGridRightList(params){
-	gfn_callAjaxForGrid(gridDtl01,params,"/erp/pers/pers/guaranteeDataS/selRight1",subLayout.cells("b"));
-	gfn_callAjaxForGrid(gridDtl02,params,"/erp/pers/pers/guaranteeDataS/selRight2",subLayout.cells("b"));
+	gfn_callAjaxForGrid(gridDtl01,params,"/erp/pers/pers/guaranteeDataS/selRight2",gridTabbar.tabs("a1"));
+	gfn_callAjaxForGrid(gridDtl02,params,"/erp/pers/pers/guaranteeDataS/selRight1",gridTabbar.tabs("a2"));
 }
 
 function fn_onClosePop(pName,data){

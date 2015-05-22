@@ -98,11 +98,22 @@ public class GuaranteeDataSController {
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
 		String jsonData2 = request.getParameter("jsonData2");
-		List<GuaranteeDataS> list1 = new ArrayList<GuaranteeDataS>();
-		List<GuaranteeDataS> list2 = new ArrayList<GuaranteeDataS>();
-		ObjectMapper mapper = new ObjectMapper();
-		list1 = mapper.readValue(jsonData, new TypeReference<ArrayList<GuaranteeDataS>>(){});
-		list2 = mapper.readValue(jsonData2, new TypeReference<ArrayList<GuaranteeDataS>>(){});
+		List<GuaranteeDataS> list1 = null;
+		List<GuaranteeDataS> list2 = null;
+		
+		ObjectMapper mapper1;
+		ObjectMapper mapper2;
+
+		if(jsonData != null){
+			list1 = new ArrayList<GuaranteeDataS>();
+			mapper1 = new ObjectMapper();
+			list1 = mapper1.readValue(jsonData, new TypeReference<ArrayList<GuaranteeDataS>>(){});
+		}
+		if(jsonData2 != null){
+			list2 = new ArrayList<GuaranteeDataS>();
+			mapper2 = new ObjectMapper();
+			list2 = mapper2.readValue(jsonData2, new TypeReference<ArrayList<GuaranteeDataS>>(){});
+		}
 		DateFormatUtil df = new DateFormatUtil();
 		
 		for(GuaranteeDataS guaranteeDataS : list1) {

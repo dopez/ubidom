@@ -17,8 +17,8 @@ public class GuaranteeDataS implements Serializable {
 	private String startDate;
 	private String endDate;
 	private String insuCont;
-	private String premium;
-	private String insuAmt;
+	private int premium;
+	private int insuAmt;
 	private String insuComp;
 	// 신원조회
 	private String relatKind;
@@ -102,19 +102,19 @@ public class GuaranteeDataS implements Serializable {
 		this.insuCont = insuCont;
 	}
 
-	public String getPremium() {
+	public int getPremium() {
 		return premium;
 	}
 
-	public void setPremium(String premium) {
+	public void setPremium(int premium) {
 		this.premium = premium;
 	}
 
-	public String getInsuAmt() {
+	public int getInsuAmt() {
 		return insuAmt;
 	}
 
-	public void setInsuAmt(String insuAmt) {
+	public void setInsuAmt(int insuAmt) {
 		this.insuAmt = insuAmt;
 	}
 
