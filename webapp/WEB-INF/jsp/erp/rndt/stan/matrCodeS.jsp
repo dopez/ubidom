@@ -3,6 +3,7 @@
 <script type="text/javascript">
    var gridMain, layout, toolbar, subLayout;
    var calStDate
+   var popParam
    $(document).ready(function() {
 
     Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //자재코드등록
@@ -18,7 +19,7 @@
     subLayout.cells("a").setWidth("302");
     
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"32",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"31",align:"center",type:"ro"});
 	gridMain.addHeader({name:"자재명",colId:"matrName",width:"35",align:"center",type:"ro"});
 	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"33",align:"center",type:"ro"});
 	gridMain.setColSort("str");	
@@ -42,36 +43,25 @@
   //mask test
 //    $('.unit').mask("#,##0", {reverse: true});
 //    $('.date').mask('####/##/##');
+
     //combo(form)
     comboMatrGubn = dhtmlXComboFromSelect("matrGubn");
-    comboMatrGubn.addOption("1","자재");
-    comboMatrGubn.readonly(true);
+    fn_comboOpt(comboMatrGubn,"자재");
 
-    
     comboDisKind = dhtmlXComboFromSelect("disKind");
-    comboDisKind.addOption("1","제조");
-    comboDisKind.addOption("2","개봉");
-    comboDisKind.readonly(true);
-
+    fn_comboOpt(comboDisKind,"제조","개봉");
     
     comboInspYn = dhtmlXComboFromSelect("inspYn");
-    comboInspYn.addOption("1","검사");
-    comboInspYn.addOption("2","무검사");
-    comboInspYn.readonly(true);
-
-    
-    comboChemicalKind = dhtmlXComboFromSelect("chemicalKind");
-    comboChemicalKind.addOption("1","산");
-    comboChemicalKind.addOption("2","알칼리");
-    comboChemicalKind.addOption("3","혼적가능");
-    comboChemicalKind.addOption("4","단독선적");
+    fn_comboOpt(comboInspYn,"무검사","검사");
     
     comboUseYn = dhtmlXComboFromSelect("useYn");
-    comboUseYn.addOption("1","사용");
-    comboUseYn.addOption("2","미사용");
-    comboUseYn.readonly(true);
-
+    fn_comboOpt(comboUseYn,"사용","미사용");
     
+    comboChemicalKind = dhtmlXComboFromSelect("chemicalKind");
+    fn_comboOpt(comboChemicalKind,"산","알칼리");
+    comboChemicalKind.addOption("3","혼적가능");
+    comboChemicalKind.addOption("4","단독선적");
+	
     comboAcctKind = dhtmlXComboFromSelect("acctKind");
     comboAcctKind.setTemplate({
 	    input: "#interCode#",
@@ -84,32 +74,42 @@
     comboAcctKind.enableFilteringMode(true);
     comboAcctKind.enableAutocomplete(true);
     comboAcctKind.allowFreeText(true);
-	var obj={};
-	obj.code = "J04"
-	doOnOpen(comboAcctKind,obj);
     comboAcctKind.readonly(true);
-	fn_loadGridMain();
-	gridMain.attachEvent("onRowSelect",doOnRowSelect);
+    fn_comboCodeLoad(comboAcctKind);
+	
+    
+    gridMain.attachEvent("onRowSelect",fn_doOnRowSelect);
 	fn_disabledInput();
-    fn_new();    
+	fn_search();
 
 })
 //doc Ready End
-
-function doOnOpen(comboId,params){
-	$.ajax({
+function fn_comboOpt(comboId,opt1,opt2){
+	comboId.addOption(1,opt1);
+	if(opt2==null){
+		return
+	}else{
+		comboId.addOption(2,opt2);
+	}
+	comboId.readonly(true);
+}
+function fn_comboCodeLoad(comboId){
+	   var param={};
+	   param.code = "J04"
+	   $.ajax({
 		"url":"/erp/cmm/InterCodeR",
 		"type":"post",
-		"data":params,
+		"data":param,
 		"success" : function(data){
 		  var list = data;
-		  for(var i=0;i<list.length;i++){
+		  for(var i=2;i<list.length;i++){
 			comboId.addOption([
 			  {value: i, text:
 			  {interCode: list[i].interCode,
 			   interName: list[i].interName}}   
 			   ]);	
 		    }
+		  comboAcctKind.selectOption(0);
 		}
   });
 };
@@ -121,7 +121,7 @@ function fn_calValue(){
 };
 
 //onRowSelect Handler
-function doOnRowSelect(id, ind){
+function fn_doOnRowSelect(id, ind){
 	byId("cudKey").value = "UPDATE";
 	var param={};
 	param.matrCode= gridMain.setCells(id,0).getValue();
@@ -161,17 +161,16 @@ function fn_new(){
 	byId("frmSearch").reset();
 	fn_calValue();
     comboUseYn.selectOption(0);
-    comboInspYn.selectOption(1);
+    comboInspYn.selectOption(0);
     comboDisKind.selectOption(0);
     comboMatrGubn.selectOption(0);
-    comboAcctKind.selectOption(2);
+    comboAcctKind.selectOption(0);
 	byId("cudKey").value = "INSERT";	
 }
 
 //저장 버튼 동작
 function fn_save(){
 	//$('.unit').unmask();
- 	console.log($('#acctKind').val());
 	 f_dxRules = {
 			 matrCode : ["자재코드",r_notEmpty],
 			 matrName : ["자재명",r_notEmpty],
@@ -194,8 +193,6 @@ function fn_save(){
 		   
  	if(gfn_formValidation('frmMain')){
 		fn_nullReplaceInt();
-		//byId("enterDate").value = String($("#enterDate").val());
-		//byId("useEndDate").value = String($("#useEndDate").val());
 		var params = $("#frmMain").serialize();
 		console.log(params);
        $.ajax(
@@ -266,6 +263,19 @@ function fn_disabledInput(){
 	  $("input[name=toxic]").attr("disabled",true);
 	  $("input[name=hazard]").attr("disabled",true);
 	  $("input[name=restrictHandling]").attr("disabled",true);
+}
+//공급사1,2 팝업
+function fn_openCustCodePop(param){
+	popParam = param
+    gfn_load_pop('w1', 'common/supplyCompCodePOP', true,popParam);
+}
+
+function fn_closeCustCodePop(param){
+	if(popParam == 1){
+		$("#inputCust1").val(param);
+	}else{
+		$("#inputCust2").val(param);
+	}
 }
 </script>
 
@@ -370,7 +380,7 @@ function fn_disabledInput(){
                    </div>
                    <label class="col-sm-2 col-md-2 control-label" for="textinput"> 공급사1 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="inputCust1" id="inputCust1" type="text" value="" placeholder="" class="form-control input-xs">
+                       <input name="inputCust1" id="inputCust1" type="text" value="" placeholder="" class="form-control input-xs" onclick="fn_openCustCodePop(1)">
                    </div>
                    <div class="col-sm-2 col-md-2">
                        <input type="radio" name="inputCustKind1" value="1" checked="checked">내자
@@ -386,7 +396,7 @@ function fn_disabledInput(){
                    </div>
                    <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 공급사2 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="inputCust2" id="inputCust2" type="text" value="" placeholder="" class="form-control input-xs">
+                       <input name="inputCust2" id="inputCust2" type="text" value="" placeholder="" class="form-control input-xs"onclick="fn_openCustCodePop(2)">
                    </div>
                    <div class="col-sm-2 col-md-2">
                        <input type="radio" name="inputCustKind2" id="inputCustKind2" value="1" checked="checked">내자

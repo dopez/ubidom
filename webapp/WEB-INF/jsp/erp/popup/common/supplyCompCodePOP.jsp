@@ -23,35 +23,39 @@ $(document).ready(function(){
     
 	gridMain = new dxGrid(subLayout.cells("a"), true);
 	gridMain.addHeader({name:"공급업체코드", colId:"custCode", 	width:"15", align:"center", type:"ro"});
-	gridMain.addHeader({name:"공급업체명", colId:"custName", 	width:"15", align:"center", type:"ro"});
+	gridMain.addHeader({name:"공급업체명", colId:"custKorName", 	width:"15", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","custCode");
 	gridMain.init(); 
 	
 	fn_gridPopLoad();
 	
-	toolbar.attachEvent("onClick", function(id) {
-	      if (id == "btn1") {
-	    	  fn_gridPopLoad();
-	         }
-	});
-	function fn_gridPopLoad(){
-				alert(parent.popValue);
-				var param = "custName=" + parent.popValue;
-				alert(param);
-		if(param == null || param == ''){
-				var param = 'custName="%"';
-		}
-				gfn_gridLoad("/erp/comboTest/selComp",param,gridMain,fn_toParent);
-	}
+	gridMain.attachEvent("onRowDblClicked", fn_onRowDblClicked);
 
-	function fn_toParent(){
-		gridMain.attachEvent("onRowDblClicked",function(rId,cInd){
-			var row = rId-1;
-			parent.popValue = gridMain.setCells2(row,1).getValue();
-		});
-	}
 });
+function fn_search(){
+	fn_gridPopLoad();
+}
+function fn_gridPopLoad(){
+	var param = {};
+	param.code = '%'
+	param.name = $("#supplyCompName").val();
+	if(param.name == null || param.name == ''){
+		param.name = '%';
+	}
+	gfn_callAjaxForGrid(gridMain,param,"/erp/comm/CustCodeR",subLayout.cells("a"));
+}
+function fn_toParent(){
+	gridMain.attachEvent("onRowDblClicked",function(rId,cInd){
+		var row = rId-1;
+		parent.popValue = gridMain.setCells2(row,1).getValue();
+	});
+}
+function fn_onRowDblClicked(rId, cId){
+	var popVal = gridMain.setCells(rId,1).getValue();
+	parent.fn_closeCustCodePop(popVal);
+	parent.dhxWins.window("w1").close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
