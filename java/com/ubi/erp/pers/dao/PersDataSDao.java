@@ -12,6 +12,4 @@ public interface PersDataSDao {
 
 	void prcsPersDataS(PersDataS persDataS);
 
-	void updateImgPath(PersDataS persDataS);
-
 }

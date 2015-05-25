@@ -71,14 +71,14 @@ $(document).ready(function(){
  		if(rowCheck == null){
  			return false;
  		}else{
- 			byId("attachFile").click();
- 			fileupload("attachFile","target");
- 			fn_search();
+ 			byId("fileName").click();
+ 			status = fileupload("fileName","target"); 
  		}
 	}); 
+ 	
  	$("#delImg").click(function(){
  		       disableValue(1);
- 		       byId("cudKey").value = "DELETE";
+ 		       byId("cudKey").value = "UPDATE";
                  $.ajax({
                   url : "/erp/pers/pers/persDataS/prcsFileDelete",
                   type : "POST",
@@ -193,7 +193,7 @@ function fn_new(){
 };
 
  function fn_save(){
-	 f_dxRules = {
+	   f_dxRules = {
 	   empNo : ["사원번호",r_notEmpty,r_len + "|7"],
 	   korName : ["성명",r_notEmpty],
        regiNumb: ["주민번호",r_notEmpty,r_len + "|14"],
@@ -220,7 +220,7 @@ function fn_new(){
 			  }
 		   });
 	}else{
-	} 
+	}  
 }; 
 function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
@@ -258,7 +258,10 @@ function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
-	$("imgPath").attr("src",data[0].imgPath);
+	if(data[0].imgPath != null){
+	  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
+	  $("#target").attr("src",path);
+	}
 	
 }
 function fn_onOpenPop(pName){
@@ -334,8 +337,8 @@ function fn_onClosePop(pName,data){
 	  <input type="hidden" id="length" name="length" value="0" />
       <input type="hidden" id="armyNo" name="armyNo" />
       <input type="hidden" id="armySpcase" name="armySpcase" />
-      <input type="hidden" id="imgPath" name="imgPath" />
-      <input id="attachFile" type="file" name="attachFile" data-url="/erp/pers/pers/persDataS/prcsFileUpload" multiple style="display: none;">
+      <input id="imgPath" type="hidden" name="imgPath">
+      <input id="fileName" type="file" name="fileName" data-url="/erp/pers/pers/persDataS/prcsFileUpload" multiple style="display: none;">
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">

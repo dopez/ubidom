@@ -24,16 +24,8 @@
   		#{armyJong},#{amryBarch},#{armyGd},#{armyYn},#{armyNo},
   		#{amryDate1},#{amryDate2},#{religion},#{armySpcase},#{armyMerit},
   		#{enterDate},#{retireDate},#{retireMidDate},#{bankCode},#{bankNumb},
-  		#{sysEmpNo}
+  		#{imgPath},#{sysEmpNo}
   		)}	
   	</insert>
-  	
-  	<update id="updateImgPath" parameterType="PersDataS">
-  	  UPDATE TBL_INSA_MST
-        SET  IMG_PATH = #{imgPath}
-        WHERE  
-           COMP_ID = #{compId} 
-           AND EMP_NO = #{empNo}
-  	</update>
-  	
+
 </mapper>
