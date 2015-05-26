@@ -17,10 +17,8 @@ $(document).ready(function(){
 	
 	subLayout.cells("a").setWidth(250);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
 	gridMain.addHeader({name:"사업장번호", colId:"compId",    width:"45", align:"center", type:"ro"});
 	gridMain.addHeader({name:"사업장",     colId:"compName",  width:"40", align:"center", type:"ro"});
-	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","compId");
 	gridMain.init(); 
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
@@ -67,66 +65,37 @@ function fn_calValue(){
 	byId("startDate").value = t; 
 };
 function fn_loadGridList(){
-    gfn_callAjaxForGrid(gridMain,{},"/erp/comm/stan/compS/selLeft",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
 function fn_save(){
 	 f_dxRules = {
 	   compId :        ["회사코드",r_notEmpty],
 	   compName :      ["회사명",r_notEmpty],
-	   presidentName : ["대표자명",r_notEmpty],
-	   compNo:         ["사업자등록번호",r_notEmpty],
-	   corpNo:         ["법인번호",r_notEmpty],
-	   bizStatus:      ["업태",r_notEmpty],
-	   bizItem:        ["업종",r_notEmpty],
-	   zipCode:        ["우편번호",r_notEmpty],
+ 	   presidentName : ["대표자명",r_notEmpty],
+ 	   compNo:         ["사업자등록번호",r_notEmpty],
+ 	   corpNo:         ["법인번호",r_notEmpty],
+ 	   bizStatus:      ["업태",r_notEmpty],
+ 	   bizItem:        ["업종",r_notEmpty],
+       zipCode:        ["우편번호",r_notEmpty],
        address:        ["주소",r_notEmpty],
        startDate:      ["개업년월일",r_notEmpty]
 	};
   
 	if(gfn_formValidation('frmMain')){
-		 disableValue(1);
+ 		 disableValue(1);	
 		var params = $("#frmMain").serialize();
-	     $.ajax(
-			{
-			  type:'POST',
-			  url:"/erp/comm/stan/compS/prcsCompS",
-			  data:params,
-			  success:function(data)
-			  {
-				MsgManager.alertMsg("INF001"); 
-				fn_new();
-				disableValue(2);
-			  }
-		   });
-	}else{
-	} 
+	    gfn_callAjaxForForm("frmMain",params,"formSave");
+	    fn_search();
+	}
 };
+
 function fn_remove(){
+	$('#cudKey').val('DELETE');
     var rodid = gridMain.getSelectedRowId();
-    var rodIdx = gridMain.getSelectedRowIndex();
-    if(gridMain.isDelRows(rodid)) {
-       if(MsgManager.confirmMsg("INF002")) {
-    	   byId("cudKey").value = "DELETE";
-    	   disableValue(1);
-                $.ajax({
-                 url : "/erp/comm/stan/compS/prcsCompS",
-                 type : "POST",
-                 data : $("#frmMain").serialize(),
-                 async : true,
-                 success : function(data) {
-                 MsgManager.alertMsg("INF003");
-                 fn_search();
-                }
-            });   	 
-        } else {
-         	 MsgManager.alertMsg("WRN004");
-          } 
-     }else {
-         MsgManager.alertMsg("WRN002");
-      }
+    gridMain.cs_deleteRow(rodid);
 };
 function fn_loadFormList(params){
-	gfn_callAjaxForForm("frmMain",params,"/erp/comm/stan/compS/selRight");
+	gfn_callAjaxForForm("frmMain",params,"formSearch");
 };
 </script>
 <form id="pform" name="pform" method="post">

@@ -85,19 +85,17 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
         type: "POST",
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
         data: p_data,
-        async: false,
+        async: true,
         dataType: "json",
         beforeSend: function() {},
         success: function(data) {
-            
-//           	if (callbackFn != undefined) {
-//                callbackFn.call(this, data);
-//            }		
-
-            rdata = data;
+        	
             gfn_setDataInFrom($("#" + formId), data[0]);
 
-      
+        	if (callbackFn != undefined) {
+           		console.log("callback")
+                callbackFn.call(this, data);
+            }		
         },
         complete: function() {
 
@@ -110,114 +108,17 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
     return rdata;
 }
 
-//function gfn_ajaxSaveToForm(formId, extraData,url, callbackFn) {
-// 
-//    var submitData;
-//    var formEl = $("<form>").appendTo("body");
-//    
-//    console.log("1",formEl)
-//     $("#"+formId).find(':input').each(function(){
-//    	 $(this).clone().appendTo(formEl);
-//     })
-//     console.log("2")
-//    $(formEl).find(':input').each(function(){
-//    	
-//    	if($(this).is('[class^="format_"]')){
-//    		console.log("is class")
-//    		 $(this).val($(this).cleanVal());
-//    	}
-//    	
-//    	if($(this).is("input[type='checkbox']")){
-//    		console.log("is checkbox")
-//    		$('<input>').attr({
-//                type: 'hidden',
-//                id: "",
-//                name: $(this).attr("name")
-//            }).appendTo(formEl);
-//    		
-//            if ($(this).is(":checked")) {
-//                $("input:hidden[name='" + this.name + "']").val($(this).val())
-//            } else {
-//                $("input:hidden[name='" + this.name + "']").val("");
-//            }
-//    	}
-//        
-//    });
-//    console.log("3")
-//    submitData = $(formEl).serializeArray();
-//    console.log("4")
-//    for(var i=0; i < submitData; i++){
-//    	 $.each(extraData, function(key, val) {
-//    		 if(submitData[i].name == key){
-//    			 submitData[i].value = val;
-//    		 }else{
-//    			 submitData.push({"name":key,"value":val});
-//    		 }
-//    	 })
-//    }
-//
-//    console.log("5")
-//    $.ajax({
-//        url: url,
-//        type: "POST",
-//        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
-//        data: $.param(submitData) ,
-//        async: false,
-//        dataType: "json",
-//        beforeSend: function() {},
-//        success: function(data) {
-//        	
-//            gfn_setDataInFrom($("#" + formId), data[0]);
-//            
-//            if (callbackFn != undefined) {
-//                callbackFn.call(this, data);
-//            }
-//            
-//        },
-//        complete: function() {
-//            $(formEl).remove();
-//        },
-//        error: function(xhr) { // if error occured
-//            MsgManager.alertMsg(xhr);
-//            console.log(xhr.statusText + xhr.responseText);
-//        }
-//    });
-//}
-
-//function gfn_callAjaxForForm(formId, param, url, callbackFn) {
-//    $.ajax({
-//        url: url,
-//        type: "POST",
-//        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
-//        data: param,
-//        async: false,
-//        dataType: "json",
-//        beforeSend: function() {},
-//        success: function(data) {
-//            if (callbackFn != undefined) {
-//                callbackFn.call(this, data);
-//            }
-//            gfn_setDataInFrom($("#" + formId), data[0]);
-//        },
-//        complete: function() {},
-//        error: function(xhr) { // if error occured
-//        	MsgManager.alertMsg(xhr);
-//            console.log(xhr.statusText + xhr.responseText);
-//        }
-//    });
-//};
-function gfn_getFormElemntsData(formId, extraData) {
+function gfn_getFormElemntsData(formId) {
 
     var submitData;
     var formEl = $("<form>").appendTo("body");
 
-    $("#" + formId).find(':input').each(function() {
+    $("#" + formId).find(':input:not(:button)').each(function() {
         $(this).clone().appendTo(formEl);
     })
 
     $(formEl).find(':input').each(function() {
-
-        if ($(this).is('[class^="format_"]')) {
+        if ($(this).find("[class^='format']")) {
             $(this).val($(this).cleanVal());
         }
         if ($(this).is("input[type='checkbox']")) {
@@ -238,19 +139,6 @@ function gfn_getFormElemntsData(formId, extraData) {
 
     submitData = $(formEl).serializeArray();
     
-	 for (var i in submitData) {
-		 submitData[i].forEach(function(key, val) {
-	            if (submitData[i].name == key) {
-	                submitData[i].value = val;
-	            } else {
-	                submitData.push({
-	                    "name": key,
-	                    "value": val
-	                });
-	            }
-		    });
-		};
-
     $(formEl).remove();
     return $.param(submitData);
 }
@@ -258,7 +146,7 @@ function gfn_getFormElemntsData(formId, extraData) {
 function gfn_setDataInFrom($form, data) {
 	
     $(':input', $form)
-        .not(':button, :submit, :reset, :hidden')
+        .not(':button, :submit, :reset')
         .val('')
         .removeAttr('checked')
         .removeAttr('selected');

@@ -37,6 +37,7 @@ var msk_options =  {
 
 $(function(){
 	
-	  $('.format_date').mask('00/00/0000',$.extend( msk_options, {placeholder: "__/__/____"} ));
+	  $('.format_date').mask('0000/00/00', msk_options);
+	  $('.format_jumin').mask('000000-0000000', msk_options);
 	  
 });
