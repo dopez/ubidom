@@ -127,7 +127,7 @@ $(document).ready(function(){
 } 
 function doOnOpen(comboId,params,tagName){
 	$.ajax({
-		"url":"/erp/pers/pers/persAppointS/selBaseCode",
+		"url":"/erp/cmm/InterCodeR",
 		"type":"post",
 		"data":params,
 		"success" : function(data){

@@ -21,14 +21,6 @@
   		)}	
   	</insert>
   	
-  	<select id="selPersBaseCode" parameterType="PersAppointS" resultType="PersAppointS">
-		select INTER_CODE,INTER_NAME
-		 FROM TBL_USE_CODE
-		 WHERE 
-		   COMP = #{compId}
-           AND CODE = #{code}
-  	</select>
-  	
   	<select id="selEmpPop" statementType="CALLABLE">
 		 {call SP_COMM_EMPPOP_SCH(#{compId},#{empNo},#{korName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PersAppointSMap, javaType=ResultSet})}	
 	</select>

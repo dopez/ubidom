@@ -1,6 +1,5 @@
 package com.ubi.erp.pers.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,10 +28,6 @@ public class PersAppointSService {
 
 	public void prcsPersAppointS(PersAppointS persAppointS) {
 		dao.prcsPersAppointS(persAppointS);
-	}
-
-	public List<PersAppointS> selPersBaseCode(PersAppointS persAppointS) {
-		return dao.selPersBaseCode(persAppointS);
 	}
 	
 	public void selEmpPop(Map<String, Object> map) {

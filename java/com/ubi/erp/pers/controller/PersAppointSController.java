@@ -109,12 +109,6 @@ public class PersAppointSController {
 		}
 	}
 	
-	@RequestMapping(value = "/selBaseCode",method = RequestMethod.POST)
-	public List<PersAppointS> selTest(HttpServletRequest request, HttpServletResponse response,PersAppointS persAppointS) throws Exception {
-		List<PersAppointS> list = persAppointSService.selPersBaseCode(persAppointS);
-		return list;
-	}
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selEmpPop",method = RequestMethod.POST)
 	public List<PersAppointS> selEmpPop(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersAppointS persAppointS) throws Exception {

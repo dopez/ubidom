@@ -97,7 +97,7 @@ function fn_comboSet(comboId){
 	    ]
 	});
 	$.ajax({
-		"url":"/erp/pers/pers/persAppointS/selBaseCode",
+		"url":"/erp/cmm/InterCodeR",
 		"type":"post",
 		"data":params,
 		"success" : function(data){

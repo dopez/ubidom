@@ -252,7 +252,7 @@ function fn_comboLoad(comboId,inputName,params,colIndx,mockIndx){
 }
 function doOnOpen(comboId,params,colIndx,mockIndx){
 		$.ajax({
-			"url":"/erp/pers/pers/persAppointS/selBaseCode",
+			"url":"/erp/cmm/InterCodeR",
 			"type":"post",
 			"data":params,
 			"success" : function(data){
