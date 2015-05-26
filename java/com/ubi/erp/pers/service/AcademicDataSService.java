@@ -18,10 +18,6 @@ public class AcademicDataSService {
 		dao = sqlSession.getMapper(AcademicDataSDao.class);
 	}
 
-	public void selAcademicDataSL(Map<String, Object> map) {
-		dao.selAcademicDataSL(map);
-	}
-
 	public void selAcademicDataSR(Map<String, Object> map) {
 		dao.selAcademicDataSR(map);
 	}

@@ -163,7 +163,7 @@ function fn_loadGridLeftList(){
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/educationDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();

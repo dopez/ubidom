@@ -28,37 +28,7 @@ public class AcademicDataSController {
 	
 	@Autowired
 	private AcademicDataSService academicDataSSservice;
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
-	public List<AcademicDataS> selAcademicDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,AcademicDataS academicDataS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		String serveGbn = academicDataS.getServeGbn();
-		String jikgun = academicDataS.getJikgun();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
-		map.put("compId", compId);
-		map.put("postCode", postCode);
-		map.put("empNo",empNo);
-		map.put("jikgun",jikgun);
-		map.put("serveGbn",serveGbn);
-		map.put("o_cursor", null);
-		academicDataSSservice.selAcademicDataSL(map);
-		List<AcademicDataS> list = (List<AcademicDataS>) map.get("o_cursor");
-		return list;
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
 	public List<AcademicDataS> selAcademicDataSR(HttpServletRequest request, HttpServletResponse response,AcademicDataS academicDataS) throws Exception {

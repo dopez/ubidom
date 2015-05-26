@@ -19,10 +19,6 @@ public class EducationDataSService {
 		dao = sqlSession.getMapper(EducationDataSDao.class);
 	}
 
-	public void selEducationDataSL(Map<String, Object> map) {
-		dao.selEducationDataSL(map);
-	}
-
 	public void selEducationDataSR(Map<String, Object> map) {
 		dao.selEducationDataSR(map);
 	}

@@ -18,11 +18,7 @@ public class LicenseDataSService {
 	public void setSqlSession(SqlSession sqlSession) {
 		dao = sqlSession.getMapper(LicenseDataSDao.class);
 	}
-
-	public void selLicenseDataSL(Map<String, Object> map) {
-		dao.selLicenseDataSL(map);
-	}
-
+	
 	public void selLicenseDataSR(Map<String, Object> map) {
 		dao.selLicenseDataSR(map);
 	}

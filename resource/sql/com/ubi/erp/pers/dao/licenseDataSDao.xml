@@ -4,10 +4,6 @@
 <mapper namespace="com.ubi.erp.pers.dao.LicenseDataSDao">
 
 	<resultMap id="LicenseDataSMap" type="LicenseDataS"/>
-	
- 	<select id="selLicenseDataSL" statementType="CALLABLE">
-		 {call SP_PERS_COMM_SCH1(#{compId},#{jikgun},#{serveGbn},#{postCode},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=LicenseDataSMap, javaType=ResultSet})}	
-	</select>
 
 	<select id="selLicenseDataSR" statementType="CALLABLE">
 		 {call SP_PERS_LICENSEDATAS_SCH(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=LicenseDataSMap, javaType=ResultSet})}	

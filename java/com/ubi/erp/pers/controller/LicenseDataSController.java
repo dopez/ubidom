@@ -30,36 +30,6 @@ public class LicenseDataSController {
 	private LicenseDataSService licenseDataSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
-	public List<LicenseDataS> selLicenseDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,LicenseDataS licenseDataS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		String serveGbn = licenseDataS.getServeGbn();
-		String jikgun = licenseDataS.getJikgun();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
-		map.put("compId", compId);
-		map.put("postCode", postCode);
-		map.put("empNo",empNo);
-		map.put("jikgun",jikgun);
-		map.put("serveGbn",serveGbn);
-		map.put("o_cursor", null);
-		licenseDataSService.selLicenseDataSL(map);
-		List<LicenseDataS> list = (List<LicenseDataS>) map.get("o_cursor");
-		return list;
-	}
-
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
 	public List<LicenseDataS> selLicenseDataSR(HttpServletRequest request, HttpServletResponse response,LicenseDataS licenseDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();

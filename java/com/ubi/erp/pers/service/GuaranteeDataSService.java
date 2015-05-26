@@ -18,10 +18,6 @@ public class GuaranteeDataSService {
 		dao = sqlSession.getMapper(GuaranteeDataSDao.class);
 	}
 
-	public void selGuaranteeDataSL(Map<String, Object> map) {
-		dao.selGuaranteeDataSL(map);
-	}
-
 	public void selGuaranteeDataSR1(Map<String, Object> map) {
 		dao.selGuaranteeDataSR1(map);
 		;

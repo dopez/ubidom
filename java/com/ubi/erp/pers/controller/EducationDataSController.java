@@ -29,36 +29,6 @@ public class EducationDataSController {
 	private EducationDataSService educationDataSSErvice;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
-	public List<EducationDataS> selEducationDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,EducationDataS educationDataS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		String serveGbn = educationDataS.getServeGbn();
-		String jikgun = educationDataS.getJikgun();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
-		map.put("compId", compId);
-		map.put("postCode", postCode);
-		map.put("empNo",empNo);
-		map.put("jikgun",jikgun);
-		map.put("serveGbn",serveGbn);
-		map.put("o_cursor", null);
-		educationDataSSErvice.selEducationDataSL(map);
-		List<EducationDataS> list = (List<EducationDataS>) map.get("o_cursor");
-		return list;
-	}
-
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
 	public List<EducationDataS> selEducationDataSR(HttpServletRequest request, HttpServletResponse response,EducationDataS educationDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();

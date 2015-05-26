@@ -5,10 +5,6 @@
 
 	<resultMap id="AcademicDataSMap" type="AcademicDataS"/>
 
-    <select id="selAcademicDataSL" statementType="CALLABLE">
-		 {call SP_PERS_COMM_SCH1(#{compId},#{jikgun},#{serveGbn},#{postCode},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=AcademicDataSMap, javaType=ResultSet})}	
-	</select>
-
 	<select id="selAcademicDataSR" statementType="CALLABLE">
 		 {call SP_PERS_ACADEMICDATAS_SCH(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=AcademicDataSMap, javaType=ResultSet})}	
 	</select>

@@ -30,36 +30,6 @@ public class GuaranteeDataSController {
 	private GuaranteeDataSService guaranteeDataSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
-	public List<GuaranteeDataS> selGuaranteeDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,GuaranteeDataS guaranteeDataS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		String serveGbn = guaranteeDataS.getServeGbn();
-		String jikgun = guaranteeDataS.getJikgun();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
-		map.put("compId", compId);
-		map.put("postCode", postCode);
-		map.put("empNo",empNo);
-		map.put("jikgun",jikgun);
-		map.put("serveGbn",serveGbn);
-		map.put("o_cursor", null);
-		guaranteeDataSService.selGuaranteeDataSL(map);
-		List<GuaranteeDataS> list = (List<GuaranteeDataS>) map.get("o_cursor");
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selRight1",method = RequestMethod.POST)
 	public List<GuaranteeDataS> selGuaranteeDataSR1(HttpServletRequest request, HttpServletResponse response,GuaranteeDataS guaranteeDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
