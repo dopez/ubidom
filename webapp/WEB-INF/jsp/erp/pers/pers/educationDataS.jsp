@@ -20,11 +20,9 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사업장",   colId:"compId",   width:"25", align:"center", type:"ro"});
-	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","no");
 	gridMst.init(); 
-	gridMst.setColumnHidden(4,true);
+	gridMst.cs_setColumnHidden(["compId"]);
 	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
@@ -35,25 +33,20 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"교육구분",   colId:"gbn",     width:"5", align:"center", type:"combo"});
 	gridDtl.addHeader({name:"교육시간",   colId:"eduTime", width:"6", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"비고",       colId:"remarks", width:"17", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"사원번호",   colId:"empNo",   width:"7", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"사업장",     colId:"compId",  width:"7", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"순번",       colId:"seq",     width:"7", align:"center", type:"ro"});
-	gridDtl.setColSort("str");	
 	gridDtl.setUserData("","pk","no");
 	gridDtl.init(); 
-	gridDtl.setColumnHidden(7,true);
-	gridDtl.setColumnHidden(8,true);
-	gridDtl.setColumnHidden(9,true);
+	gridDtl.cs_setColumnHidden(["empNo","compId","seq"]);
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 
 	fn_search();
 	
-	$("#postName").click(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-	});
-	
-	$("#korName").click(function(){
-		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+	$("#postName,#korName").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
 	});
 	
 	combo01 =gridDtl.getColumnCombo(4);
@@ -107,63 +100,34 @@ function fn_add(){
 	}
 }
 function fn_save(){
+	 var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
        $.ajax({
-          url : "/erp/pers/pers/educationDataS/prcsEducationDataS",
+          url : "/erp/pers/pers/educationDataS/gridDtlSave",
           type : "POST",
           data : $("#pform").serialize(),
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          fn_refreshGrid(gridDtl.getSelectedRowId());
+          gridMst.selectRow(rowIdx,true,true,true);
            }
       }); 
 }
 
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
-    var rodIdx = gridDtl.getSelectedRowIndex();
-    if(gridDtl.isDelRows(rodid)) {
-       if(MsgManager.confirmMsg("INF002")) {
-     	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
-     		  return
-     	  }else{
-     		 var jsonStr = gridDtl.getJsonRowDel(rodid);
-           if (jsonStr == null || jsonStr.length <= 0) return;
-            $("#jsonData").val(jsonStr);
-                $.ajax({
-                 url : "/erp/pers/pers/educationDataS/prcsEducationDataS",
-                 type : "POST",
-                 data : $("#pform").serialize(),
-                 async : true,
-                 success : function(data) {
-                 MsgManager.alertMsg("INF003");
-                 fn_refreshGrid(rodid);
-                }
-            });
-     	   }   	 
-        } else {
-         	 MsgManager.alertMsg("WRN004");
-          } 
-     }else {
-         MsgManager.alertMsg("WRN002");
-      }
+    gridDtl.cs_deleteRow(rodid);
 }
-function fn_refreshGrid(id){
-	var obj={};
-	  obj.compId = gridDtl.setCells(id,8).getValue();
-	  obj.empNo = gridDtl.setCells(id,7).getValue();
-	  fn_loadGridRightList(obj);
-}
+
 function fn_loadGridLeftList(){
 	var obj={};
 	obj.jikgun = $('#jikgun').val();
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();
@@ -171,7 +135,7 @@ function fn_loadGridLeftListCB(data){
 	$('#empNo').val('');
 };
 function fn_loadGridRightList(params){
-	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/educationDataS/selRight",subLayout.cells("b"));
+	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
 function fn_onClosePop(pName,data){

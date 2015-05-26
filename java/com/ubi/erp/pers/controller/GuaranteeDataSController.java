@@ -30,7 +30,7 @@ public class GuaranteeDataSController {
 	private GuaranteeDataSService guaranteeDataSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight1",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtl01Search",method = RequestMethod.POST)
 	public List<GuaranteeDataS> selGuaranteeDataSR1(HttpServletRequest request, HttpServletResponse response,GuaranteeDataS guaranteeDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = guaranteeDataS.getCompId();
@@ -49,7 +49,7 @@ public class GuaranteeDataSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight2",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtl02Search",method = RequestMethod.POST)
 	public List<GuaranteeDataS> selGuaranteeDataSR2(HttpServletRequest request, HttpServletResponse response,GuaranteeDataS guaranteeDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = guaranteeDataS.getCompId();
@@ -62,7 +62,7 @@ public class GuaranteeDataSController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/prcsGuaranteeDataS", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsGuaranteeDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");

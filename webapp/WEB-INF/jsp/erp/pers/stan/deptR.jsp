@@ -18,8 +18,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ro"});
 	gridMain.addHeader({name:"시작일",   colId:"stDate",   width:"10", align:"center", type:"ro"});
-	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"10", align:"center", type:"ro"});
-	gridMain.setColSort("str");	
+	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"10", align:"center", type:"ro"});	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
 	
@@ -49,7 +48,7 @@ function  fn_print(){
  }
  
 function fn_loadGridList(params) {
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptR/selGridMain",subLayout.cells("a"));
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
 
   function fn_onClosePop(pName,data){

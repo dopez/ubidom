@@ -25,7 +25,6 @@ $(document).ready(function(){
 	
     gridMain.addHeader({name:"코드",   colId:"empNo", 	width:"14", align:"center", type:"ro"});
 	gridMain.addHeader({name:"사원명", colId:"korName", width:"14", align:"center", type:"ro"});
-	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","empNo");
 	gridMain.init();
 	fn_search();

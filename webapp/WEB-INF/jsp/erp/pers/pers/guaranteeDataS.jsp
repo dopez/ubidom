@@ -20,12 +20,10 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
 	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사업장",   colId:"compId",   width:"25", align:"center", type:"ro"});
-	gridMst.setColSort("str");	
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});	
 	gridMst.setUserData("","pk","no");
 	gridMst.init(); 
-	gridMst.setColumnHidden(4,true);
+	gridMst.cs_setColumnHidden(["compId"]);
 	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 
 	gridTabbar = subLayout.cells("b").attachTabbar({
@@ -40,16 +38,10 @@ $(document).ready(function(){
     gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"7", align:"center", type:"ed"});
     gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"7", align:"center", type:"ed"});
     gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"7", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"사원번호",     colId:"empNo",      width:"7", align:"center", type:"ro"});
-    gridDtl01.addHeader({name:"사업장",       colId:"compId",     width:"7", align:"center", type:"ro"});
-    gridDtl01.addHeader({name:"순번",         colId:"seq",        width:"7", align:"center", type:"ro"});
-    gridDtl01.setColSort("str");	
+    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7", align:"center", type:"ed"});	
     gridDtl01.setUserData("","pk","no");
     gridDtl01.init(); 
-    gridDtl01.setColumnHidden(8,true);
-    gridDtl01.setColumnHidden(9,true);
-    gridDtl01.setColumnHidden(10,true);
+    gridDtl01.cs_setColumnHidden(["empNo","compId","seq"]);
     gridDtl01.attachEvent("onRowSelect",doOnDtl01RowSelect);
     
     gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
@@ -59,26 +51,21 @@ $(document).ready(function(){
     gridDtl02.addHeader({name:"계약내용", colId:"insuCont",  width:"10", align:"center", type:"ed"});
     gridDtl02.addHeader({name:"보험료",   colId:"premium",   width:"7", align:"center",  type:"ed"});
     gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"7", align:"center",  type:"ed"});
-    gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"center",  type:"ed"});
-    gridDtl02.addHeader({name:"사원번호", colId:"empNo",     width:"7", align:"center",  type:"ro"});
-    gridDtl02.addHeader({name:"사업장",   colId:"compId",    width:"7", align:"center",  type:"ro"});
-    gridDtl02.addHeader({name:"순번",     colId:"seq",       width:"7", align:"center",  type:"ro"});
-    gridDtl02.setColSort("str");	
+    gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"center",  type:"ed"});	
     gridDtl02.setUserData("","pk","no");
     gridDtl02.init(); 
-    gridDtl02.setColumnHidden(7,true);
-    gridDtl02.setColumnHidden(8,true);
-    gridDtl02.setColumnHidden(9,true);
+    gridDtl02.cs_setColumnHidden(["empNo","compId","seq"]);
     gridDtl02.attachEvent("onRowSelect",doOnDtl02RowSelect);
 
    fn_search();
 	
-	$("#postName").click(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-	});
-	
-	$("#korName").click(function(){
-		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+   $("#postName,#korName").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
 	});
 	
 	combo01 =gridDtl01.getColumnCombo(1);
@@ -118,7 +105,6 @@ function doOnMstRowSelect(id,ind){
 	fn_loadGridRightList(obj); 
 }
 function doOnDtl01RowSelect(id,ind){
-    gridDtl01.editCell();
 	var no = gridDtl01.setCells(id,0).getValue();
 	var seqValue = gridDtl01.setCells(id,10).getValue();
 	if(seqValue == ""){
@@ -126,7 +112,6 @@ function doOnDtl01RowSelect(id,ind){
 	} 
 }
 function doOnDtl02RowSelect(id,ind){
-    gridDtl02.editCell();
 	var no = gridDtl02.setCells(id,0).getValue();
 	var seqValue = gridDtl02.setCells(id,9).getValue();
 	if(seqValue == ""){
@@ -182,6 +167,7 @@ function fn_nullCheck(id){
 	}
 }
 function fn_save(){
+	 var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl01.getJsonUpdated2();
 	 var jsonStr2 = gridDtl02.getJsonUpdated2();
 	 if(jsonStr == null || jsonStr.length <= 0 ) return;
@@ -189,21 +175,19 @@ function fn_save(){
 	 $("#jsonData").val(jsonStr);
      $("#jsonData2").val(jsonStr2);
      $.ajax({
-        url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
+        url : "/erp/pers/pers/guaranteeDataS/gridDtlSave",
         type : "POST",
         data : $("#pform").serialize(),
         async : true,
         success : function(data) {
         MsgManager.alertMsg("INF001");
-        fn_search();
+        gridMst.selectRow(rowIdx,true,true,true);
          }
     }); 
 }
 function fn_remove(){
 	isActTab1 = gridTabbar.tabs("a1").isActive();
     isActTab2 = gridTabbar.tabs("a2").isActive();
-	var rodid = gridDtl01.getSelectedRowId();
-    var rodid2 = gridDtl02.getSelectedRowId();
 	 if(isActTab1){
 		 for(var i=0; i<gridDtl01.getRowsNum();i++){
 			 gridDtl01.cs_deleteRow(gridDtl01.getRowId(i));	 
@@ -225,25 +209,14 @@ function fn_delete(){
 			 gridDtl02.cs_deleteRow(rodid2);
 		}    
 }
-function fn_prcsGridList(){
-	 $.ajax({
-         url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
-         type : "POST",
-         data : $("#pform").serialize(),
-         async : true,
-         success : function(data) {
-         MsgManager.alertMsg("INF003");
-         fn_search();
-       }
-    });
-}
+
 function fn_loadGridLeftList(){
 	var obj={};
 	obj.jikgun = $('#jikgun').val();
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();
@@ -251,8 +224,8 @@ function fn_loadGridLeftListCB(data){
 	$('#empNo').val('');
 };
 function fn_loadGridRightList(params){
-	gfn_callAjaxForGrid(gridDtl01,params,"/erp/pers/pers/guaranteeDataS/selRight2",gridTabbar.tabs("a1"));
-	gfn_callAjaxForGrid(gridDtl02,params,"/erp/pers/pers/guaranteeDataS/selRight1",gridTabbar.tabs("a2"));
+	gfn_callAjaxForGrid(gridDtl01,params,"gridDtl02Search",gridTabbar.tabs("a1"));
+	gfn_callAjaxForGrid(gridDtl02,params,"gridDtl01Search",gridTabbar.tabs("a2"));
 }
 
 function fn_onClosePop(pName,data){

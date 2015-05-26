@@ -29,7 +29,7 @@ public class EducationDataSController {
 	private EducationDataSService educationDataSSErvice;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<EducationDataS> selEducationDataSR(HttpServletRequest request, HttpServletResponse response,EducationDataS educationDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = educationDataS.getCompId();
@@ -42,7 +42,7 @@ public class EducationDataSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/prcsEducationDataS", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEducationDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");

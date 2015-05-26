@@ -19,13 +19,6 @@ public class AcademicDataS implements Serializable {
 	private String specCode2;
 	private String gradLast;
 	private String sysEmpNo;
-	// gridLeft 검색조건
-	private String jikgun;
-	private String serveGbn;
-	private String postCode;
-	// gridLeft Columns
-	private String korName;
-	private String postName;
 	// gridRight Column
 	private String no;
 
@@ -127,46 +120,6 @@ public class AcademicDataS implements Serializable {
 
 	public void setSysEmpNo(String sysEmpNo) {
 		this.sysEmpNo = sysEmpNo;
-	}
-
-	public String getKorName() {
-		return korName;
-	}
-
-	public void setKorName(String korName) {
-		this.korName = korName;
-	}
-
-	public String getPostName() {
-		return postName;
-	}
-
-	public void setPostName(String postName) {
-		this.postName = postName;
-	}
-
-	public String getJikgun() {
-		return jikgun;
-	}
-
-	public void setJikgun(String jikgun) {
-		this.jikgun = jikgun;
-	}
-
-	public String getServeGbn() {
-		return serveGbn;
-	}
-
-	public void setServeGbn(String serveGbn) {
-		this.serveGbn = serveGbn;
-	}
-
-	public String getPostCode() {
-		return postCode;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
 	}
 
 	public String getNo() {

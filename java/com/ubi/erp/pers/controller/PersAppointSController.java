@@ -30,7 +30,7 @@ public class PersAppointSController {
 	private PersAppointSService persAppointSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
 	public List<PersAppointS> selPersDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersAppointS persAppointS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -58,7 +58,7 @@ public class PersAppointSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<PersAppointS> selPersDataSR(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersAppointS persAppointS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = persAppointS.getCompId();
@@ -75,7 +75,7 @@ public class PersAppointSController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/prcsPersAppoint", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void crudPersAppointS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
@@ -88,22 +88,12 @@ public class PersAppointSController {
 		for(PersAppointS persAppointS : list) {
 			persAppointS.setSysEmpNo(sysEmpNo);
 			persAppointS.setBalDate(df.dateToString(persAppointS.getBalDate()));
-			persAppointS.setPayGbn(persAppointS.getPayGbnNm());
-			persAppointS.setBalGbn(persAppointS.getBalGbnNm());
-			persAppointS.setServeGbn(persAppointS.getServeGbnNm());
-			persAppointS.setJikgun(persAppointS.getJikgunNm());
-			persAppointS.setJikmu(persAppointS.getJikmuNm());
-			persAppointS.setJikwee(persAppointS.getJikweeNm());
-			persAppointS.setJikchak(persAppointS.getJikchakNm());
-			persAppointS.setCompId(persAppointS.getCompIdNm());
 			
 			if("INSERT".equals(persAppointS.getCudKey())) {
 				persAppointSService.prcsPersAppointS(persAppointS);
 			}else if("UPDATE".equals(persAppointS.getCudKey())){
-				
 				persAppointSService.prcsPersAppointS(persAppointS);
 			}else if("DELETE".equals(persAppointS.getCudKey())){
-				
 				persAppointSService.prcsPersAppointS(persAppointS);
 			}
 		}

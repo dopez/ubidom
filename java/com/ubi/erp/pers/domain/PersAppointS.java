@@ -25,60 +25,12 @@ public class PersAppointS implements Serializable {
 	private String basePay;
 	private String sysEmpNo;
 	private String code;
-	//내부코드, 내부코드명 받아오는 변수
+	// 내부코드, 내부코드명 받아오는 변수
 	private String interCode;
 	private String interName;
-	// 가 코드 데이터 set Column
-	private String payGbnNm;
-	private String serveGbnNm;
-	private String balGbnNm;
-	private String jikgunNm;
-	private String jikmuNm;
-	private String jikweeNm;
-	private String jikchakNm;
-	private String compIdNm;
 
 	public PersAppointS() {
 		super();
-	}
-
-	public PersAppointS(String no, String compId, String cudKey, String empNo,
-			String postCode, String postName, String korName, String balDate,
-			String payGbn, String serveGbn, String balGbn, String jikgun,
-			String jikwee, String jikmu, String jikchak, String basePay,
-			String sysEmpNo, String code, String interCode, String interName,
-			String payGbnNm, String serveGbnNm, String balGbnNm,
-			String jikgunNm, String jikmuNm, String jikweeNm, String jikchakNm,
-			String compIdNm) {
-		super();
-		this.no = no;
-		this.compId = compId;
-		this.cudKey = cudKey;
-		this.empNo = empNo;
-		this.postCode = postCode;
-		this.postName = postName;
-		this.korName = korName;
-		this.balDate = balDate;
-		this.payGbn = payGbn;
-		this.serveGbn = serveGbn;
-		this.balGbn = balGbn;
-		this.jikgun = jikgun;
-		this.jikwee = jikwee;
-		this.jikmu = jikmu;
-		this.jikchak = jikchak;
-		this.basePay = basePay;
-		this.sysEmpNo = sysEmpNo;
-		this.code = code;
-		this.interCode = interCode;
-		this.interName = interName;
-		this.payGbnNm = payGbnNm;
-		this.serveGbnNm = serveGbnNm;
-		this.balGbnNm = balGbnNm;
-		this.jikgunNm = jikgunNm;
-		this.jikmuNm = jikmuNm;
-		this.jikweeNm = jikweeNm;
-		this.jikchakNm = jikchakNm;
-		this.compIdNm = compIdNm;
 	}
 
 	public String getNo() {
@@ -239,70 +191,6 @@ public class PersAppointS implements Serializable {
 
 	public void setInterName(String interName) {
 		this.interName = interName;
-	}
-
-	public String getPayGbnNm() {
-		return payGbnNm;
-	}
-
-	public void setPayGbnNm(String payGbnNm) {
-		this.payGbnNm = payGbnNm;
-	}
-
-	public String getServeGbnNm() {
-		return serveGbnNm;
-	}
-
-	public void setServeGbnNm(String serveGbnNm) {
-		this.serveGbnNm = serveGbnNm;
-	}
-
-	public String getBalGbnNm() {
-		return balGbnNm;
-	}
-
-	public void setBalGbnNm(String balGbnNm) {
-		this.balGbnNm = balGbnNm;
-	}
-
-	public String getJikgunNm() {
-		return jikgunNm;
-	}
-
-	public void setJikgunNm(String jikgunNm) {
-		this.jikgunNm = jikgunNm;
-	}
-
-	public String getJikmuNm() {
-		return jikmuNm;
-	}
-
-	public void setJikmuNm(String jikmuNm) {
-		this.jikmuNm = jikmuNm;
-	}
-
-	public String getJikweeNm() {
-		return jikweeNm;
-	}
-
-	public void setJikweeNm(String jikweeNm) {
-		this.jikweeNm = jikweeNm;
-	}
-
-	public String getJikchakNm() {
-		return jikchakNm;
-	}
-
-	public void setJikchakNm(String jikchakNm) {
-		this.jikchakNm = jikchakNm;
-	}
-
-	public String getCompIdNm() {
-		return compIdNm;
-	}
-
-	public void setCompIdNm(String compIdNm) {
-		this.compIdNm = compIdNm;
 	}
 
 	public static long getSerialversionuid() {

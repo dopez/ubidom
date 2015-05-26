@@ -20,11 +20,9 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서", 	colId:"postName", width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사업장", 	colId:"compId",   width:"25", align:"center", type:"ro"});
-	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","empNo");
 	gridMst.init(); 
-	gridMst.setColumnHidden(4,true);
+	gridMst.cs_setColumnHidden(["compId"]);
 	gridMst.attachEvent("onRowSelect",gridMstOnRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
@@ -40,41 +38,23 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"발령직위",   colId:"jikwee",   width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"발령직책",   colId:"jikchak",  width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"급여사업장", colId:"compId",   width:"7",  align:"center", type:"combo"});
-	//가 저장될 gridColumns
-	gridDtl.addHeader({name:"사원번호",       colId:"empNo",      width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"급여구분코드",   colId:"payGbnNm",   width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"근무구분코드",   colId:"serveGbnNm", width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령구분코드",   colId:"balGbnNm",   width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직군코드",   colId:"jikgunNm",   width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직무코드",   colId:"jikmuNm",    width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직위코드",   colId:"jikweeNm",   width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"발령직책코드",   colId:"jikchakNm",  width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"급여사업장코드", colId:"compIdNm",   width:"10", align:"center", type:"ro"});
-	gridDtl.setColSort("str");	
 	gridDtl.setUserData("","pk","empNo");
-	gridDtl.init(); 
-	gridDtl.setColumnHidden(12,true);
-	gridDtl.setColumnHidden(13,true);
-	gridDtl.setColumnHidden(14,true);
-	gridDtl.setColumnHidden(15,true);
-	gridDtl.setColumnHidden(16,true);
-	gridDtl.setColumnHidden(17,true);
-	gridDtl.setColumnHidden(18,true);
-	gridDtl.setColumnHidden(19,true);
-	gridDtl.setColumnHidden(20,true);
-	//근무형태 grid에서 항목 제외
+	gridDtl.init();
+	gridDtl.cs_setColumnHidden(["empNo"]);
+
 	fn_search();
 	gridDtl.attachEvent("onRowSelect",gridDtlOnRowSelect);
 	
-	$("#postName").click(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
-		status = 2;
+	$("#postName,#korName").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		  status = 2;
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
 	});
 	
-	
- 	$("#korName").click(function(){
-		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-	});
  	fn_startSetCombo();
 });
 function fn_search(){
@@ -86,7 +66,7 @@ function fn_loadGridLeftList(){
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
 	obj.serveGbn= $('input[name="serveGbn"]:checked').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/persAppointS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
 };
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();
@@ -108,64 +88,24 @@ function gridDtlOnRowSelect(id,ind){
 }
 function fn_startSetCombo(){
 	var combo01 = gridDtl.getColumnCombo(2);
-	fn_comboLoad(combo01,gridDtl.getColumnId(2),"P001",2,13);
+	fn_comboLoad(combo01,gridDtl.getColumnId(2),"P001",2);
 	var combo02 = gridDtl.getColumnCombo(3);
-	fn_comboLoad(combo02,gridDtl.getColumnId(3),"P002",3,14);
+	fn_comboLoad(combo02,gridDtl.getColumnId(3),"P002",3);
 	var combo03 = gridDtl.getColumnCombo(4);
-	fn_comboLoad(combo03,gridDtl.getColumnId(4),"P003",4,15);
+	fn_comboLoad(combo03,gridDtl.getColumnId(4),"P003",4);
 	var combo04 = gridDtl.getColumnCombo(7);
-	fn_comboLoad(combo04,gridDtl.getColumnId(7),"P004",7,16);
+	fn_comboLoad(combo04,gridDtl.getColumnId(7),"P004",7);
 	var combo05 = gridDtl.getColumnCombo(8);
-	fn_comboLoad(combo05,gridDtl.getColumnId(8),"P005",8,17);
+	fn_comboLoad(combo05,gridDtl.getColumnId(8),"P005",8);
 	var combo06 = gridDtl.getColumnCombo(9);
-	fn_comboLoad(combo06,gridDtl.getColumnId(9),"004",9,18);
+	fn_comboLoad(combo06,gridDtl.getColumnId(9),"004",9);
 	var combo07 = gridDtl.getColumnCombo(10);
-	fn_comboLoad(combo07,gridDtl.getColumnId(10),"P006",10,19);
+	fn_comboLoad(combo07,gridDtl.getColumnId(10),"P006",10);
 	var combo08 = gridDtl.getColumnCombo(11);
-	fn_comboLoad(combo08,gridDtl.getColumnId(11),"000",11,20);
+	fn_comboLoad(combo08,gridDtl.getColumnId(11),"000",11);
 }
 function fn_loadGridRightList(params){
-	gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/pers/persAppointS/selRight",subLayout.cells("b"),fn_loadGridRightListCB);
-}
-function fn_loadGridRightListCB(data){
-	if(data == ''){
-		return false;
-	}else{
-		for(var i = 0; i<data.length;i++){
-			if(data[i].payGbn != null){
-			   gridDtl.setCells2(i,2).setValue(data[i].payGbnNm);
-			   gridDtl.setCells2(i,13).setValue(data[i].payGbn);
-			}
-			if(data[i].serveGbn  != null){
-			   gridDtl.setCells2(i,3).setValue(data[i].serveGbnNm);
-			   gridDtl.setCells2(i,14).setValue(data[i].serveGbn);
-			}
-			if(data[i].balGbn  != null){
-			   gridDtl.setCells2(i,4).setValue(data[i].balGbnNm);
-			   gridDtl.setCells2(i,15).setValue(data[i].balGbn);
-		    }
-			if(data[i].jikgun  != null){
-			   gridDtl.setCells2(i,7).setValue(data[i].jikgunNm);
-			   gridDtl.setCells2(i,16).setValue(data[i].jikgun);
-		    }
-			if(data[i].jikmu  != null){
-			   gridDtl.setCells2(i,8).setValue(data[i].jikmuNm);
-			   gridDtl.setCells2(i,17).setValue(data[i].jikmu);
-			}
-			if(data[i].jikchak != null){
-			   gridDtl.setCells2(i,10).setValue(data[i].jikchakNm);
-			   gridDtl.setCells2(i,19).setValue(data[i].jikchak);
-			}
-			if(data[i].compId  != null){
-			   gridDtl.setCells2(i,11).setValue(data[i].compIdNm);
-			   gridDtl.setCells2(i,20).setValue(data[i].compId);
-			}
-			if(data[i].jikwee  != null){
-			   gridDtl.setCells2(i,9).setValue(data[i].jikweeNm);
-			   gridDtl.setCells2(i,18).setValue(data[i].jikwee); 
-			}
-		}	
-	}
+	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
 function fn_add(){
@@ -183,63 +123,32 @@ function fn_add(){
 	}
 }
 function fn_save(){
+	 var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
        $.ajax({
-          url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
+          url : "/erp/pers/pers/persAppointS/gridDtlSave",
           type : "POST",
           data : $("#pform").serialize(),
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          fn_refreshGrid(gridDtl.getSelectedRowId());
+          gridMst.selectRow(rowIdx,true,true,true);
           }
       }); 
 };
 
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
-    var rodIdx = gridDtl.getSelectedRowIndex();
-    if(gridDtl.isDelRows(rodid)) {
-       if(MsgManager.confirmMsg("INF002")) {
-     	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
-     		  return
-     	  }else{
-     		 var jsonStr = gridDtl.getJsonRowDel(rodid);
-           if (jsonStr == null || jsonStr.length <= 0) return;
-            $("#jsonData").val(jsonStr);
-                $.ajax({
-                 url : "/erp/pers/pers/persAppointS/prcsPersAppoint",
-                 type : "POST",
-                 data : $("#pform").serialize(),
-                 async : true,
-                 success : function(data) {
-                 MsgManager.alertMsg("INF003");
-                 fn_refreshGrid(rodid);
-                }
-            });
-     	   }   	 
-        } else {
-         	 MsgManager.alertMsg("WRN004");
-          } 
-     }else {
-         MsgManager.alertMsg("WRN002");
-      }
+    gridDtl.cs_deleteRow(rodid);
 }
-function fn_refreshGrid(id){
-	var obj={};
-	 obj.empNo = gridDtl.setCells(id,12).getValue();
-	 obj.compId = gridDtl.setCells(id,20).getValue();
-	fn_loadGridRightList(obj);
-}
-function fn_comboLoad(comboId,inputName,params,colIndx,mockIndx){
+
+function fn_comboLoad(comboId,inputName,params,colIndx){
 	comboId.setTemplate({
-	    input: "#interCode#",
 	    input: "#interName#",
 	    columns: [
-	       {header: "내부코드", width: 100,  option: "#interCode#"},
-		   {header: "코드명",   width: 100,  option: "#interName#"}
+		   {header: "구 분",   width: 100,  option: "#interName#"}
 	    ]
 	});
 	comboId.enableFilteringMode(true);
@@ -248,9 +157,9 @@ function fn_comboLoad(comboId,inputName,params,colIndx,mockIndx){
 	var obj={};
 	obj.compId = '100';
 	obj.code = params;
-	doOnOpen(comboId,obj,colIndx,mockIndx);
+	doOnOpen(comboId,obj,colIndx);
 }
-function doOnOpen(comboId,params,colIndx,mockIndx){
+function doOnOpen(comboId,params,colIndx){
 		$.ajax({
 			"url":"/erp/cmm/InterCodeR",
 			"type":"post",
@@ -258,18 +167,10 @@ function doOnOpen(comboId,params,colIndx,mockIndx){
 			"success" : function(data){
 			  var list = data;
 			  for(var i=0;i<list.length;i++){
-				comboId.addOption([
-				  {value: list[i].interCode, text:
-				  {interCode: list[i].interCode,
-				   interName: list[i].interName}}   
-				   ]);	
+				  comboId.addOption(list[i].interCode,list[i].interName);
 			    }
 			}
 	  });	
- 	comboId.attachEvent("onClose", function() {
-	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),colIndx).setValue(comboId.getSelectedText().interName);
-	gridDtl.setCells2(gridDtl.getSelectedRowIndex(),mockIndx).setValue(comboId.getSelectedText().interCode);
-	});	
 };
 
 function fn_onClosePop(pName,data){
@@ -282,8 +183,7 @@ function fn_onClosePop(pName,data){
 			if(status == 1){
 				var selRowIdx = gridDtl.getSelectedRowIndex();
 				gridDtl.setCells2(selRowIdx,5).setValue(obj.postCode);
-				gridDtl.setCells2(selRowIdx,6).setValue(obj.postName);
-				gridDtl.setCells2(selRowIdx,21).setValue("UPDATE");
+				gridDtl.setCells2(selRowIdx,6).setValue(obj.postName); 
 			}else{
 				$('#postName').val(obj.postName);
 				$('#postCode').val(obj.postCode);

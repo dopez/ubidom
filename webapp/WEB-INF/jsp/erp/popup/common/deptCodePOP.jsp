@@ -24,7 +24,6 @@ $(document).ready(function(){
 	
     gridMain.addHeader({name:"부서코드", colId:"postCode", 	width:"14", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부서명", 	 colId:"postName", 	width:"14", align:"center", type:"ro"});
-	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.init();
 	fn_search();

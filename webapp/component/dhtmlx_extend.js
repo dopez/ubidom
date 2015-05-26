@@ -41,7 +41,6 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 		}
 	} else if((stage == 2)) { // After Editing
         var colId = this.getColumnId(cInd);
-        console.log("colId",colId);
         var className1 = this.getUserData("","pk");
         var className2 = this.getUserData("",colId);
 

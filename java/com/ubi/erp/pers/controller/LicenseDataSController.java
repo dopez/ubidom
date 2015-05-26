@@ -30,7 +30,7 @@ public class LicenseDataSController {
 	private LicenseDataSService licenseDataSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<LicenseDataS> selLicenseDataSR(HttpServletRequest request, HttpServletResponse response,LicenseDataS licenseDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = licenseDataS.getCompId();
@@ -47,7 +47,7 @@ public class LicenseDataSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/prcsLicenseDataS", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsLicenseDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
