@@ -804,3 +804,6 @@ dxGrid.prototype.enableResizing = function(){
 
 	return this.dxObj.enableResizing(arr.join());
 }
+dxGrid.prototype.enableDragAndDrop = function(boolean){
+	return this.dxObj.enableDragAndDrop(boolean);
+}
