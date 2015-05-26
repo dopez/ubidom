@@ -30,24 +30,24 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet" type="text/css" href="/component/dhtmlx.css" />
 <link rel="stylesheet" type="text/css" href="/component/dhtmlx_extend.css" />
 <!--dhtmlx Calendar 추가 -->
-<script type="text/javascript" src="/component/dhtmlxCalendar/dhtmlxcalendar.js"></script>
 <link rel="stylesheet" href="/component/dhtmlxCalendar/skins/dhtmlxcalendar_dhx_skyblue.css"/>
 <link rel="stylesheet" type="text/css" href="/component/dxcalendar_extend.css" />
 <!-- validation ko 추가 -->
 <script type="text/javascript" src="/component/jquery-validation-1.13.1/localization/messages_ko.js"></script>
 
 <!-- bootstrap fileupload  추가 -->
-<script src="/component/jqueryFileupload/js/jquery.1.9.1.min.js"></script>
+<!-- <script src="/component/jqueryFileupload/js/jquery.1.9.1.min.js"></script> -->
 
 <script src="/component/jqueryFileupload/js/vendor/jquery.ui.widget.js"></script>
 <script src="/component/jqueryFileupload/js/jquery.iframe-transport.js"></script>
 <script src="/component/jqueryFileupload/js/jquery.fileupload.js"></script>
 
 <!-- bootstrap just to have good looking page -->
-<script src="/component/jqueryFileupload/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="/component/jqueryFileupload/bootstrap/js/bootstrap.min.js"></script> -->
 <link href="/component/jqueryFileupload/bootstrap-fileresize.css" type="text/css" rel="stylesheet" />
 
 <!-- we code these -->
 <link href="/component/jqueryFileupload/css/dropzone.css" type="text/css" rel="stylesheet" />
 <!--jQuery Mask 추가  -->
 <script type="text/javascript" src="/common/js/jquery.mask.js"></script>
+<script type="text/javascript" src="/component/jquery.mask_extends.js"></script>

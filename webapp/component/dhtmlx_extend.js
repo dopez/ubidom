@@ -16,7 +16,9 @@ var editIcon = "<img src=/images/common/caution01.png>";
 function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 	if(stage==0) { // Before Editing
 		var pk = this.getUserData("","pk");
+	
 		var cudKeyColIdx = this.getColIndexById(cudKeyCol);
+     
 		if(pk!=null && pk!="") {
 			var arr = pk.split(",");
 			for(var i = 0; i < arr.length; i++) {
@@ -31,6 +33,11 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 		}
 	} else if(stage==1){ // Progressing Editing
 		if(this.getColType(cInd)=="ed") {
+            var colId = this.getColumnId(cInd);
+            var className = this.getUserData("",colId);
+            if(className.length>0){
+            	$("td.cellselected").find("input").addClass(className).keyup();
+            }
 			$(".dhx_combo_edit").select();
 		} else if(this.getColType(cInd)=="coro") {
 			$("td.cellselected").css("background","url('/component/dhtmlxGrid/imgs/dhxcombo_arrow_down.gif') no-repeat 97% center #ffffff; border:1px solid #e9e9e9;");			
@@ -38,6 +45,11 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 			setUpdateAcType(this, rId);
 		}
 	} else if((stage == 2)) { // After Editing
+        var colId = this.getColumnId(cInd);
+        console.log("colId",colId);
+        var className1 = this.getUserData("","pk");
+        var className2 = this.getUserData("",colId);
+
 		$("td").css("background","");
 		if((oValue != nValue)) {
 			setUpdateAcType(this, rId);
@@ -316,3 +328,5 @@ function fileupload(tagId,imgId){
 			dropZone: $('#dropzone')
 	    });
 }
+
+
