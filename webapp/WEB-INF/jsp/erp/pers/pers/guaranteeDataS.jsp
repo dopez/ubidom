@@ -4,8 +4,10 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl01, gridDtl02;
+var gridTabbar;
+var isActTab1, isActTab2;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3,5,6],"3L");
+	Ubi.setContainer(2,[1,3,4,5,6],"2U");
 	//신원보증/보험등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -13,74 +15,276 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100");
-	gridMst.setColAlign("center,right,left,left,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
-	gridMst.setColSorting("int,int,str,str,str,str");
-	gridMst.init();	
-	subLayout.cells("a").setWidth(603);
-	
-	gridDtl01 = subLayout.cells("b").attachGrid();
-	gridDtl01.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl01.setHeader("No,관계,성명,주민등록번호,직장명,직위,학력,거주지",null,
-			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			            "text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl01.setInitWidths("100,100,100,100,100,100,100,100");
-	gridDtl01.setColAlign("center,left,left,left,left,left,left,left");
-	gridDtl01.setColTypes("ron,ed,ed,ed,ed,ed,ed,ed");
-	gridDtl01.setColSorting("int,str,str,str,str,str,str,str");
-	gridDtl01.init();
-	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("신원보증");
+	subLayout.cells("a").setWidth(300);
+	gridMst = new dxGrid(subLayout.cells("a"), false);
+	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사업장",   colId:"compId",   width:"25", align:"center", type:"ro"});
+	gridMst.setColSort("str");	
+	gridMst.setUserData("","pk","no");
+	gridMst.init(); 
+	gridMst.setColumnHidden(4,true);
+	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 
-	gridDtl02 = subLayout.cells("c").attachGrid();
-	gridDtl02.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl02.setHeader("No,시작일,종료일,계약내용,보험료,보험금,보험회사",null,
-			           ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			            "text-align:center;","text-align:center;"]);
-	gridDtl02.setInitWidths("100,100,100,100,100,100,100");
-	gridDtl02.setColAlign("center,center,center,left,right,right,left");
-	gridDtl02.setColTypes("ron,dhxCalendarA,dhxCalendarA,ed,edn,edn,ed");
-	gridDtl02.setColSorting("int,date,date,str,int,int,str");
-	gridDtl02.init();
-	subLayout.cells("c").showHeader();
-	subLayout.cells("c").setText("보증보험");
+	gridTabbar = subLayout.cells("b").attachTabbar({
+       tabs: [{id: "a1",text: "신원보증",active: true}, 
+              {id: "a2",text: "보증보험"}]});
+	
+    gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
+    gridDtl01.addHeader({name:"NO",           colId:"no",         width:"4", align:"center", type:"cntr"});
+    gridDtl01.addHeader({name:"관계",         colId:"relatKind",  width:"7", align:"center", type:"combo"});
+    gridDtl01.addHeader({name:"성명",         colId:"relatName",  width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"주민등록번호", colId:"juminNo",    width:"10", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"사원번호",     colId:"empNo",      width:"7", align:"center", type:"ro"});
+    gridDtl01.addHeader({name:"사업장",       colId:"compId",     width:"7", align:"center", type:"ro"});
+    gridDtl01.addHeader({name:"순번",         colId:"seq",        width:"7", align:"center", type:"ro"});
+    gridDtl01.setColSort("str");	
+    gridDtl01.setUserData("","pk","no");
+    gridDtl01.init(); 
+    gridDtl01.setColumnHidden(8,true);
+    gridDtl01.setColumnHidden(9,true);
+    gridDtl01.setColumnHidden(10,true);
+    gridDtl01.attachEvent("onRowSelect",doOnDtl01RowSelect);
+    
+    gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
+    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"4", align:"center",  type:"cntr"});
+    gridDtl02.addHeader({name:"시작일",   colId:"startDate", width:"7", align:"center",  type:"dhxCalendarA"});
+    gridDtl02.addHeader({name:"종료일",   colId:"endDate",   width:"7", align:"center",  type:"dhxCalendarA"});
+    gridDtl02.addHeader({name:"계약내용", colId:"insuCont",  width:"10", align:"center", type:"ed"});
+    gridDtl02.addHeader({name:"보험료",   colId:"premium",   width:"7", align:"center",  type:"ed"});
+    gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"7", align:"center",  type:"ed"});
+    gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"center",  type:"ed"});
+    gridDtl02.addHeader({name:"사원번호", colId:"empNo",     width:"7", align:"center",  type:"ro"});
+    gridDtl02.addHeader({name:"사업장",   colId:"compId",    width:"7", align:"center",  type:"ro"});
+    gridDtl02.addHeader({name:"순번",     colId:"seq",       width:"7", align:"center",  type:"ro"});
+    gridDtl02.setColSort("str");	
+    gridDtl02.setUserData("","pk","no");
+    gridDtl02.init(); 
+    gridDtl02.setColumnHidden(7,true);
+    gridDtl02.setColumnHidden(8,true);
+    gridDtl02.setColumnHidden(9,true);
+    gridDtl02.attachEvent("onRowSelect",doOnDtl02RowSelect);
+
+   fn_search();
+	
+	$("#postName").click(function(){
+		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+	});
+	
+	$("#korName").click(function(){
+		gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+	});
+	
+	combo01 =gridDtl01.getColumnCombo(1);
+	fn_comboSet(combo01);
 
 });
+function fn_comboSet(comboId){
+	var params={};
+	params.compId = '100';
+	params.code = 'P007';
+	
+	comboId.setTemplate({
+	    input: "#interName#",
+	    columns: [
+	       {header: "구분", width: 100,  option: "#interName#"}
+	    ]
+	});
+	$.ajax({
+		"url":"/erp/pers/pers/persAppointS/selBaseCode",
+		"type":"post",
+		"data":params,
+		"success" : function(data){
+		  var list = data;
+		  for(var i=0;i<list.length;i++){
+			  comboId.addOption(list[i].interCode,list[i].interName);
+		    }
+		}
+  });
+comboId.enableFilteringMode(true);
+comboId.enableAutocomplete(true);
+comboId.allowFreeText(true);
+}
+function doOnMstRowSelect(id,ind){
+	var obj={};
+	obj.compId = gridMst.setCells(id,4).getValue();
+	obj.empNo = gridMst.setCells(id,1).getValue();
+	fn_loadGridRightList(obj); 
+}
+function doOnDtl01RowSelect(id,ind){
+    gridDtl01.editCell();
+	var no = gridDtl01.setCells(id,0).getValue();
+	var seqValue = gridDtl01.setCells(id,10).getValue();
+	if(seqValue == ""){
+		gridDtl01.setCells(id,10).setValue(no);
+	} 
+}
+function doOnDtl02RowSelect(id,ind){
+    gridDtl02.editCell();
+	var no = gridDtl02.setCells(id,0).getValue();
+	var seqValue = gridDtl02.setCells(id,9).getValue();
+	if(seqValue == ""){
+		gridDtl02.setCells(id,9).setValue(no);
+	} 
+}
+function fn_search(){
+	gridDtl01.clearAll();
+	gridDtl02.clearAll();
+	fn_loadGridLeftList(); 
+}
+function fn_add(){
+    var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{ 
+		 isActTab1 = gridTabbar.tabs("a1").isActive();
+		 isActTab2 = gridTabbar.tabs("a2").isActive();
+	if(isActTab1){
+		var totalColNum = gridDtl01.getColumnCount();
+	    var data = new Array(totalColNum);
+		var empNoColIdx =  gridDtl01.getColIndexById('empNo');    
+		var compIdColIdx = gridDtl01.getColIndexById('compId');
+	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
+	        data[compIdColIdx] = gridMst.setCells(rowCheck,4).getValue();
+		    gridDtl01.addRow(data);
+	}else if(isActTab2){
+		var totalColNum = gridDtl02.getColumnCount();
+	    var data = new Array(totalColNum);
+		var empNoColIdx =     gridDtl02.getColIndexById('empNo');    
+		var compIdColIdx =    gridDtl02.getColIndexById('compId');
+		var startDateColIdx = gridDtl02.getColIndexById('startDate');
+		var endDateColIdx =   gridDtl02.getColIndexById('endDate');
+		var premiumColIdx = gridDtl02.getColIndexById('premium');
+		var insuAmtColIdx =   gridDtl02.getColIndexById('insuAmt');
+		    data[startDateColIdx] = dateformat(new Date());
+		    data[endDateColIdx] = dateformat(new Date());
+		    data[premiumColIdx] = 0;
+		    data[insuAmtColIdx] = 0;
+ 	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
+	        data[compIdColIdx] = gridMst.setCells(rowCheck,4).getValue(); 
+		    gridDtl02.addRow(data);
+	 }
+   }
+}
+function fn_nullCheck(id){
+	var startValue = gridDtl02.setCells(id,1).getValue();
+	var endValue = gridDtl02.setCells(id,1).getValue();
+	if(startValue == ""){
+		gridDtl02.setCells(id,1).setValue(0);
+	}else if(endValue == ""){
+		gridDtl02.setCells(id,2).setValue(0);
+	}
+}
+function fn_save(){
+	 var jsonStr = gridDtl01.getJsonUpdated2();
+	 var jsonStr2 = gridDtl02.getJsonUpdated2();
+	 if(jsonStr == null || jsonStr.length <= 0 ) return;
+	 else if(jsonStr2 == null || jsonStr2.length <= 0) return;
+	 $("#jsonData").val(jsonStr);
+     $("#jsonData2").val(jsonStr2);
+     $.ajax({
+        url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
+        type : "POST",
+        data : $("#pform").serialize(),
+        async : true,
+        success : function(data) {
+        MsgManager.alertMsg("INF001");
+        fn_search();
+         }
+    }); 
+}
+function fn_remove(){
+	isActTab1 = gridTabbar.tabs("a1").isActive();
+    isActTab2 = gridTabbar.tabs("a2").isActive();
+	var rodid = gridDtl01.getSelectedRowId();
+    var rodid2 = gridDtl02.getSelectedRowId();
+	 if(isActTab1){
+		 for(var i=0; i<gridDtl01.getRowsNum();i++){
+			 gridDtl01.cs_deleteRow(gridDtl01.getRowId(i));	 
+		 }
+	 }else if(isActTab2){
+		 for(var i=0; i<gridDtl02.getRowsNum();i++){
+			 gridDtl02.cs_deleteRow(gridDtl02.getRowId(i));	 
+		 }
+	} 
+}
+function fn_delete(){
+	    isActTab1 = gridTabbar.tabs("a1").isActive();
+	    isActTab2 = gridTabbar.tabs("a2").isActive();
+		var rodid = gridDtl01.getSelectedRowId();
+	    var rodid2 = gridDtl02.getSelectedRowId();
+		 if(isActTab1){
+			 gridDtl01.cs_deleteRow(rodid);
+		 }else if(isActTab2){
+			 gridDtl02.cs_deleteRow(rodid2);
+		}    
+}
+function fn_prcsGridList(){
+	 $.ajax({
+         url : "/erp/pers/pers/guaranteeDataS/prcsGuaranteeDataS",
+         type : "POST",
+         data : $("#pform").serialize(),
+         async : true,
+         success : function(data) {
+         MsgManager.alertMsg("INF003");
+         fn_search();
+       }
+    });
+}
+function fn_loadGridLeftList(){
+	var obj={};
+	obj.jikgun = $('#jikgun').val();
+	obj.serveGbn = $('#serveGbn').val();
+	obj.postCode = $('#postCode').val();
+	obj.empNo = $('#empNo').val();
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/educationDataS/selLeft",subLayout.cells("a"),fn_loadGridLeftListCB);
+}
+function fn_loadGridLeftListCB(data){
+	byId("frmMain").reset();
+	$('#postCode').val('');
+	$('#empNo').val('');
+};
+function fn_loadGridRightList(params){
+	gfn_callAjaxForGrid(gridDtl01,params,"/erp/pers/pers/guaranteeDataS/selRight2",gridTabbar.tabs("a1"));
+	gfn_callAjaxForGrid(gridDtl02,params,"/erp/pers/pers/guaranteeDataS/selRight1",gridTabbar.tabs("a2"));
+}
+
+function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
+	if(pName=="postCode"){
+		for(i=0;i<data.length;i++){
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			$('#postName').val(obj.postName);
+			$('#postCode').val(obj.postCode);
+		}		  
+	}else if(pName == "empNo"){
+		for(i=0;i<data.length;i++){
+			obj.korName=data[i].korName;
+			obj.empNo=data[i].empNo;
+				$('#korName').val(obj.korName);
+				$('#empNo').val(obj.empNo);
+		}
+	}	  
+ };
 </script>
+<form id="pform" name="pform" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+    <input type="hidden" id="jsonData2" name="jsonData2" />
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 부서
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
-			</div>
-		  </div>
-	  </div>
-	</div>
-	<div class="row">
-	   <div class="form-group form-group-sm">
-		  <div class="col-sm-8 col-md-8">
-			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 성명
-			 </label>
-			<div class="col-sm-2 col-md-2">
-			  <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
-			</div>
-		  </div>
-	  </div>
-	</div>  
+      <input type="hidden" name="postCode" id="postCode">
+      <input type="hidden" name="empNo" id="empNo">
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -88,35 +292,48 @@ $(document).ready(function(){
 			 직군
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
+			  <select name="jikgun" id="jikgun" class="form-control input-xs">
+			   <option value="%">전체</option>
+			   <option value="01">관리직</option>
+			   <option value="02">생산직</option>
+			   <option value="03">용역</option>
+			   <option value="04">외국인</option>
+			   <option value="05">기술직</option>
+			   <option value="06">계약직</option>
+			  </select>
+			</div>
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
+			 근무
+			 </label>
+			<div class="col-sm-2 col-md-2">
+			  <select name="serveGbn" id="serveGbn" class="form-control input-xs">
+			   <option value="%">전체</option>
+			   <option value="01">재직</option>
+			   <option value="02">휴직</option>
+			   <option value="03">퇴직</option>
 			  </select>
 			</div>
 		  </div>
 	  </div>
 	</div>
-	<div class="row">
+    <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
-			 근무
+			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="work" id="work" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="재직">재직</option>
-			   <option value="휴직">휴직</option>
-			   <option value="퇴직">퇴직</option>
-			  </select>
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			</div>
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
+			 성명
+			 </label>
+			<div class="col-sm-2 col-md-2">
+			  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>
-	</div>  
+	</div>
   </form>
  </div> 
 </div>

@@ -3,6 +3,7 @@ package com.ubi.erp.pers.domain;
 import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("PersDataS")
 public class PersDataS implements Serializable {

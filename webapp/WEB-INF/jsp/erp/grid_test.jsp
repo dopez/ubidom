@@ -54,8 +54,12 @@ $(function() {
 		        data : $("#pform").serialize(),
 		        async : true,
 		        success : function(data) {
-		        	MsgManager.alertMsg("INF001");
-					fn_loadGridList();
+		        	if(data.rtnCode == "1") {
+			        	MsgManager.alertMsg("INF001");
+						fn_loadGridList();
+					} else {
+						return;
+					}
 		        }
 			});
 		}

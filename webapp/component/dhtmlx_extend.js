@@ -327,6 +327,7 @@ function fileupload(tagId,imgId){
 	   		
 			dropZone: $('#dropzone')
 	    });
+	 return true;
 }
 
 

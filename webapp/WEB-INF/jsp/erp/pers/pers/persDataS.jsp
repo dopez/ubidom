@@ -8,7 +8,7 @@ var gridMain;
 var calMain;
 var combo01, combo02, combo03;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,2,3,4],"2U");
+	Ubi.setContainer(1,[1,2,3,4,9],"2U");
 	//인사자료등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -67,14 +67,22 @@ $(document).ready(function(){
 	});
 	
  	$("#updImg").click(function(){
-		byId("imgPath").click();
-		fileupload("imgPath","target");
+ 		var rowCheck = gridMain.getSelectedRowId();
+ 		if(rowCheck == null){
+ 			return false;
+ 		}else{
+ 			byId("fileName").click();
+ 			status = fileupload("fileName","target"); 
+ 		}
 	}); 
+ 	
  	$("#delImg").click(function(){
+ 		       disableValue(1);
+ 		       byId("cudKey").value = "UPDATE";
                  $.ajax({
-                  url : "/erp/pers/pers/persDataS/prcsFileDelete.sc",
+                  url : "/erp/pers/pers/persDataS/prcsFileDelete",
                   type : "POST",
-                  data : $("#attachFile").val(),
+                  data : $("#frmMain").serialize(),
                   async : true,
                   success : function(data) {
                   MsgManager.alertMsg("INF003");
@@ -185,7 +193,7 @@ function fn_new(){
 };
 
  function fn_save(){
-	 f_dxRules = {
+	   f_dxRules = {
 	   empNo : ["사원번호",r_notEmpty,r_len + "|7"],
 	   korName : ["성명",r_notEmpty],
        regiNumb: ["주민번호",r_notEmpty,r_len + "|14"],
@@ -212,7 +220,7 @@ function fn_new(){
 			  }
 		   });
 	}else{
-	} 
+	}  
 }; 
 function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
@@ -243,7 +251,6 @@ function fn_remove(){
 function fn_loadGridList(){
     gfn_callAjaxForGrid(gridMain,{},"/erp/pers/pers/persDataS/selLeft",subLayout.cells("a"));
 };
-
 function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"/erp/pers/pers/persDataS/selRight",fn_loadFormListCB);
 };
@@ -251,6 +258,11 @@ function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
+	if(data[0].imgPath != null){
+	  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
+	  $("#target").attr("src",path);
+	}
+	
 }
 function fn_onOpenPop(pName){
 	var value;
@@ -325,12 +337,13 @@ function fn_onClosePop(pName,data){
 	  <input type="hidden" id="length" name="length" value="0" />
       <input type="hidden" id="armyNo" name="armyNo" />
       <input type="hidden" id="armySpcase" name="armySpcase" />
-      <input id="attachFile" type="file" name="attachFile" data-url="/erp/pers/pers/persDataS/prcsFileUpload.sc" multiple style="display: none;">
+      <input id="imgPath" type="hidden" name="imgPath">
+      <input id="fileName" type="file" name="fileName" data-url="/erp/pers/pers/persDataS/prcsFileUpload" multiple style="display: none;">
 	   <div class="col-sm-2 col-md-2">
 	     <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
-				 <img  src=""  height="150px;" width="400px;" id="target">
+				 <img  src=""  height="150px;" width="400px;" id="target" name="target">
 			  </div>
 		   </div>
  		  </div>

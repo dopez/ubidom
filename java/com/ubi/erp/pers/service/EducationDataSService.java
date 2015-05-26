@@ -11,6 +11,7 @@ import com.ubi.erp.pers.domain.EducationDataS;
 
 @Service
 public class EducationDataSService {
+	
 	private EducationDataSDao dao;
 
 	@Autowired
