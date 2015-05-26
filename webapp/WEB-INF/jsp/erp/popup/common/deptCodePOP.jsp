@@ -31,7 +31,7 @@ $(document).ready(function(){
 });
 function fn_search(){
 	 var params = "postName=" + $("#postName").val();
-	  gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),fn_loadGridListCodeCB);
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/pers/stan/deptS/gridMstSearch",subLayout.cells("a"),fn_loadGridListCodeCB);
 }
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {

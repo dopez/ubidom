@@ -33,11 +33,6 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 		}
 	} else if(stage==1){ // Progressing Editing
 		if(this.getColType(cInd)=="ed") {
-            var colId = this.getColumnId(cInd);
-            var className = this.getUserData("",colId);
-            if(className.length>0){
-            	$("td.cellselected").find("input").addClass(className).keyup();
-            }
 			$(".dhx_combo_edit").select();
 		} else if(this.getColType(cInd)=="coro") {
 			$("td.cellselected").css("background","url('/component/dhtmlxGrid/imgs/dhxcombo_arrow_down.gif') no-repeat 97% center #ffffff; border:1px solid #e9e9e9;");			

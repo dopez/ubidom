@@ -17,9 +17,11 @@ $(document).ready(function(){
 	
 	subLayout.cells("a").setWidth(250);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"사업장번호", colId:"compId",    width:"45", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사업장",     colId:"compName",  width:"40", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",         colId:"no",        width:"15", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"사업장번호", colId:"compId",    width:"42", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사업장",     colId:"compName",  width:"42", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","compId");
+	gridMain.setColSort("str");
 	gridMain.init(); 
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
@@ -83,9 +85,16 @@ function fn_save(){
   
 	if(gfn_formValidation('frmMain')){
  		 disableValue(1);	
-		var params = $("#frmMain").serialize();
-	    gfn_callAjaxForForm("frmMain",params,"formSave");
-	    fn_search();
+        $.ajax({
+         url : "/erp/comm/stan/compS/formSave",
+         type : "POST",
+         data : $("#frmMain").serialize(),
+         async : true,
+         success : function(data) {
+         MsgManager.alertMsg("INF001");
+         fn_search();
+         }
+      }); 
 	}
 };
 

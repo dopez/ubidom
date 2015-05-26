@@ -63,7 +63,7 @@ dxGrid.prototype.addHeader = function(val){
 	this.headerName.push(val.name);
 	this.headerColId.push(val.colId);
 	this.headerWidth.push(val.width);
-	this.headerAlign.push(val.align,val.type);
+	this.headerAlign.push(val.align);
 	this.headerType.push(val.type);
 };
 
@@ -71,7 +71,7 @@ dxGrid.prototype.init = function() {
 	this.setHeader(this.headerName.join(","));
 	this.setColId(this.headerColId.join(","));
 	this.setColWidthP(this.headerWidth.join(","));
-	this.setColAlign(this.headerAlign.join(","),"str");
+	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
 	this.setColSort("str");
 	this.dxObj.init();
@@ -82,7 +82,7 @@ dxGrid.prototype.init = function() {
 
 	this.dxObj.enableDistributedParsing(true,50,1000);
 	
-	this.dxObj.insertColumn(0,'&nbsp;','cntr',15,'na','right','top',null,'#CCE2FE');
+	//this.dxObj.insertColumn(0,'&nbsp;','cntr',15,'na','right','top',null,'#CCE2FE');
 	
 	var colIdx = this.dxObj.getColIndexById(cudKeyCol);
 	this.dxObj.setColumnHidden(colIdx, true);
@@ -134,31 +134,12 @@ dxGrid.prototype.setColWidthP = function(val) {
 	}
 };
 
-dxGrid.prototype.setColAlign = function(val,val2) {
-	
-	var arr = [];
-	
-	var arrLenth = val.split(",");
-	var arrLenth2 = val2.split(",");
-	
-	for(var i=0;i<arrLenth.length;i++){
-		if(arrLenth[i] == "right"){
-			arrLenth[i] = "int";
-		}
-	}
-	
-	for(var i=0;i<arrLenth2.length;i++){
-		if(arrLenth2[i]=="dhxCalendar"||arrLenth2[i]=="dhxCalendarA"){
-			arrLenth2[i] = "date";
-		}
-	}
-	
-	if(arrLenth.length==1&&arrLenth2.length==1) {
+dxGrid.prototype.setColAlign = function(val) {
+	var arrLenth = val.split(",");	
+	if(arrLenth.length==1) {
 		this.dxObj.setColAlign(this.getAutoVal(val));
-		this.dxObj.setColSorting(this.getAutoVal(val2));
 	} else {
 		this.dxObj.setColAlign(val);
-		this.dxObj.setColSorting(val);
 	}
 };
 

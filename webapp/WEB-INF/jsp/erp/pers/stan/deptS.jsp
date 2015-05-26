@@ -16,13 +16,11 @@ $(document).ready(function(){
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"49", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"49", align:"center", type:"ro"});
-	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","postCode");
 	gridMst.init(); 
 	
 	gridMst.attachEvent("onRowSelect",doOnRowSelect);
-	var params = fn_value();
-	fn_loadGridListCode(params,1);
+	fn_loadGridListCode(1);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",       colId:"no",       width:"5",  align:"center", type:"cntr"});
@@ -31,7 +29,6 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"종료일", 	colId:"endDate",  width:"10", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
-	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.init();
 	
@@ -46,34 +43,21 @@ $(document).ready(function(){
 	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
 
 	var combo=gridDtl.getColumnCombo(5);
-	combo.load({
-		template: {
+	combo.setTemplate({
 		    input: "#costKind#",
 		    columns: [
 		        {header: "원가구분", width: 100,  option: "#costKind#"}
 		    ]
-		},
-		options: [
-          {value: 1, text:{costKind: "판관"}},
-          {value: 2, text:{costKind: "제조"}}
-		]
 	}); 
-	
+	combo.addOption("판관","판관");
+	combo.addOption("제조","제조");
+
    combo.enableFilteringMode(true);
    combo.enableAutocomplete(true);
    combo.allowFreeText(true);
    
- //그리드 onRowSelect edit
-	gridDtl.attachEvent("onRowSelect", function(id,ind){
-		gridDtl.editCell();
- 	});
-   
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
-	});
-
-  	combo.attachEvent("onClose", function() {
-		gridDtl.setCells2(gridDtl.getSelectedRowIndex(gridDtl.getSelectedRowId()),5).setValue(combo.getSelectedText().costKind);
 	});
   	
 });
@@ -114,49 +98,25 @@ function fn_addRow(flag){
 
 function fn_delete(){
       var rodid = gridDtl.getSelectedRowId();
-      var rodIdx = gridDtl.getSelectedRowIndex();
-      if(gridDtl.isDelRows(rodid)) {
-         if(MsgManager.confirmMsg("INF002")) {
-       	  if(gridDtl.chkUnsavedRow(rodIdx,rodid)) {
-       		  return
-       	  }else{
-       		 var jsonStr = gridDtl.getJsonRowDel(rodid);
-             if (jsonStr == null || jsonStr.length <= 0) return;
-              $("#jsonData").val(jsonStr);
-                  $.ajax({
-                   url : "/erp/pers/stan/deptS/prcs",
-                   type : "POST",
-                   data : $("#pform").serialize(),
-                   async : true,
-                   success : function(data) {
-                   MsgManager.alertMsg("INF003");
-                   fn_search();
-                  }
-              });
-       	   }   	 
-          } else {
-           	 MsgManager.alertMsg("WRN004");
-            } 
-       }else {
-           MsgManager.alertMsg("WRN002");
-        }
+      gridDtl.cs_deleteRow(rodid);
 }
 
  function fn_save(){
-	  var jsonStr = gridDtl.getJsonUpdated2();
-	    if (jsonStr == null || jsonStr.length <= 0) return;         		
-	        $("#jsonData").val(jsonStr);                      
-	        $.ajax({
-	           url : "/erp/pers/stan/deptS/prcs",
-	           type : "POST",
-	           data : $("#pform").serialize(),
-	           async : true,
-	           success : function(data) {
-	           MsgManager.alertMsg("INF001");
-	           fn_search();
-	            }
-	       });
-} 
+	var jsonStr = gridDtl.getJsonUpdated2();
+	 if (jsonStr == null || jsonStr.length <= 0) return;         		
+	    $("#jsonData").val(jsonStr);                      
+	    $.ajax({
+	         url : "/erp/pers/stan/deptS/gridDtlSave",
+	         type : "POST",
+	         data : $("#pform").serialize(),
+	         async : true,
+	         success : function(data) {
+	         MsgManager.alertMsg("INF001");
+	         fn_search();
+	         }
+	  });
+ } 
+ 
 function doOnRowSelect(id,ind){
 	var obj = {};
 	obj.postCode= gridMst.setCells(id,0).getValue();
@@ -169,39 +129,30 @@ function doOnEmptyClick(ev){
 	gridDtl.clearSelection();
 }
 
-function fn_comboReadOnly(combo){
-	combo.attachEvent("onChange", function(){
-	combo.allowFreeText(false);
-	combo.readonly(true);
-	combo.enableFilteringMode(false);
-	combo.enableAutocomplete(false);
-	});
-};	
 function fn_search(){
-	var params = fn_value();
-	fn_loadGridListCode(params,1);
+	fn_loadGridListCode(1);
 	fn_cellChange(2); 
 }
 // dept 조회로직
 function fn_loadGridList(params,flag) {
 		var callbackFn;
 		if(flag == 1){
-			callbackFn = fn_loadGridListCB;
+			gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridListCB);
 		}else{
-			callbackFn = fn_loadGridList2CB;
+			gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 		}
-	    gfn_callAjaxForGrid(gridDtl,params,"/erp/pers/stan/deptS/selGridDtl",subLayout.cells("b"),callbackFn);
+	    
 };
 
 // deptCode 조회로직
-function fn_loadGridListCode(params,flag) {
+function fn_loadGridListCode(flag) {
+	var params ="postName=" + $("#postName").val();
 	var callbackFn;
 	if(flag == 1){
-		callbackFn = fn_loadGridListCodeCB;
+		gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),fn_loadGridListCodeCB); 
 	}else{
-		callbackFn = fn_loadGridListCode2CB;
+		gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a")); 
 	}
-	gfn_callAjaxForGrid(gridMst,params,"/erp/pers/stan/deptS/selGridMst",subLayout.cells("a"),callbackFn); 
 };
 
  // fn_loadGridList callback 함수
@@ -218,19 +169,6 @@ function fn_loadGridListCodeCB(data) {
 	obj.postCode=data[0].postCode;
 	fn_loadGridList(obj,2);
 };
-//fn_loadGridList2callback 함수
-function fn_loadGridList2CB(data) {
-
-};
-//fn_loadGridListCode callback 함수
-function fn_loadGridListCode2CB(data) {
-	
-};
-
-function fn_value(){
-	var params ="postName=" + $("#postName").val();
-	return params;
-}
 
 function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
