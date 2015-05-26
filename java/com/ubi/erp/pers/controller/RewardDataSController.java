@@ -19,30 +19,30 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
-import com.ubi.erp.pers.domain.LicenseDataS;
-import com.ubi.erp.pers.service.LicenseDataSService;
+import com.ubi.erp.pers.domain.RewardDataS;
+import com.ubi.erp.pers.service.RewardDataSService;
 
 @RestController
-@RequestMapping(value = "/erp/pers/pers/licenseDataS")
-public class LicenseDataSController {
+@RequestMapping(value = "/erp/pers/pers/rewardDataS")
+public class RewardDataSController {
 	
 	@Autowired
-	private LicenseDataSService licenseDataSService;
+	private RewardDataSService rewardDataSService;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
-	public List<LicenseDataS> selLicenseDataSR(HttpServletRequest request, HttpServletResponse response,LicenseDataS licenseDataS) throws Exception {
+	public List<RewardDataS> selRewardDataSR(HttpServletRequest request, HttpServletResponse response,RewardDataS rewardDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = licenseDataS.getCompId();
-		String empNo = licenseDataS.getEmpNo();
+		String compId = rewardDataS.getCompId();
+		String empNo = rewardDataS.getEmpNo();
 		map.put("compId", compId);
 		map.put("empNo", empNo);
 		map.put("o_cursor", null);
-		licenseDataSService.selLicenseDataSR(map);
-		List<LicenseDataS> list = (List<LicenseDataS>) map.get("o_cursor");
+		rewardDataSService.selRewardDataSR(map);
+		List<RewardDataS> list = (List<RewardDataS>) map.get("o_cursor");
 		DateFormatUtil df = new DateFormatUtil();
 		for(int i = 0; i<list.size();i++){
-			list.get(i).setAchiDate(df.dateToString2(list.get(i).getAchiDate()));
+			list.get(i).setStDate(df.dateToString2(list.get(i).getStDate()));
 		}
 		return list;
 	}
@@ -52,21 +52,21 @@ public class LicenseDataSController {
 	public void prcsLicenseDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
-		List<LicenseDataS> list = new ArrayList<LicenseDataS>();
+		List<RewardDataS> list = new ArrayList<RewardDataS>();
 		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<LicenseDataS>>(){});
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<RewardDataS>>(){});
 		DateFormatUtil df = new DateFormatUtil();
 		
-		for(LicenseDataS licenseDataS : list) {
-			licenseDataS.setSysEmpNo(sysEmpNo);
-			licenseDataS.setAchiDate(df.dateToString(licenseDataS.getAchiDate()));
+		for(RewardDataS rewardDataS : list) {
+			rewardDataS.setSysEmpNo(sysEmpNo);
+			rewardDataS.setStDate(df.dateToString(rewardDataS.getStDate()));
 			
-			if("INSERT".equals(licenseDataS.getCudKey())) {
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
-			}else if("UPDATE".equals(licenseDataS.getCudKey())){
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
-			}else if("DELETE".equals(licenseDataS.getCudKey())){
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
+			if("INSERT".equals(rewardDataS.getCudKey())) {
+				rewardDataSService.prcsRewardDataS(rewardDataS);
+			}else if("UPDATE".equals(rewardDataS.getCudKey())){
+				rewardDataSService.prcsRewardDataS(rewardDataS);
+			}else if("DELETE".equals(rewardDataS.getCudKey())){
+				rewardDataSService.prcsRewardDataS(rewardDataS);
 			}
 		}
 	}
