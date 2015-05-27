@@ -23,6 +23,7 @@ import com.ubi.erp.sale.controller.CustCompRController;
 @RequestMapping(value = "/erp/pers/pers/ageByPersonR")
 public class AgeByPersonRController {
 	 private static final Logger logger = LoggerFactory.getLogger(AgeByPersonRController.class);
+
 	@Autowired
 	private AgeByPersonRService ageByPersonRService;
 

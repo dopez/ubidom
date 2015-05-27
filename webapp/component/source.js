@@ -57,6 +57,7 @@ function gfn_callAjaxComm(param,url,callbackFn) {
 
 function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
 	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
+	var gData = [];
 	$.ajax({
     	url:  url,
         type: "POST",
@@ -68,7 +69,9 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
             layout.progressOn();
         },
         success: function(data, status) {
-        	
+        
+        gData = data;
+        
        	 if (callbackFn != undefined) {
              callbackFn.call(this, data);
          }
@@ -88,11 +91,12 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
             console.log(xhr.statusText + xhr.responseText);
         }
     });
+	return gData;
 }
 
 
 function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
-
+	var gData = [];
 	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
     $.ajax({
         url: url,
@@ -103,7 +107,7 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
         dataType: "json",
         beforeSend: function() {},
         success: function(data) {
-
+        	gData = data;
            	if (callbackFn != undefined) {
                 callbackFn.call(this, data);
             }
@@ -116,6 +120,7 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
             console.log(xhr.statusText + xhr.responseText);
         }
     });
+    return gData;
 }
 
 
