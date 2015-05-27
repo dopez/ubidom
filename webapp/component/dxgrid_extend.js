@@ -788,3 +788,7 @@ dxGrid.prototype.enableResizing = function(){
 dxGrid.prototype.enableDragAndDrop = function(boolean){
 	return this.dxObj.enableDragAndDrop(boolean);
 }
+
+dxGrid.prototype.setColumnExcellType = function(colIdx,type){
+	return this.dxObj.setColumnExcellType(colIdx,type);
+}
