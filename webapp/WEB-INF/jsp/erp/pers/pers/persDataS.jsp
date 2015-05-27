@@ -208,36 +208,16 @@ function fn_new(){
 			  success:function(data)
 			  {
 				MsgManager.alertMsg("INF001"); 
-				fn_new();
+				fn_search();
 			  }
 		   });
 	}else{
 	}  
 }; 
 function fn_remove(){
+	$('#cudKey').val('DELETE');
     var rodid = gridMain.getSelectedRowId();
-    var rodIdx = gridMain.getSelectedRowIndex();
-    if(gridMain.isDelRows(rodid)) {
-       if(MsgManager.confirmMsg("INF002")) {
-    	   byId("cudKey").value = "DELETE";
-    	   disableValue(1);
-                $.ajax({
-                 url : "/erp/pers/pers/persDataS/prcsPersData",
-                 type : "POST",
-                 data : $("#frmMain").serialize(),
-                 async : true,
-                 success : function(data) {
-                 MsgManager.alertMsg("INF003");
-                 fn_new();
-                 fn_loadGridList();
-                }
-            });   	 
-        } else {
-         	 MsgManager.alertMsg("WRN004");
-          } 
-     }else {
-         MsgManager.alertMsg("WRN002");
-      }
+    gridMain.cs_deleteRow(rodid);
 };
 
 function fn_loadGridList(){

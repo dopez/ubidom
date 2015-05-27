@@ -89,11 +89,12 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
         beforeSend: function() {},
         success: function(data) {
             
-           	if (callbackFn != undefined) {
-                callbackFn.call(this, data);
-            }		
+           		
             gfn_setDataInFrom($("#" + formId), data[0]);
-
+            
+            if (callbackFn != undefined) {
+                callbackFn.call(this, data);
+            }	
       
         },
         complete: function() {

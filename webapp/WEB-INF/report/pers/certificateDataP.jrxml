@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-05-27T13:08:20 -->
+<!-- 2015-05-27T13:28:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7685942f-f75f-4883-9efc-7036f528d724">
 	<property name="ireport.zoom" value="0.5"/>
 	<property name="ireport.x" value="0"/>
@@ -30,13 +30,16 @@
 				<reportElement x="190" y="35" width="177" height="30" uuid="b9e7a355-2f6d-4363-b50a-34a61f6c51a7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="20"/>
+					<paragraph tabStopWidth="50"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{certKind}.equals("재직")?"재직증명서":"경력증명서"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="172" y="66" width="210" height="1" uuid="9fd7f592-60fc-43f3-a8af-34d3fa82d42f">
+				<reportElement positionType="FixRelativeToBottom" x="178" y="66" width="200" height="1" uuid="9fd7f592-60fc-43f3-a8af-34d3fa82d42f">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<graphicElement>
 					<pen lineStyle="Double"/>
@@ -366,7 +369,7 @@
 					<textFieldExpression><![CDATA[$F{presidentName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="143" y="156" width="268" height="15" uuid="deb31ac8-1a66-41a8-9453-ccb962f62ed9"/>
+					<reportElement x="146" y="156" width="268" height="15" uuid="deb31ac8-1a66-41a8-9453-ccb962f62ed9"/>
 					<textFieldExpression><![CDATA[$F{certKind}.equals("재직")?"위 사람은 상기와 같이 재직하고 있음을 증명합니다.":"위 사람은 상기와 같이 재직 하였음을 증명합니다."]]></textFieldExpression>
 				</textField>
 			</frame>

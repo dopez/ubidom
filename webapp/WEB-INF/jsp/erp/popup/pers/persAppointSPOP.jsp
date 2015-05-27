@@ -73,7 +73,6 @@ function fn_search(){
 }
 
 function fn_save(){
-	var selRowIdx = gridMain.getSelectedRowIndex();
 	var jsonStr = gridMain.getJsonUpdated2();
     if (jsonStr == null || jsonStr.length <= 0) return;         		
         $("#jsonData").val(jsonStr);                      
