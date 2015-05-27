@@ -63,9 +63,9 @@ $(document).ready(function(){
 });
 function fn_cellChange(flag){
 	if(flag==1){
-		gridDtl.dxObj.setColumnExcellType(1,"ed");
+		gridDtl.setColumnExcellType(1,"ed");
 	  }else{
-		gridDtl.dxObj.setColumnExcellType(1,"ro");
+		gridDtl.setColumnExcellType(1,"ro");
 	  }
  }
 

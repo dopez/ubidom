@@ -20,7 +20,6 @@ public class GuaranteeDataSService {
 
 	public void selGuaranteeDataSR1(Map<String, Object> map) {
 		dao.selGuaranteeDataSR1(map);
-		;
 	}
 
 	public void prcsGuaranteeDataS1(GuaranteeDataS guaranteeDataS) {

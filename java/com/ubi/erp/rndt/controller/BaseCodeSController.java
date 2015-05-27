@@ -26,7 +26,7 @@ import com.ubi.erp.rndt.service.BaseCodeSService;
 
 
 @RestController
-@RequestMapping(value="/erp/rndt/baseCodeS")
+@RequestMapping(value="/erp/comm/stan/baseCodeS")
 public class BaseCodeSController {
 
 	
@@ -35,7 +35,7 @@ public class BaseCodeSController {
 	private static final Logger logger = LoggerFactory.getLogger(BaseCodeSController.class);
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selBaseCodeMst", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMstSel", method = RequestMethod.POST)
 	public List<BaseCodeS> selBaseCodeMst(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String codeName = request.getParameter("codeName");
@@ -51,7 +51,7 @@ public class BaseCodeSController {
 		return list;
 	}	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selBaseCodeDtl", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSel", method = RequestMethod.POST)
 	public List<BaseCodeS> selBaseCodeDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String code = request.getParameter("code");
@@ -63,7 +63,7 @@ public class BaseCodeSController {
 		List<BaseCodeS> innerCodeList = (List<BaseCodeS>) map.get("P_RST");
 		return innerCodeList;
 	}
-	@RequestMapping(value = "/prcsCodeSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMstSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCodeSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");
@@ -74,14 +74,14 @@ public class BaseCodeSController {
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<BaseCodeS>>(){});
 
 		for (BaseCodeS basecodss : list) {
-			System.out.println(basecodss.getCode());
+			logger.debug(basecodss.getCode());
 			basecodss.setCode(basecodss.getCode());
 			basecodss.setSysEmpNo(sysEmpNo);
 			basecodss.setComp(comp);
 			baseCodeSService.prcsCodeSave(basecodss);
 		}
 	}
-	@RequestMapping(value = "/prcsCodeDtlSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCodeDtlSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String comp = (String) session.getAttribute("compId");

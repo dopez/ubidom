@@ -103,12 +103,7 @@ function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(rodid);
 }
-function fn_refreshGrid(id){
-	var obj={};
-	  obj.compId = gridDtl.setCells(id,8).getValue();
-	  obj.empNo = gridDtl.setCells(id,7).getValue();
-	  fn_loadGridRightList(obj);
-}
+
 function fn_loadGridLeftList(){
 	var obj={};
 	obj.jikgun = $('#jikgun').val();

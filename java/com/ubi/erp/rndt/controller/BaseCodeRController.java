@@ -17,13 +17,13 @@ import com.ubi.erp.rndt.domain.BaseCodeR;
 import com.ubi.erp.rndt.service.BaseCodeRService;
 
 @RestController
-@RequestMapping(value = "/erp/rndt/baseCodeR")
+@RequestMapping(value = "/erp/comm/stan/baseCodeR")
 public class BaseCodeRController {
 	@Autowired
 	private BaseCodeRService baseCodeRService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMainSel",method = RequestMethod.POST)
 	public List<BaseCodeR> selBaseCode(HttpServletRequest request,HttpServletResponse response, HttpSession session, BaseCodeR BaseCodeR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String comp = (String) session.getAttribute("compId");

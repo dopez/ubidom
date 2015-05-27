@@ -793,6 +793,7 @@ dxGrid.prototype.enableDragAndDrop = function(boolean){
 	return this.dxObj.enableDragAndDrop(boolean);
 }
 
+
 dxGrid.prototype.cs_setNumberFormat= function(colArr, format) {
     var defaultFormat = "0,000";
     if (format == undefined)
@@ -802,3 +803,8 @@ dxGrid.prototype.cs_setNumberFormat= function(colArr, format) {
         this.dxObj.setNumberFormat(format, colIndex);
     }
 }
+
+dxGrid.prototype.setColumnExcellType = function(colIdx,type){
+	return this.dxObj.setColumnExcellType(colIdx,type);
+}
+

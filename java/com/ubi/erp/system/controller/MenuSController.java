@@ -24,7 +24,6 @@ import com.ubi.erp.system.domain.MenuS;
 import com.ubi.erp.system.service.MenuSService;
 
 @RestController
-@RequestMapping(value = "/erp/system/menuS")
 public class MenuSController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MenuSController.class);
@@ -34,7 +33,7 @@ public class MenuSController {
 
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/erp/system/menuS",method = RequestMethod.GET)
 	public List<MenuS> selMenu(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session = request.getSession(true);
@@ -53,7 +52,7 @@ public class MenuSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selMenuDtl", method = RequestMethod.POST)
+	@RequestMapping(value = "/erp/system/stan/menuS/gridMainSel", method = RequestMethod.POST)
 	public List<MenuS> selMenuDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
@@ -75,7 +74,7 @@ public class MenuSController {
 		return menuList;
 	}
 	
-	@RequestMapping(value = "/prcsMenuS", method = RequestMethod.POST)
+	@RequestMapping(value = "/erp/system/stan/menuS/gridMainSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsMenuS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
@@ -102,7 +101,7 @@ public class MenuSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selNoAuthList", method = RequestMethod.POST)
+	@RequestMapping(value = "/erp/system/stan/menuS/selNoAuthList", method = RequestMethod.POST)
 	public List<MenuS> prcsNoAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
@@ -124,7 +123,7 @@ public class MenuSController {
 		return noAuthList;
 	}
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selAuthList", method = RequestMethod.POST)
+	@RequestMapping(value = "/erp/system/stan/menuS/selAuthList", method = RequestMethod.POST)
 	public List<MenuS> prcsAuthList(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
@@ -146,7 +145,7 @@ public class MenuSController {
 		return authList;
 	}
 	
-	@RequestMapping(value = "/prcsAuthSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/erp/system/stan/menuS/prcsAuthSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsAuthSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		
