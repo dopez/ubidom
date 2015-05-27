@@ -20,7 +20,7 @@
 		<tomcat.username>pcw</tomcat.username>
 		<tomcat.password>pcw1234</tomcat.password>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>springsource-repo</id>
@@ -58,7 +58,7 @@
 	      <url>https://maven.java.net/content/repositories/releases</url>
 	    </repository>
 	</repositories>
-	
+
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -115,7 +115,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- AspectJ -->
 		<dependency>
 		    <groupId>org.aspectj</groupId>
@@ -127,14 +127,14 @@
 		    <artifactId>aspectjweaver</artifactId>
 		    <version>1.7.4</version>
 		</dependency>
-		
+
 	<!-- SQL Server -->
 	<!-- <dependency> -->
 	<!-- <groupId>com.microsoft.sqlserver</groupId> -->
 	<!-- <artifactId>sqljdbc4</artifactId> -->
 	<!-- <version>4.0</version> -->
 	<!-- </dependency> -->
-		
+
 		<!-- Oracle -->
 		<dependency>
 		    <groupId>com.oracle</groupId>
@@ -169,7 +169,7 @@
 		    <artifactId>hibernate-validator</artifactId>
 		    <version>4.2.0.Final</version>
 		</dependency>
-		
+
 		<!-- Mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -181,7 +181,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
-		
+
 		<!-- Quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -194,14 +194,14 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-		
+
 		<!-- Sitemesh -->
 		<dependency>
 		    <groupId>opensymphony</groupId>
 		    <artifactId>sitemesh</artifactId>
 		    <version>2.4.2</version>
 		</dependency>
-		            
+
 		<!-- Caching -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
@@ -214,7 +214,7 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-		
+
 		<!-- POI -->
 		<dependency>
 		   <groupId>org.apache.poi</groupId>
@@ -231,7 +231,7 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-		
+
 		<dependency>
 		   <groupId>org.apache.poi</groupId>
 		   <artifactId>poi-examples</artifactId>
@@ -247,7 +247,7 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-	    	
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -303,14 +303,14 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 		</dependency>
-		
+
 		<!-- JasperReports -->
 		<dependency>
 		    <groupId>net.sf.jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
 		    <version>6.0.3</version>
 		</dependency>
-            
+
 		<!-- JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -338,25 +338,25 @@
 			<version>0.9.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
-		
+
 		<dependency>
 		   <groupId>commons-fileupload</groupId>
 		   <artifactId>commons-fileupload</artifactId>
 		   <version>1.3.1</version>
 		</dependency>
-		
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -482,6 +482,13 @@
 				</configuration>
 			</plugin>
 			<plugin>
+  <groupId>org.apache.camel</groupId>
+  <artifactId>camel-maven-plugin</artifactId>
+  <configuration>
+<!--     <applicationContextUri>../META-INF/spring/*.xml</applicationContextUri> -->
+  </configuration>
+</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -513,6 +520,14 @@
                 </configuration>
             </plugin>
             <plugin>
+  <groupId>org.apache.camel</groupId>
+  <artifactId>camel-maven-plugin</artifactId>
+  <!-- optional, default value: org.apache.camel.spring.Main -->
+  <configuration>
+    <mainClass>com.ubi.erp.pers.domain.DeptR</mainClass>
+  </configuration>
+</plugin>
+            <plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
@@ -523,5 +538,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

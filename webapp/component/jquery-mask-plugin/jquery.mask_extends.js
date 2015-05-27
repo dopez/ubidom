@@ -37,7 +37,11 @@ var msk_options =  {
 
 $(function(){
 
-	  $('.format_date').mask('0000/00/00', msk_options);
-	  $('.format_jumin').mask('000000-0000000', msk_options);
+	  $('.format_date').mask('0000/00/00', $.extend(msk_options,{placeholder: "__/__/____"}));
+	  $('.format_regi').mask('000000-0000000', msk_options);
+	  $('.format_hp').mask('000000-0000000', msk_options);
+	  $('.format_tel').mask('000000-0000000', msk_options);
+	  $('.format_decimal').mask('000000-0000000', msk_options);
+
 
 });

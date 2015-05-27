@@ -3,40 +3,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMain;
+var grid;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//연령별인원현황
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
-	
+    subLayout = Ubi.getSubLayout();
+
 	layout.cells("b").attachObject("bootContainer");
-	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서명,20세이하,21~25,26~30,31~35,36~40,41~45,46~50,51~55,"+
-			           "56~60,61세이상,합계,평균",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			               "100,100,100,100");
-	gridMain.setColAlign("center,left,right,right,right,right,right,right,right,right,"+
-			             "right,right,right,right");
-	gridMain.setColTypes("ron,ro,ron,ron,ron,ron,ron,ron,ron,ron,"+
-			             "ron,ron,ron,ron");
-	gridMain.setColSorting("int,int,int,int,int,int,int,int,int,int,"+
-			               "int,int,int,int");
-	gridMain.attachFooter(",연령합계,,,,,,,,,"+
-			              ",,,");
-	gridMain.init();	
+
+// 	grid = subLayout.cells("a").attachGrid();
+
+
+	grid = new dxGrid(subLayout.cells("a"), false);
+	grid.addHeader({name:"NO",       colId:"no",       width:"5",  align:"right", type:"cntr"});
+	grid.addHeader({name:"부서명", colId:"postName", width:"10", align:"left", type:"ro"});
+	grid.addHeader({name:"20세이하",   colId:"one",   width:"10", align:"right", type:"dhxCalendarA"});
+	grid.addHeader({name:"21~15", 	colId:"two",  width:"10", align:"right", type:"dhxCalendarA"});
+	grid.addHeader({name:"26~30",   colId:"three", width:"10", align:"right", type:"ed"});
+	grid.addHeader({name:"31~35",   colId:"four", width:"10", align:"right", type:"ed"});
+	grid.addHeader({name:"36~40",   colId:"five", width:"10", align:"right", type:"ed"});
+	grid.addHeader({name:"41~45",   colId:"six", width:"10", align:"right", type:"ed"});
+	grid.addHeader({name:"46~50", colId:"seven", width:"10", align:"right", type:"combo"});
+	grid.addHeader({name:"56~60",  colId:"eight", width:"10", align:"right", type:"combo"});
+	grid.addHeader({name:"61세이상", colId:"nine", width:"10", align:"right", type:"combo"});
+	grid.addHeader({name:"합계", colId:"ten", width:"10", align:"right", type:"combo"});
+	grid.addHeader({name:"평균", colId:"costKind", width:"10", align:"right", type:"combo"});
+	grid.setUserData("","pk","postCode");
+// 	grid.attachFooter(",연령합계,,,,,,,,,"+
+//     ",,,");
+
+	grid.init();
+	fn_search();
 });
+function fn_search(){
+	gfn_callAjaxForGrid(grid,$("#frmSearch").serialize(),"search",subLayout.cells("a"));
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -44,13 +52,13 @@ $(document).ready(function(){
 			 직군
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
+			  <select name="jikGun" id="jikGun" class="form-control input-xs">
+			   <option value="">전체</option>
+			   <option value="">관리직</option>
+			   <option value="">생산직</option>
+			   <option value="">용역</option>
+			   <option value="">외국인</option>
+			   <option value="">기술직</option>
 			  </select>
 			</div>
 		  </div>
@@ -63,16 +71,16 @@ $(document).ready(function(){
 			 근무
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="work" id="work" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="재직">재직</option>
-			   <option value="휴직">휴직</option>
-			   <option value="퇴직">퇴직</option>
+			  <select name="serveGbn" id="serveGbn" class="form-control input-xs">
+			   <option value="">전체</option>
+			   <option value="">재직</option>
+			   <option value="">휴직</option>
+			   <option value="">퇴직</option>
 			  </select>
 			</div>
 		  </div>
 	  </div>
-	</div>  
+	</div>
   </form>
- </div> 
+ </div>
 </div>

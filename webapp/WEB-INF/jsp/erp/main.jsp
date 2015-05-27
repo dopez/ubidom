@@ -27,9 +27,9 @@ $( document ).ready(function() {
 			parent: "container",
 			pattern: "3T"
 		});
-	
+
 	mainLayout.forEachItem(doItemAction);
-	
+
 	leftToolbar = mainLayout.cells("b").attachToolbar();
 	leftToolbar.clearAll();
 	leftToolbar.setIconSize(18);
@@ -52,7 +52,7 @@ $( document ).ready(function() {
 	mainMenu = mainLayout.cells("b").attachTree();
 	mainMenu.enableSmartCheckboxes(true);
 	fncMenuConf();
-	
+
 	mainTabbar = mainLayout.cells("c").attachTabbar();
 	mainMenu.enableThreeStateCheckboxes(true);
 	mainMenu.enableCheckBoxes(true, true);
@@ -63,7 +63,7 @@ $( document ).ready(function() {
 	mainLayout.cells("a").fixSize(false, true);
 	//mainLayout.cells("b").fixSize(true, false);
 	//mainLayout.cells("b").fixSize(false, true);
-	
+
 	mainLayout.cells("c").fixSize(true, true);
 	mainLayout.cells("b").fixSize(true, true);
 	//mainLayout.cells("a").collapse();
@@ -73,10 +73,10 @@ $( document ).ready(function() {
 
 		mainMenu.getDxObj().selectItem(id);
 		//Tabbar 클릭시 Tree scroll이 해당위치로 이동
-		mainMenu.getDxObj().focusItem(id); 
+		mainMenu.getDxObj().focusItem(id);
 		return true;
 	});
-	
+
 	mainTabbar.attachEvent("onTabClose", function(id){
 		if(mainTabbar.getNumberOfTabs() <= 1){
 // 			$("[name=path]").val("");
@@ -84,7 +84,7 @@ $( document ).ready(function() {
 		return true;
 	});
 	mainTabbar.attachEvent("onContentLoaded", function(id){
-		 
+
 		setViewFullPath(id);
 	});
 	$(window).resize(function(){
@@ -92,11 +92,11 @@ $( document ).ready(function() {
 	});
 	$('#full_screen').click(function(event) {
 		console.log("click")
-		event.preventDefault();  
-	
+		event.preventDefault();
+
 	});
 	$('#log_out').click(function(event) {
-		event.preventDefault();  
+		event.preventDefault();
 		dhtmlx.confirm({
 			title:"확 인",
 			ok:"네", cancel:"아니오",
@@ -108,7 +108,7 @@ $( document ).ready(function() {
 					return true;
 			}
 		});
-		function extLogout(){ 
+		function extLogout(){
 			$.ajax({
 				url : "/logout",
 		        type : "POST",
@@ -124,7 +124,7 @@ $( document ).ready(function() {
 	})
 
 	$('#home a').click(function(event) {
-		event.preventDefault();   
+		event.preventDefault();
 		location.replace("/erp/main.do");
 	})
 })
@@ -135,7 +135,7 @@ function doItemAction(cell) {
 
 }
 
-function fncMenuConf() {	
+function fncMenuConf() {
 	var req = $.ajax({
 		url: "/erp/user/menu",
 		type: "get",
@@ -162,24 +162,24 @@ var fncSetMenuLoad = function(param) {
 	mainMenu.click(function(id){
 		fncSelectItem(mainMenu, id);
 	});
-	
+
 	mainMenu.load("menucd", "pmenucd", "menuname", mainMenu);
 }
 
 function chg_selected_tab(id,lastId) {
-	
+
 }
 function getViewFullPath(id){
-	
+
 	var finalPath="";
 	var path;
 	var level;
 	var initPath = mainMenu.getDxObj().getItemText(id);
-	
+
 	level = mainMenu.getDxObj().getLevel(id);
 	mainMenu.getDxObj().selectItem(id);
 	do {
-		
+
 		var parentId = mainMenu.getDxObj().getParentId(id);
 		path = " / "+mainMenu.getDxObj().getItemText(parentId);
 		finalPath = path+finalPath;
@@ -199,32 +199,33 @@ var fncSelectItem = function(tree, id) {
 			tree.getDxObj().openItem(id);
 			tree.getDxObj().selectItem(id, false, false);
 		}
-		
+
 	} catch(e){
 		alert(e);
 	}
-	
-	if(exegbn=="1") { // item 
-		
+
+	if(exegbn=="1") { // item
+
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
-	
+
 		var menuItemText = tree.getDxObj().getItemText(id);
-		
+
 		mainTabbar.forEachTab(function(tab){
 		    var tabId = tab.getId();
 		    if(id == tabId){
 				flag=false;
-				mainTabbar.tabs(tabId).setActive(); 
+				mainTabbar.tabs(tabId).setActive();
 			}
-				
+
 		});
 		if(flag){
-			mainTabbar.addTab(id, menuItemText, null, null, true, true); 
+			mainTabbar.addTab(id, menuItemText, null, null, true, true);
 			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
+			 console.log(uri)
 			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
-		
+
 	}
 }
 function setViewFullPath(id){
@@ -238,15 +239,15 @@ function setViewFullPath(id){
 
 
 
-</script> 
- 
+</script>
+
 <div id="top">
 	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
 	<a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp;
 	<a href="#" onclick="window.open('/report/testPdf.do','rpt','');">TEST_PDF</a>&nbsp;&nbsp;
 	<a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a>
 	</div>
-	
+
 	<div style="float:right;margin-top:15px;margin-right:30px;"id="logout">
 		<a  href="#" id="full_screen">전체화면</a>
 		<a  href="#" id="log_out">로그아웃</a></div>

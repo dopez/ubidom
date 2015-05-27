@@ -29,7 +29,7 @@ public class FamilyDataSController {
 	private FamilyDataSService familyDataSSservice;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
+	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
 	public List<FamilyDataS> selFamilyDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,FamilyDataS familyDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -59,7 +59,7 @@ public class FamilyDataSController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
+	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
 	public List<FamilyDataS> selFamilyDataSR(HttpServletRequest request, HttpServletResponse response,FamilyDataS familyDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = familyDataS.getCompId();
@@ -72,7 +72,7 @@ public class FamilyDataSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsFamilyDataS", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsFamilyDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");

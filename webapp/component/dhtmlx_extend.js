@@ -16,9 +16,9 @@ var editIcon = "<img src=/images/common/caution01.png>";
 function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 	if(stage==0) { // Before Editing
 		var pk = this.getUserData("","pk");
-	
+
 		var cudKeyColIdx = this.getColIndexById(cudKeyCol);
-     
+
 		if(pk!=null && pk!="") {
 			var arr = pk.split(",");
 			for(var i = 0; i < arr.length; i++) {
@@ -35,14 +35,12 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 		if(this.getColType(cInd)=="ed") {
 			$(".dhx_combo_edit").select();
 		} else if(this.getColType(cInd)=="coro") {
-			$("td.cellselected").css("background","url('/component/dhtmlxGrid/imgs/dhxcombo_arrow_down.gif') no-repeat 97% center #ffffff; border:1px solid #e9e9e9;");			
+			$("td.cellselected").css("background","url('/component/dhtmlxGrid/imgs/dhxcombo_arrow_down.gif') no-repeat 97% center #ffffff; border:1px solid #e9e9e9;");
 		}else if(this.getColType(cInd)=="ch"){
 			setUpdateAcType(this, rId);
 		}
 	} else if((stage == 2)) { // After Editing
         var colId = this.getColumnId(cInd);
-        var className1 = this.getUserData("","pk");
-        var className2 = this.getUserData("",colId);
 
 		$("td").css("background","");
 		if((oValue != nValue)) {
@@ -84,7 +82,7 @@ function resetSiblingSeq(obj, currRow, viewSeqColIdx) {
 
 	//현재컬럼이 형제리스트 중 최고상단 or 최고하단 일 경우 순번입력 하지않고 리턴.
 	//if (currRow == subItemsArray[0] || currRow == subItemsArray[subItemsArray.length-1]) return;
-	
+
 	for (var i=0; i<subItemsArray.length; i++) {
 		var targetCell = obj.cells(subItemsArray[i], viewSeqColIdx);
 		targetCell.setValue(eval(i + '+' + 1));
@@ -95,7 +93,7 @@ function resetSiblingSeq(obj, currRow, viewSeqColIdx) {
 /*
  * 드래그로 상위 폴더 변경시 동작
  * 상위폴더ID 를 변경한다.
- * 
+ *
  * sId - id of the source item;
  * tId - id of the target item;
  * sObj - source grid object;
@@ -105,16 +103,16 @@ function resetSiblingSeq(obj, currRow, viewSeqColIdx) {
  */
 function gfn_onDrag(sId,tId,sObj,tObj,sInd,tInd) {
 	//alert(sId + " / " + tId + " / " + sObj + " / " + tObj + " / " + sInd + " / " + tInd);
-	
+
 	var colIdx = this.getColIndexById('menuId');
 	var colIdx2 = this.getColIndexById('upMenuId');
 
 	var uppMenuId = this.cells(tId, colIdx).getValue();	//최종 부모 폴더 아이디
 	this.cells(sId, colIdx2).setValue(uppMenuId);
 	setUpdateAcType(this, sId);	//Setting 상태값(actUpdate : UPDATE)
-	
+
 	return true;
-	
+
 }
 
 function setGridHeight() {
@@ -124,7 +122,7 @@ function setGridHeight() {
 			h -= Math.round($('#gridDiv').position().top);
 			h += gridHeight;
 			$('#gridDiv').css("height",h);
-	
+
 			var w = $(window).width();
 			w -= Math.round($('#gridDiv').position().left);
 			$('#gridDiv').css("width",w);
@@ -159,7 +157,7 @@ function gfn_big_load_popup(width,height,subject,view_path){
 	var w1;
 	var eleId = "container";
 	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(eleId);	
+	dhxWins.attachViewportTo(eleId);
 	w1 = dhxWins.createWindow(eleId, 50, 80, width, height);
 	     dhxWins.window(eleId).setText(subject);
 	// iframe, get
@@ -169,7 +167,7 @@ function gfn_big_load_popup(width,height,subject,view_path){
 
 var subToolbar = function(toolbar,sublayout,btn_id_array){
 	toolbar = sublayout.attachToolbar();
-		
+
 	var size = 18;
 	toolbar.setIconSize(18);
 	toolbar.setIconsPath("/images/button/dhtmlx/");
@@ -177,7 +175,7 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 
 	function fn_onLoad(){
 	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
-	    	
+
 	  for(var i=0; i< btn_id_array.length; i++){
 	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
 	       if (index > -1){
@@ -185,12 +183,12 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	          }
 	      }
 	  for(var i=0; i<item_id_set_arr.length; i++){
-	      toolbar.removeItem("btn"+item_id_set_arr[i]);	
+	      toolbar.removeItem("btn"+item_id_set_arr[i]);
 	      toolbar.removeItem("sep"+item_id_set_arr[i]);
-	     }	
-	 } 
+	     }
+	 }
 	return toolbar;
-}	
+}
 
 function gfn_load_pop(eleId,view_path,isModal,param) {
 
@@ -199,7 +197,7 @@ function gfn_load_pop(eleId,view_path,isModal,param) {
     if (isModal) {
         default_bln = true;
     }
-    
+
     dhxWins = new dhtmlXWindows();
     if (!$('#' + eleId).length) {
         if (dhxWins.isWindow(eleId)) {
@@ -211,13 +209,13 @@ function gfn_load_pop(eleId,view_path,isModal,param) {
         var $div = $('<div/>').appendTo('#container');
         $div.attr('id', eleId);
     }
-    
+
     w1 = dhxWins.createWindow(eleId, 20, 30, 800, 500);
-    
+
     dhxWins.window(eleId).setModal(default_bln);
     pLayout = w1.attachLayout("1C");
     pLayout.attachEvent("onContentLoaded", function(id) {
-    
+
         pLayout.cells(id).hideHeader();
         ifr = pLayout.cells(id).getFrame();
         dhxWins.window(eleId).setDimension(ifr.contentWindow.config.width, ifr.contentWindow.config.height);
@@ -227,21 +225,12 @@ function gfn_load_pop(eleId,view_path,isModal,param) {
     	});
         pLayout.cells(id).setSizes();
     });
-    
+
     pLayout.cells("a").attachURL("/erp/popup/" + view_path + ".do");
 
 }
 
-function gfn_setNumberFormat(grid,colArr,format) {
-	 var defaultFormat = "0,000";
-	                if(format == undefined)
-	 format = defaultFormat;
-	 for (var i = 0; i < colArr.length; i++) {
-	                    var colIndex = grid.getColIndexById(colArr[i]);
-	                    
-	   grid.setNumberFormat(format, colIndex);
-	                }
-}
+
 function execDaumPostcode(postName,addressName) {
 	 var width = 500;
 	 var height = 600;
@@ -249,8 +238,8 @@ function execDaumPostcode(postName,addressName) {
     new daum.Postcode({
         oncomplete: function(data) {
        	 //fullRoadAddress -> 도로명 주소
-            var fullRoadAddr = data.roadAddress; 
-            var extraRoadAddr = ''; 
+            var fullRoadAddr = data.roadAddress;
+            var extraRoadAddr = '';
 
             if(data.bname !== ''){
                 extraRoadAddr += data.bname;
@@ -266,7 +255,7 @@ function execDaumPostcode(postName,addressName) {
             }
 
             document.getElementById(postName).value = data.postcode1+"-"+data.postcode2;
-            
+
             document.getElementById(addressName).value = data.jibunAddress;
         }
     }).open({
@@ -282,7 +271,7 @@ function fileupload(tagId,imgId){
 	 $('#'+tagId).fileupload({
 	        dataType: 'json',
 	        add: function (e, data) {
-	   
+
 	            if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(data.files[0].name)) {
 	                if (data.files && data.files[0]) {
 	                    var reader = new FileReader();
@@ -295,12 +284,12 @@ function fileupload(tagId,imgId){
 	            }
 
 	        },
-	        
+
 	        done: function (e, data) {
 	        	$("tr:has(td)").remove();
 	            $.each(data.result, function (index, file) {
-	            	
-	            	
+
+
 	                $("#uploaded-files").append(
 	                		$('<tr/>')
 	                		.append($('<td/>').text(file.fileName))
@@ -308,9 +297,9 @@ function fileupload(tagId,imgId){
 	                		.append($('<td/>').text(file.fileType))
 	                		.append($('<td/>').html("<a href='rest/controller/get/"+index+"'>Click</a>"))
 	                		)//end $("#uploaded-files").append()
-	            }); 
+	            });
 	        },
-	        
+
 	        progressall: function (e, data) {
 		        var progress = parseInt(data.loaded / data.total * 100, 10);
 		        $('#progress .bar').css(
@@ -318,7 +307,7 @@ function fileupload(tagId,imgId){
 		            progress + '%'
 		        );
 	   		},
-	   		
+
 			dropZone: $('#dropzone')
 	    });
 	 return true;

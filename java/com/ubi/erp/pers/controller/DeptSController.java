@@ -30,26 +30,7 @@ public class DeptSController {
 	private DeptSService deptSService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridMstSearch", method = RequestMethod.POST)
-	public List<DeptS> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String compId = (String) session.getAttribute("compId");
-		String postName;
-		if(request.getParameter("postName").equals("")){
-			postName = "%";
-		}else{
-			postName = request.getParameter("postName");
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("compId", compId);
-		map.put("postName", postName);
-		map.put("o_cursor", null);
-		deptSService.selDeptCodeS(map);
-		List<DeptS> list = (List<DeptS>) map.get("o_cursor");
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
+	@RequestMapping(value = "/selGridDtl",method = RequestMethod.POST)
 	public List<DeptS> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session,DeptS deptS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -69,7 +50,7 @@ public class DeptSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcs", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
@@ -94,6 +75,25 @@ public class DeptSController {
 				deptSService.prcsDeptS(deptS);
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selGridMst", method = RequestMethod.POST)
+	public List<DeptS> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String postName;
+		if(request.getParameter("postName").equals("")){
+			postName = "%";
+		}else{
+			postName = request.getParameter("postName");
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("compId", compId);
+		map.put("postName", postName);
+		map.put("o_cursor", null);
+		deptSService.selDeptCodeS(map);
+		List<DeptS> list = (List<DeptS>) map.get("o_cursor");
+		return list;
 	}
 
 }
