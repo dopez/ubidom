@@ -114,6 +114,7 @@ function fn_loadGridLeftList(){
 	obj.empNo = $('#empNo').val();
     gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
+
 function fn_loadGridLeftListCB(data){
 	byId("frmMain").reset();
 	$('#postCode').val('');
