@@ -33,7 +33,7 @@ public class PersDataSController {
 	private AttachFileService attachFileService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
 	public List<PersDataS> selPersDataSL(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");;
@@ -47,7 +47,7 @@ public class PersDataSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<PersDataS> selPersDataSR(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = persDataS.getCompId();
@@ -70,7 +70,7 @@ public class PersDataSController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/prcsPersData", method = RequestMethod.POST)
+	@RequestMapping(value = "/formSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPersData(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");

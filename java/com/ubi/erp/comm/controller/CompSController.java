@@ -27,7 +27,7 @@ public class CompSController {
 	private CompSService compSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<CompS> selCompSL(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("o_cursor", null);
@@ -37,7 +37,7 @@ public class CompSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	@RequestMapping(value = "/formSearch",method = RequestMethod.POST)
 	public List<CompS> selCompSR(HttpServletRequest request, HttpServletResponse response,CompS compS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = compS.getCompId();
@@ -52,7 +52,7 @@ public class CompSController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/prcsCompS", method = RequestMethod.POST)
+	@RequestMapping(value = "/formSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCompS(HttpServletRequest request, HttpServletResponse response,HttpSession session,CompS compS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");

@@ -312,5 +312,3 @@ function fileupload(tagId,imgId){
 	    });
 	 return true;
 }
-
-

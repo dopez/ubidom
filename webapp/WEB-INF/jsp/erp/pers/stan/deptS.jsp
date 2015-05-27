@@ -17,8 +17,8 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"49", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"49", align:"center", type:"ro"});
 	gridMst.setUserData("","pk","postCode");
+	gridMst.setColSort("str");
 	gridMst.init(); 
-	
 	gridMst.attachEvent("onRowSelect",doOnRowSelect);
 	fn_loadGridListCode(1);
 	
@@ -30,6 +30,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setUserData("","pk","postCode");
+	gridDtl.setColSort("str");
 	gridDtl.init();
 	
 	g_dxRules = {
@@ -102,7 +103,9 @@ function fn_delete(){
 }
 
  function fn_save(){
-	var jsonStr = gridDtl.getJsonUpdated2();
+		alert(1);
+	 var jsonStr = gridDtl.getJsonUpdated2();
+
 	 if (jsonStr == null || jsonStr.length <= 0) return;         		
 	    $("#jsonData").val(jsonStr);                      
 	    $.ajax({

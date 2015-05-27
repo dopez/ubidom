@@ -24,11 +24,10 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
 	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사업장",   colId:"compId",   width:"25", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
-	gridMain.setColumnHidden(4,true);
+	gridMain.cs_setColumnHidden(["compId"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
 	$("#postName,#btnSearch,#persAppointBtn,#updImg,#delImg").click(function(e){
@@ -73,7 +72,7 @@ $(document).ready(function(){
 	});
 	
     $("#postName,#ptName,#empName").keyup(function(e) {
-    	if(e.target.id == "postName"){
+    	if(e.target.id == "postName" && e.keyCode == '9'){
     		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 		}
     	if(e.target.id == "ptName"){
@@ -82,7 +81,7 @@ $(document).ready(function(){
     	if(e.target.id == "empName"){
     		gridMain.filterBy(2,byId("empName").value);
 		}
-	 });
+	 }); 
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
 	   fn_comboSet(combo01,"004","jikwee");
@@ -100,6 +99,7 @@ $(document).ready(function(){
 	byId("cudKey").value = "INSERT";
 	fn_search();
 });
+
  function fn_comboSet(comboId,params,tagName){
 	comboId.setTemplate({
 		    input: "#interCode#",
@@ -203,7 +203,7 @@ function fn_new(){
 	     $.ajax(
 			{
 			  type:'POST',
-			  url:"/erp/pers/pers/persDataS/prcsPersData",
+			  url:"/erp/pers/pers/persDataS/formSave",
 			  data:params,
 			  success:function(data)
 			  {
@@ -221,10 +221,10 @@ function fn_remove(){
 };
 
 function fn_loadGridList(){
-    gfn_callAjaxForGrid(gridMain,{},"/erp/pers/pers/persDataS/selLeft",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMain,{},"gridMstSearch",subLayout.cells("a"));
 };
 function fn_loadFormList(params){
-	gfn_callAjaxForForm("frmMain",params,"/erp/pers/pers/persDataS/selRight",fn_loadFormListCB);
+	gfn_callAjaxForForm("frmMain",params,"gridDtlSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);

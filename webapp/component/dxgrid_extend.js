@@ -304,15 +304,6 @@ dxGrid.prototype.getJsonUpdated = function(excludeCols) {
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
 				colVal = this.dxObj.cells2(i,j).getValue();
-//				if(!this.dxObj.getUserData("",colId).length){
-//					 var input = document.createElement('input');
-//					 var msk_format = this.dxObj.getUserData("",colId);
-//					 if(colVal.length == msk_format){
-//						 $(input).attr("type","hidden").mask(msk_format).val(colVal).keyup();
-//						 colVal = $(input).cleanVal();
-//						 $(input).remove();
-//					 }
-//				}
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
@@ -358,16 +349,16 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				var formatRule = this.dxObj.getUserData("","@"+key);
+				//var formatRule = this.dxObj.getUserData("","@"+key);
 				colVal = this.dxObj.cells2(i,j).getValue();
-				if(formatRule!= null){
+				/*if(formatRule!= null){
 				    var els = $('<input>').attr({
 				        type: 'hidden',
 				        id: "",
 				        name: colId
 				    }).appendTo("body").addClass(formatRule).val(colVal).keyup();
 
-				}
+				}*/
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);

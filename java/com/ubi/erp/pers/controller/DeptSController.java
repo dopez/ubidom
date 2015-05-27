@@ -30,7 +30,7 @@ public class DeptSController {
 	private DeptSService deptSService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selGridDtl",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<DeptS> selDept(HttpServletRequest request, HttpServletResponse response,HttpSession session,DeptS deptS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -50,7 +50,7 @@ public class DeptSController {
 		return list;
 	}
 
-	@RequestMapping(value = "/prcs", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsDept(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
@@ -78,7 +78,7 @@ public class DeptSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selGridMst", method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMstSearch", method = RequestMethod.POST)
 	public List<DeptS> selDeptCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String postName;
