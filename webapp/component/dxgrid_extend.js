@@ -524,29 +524,6 @@ dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
 	return isDelRow;
 };
 
-//메세지 안나오게 한 로직
-/*dxGrid.prototype.chkUnsavedRow = function(rowNum,rowId) {
-	var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
-	var isDelRow = false;
-	var cudColVal = this.dxObj.cells2(rowNum,cudColIdx).getValue();
-
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
-		var cudColVal = this.dxObj.cells2(i,cudColIdx).getValue();
-		if (cudColVal == actInsert) {
-			if(!isDelRow) {
-				isDelRow = true;
-				this.dxObj.deleteRow(this.dxObj.getRowId(i));
-				i--;
-			} else {
-				this.dxObj.deleteRow(this.dxObj.getRowId(i));
-				i--;
-			}
-		}
-	}
-	return true;
-};*/
-
-
 dxGrid.prototype.isSelRows = function(colIdx) {
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var colVal = this.dxObj.cells2(i,colIdx).getValue();
@@ -603,60 +580,6 @@ dxGrid.prototype.getJsonRowDelete = function(chkIdx, excludeCols) {
 		}
 	}
 
-	return jsonStr;
-};
-
-//한줄삭제 row delete 특수기호추가
-dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
-	this.dxObj.editStop();
-	var jsonStr = "";
-	var colId = "";
-	var colNm = "";
-	var colVal = "";
-	var arr = [];
-	chkIdx = chkIdx -1;
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		if(i == chkIdx) {
-			var row={};
-			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
-					colId = this.dxObj.getColumnId(j);
-					colVal = this.dxObj.cells2(chkIdx,j).getValue();
-						if(colId !="cudKey") {
-							row[colId]=colVal;
-						} else {
-							row[colId]=actDelete;
-						}
-				}
-			     arr.push(row);
-		 }
-	 }
-	 jsonStr = JSON.stringify(arr);
-	 return jsonStr;
-};
-
-//멀티삭제 MULTI DELETE
-dxGrid.prototype.getJsonMultiRowDelete = function(excludeCols) {
-	this.dxObj.editStop();
-	var jsonStr = "";
-	var colId = "";
-	var colNm = "";
-	var colVal = "";
-	var arr = [];
-	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
-		   var row={};
-			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
-					colId = this.dxObj.getColumnId(j);
-					colVal = this.dxObj.cells2(i,j).getValue();
-						if(colId !="cudKey") {
-							row[colId]=colVal;
-						} else {
-							row[colId]=actDelete;
-						}
-			  }
-             arr.push(row);
-
-	 }
-	 jsonStr = JSON.stringify(arr);
 	return jsonStr;
 };
 
