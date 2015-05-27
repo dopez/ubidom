@@ -84,7 +84,6 @@ function gridDtlOnRowSelect(id,ind){
 	if(ind==5){
 	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
 	}
-	gridDtl.editCell();
 }
 function fn_startSetCombo(){
 	var combo01 = gridDtl.getColumnCombo(2);

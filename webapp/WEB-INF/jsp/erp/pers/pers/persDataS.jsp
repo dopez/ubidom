@@ -31,66 +31,58 @@ $(document).ready(function(){
 	gridMain.setColumnHidden(4,true);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
-	$("#postName").click(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-	});
-	
-    $("#postName").keyup(function(e) {
-	    if (e.keyCode == '9'){
-	    gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-	    }
-	 });
-    
-    $("#ptName").keyup(function(e) {
-	    if (e.keyCode == '13') {
-	      gridMain.filterBy(3,byId("ptName").value);
-	    }
-	 });
-    
-    $("#empName").keyup(function(e) {
-	    if (e.keyCode == '13') {
-	      gridMain.filterBy(2,byId("empName").value);
-	    }
-	 });
-    
-     $("#btnSearch").click(function(){
-    	 execDaumPostcode("postNo","address");
-	}); 
-    
-	$("#persAppointBtn").click(function(){
-		var rowCheck = gridMain.getSelectedRowId();
-		if(rowCheck == null){
-			return false;
-		}else{
-		   gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
+	$("#postName,#btnSearch,#persAppointBtn,#updImg,#delImg").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "btnSearch"){
+			execDaumPostcode("postNo","address");
+		}
+		if(e.target.id == "persAppointBtn"){
+			var rowCheck = gridMain.getSelectedRowId();
+			if(rowCheck == null){
+				return false;
+			}else{
+			   gfn_load_pop('w1','pers/persAppointSPOP',true,{"persAppointBtn":$(this).val()});
+			}
+		}
+		if(e.target.id == "updImg"){
+			var rowCheck = gridMain.getSelectedRowId();
+	 		if(rowCheck == null){
+	 			return false;
+	 		}else{
+	 			byId("fileName").click();
+	 			status = fileupload("fileName","target"); 
+	 		}
+		}
+		if(e.target.id == "delImg"){
+			 disableValue(1);
+		       byId("cudKey").value = "UPDATE";
+              $.ajax({
+               url : "/erp/pers/pers/persDataS/prcsFileDelete",
+               type : "POST",
+               data : $("#frmMain").serialize(),
+               async : true,
+               success : function(data) {
+               MsgManager.alertMsg("INF003");
+               fn_new();
+               fn_loadGridList();
+              }
+          });
 		}
 	});
 	
- 	$("#updImg").click(function(){
- 		var rowCheck = gridMain.getSelectedRowId();
- 		if(rowCheck == null){
- 			return false;
- 		}else{
- 			byId("fileName").click();
- 			status = fileupload("fileName","target"); 
- 		}
-	}); 
- 	
- 	$("#delImg").click(function(){
- 		       disableValue(1);
- 		       byId("cudKey").value = "UPDATE";
-                 $.ajax({
-                  url : "/erp/pers/pers/persDataS/prcsFileDelete",
-                  type : "POST",
-                  data : $("#frmMain").serialize(),
-                  async : true,
-                  success : function(data) {
-                  MsgManager.alertMsg("INF003");
-                  fn_new();
-                  fn_loadGridList();
-                 }
-             });   	 
-	}); 
+    $("#postName,#ptName,#empName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+    	if(e.target.id == "ptName"){
+    		 gridMain.filterBy(3,byId("ptName").value);
+		}
+    	if(e.target.id == "empName"){
+    		gridMain.filterBy(2,byId("empName").value);
+		}
+	 });
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
 	   fn_comboSet(combo01,"004","jikwee");
