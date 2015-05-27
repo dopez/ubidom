@@ -799,3 +799,6 @@ dxGrid.prototype.setColumnExcellType = function(colIdx,type){
 	return this.dxObj.setColumnExcellType(colIdx,type);
 }
 
+dxGrid.prototype.detachFooter = function(footerIdx){
+	return this.dxObj.detachFooter(footerIdx);
+}
