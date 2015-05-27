@@ -27,8 +27,8 @@ public class CompSController {
 	private CompSService compSService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
-	public List<CompS> gridMainSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/selLeft",method = RequestMethod.POST)
+	public List<CompS> selCompSL(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("o_cursor", null);
 		compSService.selCompSL(map);
@@ -37,8 +37,8 @@ public class CompSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/formSearch",method = RequestMethod.POST)
-	public List<CompS> formSearch(HttpServletRequest request, HttpServletResponse response,CompS compS) throws Exception {
+	@RequestMapping(value = "/selRight",method = RequestMethod.POST)
+	public List<CompS> selCompSR(HttpServletRequest request, HttpServletResponse response,CompS compS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = compS.getCompId();
 		map.put("compId", compId);
@@ -52,14 +52,15 @@ public class CompSController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/formSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/prcsCompS", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCompS(HttpServletRequest request, HttpServletResponse response,HttpSession session,CompS compS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		compS.setSysEmpNo(sysEmpNo);
 		DateFormatUtil df = new DateFormatUtil();
+
+		compS.setSysEmpNo(sysEmpNo);
 		compS.setStartDate(df.dateToString(compS.getStartDate()));
-		
+
 		if("INSERT".equals(compS.getCudKey())) {
 			compSService.prcsCompS(compS);
 		}else if("UPDATE".equals(compS.getCudKey())){

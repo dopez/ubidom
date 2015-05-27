@@ -23,9 +23,9 @@
                 gridMain.setColAlign("center,center,center,center,left,left,center");
                 gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro");
                 gridMain.setColSorting("str,str,str,str,str,str,str");
-                gridMain.init(); 
-                
-                
+                gridMain.init();
+
+
                 //calRangeDate
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
@@ -38,7 +38,7 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
-                
+
                 toolbar.attachEvent("onClick", function(id) {
         			if(id == "btn1"){
         				fn_insert();
@@ -50,7 +50,7 @@
         				gfn_big_load_popup(910,500,'','sale/workLogPOP');
         		}
             })
-                
+
             function fn_insert() {
             		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
         	}
@@ -61,73 +61,70 @@
         <div id="bootContainer2">
             <div class="container">
                 <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        <div class="col-sm-8 col-md-8">
-					<label class=" col-sm-2 col-md-2 control-label" for="textinput">
-						기간 </label>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+                                    기간 </label>
 
-					<div class="col-sm-6 col-md-6">
-						<div class="col-sm-4 col-md-4">
-								<div class="col-sm-10 col-md-10">
-									<input type="text" class="form-control input-xs" name="stDate"
-										id="stDate" value="">
-								</div>
-								<div class="col-sm-2 col-md-2">
-									<input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
-								</div>
-						</div>
-						<label class="col-sm-1 col-md-1 control-label" for="textinput"
-							style="margin-right: 15px;">~</label>
-						<div class="col-sm-4 col-md-4">
-								<div class="col-sm-10 col-md-10">
-									<input type="text" class="form-control input-xs" name="edDate"
-										id="edDate" value="">
-								</div>
-								<div class="col-sm-2 col-md-2">
-									<input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
-								</div>
-						</div>
-					</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="col-sm-10 col-md-10">
+                                            <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                                        </div>
+                                        <div class="col-sm-2 col-md-2">
+                                            <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="col-sm-10 col-md-10">
+                                            <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                                        </div>
+                                        <div class="col-sm-2 col-md-2">
+                                            <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                                        </div>
+                                    </div>
+                                </div>
 
-				</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        <div class="col-sm-8 col-md-8">
-                            <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
-                            <div class="col-sm-2 col-md-2">
-                                <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        <div class="col-sm-8 col-md-8">
-                            <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
-                            <div class="col-sm-2 col-md-2">
-                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
+                                <div class="col-sm-2 col-md-2">
+                                    <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group form-group-sm">
-                        <div class="col-sm-8 col-md-8">
-                            <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
-                            <div class="col-sm-2 col-md-2">
-                                <select class="form-control input-xs">
-                                    <option>전체</option>
-                                    <option>A</option>
-                                    <option>B</option>
-                                    <option>C</option>
-                                </select>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 고객 </label>
+                                <div class="col-sm-2 col-md-2">
+                                    <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-8 col-md-8">
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
+                                <div class="col-sm-2 col-md-2">
+                                    <select class="form-control input-xs">
+                                        <option>전체</option>
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>

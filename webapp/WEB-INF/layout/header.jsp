@@ -18,6 +18,8 @@ response.setDateHeader("Expires", 0);
 <script type="text/javascript" src="/common/js/sockjs-0.3.js"></script>
 <script type="text/javascript" src="/component/jquery-validation-1.13.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/component/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/common/js/jquery-extend.js"></script>
+
 <script type="text/javascript" src="/component/bootstrap-datepicker-1.4.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/common/js/common.js"></script>
 <script type="text/javascript" src="/common/js/dhtmlx_full.js"></script>
@@ -37,17 +39,16 @@ response.setDateHeader("Expires", 0);
 
 <!-- bootstrap fileupload  추가 -->
 <!-- <script src="/component/jqueryFileupload/js/jquery.1.9.1.min.js"></script> -->
-
+<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask.js"></script>
+<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask_extends.js"></script>
 <script src="/component/jqueryFileupload/js/vendor/jquery.ui.widget.js"></script>
 <script src="/component/jqueryFileupload/js/jquery.iframe-transport.js"></script>
 <script src="/component/jqueryFileupload/js/jquery.fileupload.js"></script>
+<!--jQuery Mask 추가  -->
 
 <!-- bootstrap just to have good looking page -->
 <!-- <script src="/component/jqueryFileupload/bootstrap/js/bootstrap.min.js"></script> -->
 <link href="/component/jqueryFileupload/bootstrap-fileresize.css" type="text/css" rel="stylesheet" />
-
 <!-- we code these -->
 <link href="/component/jqueryFileupload/css/dropzone.css" type="text/css" rel="stylesheet" />
-<!--jQuery Mask 추가  -->
-<script type="text/javascript" src="/common/js/jquery.mask.js"></script>
-<script type="text/javascript" src="/component/jquery.mask_extends.js"></script>
+

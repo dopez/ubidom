@@ -27,7 +27,7 @@ public class DeptRController {
 	private DeptRService deptRService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/gridMainSearch",method = RequestMethod.POST)
+	@RequestMapping(value="/selGridMain",method = RequestMethod.POST)
 	public List<DeptR> selDeptR(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String postName;

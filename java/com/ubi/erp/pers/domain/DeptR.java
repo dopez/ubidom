@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("DeptR")
 public class DeptR implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String n_o;
 	private String no;
 	private String compId;
 	private String postCode;
