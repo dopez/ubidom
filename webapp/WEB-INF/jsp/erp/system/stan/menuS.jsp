@@ -24,41 +24,42 @@ $(document).ready(function(){
 	gridMain = new dxGrid(subLayout.cells("b"), false);
 	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"cntr"});//화면순서
 	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"8", type:"combo"});//화면구분(폴더/윈도우)
-	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
-	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", type:"ed"});
-	gridMain.addHeader({name:"URI", colId:"uri", width:"25", type:"ed"});
-	gridMain.addHeader({name:"웹매개변수", colId:"agValue", width:"7", type:"ed"});
-	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
- 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
-	gridMain.setColSort("str");
-	gridMain.setUserData("","pk","menucd");
+	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"",width:"10", type:"ro"});
+	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", align:"center",type:"ed"});
+	gridMain.addHeader({name:"URI", colId:"uri", width:"25", align:"center",type:"ed"});
+	gridMain.addHeader({name:"웹매개변수", colId:"agValue", align:"center",width:"7", type:"ed"});
+	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
+ 	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
+	//gridMain.setColSort("str");
+	//gridMain.setUserData("","pk","menucd");
+	gridMain.enableDragAndDrop(true);
 	gridMain.init();
-	
-	//대분류 메뉴 로드
-	fn_loadGridMain('0000000000');
-	
+	gridMain.dxObj.deleteColumn(0);
+	/* gridMain.dxObj.adjustColumnSize(0); */
+
 	//드래그 앤 드랍
-	gridMain.dxObj.enableDragAndDrop(true);
  	gridMain.attachEvent("onDrop",fn_onDrop);
  	
 	//콤보박스 (드랍다운 리스트)
 	var comboGbn = gridMain.getColumnCombo(1);
 	comboGbn.addOption("0","폴더");
 	comboGbn.addOption("1","윈도우");
-	/* var comboGbn2 = gridMain.getColumnCombo(6);
+	var comboGbn2 = gridMain.getColumnCombo(6);
 	comboGbn2.addOption("1","사용");
-	comboGbn2.addOption("0","미사용"); */	
+	comboGbn2.addOption("0","미사용");	
 	
 	//onselect edit cell
-  	gridMain.attachEvent("onRowSelect", function(id,ind){
+  	/* gridMain.attachEvent("onRowSelect", function(id,ind){
 		gridMain.editCell();
- 	});
+ 	}); */
 	
 	//더블 클릭 시 팝업
  	gridMain.attachEvent("onRowDblClicked",fn_loadPop);
 	
 	// 체크 값
-	gridMain.attachEvent("onCheck",fn_useGbnChk);
+	//gridMain.attachEvent("onCheck",fn_useGbnChk);
+	//대분류 메뉴 로드
+	fn_loadGridMain('0000000000');
 });
 //doc Ready End
 
@@ -72,7 +73,7 @@ function fn_onDrop() {
 }
 
 //사용구분 체크 시
-function fn_useGbnChk(selRowId,colnum) {
+/* function fn_useGbnChk(selRowId,colnum) {
   var selRowIdx = selRowId-1;
   var checkState = gridMain.setCells2(selRowIdx, colnum).getValue();
    if (checkState == 1) {
@@ -82,7 +83,7 @@ function fn_useGbnChk(selRowId,colnum) {
   }
    gridMain.setCells2(selRowIdx,7).setValue("UPDATE");
 }
-
+ */
 //팝업
 function fn_loadPop() {
         var selRowId = gridMain.getSelectedRowId();
@@ -121,7 +122,7 @@ function fn_saveGridMain(){
 	    }
 	    $("#jsonData").val(jsonStr);
 	     $.ajax({
-	        url: "/erp/system/menuS/prcsMenuS",
+	        url: "/erp/system/stan/menuS/gridMainSave",
 	        type: "POST",
 	        data: $("#hiddenform").serialize(),
 	        async: true,
@@ -161,7 +162,7 @@ function fn_delete() {
                 if (jsonStr == null || jsonStr.length <= 0) return;
                 $("#jsonData").val(jsonStr);
                 $.ajax({
-                    url: "/erp/system/menuS/prcsMenuS",
+                    url: "/erp/system/stan/menuS/gridMainSave",
                     type: "POST",
                     data: $("#hiddenform").serialize(),
                     async: true,
@@ -187,6 +188,7 @@ function fn_treeMainConf(){
 		url: "/erp/system/menuS",
 		type: "get",
 		dataType: "json",
+		contentType: "application/json; charset=utf-8",
 	    beforeSend: function() {
     	   subLayout.cells("a").progressOn();
 	    },
@@ -244,7 +246,7 @@ var fncSelectItem = function(tree, id) {
 /*--------트리 select action--------*/
 function fn_loadGridMain(menucd){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridMain,param,"/erp/system/menuS/selMenuDtl",subLayout.cells("b"),fn_callBack);
+	gfn_callAjaxForGrid(gridMain,param,"gridMainSel",subLayout.cells("b"),fn_callBack);
 }
 function fn_callBack(data){
 	

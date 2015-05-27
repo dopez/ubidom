@@ -19,42 +19,36 @@ $(document).ready(function(){
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"코드", colId:"code", width:"30", align:"center",type:"ed"});
 	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",type:"ed"});
-	gridMst.setColSort("str");
-	gridMst.setUserData("","pk","code");
+	//gridMst.setColSort("str");
+	//gridMst.setUserData("","pk","code");
 	gridMst.init();
 
 	
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	/* gridDtl.addHeader({name:"No", colId:"rowNo", width:"10", type:"ro"}); */
 	gridDtl.addHeader({name:"내부코드", colId:"interCode", width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ed"});
 	gridDtl.addHeader({name:"변수", colId:"addVar", width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고", colId:"descRmk", width:"5", align:"center",type:"ed"});
-	gridDtl.setColSort("str");
-	gridDtl.setUserData("","pk","");
+	//gridDtl.setColSort("str");
+	//gridDtl.setUserData("","pk","interCode");
 	gridDtl.init();	
-	
+	gridDtl.dxObj.adjustColumnSize(0);
 	fn_loadGridMst(1);
 	fn_gridMstEdit("off");
 
- 	gridDtl.attachEvent("onRowSelect", function(id,ind){
-		gridDtl.editCell();
-  	});
 });
 //doc Ready End
 
 //그리드 onRowSelect edit
 function fn_gridMstEdit(flag){
 	gridMst.attachEvent("onRowSelect", function(id,ind){
-	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
-	if(flag=="on"){
-		gridMst.editCell();
-	}else if(flag=="off"){
-		gridMst.editStop();
+	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),1).getValue();
+	if(flag=="off"){
+		//gridMst.editStop();
 	}
 		fn_loadGridDtl(codeMain);
-  	});
+  	})
 }
 //btn function Start
 function fn_search(){
@@ -91,41 +85,32 @@ function fn_save() {
                 fn_dtlSave();
             }
         } else {
+        	console.log($("#hiddenform").serialize());
+        	console.log(jsonStr);
+        	console.log(jsonStr2);
             fn_mstSave();
         }
     }
 }
 function fn_mstSave(){
-    $.ajax({
-       url : "/erp/rndt/baseCodeS/prcsCodeSave",
-       type : "POST",
-       data : $("#hiddenform").serialize(),
-       async : true,
-       success : function(data) {
-       MsgManager.alertMsg("INF001");
-       gridMst.clearAll();
-       fn_loadGridMst(0);
-       fn_gridMstEdit("off");
-        }
-   });
+	gfn_callAjaxForGrid(gridMst,$("#hiddenform").serialize(),"gridMstSave",subLayout.cells("a"),fn_gridMstSaveCallBack);
+}
+function fn_gridMstSaveCallBack(){
+    MsgManager.alertMsg("INF001");
+    fn_loadGridMst(0);
+    fn_gridMstEdit("off");
 }
 function fn_dtlSave(){
-	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+	var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),1).getValue();
     $("#gridMstCode").val(codeMain);
-	console.log($("#hiddenform").serialize());
-    $.ajax({
-       url : "/erp/rndt/baseCodeS/prcsCodeDtlSave",
-       type : "POST",
-       data : $("#hiddenform").serialize(),
-       async : true,
-       success : function(data) {
-       MsgManager.alertMsg("INF001");
-       gridDtl.clearAll()
-	   fn_loadGridDtl(codeMain);
-	   gridMst.selectRow(gridMst.getSelectedRowId()-1);
-	   //gridMst.selectRow(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()));
-       }
-   });
+    gfn_callAjaxForGrid(gridDtl,$("#hiddenform").serialize(),"gridDtlSave",subLayout.cells("b"),fn_gridDtlSaveCallBack);
+}
+function fn_gridDtlSaveCallBack(){
+	/* gridDtl.clearAll()
+	fn_loadGridDtl(codeMain);
+	gridMst.selectRow(gridMst.getSelectedRowId()-1); */
+    MsgManager.alertMsg("INF001");
+    $("#gridMstCode").val('');
 }
 //삭제 버튼 동작
 function fn_remove(){
@@ -196,13 +181,13 @@ function fn_loadGridMst(flag){
 		callBackGbn = fn_loadGridMstCallBack;
 	}
 	
-	gfn_callAjaxForGrid(gridMst,inputParams,"/erp/rndt/baseCodeS/selBaseCodeMst",subLayout.cells("a"),callBackGbn);
+	gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"),callBackGbn);
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
 function fn_loadGridDtl(code){
 	var param = "code=" + code;
-    gfn_callAjaxForGrid(gridDtl,param,"/erp/rndt/baseCodeS/selBaseCodeDtl",subLayout.cells("b"),fn_loadGridDtlCallBack);
+    gfn_callAjaxForGrid(gridDtl,param,"gridDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
 }
 //우측 그리드 삭제
 function fn_gridDtlDel(){
@@ -214,7 +199,7 @@ function fn_gridDtlDel(){
      		  return
           }else{
      		  var jsonStr = gridDtl.getJsonRowDel(rodId);
-  	 		  var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),0).getValue();
+  	 		  var codeMain = gridMst.setCells2(gridMst.getSelectedRowIndex(gridMst.getSelectedRowId()),1).getValue();
   		   	  if (codeMain == null || codeMain.length <= 0) return;        		
               if (jsonStr == null || jsonStr.length <= 0) return;
   	           $("#gridMstCode").val(codeMain);

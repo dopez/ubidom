@@ -89,7 +89,7 @@ function fn_save(){
         $("#jsonData").val(jsonStr);
         $("#Pmenucd").val(menucd);
         $.ajax({
-            url: "/erp/system/menuS/prcsAuthSave",
+            url: "/erp/system/stan/menuS/prcsAuthSave",
             type: "POST",
             data: $("#hiddenform").serialize(),
             async: true,
@@ -107,13 +107,13 @@ function fn_save(){
 //우측 그리드 조회
 function fn_noAuthList(){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridDtl,param,"/erp/system/menuS/selNoAuthList",subLayout.cells("c"),fn_callBack);
+	gfn_callAjaxForGrid(gridDtl,param,"/erp/system/stan/menuS/selNoAuthList",subLayout.cells("c"),fn_callBack);
 }
 
 //좌측 그리드 조회
 function fn_authList(){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridMst,param,"/erp/system/menuS/selAuthList",subLayout.cells("a"),fn_callBack);
+	gfn_callAjaxForGrid(gridMst,param,"/erp/system/stan/menuS/selAuthList",subLayout.cells("a"),fn_callBack);
 }
 
 //콜백
@@ -165,7 +165,7 @@ function fn_btnDel() {
             console.log(jsonStr);
             console.log($("#hiddenform").serialize());
             $.ajax({
-                url: "/erp/system/menuS/prcsAuthSave",
+                url: "/erp/system/stan/menuS/prcsAuthSave",
                 type: "POST",
                 data: $("#hiddenform").serialize(),
                 async: true,

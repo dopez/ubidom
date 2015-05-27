@@ -22,10 +22,10 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ro"});
 	gridMain.addHeader({name:"참조변수", colId:"addVar", width:"10", type:"ro"});
 	gridMain.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ro"});
-	gridMain.setColSort("str");
-	gridMain.setUserData("","pk","code");
-	gridMain.enableSmartRendering(true,50,50);
+	//gridMain.setColSort("str");
+	//gridMain.setUserData("","pk","code");
 	gridMain.init();	
+	gridMain.dxObj.adjustColumnSize(0);
 	fn_loadGridMain();
 });
 function fn_search(){
@@ -38,7 +38,7 @@ function fn_loadGridMain(){
 	inputParams.baseName = $("#baseName").val();
 	inputParams.interCode = $("#innerCode").val();
 	inputParams.interName = $("#innerName").val();
-	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/baseCodeR",subLayout.cells("a"),fn_loadGridMainCallBack);
+	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSel",subLayout.cells("a"),fn_loadGridMainCallBack);
 }
 function fn_loadGridMainCallBack(){
 	//call back function
