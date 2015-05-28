@@ -264,8 +264,19 @@ function fn_onClosePop(pName,data){
  function fn_print(){
 		var url = "/erp/pers/pers/persDataP/report/persDataP.do"; 
 			url = url + "?empNo=" + $("#empNo").val();
+/* 			var urltest = "empNo=" + $("#empNo").val();
+	 console.log(3);
+	 $.ajax({
+         url : "/erp/pers/pers/persDataP/report/persDataPtest",
+         type : "get",
+         data : urltest,
+         async : true,
+         success : function(data) {
+			alert("?");
+          }
+     }); 
+	 console.log(4); */
 		window.open(url,'rpt','');
-		
 	}
 </script>
 <form id="pform" name="pform" method="post">
