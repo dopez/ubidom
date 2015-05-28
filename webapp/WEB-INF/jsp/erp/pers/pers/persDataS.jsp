@@ -261,7 +261,12 @@ function fn_onClosePop(pName,data){
 		}		  
 	}
  };
-
+ function fn_print(){
+		var url = "/erp/pers/pers/persDataP/report/persDataP.do"; 
+			url = url + "?empNo=" + $("#empNo").val();
+		window.open(url,'rpt','');
+		
+	}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

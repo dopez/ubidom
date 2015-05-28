@@ -1,6 +1,7 @@
 package com.ubi.erp.pers.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ import com.ubi.erp.pers.service.PersDataPService;
 
 
 @RestController
-@RequestMapping(value = "/erp/pers/pers/persDataS")
+@RequestMapping(value = "/erp/pers/pers/persDataP")
 public class PersDataPController {
 	@Autowired
 	private PersDataPService PersDataPService;
@@ -38,13 +39,40 @@ public class PersDataPController {
 		map.put("V_EMP_NO", empno);
 		map.put("o_cursor", null);
 		PersDataPService.selPersData(map);
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("V_COMPID", compId);
+		map2.put("V_EMP_NO", empno);
+		map2.put("o_cursor", null);
+		PersDataPService.selFamData(map2);
+		Map<String, Object> map3 = new HashMap<String, Object>();
+		map3.put("V_COMPID", compId);
+		map3.put("V_EMP_NO", empno);
+		map3.put("o_cursor", null);
+		PersDataPService.selCareerData(map3);
+		
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("o_cursor");
-		/*DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			((PersDataP) list.get(i)).seta(df.dateToString2(((PersDataP) list.get(i)).getStDate()));
-			((PersDataP) list.get(i)).setEndDate(df.dateToString2(((PersDataP) list.get(i)).getEndDate()));
-		}*/
+		List<Map<String, Object>> list2 = (List<Map<String, Object>>) map2.get("o_cursor");
+		List<Map<String, Object>> list3 = (List<Map<String, Object>>) map3.get("o_cursor");
+		list.addAll(list2);
+		list.addAll(list3);
+		//JasperReportUtil.render("PersDataPsub",list3, "pdf");
+		//persDataPsub(request, response, session);
 		return JasperReportUtil.render("PersDataP",list, "pdf");
 	}
-	
+	/*
+	@SuppressWarnings("unchecked")
+	public ModelAndView persDataPsub(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws ParseException {
+		String compId = (String) session.getAttribute("compId");
+		String empno = request.getParameter("empNo");
+		Map<String, Object> map3 = new HashMap<String, Object>();
+		map3.put("V_COMPID", compId);
+		map3.put("V_EMP_NO", empno);
+		map3.put("o_cursor", null);
+		PersDataPService.selCareerData(map3);
+
+		List<Map<String, Object>> list3 = (List<Map<String, Object>>) map3.get("o_cursor");
+		
+		return JasperReportUtil.render("PersDataPsub",list3, "pdf");
+	}
+*/	
 }

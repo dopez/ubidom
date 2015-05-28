@@ -22,5 +22,15 @@ public class PersDataPService {
 		dao.selPersData(map);
 		
 	}
+
+	public void selFamData(Map<String, Object> map2) {
+		dao.selFamData(map2);
+		
+	}
+
+	public void selCareerData(Map<String, Object> map3) {
+		dao.selCareerData(map3);
+		
+	}
 	
 }

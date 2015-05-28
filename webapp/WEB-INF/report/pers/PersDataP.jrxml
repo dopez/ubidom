@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-05-27T10:40:18 -->
+<!-- 2015-05-27T20:34:21 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersDataP" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ceko"/>
+	<style name="common" isDefault="true" mode="Opaque" fontName="HY중고딕" isBold="false" pdfFontName="H2GTRM.TTF" pdfEncoding="Identity-H"/>
 	<field name="empNo" class="java.lang.String"/>
 	<field name="korName" class="java.lang.String"/>
 	<field name="engName" class="java.lang.String"/>
@@ -67,10 +68,19 @@
 	<field name="achiDate5" class="java.lang.String"/>
 	<field name="qualNmGd6" class="java.lang.String"/>
 	<field name="achiDate6" class="java.lang.String"/>
+	<field name="famRel" class="java.lang.String"/>
+	<field name="famName" class="java.lang.String"/>
+	<field name="juminNo" class="java.lang.String"/>
+	<field name="scholarship" class="java.lang.String"/>
+	<field name="job" class="java.lang.String"/>
+	<field name="careerDate" class="java.lang.String"/>
+	<field name="careerName" class="java.lang.String"/>
+	<field name="jikmoo" class="java.lang.String"/>
+	<field name="jikwee2" class="java.lang.String"/>
 	<title>
 		<band height="32" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="32" uuid="0c20c392-10a7-4126-95a0-cbc545af06ff"/>
+				<reportElement style="common" x="0" y="0" width="555" height="32" uuid="0c20c392-10a7-4126-95a0-cbc545af06ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="HY중고딕" size="16"/>
 				</textElement>
@@ -79,11 +89,11 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="320">
+		<band height="320" splitType="Prevent">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="96" width="60" height="16" uuid="d259ec48-a467-4f72-a48d-944a7f5b35c3">
+				<reportElement style="common" x="0" y="96" width="60" height="16" uuid="d259ec48-a467-4f72-a48d-944a7f5b35c3">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -101,7 +111,7 @@
 				<text><![CDATA[본적]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="112" width="60" height="16" uuid="aafb2ed9-71d0-47f6-8ade-a5cda262bc48">
+				<reportElement style="common" x="0" y="112" width="60" height="16" uuid="aafb2ed9-71d0-47f6-8ade-a5cda262bc48">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -116,8 +126,8 @@
 				</textElement>
 				<text><![CDATA[주소]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="60" y="96" width="494" height="16" uuid="5e21a760-891b-4b35-9e2a-28e728b934d4">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="96" width="494" height="16" uuid="5e21a760-891b-4b35-9e2a-28e728b934d4">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -135,8 +145,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{baseAddrs}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="60" y="112" width="494" height="16" uuid="623c2baf-ea17-4555-9377-7c386e1f22e3">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="112" width="494" height="16" uuid="623c2baf-ea17-4555-9377-7c386e1f22e3">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -155,7 +165,7 @@
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="128" width="60" height="16" uuid="fcc85c53-1fd2-4d71-91f6-43f882172e11">
+				<reportElement style="common" x="0" y="128" width="60" height="16" uuid="fcc85c53-1fd2-4d71-91f6-43f882172e11">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -173,7 +183,7 @@
 				<text><![CDATA[전화]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="144" width="60" height="16" uuid="9878c927-ba71-4697-8cec-d56da91af6ba">
+				<reportElement style="common" x="0" y="144" width="60" height="16" uuid="9878c927-ba71-4697-8cec-d56da91af6ba">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -191,7 +201,7 @@
 				<text><![CDATA[휴대폰]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="160" width="60" height="16" uuid="9584ebbc-3b68-4c26-8eca-91a8cca0858f">
+				<reportElement style="common" x="0" y="160" width="60" height="16" uuid="9584ebbc-3b68-4c26-8eca-91a8cca0858f">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -209,7 +219,7 @@
 				<text><![CDATA[성격]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="192" width="60" height="16" uuid="04b93f26-9cca-45c8-b6b1-057c65ded055">
+				<reportElement style="common" x="0" y="192" width="60" height="16" uuid="04b93f26-9cca-45c8-b6b1-057c65ded055">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -227,7 +237,7 @@
 				<text><![CDATA[특기]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="176" width="60" height="16" uuid="5879978f-ab31-4916-96fa-07a3c25e6f86">
+				<reportElement style="common" x="0" y="176" width="60" height="16" uuid="5879978f-ab31-4916-96fa-07a3c25e6f86">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -244,8 +254,8 @@
 				</textElement>
 				<text><![CDATA[취미]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="60" y="128" width="73" height="16" uuid="875e943e-9df3-48fc-8621-8472af344ac9">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="128" width="73" height="16" uuid="875e943e-9df3-48fc-8621-8472af344ac9">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -263,8 +273,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tel}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="60" y="144" width="73" height="16" uuid="314108e2-c1eb-48a3-ad11-1df3551f0ac8">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="144" width="73" height="16" uuid="314108e2-c1eb-48a3-ad11-1df3551f0ac8">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -282,8 +292,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{handPhone}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="60" y="160" width="73" height="16" uuid="89397883-cf74-4460-a8f2-ee09cd9b0d28">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="160" width="73" height="16" uuid="89397883-cf74-4460-a8f2-ee09cd9b0d28">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -299,8 +309,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{character}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="60" y="176" width="73" height="16" uuid="c46ad622-fc8a-4684-9720-d32a3472d07f">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="176" width="73" height="16" uuid="c46ad622-fc8a-4684-9720-d32a3472d07f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -316,8 +326,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taste}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="60" y="192" width="73" height="16" uuid="10441215-ba99-4b5e-b131-88c24f3e5187">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="60" y="192" width="73" height="16" uuid="10441215-ba99-4b5e-b131-88c24f3e5187">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -334,7 +344,7 @@
 				<textFieldExpression><![CDATA[$F{partCont}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="133" y="128" width="60" height="16" uuid="9679c10a-7c0b-477b-95b2-c9cf49f496d1">
+				<reportElement style="common" x="133" y="128" width="60" height="16" uuid="9679c10a-7c0b-477b-95b2-c9cf49f496d1">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -352,7 +362,7 @@
 				<text><![CDATA[신장]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="144" width="60" height="16" uuid="b84a728a-4aeb-460d-9846-e25870a44bda">
+				<reportElement style="common" x="133" y="144" width="60" height="16" uuid="b84a728a-4aeb-460d-9846-e25870a44bda">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -370,7 +380,7 @@
 				<text><![CDATA[체중]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="160" width="60" height="16" uuid="21ff5f9d-7d8c-46a4-97ad-16baf999dfd1">
+				<reportElement style="common" x="133" y="160" width="60" height="16" uuid="21ff5f9d-7d8c-46a4-97ad-16baf999dfd1">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -388,7 +398,7 @@
 				<text><![CDATA[시력]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="192" width="60" height="16" uuid="36760fb9-336a-4765-b39f-e9a3b84d906b">
+				<reportElement style="common" x="133" y="192" width="60" height="16" uuid="36760fb9-336a-4765-b39f-e9a3b84d906b">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -406,7 +416,7 @@
 				<text><![CDATA[색맹]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="176" width="60" height="16" uuid="85722cfa-613d-487d-8ee0-229bdc37f3a1">
+				<reportElement style="common" x="133" y="176" width="60" height="16" uuid="85722cfa-613d-487d-8ee0-229bdc37f3a1">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -423,8 +433,8 @@
 				</textElement>
 				<text><![CDATA[혈액형]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="193" y="128" width="73" height="16" uuid="c0fdaa3e-0fe3-4109-a63c-63e907961ce0">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="193" y="128" width="73" height="16" uuid="c0fdaa3e-0fe3-4109-a63c-63e907961ce0">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -442,8 +452,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{length}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="193" y="144" width="73" height="16" uuid="0a6c8974-1d88-4c87-8d89-35fb19f74dd8">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="193" y="144" width="73" height="16" uuid="0a6c8974-1d88-4c87-8d89-35fb19f74dd8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -459,8 +469,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{weight}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="193" y="160" width="37" height="16" uuid="612f011a-0dea-4a39-a6cc-3d9d2e8bdfba">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="193" y="160" width="37" height="16" uuid="612f011a-0dea-4a39-a6cc-3d9d2e8bdfba">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -477,8 +487,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eyeLeft}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="230" y="160" width="36" height="16" uuid="7dc975a5-23f8-43d8-ba3b-3d16290d15aa">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="230" y="160" width="36" height="16" uuid="7dc975a5-23f8-43d8-ba3b-3d16290d15aa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -495,8 +505,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eyeRight}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="193" y="176" width="73" height="16" uuid="39a1ce12-7b21-4228-8c51-02ac9d44e3fc">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="193" y="176" width="73" height="16" uuid="39a1ce12-7b21-4228-8c51-02ac9d44e3fc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -513,8 +523,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{blood}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="193" y="192" width="73" height="16" uuid="3287ff80-db18-4f98-a531-ea68e663c723">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="193" y="192" width="73" height="16" uuid="3287ff80-db18-4f98-a531-ea68e663c723">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -531,7 +541,7 @@
 				<textFieldExpression><![CDATA[$F{bldKind}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="266" y="128" width="20" height="64" uuid="5e73ebe6-3859-441a-88bd-d79d2b15cf9f">
+				<reportElement style="common" x="266" y="128" width="20" height="64" uuid="5e73ebe6-3859-441a-88bd-d79d2b15cf9f">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -549,7 +559,7 @@
 				<text><![CDATA[병역]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="128" width="60" height="16" uuid="0f62ce88-d830-4308-b07f-08d7d6eb415b">
+				<reportElement style="common" x="286" y="128" width="60" height="16" uuid="0f62ce88-d830-4308-b07f-08d7d6eb415b">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -567,7 +577,7 @@
 				<text><![CDATA[군별]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="266" y="192" width="80" height="16" uuid="22313873-5159-4e10-9c99-f553cf436e4e">
+				<reportElement style="common" x="266" y="192" width="80" height="16" uuid="22313873-5159-4e10-9c99-f553cf436e4e">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -585,7 +595,7 @@
 				<text><![CDATA[종교]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="176" width="60" height="16" uuid="33a883f9-763d-4ab5-911b-cf6ae15970bc">
+				<reportElement style="common" x="286" y="176" width="60" height="16" uuid="33a883f9-763d-4ab5-911b-cf6ae15970bc">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -603,7 +613,7 @@
 				<text><![CDATA[입대일]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="144" width="60" height="16" uuid="9d46de53-9cd2-4ca0-9bcb-d37f61f7c3dc">
+				<reportElement style="common" x="286" y="144" width="60" height="16" uuid="9d46de53-9cd2-4ca0-9bcb-d37f61f7c3dc">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -621,7 +631,7 @@
 				<text><![CDATA[병과]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="128" width="60" height="16" uuid="c2923467-bc77-4924-bb2d-3d96cf04b032">
+				<reportElement style="common" x="419" y="128" width="60" height="16" uuid="c2923467-bc77-4924-bb2d-3d96cf04b032">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -639,7 +649,7 @@
 				<text><![CDATA[제대구분]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="160" width="60" height="16" uuid="d1d44615-421d-4329-a170-677064c769ed">
+				<reportElement style="common" x="286" y="160" width="60" height="16" uuid="d1d44615-421d-4329-a170-677064c769ed">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -656,8 +666,8 @@
 				</textElement>
 				<text><![CDATA[군번]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="346" y="128" width="73" height="16" uuid="b4628845-4fcf-4223-9f2d-baaba1754604">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="346" y="128" width="73" height="16" uuid="b4628845-4fcf-4223-9f2d-baaba1754604">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -675,8 +685,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{armyKind}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="346" y="144" width="73" height="16" uuid="7b323edb-26fa-4d1c-8a78-b0ea4b0798b9">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="346" y="144" width="73" height="16" uuid="7b323edb-26fa-4d1c-8a78-b0ea4b0798b9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -692,8 +702,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amryBarch}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="346" y="160" width="73" height="16" uuid="a5cc8f97-d1b2-4554-aae9-6aa92a27d46a">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="346" y="160" width="73" height="16" uuid="a5cc8f97-d1b2-4554-aae9-6aa92a27d46a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -709,8 +719,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{armyNo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="346" y="176" width="73" height="16" uuid="ce5f8344-af17-4976-a116-a50c82b98860">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="346" y="176" width="73" height="16" uuid="ce5f8344-af17-4976-a116-a50c82b98860">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -726,8 +736,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amryDate1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="176" width="75" height="16" uuid="c368a00b-645c-439a-aed6-e578102a6cab">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="176" width="75" height="16" uuid="c368a00b-645c-439a-aed6-e578102a6cab">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -743,8 +753,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amryDate2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="346" y="192" width="208" height="16" uuid="a32c77a4-2971-4bb1-a2ee-c61efad79c0a">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="346" y="192" width="208" height="16" uuid="a32c77a4-2971-4bb1-a2ee-c61efad79c0a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -761,7 +771,7 @@
 				<textFieldExpression><![CDATA[$F{religion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="419" y="176" width="60" height="16" uuid="cdd36c3a-cf3b-4d19-b336-6c7ad67719c6">
+				<reportElement style="common" x="419" y="176" width="60" height="16" uuid="cdd36c3a-cf3b-4d19-b336-6c7ad67719c6">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -779,7 +789,7 @@
 				<text><![CDATA[전역일]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="144" width="60" height="16" uuid="d37aad9a-e2f2-42b4-9239-76f3ad6bf1a4">
+				<reportElement style="common" x="419" y="144" width="60" height="16" uuid="d37aad9a-e2f2-42b4-9239-76f3ad6bf1a4">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -797,7 +807,7 @@
 				<text><![CDATA[계급]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="160" width="60" height="16" uuid="db7f5ad8-10e5-4dca-8e04-20cd9ddb6d7a">
+				<reportElement style="common" x="419" y="160" width="60" height="16" uuid="db7f5ad8-10e5-4dca-8e04-20cd9ddb6d7a">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -814,8 +824,8 @@
 				</textElement>
 				<text><![CDATA[보훈대상]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="479" y="128" width="75" height="16" uuid="5a4a7782-2563-4910-bcf9-ec461abd4d5a">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="128" width="75" height="16" uuid="5a4a7782-2563-4910-bcf9-ec461abd4d5a">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -833,8 +843,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{armyYn}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="144" width="75" height="16" uuid="fbdc66ce-d019-438c-9d9a-3cb999fd40dc">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="144" width="75" height="16" uuid="fbdc66ce-d019-438c-9d9a-3cb999fd40dc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -850,8 +860,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{armyGd}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="160" width="75" height="16" uuid="0232a749-bd3e-4b69-a601-daa4921f4609">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="160" width="75" height="16" uuid="0232a749-bd3e-4b69-a601-daa4921f4609">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -868,7 +878,7 @@
 				<textFieldExpression><![CDATA[$F{armyMerit}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="208" width="20" height="112" uuid="3bcddcdd-1a25-47c3-91d4-9abee32bfaad">
+				<reportElement style="common" x="0" y="208" width="20" height="112" uuid="3bcddcdd-1a25-47c3-91d4-9abee32bfaad">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -886,7 +896,7 @@
 				<text><![CDATA[학력사항]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="288" y="208" width="20" height="112" uuid="66b717de-5fab-4854-86dd-72214f43eea3">
+				<reportElement style="common" x="288" y="208" width="20" height="112" uuid="66b717de-5fab-4854-86dd-72214f43eea3">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -904,7 +914,7 @@
 				<text><![CDATA[자격면허]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="208" width="113" height="16" uuid="8b46b8a7-dc90-4ebd-b036-eaa5eae34fbe">
+				<reportElement style="common" x="20" y="208" width="113" height="16" uuid="8b46b8a7-dc90-4ebd-b036-eaa5eae34fbe">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -922,7 +932,7 @@
 				<text><![CDATA[기간]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="208" width="80" height="16" uuid="b1ab1f7b-e0c0-4692-b038-478822ec63b4">
+				<reportElement style="common" x="133" y="208" width="80" height="16" uuid="b1ab1f7b-e0c0-4692-b038-478822ec63b4">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -940,7 +950,7 @@
 				<text><![CDATA[교명]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="213" y="208" width="75" height="16" uuid="ce3859c5-b344-41f3-a531-7e231e9b2093">
+				<reportElement style="common" x="213" y="208" width="75" height="16" uuid="ce3859c5-b344-41f3-a531-7e231e9b2093">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -958,7 +968,7 @@
 				<text><![CDATA[전공]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="308" y="208" width="171" height="16" uuid="0383dfcc-99e5-48e4-86c8-6b84bde2c704">
+				<reportElement style="common" x="308" y="208" width="171" height="16" uuid="0383dfcc-99e5-48e4-86c8-6b84bde2c704">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -978,7 +988,7 @@
 				<text><![CDATA[종류 및 등급]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="479" y="208" width="75" height="16" uuid="6209774b-9586-4777-abf5-56b22b61d5d6">
+				<reportElement style="common" x="479" y="208" width="75" height="16" uuid="6209774b-9586-4777-abf5-56b22b61d5d6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -995,8 +1005,8 @@
 				</textElement>
 				<text><![CDATA[취득일자]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="20" y="224" width="113" height="16" uuid="fedd851f-19a3-4969-bc0c-c4709a09cf57">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="224" width="113" height="16" uuid="fedd851f-19a3-4969-bc0c-c4709a09cf57">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1014,8 +1024,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="224" width="80" height="16" uuid="571406d6-c58e-4beb-8ba8-6da4e97959f2">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="224" width="80" height="16" uuid="571406d6-c58e-4beb-8ba8-6da4e97959f2">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1033,8 +1043,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="224" width="75" height="16" uuid="f08b4d18-8aee-43cb-a9fe-5d72fab59efe">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="224" width="75" height="16" uuid="f08b4d18-8aee-43cb-a9fe-5d72fab59efe">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1052,8 +1062,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="20" y="240" width="113" height="16" uuid="b587776a-301f-4c96-b428-f10173fb234a">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="240" width="113" height="16" uuid="b587776a-301f-4c96-b428-f10173fb234a">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1073,8 +1083,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="240" width="80" height="16" uuid="ce40e335-d2b9-4444-a6b3-a297c0905573">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="240" width="80" height="16" uuid="ce40e335-d2b9-4444-a6b3-a297c0905573">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1092,8 +1102,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="240" width="75" height="16" uuid="b5074e00-ff78-4460-94de-82a0e951da85">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="240" width="75" height="16" uuid="b5074e00-ff78-4460-94de-82a0e951da85">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1111,8 +1121,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1_2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="20" y="256" width="113" height="16" uuid="146cde75-db7b-43ce-b4e7-1c08edb18d07">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="256" width="113" height="16" uuid="146cde75-db7b-43ce-b4e7-1c08edb18d07">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1134,8 +1144,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="20" y="272" width="113" height="16" uuid="8f3bb0de-4737-44a8-9e92-581d64cf23ba">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="272" width="113" height="16" uuid="8f3bb0de-4737-44a8-9e92-581d64cf23ba">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1154,8 +1164,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="20" y="288" width="113" height="16" uuid="bb4a9e06-b7d4-439a-873b-9d6622d9b3e6">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="288" width="113" height="16" uuid="bb4a9e06-b7d4-439a-873b-9d6622d9b3e6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1174,8 +1184,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="20" y="304" width="113" height="16" uuid="d7029376-c182-4716-9d00-2aa6317c6ff7">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="20" y="304" width="113" height="16" uuid="d7029376-c182-4716-9d00-2aa6317c6ff7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1194,8 +1204,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduDate6}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="256" width="80" height="16" uuid="d07a1c5b-205f-4ec3-948f-e002075ad042">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="256" width="80" height="16" uuid="d07a1c5b-205f-4ec3-948f-e002075ad042">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1217,8 +1227,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="272" width="80" height="16" uuid="ab752fb1-1945-4920-bcae-52cbd672b5df">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="272" width="80" height="16" uuid="ab752fb1-1945-4920-bcae-52cbd672b5df">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1237,8 +1247,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="288" width="80" height="16" uuid="120f18d8-cb50-47cc-9fe2-393d80687c81">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="288" width="80" height="16" uuid="120f18d8-cb50-47cc-9fe2-393d80687c81">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1257,8 +1267,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="304" width="80" height="16" uuid="776fca7c-bc44-4808-9ee8-e2c6b658872f">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="133" y="304" width="80" height="16" uuid="776fca7c-bc44-4808-9ee8-e2c6b658872f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1277,8 +1287,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eduName6}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="256" width="75" height="16" uuid="dba00b62-6a9f-4f45-8486-90815dc9e272">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="256" width="75" height="16" uuid="dba00b62-6a9f-4f45-8486-90815dc9e272">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -1300,8 +1310,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1_3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="272" width="75" height="16" uuid="aadcd2f4-dc3e-4571-a1e1-1f55c309cb3d">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="272" width="75" height="16" uuid="aadcd2f4-dc3e-4571-a1e1-1f55c309cb3d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1320,8 +1330,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1_4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="288" width="75" height="16" uuid="fef9eeb0-1afb-4b6b-876b-f5fda99526b8">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="288" width="75" height="16" uuid="fef9eeb0-1afb-4b6b-876b-f5fda99526b8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1340,8 +1350,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1_5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="213" y="304" width="75" height="16" uuid="17fdade5-81d2-46ae-a201-3ac734f77b17">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="213" y="304" width="75" height="16" uuid="17fdade5-81d2-46ae-a201-3ac734f77b17">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1360,8 +1370,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{specCode1_6}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="224" width="171" height="16" uuid="8cafb527-4dbb-4f6f-865e-6f9c363be2cb">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="224" width="171" height="16" uuid="8cafb527-4dbb-4f6f-865e-6f9c363be2cb">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -1383,8 +1393,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="224" width="75" height="16" uuid="297907ae-5d8a-4f6a-8b60-394edb9ae58b">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="224" width="75" height="16" uuid="297907ae-5d8a-4f6a-8b60-394edb9ae58b">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -1406,8 +1416,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{achiDate1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="240" width="171" height="16" uuid="f71ea160-0d7c-4656-a1b5-c8d90c1eed92">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="240" width="171" height="16" uuid="f71ea160-0d7c-4656-a1b5-c8d90c1eed92">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1426,8 +1436,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="240" width="75" height="16" uuid="24cc7051-178b-4516-896d-8d2af36b1efe">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="240" width="75" height="16" uuid="24cc7051-178b-4516-896d-8d2af36b1efe">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1446,8 +1456,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{achiDate2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="256" width="171" height="16" uuid="3740c504-fbf9-42e9-a672-cbab8e3371c4">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="256" width="171" height="16" uuid="3740c504-fbf9-42e9-a672-cbab8e3371c4">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1466,8 +1476,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="256" width="75" height="16" uuid="d8300640-4506-4557-9361-7fe71961e4b1">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="256" width="75" height="16" uuid="d8300640-4506-4557-9361-7fe71961e4b1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1486,8 +1496,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{achiDate3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="272" width="171" height="16" uuid="92230376-6476-425c-a7d6-dfd0f57c248e">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="272" width="171" height="16" uuid="92230376-6476-425c-a7d6-dfd0f57c248e">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1506,8 +1516,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="272" width="75" height="16" uuid="c4929bb3-5fa4-4c9a-8a83-e4705a8c946a">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="272" width="75" height="16" uuid="c4929bb3-5fa4-4c9a-8a83-e4705a8c946a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1526,8 +1536,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{achiDate4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="288" width="171" height="16" uuid="52639f97-f2a1-4f6f-b34c-e6df03c82267">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="288" width="171" height="16" uuid="52639f97-f2a1-4f6f-b34c-e6df03c82267">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1546,8 +1556,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="288" width="75" height="16" uuid="08130f45-6db3-4bda-ac78-3cf2565389a0">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="288" width="75" height="16" uuid="08130f45-6db3-4bda-ac78-3cf2565389a0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -1566,8 +1576,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{achiDate5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="304" width="171" height="16" uuid="4520f4ac-73f0-41ec-902b-bd714a9a7096">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="308" y="304" width="171" height="16" uuid="4520f4ac-73f0-41ec-902b-bd714a9a7096">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1586,8 +1596,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qualNmGd6}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="479" y="304" width="75" height="16" uuid="3f2da02a-26d1-488e-a644-85a58306199b">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="479" y="304" width="75" height="16" uuid="3f2da02a-26d1-488e-a644-85a58306199b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -1606,7 +1616,7 @@
 				<textFieldExpression><![CDATA[$F{achiDate6}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="130" y="0" width="80" height="16" uuid="c775b57d-882e-499e-b8a6-342246bfe0ec">
+				<reportElement style="common" x="130" y="0" width="80" height="16" uuid="c775b57d-882e-499e-b8a6-342246bfe0ec">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -1624,7 +1634,7 @@
 				<text><![CDATA[사	번]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="16" width="80" height="16" uuid="2d6342bf-3195-4f3f-aa92-0043cf3a0747">
+				<reportElement style="common" x="130" y="16" width="80" height="16" uuid="2d6342bf-3195-4f3f-aa92-0043cf3a0747">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1640,7 +1650,7 @@
 				<text><![CDATA[성명(한글)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="32" width="80" height="16" uuid="a49263c3-33c1-4b5c-aa14-bc7859cf4a82">
+				<reportElement style="common" x="130" y="32" width="80" height="16" uuid="a49263c3-33c1-4b5c-aa14-bc7859cf4a82">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1656,7 +1666,7 @@
 				<text><![CDATA[성명(영문)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="48" width="80" height="16" uuid="43d780b0-20e9-44ab-ab0e-2a39104f28c4">
+				<reportElement style="common" x="130" y="48" width="80" height="16" uuid="43d780b0-20e9-44ab-ab0e-2a39104f28c4">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1672,7 +1682,7 @@
 				<text><![CDATA[성명(한자)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="64" width="80" height="16" uuid="43fe2dba-568e-49a9-9846-5a2850bad19f">
+				<reportElement style="common" x="130" y="64" width="80" height="16" uuid="43fe2dba-568e-49a9-9846-5a2850bad19f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1688,7 +1698,7 @@
 				<text><![CDATA[주민번호]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="80" width="80" height="16" uuid="eb98d8a8-1294-4a97-aad2-4a006feee057">
+				<reportElement style="common" x="130" y="80" width="80" height="16" uuid="eb98d8a8-1294-4a97-aad2-4a006feee057">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1704,8 +1714,8 @@
 				</textElement>
 				<text><![CDATA[E-Mail]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="210" y="0" width="132" height="16" uuid="06e11bfd-f91d-4d88-9364-930b88534113">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="0" width="132" height="16" uuid="06e11bfd-f91d-4d88-9364-930b88534113">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1722,8 +1732,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empNo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="210" y="16" width="132" height="16" uuid="b6e9217c-07f4-46a7-b1b2-cf1cd31db2f5">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="16" width="132" height="16" uuid="b6e9217c-07f4-46a7-b1b2-cf1cd31db2f5">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1738,8 +1748,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{korName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="210" y="32" width="132" height="16" uuid="92d41e12-5e3c-4a50-8558-9c9a1337e452">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="32" width="132" height="16" uuid="92d41e12-5e3c-4a50-8558-9c9a1337e452">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1754,8 +1764,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{engName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="210" y="48" width="132" height="16" uuid="d88058a9-a133-4414-b010-4b8a221d2883">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="48" width="132" height="16" uuid="d88058a9-a133-4414-b010-4b8a221d2883">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1770,8 +1780,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{chaName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="210" y="64" width="132" height="16" uuid="b69dfef1-ef1c-4030-9b94-b8db18b51721">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="64" width="132" height="16" uuid="b69dfef1-ef1c-4030-9b94-b8db18b51721">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1786,8 +1796,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{regiNumb}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="210" y="80" width="132" height="16" uuid="62cc2161-1068-461b-880e-7505b02ba368">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="210" y="80" width="132" height="16" uuid="62cc2161-1068-461b-880e-7505b02ba368">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1803,7 +1813,7 @@
 				<textFieldExpression><![CDATA[$F{eMail}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="342" y="0" width="80" height="16" uuid="b3f4caa6-cb62-4714-bdcf-7916a5d7e031">
+				<reportElement style="common" x="342" y="0" width="80" height="16" uuid="b3f4caa6-cb62-4714-bdcf-7916a5d7e031">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1819,7 +1829,7 @@
 				<text><![CDATA[입사일자]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="16" width="80" height="16" uuid="fc99ee07-74fb-4055-a9ab-c7a78bdd9dab">
+				<reportElement style="common" x="342" y="16" width="80" height="16" uuid="fc99ee07-74fb-4055-a9ab-c7a78bdd9dab">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1834,7 +1844,7 @@
 				<text><![CDATA[부	서]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="32" width="80" height="16" uuid="457ef1eb-a4b8-4a65-8c4e-b39dd77e4a65">
+				<reportElement style="common" x="342" y="32" width="80" height="16" uuid="457ef1eb-a4b8-4a65-8c4e-b39dd77e4a65">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1849,7 +1859,7 @@
 				<text><![CDATA[직	위]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="48" width="80" height="16" uuid="8c06878a-1b16-41e1-9761-9f844a2a1df2">
+				<reportElement style="common" x="342" y="48" width="80" height="16" uuid="8c06878a-1b16-41e1-9761-9f844a2a1df2">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1864,7 +1874,7 @@
 				<text><![CDATA[직	책]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="64" width="80" height="16" uuid="5df1bbcb-0c40-457b-9580-c83f4b150234">
+				<reportElement style="common" x="342" y="64" width="80" height="16" uuid="5df1bbcb-0c40-457b-9580-c83f4b150234">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1879,7 +1889,7 @@
 				<text><![CDATA[장애사항]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="80" width="80" height="16" uuid="9559226e-4f95-478c-9bcd-0fd67650f601">
+				<reportElement style="common" x="342" y="80" width="80" height="16" uuid="9559226e-4f95-478c-9bcd-0fd67650f601">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1893,8 +1903,8 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="422" y="0" width="132" height="16" uuid="f7551fa3-dd9f-489b-8ca4-79374d7d14cd">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="422" y="0" width="132" height="16" uuid="f7551fa3-dd9f-489b-8ca4-79374d7d14cd">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1910,8 +1920,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{enterDate}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="422" y="16" width="132" height="16" uuid="74c518ad-919e-401c-8040-d55ca358db96">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="422" y="16" width="132" height="16" uuid="74c518ad-919e-401c-8040-d55ca358db96">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1926,8 +1936,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{postName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="422" y="32" width="132" height="16" uuid="11d3e453-fb6e-4b2c-8698-6f05fb9434c0">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="422" y="32" width="132" height="16" uuid="11d3e453-fb6e-4b2c-8698-6f05fb9434c0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1942,8 +1952,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{jikwee}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="422" y="48" width="132" height="16" uuid="d3bd267e-644b-4d9c-8269-500ce9520534">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="422" y="48" width="132" height="16" uuid="d3bd267e-644b-4d9c-8269-500ce9520534">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1958,8 +1968,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{jikchak}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="422" y="64" width="132" height="16" uuid="d97fcc9b-1071-4356-89b3-cc14095de9c0">
+			<textField isBlankWhenNull="true">
+				<reportElement style="common" x="422" y="64" width="132" height="16" uuid="d97fcc9b-1071-4356-89b3-cc14095de9c0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1975,7 +1985,7 @@
 				<textFieldExpression><![CDATA[$F{disorderCont}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="422" y="80" width="132" height="16" uuid="fed127ef-f11a-4240-b18c-b36bc957e468">
+				<reportElement style="common" x="422" y="80" width="132" height="16" uuid="fed127ef-f11a-4240-b18c-b36bc957e468">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
@@ -1990,7 +2000,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="0" width="130" height="96" uuid="4e166bde-2301-41f5-8a9f-1ea7d729798f">
+				<reportElement style="common" x="0" y="0" width="130" height="96" uuid="4e166bde-2301-41f5-8a9f-1ea7d729798f">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -2007,7 +2017,7 @@
 					<rightPen lineWidth="0.3" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<image>
-					<reportElement x="30" y="2" width="70" height="93" uuid="75a912da-1bc3-46ce-8533-696c9a3e6f59">
+					<reportElement style="common" x="30" y="2" width="70" height="93" uuid="75a912da-1bc3-46ce-8533-696c9a3e6f59">
 						<property name="local_mesure_unitheight" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="local_mesure_unitwidth" value="pixel"/>
@@ -2025,12 +2035,437 @@
 			</frame>
 		</band>
 	</pageHeader>
-	<pageFooter>
-		<band height="38" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="200" splitType="Stretch">
+	<detail>
+		<band height="48">
 			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="0" y="32" width="554" height="16" uuid="f67dc495-11bb-4b5b-ad55-bd2672023e4e">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement style="common" x="415" y="0" width="139" height="16" uuid="e965f294-57c8-4fd6-90c4-5b5e4f2256ae">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{jikmoo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="common" x="305" y="0" width="110" height="16" uuid="7d17603a-4a9d-4d65-bf32-caaabd3cb9aa">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{jikwee2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="common" x="0" y="0" width="180" height="16" uuid="f13321e8-c3d1-4069-a0e8-846a0136e9b9">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{careerDate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="common" x="180" y="0" width="125" height="16" uuid="763b3fb5-ba6d-437a-ac2a-afacb8c53d59">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{careerName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="554" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="92668860-0d39-4751-9267-5923085d7399">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="HY견고딕"/>
+				</textElement>
+				<text><![CDATA[입사 전 경력]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="0" y="16" width="180" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="121a21a6-5afa-4bac-8fe5-401578bad689">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<text><![CDATA[기간]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="180" y="16" width="125" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="e83dd1c7-0646-4143-a9f8-c2795491d0b5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[직장명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="305" y="16" width="110" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="daa52f84-f206-40a7-a547-8353ad90bdb3">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[직위]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="415" y="16" width="139" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="71647a14-e1cf-4440-8b02-680999f427e8">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[직무]]></text>
+			</staticText>
 		</band>
-	</summary>
+		<band height="48">
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="0" width="554" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="e3856e7e-0226-4afb-8b94-c621b0ee8181">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="HY견고딕"/>
+				</textElement>
+				<text><![CDATA[가족사항]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="16" width="60" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="ab0ddb9f-b576-47e2-8d33-7be57ceae034">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<text><![CDATA[관계]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="60" y="16" width="85" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="dd0f74b2-5495-4ba2-83c3-554116ef9777">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[성명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="145" y="16" width="200" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="585abe45-3a60-4d7e-abbb-35a9309a42b9">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[주민등록번호]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="345" y="16" width="80" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="11ec2ff1-a387-4449-a620-15f207ad82a5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[학력]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="425" y="16" width="129" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="bfa52cb5-e6eb-45a7-9765-06ec531484b1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<text><![CDATA[직업]]></text>
+			</staticText>
+			<textField>
+				<reportElement key="" mode="Opaque" x="0" y="32" width="60" height="16" uuid="2a9a778e-f61f-4451-b309-b7415a9e4cb9">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{famRel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" mode="Opaque" x="60" y="32" width="85" height="16" uuid="7512cd0e-9953-4ef1-a4d2-455ba4d861af">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{famName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" mode="Opaque" x="145" y="32" width="200" height="16" uuid="172a3bc1-85c7-4e22-8246-c6fcce5e258d">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{juminNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" mode="Opaque" x="345" y="32" width="80" height="16" uuid="8059cd34-0f5f-48f5-b540-65c807ec4178">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{scholarship}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" mode="Opaque" x="425" y="32" width="129" height="16" uuid="18e1afa0-436b-42ca-8894-3e2203ed1b57">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="HY중고딕"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 </jasperReport>

@@ -74,6 +74,17 @@ public class PersDataP implements Serializable {
 	private String achiDate5;
 	private String qualNmGd6;
 	private String achiDate6;
+	
+	private String famRel;
+	private String famName;
+	private String juminNo;
+	private String scholarship;
+	private String job;
+	
+	private String careerDate;
+	private String careerName;
+	private String jikmoo;
+	private String jikwee2;
 
 	private String imgPath; // 이미지 경로
 	
@@ -100,7 +111,8 @@ public class PersDataP implements Serializable {
 			String qualNmGd2, String achiDate2, String qualNmGd3,
 			String achiDate3, String qualNmGd4, String achiDate4,
 			String qualNmGd5, String achiDate5, String qualNmGd6,
-			String achiDate6, String imgPath) {
+			String achiDate6, String famRel, String famName, String juminNo,
+			String scholarship, String job, String imgPath) {
 		super();
 		this.compId = compId;
 		this.empNo = empNo;
@@ -167,6 +179,11 @@ public class PersDataP implements Serializable {
 		this.achiDate5 = achiDate5;
 		this.qualNmGd6 = qualNmGd6;
 		this.achiDate6 = achiDate6;
+		this.famRel = famRel;
+		this.famName = famName;
+		this.juminNo = juminNo;
+		this.scholarship = scholarship;
+		this.job = job;
 		this.imgPath = imgPath;
 	}
 
@@ -696,6 +713,78 @@ public class PersDataP implements Serializable {
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+
+	public String getFamRel() {
+		return famRel;
+	}
+
+	public void setFamRel(String famRel) {
+		this.famRel = famRel;
+	}
+
+	public String getFamName() {
+		return famName;
+	}
+
+	public void setFamName(String famName) {
+		this.famName = famName;
+	}
+
+	public String getJuminNo() {
+		return juminNo;
+	}
+
+	public void setJuminNo(String juminNo) {
+		this.juminNo = juminNo;
+	}
+
+	public String getScholarship() {
+		return scholarship;
+	}
+
+	public void setScholarship(String scholarship) {
+		this.scholarship = scholarship;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getCareerDate() {
+		return careerDate;
+	}
+
+	public void setCareerDate(String careerDate) {
+		this.careerDate = careerDate;
+	}
+
+	public String getCareerName() {
+		return careerName;
+	}
+
+	public void setCareerName(String careerName) {
+		this.careerName = careerName;
+	}
+
+	public String getJikmoo() {
+		return jikmoo;
+	}
+
+	public void setJikmoo(String jikmoo) {
+		this.jikmoo = jikmoo;
+	}
+
+	public String getJikwee2() {
+		return jikwee2;
+	}
+
+	public void setJikwee2(String jikwee2) {
+		this.jikwee2 = jikwee2;
 	}
 
 	public static long getSerialversionuid() {
