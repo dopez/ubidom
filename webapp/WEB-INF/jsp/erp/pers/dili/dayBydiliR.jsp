@@ -3,46 +3,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMain;
+var gridMain;  
+var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,8,9],"1C");
-	//일일근태조회
+	Ubi.setContainer(2,[1,3,6,8],"1C");
+	//일일근태등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,근무일자,부서,직책,사번,성명,근태구분,출근,퇴근,정상,"+
-			           "연장,야근,외출,조퇴,지각,총근무,휴일구분,요일",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			               "100,100,100,100,100,100,100,100");
-	gridMain.setColAlign("center,center,left,left,left,left,center,center,center,right,"+
-			             "right,right,right,right,right,right,center,center");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,coro,ro,ro,ron,"+
-			             "ron,ron,ron,ron,ron,ron,coro,coro");
-	gridMain.setColSorting("int,date,str,str,int,str,str,date,date,int,"+
-			               "int,int,int,int,int,int,str,str");
-	gridMain.init();		
-	
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"5", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"근무일자", colId:"workDate",   width:"7", align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"부서",     colId:"postName",   width:"7", align:"center", type:"ro"});
+	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"7", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"7", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"7", align:"center", type:"ro"});
+	gridMain.addHeader({name:"근태구분", colId:"workKind",   width:"7", align:"center", type:"combo"});
+	gridMain.addHeader({name:"정상",     colId:"workTime",   width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"연장",     colId:"overTime",   width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"야근",     colId:"nightTime",  width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"외출",     colId:"partTime",   width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"조퇴",     colId:"earlyTime",  width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"7", align:"center", type:"edn"});
+	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"7", align:"center", type:"edn"});
+	gridMain.setUserData("","pk","no");
+	gridMain.setColSort("str");
+	gridMain.init();
+
+	calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"},{input:"toDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
-	byId("stDate").value = t;
-	byId("edDate").value = t;
+	byId("frDate").value = t;
+	byId("toDate").value = t;
 });
+//조회
+function fn_search(){
+	fn_loadGridList();
+};
+//엑셀
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+ };
+ 
+function  fn_print(){
+	/* var url = "/erp/pers/stan/deptR/report/deptR.do";
+	url = url + "?postName=" + $("#postName").val();
+	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
+	window.open(url,'rpt',''); */
+ }
+function fn_loadGridLeftList(){
+	var obj={};
+	obj.workDate = $('#workDate').val();
+	obj.postCode = $('#postCode').val();
+	obj.jikgun = $('#jikgun').val();
+	if(obj.postCode == ''){
+		obj.postCode = '%';
+	}
+    gfn_callAjaxForGrid(gridMst,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
+}
+
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+     <input type="hidden" id="postCode" name="postCode">
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
@@ -52,10 +81,10 @@ $(document).ready(function(){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs" name="frDate" id="frDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
-                            <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                            <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'toDate', 'max')">
                           </div>
                      </div>
                        <div class="col-sm-2 col-md-2">
@@ -65,10 +94,10 @@ $(document).ready(function(){
                        </div>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                              <input type="text" class="form-control input-xs" name="toDate" id="toDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
-                             <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                             <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'frDate', 'min')">
                           </div>
                        </div> 
                  </div>       
@@ -82,20 +111,21 @@ $(document).ready(function(){
 			 직군
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
+			  <select name="jikgun" id="jikgun" class="form-control input-xs">
+			   <option value="%">전체</option>
+			   <option value="01">관리직</option>
+			   <option value="02">생산직</option>
+			   <option value="03">용역</option>
+			   <option value="04">외국인</option>
+			   <option value="05">기술직</option>
+			   <option value="06">계약직</option>
 			  </select>
 			</div>
 			 <label class="col-sm-1 col-md-1 control-label" for="textinput">
 			    부서
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			     <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			   </div>
 		  </div>
 	  </div>
@@ -133,7 +163,7 @@ $(document).ready(function(){
 			    성명
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			     <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
 			   </div>
 		  </div>
 	  </div>
