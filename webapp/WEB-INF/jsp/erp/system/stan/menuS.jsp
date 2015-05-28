@@ -34,7 +34,6 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","menucd");
 	gridMain.enableDragAndDrop(true);
 	gridMain.init();
-	gridMain.dxObj.deleteColumn(0);
 
  	gridMain.attachEvent("onDrop",fn_onDrop);
  	

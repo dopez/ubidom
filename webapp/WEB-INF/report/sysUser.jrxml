@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
+<!-- 2015-05-28T14:39:55 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sysUser" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96bc5f64-c28e-424a-bb7e-37958b839b94">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -7,6 +9,13 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT PERSONNO,PERSONNAME,LOGID,PASS_CHANGE_DT FROM SYS_USER]]>
 	</queryString>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"
+      isForPrompting="false">
+      <defaultValueExpression>
+      <![CDATA["/WEB-INF/report/pers/certificateDataP.jrxml"]]>
+      </defaultValueExpression>
+   </parameter>
+   <field name="c
 	<field name="PERSONNO" class="java.lang.String"/>
 	<field name="PERSONNAME" class="java.lang.String"/>
 	<field name="LOGID" class="java.lang.String"/>
@@ -126,6 +135,18 @@
 				<reportElement x="0" y="4" width="100" height="13" uuid="c6637c5a-e3a6-4f2e-b282-80fad13e34eb"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+		<subreport>
+            <reportElement positionType="Float" x="335" y="25" width="175"
+            height="20" isRemoveLineWhenBlank="true"
+            backcolor="#99ccff"/>
+
+            <dataSourceExpression>
+            ($F{list})
+            </dataSourceExpression>
+            <subreportExpression class="java.lang.String">
+               <![CDATA[$P{SUBREPORT_DIR} + "Blank_A4_1.jasper"]]>
+            </subreportExpression>
+         </subreport>
 		</band>
 	</pageFooter>
 	<summary>

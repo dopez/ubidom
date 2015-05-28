@@ -77,8 +77,6 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
           	 if (callbackFn != undefined) {
                 callbackFn.call(this, data);
             }
-            
-       
         },
         failure: function(data) {
             console.log(data.d);
