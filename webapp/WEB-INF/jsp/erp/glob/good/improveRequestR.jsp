@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 $(document).ready(function(){
-	Ubi.setContainer(3,[1,8,9],"1C");
+	Ubi.setContainer(3,[1,8,9],"1C"); 
 	//제품개선의뢰조회
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();

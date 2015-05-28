@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-$(document).ready(function(){
+$(document).ready(function(){ 
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//검사기준조회
 	layout = Ubi.getLayout();

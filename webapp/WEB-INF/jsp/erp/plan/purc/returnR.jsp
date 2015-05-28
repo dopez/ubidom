@@ -8,7 +8,7 @@
 
                 Ubi.setContainer(2, [1, 8, 9], "1C"); //반품등록
 
-                layout = Ubi.getLayout();
+                layout = Ubi.getLayout(); 
                 toolbar = Ubi.getToolbar();
                 subLayout = Ubi.getSubLayout();
 

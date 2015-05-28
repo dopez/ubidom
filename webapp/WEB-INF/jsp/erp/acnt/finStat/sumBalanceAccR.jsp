@@ -8,7 +8,7 @@
             $(document).ready(function() {
                 Ubi.setContainer(1, [1,8,9], "1C");
                 layout = Ubi.getLayout();
-                toolbar = Ubi.getToolbar();
+                toolbar = Ubi.getToolbar(); 
                 subLayout = Ubi.getSubLayout();
                 //      결산기초자료입력
                 layout.cells("b").attachObject("bootContainer");

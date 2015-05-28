@@ -7,7 +7,7 @@ var gridMain;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,3,4,5,6],"1C");
 	//마감작업
-	layout = Ubi.getLayout();
+	layout = Ubi.getLayout(); 
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
 	

@@ -8,7 +8,7 @@ var toolbar;
 var empNo;
 var config={
 		title:"인사발령등록",
-		id:"persCode",
+		id:"persCode", 
 		width:"980",
 		height:"500"
 	}

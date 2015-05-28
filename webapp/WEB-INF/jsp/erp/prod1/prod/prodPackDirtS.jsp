@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;  
-var calMain;
+var calMain; 
 var cName = '생산';
 var cName2 = '포장';
 $(document).ready(function(){

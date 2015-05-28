@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var toolbar;
+var toolbar; 
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//품목코드 도우미

@@ -4,7 +4,7 @@
             var layout, toolbar, subLayout;
             var gridMain;
             var t = new Date().getFullYear();
-            var m = +new Date().getMonth() + 1;
+            var m = +new Date().getMonth() + 1; 
             $(document).ready(function() {
                 Ubi.setContainer(2, [1, 8, 9], "1C");
                 layout = Ubi.getLayout();

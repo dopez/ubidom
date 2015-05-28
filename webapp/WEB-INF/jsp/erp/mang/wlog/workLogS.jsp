@@ -2,7 +2,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
         var layout, toolbar, subLayout;
-        var gridMain;
+        var gridMain; 
         var calStDate;
         $(document).ready(function() {
 

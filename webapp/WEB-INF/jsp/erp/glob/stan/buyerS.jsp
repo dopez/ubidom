@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMain;     
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4],"2U"); 
-	//Buyer등록
+	//Buyer등록 
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 

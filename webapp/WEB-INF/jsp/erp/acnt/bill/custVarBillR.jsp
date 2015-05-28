@@ -7,7 +7,7 @@
             $(document).ready(function() {
 
                 Ubi.setContainer(3, [1, 8, 9], "1C"); //거래처별증감명세서
-
+ 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
                 subLayout = Ubi.getSubLayout();

@@ -5,7 +5,7 @@
         var gridMain;
         var calStDate;
         $(document).ready(function() {
-
+ 
             Ubi.setContainer(2, [1, 2, 3, 4, 5, 6], "2E"); //결과등록
 
             layout = Ubi.getLayout();

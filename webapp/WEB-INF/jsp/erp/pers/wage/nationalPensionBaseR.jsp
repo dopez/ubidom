@@ -9,7 +9,7 @@ $(document).ready(function(){
 	//국민연금 기초자료
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
+    subLayout = Ubi.getSubLayout();  
 	
 	layout.cells("b").attachObject("bootContainer");
 	

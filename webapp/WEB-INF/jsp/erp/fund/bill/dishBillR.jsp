@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var calMain;
+var calMain; 
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//부도어음현황

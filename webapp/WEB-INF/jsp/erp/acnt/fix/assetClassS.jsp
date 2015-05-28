@@ -6,7 +6,7 @@
             var calMain;
             $(document).ready(function() {
 
-                Ubi.setContainer(1, [1, 8, 9], "1C"); //자산분류등록
+                Ubi.setContainer(1, [1, 8, 9], "1C"); //자산분류등록 
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();

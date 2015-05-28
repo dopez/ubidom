@@ -4,7 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var calMain;
+var calMain; 
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8,9],"1C");
 	//일별제품수불부

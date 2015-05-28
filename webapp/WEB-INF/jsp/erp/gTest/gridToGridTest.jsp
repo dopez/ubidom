@@ -3,7 +3,7 @@
 <script type="text/javascript">
 var layout, toolbar, subLayout;
 var gridMain;
-var calMain;
+var calMain; 
 var combo01;
 var rtn;
 $( document ).ready(function() {

@@ -11,7 +11,7 @@
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
                 subLayout = Ubi.getSubLayout();
-
+ 
                 //form//
                 layout.cells("b").attachObject("bootContainer2");
 

@@ -9,7 +9,7 @@ $(document).ready(function(){
 	Ubi.setContainer(0,[3,4,5,6],"1C");
 	//작업자 등록창
 	layout = Ubi.getLayout();
-    toolbar = Ubi.getToolbar();
+    toolbar = Ubi.getToolbar(); 
     subLayout = Ubi.getSubLayout(); 
 
 	gridMain = subLayout.cells("a").attachGrid();
