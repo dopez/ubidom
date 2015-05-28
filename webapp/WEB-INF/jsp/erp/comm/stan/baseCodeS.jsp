@@ -37,7 +37,6 @@ $(document).ready(function(){
 function doOnGridMstSelect(id,ind){
 	var code = gridMst.setCells(id,0).getValue();
 	fn_loadGridDtl(code);
-	fn_cellChange(2);
 }
 //btn function Start
 function fn_search(){
@@ -59,7 +58,7 @@ function fn_cellChange(flag){
 		gridMst.setColumnExcellType(0,"ed");
 		gridMst.setColumnExcellType(1,"ed");
 	  }else{
-		gridMst.setColumnExcellType(1,"ed");
+		gridMst.setColumnExcellType(0,"ro");
 		gridMst.setColumnExcellType(1,"ro");
 	  }
  }
@@ -83,9 +82,6 @@ function fn_save() {
                 fn_dtlSave();
             }
         } else {
-        	console.log($("#hiddenform").serialize());
-        	console.log(jsonStr);
-        	console.log(jsonStr2);
             fn_mstSave();
         }
     }
@@ -150,31 +146,23 @@ function fn_loadGridMst(flag){
 	if(inputParams.code==null ||inputParams.code==""){
 		inputParams.code = "%";
 	}
-	
-	var callBackGbn;
 	if(flag == 1){
-		callBackGbn = fn_First_loadGridMst;
+		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"),fn_First_loadGridMst);
 	}else if(flag == 0){
-		callBackGbn = fn_loadGridMstCallBack;
+		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"));
 	}
-	
-	gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"),callBackGbn);
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
 function fn_loadGridDtl(code){
 	var param = "code=" + code;
-    gfn_callAjaxForGrid(gridDtl,param,"gridDtlSel",subLayout.cells("b"),fn_loadGridDtlCallBack);
+    gfn_callAjaxForGrid(gridDtl,param,"gridDtlSel",subLayout.cells("b"));
 }
 //좌측 그리드 콜백함수
 function fn_First_loadGridMst(data){
 	fn_loadGridDtl(data[0].code);
 }
-function fn_loadGridMstCallBack(data){
-}
-//우측 그리드 콜백함수
-function fn_loadGridDtlCallBack(data){
-}
+
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

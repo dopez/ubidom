@@ -9,13 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.rndt.domain.MatrCodeR;
 import com.ubi.erp.rndt.service.MatrCodeRService;
 
@@ -29,7 +26,7 @@ public class MatrCodeRController {
 	private MatrCodeRService MatrCodeRService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<MatrCodeR> selMatrCode(HttpServletRequest request, HttpServletResponse response,HttpSession session,MatrCodeR matrCodeR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");

@@ -136,6 +136,7 @@ function doOnOpen(comboId,params,tagName){
 };		
 function doOnRowSelect(id, ind){
 	byId("cudKey").value = "UPDATE";
+	fn_new();
 	disableValue(2);
 	var obj={};
 	obj.compId= gridMain.setCells(id,4).getValue();

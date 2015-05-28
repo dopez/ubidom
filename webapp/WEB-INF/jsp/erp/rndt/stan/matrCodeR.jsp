@@ -23,9 +23,6 @@ $(document).ready(function() {
     gridMain.addHeader({name:"포장단위",	colId:"packUnit", width:"6", align:"right", type:"ron"});
     gridMain.addHeader({name:"발주단위",	colId:"morderUnit", width:"6", align:"right", type:"ron"});
     gridMain.addHeader({name:"입고단위",	colId:"inputUnit", width:"6", align:"right", type:"ron"});
-	gridMain.setNumberFormat("0,000",4,"",",");
-	gridMain.setNumberFormat("0,000",5,"",",");
-	gridMain.setNumberFormat("0,000",6,"",",");
     gridMain.setColSort("str");
     gridMain.setUserData("","pk","matrCode");
     gridMain.init();
@@ -46,7 +43,7 @@ function fn_loadGridMain(flag){
 	if(inputParams.matrCode==null ||inputParams.matrCode==""){
 		inputParams.matrCode = "%";
 	}
-	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/stan/matrCodeR",subLayout.cells("a"),fn_LoadGridMainCallback);
+	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSearch",subLayout.cells("a"),fn_LoadGridMainCallback);
 }
 function fn_LoadGridMainCallback(data){
     var totalRowNum = gridMain.getRowsNum();
@@ -80,7 +77,7 @@ function fn_print(){
                         <div class="col-sm-3 col-md-3">
                             <input name="mName" id="mName" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
-                        <label class="col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
+                        <label class="col-sm-1 col-md-1 control-label" for="textinput"> 구분 </label>
                         <div class="col-sm-2 col-md-2">
                             <select id="matrGubn" name="matrGubn" class="form-control input-xs">
 	                            <option value="%" selected="selected">전체</option>

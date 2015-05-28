@@ -5,6 +5,10 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var gridTabbar;
+var oneSum = 0,twoSum = 0,threeSum = 0,fourSum = 0,fiveSum = 0,
+    sixSum = 0,sevenSum = 0,eightSum = 0,nineSum = 0,tenSum = 0,
+    elevenSum = 0,twelveSum = 0,thirteenSum = 0,fourteenSum = 0, fifteenSum = 0,
+    totSum = 0;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//근속년수별인원현황
@@ -88,12 +92,10 @@ function fn_excel(){
  function fn_loadGridList(params) {
 	 gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),gridMstSearchCB);
 	 gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("a"));
+	 byId("frmSearch").reset();
+	 $('#empNo').val('');
 };
 function gridMstSearchCB(data){
-	var oneSum = 0,twoSum = 0,threeSum = 0,fourSum = 0,fiveSum = 0,
-	sixSum = 0,sevenSum = 0,eightSum = 0,nineSum = 0,tenSum = 0,
-	elevenSum = 0,twelveSum = 0,thirteenSum = 0,fourteenSum = 0, fifteenSum = 0,
-	totSum = 0;
 	for(var i=0; i<data.length;i++){
 		oneSum += data[i].one*1;           twoSum += data[i].two*1;
 		threeSum += data[i].three*1;       fourSum += data[i].four*1;
