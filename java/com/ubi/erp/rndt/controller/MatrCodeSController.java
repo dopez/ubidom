@@ -27,7 +27,7 @@ public class MatrCodeSController {
 
 	private MatrCodeSService MatrCodeSService;
 	
-	@RequestMapping(value = "/prcsMatrCodeS", method = RequestMethod.POST)
+	@RequestMapping(value = "/formSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsMatrCodeS(HttpServletRequest request, HttpServletResponse response,HttpSession session,MatrCodeS matrCodeS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
@@ -37,13 +37,7 @@ public class MatrCodeSController {
 		matrCodeS.setSysEmpNo(sysEmpNo);
 		matrCodeS.setCompId(compId);
 		// checkBox null Check
-/*		matrCodeS.setMatrGubn(nullCheck(matrCodeS.getMatrGubn()));
-		matrCodeS.setDisKind(nullCheck(matrCodeS.getDisKind()));
-		matrCodeS.setInspYn(nullCheck(matrCodeS.getInspYn()));
-		matrCodeS.setChemicalKind(nullCheck(matrCodeS.getChemicalKind()));
-		matrCodeS.setAcctKind(nullCheck(matrCodeS.getAcctKind()));
-		matrCodeS.setUseYn(nullCheck(matrCodeS.getUseYn()));*/
-		
+
 		// calendar format check
 		matrCodeS.setEnterDate(df.dateToString(matrCodeS.getEnterDate()));
 		matrCodeS.setUseEndDate(df.dateToString(matrCodeS.getUseEndDate()));
@@ -56,14 +50,9 @@ public class MatrCodeSController {
 			MatrCodeSService.prcsMatrCodeS(matrCodeS);
 		}	
 	}
-/*	public String nullCheck(String value){
-		if(value == null){
-			value = "1";
-		}
-		return value;
-	}*/
+	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selGridMain",method = RequestMethod.POST)
+	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<MatrCodeS> selGridMain(HttpServletRequest request, HttpServletResponse response,HttpSession session,MatrCodeS matrCodeS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -79,7 +68,7 @@ public class MatrCodeSController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selFormMain",method = RequestMethod.POST)
+	@RequestMapping(value = "/formSearch",method = RequestMethod.POST)
 	public List<MatrCodeS> selFormMain(HttpServletRequest request, HttpServletResponse response,HttpSession session,MatrCodeS matrCodeS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		DateFormatUtil df = new DateFormatUtil();

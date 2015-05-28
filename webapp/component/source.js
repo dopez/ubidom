@@ -69,15 +69,14 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
             layout.progressOn();
         },
         success: function(data, status) {
+        gData = data; 
         
-        gData = data;
-        
-       	 if (callbackFn != undefined) {
-             callbackFn.call(this, data);
-         }
-       	 
             grid.clearAll();
             grid.parse(data, "js");
+            
+          	 if (callbackFn != undefined) {
+                callbackFn.call(this, data);
+            }
             
        
         },

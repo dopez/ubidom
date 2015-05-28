@@ -16,16 +16,15 @@ $(document).ready(function(){
 	
 	//grid init
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"코드분류", colId:"code", width:"10", type:"ro"});
-	gridMain.addHeader({name:"코드분류명", colId:"codeName", width:"10", type:"ro"});
-	gridMain.addHeader({name:"내부코드", colId:"interCode", width:"10", type:"ro"});
+	gridMain.addHeader({name:"코드분류",   colId:"code",      width:"7",  type:"ro"});
+	gridMain.addHeader({name:"코드분류명", colId:"codeName",  width:"7",  type:"ro"});
+	gridMain.addHeader({name:"내부코드",   colId:"interCode", width:"7",  type:"ro"});
 	gridMain.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ro"});
-	gridMain.addHeader({name:"참조변수", colId:"addVar", width:"10", type:"ro"});
-	gridMain.addHeader({name:"비고", colId:"descRmk", width:"10", type:"ro"});
-	//gridMain.setColSort("str");
-	//gridMain.setUserData("","pk","code");
+	gridMain.addHeader({name:"참조변수",   colId:"addVar",    width:"7",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"비고",       colId:"descRmk",   width:"7",  type:"ro"});
+	gridMain.setColSort("str");
+	gridMain.setUserData("","pk","code");
 	gridMain.init();	
-	gridMain.dxObj.adjustColumnSize(0);
 	fn_loadGridMain();
 });
 function fn_search(){
@@ -38,10 +37,10 @@ function fn_loadGridMain(){
 	inputParams.baseName = $("#baseName").val();
 	inputParams.interCode = $("#innerCode").val();
 	inputParams.interName = $("#innerName").val();
-	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSel",subLayout.cells("a"),fn_loadGridMainCallBack);
+	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSel",subLayout.cells("a"));
 }
-function fn_loadGridMainCallBack(){
-	//call back function
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_print(){
 	gridMain.printView('<div>before</div>','<strong>after</strong>');	

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-   var gridMain, layout, toolbar, subLayout;
-   var calStDate
-   var popParam
-   $(document).ready(function() {
+var gridMain, layout, toolbar, subLayout;
+var calStDate
+var popParam
+$(document).ready(function() {
 
     Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //자재코드등록
 
@@ -12,10 +12,8 @@
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout();
 
-    //form//
     layout.cells("b").attachObject("bootContainer2");
 
-    //left grid//
     subLayout.cells("a").setWidth("302");
     
 	gridMain = new dxGrid(subLayout.cells("a"), false);
@@ -26,31 +24,19 @@
 	gridMain.setUserData("","pk","pCode");
 	gridMain.init();
 
-    //right form
     subLayout.cells("b").attachObject("productCodeInfo");
-    $('.unit').mask("#,##0");
-	//calendar
-    calStDate = new dhtmlXCalendarObject([{
-        input: "enterDate",
-        button: "calpicker1"
-    }, {
-        input: "useEndDate",
-        button: "calpicker2"
-    }]);
+    
+    calStDate = new dhtmlXCalendarObject([{input: "enterDate",button: "calpicker1"},{input: "useEndDate",button: "calpicker2"}]);
     calStDate.loadUserLanguage("ko");
     calStDate.hideTime();
     fn_calValue();
-  //mask test
 
-//    $('.date').mask('####/##/##');
-
-    //combo(form)
     comboMatrGubn = dhtmlXComboFromSelect("matrGubn");
     fn_comboOpt(comboMatrGubn,"자재");
-
+    
     comboDisKind = dhtmlXComboFromSelect("disKind");
     fn_comboOpt(comboDisKind,"제조","개봉");
-    
+   
     comboInspYn = dhtmlXComboFromSelect("inspYn");
     fn_comboOpt(comboInspYn,"무검사","검사");
     
@@ -77,39 +63,35 @@
     comboAcctKind.readonly(true);
     fn_comboCodeLoad(comboAcctKind);
 	
-    
     gridMain.attachEvent("onRowSelect",fn_doOnRowSelect);
 	fn_disabledInput();
 	fn_search();
 
-	//tab key 사용 시
-     $("#inputCust1").keyup(function(e) {
-	    if (e.keyCode == '9'){
+     $("#inputCust1,#inputCust2").keyup(function(e) {
+	    if (e.target.id == "#inputCust1"){
 	    	fn_openCustCodePop(1);
-	    }
-	 });
-    $("#inputCust2").keyup(function(e) {
-	    if (e.keyCode == '9'){
+	    }else if (e.target.id == "#inputCust2"){
 	    	fn_openCustCodePop(2);
 	    }
 	 });
-    
-    //script에서 필터
-    $("#mCode").keyup(function(e) {
-	    if (e.keyCode == '13') {
-	      gridMain.filterBy(0,byId("mCode").value);
-	    }
-	 });
-    
-    $("#mName").keyup(function(e) {
-	    if (e.keyCode == '13') {
-	      gridMain.filterBy(1,byId("mName").value);
-	    }
-	 });
-})
-//doc Ready End
+     
+     $("#inputCust1,#inputCust2").click(function(e) {
+ 	    if (e.target.id == "#inputCust1"){
+ 	    	fn_openCustCodePop(1);
+ 	    }else if (e.target.id == "#inputCust2"){
+ 	    	fn_openCustCodePop(2);
+ 	    }
+ 	 });
 
-//조회 버튼 동작
+    $("#mCode,#mName").keyup(function(e) {
+	    if (e.target.id == 'mCode') {
+	      gridMain.filterBy(0,byId("mCode").value);
+	    }else if(e.target.id == 'mName'){
+	    	gridMain.filterBy(1,byId("mName").value);
+	    }
+	 });
+});
+
 function fn_search() {
     fn_loadGridMain();
     fn_new();
@@ -130,7 +112,6 @@ function fn_new(){
 
 //저장 버튼 동작
 function fn_save(){
-	//$('.unit').unmask();
 	fn_disabledInput();
 	 f_dxRules = {
 			 matrCode : ["자재코드",r_notEmpty],
@@ -155,11 +136,10 @@ function fn_save(){
  	if(gfn_formValidation('frmMain')){
 		fn_nullReplaceInt();
 		var params = $("#frmMain").serialize();
-		console.log(params);
        $.ajax(
 		{
 		  type:'POST',
-		  url:"/erp/rndt/stan/matrCodeS/prcsMatrCodeS",
+		  url:"/erp/rndt/stan/matrCodeS/formSave",
 		  data:params,
 		  success:function(data)
 		  {
@@ -174,31 +154,9 @@ function fn_save(){
 
 //삭제 버튼 동작
 function fn_remove(){
+	byId("cudKey").value = "DELETE";
     var selRowId = gridMain.getSelectedRowId();
-    var selRowIdx = gridMain.getSelectedRowIndex();
-    if(gridMain.isDelRows(selRowId)) {
-       if(MsgManager.confirmMsg("INF002")) {
-    	   byId("cudKey").value = "DELETE";
-           fn_disabledInput();
-    	   fn_nullReplaceInt();
-    	   console.log($("#frmMain").serialize());
-                $.ajax({
-                 url : "/erp/rndt/stan/matrCodeS/prcsMatrCodeS",
-                 type : "POST",
-                 data : $("#frmMain").serialize(),
-                 async : true,
-                 success : function(data) {
-                 MsgManager.alertMsg("INF003");
-                 fn_new();
-                 fn_loadGridMain();
-                }
-            });   	 
-        } else {
-         	 MsgManager.alertMsg("WRN004");
-          } 
-     }else {
-         MsgManager.alertMsg("WRN002");
-      }
+    gridMain.cs_deleteRow(selRowId);
 };
 
 //그리드 조회
@@ -213,7 +171,7 @@ function fn_loadGridMain(){
 	if(inputParams.matrCode==null ||inputParams.matrCode==""){
 		inputParams.matrCode = "%";
 	}
-	gfn_callAjaxForGrid(gridMain,inputParams,"/erp/rndt/stan/matrCodeS/selGridMain",subLayout.cells("a"),fn_LoadGridMainCallback);
+	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSearch",subLayout.cells("a"),fn_LoadGridMainCallback);
 }
 function fn_LoadGridMainCallback(){
 	
@@ -265,7 +223,7 @@ function fn_doOnRowSelect(id, ind){
 }
 
 function fn_loadFormMain(param){
-	gfn_callAjaxForForm("frmMain",param,"/erp/rndt/stan/matrCodeS/selFormMain",fn_loadFormCallback);
+	gfn_callAjaxForForm("frmMain",param,"formSearch",fn_loadFormCallback);
 }
 
 function fn_loadFormCallback(data){
@@ -429,7 +387,7 @@ function fn_closeCustCodePop(param){
                    </div>
                    <label class="col-sm-2 col-md-2 control-label" for="textinput"> 공급사1 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="inputCust1" id="inputCust1" type="text" value="" placeholder="" class="form-control input-xs" onclick="fn_openCustCodePop(1)">
+                       <input name="inputCust1" id="inputCust1" type="text" value="" placeholder="" class="form-control input-xs">
                    </div>
                    <div class="col-sm-2 col-md-2">
                        <input type="radio" name="inputCustKind1" value="1" checked="checked">내자
@@ -445,7 +403,7 @@ function fn_closeCustCodePop(param){
                    </div>
                    <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 공급사2 </label>
                    <div class="col-sm-2 col-md-2">
-                       <input name="inputCust2" id="inputCust2" type="text" value="" placeholder="" class="form-control input-xs"onclick="fn_openCustCodePop(2)">
+                       <input name="inputCust2" id="inputCust2" type="text" value="" placeholder="" class="form-control input-xs">
                    </div>
                    <div class="col-sm-2 col-md-2">
                        <input type="radio" name="inputCustKind2" id="inputCustKind2" value="1" checked="checked">내자

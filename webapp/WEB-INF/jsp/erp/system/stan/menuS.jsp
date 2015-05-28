@@ -30,17 +30,14 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"웹매개변수", colId:"agValue", align:"center",width:"7", type:"ed"});
 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
  	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
-	//gridMain.setColSort("str");
-	//gridMain.setUserData("","pk","menucd");
+	gridMain.setColSort("str");
+	gridMain.setUserData("","pk","menucd");
 	gridMain.enableDragAndDrop(true);
 	gridMain.init();
 	gridMain.dxObj.deleteColumn(0);
-	/* gridMain.dxObj.adjustColumnSize(0); */
 
-	//드래그 앤 드랍
  	gridMain.attachEvent("onDrop",fn_onDrop);
  	
-	//콤보박스 (드랍다운 리스트)
 	var comboGbn = gridMain.getColumnCombo(1);
 	comboGbn.addOption("0","폴더");
 	comboGbn.addOption("1","윈도우");
@@ -48,16 +45,9 @@ $(document).ready(function(){
 	comboGbn2.addOption("1","사용");
 	comboGbn2.addOption("0","미사용");	
 	
-	//onselect edit cell
-  	/* gridMain.attachEvent("onRowSelect", function(id,ind){
-		gridMain.editCell();
- 	}); */
-	
 	//더블 클릭 시 팝업
  	gridMain.attachEvent("onRowDblClicked",fn_loadPop);
 	
-	// 체크 값
-	//gridMain.attachEvent("onCheck",fn_useGbnChk);
 	//대분류 메뉴 로드
 	fn_loadGridMain('0000000000');
 });
@@ -72,18 +62,6 @@ function fn_onDrop() {
  	 }
 }
 
-//사용구분 체크 시
-/* function fn_useGbnChk(selRowId,colnum) {
-  var selRowIdx = selRowId-1;
-  var checkState = gridMain.setCells2(selRowIdx, colnum).getValue();
-   if (checkState == 1) {
-      gridMain.setCells2(selRowIdx, colnum).setValue(1);
-  } else if(checkState == 0){
-      gridMain.setCells2(selRowIdx, colnum).setValue(0);
-  }
-   gridMain.setCells2(selRowIdx,7).setValue("UPDATE");
-}
- */
 //팝업
 function fn_loadPop() {
         var selRowId = gridMain.getSelectedRowId();
@@ -107,7 +85,6 @@ function fn_save(){
 			menugbn : [r_notEmpty],
 			menuname : [r_notEmpty, r_minLen + "|2"]
 		};
-	
     fn_saveGridMain();
 }
 //저장 로직
@@ -151,36 +128,7 @@ function fn_add(){
 //한줄삭제
 function fn_delete() {
     var rodid = gridMain.getSelectedRowId();
-    var rodIdx = gridMain.getSelectedRowIndex();
-    if (gridMain.isDelRows(rodid)) {
-        if (MsgManager.confirmMsg("INF002")) {
-            if (gridMain.chkUnsavedRow(rodIdx, rodid)) {
-                return
-            } else {
-                var jsonStr = gridMain.getJsonRowDel(rodid);
-                console.log(jsonStr);
-                if (jsonStr == null || jsonStr.length <= 0) return;
-                $("#jsonData").val(jsonStr);
-                $.ajax({
-                    url: "/erp/system/stan/menuS/gridMainSave",
-                    type: "POST",
-                    data: $("#hiddenform").serialize(),
-                    async: true,
-                    success: function(data) {
-                        MsgManager.alertMsg("INF003");
-                        gridMain.clearAll();
-                        var menucd = $("#Pmenucd").val()
-                        fn_loadGridMain(menucd);
-
-                    }
-                });
-            }
-        } else {
-            MsgManager.alertMsg("WRN004");
-        }
-    } else {
-        MsgManager.alertMsg("WRN002");
-    }
+    gridMain.cs_deleteRow(rodid);
 }
 /*--------트리 config / load start--------*/
 function fn_treeMainConf(){
@@ -216,7 +164,6 @@ var fn_treeMainLoad = function(param) {
 	treeMain.click(function(id){
 		fncSelectItem(treeMain, id);
 	});
-	
 	treeMain.load("menucd", "pmenucd", "menuname", treeMain);
 
 }
@@ -246,10 +193,7 @@ var fncSelectItem = function(tree, id) {
 /*--------트리 select action--------*/
 function fn_loadGridMain(menucd){
 	var param = "menucd="+menucd;
-	gfn_callAjaxForGrid(gridMain,param,"gridMainSel",subLayout.cells("b"),fn_callBack);
-}
-function fn_callBack(data){
-	
+	gfn_callAjaxForGrid(gridMain,param,"gridMainSel",subLayout.cells("b"));
 }
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
