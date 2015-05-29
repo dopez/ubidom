@@ -67,7 +67,7 @@ function fn_save() {
     var jsonStr = gridMst.getJsonUpdated2();
     var jsonStrSubString = jsonStr.substring(0, 2);
     $("#jsonData").val(jsonStr);
-
+	console.log(jsonStr);
     var jsonStr2 = gridDtl.getJsonUpdated2();
     var jsonStrSubString2 = jsonStr2.substring(0, 2);
     $("#jsonData2").val(jsonStr2);
