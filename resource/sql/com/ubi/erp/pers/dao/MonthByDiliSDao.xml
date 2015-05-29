@@ -5,8 +5,32 @@
 
 	<resultMap id="MonthByDiliSMap" type="MonthByDiliS"/>
 	
- 	<!-- <select id="selGridMst" statementType="CALLABLE">
-		
-	</select> -->
+ 	<select id="selMonthByDiliSL" statementType="CALLABLE">
+		 {call SP_PERS_MONTHBYDILIS_SCH1(#{compId},#{yymm},#{postCode},#{jikgun},#{empNo},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthByDiliSMap, javaType=ResultSet})}	
+	</select>
 
+    <select id="selMonthByDiliSR" statementType="CALLABLE">
+		 {call SP_PERS_MONTHBYDILIS_SCH2(#{compId},#{yymm},#{empNo},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthByDiliSMap, javaType=ResultSet})}	
+	</select>
+	
+	<insert id="prcsMonthByDiliS" statementType="CALLABLE" parameterType="MonthByDiliS">
+  		{call SP_PERS_MONTHBYDILIS_SAVE(
+  		#{cudKey},#{compId},#{yymm},#{empNo},#{workDay},
+  		#{workTime},#{overTime},#{nightTime},#{partTime},#{earlyTime},
+  		#{lateTime},#{holiTime},#{holiOver},#{totalTime},#{weekHoliy},
+  		#{absence},#{awol},#{yuncha},#{sysEmpNo}
+  		)}	
+  	</insert>
+  	
+  	<select id="selMonthByDiliSPopC" statementType="CALLABLE">
+		 {call SP_PERS_MONTHBYDILIS_C(#{compId},#{yymm},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthByDiliSMap, javaType=ResultSet})}	
+	</select>
+	
+	<insert id="prcsMonthByDiliSPopI" statementType="CALLABLE" parameterType="MonthByDiliS">
+		 {call SP_PERS_MONTHBYDILIS_I(#{compId},#{yymm},#{empNo},#{sysEmpNo})}	
+	</insert>
+	
 </mapper>

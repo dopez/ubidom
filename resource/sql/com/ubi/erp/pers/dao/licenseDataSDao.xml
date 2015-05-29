@@ -9,7 +9,7 @@
 		 {call SP_PERS_LICENSEDATAS_SCH(#{compId},#{empNo},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=LicenseDataSMap, javaType=ResultSet})}	
 	</select>
 	
-		<insert id="prcsLicenseDataS" statementType="CALLABLE" parameterType="LicenseDataS">
+	<insert id="prcsLicenseDataS" statementType="CALLABLE" parameterType="LicenseDataS">
   		{call SP_PERS_LICENSEDATAS_SAVE(
   		#{cudKey},#{compId},#{empNo},#{seq},#{qualKind},
   		#{qualPay},#{achiDate},#{apprCust},#{qualName},#{qualGd},

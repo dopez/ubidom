@@ -7,6 +7,8 @@ import java.util.Date;
 public class DateFormatUtil {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	SimpleDateFormat stringFormat = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat monthDateFormat = new SimpleDateFormat("yyyy/MM");
+	SimpleDateFormat monthStringFormat = new SimpleDateFormat("yyyyMM");
 
 	public String dateToString(String stDate) throws ParseException {
 		String orinDate;
@@ -26,6 +28,17 @@ public class DateFormatUtil {
 		}else{
 		Date date = stringFormat.parse(stDate);
 		orinDate = dateFormat.format(date);
+		}
+		return orinDate;
+	}
+	
+	public String monthToString(String yymm) throws ParseException {
+		String orinDate;
+		if(yymm ==null || yymm.equals("")){
+			orinDate = yymm;
+		}else{
+		Date date = monthDateFormat.parse(yymm);
+		orinDate = monthStringFormat.format(date);
 		}
 		return orinDate;
 	}
