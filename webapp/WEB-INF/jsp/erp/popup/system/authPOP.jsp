@@ -182,6 +182,32 @@ function fn_btnDel() {
     }
     MsgManager.alertMsg("INF003");
 }
+dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	var arr = [];
+	chkIdx = chkIdx -1;
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++){
+		if(i == chkIdx) {
+			var row={};
+			  for(var j = 0; j < this.dxObj.getColumnsNum(); j++) {
+					colId = this.dxObj.getColumnId(j);
+					colVal = this.dxObj.cells2(chkIdx,j).getValue();
+						if(colId !="cudKey") {
+							row[colId]=colVal;
+						} else {
+							row[colId]=actDelete;
+						}
+				}
+			     arr.push(row);
+		 }
+	 }
+	 jsonStr = JSON.stringify(arr);
+	 return jsonStr;
+};
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

@@ -24,9 +24,9 @@ $(document).ready(function(){
 	gridMain = new dxGrid(subLayout.cells("b"), false);
 	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"cntr"});//화면순서
 	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"8", type:"combo"});//화면구분(폴더/윈도우)
-	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"",width:"10", type:"ro"});
-	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", align:"center",type:"ed"});
-	gridMain.addHeader({name:"URI", colId:"uri", width:"25", align:"center",type:"ed"});
+	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
+	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", align:"",type:"ed"});
+	gridMain.addHeader({name:"URI", colId:"uri", width:"25", align:"",type:"ed"});
 	gridMain.addHeader({name:"웹매개변수", colId:"agValue", align:"center",width:"7", type:"ed"});
 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
  	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
@@ -86,13 +86,15 @@ function fn_save(){
 		};
     fn_saveGridMain();
 }
+
 //저장 로직
 function fn_saveGridMain(){
 	var jsonStr = gridMain.getJsonUpdated2();
-    var jsonStrSubString = jsonStr.substring(0, 2);
-    if (jsonStrSubString == "[]"){
-    	dhtmlx.alert("변경된 사항이 없습니다.");
-    }else{
+    var rodid = gridMain.getSelectedRowId();
+	var colIndex=gridMain.dxObj.getColIndexById("cudKey");
+	var cellObj = gridMain.dxObj.cells(rodid,colIndex);
+	var test = cellObj.getValue();
+    console.log(test+"   "+jsonStr);
 	    if ($("#Pmenucd").val()==0){
 	    	$("#Pmenucd").val('0000000000');
 	    }
@@ -105,12 +107,11 @@ function fn_saveGridMain(){
 	        success: function(data) {
 	            gridMain.clearAll();
 	            MsgManager.alertMsg("INF001");
-            
 	            var menucd = $("#Pmenucd").val()
 	            fn_loadGridMain(menucd);
 	        }
 	    });
-    }
+    
 }
 
 //한줄삽입
