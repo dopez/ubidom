@@ -2,7 +2,10 @@ package com.ubi.erp.user.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ubi.erp.user.domain.AttachFile;
+import com.ubi.erp.user.domain.TempData;
 
 
 public interface AttachFileDao
@@ -19,4 +22,7 @@ public interface AttachFileDao
 
 	void delAttachFileDt(AttachFile attachFile);
 
+	TempData getNextTempData(@Param("fmtId") String fmtId);
+
+	void insTempData(TempData tempData);
 }

@@ -21,4 +21,64 @@
     <delete id="delAttachFileDt" parameterType="AttachFile">
     </delete>
     
+    <select id="getNextTempData" resultType="TempData">
+        <![CDATA[
+        SELECT
+        	NVL(MAX(REG_IDX),0)+1 regIdx
+        FROM
+        	TBL_TEMP_DATA
+        WHERE
+        	FMT_ID = #{fmtId,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <insert id="insTempData" parameterType="TempData">
+        <![CDATA[
+		INSERT INTO TBL_TEMP_DATA (    FMT_ID, REG_IDX, ROW_IDX
+		                              , CLM1 , CLM2 , CLM3 , CLM4 , CLM5 
+		                              , CLM6 , CLM7 , CLM8 , CLM9 , CLM10
+		                              , CLM11, CLM12, CLM13, CLM14, CLM15
+		                              , CLM16, CLM17, CLM18, CLM19, CLM20
+		                              , CLM21, CLM22, CLM23, CLM24, CLM25
+		                              , CLM26, CLM27, CLM28, CLM29, CLM30
+		                              , CLM31, CLM32, CLM33, CLM34, CLM35
+		                              , CLM36, CLM37, CLM38, CLM39, CLM40
+		                              , CLM41, CLM42, CLM43, CLM44, CLM45
+		                              , CLM46, CLM47, CLM48, CLM49, CLM50
+		                              , CLM51, CLM52, CLM53, CLM54, CLM55
+		                              , CLM56, CLM57, CLM58, CLM59, CLM60
+		                              , CLM61, CLM62, CLM63, CLM64, CLM65
+		                              , CLM66, CLM67, CLM68, CLM69, CLM70
+		                              , CLM71, CLM72, CLM73, CLM74, CLM75
+		                              , CLM76, CLM77, CLM78, CLM79, CLM80
+		                              , CLM81, CLM82, CLM83, CLM84, CLM85
+		                              , CLM86, CLM87, CLM88, CLM89, CLM90
+		                              , CLM91, CLM92, CLM93, CLM94, CLM95
+		                              , CLM96, CLM97, CLM98, CLM99, CLM100
+		                           )
+		                    VALUES (    #{fmtId,jdbcType=VARCHAR}, #{regIdx,jdbcType=INTEGER}  , #{rowIdx,jdbcType=INTEGER}
+		                              , #{clm1 ,jdbcType=VARCHAR}, #{clm2 ,jdbcType=VARCHAR}   , #{clm3 ,jdbcType=VARCHAR}, #{clm4 ,jdbcType=VARCHAR}, #{clm5 ,jdbcType=VARCHAR}
+		                              , #{clm6 ,jdbcType=VARCHAR}, #{clm7 ,jdbcType=VARCHAR}   , #{clm8 ,jdbcType=VARCHAR}, #{clm9 ,jdbcType=VARCHAR}, #{clm10,jdbcType=VARCHAR}
+		                              , #{clm11,jdbcType=VARCHAR}, #{clm12,jdbcType=VARCHAR}   , #{clm13,jdbcType=VARCHAR}, #{clm14,jdbcType=VARCHAR}, #{clm15,jdbcType=VARCHAR}
+		                              , #{clm16,jdbcType=VARCHAR}, #{clm17,jdbcType=VARCHAR}   , #{clm18,jdbcType=VARCHAR}, #{clm19,jdbcType=VARCHAR}, #{clm20,jdbcType=VARCHAR}
+		                              , #{clm21,jdbcType=VARCHAR}, #{clm22,jdbcType=VARCHAR}   , #{clm23,jdbcType=VARCHAR}, #{clm24,jdbcType=VARCHAR}, #{clm25,jdbcType=VARCHAR}
+		                              , #{clm26,jdbcType=VARCHAR}, #{clm27,jdbcType=VARCHAR}   , #{clm28,jdbcType=VARCHAR}, #{clm29,jdbcType=VARCHAR}, #{clm30,jdbcType=VARCHAR}
+		                              , #{clm31,jdbcType=VARCHAR}, #{clm32,jdbcType=VARCHAR}   , #{clm33,jdbcType=VARCHAR}, #{clm34,jdbcType=VARCHAR}, #{clm35,jdbcType=VARCHAR}
+		                              , #{clm36,jdbcType=VARCHAR}, #{clm37,jdbcType=VARCHAR}   , #{clm38,jdbcType=VARCHAR}, #{clm39,jdbcType=VARCHAR}, #{clm40,jdbcType=VARCHAR}
+		                              , #{clm41,jdbcType=VARCHAR}, #{clm42,jdbcType=VARCHAR}   , #{clm43,jdbcType=VARCHAR}, #{clm44,jdbcType=VARCHAR}, #{clm45,jdbcType=VARCHAR}
+		                              , #{clm46,jdbcType=VARCHAR}, #{clm47,jdbcType=VARCHAR}   , #{clm48,jdbcType=VARCHAR}, #{clm49,jdbcType=VARCHAR}, #{clm50,jdbcType=VARCHAR}
+		                              , #{clm51,jdbcType=VARCHAR}, #{clm52,jdbcType=VARCHAR}   , #{clm53,jdbcType=VARCHAR}, #{clm54,jdbcType=VARCHAR}, #{clm55,jdbcType=VARCHAR}
+		                              , #{clm56,jdbcType=VARCHAR}, #{clm57,jdbcType=VARCHAR}   , #{clm58,jdbcType=VARCHAR}, #{clm59,jdbcType=VARCHAR}, #{clm60,jdbcType=VARCHAR}
+		                              , #{clm61,jdbcType=VARCHAR}, #{clm62,jdbcType=VARCHAR}   , #{clm63,jdbcType=VARCHAR}, #{clm64,jdbcType=VARCHAR}, #{clm65,jdbcType=VARCHAR}
+		                              , #{clm66,jdbcType=VARCHAR}, #{clm67,jdbcType=VARCHAR}   , #{clm68,jdbcType=VARCHAR}, #{clm69,jdbcType=VARCHAR}, #{clm70,jdbcType=VARCHAR}
+		                              , #{clm71,jdbcType=VARCHAR}, #{clm72,jdbcType=VARCHAR}   , #{clm73,jdbcType=VARCHAR}, #{clm74,jdbcType=VARCHAR}, #{clm75,jdbcType=VARCHAR}
+		                              , #{clm76,jdbcType=VARCHAR}, #{clm77,jdbcType=VARCHAR}   , #{clm78,jdbcType=VARCHAR}, #{clm79,jdbcType=VARCHAR}, #{clm80,jdbcType=VARCHAR}
+		                              , #{clm81,jdbcType=VARCHAR}, #{clm82,jdbcType=VARCHAR}   , #{clm83,jdbcType=VARCHAR}, #{clm84,jdbcType=VARCHAR}, #{clm85,jdbcType=VARCHAR}
+		                              , #{clm86,jdbcType=VARCHAR}, #{clm87,jdbcType=VARCHAR}   , #{clm88,jdbcType=VARCHAR}, #{clm89,jdbcType=VARCHAR}, #{clm90,jdbcType=VARCHAR}
+		                              , #{clm91,jdbcType=VARCHAR}, #{clm92,jdbcType=VARCHAR}   , #{clm93,jdbcType=VARCHAR}, #{clm94,jdbcType=VARCHAR}, #{clm95,jdbcType=VARCHAR}
+		                              , #{clm96,jdbcType=VARCHAR}, #{clm97,jdbcType=VARCHAR}   , #{clm98,jdbcType=VARCHAR}, #{clm99,jdbcType=VARCHAR}, #{clm100,jdbcType=VARCHAR}
+		                           )
+        ]]>
+    </insert>
+    
 </mapper>

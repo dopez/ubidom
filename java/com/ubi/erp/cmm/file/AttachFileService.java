@@ -22,6 +22,7 @@ import com.ubi.erp.cmm.exception.UbiBizException;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.user.dao.AttachFileDao;
 import com.ubi.erp.user.domain.AttachFile;
+import com.ubi.erp.user.domain.TempData;
 
 
 @Service
@@ -143,6 +144,16 @@ public class AttachFileService
 
 	public boolean isFileExists(String saveDir, String onlyName, int fileSeq, String ext) {
 		return new File(saveDir + "/" + onlyName + "_" + (fileSeq) + "." + ext).exists();
+	}
+
+	public TempData getNextTempData(String fmtId) {
+		return attachFileDao.getNextTempData(fmtId);
+	}
+
+	public void insTempData(List<TempData> list) {
+		for (TempData tempData : list) {
+			attachFileDao.insTempData(tempData);
+		}
 	}
 
 }

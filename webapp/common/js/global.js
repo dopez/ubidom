@@ -14,9 +14,7 @@ $(function(){
 	$(document).ajaxError(function(e, xhr, settings, exception) {			
 		if(xhr.status == 0){
 			return;
-		}
-						
-		if(xhr.status == 401) {	// 세션이 없을 경우
+		} else if(xhr.status == 401) {	// 세션이 없을 경우
 			ExceptionUtil.errorNoLogin(settings);
 		} else if(xhr.status == 403) {	// 권한이 없을 경우
 			ExceptionUtil.errorNoAuthorize(settings);
