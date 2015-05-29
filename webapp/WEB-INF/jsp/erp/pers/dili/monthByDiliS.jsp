@@ -35,7 +35,7 @@ $(document).ready(function(){
     gridMst.setColSort("str");
  	gridMst.setUserData("","pk","no");
  	gridMst.init();	
- 	gridMst.cs_setColumnHidden(["totalTime","compId","yymm"]);
+ 	gridMst.cs_setColumnHidden(["totalTime","compId"]);
  	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
  	
 	subLayout.cells("b").attachObject("bootContainer2");
@@ -112,8 +112,6 @@ function fn_search(){
 	fn_loadGridMst();
 }
 function fn_save(){
-	var rodid = gridMst.getSelectedRowId();
-	 gridMst.setCells(rodid,20).setValue();
 	 var jsonStr = gridMst.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
@@ -210,6 +208,7 @@ function fn_onClosePop(pName,data){
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
+     <input type="hidden" id="monthDate" name="monthDate" />
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

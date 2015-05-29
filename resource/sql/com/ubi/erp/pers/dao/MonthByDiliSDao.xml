@@ -16,7 +16,7 @@
 	</select>
 	
 	<insert id="prcsMonthByDiliS" statementType="CALLABLE" parameterType="MonthByDiliS">
-  		{call SP_PERS_LICENSEDATAS_SAVE(
+  		{call SP_PERS_MONTHBYDILIS_SAVE(
   		#{cudKey},#{compId},#{yymm},#{empNo},#{workDay},
   		#{workTime},#{overTime},#{nightTime},#{partTime},#{earlyTime},
   		#{lateTime},#{holiTime},#{holiOver},#{totalTime},#{weekHoliy},

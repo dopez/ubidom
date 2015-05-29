@@ -70,17 +70,20 @@ public class MonthByDiliSController {
 	@RequestMapping(value = "/gridMstSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsMonthByDiliS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		DateFormatUtil df = new DateFormatUtil();
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
+		String monthDate = df.monthToString(request.getParameter("monthDate"));
 		List<MonthByDiliS> list = new ArrayList<MonthByDiliS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<MonthByDiliS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
+		
 		
 		for(MonthByDiliS monthByDiliS : list) {
 			monthByDiliS.setSysEmpNo(sysEmpNo);
 			monthByDiliS.setWorkDate(df.dateToString(monthByDiliS.getWorkDate()));
-            if("UPDATE".equals(monthByDiliS.getCudKey())){
+			monthByDiliS.setYymm(monthDate);
+			if("UPDATE".equals(monthByDiliS.getCudKey())){
             	monthByDiliSService.prcsMonthByDiliS(monthByDiliS);
 			}else if("DELETE".equals(monthByDiliS.getCudKey())){
 				monthByDiliSService.prcsMonthByDiliS(monthByDiliS);
