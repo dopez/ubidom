@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("DayByDiliS")
-public class DayByDiliS implements Serializable {
+@Alias("DayByOvertimeR")
+public class DayByOvertimeR implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String no;
-	private String cudKey;
 	private String compId;
 	private String empNo;
 	private String postCode;
@@ -22,17 +21,12 @@ public class DayByDiliS implements Serializable {
 	private double nightTime;
 	private double workTime;
 	private double partTime;
-	private double earlyTime;
 	private double holiTime;
+	private double earlyTime;
 	private double lateTime;
 	private double totalTime;
-	private String sysEmpNo;
-	// popup Column
-	private String frDate;
-	private String toDate;
-	private int cnt;
 
-	public DayByDiliS() {
+	public DayByOvertimeR() {
 		super();
 	}
 
@@ -42,14 +36,6 @@ public class DayByDiliS implements Serializable {
 
 	public void setNo(String no) {
 		this.no = no;
-	}
-
-	public String getCudKey() {
-		return cudKey;
-	}
-
-	public void setCudKey(String cudKey) {
-		this.cudKey = cudKey;
 	}
 
 	public String getCompId() {
@@ -186,38 +172,6 @@ public class DayByDiliS implements Serializable {
 
 	public void setTotalTime(double totalTime) {
 		this.totalTime = totalTime;
-	}
-
-	public String getSysEmpNo() {
-		return sysEmpNo;
-	}
-
-	public void setSysEmpNo(String sysEmpNo) {
-		this.sysEmpNo = sysEmpNo;
-	}
-
-	public String getFrDate() {
-		return frDate;
-	}
-
-	public void setFrDate(String frDate) {
-		this.frDate = frDate;
-	}
-
-	public String getToDate() {
-		return toDate;
-	}
-
-	public void setToDate(String toDate) {
-		this.toDate = toDate;
-	}
-
-	public int getCnt() {
-		return cnt;
-	}
-
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
 	}
 
 	public static long getSerialversionuid() {

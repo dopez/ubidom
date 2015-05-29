@@ -17,20 +17,21 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",         width:"5", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"근무일자", colId:"workDate",   width:"6", align:"center", type:"dhxCalendarA"});
-	gridMain.addHeader({name:"부서",     colId:"postName",   width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",    width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"근태구분", colId:"workKind",   width:"6", align:"center", type:"combo"});
-	gridMain.addHeader({name:"정상",     colId:"workTime",   width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"연장",     colId:"overTime",   width:"5", align:"center", type:"edn"});
-	gridMain.addHeader({name:"야근",     colId:"nightTime",  width:"5", align:"center", type:"edn"});
-	gridMain.addHeader({name:"외출",     colId:"partTime",   width:"5", align:"center", type:"edn"});
-	gridMain.addHeader({name:"조퇴",     colId:"earlyTime",  width:"5", align:"center", type:"edn"});
-	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"5", align:"center", type:"edn"});
-	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"3", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"근무일자", colId:"workDate",   width:"5", align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"부서",     colId:"postName",   width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"근태구분", colId:"workKind",   width:"5", align:"center", type:"combo"});
+	gridMain.addHeader({name:"정상",     colId:"workTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"연장",     colId:"overTime",   width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"야근",     colId:"nightTime",  width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"특근",     colId:"holiTime",   width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"외출",     colId:"partTime",   width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"조퇴",     colId:"earlyTime",  width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"4", align:"center", type:"edn"});
+	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"4", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","no");
 	gridMain.setColSort("str");
 	gridMain.init();
@@ -39,28 +40,31 @@ $(document).ready(function(){
 	 gridMain.attachEvent("onCellChanged", function(rId,cInd,nValue){
 		var selId = gridMain.getSelectedRowId();
 		if(selId != null){
-			sum = gridMain.setCells(selId,13).getValue()*1;
+			sum = gridMain.setCells(selId,14).getValue()*1;
 		}
 	if(gridMain.getSelectedRowId() == rId){
 		if(cInd==8){
 			sum = sum+nValue*1;
-			gridMain.setCells(rId,13).setValue(sum);
+			gridMain.setCells(rId,14).setValue(sum);
 		}
 		else if(cInd==9){
 			sum = sum+nValue*1;
-			gridMain.setCells(rId,13).setValue(sum);
-		}
-		else if(cInd==10){
-			sum = sum-nValue*1;
-			gridMain.setCells(rId,13).setValue(sum);
+			gridMain.setCells(rId,14).setValue(sum);
+		}else if(cInd==10){
+			sum = sum+nValue*1;
+			gridMain.setCells(rId,14).setValue(sum);
 		}
 		else if(cInd==11){
 			sum = sum-nValue*1;
-			gridMain.setCells(rId,13).setValue(sum);
+			gridMain.setCells(rId,14).setValue(sum);
 		}
 		else if(cInd==12){
 			sum = sum-nValue*1;
-			gridMain.setCells(rId,13).setValue(sum);
+			gridMain.setCells(rId,14).setValue(sum);
+		}
+		else if(cInd==13){
+			sum = sum-nValue*1;
+			gridMain.setCells(rId,14).setValue(sum);
 		}
 	}	
   }); 

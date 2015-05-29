@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
+var workSum = 0,overSum = 0,nightSum = 0,holiSum = 0;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//일일잔업일보
@@ -14,36 +15,87 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,부서,직위,성명,출근시간,퇴근시간,연장시간,근무시간,야근시간,특근,"+
-			           "특근잔업",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			               "100");
-	gridMain.setColAlign("center,left,left,left,center,center,right,right,right,right,"+
-			             "right");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ron,ron,ron,ron,"+
-			             "ron");
-	gridMain.setColSorting("int,str,str,str,date,date,int,int,int,int,"+
-			               "int");
-	gridMain.attachFooter(",총계,,,,,,,,,"+
-			              "");
-	gridMain.init();	
-
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"3", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"부서",     colId:"postName",   width:"8", align:"center", type:"ro"});
+	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"근무시간", colId:"workTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"연장시간", colId:"overTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"야근시간", colId:"nightTime",  width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"특근",     colId:"holiTime",   width:"4", align:"center", type:"ro"});
+	gridMain.setUserData("","pk","no");
+	gridMain.setColSort("str");
+	gridMainAttachFooter();
+	gridMain.init();
+	calMain = new dhtmlXCalendarObject([{input:"workDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
-	byId("stDate").value = t;
+	byId("workDate").value = t;
+	
+	$("#postName").click(function(e){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+	});
 });
+function fn_search(){
+	fn_loadGridList();
+};
+function gridMainAttachFooter(){
+  gridMain.atchFooter();
+  gridMain.addAtchFooter({atchFooterName:""});
+  gridMain.addAtchFooter({atchFooterName:"총 계"});
+  gridMain.addAtchFooter({atchFooterName:""});
+  gridMain.addAtchFooter({atchFooterName:""});
+  gridMain.addAtchFooter({atchFooterName:workSum});
+  gridMain.addAtchFooter({atchFooterName:overSum});
+  gridMain.addAtchFooter({atchFooterName:nightSum});
+  gridMain.addAtchFooter({atchFooterName:holiSum});
+  gridMain.atchFooterInit();
+}
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+ };
+ function fn_loadGridList(){
+		var obj={};
+		obj.workDate = $('#workDate').val();
+		obj.postCode = $('#postCode').val();
+		if(obj.postCode == ''){
+			obj.postCode = '%';
+		}
+		gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
+	}
+	function fn_loadGridListCB(data){
+	   workSum = 0,overSum = 0,nightSum = 0,holiSum = 0;
+		for(var i=0; i<data.length;i++){
+			workSum += data[i].workTime*1;   overSum += data[i].overTime*1;
+			nightSum += data[i].nightTime*1; holiSum += data[i].holiTime*1;
+		}
+		 gridMain.detachFooter(0);
+		 gridMainAttachFooter();
+
+		gridMain.dxObj.groupBy(1,["","#title","count","","#stat_total","#stat_total","#stat_total","#stat_total"]);
+		$('#postCode').val('');
+		$('#postName').val('');
+	};
+	function fn_onClosePop(pName,data){
+		var i;
+		var obj={};
+		if(pName=="postCode"){
+			for(i=0;i<data.length;i++){
+				obj.postName=data[i].postName;
+				obj.postCode=data[i].postCode;
+				$('#postName').val(obj.postName);
+				$('#postCode').val(obj.postCode);
+			}		  
+		}
+	 };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+      <input type="hidden" id="postCode" name="postCode">
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -52,7 +104,7 @@ $(document).ready(function(){
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
-                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                      <input name="workDate" id="workDate" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-2 col-md-2">
                      <input type="button" id="calpicker" class="calicon form-control">
@@ -68,7 +120,7 @@ $(document).ready(function(){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	  </div>

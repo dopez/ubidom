@@ -12,8 +12,8 @@
   	<insert id="prcsDayByDiliS" statementType="CALLABLE" parameterType="DayByDiliS">
   		{call SP_PERS_DAYBYDILIS_SAVE(
   		  #{cudKey},#{compId},#{empNo},#{workDate},#{workKind},
-  		  #{workTime},#{overTime},#{nightTime},#{partTime},#{earlyTime},
-  		  #{lateTime},#{totalTime},#{sysEmpNo}	
+  		  #{workTime},#{overTime},#{nightTime},#{partTime},#{holiTime},
+  		  #{earlyTime},#{lateTime},#{totalTime},#{sysEmpNo}	
   		)}	
   	</insert>
   	

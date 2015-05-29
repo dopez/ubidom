@@ -21,6 +21,7 @@ public class DayByDiliR implements Serializable {
 	private double nightTime;
 	private double workTime;
 	private double partTime;
+	private double holiTime;
 	private double earlyTime;
 	private double lateTime;
 	private double totalTime;
@@ -120,6 +121,14 @@ public class DayByDiliR implements Serializable {
 
 	public void setOverTime(double overTime) {
 		this.overTime = overTime;
+	}
+
+	public double getHoliTime() {
+		return holiTime;
+	}
+
+	public void setHoliTime(double holiTime) {
+		this.holiTime = holiTime;
 	}
 
 	public double getNightTime() {

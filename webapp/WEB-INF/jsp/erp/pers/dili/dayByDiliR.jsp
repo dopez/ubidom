@@ -7,7 +7,7 @@ var gridMain;
 var calMain;
 var combo;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,8,9],"1C");
+	Ubi.setContainer(4,[1,8],"1C");
 	//일일근태조회
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -16,20 +16,21 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",         width:"5", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"근무일자", colId:"workDate",   width:"6", align:"center", type:"dhxCalendarA"});
-	gridMain.addHeader({name:"부서",     colId:"postName",   width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",    width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"근태구분", colId:"workKind",   width:"6", align:"center", type:"combo"});
-	gridMain.addHeader({name:"정상",     colId:"workTime",   width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"연장",     colId:"overTime",   width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"야근",     colId:"nightTime",  width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"외출",     colId:"partTime",   width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"조퇴",     colId:"earlyTime",  width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"3", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"근무일자", colId:"workDate",   width:"5", align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"부서",     colId:"postName",   width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"근태구분", colId:"workKind",   width:"5", align:"center", type:"combo"});
+	gridMain.addHeader({name:"정상",     colId:"workTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"연장",     colId:"overTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"야근",     colId:"nightTime",  width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"특근",     colId:"holiTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"외출",     colId:"partTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"조퇴",     colId:"earlyTime",  width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"4", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","no");
 	gridMain.setColSort("str");
 	gridMain.init();
@@ -43,6 +44,16 @@ $(document).ready(function(){
 	
 	combo =gridMain.getColumnCombo(6);
 	fn_comboSet(combo);
+	
+	$("#postName,#korName").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+	});
+	
 });
 function fn_comboSet(comboId){
 	var params={};
@@ -76,12 +87,6 @@ function fn_search(){
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
-function  fn_print(){
-	/* var url = "/erp/pers/stan/deptR/report/deptR.do";
-	url = url + "?postName=" + $("#postName").val();
-	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
-	window.open(url,'rpt',''); */
- }
 function fn_loadGridList(){
 	var obj={};
 	obj.frDate = $('#frDate').val();
@@ -97,7 +102,6 @@ function fn_loadGridList(){
 	if(obj.empNo == ''){
 		obj.empNo = '%';
 	}
-	console.log(obj);
 	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
 }
 function fn_loadGridListCB(data){
@@ -106,6 +110,25 @@ function fn_loadGridListCB(data){
 	$('#postCode').val('');
 	$('#postName').val('');
 };
+function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
+	if(pName=="postCode"){
+		for(i=0;i<data.length;i++){
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			$('#postName').val(obj.postName);
+			$('#postCode').val(obj.postCode);
+		}		  
+	}else if(pName == "empNo"){
+		for(i=0;i<data.length;i++){
+			obj.korName=data[i].korName;
+			obj.empNo=data[i].empNo;
+				$('#korName').val(obj.korName);
+				$('#empNo').val(obj.empNo);
+		}
+	}	  
+ };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -166,7 +189,7 @@ function fn_loadGridListCB(data){
 			    부서
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			     <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			   </div>
 		  </div>
 	  </div>
@@ -206,7 +229,7 @@ function fn_loadGridListCB(data){
 			    성명
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			     <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 			   </div>
 		  </div>
 	  </div>
