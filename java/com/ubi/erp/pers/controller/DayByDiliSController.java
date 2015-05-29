@@ -65,7 +65,6 @@ public class DayByDiliSController {
 		for(DayByDiliS dayByDiliS : list) {
 			dayByDiliS.setSysEmpNo(sysEmpNo);
 			dayByDiliS.setWorkDate(df.dateToString(dayByDiliS.getWorkDate()));
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!"+dayByDiliS.getEmpNo());
             if("UPDATE".equals(dayByDiliS.getCudKey())){
 				dayByDiliSService.prcsDayByDiliS(dayByDiliS);
 			}else if("DELETE".equals(dayByDiliS.getCudKey())){

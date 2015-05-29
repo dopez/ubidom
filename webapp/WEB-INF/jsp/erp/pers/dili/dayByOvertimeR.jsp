@@ -39,6 +39,7 @@ $(document).ready(function(){
 	});
 });
 function fn_search(){
+	gridMain.clearAll();
 	fn_loadGridList();
 };
 function gridMainAttachFooter(){
@@ -73,8 +74,11 @@ function fn_excel(){
 		}
 		 gridMain.detachFooter(0);
 		 gridMainAttachFooter();
-
-		gridMain.dxObj.groupBy(1,["","#title","count","","#stat_total","#stat_total","#stat_total","#stat_total"]);
+		 
+		 gridMain.dxObj.customGroupFormat=function(name,count){
+		      return name+" :부서계 "+count+"명";
+		}
+		gridMain.dxObj.groupBy(1,["","#title","#cspan","","#stat_total","#stat_total","#stat_total","#stat_total"]);
 		$('#postCode').val('');
 		$('#postName').val('');
 	};

@@ -7,19 +7,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.pers.dao.MonthByDiliSDao;
+import com.ubi.erp.pers.domain.MonthByDiliS;
 
 @Service
 public class MonthByDiliSService {
 
-	private MonthByDiliSDao monthByDiliSDao;
+	private MonthByDiliSDao dao;
 
 	@Autowired
 	public void setSqlSession(SqlSession sqlSession) {
-		monthByDiliSDao = sqlSession.getMapper(MonthByDiliSDao.class);
+		dao = sqlSession.getMapper(MonthByDiliSDao.class);
 	}
 
-	public void selGridMst(Map<String, Object> map) {
-		monthByDiliSDao.selGridMst(map);
-		
+	public void selMonthByDiliSL(Map<String, Object> map) {
+		dao.selMonthByDiliSL(map);
+
+	}
+
+	public void selMonthByDiliSR(Map<String, Object> map) {
+		dao.selMonthByDiliSR(map);
+
+	}
+
+	public void prcsMonthByDiliS(MonthByDiliS monthByDiliS) {
+		dao.prcsMonthByDiliS(monthByDiliS);
+
+	}
+
+	public void selMonthByDiliSPopC(Map<String, Object> map) {
+		dao.selMonthByDiliSPopC(map);
+
+	}
+
+	public void prcsMonthByDiliSPopI(MonthByDiliS monthByDiliS) {
+		dao.prcsMonthByDiliSPopI(monthByDiliS);
+
 	}
 }

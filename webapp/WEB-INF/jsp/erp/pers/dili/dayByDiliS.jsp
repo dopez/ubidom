@@ -36,38 +36,8 @@ $(document).ready(function(){
 	gridMain.setColSort("str");
 	gridMain.init();
 	gridMain.cs_setColumnHidden(["compId"]);
-
-	 gridMain.attachEvent("onCellChanged", function(rId,cInd,nValue){
-		var selId = gridMain.getSelectedRowId();
-		if(selId != null){
-			sum = gridMain.setCells(selId,14).getValue()*1;
-		}
-	if(gridMain.getSelectedRowId() == rId){
-		if(cInd==8){
-			sum = sum+nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}
-		else if(cInd==9){
-			sum = sum+nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}else if(cInd==10){
-			sum = sum+nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}
-		else if(cInd==11){
-			sum = sum-nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}
-		else if(cInd==12){
-			sum = sum-nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}
-		else if(cInd==13){
-			sum = sum-nValue*1;
-			gridMain.setCells(rId,14).setValue(sum);
-		}
-	}	
-  }); 
+	gridMain.attachEvent("onRowSelect",doOnRowSelect);
+	gridMain.attachEvent("onCellChanged",doOnCellChanged);
 	
 	calMain = new dhtmlXCalendarObject([{input:"workDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -86,6 +56,29 @@ $(document).ready(function(){
 	combo =gridMain.getColumnCombo(6);
 	fn_comboSet(combo);
 });
+function doOnCellChanged(rId,cInd,nValue){
+	if(cInd==8){
+		doOnRowSelect(rId,cInd);
+	   }
+	   if(cInd==9){
+		   doOnRowSelect(rId,cInd);
+	   }
+	   if(cInd==10){
+		   doOnRowSelect(rId,cInd);
+	   }
+	   if(cInd==11){
+		   doOnRowSelect(rId,cInd);
+	   }
+	   if(cInd==12){
+		   doOnRowSelect(rId,cInd);
+	   }
+	   if(cInd==13){
+		   doOnRowSelect(rId,cInd);
+	   }
+}
+function doOnRowSelect(id,ind){
+	totalTimeCalcul(id);
+}
 function fn_comboSet(comboId){
 	var params={};
 	params.compId = '100';
@@ -117,7 +110,18 @@ comboId.allowFreeText(true);
 function fn_search(){
 	fn_loadGridLeftList();
 }
-
+function totalTimeCalcul(id){
+	sum = gridMain.setCells(id,14).getValue()*1;
+	workValue = gridMain.setCells(id,7).getValue()*1;
+	overValue = gridMain.setCells(id,8).getValue()*1;
+	nightValue = gridMain.setCells(id,9).getValue()*1;
+	holiValue = gridMain.setCells(id,10).getValue()*1;
+	partValue = gridMain.setCells(id,11).getValue()*1;
+	earlyValue = gridMain.setCells(id,12).getValue()*1;
+	lateValue = gridMain.setCells(id,13).getValue()*1;
+	sum = (workValue+overValue+nightValue+holiValue)-(partValue+earlyValue+lateValue);
+	gridMain.setCells(id,14).setValue(sum);
+}
 function fn_save(){
 	 var jsonStr = gridMain.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
@@ -155,7 +159,6 @@ function fn_loadGridLeftList(){
 }
 
 function fn_loadGridLeftListCB(data){
-	//sum = data[0].workTime;
 	$('#postCode').val('');
 	$('#postName').val('');
 };
