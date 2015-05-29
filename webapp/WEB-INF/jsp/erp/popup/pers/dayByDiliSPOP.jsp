@@ -4,6 +4,7 @@
 <script type="text/javascript">
 var layout;
 var gridMain;
+var calMain, calMain2;
 var toolbar;
 var config={
 		title:"일일근태생성",
@@ -17,14 +18,20 @@ $(document).ready(function(){
 	layout.cells("a").attachObject("bootContainer");
 	layout.cells("a").hideHeader();
 
-    calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"},{input:"toDate",button:"calpicker2"}]);
+    calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	calMain.setPosition("right","bottom");
-	//calMain.enableIframe(true);
 	var t = dateformat(new Date());
 	byId("frDate").value = t;
-	byId("toDate").value = t;
+	
+	calMain2 = new dhtmlXCalendarObject([{input:"toDate",button:"calpicker2"}]);
+	calMain2.loadUserLanguage("ko");
+	calMain2.hideTime();
+	calMain2.setPosition("left","bottom");
+	var t = dateformat(new Date());
+	byId("toDate").value = t; 
+	
 	
 	$("#saveBtn,#cancelBtn").click(function(e){
 		if(e.target.id == "saveBtn"){
@@ -36,6 +43,7 @@ $(document).ready(function(){
 	});
 	
 });
+
 function fn_gridCntSearch(){
 	gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSearch",fn_gridCntSearchCB);
 }
