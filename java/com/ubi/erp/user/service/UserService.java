@@ -29,6 +29,14 @@ public class UserService
 		return dao.selUser();
 	}
 
+	public List<Map<String, Object>> selSub1() {
+		return dao.selSub1();
+	}
+
+	public List<Map<String, Object>> selSub2() {
+		return dao.selSub2();
+	}
+
 	public List<Menu> selMenu() {
 		return dao.selMenu();
 	}

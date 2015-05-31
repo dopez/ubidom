@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SYS_USER_SUB" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c83cda7f-bab6-4888-aaa0-3733fd1c6405">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT TO_CHAR(SYSDATE,'YYYYmmDD') YMD, TO_CHAR(SYSDATE,'HH24MISS') TIME FROM DUAL]]>
+	</queryString>
+	<field name="YMD" class="java.lang.String"/>
+	<field name="TIME" class="java.lang.String"/>
+	<title>
+		<band height="29" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="94" y="16" width="100" height="20" uuid="8b57b8b5-de2c-4dce-a4fb-3e3a122fecfe"/>
+				<text><![CDATA[SERVER TIME : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="16" width="100" height="20" uuid="0da481f2-dcbf-4db5-ac9b-76f18729bef1"/>
+				<textFieldExpression><![CDATA[$F{YMD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="16" width="100" height="20" uuid="abb54af9-f4cb-4095-ac92-b70169d38159"/>
+				<textFieldExpression><![CDATA[$F{TIME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

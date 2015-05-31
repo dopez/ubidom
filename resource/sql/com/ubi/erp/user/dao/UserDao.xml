@@ -29,6 +29,14 @@
 			PERSONNO,PERSONNAME,LOGID,PASS_CHANGE_DT 
 		FROM SYS_USER
 	</select>
+		
+	<select id="selSub1" resultType="hashmap">
+		SELECT TO_CHAR(SYSDATE,'YYYYmmDD') YMD, TO_CHAR(SYSDATE,'HH24MISS') TIME FROM DUAL
+	</select>
+		
+	<select id="selSub2" resultType="hashmap">
+		SELECT TO_CHAR(SYSDATE+1,'YYYYmmDD') YMD, TO_CHAR(SYSDATE,'HH24MISS') TIME FROM DUAL
+	</select>
 	
 	<select id="selMenu" resultType="Menu">
 		SELECT

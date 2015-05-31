@@ -17,6 +17,10 @@ public interface UserDao {
 
 	List<Map<String, Object>> selUser();
 
+	List<Map<String, Object>> selSub1();
+
+	List<Map<String, Object>> selSub2();
+
 	List<Menu> selMenu();
 	
 	void getMenu(Map<String, Object> param);
