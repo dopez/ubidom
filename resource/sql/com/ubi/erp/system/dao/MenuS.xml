@@ -30,10 +30,10 @@
   			#{menugbn},
   			#{pmenucd},
   			#{menuname},
-  			#{agValue},
+  			#{agValue, jdbcType=VARCHAR},
   			#{seq},
   			#{exegbn},
-  			#{scrnParm, jdbcType=VARCHAR},
+  			#{scrnParm},
   			#{uri}
   			)
   		}	

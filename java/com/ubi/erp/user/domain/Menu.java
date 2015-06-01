@@ -18,6 +18,8 @@ public class Menu implements Serializable {
 	private String exegbn;
 
 	private String uri;
+	
+	private String scrnParm;
 
 	public String getMenucd() {
 		return menucd;
@@ -57,5 +59,17 @@ public class Menu implements Serializable {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	public String getScrnParm() {
+		return scrnParm;
+	}
+
+	public void setScrnParm(String scrnParm) {
+		this.scrnParm = scrnParm;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }
