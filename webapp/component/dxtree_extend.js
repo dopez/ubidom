@@ -51,9 +51,11 @@ dxTree.prototype.load = function(nodeNm, parentNodeNm, textNm, menuTree){
 			menucd = menuTree.getValue(subItemArray[k], "menucd");
 			uri = menuTree.getValue(subItemArray[k], "uri");
 			exegbn = menuTree.getValue(subItemArray[k], "exegbn");
+			scrnParm = menuTree.getValue(subItemArray[k], "scrnParm");
 			
 			menuTree.getDxObj().setUserData(menucd, "uri", uri);
 			menuTree.getDxObj().setUserData(menucd, "exegbn", exegbn);
+			menuTree.getDxObj().setUserData(menucd, "scrnParm", scrnParm);
 		}
 	});
 };

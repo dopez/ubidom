@@ -19,7 +19,7 @@ var leftLayout;
 var mainMenu;
 var leftForm;
 var leftToolbar;
-
+var scrnParm;
 
 $( document ).ready(function() {
 
@@ -208,6 +208,7 @@ var fncSelectItem = function(tree, id) {
 
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
+		scrnParm = tree.getUserData(id, "scrnParm");
 
 		var menuItemText = tree.getDxObj().getItemText(id);
 
@@ -222,7 +223,7 @@ var fncSelectItem = function(tree, id) {
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
 			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
-			 console.log(uri)
+			 console.log(uri);
 			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 
@@ -240,7 +241,9 @@ function setViewFullPath(id){
 
 
 </script>
-
+<form id="hiddenform" name="hiddenform" method="post">
+    <input type="hidden" id="scrnParm" name="scrnParm" />
+</form>
 <div id="top">
 	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
 	<a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp;

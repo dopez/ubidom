@@ -27,7 +27,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
 	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", align:"",type:"ed"});
 	gridMain.addHeader({name:"URI", colId:"uri", width:"25", align:"",type:"ed"});
-	gridMain.addHeader({name:"웹매개변수", colId:"agValue", align:"center",width:"7", type:"ed"});
+	gridMain.addHeader({name:"웹매개변수", colId:"scrnParm", align:"center",width:"7", type:"ed"});
 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
  	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
 	gridMain.setColSort("str");

@@ -84,7 +84,7 @@ public class MenuSController {
 		
 		String pmenucd = request.getParameter("Pmenucd");
 		
-		String scrnParm = "";
+		String agValue = "";
 		
 		List<MenuS> list = new ArrayList<MenuS>();
 		
@@ -95,7 +95,7 @@ public class MenuSController {
 		for (MenuS menuS : list) {
 			menuS.setCompId(compId);
 			menuS.setPmenucd(pmenucd);
-			menuS.setScrnParm(scrnParm);
+			menuS.setAgValue(agValue);
 			menuSService.prcsMenuS(menuS);
 		}
 	}

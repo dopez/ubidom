@@ -55,9 +55,11 @@ $(document).ready(function() {
 	  
 })
 //doc ready end
+var te;
 function fn_search(){
 	alert(1234);
-	console.log(abcd);
+	te = parent.scrnParm;
+	alert(te);
 }
 function fn_save(){
 	 var selRowIdx = gridMain.getSelectedRowIndex();

@@ -35,6 +35,9 @@ public class UserController {
 		HttpSession session = request.getSession(true);
 	
 		System.out.println("EMPNO"+session.getAttribute("empNo"));
+		System.out.println("EMPNO"+session.getAttribute("empNo"));
+		System.out.println("EMPNO"+session.getAttribute("empNo"));
+		System.out.println("EMPNO"+session.getAttribute("empNo"));
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		
@@ -44,6 +47,9 @@ public class UserController {
 		
 		svc.getMenu(param);
 
+		logger.debug("P_RST" + (List<Menu>) param.get("P_RST"));
+		logger.debug("P_RST" + (List<Menu>) param.get("P_RST"));
+		logger.debug("P_RST" + (List<Menu>) param.get("P_RST"));
 		logger.debug("P_RST" + (List<Menu>) param.get("P_RST"));
 
 		return (List<Menu>) param.get("P_RST");
