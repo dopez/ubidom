@@ -27,7 +27,7 @@ $(document).ready(function(){
     gridMain.setUserData("","pk","no");
  	gridMain.init();	
  	gridMain.cs_setColumnHidden(["compId"]);
-    
+
  	combo01 =gridMain.getColumnCombo(1);
 	fn_comboSet(combo01,1);
 	combo02 =gridMain.getColumnCombo(5);
@@ -64,8 +64,14 @@ comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
 }
 function fn_search(){
-	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
-	gridMain.dxObj.collapseColumns(1); 
+	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"),fn_gridMainCB); 
+}
+function fn_gridMainCB(data){
+	var gridStartRow1;
+	var gridStartRow2;
+	var rowIdx = gridMain.getRowsNum();
+	
+	//gridMain.dxObj.setCellTextStyle("row1",0,"color:red;border:1px solid gray;");
 }
 
 function fn_save(){
