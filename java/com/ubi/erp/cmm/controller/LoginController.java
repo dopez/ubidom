@@ -55,8 +55,12 @@ public class LoginController {
 				session.setAttribute("empNo", user.getEmpNo());
 				session.setAttribute("empName", user.getEmpName());
 				session.setAttribute("compId", "100");
+				session.setAttribute("logId", user.getLogId());
+				session.setAttribute("postCode", user.getPostCode());
+				session.setAttribute("postName", user.getPostName());
 				System.out.println("empNo"+ user.getEmpNo());
 				System.out.println("empName"+ user.getEmpName());
+
 				map.put("rtnCode", "1");
 				map.put("uid", uid);
 				map.put("errorMsg", "");

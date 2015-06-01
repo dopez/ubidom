@@ -22,6 +22,7 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});	
 	gridMst.setUserData("","pk","no");
+	//gridMst.dxObj.setUserData("","@empNo","format_jumin");
 	gridMst.setColSort("str");
 	gridMst.init(); 
 	gridMst.cs_setColumnHidden(["compId"]);
@@ -32,14 +33,14 @@ $(document).ready(function(){
               {id: "a2",text: "보증보험"}]});
 	
     gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
-    gridDtl01.addHeader({name:"NO",           colId:"no",         width:"4", align:"center", type:"cntr"});
-    gridDtl01.addHeader({name:"관계",         colId:"relatKind",  width:"7", align:"center", type:"combo"});
-    gridDtl01.addHeader({name:"성명",         colId:"relatName",  width:"7", align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"NO",           colId:"no",         width:"4",  align:"center", type:"cntr"});
+    gridDtl01.addHeader({name:"관계",         colId:"relatKind",  width:"7",  align:"center", type:"combo"});
+    gridDtl01.addHeader({name:"성명",         colId:"relatName",  width:"7",  align:"center", type:"ed"});
     gridDtl01.addHeader({name:"주민등록번호", colId:"juminNo",    width:"10", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"7", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"7", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"7", align:"center", type:"ed"});
-    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7", align:"center", type:"ed"});	
+    gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"7",  align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"7",  align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"7",  align:"center", type:"ed"});
+    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7",  align:"center", type:"ed"});	
     gridDtl01.setUserData("","pk","no");
     gridDtl01.setColSort("str");
     gridDtl01.init(); 
@@ -55,6 +56,8 @@ $(document).ready(function(){
     gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"7", align:"center",  type:"ed"});
     gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"center",  type:"ed"});	
     gridDtl02.setUserData("","pk","no");
+    gridDtl02.dxObj.setUserData("","@startDate","format_date");
+    gridDtl02.dxObj.setUserData("","@endDate","format_date");
     gridDtl02.setColSort("str");
     gridDtl02.init(); 
     gridDtl02.cs_setColumnHidden(["empNo","compId","seq"]);

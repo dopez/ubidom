@@ -45,6 +45,7 @@ public class GuaranteeDataSController {
 			list.get(i).setStartDate(df.dateToString2(list.get(i).getStartDate()));
 			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
 		}
+
 		return list;
 	}
 	
@@ -84,7 +85,6 @@ public class GuaranteeDataSController {
 			mapper2 = new ObjectMapper();
 			list2 = mapper2.readValue(jsonData2, new TypeReference<ArrayList<GuaranteeDataS>>(){});
 		}
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(GuaranteeDataS guaranteeDataS : list1) {
 			guaranteeDataS.setSysEmpNo(sysEmpNo);
@@ -99,8 +99,6 @@ public class GuaranteeDataSController {
 		
 		for(GuaranteeDataS guaranteeDataS : list2) {
 			guaranteeDataS.setSysEmpNo(sysEmpNo);
-			guaranteeDataS.setStartDate(df.dateToString(guaranteeDataS.getStartDate()));
-			guaranteeDataS.setEndDate(df.dateToString(guaranteeDataS.getEndDate()));
 			if("INSERT".equals(guaranteeDataS.getCudKey())) {
 				guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
 			}else if("UPDATE".equals(guaranteeDataS.getCudKey())){

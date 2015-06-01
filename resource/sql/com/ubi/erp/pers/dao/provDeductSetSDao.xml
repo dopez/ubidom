@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.pers.dao.ProvDeductSetSDao">
+
+<resultMap id="ProvDeductSetSMap" type="ProvDeductSetS"/>
+	
+ 	<select id="selProvDeductSetS" statementType="CALLABLE">
+		 {call SP_SALE_PROVDEDUCTSETS_SCH(#{compId},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ProvDeductSetSMap, javaType=ResultSet})}	
+	</select>
+	
+	<insert id="prcsProvDeductSetS" statementType="CALLABLE" parameterType="ProvDeductSetS">
+  		{call SP_SALE_PROVDEDUCTSETS_SAVE(
+  		#{cudKey},#{compId},#{subjectKind},#{subjectCode},#{subjectName},
+  		#{useOrder},#{calcKind},#{avgKind},#{taxYnO},#{taxYnM},
+  		#{nonTaxAmt},#{remarks},#{sysEmpNo}
+  		)}	
+  	</insert>
+</mapper>

@@ -8,7 +8,7 @@ var calMain, calMain2;
 var toolbar;
 var config={
 		title:"일일근태생성",
-		id:"diliBtn",
+		id:"saveDiliS",
 		width:"450",
 		height:"250"
 	}
@@ -50,13 +50,16 @@ function fn_gridCntSearch(){
 function fn_gridCntSearchCB(data){
 	if(data[0].cnt > 0){
 		if(MsgManager.confirmMsg("INF005")) { 
-			gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSave",fn_gridCntSearchCB);
-			parent.dhxWins.window("w1").close();
+			fn_saveDiliS();
 		}
 	}else{
-		gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSave",fn_gridCntSearchCB);
-		parent.dhxWins.window("w1").close();
+		fn_saveDiliS();
 	}
+}
+function fn_saveDiliS(){
+	gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSave",fn_gridCntSearchCB);
+	parent.fn_onClosePop(config.id,{});
+	parent.dhxWins.window("w1").close();
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

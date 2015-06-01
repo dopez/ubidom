@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.pers.dao.MonthByDiliRDao">
+
+	<resultMap id="MonthByDiliRMap" type="MonthByDiliR"/>
+	
+ 
+    <select id="selMonthByDiliR" statementType="CALLABLE">
+		 {call SP_PERS_MONTHBYDILIR_SCH(#{compId},#{frYymm},#{toYymm},#{postCode},#{jikgun},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthByDiliRMap, javaType=ResultSet})}	
+	</select>
+	
+</mapper>

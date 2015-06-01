@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--pro-->
+<html>
+<head>
+	<title>Reloading</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="../../../codebase/dhtmlx.css"/>
+	<script src="../../../codebase/dhtmlx.js"></script>
+	<script>
+		var myTree;
+		function doOnLoad(){
+			myTree = new dhtmlXTreeObject('treeboxbox_tree', '100%', '100%', 0);
+			myTree.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree.enableDragAndDrop(true);
+			myTree.enableThreeStateCheckboxes(true);
+			myTree.loadXML('../common/tree.xml');
+		}
+	</script>
+</head>
+<body onload="doOnLoad()">
+	<h1>Reloading</h1>
+	<p>You can easily refresh the entire tree with or without checkboxes. Moreover it's possible to delete the tree and then reload it from the server.</p>
+	<table>
+		<tr>
+			<td>
+				<div id="treeboxbox_tree" style="width:250px; height:218px; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+			</td>
+			<td rowspan="2" style="padding-left:25px;" valign="top">
+				<a href="javascript:void(0)" onClick="myTree.enableCheckBoxes(true); myTree.deleteChildItems(0);myTree.loadXML('../common/tree.xml');">refresh tree (checkboxes)</a><br/>
+				<a href="javascript:void(0)" onClick="myTree.enableCheckBoxes(false); myTree.deleteChildItems(0);myTree.loadXML('../common/tree.xml');">refresh tree (without checkboxes)</a><br/>
+				<a href="javascript:void(0)" onClick="myTree.deleteChildItems(0);">delete</a><br/>
+				<a href="javascript:void(0)" onClick="myTree.loadXML('../common/tree.xml');">load</a><br/>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

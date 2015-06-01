@@ -172,6 +172,9 @@ function fn_onClosePop(pName,data){
 			$('#postName').val(obj.postName);
 			$('#postCode').val(obj.postCode);
 		}		  
+	}else if(pName == 'saveDiliS'){
+		MsgManager.alertMsg("INF001");
+		fn_search();
 	}
  };
 </script>
