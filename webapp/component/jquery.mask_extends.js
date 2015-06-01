@@ -38,6 +38,6 @@ var msk_options =  {
 $(function(){
 
 	  $('.format_date').mask('0000/00/00', msk_options);
-	  $('.format_jumin').mask('000000-0000000', msk_options);
+	  $('.format_jumin').mask('000-0000', msk_options);
 
 });

@@ -8,19 +8,23 @@ function gfn_temp(grid,data){
 	var input = $("<input>").appendTo("body");
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
-	        if(grid.dxObj.getUserData("","@"+key)!= null){
-	        	var msk_format = grid.dxObj.getUserData("","@"+key);
-	        	if(msk_format != null){
-		        	$(input).mask(msk_format).val(data[i][key]).keyup();
-
+	   
+	        	var classNm = grid.dxObj.getUserData("","@"+key);
+	        	
+	        	if(classNm != null){
+	        		console.log("classnm",classNm);
+	        		$(input).val(data[i][key]);
+	        		$(input).addClass(classNm).keyup();
+	        		 console.log("input val",$(input).val())
 		        	data[i][key] = $(input).val();
 	        	}
 
-	        }
+	        
 		}
 
 
 	};
+	console.log('data is',data);
 	grid.clearAll();
     grid.parse(data, "js");
 
@@ -70,9 +74,8 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         },
         success: function(data, status) {
         gData = data; 
-        
-            grid.clearAll();
-            grid.parse(data, "js");
+        gfn_temp(grid,data);
+ 
             
           	 if (callbackFn != undefined) {
                 callbackFn.call(this, data);

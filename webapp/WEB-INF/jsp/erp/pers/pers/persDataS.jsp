@@ -135,15 +135,14 @@ function doOnOpen(comboId,params,tagName){
   });	
 };		
 function doOnRowSelect(id, ind){
-	byId("cudKey").value = "UPDATE";
 	fn_new();
+	byId("cudKey").value = "UPDATE";
 	disableValue(2);
 	var obj={};
 	obj.compId= gridMain.setCells(id,4).getValue();
 	obj.empNo= gridMain.setCells(id,1).getValue();
 	obj.postName = gridMain.setCells(id,3).getValue();
-	fn_loadFormList(obj);
-	
+	fn_loadFormList(obj);	
 }
 
 function disableValue(flag){
@@ -197,7 +196,6 @@ function fn_new(){
        address: ["주소",r_notEmpty],
        enterDate: ["입사날짜",r_notEmpty]
 	};
-   
 	if(gfn_formValidation('frmMain')){
 		 disableValue(1);
 		var params = $("#frmMain").serialize();

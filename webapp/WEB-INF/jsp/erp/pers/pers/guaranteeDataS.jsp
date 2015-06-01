@@ -22,6 +22,8 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});	
 	gridMst.setUserData("","pk","no");
+	//gridMst.dxObj.setUserData("","@empNo","format_jumin");
+	
 	gridMst.setColSort("str");
 	gridMst.init(); 
 	gridMst.cs_setColumnHidden(["compId"]);
@@ -55,6 +57,8 @@ $(document).ready(function(){
     gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"7", align:"center",  type:"ed"});
     gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"center",  type:"ed"});	
     gridDtl02.setUserData("","pk","no");
+    gridDtl02.dxObj.setUserData("","@startDate","format_date");
+    gridDtl02.dxObj.setUserData("","@endDate","format_date");
     gridDtl02.setColSort("str");
     gridDtl02.init(); 
     gridDtl02.cs_setColumnHidden(["empNo","compId","seq"]);

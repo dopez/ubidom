@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;  
 var calMain;
+var combo;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,6,8],"3E");
 	//월근태
@@ -13,6 +14,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
+	
 	gridMst = new dxGrid(subLayout.cells("a"),false);
     gridMst.addHeader({name:"NO",           colId:"no", 	    width:"2", align:"center", type:"cntr"});
     gridMst.addHeader({name:"부서",         colId:"postName", 	width:"4", align:"center", type:"ro"});
@@ -82,7 +84,9 @@ $(document).ready(function(){
 			fn_DtlSave();
 		}
 	});
-
+	
+	combo =gridDtl.getColumnCombo(2);
+	fn_comboSet(combo);
 });
 function fn_loadGridMstPOPCB(data){
 	var obj={};
@@ -101,7 +105,32 @@ function fn_loadGridMstPOPCB(data){
 		fn_search();
 	}
 }
-
+function fn_comboSet(comboId){
+	var params={};
+	params.compId = '100';
+	params.code = 'P008';
+	
+	comboId.setTemplate({
+	    input: "#interName#",
+	    columns: [
+	       {header: "구분", width: 100,  option: "#interName#"}
+	    ]
+	});
+	$.ajax({
+		"url":"/erp/cmm/InterCodeR",
+		"type":"post",
+		"data":params,
+		"success" : function(data){
+		  var list = data;
+		  for(var i=0;i<list.length;i++){
+			  comboId.addOption(list[i].interCode,list[i].interName);
+		    }
+		}
+  });
+comboId.enableFilteringMode(true);
+comboId.enableAutocomplete(true);
+comboId.allowFreeText(true);
+}
 function doOnMstRowSelect(id,ind){
 	var obj = {};
 	obj.yymm = $('#yymm').val();
@@ -110,6 +139,7 @@ function doOnMstRowSelect(id,ind){
 }
 //doc ready end
 function fn_search(){
+	gridDtl.clearAll();
 	fn_loadGridMst();
 }
 function fn_save(){
@@ -130,6 +160,7 @@ function fn_save(){
 	      });
 };
 function fn_DtlSave(){
+	 var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
@@ -140,7 +171,7 @@ function fn_DtlSave(){
 	          async : true,
 	          success : function(data) {
 	          MsgManager.alertMsg("INF001");
-	          fn_search();
+	          gridMst.selectRow(rowIdx,true,true,true);
 	           }
 	      });
 };
