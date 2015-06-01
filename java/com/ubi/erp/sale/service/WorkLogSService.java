@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ubi.erp.sale.dao.WorkLogSDao;
+import com.ubi.erp.sale.domain.WorkLogS;
 
 @Service
 public class WorkLogSService {
@@ -19,6 +20,16 @@ public class WorkLogSService {
 
 	public void gridMainSel(Map<String, Object> map) {
 		workLogSDao.gridMainSel(map);
+		
+	}
+
+	public void getSeqReturn(Map<String, Object> map) {
+		workLogSDao.getSeqReturn(map);
+		
+	}
+
+	public void gridMainSave(WorkLogS workLogs) {
+		workLogSDao.gridMainSave(workLogs);
 		
 	}
 }
