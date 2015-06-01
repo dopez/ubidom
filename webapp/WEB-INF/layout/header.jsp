@@ -35,7 +35,7 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet" type="text/css" href="/component/bootstrap-3.3.2-dist/css/bootstrap_extends.css" />
 <link rel="stylesheet" type="text/css" href="/common/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/component/dhtmlxSuite/codebase/dhtmlx.css" />
-<link rel="stylesheet" type="text/css" href="/component/dhtmlxSuite/codebase/dhtmlx_extend.css" />
+<link rel="stylesheet" type="text/css" href="/component/component-extends/dhtmlx/dhtmlx_extend.css" />
 
 
 
