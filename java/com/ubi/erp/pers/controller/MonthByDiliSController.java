@@ -64,6 +64,9 @@ public class MonthByDiliSController {
 		map.put("o_cursor", null);
 		monthByDiliSService.selMonthByDiliSR(map);
 		List<MonthByDiliS> list = (List<MonthByDiliS>) map.get("o_cursor");
+		for(int i = 0; i<list.size();i++){
+			list.get(i).setWorkDate(df.dateToString2(list.get(i).getWorkDate()));
+		}
 		return list;
 	}
 

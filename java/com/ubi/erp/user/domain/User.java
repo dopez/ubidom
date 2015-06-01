@@ -13,6 +13,9 @@ public class User implements Serializable {
 	private String empNo;
 	private String empName;
 	private String compId;
+	private String logId;
+	private String postCode;
+	private String postName;
 
 	public String getEmpName() {
 		return empName;
@@ -52,6 +55,30 @@ public class User implements Serializable {
 
 	public void setCompId(String compId) {
 		this.compId = compId;
+	}
+
+	public String getLogId() {
+		return logId;
+	}
+
+	public void setLogId(String logId) {
+		this.logId = logId;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 	public static long getSerialversionuid() {

@@ -14,24 +14,24 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	gridMst = new dxGrid(subLayout.cells("a"),false);
-    gridMst.addHeader({name:"NO",           colId:"no", 	    width:"3", align:"center", type:"cntr"});
-    gridMst.addHeader({name:"부서",         colId:"postName", 	width:"5", align:"center", type:"ro"});
-    gridMst.addHeader({name:"직위",         colId:"jikweeName", width:"5", align:"center", type:"ro"});
-    gridMst.addHeader({name:"사번",         colId:"empNo", 	    width:"5", align:"center", type:"ro"});
-    gridMst.addHeader({name:"성명",         colId:"korName", 	width:"5", align:"center", type:"ro"});
-    gridMst.addHeader({name:"근무일수",     colId:"workDay", 	width:"5", align:"center", type:"ro"});
-    gridMst.addHeader({name:"근무시간",     colId:"workTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"연장시간",     colId:"overTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"야근시간",     colId:"nightTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"특근시간",     colId:"holiTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"특근연장시간", colId:"holiOver", 	width:"7", align:"center", type:"edn"});
-    gridMst.addHeader({name:"주휴일수",     colId:"weekHoliy", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"지각시간",     colId:"lateTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"조퇴시간",     colId:"earlyTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"외출시간",     colId:"partTime", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"결근",         colId:"absence", 	width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"무단결근",     colId:"awol", 	    width:"5", align:"center", type:"edn"});
-    gridMst.addHeader({name:"연차휴가",     colId:"yuncha", 	width:"5", align:"center", type:"edn"});
+    gridMst.addHeader({name:"NO",           colId:"no", 	    width:"2", align:"center", type:"cntr"});
+    gridMst.addHeader({name:"부서",         colId:"postName", 	width:"4", align:"center", type:"ro"});
+    gridMst.addHeader({name:"직위",         colId:"jikweeName", width:"4", align:"center", type:"ro"});
+    gridMst.addHeader({name:"사번",         colId:"empNo", 	    width:"4", align:"center", type:"ro"});
+    gridMst.addHeader({name:"성명",         colId:"korName", 	width:"4", align:"center", type:"ro"});
+    gridMst.addHeader({name:"근무일수",     colId:"workDay", 	width:"4", align:"center", type:"ro"});
+    gridMst.addHeader({name:"근무시간",     colId:"workTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"연장시간",     colId:"overTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"야근시간",     colId:"nightTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"특근시간",     colId:"holiTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"특근연장시간", colId:"holiOver", 	width:"6", align:"center", type:"edn"});
+    gridMst.addHeader({name:"주휴일수",     colId:"weekHoliy", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"지각시간",     colId:"lateTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"조퇴시간",     colId:"earlyTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"외출시간",     colId:"partTime", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"결근",         colId:"absence", 	width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"무단결근",     colId:"awol", 	    width:"4", align:"center", type:"edn"});
+    gridMst.addHeader({name:"연차휴가",     colId:"yuncha", 	width:"4", align:"center", type:"edn"});
     gridMst.setColSort("str");
  	gridMst.setUserData("","pk","no");
  	gridMst.init();	
@@ -45,16 +45,17 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"NO",       colId:"no", 	   width:"3", align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"근무일자", colId:"workDate",  width:"5", align:"center", type:"ro"});
 	gridDtl.addHeader({name:"근태구분", colId:"workKind",  width:"5", align:"center", type:"combo"});
-	gridDtl.addHeader({name:"정상",     colId:"workTime",  width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"연장",     colId:"overTime",  width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"야근",     colId:"nightTime", width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"외출",     colId:"partTime",  width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"조퇴",     colId:"earlyTime", width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"지각",     colId:"lateTime",  width:"5", align:"center", type:"edn"});
-	gridDtl.addHeader({name:"총근무",   colId:"totalTime", width:"5", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"정상",     colId:"workTime",  width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"연장",     colId:"overTime",  width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"야근",     colId:"nightTime", width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"외출",     colId:"partTime",  width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"조퇴",     colId:"earlyTime", width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"지각",     colId:"lateTime",  width:"4", align:"center", type:"edn"});
+	gridDtl.addHeader({name:"총근무",   colId:"totalTime", width:"4", align:"center", type:"ro"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","no");
 	gridDtl.init();	
+	gridDtl.cs_setColumnHidden(["compId","empNo"]);
 	
 	calMain = new dhtmlXCalendarObject([{input:"yymm",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
@@ -112,6 +113,8 @@ function fn_search(){
 	fn_loadGridMst();
 }
 function fn_save(){
+	var dateValue = $('#yymm').val();
+	$('#monthDate').val(dateValue);
 	 var jsonStr = gridMst.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
