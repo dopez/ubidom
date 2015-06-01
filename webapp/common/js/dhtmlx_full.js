@@ -1,8 +1,8 @@
 if(typeof dhtmlx == 'undefined' || dhtmlx == null)
 {
 
-	document.write("<script type='text/javascript' src='/component/dhtmlxSuite_v42/codebase/dhtmlx.js'></script>");
-	document.write("<script type='text/javascript' src='/component/dhtmlxSuite_v42/codebase/dhtmlx_deprecated.js'></script>");
+	document.write("<script type='text/javascript' src='/component/dhtmlxSuite/codebase/dhtmlx.js'></script>");
+	document.write("<script type='text/javascript' src='/component/dhtmlxSuite/codebase/dhtmlx_deprecated.js'></script>");
 
 	document.write("<script type='text/javascript' src='/component/component-extends/dhtmlx/dhtmlx_extend.js'></script>");
 	document.write("<script type='text/javascript' src='/component/component-extends/dhtmlx/dxgrid_extend.js'></script>");

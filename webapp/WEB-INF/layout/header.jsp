@@ -14,11 +14,17 @@ response.setDateHeader("Expires", 0);
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 
-<script type="text/javascript" src="/common/js/jquery-1.9.1.min.js"></script>
+<!--Jquery google CDN 추가  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <script type="text/javascript" src="/common/js/sockjs-0.3.js"></script>
 <script type="text/javascript" src="/component/jquery-validation-1.13.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/component/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/common/js/jquery-extend.js"></script>
+
+<!--jQuery Mask 추가  -->
+<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask.js"></script>
+<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask_extends.js"></script>
 
 <script type="text/javascript" src="/common/js/common.js"></script>
 <script type="text/javascript" src="/common/js/dhtmlx_full.js"></script>
@@ -30,11 +36,7 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet" type="text/css" href="/common/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/component/dhtmlxSuite/codebase/dhtmlx.css" />
 <link rel="stylesheet" type="text/css" href="/component/dhtmlxSuite/codebase/dhtmlx_extend.css" />
-<!-- validation ko 추가 -->
-<script type="text/javascript" src="/component/jquery-validation-1.13.1/localization/messages_ko.js"></script>
 
-<!--jQuery Mask 추가  -->
-<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask.js"></script>
-<script type="text/javascript" src="/component/jquery-mask-plugin/jquery.mask_extends.js"></script>
+
 
 

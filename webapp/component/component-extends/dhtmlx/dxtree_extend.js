@@ -6,7 +6,7 @@ var dxTree = function(obj, width, height, rootId){
 	if (rootId == null) rootId = 0;
 
 	this.dxObj =obj;
-	this.dxObj.setImagePath("/component/dhtmlxSuite/codebase/imgs/");
+	this.dxObj.setImagePath("/component/dhtmlxSuite/codebase/imgs/dhxtree_skyblue/");
 };
 
 dxTree.prototype.getDxObj = function(){
