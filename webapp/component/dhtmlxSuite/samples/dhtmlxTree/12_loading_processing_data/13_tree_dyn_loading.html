@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--pro-->
+<html>
+<head>
+	<title>Autoloading from XML</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="../../../codebase/dhtmlx.css"/>
+	<script src="../../../codebase/dhtmlx.js"></script>
+	<script>
+		var myTree;
+		function doOnLoad(){
+			myTree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			myTree.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree.setXMLAutoLoading("php/xml.php");
+			myTree.loadXML("php/xml.php?id=0");
+		}
+	</script>
+</head>
+<body onload="doOnLoad()">
+	<h1>Autoloading from XML</h1>
+	<p>Advanced processing of XML allows this JavaScript tree menu to handle large amount of data.
+		Dynamical items loading from XML stream enables you to create DHTML trees with unlimited
+		number of nodes. You can load data asynchronously in dhtmlxTree as-needed (using AJAX)
+		that increases overall performance of the tree. It means that the script specified in setXMLAutoLoading() method will be called when you click the tree to expand any of the parent nodes (which child nodes were not loaded). The script will get the id of the node to open, and return the XML with description of the child items.</p>
+	<div id="treeboxbox_tree" style="width:250px; height:218px;background-color:#f5f5f5;border :1px solid Silver; overflow:auto;"></div>
+</body>
+</html>

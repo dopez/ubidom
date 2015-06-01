@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--pro-->
+<html>
+<head>
+	<title> Editable items</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="../../../codebase/dhtmlx.css"/>
+	<script src="../../../codebase/dhtmlx.js"></script>
+	<script>
+		var myTree;
+		function doOnLoad(){
+			myTree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			myTree.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree.enableSmartXMLParsing(true);
+			myTree.enableDragAndDrop(true);
+			myTree.setDragBehavior('complex');
+			myTree.enableKeyboardNavigation(true);
+			myTree.enableItemEditor(true);
+			myTree.setOnEditHandler(m_func);
+			myTree.loadXML("../common/tree.xml");
+		}
+		function m_func(state,id,tree,value){
+			document.getElementById("a_1").innerHTML+="<div>Item "+id+" - "+(state==0?"start editing":(state==1?"editor launched":(state==2?"editor closing":"editor closed")))+"</div>";
+			if((state==2)&&(value=="")) {
+				return false;
+			}
+			return true;
+		}
+		function au(){
+			myTree.setEditStartAction(document.getElementById('a1231').checked,document.getElementById('a1232').checked);
+		}
+	</script>
+</head>
+<body onload="doOnLoad()">
+	<h1>Editable items</h1>
+	<p>Double click on any item to edit it.<br/>
+		Title is validated and can't be empty. To enable or disable nodes editing click on an appropriate action link. Any editing action report you perform will be rendered in the scrolling field.</p>
+	<table>
+		<tr>
+			<td valign="top">
+				<div id="treeboxbox_tree" style="width:250px; height:220px; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+			</td>
+			<td rowspan="2" style="padding-left:25px" valign="top">
+				<a href="#" onClick="myTree.enableItemEditor(true);">Enable editing</a><br>
+				<a href="#" onClick="myTree.enableItemEditor(false);">Disable editing</a><br>
+				<input type='checkbox' id='a1231' onClick="au()" checked='true'>Click on selected
+				<input type='checkbox' id='a1232' onClick="au()" checked='true'>Double click
+				<div id='a_1' style='height:160px; overflow:auto;'></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

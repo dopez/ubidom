@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--pro-->
+<html>
+<head>
+	<title> Drag and Drop extension</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="../../../codebase/dhtmlx.css"/>
+	<script src="../../../codebase/dhtmlx.js"></script>
+	<script>
+		var myTree, myTree2;
+		function doOnLoad(){
+			myTree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			myTree.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree.enableDragAndDrop(true);
+			myTree.enableSmartXMLParsing(true);
+			myTree.loadXML("../common/tree.xml");
+			myTree.setOnDragIn(my_func);
+			myTree2 = new dhtmlXTreeObject("treeboxbox_tree2","100%","100%",0);
+			myTree2.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree2.enableSmartXMLParsing(true);
+			myTree2.enableDragAndDrop(true);
+			myTree2.setDragBehavior("sibling");
+			myTree2.loadXML("../common/tree.xml");
+		}
+		function my_func(id_drag, id_landing){
+			return false;
+		}
+	</script>
+</head>
+<body onload="doOnLoad()">
+	<h1>Drag and Drop extension</h1>
+	Left tree - drag out allowed, drag in denied.
+	<table>
+		<tr>
+			<td>
+				drop as child
+				<div id="treeboxbox_tree" style="width:250px; height:218px;background-color:#f5f5f5;border :1px solid Silver;"></div>
+			</td>
+			<td style="padding-left:25px" valign="top">
+				drop as sibling
+				<div id="treeboxbox_tree2" style="width:250px; height:218px;background-color:#f5f5f5;border :1px solid Silver;"></div>
+			</td>
+		</tr>
+
+	</table>
+</body>
+</html>
