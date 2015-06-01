@@ -2,6 +2,11 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/component/jqueryFileupload/js/vendor/jquery.ui.widget.js"></script>
+<script src="/component/jqueryFileupload/js/jquery.iframe-transport.js"></script>
+<script src="/component/jqueryFileupload/js/jquery.fileupload.js"></script>
+<link href="/component/jqueryFileupload/bootstrap-fileresize.css" type="text/css" rel="stylesheet" />
+<link href="/component/jqueryFileupload/css/dropzone.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;

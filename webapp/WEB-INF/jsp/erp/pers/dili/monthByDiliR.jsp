@@ -36,7 +36,7 @@ $(document).ready(function(){
     gridMain.setColSort("str");
     gridMain.setUserData("","pk","no");
  	gridMain.init();	
- 	gridMain.cs_setColumnHidden(["totalTime","compId"]);
+ 	gridMain.cs_setColumnHidden(["totalTime","compId",'yymm']);
 
 	calMain = new dhtmlXCalendarObject([{input:"frYymm",button:"calpicker1"},{input:"toYymm",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
@@ -67,6 +67,13 @@ function fn_loadGridMain(){
     gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 }
 function fn_loadGridMainCB(data){
+	 gridMain.dxObj.customGroupFormat=function(name,count){
+		 var yyyy = name.substring(0,4);
+		 var mm = name.substring(4,6);
+	      return yyyy+"년 "+mm+"월";
+	}
+	gridMain.dxObj.groupBy(20,["","#title","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan"
+	                           ,"#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan"]);
 	$('#postCode').val('');
 	$('#postName').val('');
 };
