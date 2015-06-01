@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--pro-->
+<html>
+<head>
+	<title> Drag and Drop behavior</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="../../../codebase/dhtmlx.css"/>
+	<script src="../../../codebase/dhtmlx.js"></script>
+	<script>
+		var myTree, myTree2;
+		function doOnLoad(){
+			myTree = new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			myTree.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree.enableDragAndDrop(true);
+			myTree.enableSmartXMLParsing(true);
+			myTree.loadXML("../common/tree.xml");
+			myTree2 = new dhtmlXTreeObject("treeboxbox_tree2","100%","100%",0);
+			myTree2.setImagePath("../../../codebase/imgs/dhxtree_skyblue/");
+			myTree2.enableSmartXMLParsing(true);
+			myTree2.enableDragAndDrop(true);
+			myTree2.setDragBehavior("sibling");
+			myTree2.loadXML("../common/tree.xml");
+		}
+	</script>
+</head>
+<body onload="doOnLoad()">
+	<h1>Drag and Drop behavior</h1>
+	<p>Two drag-n-drop modes are available in dhtmlxTree: drop as child and drop as sibling. To enable either of them you should use the setDragBehavior() method. </p>
+	<table>
+		<tr>
+			<td>
+				drop as child
+				<div id="treeboxbox_tree" style="width:250px; height:218px;background-color:#f5f5f5;border :1px solid Silver; overflow:hidden;"></div>
+			</td>
+			<td style="padding-left:25PX" valign="top">
+				drop as sibling
+				<div id="treeboxbox_tree2" style="width:250px; height:218px;background-color:#f5f5f5;border :1px solid Silver; overflow:hidden;"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
