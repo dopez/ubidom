@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.GuaranteeDataS;
 import com.ubi.erp.pers.service.GuaranteeDataSService;
 
@@ -39,7 +40,12 @@ public class GuaranteeDataSController {
 		map.put("o_cursor", null);
 		guaranteeDataSService.selGuaranteeDataSR1(map);
 		List<GuaranteeDataS> list = (List<GuaranteeDataS>) map.get("o_cursor");
-		//startDate, endDate formatting
+		DateFormatUtil df = new DateFormatUtil();
+		for(int i = 0; i<list.size();i++){
+			list.get(i).setStartDate(df.dateToString2(list.get(i).getStartDate()));
+			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
+		}
+
 		return list;
 	}
 	
@@ -92,7 +98,6 @@ public class GuaranteeDataSController {
 		}
 		
 		for(GuaranteeDataS guaranteeDataS : list2) {
-			//startDate, endDate formatting
 			guaranteeDataS.setSysEmpNo(sysEmpNo);
 			if("INSERT".equals(guaranteeDataS.getCudKey())) {
 				guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);

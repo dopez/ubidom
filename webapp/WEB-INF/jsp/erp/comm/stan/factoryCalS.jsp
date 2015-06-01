@@ -28,13 +28,7 @@ $(document).ready(function(){
 	gridMain.cs_setColumnHidden(["compId","empNo"]);
 	
 	$("#initCalBtn").click(function(e){
-		var yValue = $('#searchDate').val().substring(0,4);
-		var mValue = $('#searchDate').val().substring(5,7);
-		var obj={};
-		obj.weekKnd = $(':radio[name="weekKnd"]:checked').val();
-		obj.yyyy = yValue;
-		obj.mm = mValue;
-		fn_initCalendar(obj);
+		saveCalendar();
 	});
 	
 	combo =gridMain.getColumnCombo(3);
@@ -49,7 +43,15 @@ $(document).ready(function(){
     m = fn_monthLen(m);
 	byId("searchDate").value = t+"/"+m;
 });
-
+function saveCalendar(){
+	var yValue = $('#searchDate').val().substring(0,4);
+	var mValue = $('#searchDate').val().substring(5,7);
+	var obj={};
+	obj.weekKnd = $(':radio[name="weekKnd"]:checked').val();
+	obj.yyyy = yValue;
+	obj.mm = mValue;
+	fn_initCalendar(obj);
+}
 function fn_comboSet(comboId){
 	comboId.setTemplate({
 	    input: "#interName#",
@@ -106,7 +108,28 @@ function gridSearchCB(data){
 	$('#yyyy').val(data[0].yyyy);
 	$('#mm').val(data[0].mm);
 	$('#weKnd').val(data[0].weekKnd);
+	var weekKnd = $(':radio[name="weekKnd"]:checked').val();
+	if(data[0].weekKnd != weekKnd){
+	 reSaveCalendar();
 	}
+  }
+}
+function reSaveCalendar(){
+	for(var i=0; i<gridMain.getRowsNum();i++){
+		gridMain.setCells2(i,8).setValue('DELETE');
+	}
+		 var jsonStr = gridMain.getJsonUpdated2();
+		   if (jsonStr == null || jsonStr.length <= 0) return;         		
+		       $("#jsonData").val(jsonStr);                      
+		       $.ajax({
+		          url : "/erp/comm/stan/factoryCalS/gridMainSave",
+		          type : "POST",
+		          data : $("#pform").serialize(),
+		          async : true,
+		          success : function(data) {
+		        	  saveCalendar();
+		           }
+		      }); 
 }
 function fn_initCalendar(params){
 	gfn_callAjaxForGrid(gridMain,params,"initCalendar",subLayout.cells("a"));

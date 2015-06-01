@@ -349,18 +349,11 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				//var formatRule = this.dxObj.getUserData("","@"+key);
+				
 				colVal = this.dxObj.cells2(i,j).getValue();
-				/*console.log(formatRule);
-				if(formatRule!= null){
-				    var els = $('<input>').attr({
-				        type: 'hidden',
-				        id: "",
-				        name: colId
-				    }).appendTo("body").addClass(formatRule).val(colVal).keyup();
-
-				}
-*/
+				var regExp = /[\{\}\[\]\/?,;:|\)*`!^\-_+<>@\#$%&\\"]/g
+				colVal = colVal.replace(regExp, "");
+				
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
 					return null;

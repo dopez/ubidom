@@ -317,3 +317,14 @@ function fileupload(tagId,imgId){
 	    });
 	 return true;
 }
+//mask test 로직
+function cs_masking(key,value){
+	var nValue = null;
+	if(key == 'format_date'){
+		var yyyy = value.substring(0,4);
+		var mm = value.substring(4,6);
+		var dd = value.substring(6,8);
+		nValue = yyyy+"/"+mm+"/"+dd;
+	}
+	return nValue;
+}

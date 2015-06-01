@@ -12,11 +12,12 @@ function gfn_temp(grid,data){
 	        	var classNm = grid.dxObj.getUserData("","@"+key);
 	        	
 	        	if(classNm != null){
-	        		console.log("classnm",classNm);
+	        		console.log(key);
+	        		console.log(data[i][key]);
 	        		$(input).val(data[i][key]);
 	        		$(input).addClass(classNm).keyup();
-	        		 console.log("input val",$(input).val())
 		        	data[i][key] = $(input).val();
+		        	//console.log("masking",cs_masking(classNm,'20150601'));
 	        	}
 
 	        
@@ -24,7 +25,6 @@ function gfn_temp(grid,data){
 
 
 	};
-	console.log('data is',data);
 	grid.clearAll();
     grid.parse(data, "js");
 
@@ -75,8 +75,7 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         success: function(data, status) {
         gData = data; 
         gfn_temp(grid,data);
- 
-            
+
           	 if (callbackFn != undefined) {
                 callbackFn.call(this, data);
             }
