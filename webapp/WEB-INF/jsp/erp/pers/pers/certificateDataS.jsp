@@ -26,6 +26,8 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"발급자",   colId:"balgbja",      width:"7", align:"center", type:"ed"});
 	gridMain.addHeader({name:"매수",     colId:"maesu",        width:"4", align:"center", type:"edn"});
 	gridMain.setUserData("","pk","no");
+	gridMain.dxObj.setUserData("","@passpostDate","format_date");
+	gridMain.dxObj.setUserData("","@applyDate","format_date");
 	gridMain.init(); 
 	gridMain.cs_setColumnHidden(["empNo"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
@@ -102,7 +104,7 @@ function fn_add(){
 
 function fn_save(){
 	 var jsonStr = gridMain.getJsonUpdated2();
-   if (jsonStr == null || jsonStr.length <= 0) return;         		
+   if (jsonStr == null || jsonStr.length <= 0) return;     
        $("#jsonData").val(jsonStr);                      
        $.ajax({
           url : "/erp/pers/pers/certificateDataS/gridMainSave",

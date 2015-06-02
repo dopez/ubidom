@@ -71,10 +71,9 @@ public class DayByDiliSController {
 	@RequestMapping(value = "/gridPopSearch",method = RequestMethod.POST)
 	public List<DayByDiliS> gridPopSearch(HttpServletRequest request, HttpServletResponse response,HttpSession session,DayByDiliS dayByDiliS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
-		String frDate = df.dateToString(dayByDiliS.getFrDate());
-		String toDate = df.dateToString(dayByDiliS.getToDate());
+		String frDate = dayByDiliS.getFrDate();
+		String toDate = dayByDiliS.getToDate();
 		map.put("compId", compId);
 		map.put("frDate", frDate);
 		map.put("toDate", toDate);
@@ -86,15 +85,10 @@ public class DayByDiliSController {
 	
 	@RequestMapping(value = "/gridPopSave",method = RequestMethod.POST)
 	public void gridPopSave(HttpServletRequest request, HttpServletResponse response,HttpSession session,DayByDiliS dayByDiliS) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
 		String empNo = (String) session.getAttribute("empNo");
-		String frDate = df.dateToString(dayByDiliS.getFrDate());
-		String toDate = df.dateToString(dayByDiliS.getToDate());
 		dayByDiliS.setCompId(compId);
 		dayByDiliS.setEmpNo(empNo);
-		dayByDiliS.setFrDate(frDate);
-		dayByDiliS.setToDate(toDate);
 		dayByDiliSService.prcsDayByDiliSPopI(dayByDiliS);
 	}
 	

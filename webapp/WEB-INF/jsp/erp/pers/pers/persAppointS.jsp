@@ -40,6 +40,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"발령직책",   colId:"jikchak",  width:"7",  align:"center", type:"combo"});
 	gridDtl.addHeader({name:"급여사업장", colId:"compId",   width:"7",  align:"center", type:"combo"});
 	gridDtl.setUserData("","pk","empNo");
+	gridDtl.dxObj.setUserData("","@balDate","format_date");
 	gridDtl.setColSort("str");
 	gridDtl.init();
 	gridDtl.cs_setColumnHidden(["empNo"]);

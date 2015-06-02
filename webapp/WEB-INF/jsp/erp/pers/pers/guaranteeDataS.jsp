@@ -22,7 +22,6 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
 	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});	
 	gridMst.setUserData("","pk","no");
-	//gridMst.dxObj.setUserData("","@empNo","format_jumin");
 	gridMst.setColSort("str");
 	gridMst.init(); 
 	gridMst.cs_setColumnHidden(["compId"]);

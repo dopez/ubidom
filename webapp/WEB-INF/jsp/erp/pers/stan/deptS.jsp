@@ -30,6 +30,8 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"center", type:"combo"});
 	gridDtl.setUserData("","pk","postCode");
+	gridDtl.dxObj.setUserData("","@stDate","format_date");
+	gridDtl.dxObj.setUserData("","@endDate","format_date"); 
 	gridDtl.setColSort("str");
 	gridDtl.init();
 	
@@ -103,9 +105,7 @@ function fn_delete(){
 }
 
  function fn_save(){
-		alert(1);
 	 var jsonStr = gridDtl.getJsonUpdated2();
-
 	 if (jsonStr == null || jsonStr.length <= 0) return;         		
 	    $("#jsonData").val(jsonStr);                      
 	    $.ajax({

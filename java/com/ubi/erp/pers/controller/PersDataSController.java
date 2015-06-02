@@ -85,9 +85,9 @@ public class PersDataSController {
 		//session 값 set
 		persDataS.setSysEmpNo(sysEmpNo);
 		// checkBox null Check
-		persDataS.setBldKind(nullCheck(persDataS.getBldKind()));
+/*		persDataS.setBldKind(nullCheck(persDataS.getBldKind()));
 		persDataS.setDisorderYn(nullCheck(persDataS.getDisorderYn()));
-		persDataS.setArmyMerit(nullCheck(persDataS.getArmyMerit()));
+		persDataS.setArmyMerit(nullCheck(persDataS.getArmyMerit()));*/
 		// calendar format check
 /*		persDataS.setEnterDate(df.dateToString(persDataS.getEnterDate()));
 		persDataS.setAmryDate1(df.dateToString(persDataS.getAmryDate1()));

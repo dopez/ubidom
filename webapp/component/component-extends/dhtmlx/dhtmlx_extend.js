@@ -32,7 +32,8 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 			}
 		}
 	} else if(stage==1){ // Progressing Editing
-		if(this.getColType(cInd)=="ed" || this.getColType(cInd)=="dhxCalendarA") {	
+		if(this.getColType(cInd)=="ed" || this.getColType(cInd)=="dhxCalendarA"
+			|| this.getColType(cInd)=="edn") {	
 	          var colId = this.getColumnId(cInd);
 	            var classNm = this.getUserData("","@"+colId);
 	            if(classNm != null){

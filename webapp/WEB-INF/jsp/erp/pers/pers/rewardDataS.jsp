@@ -32,6 +32,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"시행처",   colId:"apprCust",   width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"상벌내역", colId:"przPunCont", width:"13", align:"center", type:"ed"});
 	gridDtl.setUserData("","pk","no");
+	gridDtl.dxObj.setUserData("","@stDate","format_date");
 	gridDtl.init(); 
 	gridDtl.cs_setColumnHidden(["empNo","compId","seq"]);
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
