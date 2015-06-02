@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.cmm.util.JasperReportUtil;
+import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersDataP;
 import com.ubi.erp.pers.service.PersDataPService;
@@ -52,27 +55,31 @@ public class PersDataPController {
 		map3.put("V_EMP_NO", empno);
 		map3.put("o_cursor", null);
 		PersDataPService.selCareerData(map3);
+		System.out.println("stage1");
 		
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("o_cursor");
 		List<Map<String, Object>> list2 = (List<Map<String, Object>>) map2.get("o_cursor");
 		List<Map<String, Object>> list3 = (List<Map<String, Object>>) map3.get("o_cursor");
-        System.out.println(list.size());
-		for(int i = 0; i < list.size(); i++) {
-            System.out.println("one index " + i + " : value " +list.get(i));
-        }
-        System.out.println();
-		list.addAll(list2);
-		for(int i = 0; i < list.size(); i++) {
-            System.out.println("one index " + i + " : value " +list.get(i));
-        }
-        System.out.println();
-		list.addAll(list3);
-        System.out.println(list.size());
-		for(int i = 0; i < list.size(); i++) {
-            System.out.println("three index " + i + " : value " +list.get(i));
-        }
-        System.out.println();
-		return JasperReportUtil.render("PersDataP",list, "pdf");
+		
+		System.out.println("stage2");
+		
+		JRBeanCollectionDataSource datasrc = new JRBeanCollectionDataSource(list);
+		JRBeanCollectionDataSource subData1 = new JRBeanCollectionDataSource(list3);
+		JRBeanCollectionDataSource subData2 = new JRBeanCollectionDataSource(list2);
+		
+		System.out.println("stage3");
+		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("datasource", datasrc);
+		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub1.jasper");
+		parameterMap.put("SubData1", subData1);
+		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub2.jasper");
+		parameterMap.put("SubData2", subData2);
+		parameterMap.put("format", "pdf");
+		
+		System.out.println("stage4");
+		
+		return new ModelAndView("PersDataP", parameterMap);
 		
 	}
 	/*@SuppressWarnings("unchecked")
