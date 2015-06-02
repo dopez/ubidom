@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-06-02T14:15:50 -->
+<!-- 2015-06-02T18:22:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="persDataPsub2" pageWidth="595" pageHeight="46" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3603fcb2-1f83-4d30-9c23-837d7141cfc1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -15,12 +15,20 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="famRel" class="java.lang.String"/>
-	<field name="famName" class="java.lang.String"/>
-	<field name="juminNo" class="java.lang.String"/>
-	<field name="scholarship" class="java.lang.String"/>
+	<field name="famRel" class="java.lang.String">
+		<fieldDescription><![CDATA[famRel]]></fieldDescription>
+	</field>
+	<field name="famName" class="java.lang.String">
+		<fieldDescription><![CDATA[famName]]></fieldDescription>
+	</field>
+	<field name="juminNo" class="java.lang.String">
+		<fieldDescription><![CDATA[juminNo]]></fieldDescription>
+	</field>
+	<field name="scholarship" class="java.lang.String">
+		<fieldDescription><![CDATA[scholarship]]></fieldDescription>
+	</field>
 	<field name="job" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[job]]></fieldDescription>
 	</field>
 	<title>
 		<band height="30" splitType="Stretch">
