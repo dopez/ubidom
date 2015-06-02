@@ -95,31 +95,21 @@ public class WorkLogSController {
 		}
 
 	}*/
+	
 	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void gridMainSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		List<WorkLogS> list = new ArrayList<WorkLogS>();
 		DateFormatUtil df = new DateFormatUtil();
-		String compId = (String) session.getAttribute("compId");
-		String sysEmpNo = (String) session.getAttribute("empNo");
-		String jsonData = request.getParameter("jsonData");
-		ObjectMapper mapper = new ObjectMapper();
-		logger.debug("json dt = "+jsonData );
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<WorkLogS>>(){});
 		
-		for(WorkLogS workLogs : list) {
-			workLogs.setLogDate(df.dateToString(workLogs.getLogDate()));
-			workLogs.setSysEmpNo(sysEmpNo);
-			workLogs.setCompId(compId);
-			if("INSERT".equals(workLogs.getCudKey())) {
-				workLogSService.gridMainSave(workLogs);
-			}else if("UPDATE".equals(workLogs.getCudKey())){
-				workLogSService.gridMainSave(workLogs);
-			}else if("DELETE".equals(workLogs.getCudKey())){
-				workLogSService.gridMainSave(workLogs);
-			}
-		}
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");		
+		String jsonData = request.getParameter("jsonData");
+		
+		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<WorkLogS>>(){});		
+		workLogSService.prcsGridMain(list, sysEmpNo, compId);
 	}
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/seqReturn",method = RequestMethod.POST)
 	public List<WorkLogS> getSeqReturn(HttpServletRequest request,HttpServletResponse response, HttpSession session, WorkLogS WorkLogS) throws Exception {

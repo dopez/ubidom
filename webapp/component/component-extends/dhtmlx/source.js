@@ -38,7 +38,7 @@ function gfn_getMappingUrl(param){
 }
 
 function gfn_callAjaxComm(param,url,callbackFn) {
-	if (!url.match(/\\$/)) url = gfn_getMappingUrl(url);
+	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
 
 	$.ajax({
     	url:  url,

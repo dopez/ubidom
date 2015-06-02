@@ -57,6 +57,7 @@ $(document).ready(function() {
 		  }
     })
 	fn_search();
+	console.log(PscrnParm);
 })
 //doc ready end
 function fn_getSeqReturn() {

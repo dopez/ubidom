@@ -41,10 +41,10 @@
 		 		#{logSeq},
 		 		#{rNum},
 		 		#{empNo},
-		 		#{workKind},
+		 		#{workKind, jdbcType=VARCHAR},
 		 		#{logNum, jdbcType=VARCHAR},
 		 		#{logName, jdbcType=VARCHAR},
-		 		#{custCode},
+		 		#{custCode, jdbcType=VARCHAR},
 		 		#{logNote},
 		 		#{fileName},
 		 		#{sysEmpNo}
