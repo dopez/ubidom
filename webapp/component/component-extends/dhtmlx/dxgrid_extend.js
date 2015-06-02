@@ -78,7 +78,7 @@ dxGrid.prototype.init = function() {
 	);
 	this.dxObj.init();
 	this.dxObj.enableSmartRendering(true);
-	this.dxObj.setAwaitedRowHeight(25);
+	this.dxObj.setAwaitedRowHeight(28);
 
 	this.dxObj.enableEditEvents(true,false,true);
 

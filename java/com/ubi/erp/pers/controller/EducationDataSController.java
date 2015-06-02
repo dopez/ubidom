@@ -53,14 +53,7 @@ public class EducationDataSController {
 		
 		for(EducationDataS educationDataS : list) {
 			educationDataS.setSysEmpNo(sysEmpNo);
-
-			if("INSERT".equals(educationDataS.getCudKey())) {
-				educationDataSSErvice.prcsEducationDataS(educationDataS);
-			}else if("UPDATE".equals(educationDataS.getCudKey())){
-				educationDataSSErvice.prcsEducationDataS(educationDataS);
-			}else if("DELETE".equals(educationDataS.getCudKey())){
-				educationDataSSErvice.prcsEducationDataS(educationDataS);
-			}
+			educationDataSSErvice.prcsEducationDataS(educationDataS);
 		}
 	}
 

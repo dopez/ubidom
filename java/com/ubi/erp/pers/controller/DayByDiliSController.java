@@ -60,16 +60,10 @@ public class DayByDiliSController {
 		List<DayByDiliS> list = new ArrayList<DayByDiliS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<DayByDiliS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(DayByDiliS dayByDiliS : list) {
 			dayByDiliS.setSysEmpNo(sysEmpNo);
-			dayByDiliS.setWorkDate(df.dateToString(dayByDiliS.getWorkDate()));
-            if("UPDATE".equals(dayByDiliS.getCudKey())){
-				dayByDiliSService.prcsDayByDiliS(dayByDiliS);
-			}else if("DELETE".equals(dayByDiliS.getCudKey())){
-				dayByDiliSService.prcsDayByDiliS(dayByDiliS);
-			}
+			dayByDiliSService.prcsDayByDiliS(dayByDiliS);
 		}
 	}
 	
@@ -102,7 +96,6 @@ public class DayByDiliSController {
 		dayByDiliS.setFrDate(frDate);
 		dayByDiliS.setToDate(toDate);
 		dayByDiliSService.prcsDayByDiliSPopI(dayByDiliS);
-
 	}
 	
 }

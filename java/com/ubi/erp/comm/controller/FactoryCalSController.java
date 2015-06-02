@@ -79,11 +79,8 @@ public class FactoryCalSController {
 			factoryCalS.setYyyy(yValue);
 			factoryCalS.setMm(mValue);
 			factoryCalS.setWeekKnd(weKnd);
-            if("UPDATE".equals(factoryCalS.getCudKey())){
-            	factoryCalSSservice.saveFactoryCalS(factoryCalS);
-			}else if("DELETE".equals(factoryCalS.getCudKey())){
-				factoryCalSSservice.saveFactoryCalS(factoryCalS);
-			}
+			
+			factoryCalSSservice.saveFactoryCalS(factoryCalS);
 		}
 	}
 	

@@ -81,7 +81,7 @@ public class PersDataSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPersData(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		DateFormatUtil df = new DateFormatUtil();
+		//DateFormatUtil df = new DateFormatUtil();
 		//session 값 set
 		persDataS.setSysEmpNo(sysEmpNo);
 		// checkBox null Check
@@ -89,11 +89,11 @@ public class PersDataSController {
 		persDataS.setDisorderYn(nullCheck(persDataS.getDisorderYn()));
 		persDataS.setArmyMerit(nullCheck(persDataS.getArmyMerit()));
 		// calendar format check
-		persDataS.setEnterDate(df.dateToString(persDataS.getEnterDate()));
+/*		persDataS.setEnterDate(df.dateToString(persDataS.getEnterDate()));
 		persDataS.setAmryDate1(df.dateToString(persDataS.getAmryDate1()));
 		persDataS.setAmryDate2(df.dateToString(persDataS.getAmryDate2()));
 		persDataS.setRetireDate(df.dateToString(persDataS.getRetireDate()));
-		persDataS.setRetireMidDate(df.dateToString(persDataS.getRetireMidDate()));
+		persDataS.setRetireMidDate(df.dateToString(persDataS.getRetireMidDate()));*/
 		// armyJong check -- armyJong == armyKind
 		persDataS.setArmyJong(persDataS.getArmyKind());
 
@@ -102,14 +102,7 @@ public class PersDataSController {
 	 	}else{
 	 	 persDataS.setImgPath(""); 
 	 	}
-
-		if("INSERT".equals(persDataS.getCudKey())) {
-			persDataSService.prcsPersDataS(persDataS);
-		}else if("UPDATE".equals(persDataS.getCudKey())){
-			persDataSService.prcsPersDataS(persDataS);
-		}else if("DELETE".equals(persDataS.getCudKey())){
-			persDataSService.prcsPersDataS(persDataS);
-		}	
+	 	persDataSService.prcsPersDataS(persDataS);	
 	}
 	
 	//파일 List 불러오기

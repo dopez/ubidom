@@ -55,19 +55,10 @@ public class RewardDataSController {
 		List<RewardDataS> list = new ArrayList<RewardDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<RewardDataS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(RewardDataS rewardDataS : list) {
 			rewardDataS.setSysEmpNo(sysEmpNo);
-			rewardDataS.setStDate(df.dateToString(rewardDataS.getStDate()));
-			
-			if("INSERT".equals(rewardDataS.getCudKey())) {
-				rewardDataSService.prcsRewardDataS(rewardDataS);
-			}else if("UPDATE".equals(rewardDataS.getCudKey())){
-				rewardDataSService.prcsRewardDataS(rewardDataS);
-			}else if("DELETE".equals(rewardDataS.getCudKey())){
-				rewardDataSService.prcsRewardDataS(rewardDataS);
-			}
+			rewardDataSService.prcsRewardDataS(rewardDataS);
 		}
 	}
 }

@@ -53,14 +53,7 @@ public class ProvDeductSetSController {
 		for(ProvDeductSetS provDeductSetS : list) {
 			provDeductSetS.setSysEmpNo(sysEmpNo);
 			provDeductSetS.setCompId(compId);
-			
-			if("INSERT".equals(provDeductSetS.getCudKey())) {
-				provDeductSetSService.prcsProvDeductSetS(provDeductSetS);
-			}else if("UPDATE".equals(provDeductSetS.getCudKey())){
-				provDeductSetSService.prcsProvDeductSetS(provDeductSetS);
-			}else if("DELETE".equals(provDeductSetS.getCudKey())){
-				provDeductSetSService.prcsProvDeductSetS(provDeductSetS);
-			}
+			provDeductSetSService.prcsProvDeductSetS(provDeductSetS);
 		}
 	}
 }

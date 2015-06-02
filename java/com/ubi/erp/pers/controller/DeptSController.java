@@ -59,21 +59,12 @@ public class DeptSController {
 		List<DeptS> list = new ArrayList<DeptS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<DeptS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(DeptS deptS : list) {
 			deptS.setPostNameMst(deptS.getPostName());
 			deptS.setSysEmpNo(sysEmpNo);
 			deptS.setCompId(compId);
-			deptS.setStDate(df.dateToString(deptS.getStDate()));
-			deptS.setEndDate(df.dateToString(deptS.getEndDate()));
-			if("INSERT".equals(deptS.getCudKey())) {
-				deptSService.prcsDeptS(deptS);
-			}else if("UPDATE".equals(deptS.getCudKey())){
-				deptSService.prcsDeptS(deptS);
-			}else if("DELETE".equals(deptS.getCudKey())){
-				deptSService.prcsDeptS(deptS);
-			}
+			deptSService.prcsDeptS(deptS);
 		}
 	}
 	

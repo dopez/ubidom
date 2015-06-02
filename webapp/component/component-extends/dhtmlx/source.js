@@ -12,19 +12,11 @@ function gfn_temp(grid,data){
 	        	var classNm = grid.dxObj.getUserData("","@"+key);
 	        	
 	        	if(classNm != null){
-	        		console.log("classnm",classNm);
-	        		$(input).val(data[i][key]);
-	        		$(input).addClass(classNm).keyup();
-	        		 console.log("input val",$(input).val())
+	        		$(input).addClass(classNm).val(data[i][key]).keyup();
 		        	data[i][key] = $(input).val();
 	        	}
-
-	        
 		}
-
-
 	};
-	console.log('data is',data);
 	grid.clearAll();
     grid.parse(data, "js");
 
