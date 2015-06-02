@@ -31,7 +31,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"관계",     colId:"famRel",      width:"7", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"성명",     colId:"famName",     width:"7", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"부양",     colId:"depend",      width:"7", align:"center", type:"ch"});
-	gridDtl.addHeader({name:"주민번호", colId:"juminNo",     width:"7", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"주민번호", colId:"juminNo",     width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"동거",     colId:"liveWith",    width:"7", align:"center", type:"combo"});
 	gridDtl.addHeader({name:"장애",     colId:"disaYn",      width:"7", align:"center", type:"combo"});
 	gridDtl.addHeader({name:"직업",     colId:"job",         width:"7", align:"center", type:"ed"});
@@ -212,7 +212,7 @@ function fn_onClosePop(pName,data){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 성명
