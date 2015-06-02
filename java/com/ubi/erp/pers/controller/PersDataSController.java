@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,17 +11,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ubi.erp.cmm.file.AttachFileService;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
-import com.ubi.erp.user.domain.AttachFile;
 
 @RestController
 @RequestMapping(value = "/erp/pers/pers/persDataS")
@@ -31,6 +34,10 @@ public class PersDataSController {
 	
 	@Autowired
 	private AttachFileService attachFileService;
+	
+	private String saveFilename;  
+	  
+	private String filePath = "/images/temp";  
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
@@ -90,6 +97,12 @@ public class PersDataSController {
 		// armyJong check -- armyJong == armyKind
 		persDataS.setArmyJong(persDataS.getArmyKind());
 
+	 	if(saveFilename != null){  
+	 	persDataS.setImgPath(saveFilename);  
+	 	}else{
+	 	 persDataS.setImgPath(""); 
+	 	}
+
 		if("INSERT".equals(persDataS.getCudKey())) {
 			persDataSService.prcsPersDataS(persDataS);
 		}else if("UPDATE".equals(persDataS.getCudKey())){
@@ -99,24 +112,64 @@ public class PersDataSController {
 		}	
 	}
 	
-/*	//파일 List 불러오기
+	//파일 List 불러오기
 
-	//파일 업로드 및 삭제 추가
-	@RequestMapping(value = "/prcsFileUpload")
-	public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);
-		PersDataS persDataS = new PersDataS();
-		persDataS.setCompId(request.getParameter("imgCompId"));
-		persDataS.setEmpNo(request.getParameter("imgEmpNo"));
-		persDataS.setImgPath(uploadFileList.get(0).getFilePath());
-		persDataSService.updateImgPath(persDataS);
-	}
-	
+		//파일 업로드 및 삭제 추가
+		@RequestMapping(value = "/prcsFileUpload")
+		public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			//List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);  
+				
+			String saveDir = request.getSession().getServletContext().getRealPath(filePath);
+			 
+			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+			 MultiValueMap<String, MultipartFile> multiValueMap = multipartRequest.getMultiFileMap(); 
+			 
+			 File uploadDir = new File(saveDir);
+				if (!uploadDir.exists()) {
+					uploadDir.mkdirs();
+				}
+				
+			 List<MultipartFile> files = multiValueMap.get("fileName");  
+			   for (MultipartFile file : files) {  
+			 	if (!file.isEmpty()) {  
+					  long limitSize = Long.parseLong(PropertyUtil.getString("attach.uploadSize"));  
+				if (limitSize > file.getSize()) {  
+			 		 String fileName = file.getOriginalFilename();  
+					 String ext = fileName.substring(fileName.lastIndexOf(".") + 1);  
+			 		 String onlyName = fileName.substring(0, fileName.lastIndexOf("."));  
+			 		    saveFilename = fileName;  
+				// 파일명이 중복되는 경우 변경처리  
+				if (new File(saveDir + "/" + fileName).exists()) {  
+			 		int fileSeq = 1;  
+			 		while (isFileExists(saveDir, onlyName, fileSeq, ext)) {  
+							fileSeq++;  
+						}  
+					saveFilename = onlyName + "_" + fileSeq + "." + ext;  
+				  }  
+				// 실제 파일 업로드  
+				 file.transferTo(new File(saveDir + "/" + saveFilename));  
+				 }   
+			  }  
+		   } 
+		}
+		
 	@RequestMapping(value = "/prcsFileDelete")
-	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,PersDataS persDataS) throws Exception {
-		attachFileService.deleteAttachFilePath(persDataS.getImgPath());
+	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {	  
+		   String delDir = request.getSession().getServletContext().getRealPath(filePath);  
+			  File targetFile = new File(delDir,persDataS.getImgPath());  
+			 	if (targetFile.exists()) {  
+			 		 targetFile.delete();  
+			 		saveFilename = null; 
+					}  
+			 	
+				prcsPersData(request, response, session, persDataS);  
+		} 
+	
+	public boolean isFileExists(String saveDir, String onlyName, int fileSeq, String ext) {
+		return new File(saveDir + "/" + onlyName + "_" + (fileSeq) + "." + ext).exists();
 	}
-	*/
+
+	
 	public String nullCheck(String value){
 		if(value == null){
 			value = "0";
