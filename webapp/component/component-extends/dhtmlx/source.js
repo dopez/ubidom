@@ -146,17 +146,15 @@ function gfn_getFormElemntsData(formId,added) {
 			        if ($(this).is(":checked")) {
 			            $(els).val($(this).val())
 			        } else {
-			        	$(els).val("");
+			        	$(els).val("0");
 			        }
 			    });
 		}
-		function resetElements(){
-			$("class^=crud").remove();
-		}
-		addElements(formId,added);
+		console.log(added);
+		if(added != undefined)addElements(formId,added);
+		
 		editElements(formId);
-		var enyUrl =  $("#"+formId).serialize();
 		createElements(formId);
-		console.log("enyUrl",enyUrl);
-		return enyUrl;
+		
+		return  $("#"+formId).serialize();
 }
