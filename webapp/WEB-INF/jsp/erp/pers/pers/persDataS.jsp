@@ -56,7 +56,7 @@ $(document).ready(function(){
 	 			return false;
 	 		}else{
 	 			byId("fileName").click();
-	 			status = fileupload("fileName","target"); 
+	 			fileupload('fileName','target',fileUploadCB);
 	 		}
 		}
 		if(e.target.id == "delImg"){
@@ -104,6 +104,9 @@ $(document).ready(function(){
 	byId("cudKey").value = "INSERT";
 	fn_search();
 });
+function fileUploadCB(data){
+	fn_save();
+}
 
  function fn_comboSet(comboId,params,tagName){
 	comboId.setTemplate({
@@ -181,6 +184,7 @@ function fn_search(){
 function fn_new(){
 	byId("frmMain").reset();
 	byId("frmSearch").reset();
+	$('#target').removeAttr('src');
 	fn_calValue();
 	disableValue(1);
 	combo01.unSelectOption();
@@ -202,6 +206,7 @@ function fn_new(){
        enterDate: ["입사날짜",r_notEmpty]
 	};
 	if(gfn_formValidation('frmMain')){
+		 var rowIdx = gridMain.getSelectedRowIndex();
 		 disableValue(1);
 		var params = $("#frmMain").serialize();
 	     $.ajax(
@@ -211,8 +216,8 @@ function fn_new(){
 			  data:params,
 			  success:function(data)
 			  {
-				MsgManager.alertMsg("INF001"); 
-				fn_search();
+			   MsgManager.alertMsg("INF001"); 
+			   gridMain.selectRow(rowIdx,true,true,true);
 			  }
 		   });
 	}else{
@@ -235,9 +240,11 @@ function fn_loadFormListCB(data){
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
 	if(data[0].imgPath != null){
-	  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
-	  $("#target").attr("src",path);
-	}
+		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
+		  $("#target").attr("src",path);
+		}else{
+			$('#target').removeAttr('src');
+		}
 	
 }
 function fn_onOpenPop(pName){
@@ -268,18 +275,6 @@ function fn_onClosePop(pName,data){
  function fn_print(){
 		var url = "/erp/pers/pers/persDataP/report/persDataP.do"; 
 			url = url + "?empNo=" + $("#empNo").val();
-/* 			var urltest = "empNo=" + $("#empNo").val();
-	 console.log(3);
-	 $.ajax({
-         url : "/erp/pers/pers/persDataP/report/persDataPtest",
-         type : "get",
-         data : urltest,
-         async : true,
-         success : function(data) {
-			alert("?");
-          }
-     }); 
-	 console.log(4); */
 		window.open(url,'rpt','');
 	}
 </script>

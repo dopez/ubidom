@@ -272,7 +272,7 @@ function execDaumPostcode(postName,addressName) {
 }
 
 //임시로 파일 업로드 공통부분 추가
-function fileupload(tagId,imgId){
+function fileupload(tagId,imgId,callbackFn){
 	 $('#'+tagId).fileupload({
 	        dataType: 'json',
 	        add: function (e, data) {
@@ -285,11 +285,14 @@ function fileupload(tagId,imgId){
 	                    }
 	                    reader.readAsDataURL(data.files[0]);
 	                    data.submit();
+	                    if (callbackFn != undefined) {
+	                        callbackFn.call(this, data);
+	                    }
 	                }
 	            }
 
 	        },
-
+	        
 	        done: function (e, data) {
 	        	$("tr:has(td)").remove();
 	            $.each(data.result, function (index, file) {

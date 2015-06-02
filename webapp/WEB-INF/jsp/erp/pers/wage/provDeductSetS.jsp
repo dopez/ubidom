@@ -64,14 +64,7 @@ comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
 }
 function fn_search(){
-	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"),fn_gridMainCB); 
-}
-function fn_gridMainCB(data){
-	var gridStartRow1;
-	var gridStartRow2;
-	var rowIdx = gridMain.getRowsNum();
-	
-	//gridMain.dxObj.setCellTextStyle("row1",0,"color:red;border:1px solid gray;");
+	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a")); 
 }
 
 function fn_save(){
