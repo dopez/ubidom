@@ -98,25 +98,20 @@ public class PersDataSController {
 	//파일 List 불러오기
 
 		//파일 업로드 및 삭제 추가
-		@RequestMapping(value = "/prcsFileUpload")
-		public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			//List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);  
-				
-			String saveDir = request.getSession().getServletContext().getRealPath(filePath);
+	@RequestMapping(value = "/prcsFileUpload")
+	 public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	   String saveDir = request.getSession().getServletContext().getRealPath(filePath);
 			 
-			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-			 MultiValueMap<String, MultipartFile> multiValueMap = multipartRequest.getMultiFileMap(); 
-			 
-			 File uploadDir = new File(saveDir);
-				if (!uploadDir.exists()) {
-					uploadDir.mkdirs();
-				}
+	  MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+	  MultiValueMap<String, MultipartFile> multiValueMap = multipartRequest.getMultiFileMap(); 
+	  File uploadDir = new File(saveDir);
+		if (!uploadDir.exists()) {uploadDir.mkdirs();}
 				
-			 List<MultipartFile> files = multiValueMap.get("fileName");  
-			   for (MultipartFile file : files) {  
-			 	if (!file.isEmpty()) {  
-					  long limitSize = Long.parseLong(PropertyUtil.getString("attach.uploadSize"));  
-				if (limitSize > file.getSize()) {  
+	   List<MultipartFile> files = multiValueMap.get("fileName");  
+		   for (MultipartFile file : files) {  
+			 if (!file.isEmpty()) {  
+				long limitSize = Long.parseLong(PropertyUtil.getString("attach.uploadSize"));  
+			    if (limitSize > file.getSize()) {
 			 		 String fileName = file.getOriginalFilename();  
 					 String ext = fileName.substring(fileName.lastIndexOf(".") + 1);  
 			 		 String onlyName = fileName.substring(0, fileName.lastIndexOf("."));  
@@ -124,28 +119,24 @@ public class PersDataSController {
 				// 파일명이 중복되는 경우 변경처리  
 				if (new File(saveDir + "/" + fileName).exists()) {  
 			 		int fileSeq = 1;  
-			 		while (isFileExists(saveDir, onlyName, fileSeq, ext)) {  
-							fileSeq++;  
-						}  
+			 		while (isFileExists(saveDir, onlyName, fileSeq, ext)) {  fileSeq++;}  
 					saveFilename = onlyName + "_" + fileSeq + "." + ext;  
 				  }  
-				// 실제 파일 업로드  
-				 file.transferTo(new File(saveDir + "/" + saveFilename));  
-				 }   
-			  }  
-		   } 
-		}
+			  // 실제 파일 업로드  
+			  file.transferTo(new File(saveDir + "/" + saveFilename));  
+			 }   
+		  }  
+	   } 
+	}
 		
 	@RequestMapping(value = "/prcsFileDelete")
 	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {	  
-		   String delDir = request.getSession().getServletContext().getRealPath(filePath);  
-			  File targetFile = new File(delDir,persDataS.getImgPath());  
-			 	if (targetFile.exists()) {  
-			 		 targetFile.delete();  
-			 		saveFilename = null; 
-					}  
-			 	
-				prcsPersData(request, response, session, persDataS);  
+	String delDir = request.getSession().getServletContext().getRealPath(filePath);  
+	File targetFile = new File(delDir,persDataS.getImgPath());  
+	   if (targetFile.exists()) {  
+		   targetFile.delete();  
+		   saveFilename = null;}  
+          prcsPersData(request, response, session, persDataS);  
 		} 
 	
 	public boolean isFileExists(String saveDir, String onlyName, int fileSeq, String ext) {
