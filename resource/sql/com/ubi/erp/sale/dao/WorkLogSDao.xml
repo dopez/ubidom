@@ -11,6 +11,7 @@
 		 		#{V_COMPID},
 		 		#{V_LOG_KIND},
 		 		#{V_LOG_DATE},
+		 		#{V_EMP_NO},
 		 		#{V_LOG_SEQ},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=WorkLogSMap, javaType=ResultSet}
 		 	)

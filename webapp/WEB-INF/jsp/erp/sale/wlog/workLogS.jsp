@@ -7,9 +7,11 @@ var calStDate;
 var popParam;
 //화면 매개변수
 var PscrnParm = parent.scrnParm;
+//로그인 empno 값
+var logInEmp = $("#empNo").val();
 $(document).ready(function() {
 
-    Ubi.setContainer(2, [1, 3, 5, 6], "1C"); //업무일지등록
+    Ubi.setContainer(2, [2,4,1, 3, 5, 6], "1C"); //업무일지등록
 
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -57,7 +59,6 @@ $(document).ready(function() {
 		  }
     })
 	fn_search();
-	console.log(PscrnParm);
 })
 //doc ready end
 function fn_getSeqReturn() {
@@ -69,7 +70,6 @@ function fn_getSeqReturn() {
     obj.dateColumn2 = 'LOG_KIND';
     obj.columnData2 = PscrnParm;
     obj.returnLen = 3;
-    console.log(obj);
     gfn_callAjaxComm(obj, "seqReturn", fn_SetSeq);
 }
 
@@ -82,16 +82,22 @@ function fn_search() {
     obj.logKind = PscrnParm;
     obj.logDate = $("#stDate").val();
     obj.logSeq = $("#seqNo").val();
+    obj.empNo = $("#empNo").val();
+    if(obj.empNo==null||obj.empNo.length<=0){
+    	obj.empNo = '%';
+    }
     gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 
 function fn_gridMainSelCallbckFunc(data) {
-    console.log(data);
+    //console.log(data);
 }
 
 function fn_delete() {
     var selectedId = gridMain.getSelectedRowId();
+    var empNoColIdx = gridMain.getColIndexById('empNo');
     gridMain.cs_deleteRow(selectedId);
+    $('#empNo').val(logInEmp);
 }
 
 function fn_save() {
@@ -106,11 +112,6 @@ function fn_save() {
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
 
-        console.log(frmParam);
-        console.log(jsonStr);
-
-        //gfn_callAjaxComm(frmParam,"gridMainSave", fn_gridMainSaveCallbckFunc);
-
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -119,7 +120,6 @@ function fn_save() {
             data: frmParam,
             async: true,
             success: function(data) {
-                //MsgManager.alertMsg("INF001");
                 fn_gridMainSaveCallbckFunc(data);
             }
         });
@@ -128,10 +128,10 @@ function fn_save() {
 }
 
 function fn_gridMainSaveCallbckFunc(data) {
+  	var totalRowNum = gridMain.getRowsNum();
     dhtmlx.alert("저장 완료");
-    //gridMain.selectRow(data[0].rNum);
     fn_search();
-
+    gridMain.selectRow(totalRowNum);
 }
 
 function fn_comboLoad(comboId, inputName, params, colIndx) {
@@ -181,6 +181,7 @@ function doOnRowSelect(rowId, colIdx) {
 }
 
 function fn_add() {
+  	var totalRowNum = gridMain.getRowsNum();
     var totalColNum = gridMain.getColumnCount();
     var data = new Array(totalColNum);
     var empNoColIdx = gridMain.getColIndexById('empNo');
@@ -192,6 +193,8 @@ function fn_add() {
     data[logSeqColIdx] = $("#seqNo").val();
     data[logKindColIdx] = PscrnParm;
     gridMain.addRow(data);
+    gridMain.selectRow(totalRowNum);
+
 }
 
 function fn_onClosePop(pName, data) {
