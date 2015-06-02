@@ -38,9 +38,9 @@ public class ReportController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("datasource", datasrc);
-		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir") + "/WEB-INF/report/SYS_USER_SUB1.jasper");
+		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/SYS_USER_SUB1.jasper");
 		parameterMap.put("SubData1", subData1);
-		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir") + "/WEB-INF/report/SYS_USER_SUB2.jasper");
+		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/SYS_USER_SUB2.jasper");
 		parameterMap.put("SubData2", subData2);
 		parameterMap.put("format", "pdf");
 
