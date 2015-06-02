@@ -56,11 +56,17 @@ public class WorkLogSController {
 		String logKind = request.getParameter("logKind");
 		String logDate = df.dateToString(request.getParameter("logDate"));
 		String logSeq = request.getParameter("logSeq");
+		String empNo = request.getParameter("empNo");
+		
+		System.out.println();
+		System.out.println(empNo);
+		System.out.println();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
 		map.put("V_LOG_KIND", logKind);
 		map.put("V_LOG_DATE", logDate);
+		map.put("V_EMP_NO", empNo);
 		map.put("V_LOG_SEQ", logSeq);
 		map.put("o_cursor", null);
 		workLogSService.gridMainSel(map);
