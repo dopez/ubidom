@@ -31,7 +31,7 @@ $(document).ready(function(){
     gridDtl.addHeader({name:"NO",        colId:"no", 	      width:"5",  align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"지급/공제", colId:"subjectKind", width:"7",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"코드",      colId:"subjectCode", width:"7",  align:"center", type:"ro"});
-	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"9",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"금액",      colId:"payAmt",      width:"9",  align:"right", type:"edn"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","no");

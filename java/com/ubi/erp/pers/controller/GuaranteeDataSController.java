@@ -88,24 +88,12 @@ public class GuaranteeDataSController {
 		
 		for(GuaranteeDataS guaranteeDataS : list1) {
 			guaranteeDataS.setSysEmpNo(sysEmpNo);
-			if("INSERT".equals(guaranteeDataS.getCudKey())) {
-				guaranteeDataSService.prcsGuaranteeDataS2(guaranteeDataS);
-			}else if("UPDATE".equals(guaranteeDataS.getCudKey())){
-				guaranteeDataSService.prcsGuaranteeDataS2(guaranteeDataS);
-			}else if("DELETE".equals(guaranteeDataS.getCudKey())){
-				guaranteeDataSService.prcsGuaranteeDataS2(guaranteeDataS);
-			}
+			guaranteeDataSService.prcsGuaranteeDataS2(guaranteeDataS);
 		}
 		
 		for(GuaranteeDataS guaranteeDataS : list2) {
 			guaranteeDataS.setSysEmpNo(sysEmpNo);
-			if("INSERT".equals(guaranteeDataS.getCudKey())) {
-				guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
-			}else if("UPDATE".equals(guaranteeDataS.getCudKey())){
-				guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
-			}else if("DELETE".equals(guaranteeDataS.getCudKey())){
-				guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
-			}
+			guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
 		}
 	}
 }

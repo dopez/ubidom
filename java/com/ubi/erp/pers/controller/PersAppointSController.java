@@ -83,19 +83,10 @@ public class PersAppointSController {
 		List<PersAppointS> list = new ArrayList<PersAppointS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<PersAppointS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(PersAppointS persAppointS : list) {
 			persAppointS.setSysEmpNo(sysEmpNo);
-			persAppointS.setBalDate(df.dateToString(persAppointS.getBalDate()));
-			
-			if("INSERT".equals(persAppointS.getCudKey())) {
-				persAppointSService.prcsPersAppointS(persAppointS);
-			}else if("UPDATE".equals(persAppointS.getCudKey())){
-				persAppointSService.prcsPersAppointS(persAppointS);
-			}else if("DELETE".equals(persAppointS.getCudKey())){
-				persAppointSService.prcsPersAppointS(persAppointS);
-			}
+			persAppointSService.prcsPersAppointS(persAppointS);
 		}
 	}
 	

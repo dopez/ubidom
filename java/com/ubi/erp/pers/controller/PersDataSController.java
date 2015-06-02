@@ -81,19 +81,9 @@ public class PersDataSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPersData(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		DateFormatUtil df = new DateFormatUtil();
 		//session 값 set
 		persDataS.setSysEmpNo(sysEmpNo);
-		// checkBox null Check
-		persDataS.setBldKind(nullCheck(persDataS.getBldKind()));
-		persDataS.setDisorderYn(nullCheck(persDataS.getDisorderYn()));
-		persDataS.setArmyMerit(nullCheck(persDataS.getArmyMerit()));
-		// calendar format check
-		persDataS.setEnterDate(df.dateToString(persDataS.getEnterDate()));
-		persDataS.setAmryDate1(df.dateToString(persDataS.getAmryDate1()));
-		persDataS.setAmryDate2(df.dateToString(persDataS.getAmryDate2()));
-		persDataS.setRetireDate(df.dateToString(persDataS.getRetireDate()));
-		persDataS.setRetireMidDate(df.dateToString(persDataS.getRetireMidDate()));
+		
 		// armyJong check -- armyJong == armyKind
 		persDataS.setArmyJong(persDataS.getArmyKind());
 
@@ -102,38 +92,26 @@ public class PersDataSController {
 	 	}else{
 	 	 persDataS.setImgPath(""); 
 	 	}
-
-		if("INSERT".equals(persDataS.getCudKey())) {
-			persDataSService.prcsPersDataS(persDataS);
-		}else if("UPDATE".equals(persDataS.getCudKey())){
-			persDataSService.prcsPersDataS(persDataS);
-		}else if("DELETE".equals(persDataS.getCudKey())){
-			persDataSService.prcsPersDataS(persDataS);
-		}	
+	 	persDataSService.prcsPersDataS(persDataS);	
 	}
 	
 	//파일 List 불러오기
 
 		//파일 업로드 및 삭제 추가
-		@RequestMapping(value = "/prcsFileUpload")
-		public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			//List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);  
-				
-			String saveDir = request.getSession().getServletContext().getRealPath(filePath);
+	@RequestMapping(value = "/prcsFileUpload")
+	 public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	   String saveDir = request.getSession().getServletContext().getRealPath(filePath);
 			 
-			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-			 MultiValueMap<String, MultipartFile> multiValueMap = multipartRequest.getMultiFileMap(); 
-			 
-			 File uploadDir = new File(saveDir);
-				if (!uploadDir.exists()) {
-					uploadDir.mkdirs();
-				}
+	  MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+	  MultiValueMap<String, MultipartFile> multiValueMap = multipartRequest.getMultiFileMap(); 
+	  File uploadDir = new File(saveDir);
+		if (!uploadDir.exists()) {uploadDir.mkdirs();}
 				
-			 List<MultipartFile> files = multiValueMap.get("fileName");  
-			   for (MultipartFile file : files) {  
-			 	if (!file.isEmpty()) {  
-					  long limitSize = Long.parseLong(PropertyUtil.getString("attach.uploadSize"));  
-				if (limitSize > file.getSize()) {  
+	   List<MultipartFile> files = multiValueMap.get("fileName");  
+		   for (MultipartFile file : files) {  
+			 if (!file.isEmpty()) {  
+				long limitSize = Long.parseLong(PropertyUtil.getString("attach.uploadSize"));  
+			    if (limitSize > file.getSize()) {
 			 		 String fileName = file.getOriginalFilename();  
 					 String ext = fileName.substring(fileName.lastIndexOf(".") + 1);  
 			 		 String onlyName = fileName.substring(0, fileName.lastIndexOf("."));  
@@ -141,39 +119,27 @@ public class PersDataSController {
 				// 파일명이 중복되는 경우 변경처리  
 				if (new File(saveDir + "/" + fileName).exists()) {  
 			 		int fileSeq = 1;  
-			 		while (isFileExists(saveDir, onlyName, fileSeq, ext)) {  
-							fileSeq++;  
-						}  
+			 		while (isFileExists(saveDir, onlyName, fileSeq, ext)) {  fileSeq++;}  
 					saveFilename = onlyName + "_" + fileSeq + "." + ext;  
 				  }  
-				// 실제 파일 업로드  
-				 file.transferTo(new File(saveDir + "/" + saveFilename));  
-				 }   
-			  }  
-		   } 
-		}
+			  // 실제 파일 업로드  
+			  file.transferTo(new File(saveDir + "/" + saveFilename));  
+			 }   
+		  }  
+	   } 
+	}
 		
 	@RequestMapping(value = "/prcsFileDelete")
 	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {	  
-		   String delDir = request.getSession().getServletContext().getRealPath(filePath);  
-			  File targetFile = new File(delDir,persDataS.getImgPath());  
-			 	if (targetFile.exists()) {  
-			 		 targetFile.delete();  
-			 		saveFilename = null; 
-					}  
-			 	
-				prcsPersData(request, response, session, persDataS);  
+	String delDir = request.getSession().getServletContext().getRealPath(filePath);  
+	File targetFile = new File(delDir,persDataS.getImgPath());  
+	   if (targetFile.exists()) {  
+		   targetFile.delete();  
+		   saveFilename = null;}  
+          prcsPersData(request, response, session, persDataS);  
 		} 
 	
 	public boolean isFileExists(String saveDir, String onlyName, int fileSeq, String ext) {
 		return new File(saveDir + "/" + onlyName + "_" + (fileSeq) + "." + ext).exists();
-	}
-
-	
-	public String nullCheck(String value){
-		if(value == null){
-			value = "0";
-		}
-		return value;
 	}
 }

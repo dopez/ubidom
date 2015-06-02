@@ -26,7 +26,7 @@ function byId(id) {
 	return document.getElementById(id);
 } 
 
-function dateformat(date){ 
+function dateformat(date){
 	var isdate= date;      
 
         var yyyy = isdate.getFullYear().toString();       

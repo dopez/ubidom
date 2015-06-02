@@ -5,31 +5,22 @@
 
 function gfn_temp(grid,data){
 
-	var input = $("<input>").appendTo("body");
+	var input = $("<input type='hidden'>").appendTo("body");
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
 	   
 	        	var classNm = grid.dxObj.getUserData("","@"+key);
 	        	
 	        	if(classNm != null){
-	        		console.log("classnm",classNm);
-	        		$(input).val(data[i][key]);
-	        		$(input).addClass(classNm).keyup();
-	        		 console.log("input val",$(input).val())
+	        		$(input).addClass(classNm).val(data[i][key]).keyup();
 		        	data[i][key] = $(input).val();
 	        	}
-
-	        
 		}
-
-
 	};
-	console.log('data is',data);
 	grid.clearAll();
     grid.parse(data, "js");
-
-
 }
+
 function gfn_getMappingUrl(param){
 	var tabId = parent.mainTabbar.getActiveTab();
 	var uri = parent.mainMenu.getUserData(tabId, "uri");
@@ -75,7 +66,7 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         success: function(data, status) {
         gData = data; 
         gfn_temp(grid,data);
- 
+
             
           	 if (callbackFn != undefined) {
                 callbackFn.call(this, data);
@@ -154,17 +145,15 @@ function gfn_getFormElemntsData(formId,added) {
 			        if ($(this).is(":checked")) {
 			            $(els).val($(this).val())
 			        } else {
-			        	$(els).val("");
+			        	$(els).val("0");
 			        }
 			    });
 		}
-		function resetElements(){
-			$("class^=crud").remove();
-		}
-		addElements(formId,added);
+		console.log(added);
+		if(added != undefined)addElements(formId,added);
+		
 		editElements(formId);
-		var enyUrl =  $("#"+formId).serialize();
 		createElements(formId);
-		console.log("enyUrl",enyUrl);
-		return enyUrl;
+		
+		return  $("#"+formId).serialize();
 }

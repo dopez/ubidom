@@ -33,6 +33,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"4", align:"center", type:"edn"});
 	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"4", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","no");
+	gridMain.dxObj.setUserData("","@workDate","format_date");
 	gridMain.setColSort("str");
 	gridMain.init();
 	gridMain.cs_setColumnHidden(["compId"]);

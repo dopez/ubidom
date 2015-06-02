@@ -206,9 +206,9 @@ function fn_new(){
        enterDate: ["입사날짜",r_notEmpty]
 	};
 	if(gfn_formValidation('frmMain')){
-		 var rowIdx = gridMain.getSelectedRowIndex();
 		 disableValue(1);
-		var params = $("#frmMain").serialize();
+		var params = gfn_getFormElemntsData('frmMain');
+		console.log("params : ",params);
 	     $.ajax(
 			{
 			  type:'POST',
@@ -217,11 +217,10 @@ function fn_new(){
 			  success:function(data)
 			  {
 			   MsgManager.alertMsg("INF001"); 
-			   gridMain.selectRow(rowIdx,true,true,true);
+			   fn_search();
 			  }
-		   });
-	}else{
-	}  
+		});
+	}
 }; 
 function fn_remove(){
 	$('#cudKey').val('DELETE');
@@ -583,7 +582,7 @@ function fn_onClosePop(pName,data){
 			       <div class="col-sm-7 col-md-7">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="amryDate1" id="amryDate1" value="">
+                              <input type="text" class="form-control input-xs format_date" name="amryDate1" id="amryDate1" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'amryDate2', 'max')">
@@ -592,7 +591,7 @@ function fn_onClosePop(pName,data){
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="amryDate2" id="amryDate2" value="">
+                              <input type="text" class="form-control input-xs format_date" name="amryDate2" id="amryDate2" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'amryDate1', 'min')">
@@ -611,7 +610,7 @@ function fn_onClosePop(pName,data){
 			       <div class="col-sm-7 col-md-7">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="enterDate" id="enterDate" value="" >
+                              <input type="text" class="form-control input-xs format_date" name="enterDate" id="enterDate" value="" >
                          </div>
                          <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker3" class="calicon form-control">
@@ -622,7 +621,7 @@ function fn_onClosePop(pName,data){
                      </label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="retireDate" id="retireDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="retireDate" id="retireDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker4" class="calicon form-control" >
@@ -649,7 +648,7 @@ function fn_onClosePop(pName,data){
 			       <div class="col-sm-7 col-md-7">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="retireMidDate" id="retireMidDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="retireMidDate" id="retireMidDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker5" class="calicon form-control">

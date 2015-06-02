@@ -83,14 +83,7 @@ public class FamilyDataSController {
 		
 		for(FamilyDataS familyDataS : list) {
 			familyDataS.setSysEmpNo(sysEmpNo);
-
-			if("INSERT".equals(familyDataS.getCudKey())) {
-				familyDataSSservice.prcsFamilyDataS(familyDataS);
-			}else if("UPDATE".equals(familyDataS.getCudKey())){
-				familyDataSSservice.prcsFamilyDataS(familyDataS);
-			}else if("DELETE".equals(familyDataS.getCudKey())){
-				familyDataSSservice.prcsFamilyDataS(familyDataS);
-			}
+			familyDataSSservice.prcsFamilyDataS(familyDataS);
 		}
 	}
 

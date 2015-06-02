@@ -56,18 +56,8 @@ public class CompSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCompS(HttpServletRequest request, HttpServletResponse response,HttpSession session,CompS compS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		DateFormatUtil df = new DateFormatUtil();
-
 		compS.setSysEmpNo(sysEmpNo);
-		compS.setStartDate(df.dateToString(compS.getStartDate()));
-
-		if("INSERT".equals(compS.getCudKey())) {
-			compSService.prcsCompS(compS);
-		}else if("UPDATE".equals(compS.getCudKey())){
-			compSService.prcsCompS(compS);
-		}else if("DELETE".equals(compS.getCudKey())){
-			compSService.prcsCompS(compS);
-		}
+		compSService.prcsCompS(compS);
 	}
 	
 }

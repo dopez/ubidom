@@ -5,8 +5,9 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
+var payAmtSum = 0;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3],"2U");
+	Ubi.setContainer(3,[1,3],"2U");
 	//급여기본자료(유동/공제)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -14,43 +15,167 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,사번,성명,부서,직위,주민등록번호",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100");
-	gridMst.setColAlign("center,right,left,left,left,left");
-	gridMst.setColTypes("ron,ron,ro,ro,ro,ro");
-	gridMst.setColSorting("int,int,str,str,str,str");
-	gridMst.init();	
-	subLayout.cells("a").setWidth(603);
-	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,지급/공제,코드,항목명,금액",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100");
-	gridDtl.setColAlign("center,left,left,left,right");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro");
-	gridDtl.setColSorting("int,str,str,str,int");
-	gridDtl.attachFooter("합계,,,,0");
-	gridDtl.init();		
+	subLayout.cells("a").setWidth(450);
+	gridMst = new dxGrid(subLayout.cells("a"),false);
+	gridMst.addHeader({name:"NO",           colId:"no", 	    width:"10",  align:"center", type:"cntr"});
+	gridMst.addHeader({name:"사번",         colId:"empNo",      width:"15",  align:"center", type:"ro"});
+	gridMst.addHeader({name:"성명",         colId:"korName",    width:"15",  align:"center", type:"ro"});
+    gridMst.addHeader({name:"부서",         colId:"postName",   width:"15",  align:"center", type:"ro"});
+    gridMst.addHeader({name:"직위",         colId:"jikweeName", width:"15",  align:"center", type:"ro"});
+    gridMst.addHeader({name:"주민등록번호", colId:"regiNumb",   width:"29",  align:"center", type:"ro"});
+    gridMst.setColSort("str");
+    gridMst.setUserData("","pk","no");
+    gridMst.init();	
+    gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
+    gridDtl = new dxGrid(subLayout.cells("b"),false);
+    gridDtl.addHeader({name:"NO",        colId:"no", 	      width:"5",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"지급/공제", colId:"subjectKind", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"코드",      colId:"subjectCode", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"9",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"금액",      colId:"payAmt",      width:"9",  align:"right", type:"edn"});
+	gridDtl.setColSort("str");
+	gridDtl.setUserData("","pk","no");
+    gridDtlAttachFooter();
+    gridDtl.init();	
+    gridDtl.cs_setColumnHidden(["empNo"]);	
+
+    $("#postName,#korName").click(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+	});
+    
+	calMain = new dhtmlXCalendarObject([{input:"yymm",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
     calMain.setDateFormat("%Y/%m");
     calMain.hideTime();	   
-    var t = new Date().getFullYear();
+    
+    calMainValue();
+    fn_search();
+});
+function calMainValue(){
+	var t = new Date().getFullYear();
     var m = +new Date().getMonth()+1;
     m = fn_monthLen(m);
-	byId("stDate").value = t+"/"+m;
-});
+	byId("yymm").value = t+"/"+m;
+}
+function gridDtlAttachFooter(){
+	gridDtl.atchFooter();
+	gridDtl.addAtchFooter({atchFooterName:"합 계"});
+	gridDtl.addAtchFooter({atchFooterName:""});
+	gridDtl.addAtchFooter({atchFooterName:""});
+	gridDtl.addAtchFooter({atchFooterName:""});
+	gridDtl.addAtchFooter({atchFooterName:payAmtSum});
+	gridDtl.atchFooterInit();
+	}
+function fn_search(){
+	fn_loadGridMst();
+}
+function fn_loadGridMst(){
+	var obj={};
+	obj.jikgun = $('#jikgun').val();
+	obj.serveGbn = $('#serveGbn').val();
+	obj.postCode = $('#postCode').val();
+	obj.empNo = $('#empNo').val();
+	if(obj.postCode == ''){
+		obj.postCode = '%';
+	}
+	if(obj.empNo == ''){
+		obj.empNo = '%';
+	}
+    gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
+}
+function doOnMstRowSelect(id,ind){
+	payAmtSum = 0;
+	var obj={};
+	obj.empNo = gridMst.setCells(id,1).getValue();
+	obj.compId = '100';
+	obj.yymm = $('#yymm').val();
+	fn_loadGridDtl(obj);
+}
+
+function fn_loadGridDtl(params){
+	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
+}
+function fn_loadGridMstCB(data){
+	var obj={};
+	obj.empNo = data[0].empNo;
+	obj.yymm = $('#yymm').val();
+	obj.compId = '100';
+	fn_loadGridDtl(obj); 
+	
+	byId("frmMain").reset();
+	$('#postCode').val('');
+	$('#empNo').val('');
+	calMainValue();
+};
+function fn_loadGridDtlCB(data){
+	var rodIdx = gridMst.getSelectedRowIndex();
+	var empNo;
+	if(rodIdx == -1){
+	  empNo = gridMst.setCells2(0,1).getValue();
+	}else{
+	  empNo = gridMst.setCells2(rodIdx,1).getValue();
+	}
+	for(var i=0; i<data.length;i++){
+		gridDtl.setCells2(i,5).setValue(empNo);
+		payAmtSum += data[i].payAmt*1;
+	 }
+	gridDtl.detachFooter(0);
+	gridDtlAttachFooter();
+}
+function fn_save(){
+	var rowIdx = gridMst.getSelectedRowIndex();
+	 var jsonStr = gridDtl.getJsonUpdated2();
+	 var yymm = $('#yymm').val();
+	 $('#monthDate').val(yymm);
+	  if (jsonStr == null || jsonStr.length <= 0) return;         		
+	      $("#jsonData").val(jsonStr);                      
+	      $.ajax({
+	         url : "/erp/pers/wage/variableBaseWageR/gridDtlSave",
+	         type : "POST",
+	         data : $("#pform").serialize(),
+	         async : true,
+	         success : function(data) {
+	         MsgManager.alertMsg("INF001");
+	         gridMst.selectRow(rowIdx,true,true,true);
+	          }
+	     });
+}
+function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
+	if(pName=="postCode"){
+		for(i=0;i<data.length;i++){
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			$('#postName').val(obj.postName);
+			$('#postCode').val(obj.postCode);
+		}		  
+	}else if(pName == "empNo"){
+		for(i=0;i<data.length;i++){
+			obj.korName=data[i].korName;
+			obj.empNo=data[i].empNo;
+				$('#korName').val(obj.korName);
+				$('#empNo').val(obj.empNo);
+		}
+	}	  
+ };
 </script>
+<form id="pform" name="pform" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+    <input type="hidden" id="monthDate" name="monthDate">
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
+      <input type="hidden" name="postCode" id="postCode">
+      <input type="hidden" name="empNo" id="empNo">
 	<div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -59,7 +184,7 @@ $(document).ready(function(){
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
-                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                      <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-2 col-md-2">
                      <input type="button" id="calpicker" class="calicon form-control">
@@ -69,59 +194,54 @@ $(document).ready(function(){
 	    </div>
       </div>  
       <div class="row">
-	     <div class="form-group form-group-sm">
-		    <div class="col-sm-8 col-md-8">
-			   <label class="col-sm-2 col-md-2 control-label" for="textinput">
-			    부서
-			   </label>
-			   <div class="col-sm-2 col-md-2">
-			     <input name="dept" id="dept" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부서코드','common/deptCodePOP')">
-			   </div>
-		    </div>
-	     </div>
-	 </div>
-	 <div class="row">
-	    <div class="form-group form-group-sm">
-		   <div class="col-sm-8 col-md-8">
-			 <label class="col-sm-2 col-md-2 control-label" for="textinput">
-			  성명
-			 </label>
-			 <div class="col-sm-2 col-md-2">
-			   <input name="name" id="name" type="text" value="" placeholder="" class="form-control input-xs">
-			 </div>
-		  </div>
-	   </div>
-	 </div>  
-     <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
 			 직군
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="jobgubn" id="jobgubn" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="관리직">관리직</option>
-			   <option value="생산직">생산직</option>
-			   <option value="용역">용역</option>
-			   <option value="외국인">외국인</option>
-			   <option value="기술직">기술직</option>
+			  <select name="jikgun" id="jikgun" class="form-control input-xs">
+			   <option value="%">전체</option>
+			   <option value="01">관리직</option>
+			   <option value="02">생산직</option>
+			   <option value="03">용역</option>
+			   <option value="04">외국인</option>
+			   <option value="05">기술직</option>
+			   <option value="06">계약직</option>
 			  </select>
 			</div>
 			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 근무
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <select name="work" id="work" class="form-control input-xs">
-			   <option value="전체">전체</option>
-			   <option value="재직">재직</option>
-			   <option value="휴직">휴직</option>
-			   <option value="퇴직">퇴직</option>
+			  <select name="serveGbn" id="serveGbn" class="form-control input-xs">
+			   <option value="%">전체</option>
+			   <option value="01">재직</option>
+			   <option value="02">휴직</option>
+			   <option value="03">퇴직</option>
 			  </select>
 			</div>
 		  </div>
 	  </div>
-	</div> 
+	</div>
+    <div class="row">
+	   <div class="form-group form-group-sm">
+		  <div class="col-sm-8 col-md-8">
+			<label class="col-sm-2 col-md-2 control-label" for="textinput">
+			 부서
+			 </label>
+			<div class="col-sm-2 col-md-2">
+			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
+			</div>
+			<label class="col-sm-1 col-md-1 control-label" for="textinput">
+			 성명
+			 </label>
+			<div class="col-sm-2 col-md-2">
+			  <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
+			</div>
+		  </div>
+	  </div>
+	</div>
   </form>
  </div> 
 </div>

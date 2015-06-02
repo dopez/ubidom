@@ -63,21 +63,11 @@ public class CertificateDataSController {
 		List<CertificateDataS> list = new ArrayList<CertificateDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<CertificateDataS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(CertificateDataS certificateDataS : list) {
 			certificateDataS.setCompId(compId);
 			certificateDataS.setSysEmpNo(sysEmpNo);
-			certificateDataS.setApplyDate(df.dateToString(certificateDataS.getApplyDate()));
-			certificateDataS.setPasspostDate(df.dateToString(certificateDataS.getPasspostDate()));
-			
-			if("INSERT".equals(certificateDataS.getCudKey())) {
-				certificateDataSService.prcsCertificateDataS(certificateDataS);
-			}else if("UPDATE".equals(certificateDataS.getCudKey())){
-				certificateDataSService.prcsCertificateDataS(certificateDataS);
-			}else if("DELETE".equals(certificateDataS.getCudKey())){
-				certificateDataSService.prcsCertificateDataS(certificateDataS);
-			}
+			certificateDataSService.prcsCertificateDataS(certificateDataS);
 		}
 	}
 	

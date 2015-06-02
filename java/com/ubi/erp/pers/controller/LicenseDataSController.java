@@ -60,14 +60,7 @@ public class LicenseDataSController {
 		for(LicenseDataS licenseDataS : list) {
 			licenseDataS.setSysEmpNo(sysEmpNo);
 			licenseDataS.setAchiDate(df.dateToString(licenseDataS.getAchiDate()));
-			
-			if("INSERT".equals(licenseDataS.getCudKey())) {
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
-			}else if("UPDATE".equals(licenseDataS.getCudKey())){
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
-			}else if("DELETE".equals(licenseDataS.getCudKey())){
-				licenseDataSService.prcsLicenseDataS(licenseDataS);
-			}
+			licenseDataSService.prcsLicenseDataS(licenseDataS);
 		}
 	}
 }

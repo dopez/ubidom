@@ -35,6 +35,8 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"전공2/업무", colId:"specCode2", width:"7", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"졸업/직위",  colId:"gradLast",  width:"7", align:"center", type:"ed"});
 	gridDtl.setUserData("","pk","no");
+	gridDtl.dxObj.setUserData("","@startDate","format_date");
+	gridDtl.dxObj.setUserData("","@endDate","format_date");
 	gridDtl.setColSort("str");
 	gridDtl.init(); 
 	gridDtl.cs_setColumnHidden(["empNo","compId","seq"]);

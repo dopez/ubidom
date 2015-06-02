@@ -45,9 +45,12 @@ $(document).ready(function(){
 });
 
 function fn_gridCntSearch(){
-	gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSearch",fn_gridCntSearchCB);
+	var params = gfn_getFormElemntsData('frmSearch');
+	gfn_callAjaxForForm("frmMain",params,"/erp/pers/dili/dayByDiliS/gridPopSearch",fn_gridCntSearchCB);
 }
 function fn_gridCntSearchCB(data){
+	$('#frDate').keyup();
+	$('#toDate').keyup();
 	if(data[0].cnt > 0){
 		if(MsgManager.confirmMsg("INF005")) { 
 			fn_saveDiliS();
@@ -57,7 +60,8 @@ function fn_gridCntSearchCB(data){
 	}
 }
 function fn_saveDiliS(){
-	gfn_callAjaxForForm("frmMain",$("#frmSearch").serialize(),"/erp/pers/dili/dayByDiliS/gridPopSave",fn_gridCntSearchCB);
+	var params = gfn_getFormElemntsData('frmSearch');
+	gfn_callAjaxForForm("frmMain",params,"/erp/pers/dili/dayByDiliS/gridPopSave",fn_gridCntSearchCB);
 	parent.fn_onClosePop(config.id,{});
 	parent.dhxWins.window("w1").close();
 }
@@ -73,7 +77,7 @@ function fn_saveDiliS(){
 				<div class="col-xs-9">
                     <div class="col-xs-5">
                          <div class="col-xs-10">
-                              <input type="text" class="form-control input-xs" name="frDate" id="frDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="frDate" id="frDate" value="">
                          </div>
                          <div class="col-xs-2">
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'toDate', 'max')">
@@ -86,7 +90,7 @@ function fn_saveDiliS(){
                        </div>
                         <div class="col-xs-5">
                           <div class="col-xs-10">
-                              <input type="text" class="form-control input-xs" name="toDate" id="toDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="toDate" id="toDate" value="">
                           </div>
                           <div class="col-xs-2">
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'frDate', 'min')">

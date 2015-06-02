@@ -78,7 +78,7 @@ dxGrid.prototype.init = function() {
 	);
 	this.dxObj.init();
 	this.dxObj.enableSmartRendering(true);
-	this.dxObj.setAwaitedRowHeight(25);
+	this.dxObj.setAwaitedRowHeight(28);
 
 	this.dxObj.enableEditEvents(true,false,true);
 
@@ -219,9 +219,6 @@ dxGrid.prototype.attachEvent = function(eName,fName) {
 
 dxGrid.prototype.load = function(json) {
 	var pk = this.dxObj.getUserData("","pk");
-
-	 var input = document.createElement('input');
-
 	this.clearAll();
 	this.dxObj.parse(json, "js");
 	if(pk!="") this.dxObj.setUserData("","pk", pk);
@@ -348,18 +345,11 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-				//var formatRule = this.dxObj.getUserData("","@"+key);
-				colVal = this.dxObj.cells2(i,j).getValue();
-				/*console.log(formatRule);
-				if(formatRule!= null){
-				    var els = $('<input>').attr({
-				        type: 'hidden',
-				        id: "",
-				        name: colId
-				    }).appendTo("body").addClass(formatRule).val(colVal).keyup();
 
-				}
-*/
+				colVal = this.dxObj.cells2(i,j).getValue();
+				 var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
+				colVal = colVal.replace(regExp, "");
+				
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
 					return null;

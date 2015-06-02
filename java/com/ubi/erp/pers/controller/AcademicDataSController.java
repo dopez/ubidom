@@ -56,20 +56,10 @@ public class AcademicDataSController {
 		List<AcademicDataS> list = new ArrayList<AcademicDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<AcademicDataS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
-		
+
 		for(AcademicDataS academicDataS : list) {
 			academicDataS.setSysEmpNo(sysEmpNo);
-			academicDataS.setStartDate(df.dateToString(academicDataS.getStartDate()));
-			academicDataS.setEndDate(df.dateToString(academicDataS.getEndDate()));
-			
-			if("INSERT".equals(academicDataS.getCudKey())) {
-				academicDataSSservice.prcsAcademicDataS(academicDataS);
-			}else if("UPDATE".equals(academicDataS.getCudKey())){
-				academicDataSSservice.prcsAcademicDataS(academicDataS);
-			}else if("DELETE".equals(academicDataS.getCudKey())){
-				academicDataSSservice.prcsAcademicDataS(academicDataS);
-			}
+			academicDataSSservice.prcsAcademicDataS(academicDataS);
 		}
 	}
 	

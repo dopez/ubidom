@@ -82,13 +82,13 @@ function fn_save(){
        address:        ["주소",r_notEmpty],
        startDate:      ["개업년월일",r_notEmpty]
 	};
-  
+	 
 	if(gfn_formValidation('frmMain')){
  		 disableValue(1);	
         $.ajax({
          url : "/erp/comm/stan/compS/formSave",
          type : "POST",
-         data : $("#frmMain").serialize(),
+         data : gfn_getFormElemntsData('frmMain'),
          async : true,
          success : function(data) {
          MsgManager.alertMsg("INF001");
@@ -300,7 +300,7 @@ function fn_loadFormList(params){
 				</label>
 				<div class="col-sm-3 col-md-3">
 					<div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="startDate" id="startDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="startDate" id="startDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                               <input type="button" id="calpicker1" class="calicon form-control">

@@ -18,64 +18,70 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.pers.domain.FixBaseWageR;
-import com.ubi.erp.pers.service.FixBaseWageRService;
+import com.ubi.erp.cmm.util.gson.DateFormatUtil;
+import com.ubi.erp.pers.domain.VariableBaseWageR;
+import com.ubi.erp.pers.service.VariableBaseWageRService;
 
 @RestController
-@RequestMapping(value = "/erp/pers/wage/fixBaseWageR")
-public class FixBaseWageRController {
+@RequestMapping(value = "/erp/pers/wage/variableBaseWageR")
+public class VariableBaseWageRController {
 	
 	@Autowired
-	private FixBaseWageRService fixBaseWageRService;
+	private VariableBaseWageRService variableBaseWageRService;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
-	public List<FixBaseWageR> selFixBaseWageRL(HttpServletRequest request, HttpServletResponse response,HttpSession session,FixBaseWageR fixBaseWageR) throws Exception {
+	public List<VariableBaseWageR> selVariableBaseWageRL(HttpServletRequest request, HttpServletResponse response,HttpSession session,VariableBaseWageR variableBaseWageR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
-		String serveGbn = fixBaseWageR.getServeGbn();
-		String jikgun = fixBaseWageR.getJikgun();
-		String postCode = fixBaseWageR.getPostCode();
-		String empNo = fixBaseWageR.getEmpNo();
+		String serveGbn = variableBaseWageR.getServeGbn();
+		String jikgun = variableBaseWageR.getJikgun();
+		String postCode = variableBaseWageR.getPostCode();
+		String empNo = variableBaseWageR.getEmpNo();
 		map.put("compId", compId);
 		map.put("postCode", postCode);
 		map.put("empNo",empNo);
 		map.put("jikgun",jikgun);
 		map.put("serveGbn",serveGbn);
 		map.put("o_cursor", null);
-		fixBaseWageRService.selFixBaseWageRL(map);
-		List<FixBaseWageR> list = (List<FixBaseWageR>) map.get("o_cursor");
+		variableBaseWageRService.selVariableBaseWageRL(map);
+		List<VariableBaseWageR> list = (List<VariableBaseWageR>) map.get("o_cursor");
 		return list;
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
-	public List<FixBaseWageR> selFixBaseWageRR(HttpServletRequest request, HttpServletResponse response,FixBaseWageR fixBaseWageR) throws Exception {
+	public List<VariableBaseWageR> selFixBaseWageRR(HttpServletRequest request, HttpServletResponse response,VariableBaseWageR variableBaseWageR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = fixBaseWageR.getCompId();
-		String empNo = fixBaseWageR.getEmpNo();
+		DateFormatUtil df = new DateFormatUtil();
+		String compId = variableBaseWageR.getCompId();
+		String empNo = variableBaseWageR.getEmpNo();
+		String yymm = df.monthToString(variableBaseWageR.getYymm());
 		map.put("compId", compId);
+		map.put("yymm", yymm);
 		map.put("empNo", empNo);
 		map.put("o_cursor", null);
-		fixBaseWageRService.selFixBaseWageRR(map);
-		List<FixBaseWageR> list = (List<FixBaseWageR>) map.get("o_cursor");
+		variableBaseWageRService.selVariableBaseWageRR(map);
+		List<VariableBaseWageR> list = (List<VariableBaseWageR>) map.get("o_cursor");
 		return list;
 	}
 
 	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsFamilyDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
-		List<FixBaseWageR> list = new ArrayList<FixBaseWageR>();
+		List<VariableBaseWageR> list = new ArrayList<VariableBaseWageR>();
 		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<FixBaseWageR>>(){});
-		
-		for(FixBaseWageR fixBaseWageR : list) {
-			fixBaseWageR.setSysEmpNo(sysEmpNo);
-			fixBaseWageR.setCompId(compId);
-			fixBaseWageRService.prcsFixBaseWageR(fixBaseWageR);
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<VariableBaseWageR>>(){});
+		String yymm = df.monthToString(request.getParameter("monthDate"));
+		for(VariableBaseWageR variableBaseWageR : list) {
+			variableBaseWageR.setSysEmpNo(sysEmpNo);
+			variableBaseWageR.setCompId(compId);
+			variableBaseWageR.setYymm(yymm);
+			variableBaseWageRService.prcsVariableBaseWageR(variableBaseWageR);
 		}
 	}
 }
