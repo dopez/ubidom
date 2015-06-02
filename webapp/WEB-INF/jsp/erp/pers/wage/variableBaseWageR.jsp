@@ -7,7 +7,7 @@ var gridMst, gridDtl;
 var calMain;
 var payAmtSum = 0;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,3],"2U");
+	Ubi.setContainer(3,[1,3],"2U");
 	//급여기본자료(유동/공제)
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -27,19 +27,19 @@ $(document).ready(function(){
     gridMst.setUserData("","pk","no");
     gridMst.init();	
     gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
-	
+
     gridDtl = new dxGrid(subLayout.cells("b"),false);
     gridDtl.addHeader({name:"NO",        colId:"no", 	      width:"5",  align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"지급/공제", colId:"subjectKind", width:"7",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"코드",      colId:"subjectCode", width:"7",  align:"center", type:"ro"});
-	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"7",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"9",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"금액",      colId:"payAmt",      width:"9",  align:"right", type:"edn"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","no");
     gridDtlAttachFooter();
     gridDtl.init();	
     gridDtl.cs_setColumnHidden(["empNo"]);	
-    
+
     $("#postName,#korName").click(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
@@ -48,18 +48,21 @@ $(document).ready(function(){
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		}
 	});
-	
+    
 	calMain = new dhtmlXCalendarObject([{input:"yymm",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
     calMain.setDateFormat("%Y/%m");
     calMain.hideTime();	   
-    var t = new Date().getFullYear();
+    
+    calMainValue();
+    fn_search();
+});
+function calMainValue(){
+	var t = new Date().getFullYear();
     var m = +new Date().getMonth()+1;
     m = fn_monthLen(m);
 	byId("yymm").value = t+"/"+m;
-	
-	fn_search();
-});
+}
 function gridDtlAttachFooter(){
 	gridDtl.atchFooter();
 	gridDtl.addAtchFooter({atchFooterName:"합 계"});
@@ -74,7 +77,6 @@ function fn_search(){
 }
 function fn_loadGridMst(){
 	var obj={};
-	obj.yymm = $('#yymm').val();
 	obj.jikgun = $('#jikgun').val();
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
@@ -92,6 +94,7 @@ function doOnMstRowSelect(id,ind){
 	var obj={};
 	obj.empNo = gridMst.setCells(id,1).getValue();
 	obj.compId = '100';
+	obj.yymm = $('#yymm').val();
 	fn_loadGridDtl(obj);
 }
 
@@ -101,12 +104,14 @@ function fn_loadGridDtl(params){
 function fn_loadGridMstCB(data){
 	var obj={};
 	obj.empNo = data[0].empNo;
+	obj.yymm = $('#yymm').val();
 	obj.compId = '100';
 	fn_loadGridDtl(obj); 
 	
 	byId("frmMain").reset();
 	$('#postCode').val('');
 	$('#empNo').val('');
+	calMainValue();
 };
 function fn_loadGridDtlCB(data){
 	var rodIdx = gridMst.getSelectedRowIndex();
@@ -126,10 +131,12 @@ function fn_loadGridDtlCB(data){
 function fn_save(){
 	var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl.getJsonUpdated2();
+	 var yymm = $('#yymm').val();
+	 $('#monthDate').val(yymm);
 	  if (jsonStr == null || jsonStr.length <= 0) return;         		
 	      $("#jsonData").val(jsonStr);                      
 	      $.ajax({
-	         url : "/erp/pers/wage/fixBaseWageR/gridDtlSave",
+	         url : "/erp/pers/wage/variableBaseWageR/gridDtlSave",
 	         type : "POST",
 	         data : $("#pform").serialize(),
 	         async : true,
@@ -161,6 +168,7 @@ function fn_onClosePop(pName,data){
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
+    <input type="hidden" id="monthDate" name="monthDate">
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

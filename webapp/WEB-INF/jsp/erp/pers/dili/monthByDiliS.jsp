@@ -56,6 +56,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"총근무",   colId:"totalTime", width:"4", align:"center", type:"ro"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","no");
+	gridDtl.dxObj.setUserData("","@workDate","format_date");
 	gridDtl.init();	
 	gridDtl.cs_setColumnHidden(["compId","empNo"]);
 	

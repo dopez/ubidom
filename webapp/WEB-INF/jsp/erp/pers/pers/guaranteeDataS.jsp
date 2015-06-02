@@ -83,7 +83,7 @@ function fn_comboSet(comboId){
 	params.code = 'P007';
 	
 	comboId.setTemplate({
-	    input: "#interName#",
+	    input: "#interName#",  
 	    columns: [
 	       {header: "구분", width: 100,  option: "#interName#"}
 	    ]

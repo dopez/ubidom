@@ -219,9 +219,6 @@ dxGrid.prototype.attachEvent = function(eName,fName) {
 
 dxGrid.prototype.load = function(json) {
 	var pk = this.dxObj.getUserData("","pk");
-
-	 var input = document.createElement('input');
-
 	this.clearAll();
 	this.dxObj.parse(json, "js");
 	if(pk!="") this.dxObj.setUserData("","pk", pk);

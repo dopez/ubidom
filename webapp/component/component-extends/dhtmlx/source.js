@@ -5,7 +5,7 @@
 
 function gfn_temp(grid,data){
 
-	var input = $("<input>").appendTo("body");
+	var input = $("<input type='hidden'>").appendTo("body");
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
 	   
@@ -19,9 +19,8 @@ function gfn_temp(grid,data){
 	};
 	grid.clearAll();
     grid.parse(data, "js");
-
-
 }
+
 function gfn_getMappingUrl(param){
 	var tabId = parent.mainTabbar.getActiveTab();
 	var uri = parent.mainMenu.getUserData(tabId, "uri");
@@ -67,7 +66,7 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         success: function(data, status) {
         gData = data; 
         gfn_temp(grid,data);
- 
+
             
           	 if (callbackFn != undefined) {
                 callbackFn.call(this, data);

@@ -6,19 +6,19 @@
 	<resultMap id="VariableBaseWageRMap" type="VariableBaseWageR"/>
 	
 	<select id="selVariableBaseWageRL" statementType="CALLABLE">
-		 {call SP_INSA_FIXBASEWAGER_SCH1(#{compId},#{postCode},#{empNo},#{jikgun},#{serveGbn},
+		 {call SP_INSA_VARIABLEBASEWAGER_SCH1(#{compId},#{postCode},#{empNo},#{jikgun},#{serveGbn},
 		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=VariableBaseWageRMap, javaType=ResultSet})}	
 	</select>
 	
 	<select id="selVariableBaseWageRR" statementType="CALLABLE">
-		 {call SP_INSA_FIXBASEWAGER_SCH2(#{compId},#{empNo},
+		 {call SP_INSA_VARIABLEBASEWAGER_SCH2(#{compId},#{yymm},#{empNo},
 		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=VariableBaseWageRMap, javaType=ResultSet})}	
 	</select>
 	
 		<insert id="prcsVariableBaseWageR" statementType="CALLABLE" parameterType="VariableBaseWageR">
-  		{call SP_INSA_FIXBASEWAGER_SAVE(
-  		#{cudKey},#{compId},#{empNo},#{subjectCode},#{payAmt},
-  		#{sysEmpNo}
+  		{call SP_INSA_VARIABLEBASEWAGER_SAVE(
+  		#{cudKey},#{compId},#{empNo},#{yymm},#{subjectCode},
+  		#{payAmt},#{sysEmpNo}
   		)}	
   	</insert>
   	

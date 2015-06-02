@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.VariableBaseWageR;
 import com.ubi.erp.pers.service.VariableBaseWageRService;
 
@@ -33,13 +34,11 @@ public class VariableBaseWageRController {
 	public List<VariableBaseWageR> selVariableBaseWageRL(HttpServletRequest request, HttpServletResponse response,HttpSession session,VariableBaseWageR variableBaseWageR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
-		//String yymm = variableBaseWageR.getYymm();
 		String serveGbn = variableBaseWageR.getServeGbn();
 		String jikgun = variableBaseWageR.getJikgun();
 		String postCode = variableBaseWageR.getPostCode();
 		String empNo = variableBaseWageR.getEmpNo();
 		map.put("compId", compId);
-		//map.put("yymm", yymm);
 		map.put("postCode", postCode);
 		map.put("empNo",empNo);
 		map.put("jikgun",jikgun);
@@ -54,9 +53,12 @@ public class VariableBaseWageRController {
 	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
 	public List<VariableBaseWageR> selFixBaseWageRR(HttpServletRequest request, HttpServletResponse response,VariableBaseWageR variableBaseWageR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		DateFormatUtil df = new DateFormatUtil();
 		String compId = variableBaseWageR.getCompId();
 		String empNo = variableBaseWageR.getEmpNo();
+		String yymm = df.monthToString(variableBaseWageR.getYymm());
 		map.put("compId", compId);
+		map.put("yymm", yymm);
 		map.put("empNo", empNo);
 		map.put("o_cursor", null);
 		variableBaseWageRService.selVariableBaseWageRR(map);
@@ -67,17 +69,18 @@ public class VariableBaseWageRController {
 	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsFamilyDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
 		List<VariableBaseWageR> list = new ArrayList<VariableBaseWageR>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<VariableBaseWageR>>(){});
-		
+		String yymm = df.monthToString(request.getParameter("monthDate"));
 		for(VariableBaseWageR variableBaseWageR : list) {
 			variableBaseWageR.setSysEmpNo(sysEmpNo);
 			variableBaseWageR.setCompId(compId);
-			
+			variableBaseWageR.setYymm(yymm);
 			variableBaseWageRService.prcsVariableBaseWageR(variableBaseWageR);
 		}
 	}

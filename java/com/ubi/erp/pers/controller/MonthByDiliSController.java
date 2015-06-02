@@ -84,7 +84,6 @@ public class MonthByDiliSController {
 		
 		for(MonthByDiliS monthByDiliS : list) {
 			monthByDiliS.setSysEmpNo(sysEmpNo);
-			monthByDiliS.setWorkDate(df.dateToString(monthByDiliS.getWorkDate()));
 			monthByDiliS.setYymm(monthDate);
 			if("UPDATE".equals(monthByDiliS.getCudKey())){
             	monthByDiliSService.prcsMonthByDiliS(monthByDiliS);
