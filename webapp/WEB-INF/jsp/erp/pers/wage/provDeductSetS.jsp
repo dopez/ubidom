@@ -48,15 +48,15 @@ function fn_comboSet(comboId,comboNum){
 	  comboId.addOption("1","지급");
 	  comboId.addOption("2","공제");	
 	}else if(comboNum == 2){
-	   comboId.addOption("1","계산식");
-	   comboId.addOption("2","고정수당");
-	   comboId.addOption("3","변동수당");
-	   comboId.addOption("4","변동(가지급)");
+	   comboId.addOption("C","계산식");
+	   comboId.addOption("F","고정수당");
+	   comboId.addOption("N","변동수당");
+	   comboId.addOption("P","변동(가지급)");
 	}
     else if(comboNum == 3){
-       comboId.addOption("1","과세");
- 	   comboId.addOption("2","비과세");
- 	   comboId.addOption("3","연장비과세");
+       comboId.addOption("T","과세");
+ 	   comboId.addOption("N","비과세");
+ 	   comboId.addOption("O","연장비과세");
 	}
 
 comboId.enableFilteringMode(true);
