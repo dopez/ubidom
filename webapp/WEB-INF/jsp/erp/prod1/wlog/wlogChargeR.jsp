@@ -23,6 +23,7 @@ $(document).ready(function() {
     gridMain.addHeader({name:"일자",colId:"logDate",width:"5",align:"center",type:"ro"});
     gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ro"});
     gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ro"});
+    gridMain.dxObj.setUserData("","@logDate","format_date");
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
     gridMain.init();
@@ -55,12 +56,14 @@ $(document).ready(function() {
 })
 //doc ready end
 function fn_search() {
-    var param = gfn_getFormElemntsData('frmSearch');
-   	var obj = {};
-   	obj.param = param
+    var obj = {};
+    var splitfrDate = $("#stDate").val().split("/");
+    var splittoDate = $("#edDate").val().split("/");
+    var frDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    var toDate = splittoDate[0]+splittoDate[1]+splittoDate[2];
     obj.logKind = PscrnParm;
-    obj.frDate = $("#stDate").val();
-    obj.toDate = $("#edDate").val();
+    obj.frDate = String(frDate);
+    obj.toDate = String(toDate);
     obj.empNo = $("#empNo").val();
     obj.workKind = comboVal;
     obj.custCode = $("#custCode").val();
@@ -72,9 +75,9 @@ function fn_search() {
     }
     if(obj.custCode==null||obj.custCode.length<=0){
     	obj.custCode = '%';
-    } 
+    }
     console.log(obj);
-    gfn_callAjaxForGrid(gridMain, obj, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    gfn_callAjaxForGrid(gridMain, obj, "/erp/sale/wlog/workLogPersR/gridMainSelProd1", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 //excel
 function fn_excel(){
@@ -148,8 +151,7 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
-                            <%-- <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled"> --%>
+                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
                         </div>
                     </div>
                 </div>

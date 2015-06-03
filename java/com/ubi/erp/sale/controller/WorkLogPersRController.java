@@ -53,7 +53,9 @@ public class WorkLogPersRController {
 		String empNo = request.getParameter("empNo");
 		String workKind = request.getParameter("workKind");
 		String custCode = request.getParameter("custCode");
-
+		System.out.println(frDate);
+		System.out.println(toDate);
+		System.out.println(empNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
 		map.put("V_LOG_KIND", logKind);
@@ -64,6 +66,47 @@ public class WorkLogPersRController {
 		map.put("V_CUST_CODE", custCode);
 		map.put("o_cursor", null);
 		workLogPersRService.selGridMain(map);
+		List<WorkLogPersR> list  = (List<WorkLogPersR>) map.get("o_cursor");
+		return list;
+	}	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridMainSelProd1", method = RequestMethod.POST)
+	public List<WorkLogPersR> selGridMainProd1(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String logKind = request.getParameter("logKind");
+		String frDate = request.getParameter("frDate");
+		String toDate = request.getParameter("toDate");
+		String empNo = request.getParameter("empNo");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_LOG_KIND", logKind);
+		map.put("V_FR_DATE", frDate);
+		map.put("V_TO_DATE", toDate);
+		map.put("V_EMP_NO", empNo);
+		map.put("o_cursor", null);
+		workLogPersRService.selGridMainProd1(map);
+		List<WorkLogPersR> list  = (List<WorkLogPersR>) map.get("o_cursor");
+		return list;
+	}	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridMainSelRndt", method = RequestMethod.POST)
+	public List<WorkLogPersR> selGridMainRndt(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String logKind = request.getParameter("logKind");
+		String frDate = request.getParameter("frDate");
+		String toDate = request.getParameter("toDate");
+		String empNo = request.getParameter("empNo");
+		String workKind = request.getParameter("workKind");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_LOG_KIND", logKind);
+		map.put("V_FR_DATE", frDate);
+		map.put("V_TO_DATE", toDate);
+		map.put("V_EMP_NO", empNo);
+		map.put("V_WORK_KIND", workKind);
+		map.put("o_cursor", null);
+		workLogPersRService.selGridMainRndt(map);
 		List<WorkLogPersR> list  = (List<WorkLogPersR>) map.get("o_cursor");
 		return list;
 	}	

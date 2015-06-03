@@ -31,6 +31,7 @@ $(document).ready(function() {
     gridMain.setColSort("str");
     gridMain.init();
     gridMain.cs_setColumnHidden(["empNo","logDate","logSeq","logNum","logName","custCode","logKind"]);
+
 	
     //combo
    	var combo01 = gridMain.getColumnCombo(2);
@@ -85,7 +86,7 @@ function fn_search() {
     $("input[name=empNo]").attr("disabled",false);
     $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData('frmMain');
-    gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
 }
 
 function fn_gridMainSelCallbckFunc(data) {
@@ -115,7 +116,7 @@ function fn_save() {
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-
+		console.log(jsonStr);
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -173,7 +174,7 @@ function doOnOpen(comboId, params, colIndx) {
 function doOnRowSelect(rowId, colIdx) {
     var param = ""
     if (colIdx == 1) {
-        gfn_load_pop('w1', 'common/customPOP', true, {
+         gfn_load_pop('w1', 'common/customPOP', true, {
             "custKorName": param
         });
     }
@@ -188,12 +189,13 @@ function fn_add() {
     var logSeqColIdx = gridMain.getColIndexById('logSeq');
     var logKindColIdx = gridMain.getColIndexById('logKind');
     data[empNoColIdx] = $("#empNo").val();
-    data[logDateColIdx] = $("#stDate").val();
+    var splitfrDate = $("#stDate").val().split("/");
+    var frDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    data[logDateColIdx] = frDate;
     data[logSeqColIdx] = $("#seqNo").val();
     data[logKindColIdx] = PscrnParm;
     gridMain.addRow(data);
     gridMain.selectRow(totalRowNum);
-
 }
 
 function fn_onClosePop(pName, data) {
@@ -255,13 +257,13 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-1 col-md-1">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
-<%--                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled"> --%>
+                            <!-- <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled"> -->
+                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
-<%--                                 <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs"> --%>
+                                <!-- <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs"> -->
+                                 <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>

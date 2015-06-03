@@ -32,4 +32,29 @@
 		 	)
 		 }
 	</select>
+  	<select id="selGridMainProd1" statementType="CALLABLE">
+		 {call
+		 	SP_COMM_WORKLOGALLR_SCH1(
+		 		#{V_COMPID},
+		 		#{V_LOG_KIND},
+		 		#{V_FR_DATE},
+		 		#{V_TO_DATE},
+		 		#{V_EMP_NO},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=WorkLogAllRMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
+  	<select id="selGridMainRndt" statementType="CALLABLE">
+		 {call
+		 	SP_COMM_WORKLOGALLR_SCH2(
+		 		#{V_COMPID},
+		 		#{V_LOG_KIND},
+		 		#{V_FR_DATE},
+		 		#{V_TO_DATE},
+		 		#{V_EMP_NO},
+		 		#{V_WORK_KIND},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=WorkLogAllRMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
 </mapper>

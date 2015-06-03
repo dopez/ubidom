@@ -7,8 +7,6 @@ var calStDate;
 var popParam;
 //화면 매개변수
 var PscrnParm = parent.scrnParm;
-//로그인 empno 값
-var logInEmp = $("#empNo").val();
 $(document).ready(function() {
 
     Ubi.setContainer(4, [2,4,1, 3, 5, 6], "1C"); //업무일지등록
@@ -78,19 +76,23 @@ function fn_SetSeq(data) {
 }
 
 function fn_search() {
-    var obj = {};
-    obj.logKind = PscrnParm;
-    obj.logDate = $("#stDate").val();
-    obj.logSeq = $("#seqNo").val();
-    obj.empNo = $("#empNo").val();
-    if(obj.empNo==null||obj.empNo.length<=0){
-    	obj.empNo = '%';
-    }
-    gfn_callAjaxForGrid(gridMain, obj, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    $("#logKind").val(PscrnParm);
+    if($("#empNo").val() == ""){
+    	$("#empNo").val("%");
+    };
+    $("input[name=empNo]").attr("disabled",false);
+    $("input[name=seqNo]").attr("disabled",false);
+    var param = gfn_getFormElemntsData('frmMain');
+    gfn_callAjaxForGrid(gridMain, param, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 
 function fn_gridMainSelCallbckFunc(data) {
-    console.log(data);
+    $("input[name=empNo]").attr("disabled",true);
+    $("input[name=seqNo]").attr("disabled",true);
+    if($("#empNo").val() == "%"){
+    	$("#empNo").val("");
+    };
+    	$("#stDate").keyup();
 }
 
 function fn_delete() {
@@ -98,22 +100,24 @@ function fn_delete() {
     var empNoColIdx = gridMain.getColIndexById('empNo');
     gridMain.cs_deleteRow(selectedId);
 //    $('#empNo').val(gridMain.setCells2(selectedId, empNoColIdx).getValue());
-    $('#empNo').val(logInEmp);
 
 }
 
 function fn_save() {
     var selRowIdx = gridMain.getSelectedRowIndex();
     var empNoColIdx = gridMain.getColIndexById('empNo');
-    var empNoVal = $('#empNo').val();
-    if (empNoVal == null || empNoVal.length <= 0) {
-        dhtmlx.alert("사원이름을 입력해주세요.");
-    } else {
-        gridMain.setCells2(selRowIdx, empNoColIdx).setValue(empNoVal);
+    var logNameVal = $('#logName').val();
+    var logNumVal = $('#logNum').val();
+    
+    if (logNameVal == null || logNameVal.length <= 0 || logNumVal == null || logNumVal.length <= 0) {
+        dhtmlx.alert("과제번호 / 과제명을 입력해주세요.");
+        return;
+    } 
+     
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-
+		console.log(jsonStr);
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -125,13 +129,15 @@ function fn_save() {
                 fn_gridMainSaveCallbckFunc(data);
             }
         });
-    }
+    
 }
 function fn_gridMainSaveCallbckFunc(data) {
   	var totalRowNum = gridMain.getRowsNum();
     dhtmlx.alert("저장 완료");
     fn_search();
     gridMain.selectRow(totalRowNum);
+    $("#logNum").val("");
+    $("#logName").val("");
 }
 
 function fn_add() {
@@ -146,7 +152,9 @@ function fn_add() {
     var logNumIdx = gridMain.getColIndexById('logNum');
     var logNameIdx = gridMain.getColIndexById('logName');
     data[empNoColIdx] = $("#empNo").val();
-    data[logDateColIdx] = $("#stDate").val();
+    var splitfrDate = $("#stDate").val().split("/");
+    var frDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    data[logDateColIdx] = frDate;
     data[logSeqColIdx] = $("#seqNo").val();
     data[logKindColIdx] = PscrnParm;
     data[workKindIdx] = $('input:radio[name="workKind"]:checked').val();
@@ -189,13 +197,14 @@ function fn_onClosePop(pName, data) {
 <div id="bootContainer">
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
-            <div class="row">
+        <input type="hidden" id = "logKind" name="logKind">
+        	<div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -214,13 +223,11 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-1 col-md-1">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
-<%--                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled"> --%>
+                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
-<%--                                 <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs"> --%>
+                              <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>
@@ -243,7 +250,8 @@ function fn_onClosePop(pName, data) {
                    <div class="col-sm-8 col-md-8">
                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 관리번호 </label>
                        <div class="col-sm-1 col-md-1">
-                           <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')">
+                           <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" >
+<!--                            <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')"> -->
                        </div>
                        <div class="col-sm-3 col-md-3">
                            <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">

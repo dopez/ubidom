@@ -111,6 +111,8 @@ function fn_gridSel(gridName,kindParam){
 	if($("#custCode").val() == ""){
 		$("#custCode").val("%");
 	}
+    $("input[name=empNo]").attr("disabled",false);
+    $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData("frmSearch");
 	if(gridName == "gridMain"){
 	    gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
@@ -136,6 +138,8 @@ function fn_gridMainSelCallbckFunc(data) {
 	}
 	$("#frDate").keyup();
 	$("#toDate").keyup();
+    $("input[name=empNo]").attr("disabled",true);
+    $("input[name=seqNo]").attr("disabled",true);
 }
 function fn_gridDtlSelCallbckFunc(data) {
 	if($("#custCode").val() == "%"){
@@ -205,7 +209,7 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
                         </div>
                         <label class=" col-md-1 col-md-1 control-label" for="textinput" style="margin-left:-18px;padding-right: -15px;"> 고객 </label>
                   <div class="col-sm-2 col-md-2">
