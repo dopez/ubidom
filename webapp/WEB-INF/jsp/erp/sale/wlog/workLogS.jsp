@@ -75,22 +75,22 @@ function fn_getSeqReturn() {
 
 function fn_SetSeq(data) {
     $("#seqNo").val(data[0].seq);
+    $("#logKind").val(PscrnParm);
+    if($("#empNo").val() == ""){
+    	$("#empNo").val("%");
+    };
 }
 
 function fn_search() {
-    var obj = {};
-    obj.logKind = PscrnParm;
-    obj.logDate = $("#stDate").val();
-    obj.logSeq = $("#seqNo").val();
-    obj.empNo = $("#empNo").val();
-    if(obj.empNo==null||obj.empNo.length<=0){
-    	obj.empNo = '%';
-    }
-    gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    $("input[name=empNo]").attr("disabled",false);
+    $("input[name=seqNo]").attr("disabled",false);
+    var param = gfn_getFormElemntsData('frmMain');
+    gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 
 function fn_gridMainSelCallbckFunc(data) {
-    //console.log(data);
+    $("input[name=empNo]").attr("disabled",true);
+    $("input[name=seqNo]").attr("disabled",true);
 }
 
 function fn_delete() {
@@ -173,11 +173,6 @@ function doOnRowSelect(rowId, colIdx) {
             "custKorName": param
         });
     }
-    /* var selRowIdx = gridMain.getSelectedRowIndex();
-	var empNoIdx = gridMain.getColIndexById('empNo');
-	var empNoIdx = gridMain.getColIndexById('empNo');
-	gridMain.setCells2(selRowIdx,empNoIdx).getValue(); */
-
 }
 
 function fn_add() {
@@ -230,13 +225,14 @@ function fn_onClosePop(pName, data) {
 <div id="bootContainer">
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+        <input type="hidden" id = "logKind" name="logKind">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">

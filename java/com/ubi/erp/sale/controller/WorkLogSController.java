@@ -50,17 +50,11 @@ public class WorkLogSController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
 	public List<WorkLogS> gridMainSel(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
-
 		String comp = (String) session.getAttribute("compId");
-		String logKind = request.getParameter("logKind");
-		String logDate = df.dateToString(request.getParameter("logDate"));
-		String logSeq = request.getParameter("logSeq");
-		String empNo = request.getParameter("empNo");
-		
-		System.out.println();
-		System.out.println(empNo);
-		System.out.println();
+		String logKind = workLogS.getLogKind();
+		String logDate = workLogS.getStDate();
+		String logSeq = workLogS.getSeqNo();
+		String empNo = workLogS.getEmpNo();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
@@ -71,9 +65,6 @@ public class WorkLogSController {
 		map.put("o_cursor", null);
 		workLogSService.gridMainSel(map);
 		List<WorkLogS> list  = (List<WorkLogS>) map.get("o_cursor");
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setLogDate(df.dateToString2(list.get(i).getLogDate()));
-		}
 		return list;
 	}	
 	
@@ -106,7 +97,6 @@ public class WorkLogSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void gridMainSave(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		List<WorkLogS> list = new ArrayList<WorkLogS>();
-		DateFormatUtil df = new DateFormatUtil();
 		
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");		

@@ -76,9 +76,13 @@ $(document).ready(function() {
 //doc ready end
 function fn_search() {
     var obj = {};
+    var splitfrDate = $("#stDate").val().split("/");
+    var splittoDate = $("#edDate").val().split("/");
+    var frDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    var toDate = splittoDate[0]+splittoDate[1]+splittoDate[2];
     obj.logKind = PscrnParm;
-    obj.frDate = $("#stDate").val();
-    obj.toDate = $("#edDate").val();
+    obj.frDate = String(frDate);
+    obj.toDate = String(toDate);
     obj.empNo = $("#empNo").val();
     obj.workKind = comboVal;
     obj.custCode = $("#custCode").val();
@@ -91,7 +95,7 @@ function fn_search() {
     if(obj.custCode==null||obj.custCode.length<=0){
     	obj.custCode = '%';
     }
-    gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
 }
 //excel
 function fn_excel(){
@@ -127,14 +131,14 @@ function fn_onClosePop(pName, data) {
 function fn_comboCodeLoad(comboId) {
     var param = {};
     param.code = "W01"
-    comboId.addOption([{value: 0,text: {interCode: '%',interName: '전체'}}]);
+    //comboId.addOption([{value: 0,text: {interCode: '%',interName: '전체'}}]);
     $.ajax({
         "url": "/erp/cmm/InterCodeR",
         "type": "post",
         "data": param,
         "success": function(data) {
             var list = data;
-            for (var i = 1; i < list.length; i++) {
+            for (var i = 0; i < list.length; i++) {
                 comboId.addOption([{value: i,text: {interCode: list[i].interCode,interName: list[i].interName}}]);
             }
             comboId.selectOption(0);
@@ -210,6 +214,7 @@ function fn_comboCodeLoad(comboId) {
                         <div class="col-sm-2 col-md-2">
                             <select id="workKind" class="form-control input-xs">
                             </select>
+                            <input type="hidden" value = "" id="workKindInput" name="workKindInput">
                         </div>
                     </div>
                 </div>

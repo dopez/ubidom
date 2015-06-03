@@ -46,12 +46,10 @@ public class WorkLogPersRController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
 	public List<WorkLogPersR> selGridMain(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
-
 		String comp = (String) session.getAttribute("compId");
 		String logKind = request.getParameter("logKind");
-		String frDate = df.dateToString(request.getParameter("frDate"));
-		String toDate = df.dateToString(request.getParameter("toDate"));
+		String frDate = request.getParameter("frDate");
+		String toDate = request.getParameter("toDate");
 		String empNo = request.getParameter("empNo");
 		String workKind = request.getParameter("workKind");
 		String custCode = request.getParameter("custCode");
@@ -67,9 +65,6 @@ public class WorkLogPersRController {
 		map.put("o_cursor", null);
 		workLogPersRService.selGridMain(map);
 		List<WorkLogPersR> list  = (List<WorkLogPersR>) map.get("o_cursor");
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setLogDate(df.dateToString2(list.get(i).getLogDate()));
-		}
 		return list;
 	}	
 

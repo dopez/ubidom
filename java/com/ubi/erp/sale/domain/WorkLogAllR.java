@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("WorkLogS")
-public class WorkLogS implements Serializable {
+@Alias("WorkLogAllR")
+public class WorkLogAllR implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String cudKey;
@@ -24,10 +24,18 @@ public class WorkLogS implements Serializable {
 	private String logNote;
 	private String fileName;
 	private String sysEmpNo;
-	private String stDate;
-	private String edDate;
-	private String seqNo;
+	
 	private String seq;
+
+	private int col1;
+	private int col2;
+	private int col3;
+	private int col4;
+	private int col5;
+	private int col6;
+	private int col7;
+	private int col8;
+	private int colSum;
 
 	public String getCudKey() {
 		return cudKey;
@@ -169,27 +177,75 @@ public class WorkLogS implements Serializable {
 		this.sysEmpNo = sysEmpNo;
 	}
 
-	public String getStDate() {
-		return stDate;
+	public int getCol1() {
+		return col1;
 	}
 
-	public void setStDate(String stDate) {
-		this.stDate = stDate;
+	public void setCol1(int col1) {
+		this.col1 = col1;
 	}
 
-	public String getEdDate() {
-		return edDate;
+	public int getCol2() {
+		return col2;
 	}
 
-	public void setEdDate(String edDate) {
-		this.edDate = edDate;
+	public void setCol2(int col2) {
+		this.col2 = col2;
 	}
 
-	public String getSeqNo() {
-		return seqNo;
+	public int getCol3() {
+		return col3;
 	}
 
-	public void setSeqNo(String seqNo) {
-		this.seqNo = seqNo;
+	public void setCol3(int col3) {
+		this.col3 = col3;
+	}
+
+	public int getCol4() {
+		return col4;
+	}
+
+	public void setCol4(int col4) {
+		this.col4 = col4;
+	}
+
+	public int getCol5() {
+		return col5;
+	}
+
+	public void setCol5(int col5) {
+		this.col5 = col5;
+	}
+
+	public int getCol6() {
+		return col6;
+	}
+
+	public void setCol6(int col6) {
+		this.col6 = col6;
+	}
+
+	public int getCol7() {
+		return col7;
+	}
+
+	public void setCol7(int col7) {
+		this.col7 = col7;
+	}
+
+	public int getCol8() {
+		return col8;
+	}
+
+	public void setCol8(int col8) {
+		this.col8 = col8;
+	}
+
+	public int getColSum() {
+		return colSum;
+	}
+
+	public void setColSum(int colSum) {
+		this.colSum = colSum;
 	}
 }

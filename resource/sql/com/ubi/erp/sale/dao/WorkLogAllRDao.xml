@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ubi.erp.sale.dao.WorkLogAllRDao">
+
+	<resultMap type="WorkLogAllR" id="WorkLogAllRMap"/>
+
+  	<select id="selGridMain" statementType="CALLABLE">
+		 {call
+		 	SP_COMM_WORKLOGALLR_SCH4(
+		 		#{V_COMPID},
+		 		#{V_LOG_KIND},
+		 		#{V_FR_DATE},
+		 		#{V_TO_DATE},
+		 		#{V_EMP_NO},
+		 		#{V_CUST_CODE},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=WorkLogAllRMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
+  	<select id="selGridDtl" statementType="CALLABLE">
+		 {call
+		 	SP_COMM_WORKLOGALLR_SCH3(
+		 		#{V_COMPID},
+		 		#{V_LOG_KIND},
+		 		#{V_FR_DATE},
+		 		#{V_TO_DATE},
+		 		#{V_EMP_NO},
+		 		#{V_WORK_KIND},
+		 		#{V_CUST_CODE},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=WorkLogAllRMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
+</mapper>
