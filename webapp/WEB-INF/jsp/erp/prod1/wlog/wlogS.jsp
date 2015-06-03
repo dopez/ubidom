@@ -73,19 +73,25 @@ function fn_SetSeq(data) {
 }
 
 function fn_search() {
-    var obj = {};
-    obj.logKind = PscrnParm;
-    obj.logDate = $("#stDate").val();
-    obj.logSeq = $("#seqNo").val();
-    obj.empNo = $("#empNo").val();
-    if(obj.empNo==null||obj.empNo.length<=0){
-    	obj.empNo = '%';
-    }
-    gfn_callAjaxForGrid(gridMain, obj, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+    $("#logKind").val(PscrnParm);
+    if($("#empNo").val() == ""){
+    	$("#empNo").val("%");
+    };
+    $("input[name=empNo]").attr("disabled",false);
+    $("input[name=seqNo]").attr("disabled",false);
+    var param = gfn_getFormElemntsData('frmMain');
+    console.log(param);
+    gfn_callAjaxForGrid(gridMain, param, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 
 function fn_gridMainSelCallbckFunc(data) {
     console.log(data);
+    $("input[name=empNo]").attr("disabled",true);
+    $("input[name=seqNo]").attr("disabled",true);
+    if($("#empNo").val() == "%"){
+    	$("#empNo").val("");
+    };
+    $("#stDate").keyup();
 }
 
 function fn_delete() {
@@ -178,6 +184,8 @@ function fn_onClosePop(pName, data) {
 <div id="bootContainer">
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+                <input type="hidden" id = "logKind" name="logKind">
+        
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
