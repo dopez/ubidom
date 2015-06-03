@@ -25,4 +25,12 @@ public class WorkLogAllRService {
 		workLogAllRDao.selGridDtl(map);
 		
 	}
+	public void selGridMainProd1(Map<String, Object> map) {
+		workLogAllRDao.selGridMainProd1(map);
+		
+	}
+	public void selGridMainRndt(Map<String, Object> map) {
+		workLogAllRDao.selGridMainRndt(map);
+		
+	}
 }

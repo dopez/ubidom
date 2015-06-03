@@ -20,4 +20,12 @@ public class WorkLogPersRService {
 		workLogPersRDao.selGridMain(map);
 		
 	}
+	public void selGridMainProd1(Map<String, Object> map) {
+		workLogPersRDao.selGridMainProd1(map);
+		
+	}
+	public void selGridMainRndt(Map<String, Object> map) {
+		workLogPersRDao.selGridMainRndt(map);
+		
+	}
 }

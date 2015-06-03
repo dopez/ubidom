@@ -144,7 +144,9 @@ function fn_add() {
     var logSeqColIdx = gridMain.getColIndexById('logSeq');
     var logKindColIdx = gridMain.getColIndexById('logKind');
     data[empNoColIdx] = $("#empNo").val();
-    data[logDateColIdx] = $("#stDate").val();
+    var splitfrDate = $("#stDate").val().split("/");
+    var frDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    data[logDateColIdx] = frDate;
     data[logSeqColIdx] = $("#seqNo").val();
     data[logKindColIdx] = PscrnParm;
     gridMain.addRow(data);
@@ -211,13 +213,11 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-1 col-md-1">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
-<%--                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled"> --%>
+                             <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
-<%--                                 <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs"> --%>
+                                 <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>

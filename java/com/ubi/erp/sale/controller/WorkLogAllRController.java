@@ -92,5 +92,46 @@ public class WorkLogAllRController {
 		List<WorkLogAllR> list  = (List<WorkLogAllR>) map.get("o_cursor");
 		return list;
 	}	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridMainSelProd1", method = RequestMethod.POST)
+	public List<WorkLogAllR> selGridMainProd1(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogAllR workLogAllR) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String logKind = request.getParameter("logKind");
+		String frDate = request.getParameter("frDate");
+		String toDate = request.getParameter("toDate");
+		String empNo = request.getParameter("empNo");
 
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_LOG_KIND", logKind);
+		map.put("V_FR_DATE", frDate);
+		map.put("V_TO_DATE", toDate);
+		map.put("V_EMP_NO", empNo);
+		map.put("o_cursor", null);
+		workLogAllRService.selGridMainProd1(map);
+		List<WorkLogAllR> list  = (List<WorkLogAllR>) map.get("o_cursor");
+		return list;
+	}	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridMainSelRndt", method = RequestMethod.POST)
+	public List<WorkLogAllR> selGridMainRndt(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogAllR workLogAllR) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String logKind = request.getParameter("logKind");
+		String frDate = request.getParameter("frDate");
+		String toDate = request.getParameter("toDate");
+		String empNo = request.getParameter("empNo");
+		String workKind = request.getParameter("workKind");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_LOG_KIND", logKind);
+		map.put("V_FR_DATE", frDate);
+		map.put("V_TO_DATE", toDate);
+		map.put("V_EMP_NO", empNo);
+		map.put("V_WORK_KIND", workKind);
+		map.put("o_cursor", null);
+		workLogAllRService.selGridMainRndt(map);
+		List<WorkLogAllR> list  = (List<WorkLogAllR>) map.get("o_cursor");
+		return list;
+	}	
 }

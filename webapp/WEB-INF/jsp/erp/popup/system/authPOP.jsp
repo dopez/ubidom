@@ -84,7 +84,7 @@ function fn_search(){
 
 //저장 버튼 동작
 function fn_save(){
-        var jsonStr = gridMst.getJsonUpdated2();
+        var jsonStr = gridMst.getJsonUpdated3();
         if (jsonStr == null || jsonStr.length <= 0) return;
         $("#jsonData").val(jsonStr);
         $("#Pmenucd").val(menucd);
@@ -208,6 +208,36 @@ dxGrid.prototype.getJsonRowDel = function(chkIdx, excludeCols) {
 	 jsonStr = JSON.stringify(arr);
 	 return jsonStr;
 };
+dxGrid.prototype.getJsonUpdated3 = function(excludeCols) {
+	this.dxObj.editStop();
+	var jsonStr = "";
+	var colId = "";
+	var colNm = "";
+	var colVal = "";
+	var arr = [];
+	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
+		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
+		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
+		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
+			var row={};
+			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
+				colId = this.dxObj.getColumnId(j);
+				colNm = this.dxObj.getColLabel(j);
+				colVal = this.dxObj.cells2(i,j).getValue();
+				if(!gfn_validation(colId, colNm, colVal) ) {
+					this.dxObj.selectCell(i, j, false, true, false);
+					return null;
+				}
+				  row[colId]=colVal;
+			}
+			arr.push(row);
+		}
+	}
+	jsonStr = JSON.stringify(arr);
+
+	return jsonStr;
+};
+
 </script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

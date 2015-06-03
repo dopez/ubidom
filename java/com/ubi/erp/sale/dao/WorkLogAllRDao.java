@@ -11,4 +11,8 @@ public interface WorkLogAllRDao {
 	void selGridMain(Map<String, Object> map);
 
 	void selGridDtl(Map<String, Object> map);
+
+	void selGridMainProd1(Map<String, Object> map);
+
+	void selGridMainRndt(Map<String, Object> map);
 }
