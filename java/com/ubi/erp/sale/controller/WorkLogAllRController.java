@@ -46,15 +46,13 @@ public class WorkLogAllRController {
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
-	public List<WorkLogAllR> selGridMain(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
-
+	public List<WorkLogAllR> selGridMain(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogAllR workLogAllR) throws Exception {
 		String comp = (String) session.getAttribute("compId");
-		String logKind = request.getParameter("logKind");
-		String frDate = df.dateToString(request.getParameter("frDate"));
-		String toDate = df.dateToString(request.getParameter("toDate"));
-		String empNo = request.getParameter("empNo");
-		String custCode = request.getParameter("custCode");
+		String logKind = workLogAllR.getHlogKind();
+		String frDate = workLogAllR.getFrDate();
+		String toDate = workLogAllR.getToDate();
+		String empNo = workLogAllR.getEmpNo();
+		String custCode = workLogAllR.getCustCode();
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
@@ -66,23 +64,20 @@ public class WorkLogAllRController {
 		map.put("o_cursor", null);
 		workLogAllRService.selGridMain(map);
 		List<WorkLogAllR> list  = (List<WorkLogAllR>) map.get("o_cursor");
-/*		for(int i = 0; i<list.size();i++){
-			list.get(i).setLogDate(df.dateToString2(list.get(i).getLogDate()));
-		}*/
 		return list;
 	}	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridDtlSel", method = RequestMethod.POST)
-	public List<WorkLogAllR> selGridDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
+	public List<WorkLogAllR> selGridDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogAllR workLogAllR) throws Exception {
 		
 		String comp = (String) session.getAttribute("compId");
-		String logKind = request.getParameter("logKind");
-		String frDate = df.dateToString(request.getParameter("frDate"));
-		String toDate = df.dateToString(request.getParameter("toDate"));
-		String empNo = request.getParameter("empNo");
-		String workKind = request.getParameter("workKind");
-		String custCode = request.getParameter("custCode");
+		String logKind = workLogAllR.getHlogKind();
+		String frDate = workLogAllR.getFrDate();
+		String toDate = workLogAllR.getToDate();
+		String empNo = workLogAllR.getEmpNo();
+		String custCode = workLogAllR.getCustCode();
+		String workKind = workLogAllR.getHworkKind();
+		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
@@ -95,9 +90,6 @@ public class WorkLogAllRController {
 		map.put("o_cursor", null);
 		workLogAllRService.selGridDtl(map);
 		List<WorkLogAllR> list  = (List<WorkLogAllR>) map.get("o_cursor");
-				for(int i = 0; i<list.size();i++){
-			list.get(i).setLogDate(df.dateToString2(list.get(i).getLogDate()));
-		}
 		return list;
 	}	
 

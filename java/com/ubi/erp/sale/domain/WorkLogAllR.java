@@ -24,6 +24,11 @@ public class WorkLogAllR implements Serializable {
 	private String logNote;
 	private String fileName;
 	private String sysEmpNo;
+	private String frDate;
+	private String toDate;
+	private String HlogKind;
+	private String HworkKind;
+	
 	
 	private String seq;
 
@@ -247,5 +252,37 @@ public class WorkLogAllR implements Serializable {
 
 	public void setColSum(int colSum) {
 		this.colSum = colSum;
+	}
+
+	public String getFrDate() {
+		return frDate;
+	}
+
+	public void setFrDate(String frDate) {
+		this.frDate = frDate;
+	}
+
+	public String getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
+
+	public String getHlogKind() {
+		return HlogKind;
+	}
+
+	public void setHlogKind(String hlogKind) {
+		HlogKind = hlogKind;
+	}
+
+	public String getHworkKind() {
+		return HworkKind;
+	}
+
+	public void setHworkKind(String hworkKind) {
+		HworkKind = hworkKind;
 	}
 }

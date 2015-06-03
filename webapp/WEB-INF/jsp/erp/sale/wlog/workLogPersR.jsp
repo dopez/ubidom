@@ -27,6 +27,7 @@ $(document).ready(function() {
     gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ro"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
+	gridMain.dxObj.setUserData("","@logDate","format_date");
     gridMain.init();
     gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
       

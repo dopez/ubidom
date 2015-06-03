@@ -42,6 +42,7 @@ $(document).ready(function() {
     gridDtl.addHeader({name:"종류",colId:"workKind",width:"6",align:"center",type:"ro"});
     gridDtl.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ro"});
     gridDtl.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ro"});
+    gridDtl.dxObj.setUserData("","@logDate","format_date");
     gridDtl.setUserData("","pk","");
     gridDtl.setColSort("str");
     gridDtl.init();
@@ -49,17 +50,17 @@ $(document).ready(function() {
     
     //setDate;
     calMain = new dhtmlXCalendarObject([{
-        input: "stDate",
+        input: "frDate",
         button: "calpicker1"
     }, {
-        input: "edDate",
+        input: "toDate",
         button: "calpicker2"
     }]);
     calMain.loadUserLanguage("ko");
     calMain.hideTime();
     var t = dateformat(new Date());
-    byId("stDate").value = t;
-    byId("edDate").value = t;
+    byId("frDate").value = t;
+    byId("toDate").value = t;
     //popUp
     $("#empNo, #custKorName").click(function(e){
 		if(e.target.id == "empNo"){
@@ -98,26 +99,23 @@ function fn_gridDtlSel(rowId,cellIdx){
 	fn_gridSel("gridDtl",kindParam);
 }
 function fn_search() {
-	fn_gridSel("gridMain");
+	var test = "test";
+	fn_gridSel("gridMain",test);
 }
 function fn_gridSel(gridName,kindParam){
-	var obj = {};
-    obj.logKind = PscrnParm;
-    obj.frDate = $("#stDate").val();
-    obj.toDate = $("#edDate").val();
-    obj.empNo = $("#empNo").val();
-    obj.workKind = kindParam;
-    obj.custCode = $("#custCode").val();
-    if(obj.empNo==null||obj.empNo.length<=0){
-    	obj.empNo = '%';
-    }
-    if(obj.custCode==null||obj.custCode.length<=0){
-    	obj.custCode = '%';
-    }
+	$("#HworkKind").val(kindParam);
+	$("#HlogKind").val(PscrnParm);
+	if($("#empNo").val() == ""){
+		$("#empNo").val("%");
+	}
+	if($("#custCode").val() == ""){
+		$("#custCode").val("%");
+	}
+    var param = gfn_getFormElemntsData("frmSearch");
 	if(gridName == "gridMain"){
-	    gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
+	    gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
 	}else if(gridName == "gridDtl"){
-		gfn_callAjaxForGrid(gridDtl, obj, "gridDtlSel", subLayout.cells("a"), fn_gridDtlSelCallbckFunc);
+		gfn_callAjaxForGrid(gridDtl, param, "gridDtlSel", subLayout.cells("a"), fn_gridDtlSelCallbckFunc);
 	}
 }
 //excel
@@ -130,8 +128,22 @@ function  fn_print(){
  }
 function fn_gridMainSelCallbckFunc(data) {
 	fn_gridSel("gridDtl","%");
+	if($("#custCode").val() == "%"){
+		$("#custCode").val("");
+	}
+	if($("#empNo").val() == "%"){
+		$("#empNo").val("");
+	}
+	$("#frDate").keyup();
+	$("#toDate").keyup();
 }
 function fn_gridDtlSelCallbckFunc(data) {
+	if($("#custCode").val() == "%"){
+		$("#custCode").val("");
+	}
+	if($("#empNo").val() == "%"){
+		$("#empNo").val("");
+	}
 }
 function fn_onClosePop(pName, data) {
     var i;
@@ -158,7 +170,9 @@ function fn_onClosePop(pName, data) {
 </div>
 <div id="bootContainer2">
     <div class="container">
-        <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+        <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" name="frmSearch"id="frmSearch">
+        <input type="hidden" value="" id="HlogKind" name="HlogKind">
+        <input type="hidden" value="" id="HworkKind" name="HworkKind">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
@@ -167,19 +181,19 @@ function fn_onClosePop(pName, data) {
                         <div class="col-sm-6 col-md-6">
                             <div class="col-sm-4 col-md-4">
                                 <div class="col-sm-10 col-md-10">
-                                    <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                                    <input type="text" class="form-control input-xs format_date" name="frDate" id="frDate" value="">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                                    <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'toDate', 'max')">
                                 </div>
                             </div>
                             <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                             <div class="col-sm-4 col-md-4">
                                 <div class="col-sm-10 col-md-10">
-                                    <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                                    <input type="text" class="form-control input-xs format_date" name="toDate" id="toDate" value="">
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                                    <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'frDate', 'min')">
                                 </div>
                             </div>
                         </div>
@@ -198,7 +212,7 @@ function fn_onClosePop(pName, data) {
                       <input name="custKorName" id="custKorName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
                   </div>
                   <div class="col-sm-2 col-md-2">
-                      <input name="custCode" id="custCode" type="hidden" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
+                      <input name="custCode" id="custCode" type="hidden" value="" placeholder="">
                   </div>
                     </div>
                 </div>

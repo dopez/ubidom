@@ -75,13 +75,13 @@ function fn_getSeqReturn() {
 
 function fn_SetSeq(data) {
     $("#seqNo").val(data[0].seq);
+}
+
+function fn_search() {
     $("#logKind").val(PscrnParm);
     if($("#empNo").val() == ""){
     	$("#empNo").val("%");
     };
-}
-
-function fn_search() {
     $("input[name=empNo]").attr("disabled",false);
     $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData('frmMain');
@@ -91,6 +91,10 @@ function fn_search() {
 function fn_gridMainSelCallbckFunc(data) {
     $("input[name=empNo]").attr("disabled",true);
     $("input[name=seqNo]").attr("disabled",true);
+    if($("#empNo").val() == "%"){
+    	$("#empNo").val("");
+    };
+    	$("#stDate").keyup();
 }
 
 function fn_delete() {
