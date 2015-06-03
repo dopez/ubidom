@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.VariableBaseWageR;
 import com.ubi.erp.pers.service.VariableBaseWageRService;
 
@@ -51,12 +50,11 @@ public class VariableBaseWageRController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridDtlSearch",method = RequestMethod.POST)
-	public List<VariableBaseWageR> selFixBaseWageRR(HttpServletRequest request, HttpServletResponse response,VariableBaseWageR variableBaseWageR) throws Exception {
+	public List<VariableBaseWageR> selFixBaseWageRR(HttpServletRequest request, HttpServletResponse response,VariableBaseWageR variableBaseWageR,HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateFormatUtil df = new DateFormatUtil();
-		String compId = variableBaseWageR.getCompId();
+		String compId = (String) session.getAttribute("compId");
 		String empNo = variableBaseWageR.getEmpNo();
-		String yymm = df.monthToString(variableBaseWageR.getYymm());
+		String yymm = variableBaseWageR.getYymm();
 		map.put("compId", compId);
 		map.put("yymm", yymm);
 		map.put("empNo", empNo);
@@ -69,14 +67,14 @@ public class VariableBaseWageRController {
 	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsFamilyDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
 		List<VariableBaseWageR> list = new ArrayList<VariableBaseWageR>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<VariableBaseWageR>>(){});
-		String yymm = df.monthToString(request.getParameter("monthDate"));
+		String yymm = request.getParameter("monthDate");
+		System.out.println("monthDate :::::::"+yymm);
 		for(VariableBaseWageR variableBaseWageR : list) {
 			variableBaseWageR.setSysEmpNo(sysEmpNo);
 			variableBaseWageR.setCompId(compId);

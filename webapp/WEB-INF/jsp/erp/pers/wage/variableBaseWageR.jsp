@@ -76,44 +76,51 @@ function fn_search(){
 	fn_loadGridMst();
 }
 function fn_loadGridMst(){
-	var obj={};
-	obj.jikgun = $('#jikgun').val();
-	obj.serveGbn = $('#serveGbn').val();
-	obj.postCode = $('#postCode').val();
-	obj.empNo = $('#empNo').val();
-	if(obj.postCode == ''){
-		obj.postCode = '%';
-	}
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
+	var obj=gfn_getFormElemntsData("frmMain");
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
 }
 function doOnMstRowSelect(id,ind){
 	payAmtSum = 0;
-	var obj={};
-	obj.empNo = gridMst.setCells(id,1).getValue();
-	obj.compId = '100';
-	obj.yymm = $('#yymm').val();
+	var empNoVal = gridMst.setCells(id,1).getValue();
+	$('#empNo').val(empNoVal);
+	var obj=gfn_getFormElemntsData("frmMain");
 	fn_loadGridDtl(obj);
 }
 
+function fn_save(){
+	var dateValue = $('#yymm').val();
+	$('#monthDate').val(dateValue);
+	 var jsonStr = gridDtl.getJsonUpdated2();
+	   if (jsonStr == null || jsonStr.length <= 0) return;         		
+	       $("#jsonData").val(jsonStr);  
+	       var params = gfn_getFormElemntsData("pform");
+	      $.ajax({
+	          url : "/erp/pers/wage/variableBaseWageR/gridDtlSave",
+	          type : "POST",
+	          data : params,
+	          async : true,
+	          success : function(data) {
+	          MsgManager.alertMsg("INF001");
+	          fn_search();
+	           }
+	  });
+};
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 }
 function fn_loadGridMstCB(data){
-	var obj={};
-	obj.empNo = data[0].empNo;
-	obj.yymm = $('#yymm').val();
-	obj.compId = '100';
+	var obj=gfn_getFormElemntsData("frmMain");
 	fn_loadGridDtl(obj); 
 	
 	byId("frmMain").reset();
-	$('#postCode').val('');
-	$('#empNo').val('');
+	$('#postCode').val('%');
+	$('#empNo').val('%');
 	calMainValue();
 };
 function fn_loadGridDtlCB(data){
+	$('#yymm').keyup();
+	$('#postCode').val('%');
+	$('#empNo').val('%');
 	var rodIdx = gridMst.getSelectedRowIndex();
 	var empNo;
 	if(rodIdx == -1){
@@ -128,24 +135,7 @@ function fn_loadGridDtlCB(data){
 	gridDtl.detachFooter(0);
 	gridDtlAttachFooter();
 }
-function fn_save(){
-	var rowIdx = gridMst.getSelectedRowIndex();
-	 var jsonStr = gridDtl.getJsonUpdated2();
-	 var yymm = $('#yymm').val();
-	 $('#monthDate').val(yymm);
-	  if (jsonStr == null || jsonStr.length <= 0) return;         		
-	      $("#jsonData").val(jsonStr);                      
-	      $.ajax({
-	         url : "/erp/pers/wage/variableBaseWageR/gridDtlSave",
-	         type : "POST",
-	         data : $("#pform").serialize(),
-	         async : true,
-	         success : function(data) {
-	         MsgManager.alertMsg("INF001");
-	         gridMst.selectRow(rowIdx,true,true,true);
-	          }
-	     });
-}
+
 function fn_onClosePop(pName,data){
 	var i;
 	var obj={};
@@ -168,14 +158,14 @@ function fn_onClosePop(pName,data){
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
-    <input type="hidden" id="monthDate" name="monthDate">
+    <input type="hidden" id="monthDate" name="monthDate" class="format_month">
 </form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
-      <input type="hidden" name="postCode" id="postCode">
-      <input type="hidden" name="empNo" id="empNo">
+      <input type="hidden" name="postCode" id="postCode" value="%">
+      <input type="hidden" name="empNo" id="empNo" value="%">
 	<div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -184,7 +174,7 @@ function fn_onClosePop(pName,data){
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
-                      <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs">
+                      <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs format_month">
                   </div>
                   <div class="col-sm-2 col-md-2">
                      <input type="button" id="calpicker" class="calicon form-control">

@@ -336,6 +336,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	var colId = "";
 	var colNm = "";
 	var colVal = "";
+	var colType = "";
 	var arr = [];
 	for(var i = 0; i < this.dxObj.getRowsNum(); i++) {
 		var cudColIdx = this.dxObj.getColIndexById(cudKeyCol);
@@ -345,14 +346,15 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
-
 				colVal = this.dxObj.cells2(i,j).getValue();
+				colType = this.dxObj.getColType(j);
 
-				if(type == "dhxCalendar" || type == "dhxCalendarA"){
-					 var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
-						colVal = colVal.replace(regExp, "");
+				if(colType =="dhxCalendar" || colType == "dhxCalendarA"){
+					var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
+					colVal = colVal.replace(regExp, "");
 				}
-
+			
+				/*	
 				if(classNm!= null){
 				   var els = $('<input>').attr({
 				       type: 'hidden',
@@ -362,7 +364,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				    $.applyDataMask($(els));
 				    colVal=$(els).cleanVal();
 				    $(els).remove();
-				}
+				}*/
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
@@ -377,8 +379,6 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 
 	return jsonStr;
 };
-
-
 
 //Get Json from checked rows
 dxGrid.prototype.getJsonChecked = function(chkIdx, excludeCols) {

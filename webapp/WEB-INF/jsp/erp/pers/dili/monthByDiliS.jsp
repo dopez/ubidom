@@ -189,9 +189,9 @@ function fn_loadGridMst(){
 }
 function fn_loadGridMstCB(data){
 	if(data != ''){
-		var obj = {};
-		obj.yymm = $('#yymm').val();
-		obj.empNo = data[0].empNo;
+		var empNoVal = data[0].empNo;
+		$('#empNo').val(empNoVal); 
+		var obj=gfn_getFormElemntsData("frmMain");
 		fn_loadGridDtl(obj);
 	}
 	$('#yymm').keyup();

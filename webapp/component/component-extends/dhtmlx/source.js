@@ -158,7 +158,6 @@ function gfn_getFormElemntsData(formId,added) {
 			        }
 			    });
 		}
-		console.log(added);
 		if(added != undefined)addElements(formId,added);
 		
 		editElements(formId);
