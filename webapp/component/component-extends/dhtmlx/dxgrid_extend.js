@@ -355,7 +355,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				}
 
 
-				if(classNm!= null){
+				/*if(classNm!= null){
 				   var els = $('<input>').attr({
 				       type: 'hidden',
 				       id: "",
@@ -365,7 +365,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				   $.applyDataMask($(els));
 				   colVal=$(els).cleanVal();
 				   $(els).remove();
-				}
+				}*/
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);

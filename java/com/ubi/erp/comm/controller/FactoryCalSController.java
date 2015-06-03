@@ -45,7 +45,7 @@ public class FactoryCalSController {
 	}
 	
 	@RequestMapping(value = "/initCalendar",method = RequestMethod.POST)
-	public void initFactoryCalendar(HttpServletRequest request, HttpServletResponse response,HttpSession session,FactoryCalS factoryCalS) throws Exception {
+	public void prcsFactoryCalendar(HttpServletRequest request, HttpServletResponse response,HttpSession session,FactoryCalS factoryCalS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String empNo = (String) session.getAttribute("empNo");
