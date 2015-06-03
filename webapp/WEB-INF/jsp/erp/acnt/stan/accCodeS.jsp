@@ -3,7 +3,8 @@
         <script type="text/javascript">
         var layout, toolbar, subLayout;
         var gridMain;
-        var calMain;
+        var combo01;
+		var combo02;
         $(document).ready(function() {
 
             Ubi.setContainer(1, [1,2,3,4,5,6,7,8,9,10], "1C"); //계정코드입력
@@ -12,37 +13,111 @@
             toolbar = Ubi.getToolbar();
             subLayout = Ubi.getSubLayout();
 
-            //form//
             layout.cells("b").attachObject("bootContainer2");
             gridMain = new dxGrid(subLayout.cells("a"), false);
-            gridMain.addHeader({name:"대분류명",     colId:"acNm1",  width:"10", align:"left", type:"tree"});
+            gridMain.addHeader({name:"대분류명",     colId:"acNm1",  width:"7", align:"center", type:"ro"});
             gridMain.addHeader({name:"중분류명",   colId:"acNm2",   width:"7",  align:"left", type:"ro"});
-            gridMain.addHeader({name:"소분류명",   colId:"acNm3", width:"7",  align:"center", type:"ro"});
-            gridMain.addHeader({name:"계정",   colId:"acCd4",   width:"7",  align:"center", type:"ro"});
-            gridMain.addHeader({name:"계정명",   colId:"postCode", width:"7",  align:"center", type:"ed"});
-        	gridMain.addHeader({name:"세목",   colId:"postName", width:"7",  align:"center", type:"ed"});
-        	gridMain.addHeader({name:"세목명",   colId:"jikgun",   width:"7",  align:"center", type:"ed"});
-        	gridMain.addHeader({name:"계정코드",   colId:"jikmu",    width:"7",  align:"center", type:"ro"});
-        	gridMain.addHeader({name:"타계정",   colId:"jikwee",   width:"7",  align:"center", type:"ed"});
-        	gridMain.addHeader({name:"차대구분",   colId:"jikchak",  width:"7",  align:"center", type:"combo"});
-        	gridMain.addHeader({name:"사용구분", colId:"codeChk",   width:"7",  align:"center", type:"dblRdo"});
+            gridMain.addHeader({name:"소분류명",   colId:"acNm3", width:"7",  align:"left", type:"ro"});
+            gridMain.addHeader({name:"계정",   colId:"acCd4",   width:"4",  align:"left", type:"ed"});
+            gridMain.addHeader({name:"계정명",   colId:"acNm4", width:"7",  align:"left", type:"ed"});
+        	gridMain.addHeader({name:"세목",   colId:"acSeq", width:"4",  align:"left", type:"ed"});
+        	gridMain.addHeader({name:"세목명",   colId:"acName",   width:"7",  align:"left", type:"ed"});
+        	gridMain.addHeader({name:"계정코드",   colId:"acCode",    width:"7",  align:"left", type:"ro"});
+        	gridMain.addHeader({name:"타계정",   colId:"cAcCode",   width:"7",  align:"left", type:"ed"});
+        	gridMain.addHeader({name:"차대구분",   colId:"crDrChk",  width:"7",  align:"center", type:"combo"});
+        	gridMain.addHeader({name:"사용구분", colId:"codeChk",   width:"7",  align:"center", type:"combo"});
         	gridMain.setColSort("str");
+        	gridMain.dxObj.setUserData("","@acCode","format_date");
             gridMain.init();
+            gridMain.cs_setColumnHidden(["acCodeOld"]);
+            gridMain.dxObj.enableSmartRendering(false);
+        	combo01 = gridMain.getColumnCombo(9);
+        	fn_comboSet(combo01,0);
+        	combo02 = gridMain.getColumnCombo(10);
+        	fn_comboSet(combo02,1);
+
+
+        	gridMain.dxObj.groupBy(0);
+
+        	fn_search();
+
         })
-         function fn_search(){
+		function fn_delete(){
+		    var rodid = gridMain.getSelectedRowId();
+		    gridMain.cs_deleteRow(rodid);
+		}
+        function fn_add(){
+        	var selectedRow = gridMain.getSelectedRowId();
+        	if(selectedRow == null){
+        		return false;
+        	}else{
+        	    var totalColNum = gridMain.getColumnCount();
+        	    var data = new Array(totalColNum);
+        		var acCd1ColIdx = gridMain.getColIndexById('acCd1');
+        		var acCd2ColIdx = gridMain.getColIndexById('acCd2');
+        		var acCd3ColIdx = gridMain.getColIndexById('acCd3');
+        		var acNm1ColIdx = gridMain.getColIndexById('acNm1');
+        		var values=gridMain.dxObj.collectValues(acNm1ColIdx);
+        		var idx = fruits.indexOf(gridMain.setCells(selectedRow,acNm1ColIdx).getValue());
+        		data[acCd1ColIdx] = gridMain.setCells(selectedRow,acCd1ColIdx).getValue();
+        	    data[acCd2ColIdx] = gridMain.setCells(selectedRow,acCd2ColIdx).getValue();
+        	    data[acCd3ColIdx] = gridMain.setCells(selectedRow,acCd3ColIdx).getValue();
+        	    gridMain.addRow(data,idx);
+        	}
+         }
+         function fn_search() {
+			 gfn_callAjaxForGrid(gridMain,$("#frmSearch").serialize(),"search", subLayout.cells("a"))
+         }
 
-   		  gfn_callAjaxComm($("#frmSearch").serialize(),"search",test)
+		 function fn_save(){
+			 console.log('click save');
+			 var jsonStr = gridMain.getJsonUpdated2();
+			 $("#jsonData").val(jsonStr);
+			 console.log('jsonStr',jsonStr)
+			 gfn_callAjaxForGrid(gridMain,$("#pform").serialize(),"save", subLayout.cells("a"))
+		 }
+		 function fn_excel(){
+				gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+		 };
+         function fn_comboSet(comboId,id) {
 
-   		}
-        function test(data){
-        	console.log('data',data);
-        	gridMain.dxObj.addRow(gridMain.dxObj.uid(),"");
-        	gridMain.dxObj.addRow(gridMain.dxObj.uid(),"");
+             if(id == 0){
+            	 comboId.setTemplate({
+                     input: "#interName#",
+                     columns: [{
+                         header: "구분",
+                         width: 100,
+                         option: "#interName#"
+                     }]
+                 });
+
+                 comboId.addOption("1", "차변");
+                 comboId.addOption("2", "대변");
+             }
+             if(id == 1){
+            	 comboId.setTemplate({
+                     input: "#interName#",
+                     columns: [{
+                         header: "구분",
+                         width: 80,
+                         option: "#interName#"
+                     }]
+                 });
+
+                 comboId.addOption("Y", "사용");
+                 comboId.addOption("N", "미사용");
+             }
+             comboId.enableFilteringMode(true);
+             comboId.enableAutocomplete(true);
+             comboId.allowFreeText(true);
         }
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
+        <form id="pform" name="pform" method="post">
+    		<input type="hidden" id="jsonData" name="jsonData" />
+		</form>
         <div id="bootContainer2">
             <div class="container">
                <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">

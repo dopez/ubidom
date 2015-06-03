@@ -353,18 +353,19 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 					var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
 					colVal = colVal.replace(regExp, "");
 				}
-			
-				/*	
+
+
 				if(classNm!= null){
 				   var els = $('<input>').attr({
 				       type: 'hidden',
 				       id: "",
 				       name: colId
-				   }).appendTo("body").addClass(classNm).val(colVal).keyup();
-				    $.applyDataMask($(els));
-				    colVal=$(els).cleanVal();
-				    $(els).remove();
-				}*/
+				   }).appendTo("body");
+				   $(els).addClass(classNm).val(colVal).keyup();
+				   $.applyDataMask($(els));
+				   colVal=$(els).cleanVal();
+				   $(els).remove();
+				}
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);

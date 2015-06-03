@@ -33,6 +33,11 @@ public class AccCodeS implements Serializable {
 	private String jpnCode;
 	private String jpnName;
 	private String commYn;
+
+	private String compId;
+	private String cudKey;
+
+	private String acCodeOld;
 	/**
 	 * @return the acCd1
 	 */
@@ -272,6 +277,24 @@ public class AccCodeS implements Serializable {
 	 */
 	public void setCommYn(String commYn) {
 		this.commYn = commYn;
+	}
+	public String getCudKey() {
+		return cudKey;
+	}
+	public void setCudKey(String cudKey) {
+		this.cudKey = cudKey;
+	}
+	public String getCompId() {
+		return compId;
+	}
+	public void setCompId(String compId) {
+		this.compId = compId;
+	}
+	public String getAcCodeOld() {
+		return acCodeOld;
+	}
+	public void setAcCodeOld(String acCodeOld) {
+		this.acCodeOld = acCodeOld;
 	}
 
 }
