@@ -14,5 +14,27 @@
 		 	)
 		 }
 	</select>
-
+ 	<select id="prcsSave" statementType="CALLABLE">
+		 {call SP_ACC_CODES_SAVE(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{acCd1},
+		 		#{acCd2},
+		 		#{acCd3},
+		 		#{acCd4},
+		 		#{acSeq},
+		 		#{acCode},
+		 		#{acNm1},
+		 		#{acNm2},
+		 		#{acNm3},
+		 		#{acNm4},
+		 		#{acName},
+		 		#{cAcCode},
+		 		#{crDrChk},
+		 		#{codeChk},
+		 		#{acCodeOld},
+		 		#{sysEmpNo}
+		 	)
+		 }
+	</select>
 </mapper>
