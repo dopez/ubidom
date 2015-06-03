@@ -65,7 +65,7 @@ $(document).ready(function(){
               $.ajax({
                url : "/erp/pers/pers/persDataS/prcsFileDelete",
                type : "POST",
-               data : $("#frmMain").serialize(),
+               data : gfn_getFormElemntsData('frmMain'),
                async : true,
                success : function(data) {
                MsgManager.alertMsg("INF003");
