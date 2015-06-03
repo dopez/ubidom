@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.AcademicDataS;
 import com.ubi.erp.pers.service.AcademicDataSService;
 
@@ -40,11 +39,6 @@ public class AcademicDataSController {
 		map.put("o_cursor", null);
 		academicDataSSservice.selAcademicDataSR(map);
 		List<AcademicDataS> list = (List<AcademicDataS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setStartDate(df.dateToString2(list.get(i).getStartDate()));
-			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
-		}
 		return list;
 	}
 	

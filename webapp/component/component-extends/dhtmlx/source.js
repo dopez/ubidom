@@ -3,23 +3,33 @@
  *
  */
 
-function gfn_temp(grid,data){
+function gfn_temp(grid,data,param, url, layout, callbackFn){
 
-	var input = $("<input type='hidden'>").appendTo("body");
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
-	   
-	        	var classNm = grid.dxObj.getUserData("","@"+key);
+			
+	        	var classNm = grid.dxObj.getUserData("","@"+[key]);
 	        	
 	        	if(classNm != null){
-	        		$(input).addClass(classNm).val(data[i][key]).keyup();
-		        	data[i][key] = $(input).val();
+	        		var input = $("<input type='hidden'>").appendTo("body");
+	        		var gDate = data[i][key];
+	        		$(input).attr("id",[key]);
+	        		$('#'+[key]).attr("class",classNm);
+	        		$('#'+[key]).val(data[i][key]);
+	        		$('#'+[key]).keyup();
+	        		data[i][key] = $('#'+[key]).val();
+	        		if(gDate == $('#'+[key]).val()){
+	        			gfn_callAjaxForGrid(grid, param, url, layout, callbackFn);
+	        		}
 	        	}
-		}
+		  }
 	};
 	grid.clearAll();
-    grid.parse(data, "js");
+    grid.parse(data,"js");
+    
+    return data;
 }
+
 
 function gfn_getMappingUrl(param){
 	var tabId = parent.mainTabbar.getActiveTab();
@@ -64,13 +74,12 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
             layout.progressOn();
         },
         success: function(data, status) {
-        gData = data; 
-        gfn_temp(grid,data);
-
+        	
+          gData = gfn_temp(grid,data,param, url, layout, callbackFn);
             
-          	 if (callbackFn != undefined) {
-                callbackFn.call(this, data);
-            }
+          if (callbackFn != undefined) {
+              callbackFn.call(this, data);
+           }
         },
         failure: function(data) {
             console.log(data.d);

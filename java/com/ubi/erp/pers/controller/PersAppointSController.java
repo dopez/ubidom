@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersAppointS;
 import com.ubi.erp.pers.service.PersAppointSService;
 
@@ -35,18 +34,8 @@ public class PersAppointSController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String serveGbn = persAppointS.getServeGbn();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
+		String postCode = persAppointS.getPostCode();
+		String empNo = persAppointS.getEmpNo();
 		map.put("compId", compId);
 		map.put("postCode", postCode);
 		map.put("empNo",empNo);
@@ -68,10 +57,6 @@ public class PersAppointSController {
 		map.put("o_cursor", null);
 		persAppointSService.selPersAppointSR(map);
 		List<PersAppointS> list = (List<PersAppointS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setBalDate(df.dateToString2(list.get(i).getBalDate()));
-		}
 		return list;
 	}
 	

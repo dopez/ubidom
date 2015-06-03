@@ -124,9 +124,8 @@ function fn_delete(){
 }
 
 function fn_loadGridLeftList(){
-	var obj={};
-	obj.stDate = $('#stDate').val();
-	obj.endDate = $('#endDate').val();
+	var obj= gfn_getFormElemntsData('frmMain');
+	
     gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
     byId("frmMain").reset();
 }
@@ -160,7 +159,7 @@ function fn_onClosePop(pName,data){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="stDate" id="stDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'endDate', 'max')">
@@ -169,7 +168,7 @@ function fn_onClosePop(pName,data){
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="endDate" id="endDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="endDate" id="endDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">

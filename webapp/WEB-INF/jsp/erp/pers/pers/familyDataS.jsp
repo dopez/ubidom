@@ -134,6 +134,12 @@ function fn_loadGridLeftList(){
 	obj.serveGbn = $('#serveGbn').val();
 	obj.postCode = $('#postCode').val();
 	obj.empNo = $('#empNo').val();
+	if(obj.postCode == ''){
+		obj.postCode = '%';
+	}
+	if(obj.empNo == ''){
+		obj.empNo = '%';
+	}
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
 }
 function fn_loadGridLeftListCB(data){

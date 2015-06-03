@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ubi.erp.cmm.file.AttachFileService;
 import com.ubi.erp.cmm.util.PropertyUtil;
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
 
@@ -59,21 +58,11 @@ public class PersDataSController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = persDataS.getCompId();
 		String empNo = persDataS.getEmpNo();
-		String postName = persDataS.getPostName();
 		map.put("compId", compId);
 		map.put("empNo", empNo);
 		map.put("o_cursor", null);
 		persDataSService.selPersDataSR(map);
 		List<PersDataS> list = (List<PersDataS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setPostName(postName);
-			list.get(i).setEnterDate(df.dateToString2(list.get(i).getEnterDate()));
-			list.get(i).setAmryDate1(df.dateToString2(list.get(i).getAmryDate1()));
-			list.get(i).setAmryDate2(df.dateToString2(list.get(i).getAmryDate2()));
-			list.get(i).setRetireDate(df.dateToString2(list.get(i).getRetireDate()));
-			list.get(i).setRetireMidDate(df.dateToString2(list.get(i).getRetireMidDate()));
-		}
 		return list;
 	}
 	
@@ -81,14 +70,12 @@ public class PersDataSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPersData(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		//session 값 set
 		persDataS.setSysEmpNo(sysEmpNo);
-		
-		// armyJong check -- armyJong == armyKind
 		persDataS.setArmyJong(persDataS.getArmyKind());
 
 	 	if(saveFilename != null){  
-	 	persDataS.setImgPath(saveFilename);  
+	 	persDataS.setImgPath(saveFilename);
+	 	saveFilename = null;
 	 	}else{
 	 	 persDataS.setImgPath(""); 
 	 	}

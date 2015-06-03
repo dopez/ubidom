@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.DeptS;
 import com.ubi.erp.pers.service.DeptSService;
 
@@ -42,11 +41,6 @@ public class DeptSController {
 		map.put("o_cursor", null);
 		deptSService.selDeptS(map);
 		List<DeptS> list = (List<DeptS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setStDate(df.dateToString2(list.get(i).getStDate()));
-			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
-		}
 		return list;
 	}
 

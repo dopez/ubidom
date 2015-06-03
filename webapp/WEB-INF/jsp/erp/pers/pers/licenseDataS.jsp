@@ -34,6 +34,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"취득일자", colId:"achiDate", width:"7", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"시행처",   colId:"apprCust", width:"10", align:"center", type:"ed"});	
 	gridDtl.setUserData("","pk","no");
+	gridDtl.dxObj.setUserData("","@achiDate","format_date");
 	gridDtl.setColSort("str");
 	gridDtl.init(); 
 	gridDtl.cs_setColumnHidden(["empNo","compId","seq"]);

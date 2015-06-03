@@ -20,6 +20,8 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"시작일",   colId:"stDate",   width:"7", align:"center", type:"ro"});
 	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"7", align:"center", type:"ro"});	
 	gridMain.setUserData("","pk","postCode");
+	gridMain.dxObj.setUserData("","@stDate","format_date");
+	gridMain.dxObj.setUserData("","@endDate","format_date");
 	gridMain.setColSort("str");
 	gridMain.init();
 	
@@ -45,7 +47,6 @@ function  fn_print(){
 	url = url + "?postName=" + $("#postName").val();
 	url = url + "&historyKind="+ $('input[name="historyKind"]:checked').val();
 	window.open(url,'rpt','');
-	//gridMain.printView();
  }
  
 function fn_loadGridList(params) {

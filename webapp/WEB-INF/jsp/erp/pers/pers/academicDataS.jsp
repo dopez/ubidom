@@ -108,8 +108,8 @@ function fn_save(){
 	var rowIdx = gridMst.getSelectedRowIndex();
 	 var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
-       $("#jsonData").val(jsonStr);                      
-       $.ajax({
+       $("#jsonData").val(jsonStr);  
+        $.ajax({
           url : "/erp/pers/pers/academicDataS/gridDtlSave",
           type : "POST",
           data : $("#pform").serialize(),
@@ -118,7 +118,7 @@ function fn_save(){
           MsgManager.alertMsg("INF001");
           gridMst.selectRow(rowIdx,true,true,true);
            }
-      }); 
+      });  
 }
 
 function fn_delete(){

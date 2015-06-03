@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.RewardDataS;
 import com.ubi.erp.pers.service.RewardDataSService;
 
@@ -40,10 +39,6 @@ public class RewardDataSController {
 		map.put("o_cursor", null);
 		rewardDataSService.selRewardDataSR(map);
 		List<RewardDataS> list = (List<RewardDataS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setStDate(df.dateToString2(list.get(i).getStDate()));
-		}
 		return list;
 	}
 

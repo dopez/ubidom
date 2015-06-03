@@ -35,18 +35,8 @@ public class FamilyDataSController {
 		String compId = (String) session.getAttribute("compId");
 		String serveGbn = familyDataS.getServeGbn();
 		String jikgun = familyDataS.getJikgun();
-		String postCode;
-		String empNo;
-		if(request.getParameter("postCode").equals("")){
-			postCode = "%";
-		}else{
-			postCode = request.getParameter("postCode");
-		}
-		if(request.getParameter("empNo").equals("")){
-			empNo = "%";
-		}else{
-			empNo = request.getParameter("empNo");
-		}
+		String postCode = familyDataS.getPostCode();
+		String empNo = familyDataS.getEmpNo();
 		map.put("compId", compId);
 		map.put("postCode", postCode);
 		map.put("empNo",empNo);

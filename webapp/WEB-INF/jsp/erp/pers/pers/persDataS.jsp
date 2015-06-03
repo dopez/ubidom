@@ -235,6 +235,9 @@ function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridDtlSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
+	var selIdx = gridMain.getSelectedRowIndex();
+	var postNm = gridMain.setCells2(selIdx,3).getValue();
+	$('#postName').val(postNm);
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.cmm.util.JasperReportUtil;
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.DeptR;
 import com.ubi.erp.pers.service.DeptRService;
 
@@ -45,11 +44,6 @@ public class DeptRController {
 		map.put("o_cursor", null);
 		deptRService.selDeptR(map);
 		List<DeptR> list = (List<DeptR>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setStDate(df.dateToString2(list.get(i).getStDate()));
-			list.get(i).setEndDate(df.dateToString2(list.get(i).getEndDate()));
-		}
 		return list;
 	}
 	
@@ -71,12 +65,7 @@ public class DeptRController {
 		map.put("historyKind", historyKind);
 		map.put("o_cursor", null);
 		deptRService.selDeptR(map);
-		DateFormatUtil df = new DateFormatUtil();
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("o_cursor");
-		for(int i = 0; i<list.size();i++){
-			((DeptR) list.get(i)).setStDate(df.dateToString2(((DeptR) list.get(i)).getStDate()));
-			((DeptR) list.get(i)).setEndDate(df.dateToString2(((DeptR) list.get(i)).getEndDate()));
-		}
 		return JasperReportUtil.render("deptR",list, "pdf");
 	}
 	

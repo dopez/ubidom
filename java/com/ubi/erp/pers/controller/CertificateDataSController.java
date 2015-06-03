@@ -36,21 +36,15 @@ public class CertificateDataSController {
 	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<CertificateDataS> selCertificateDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session,CertificateDataS certificateDataS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
-		String stDate = df.dateToString(certificateDataS.getStDate());
-		String endDate = df.dateToString(certificateDataS.getEndDate());
+		String stDate = certificateDataS.getStDate();
+		String endDate = certificateDataS.getEndDate();
 		map.put("compId", compId);
 		map.put("stDate", stDate);
 		map.put("endDate",endDate);
 		map.put("o_cursor", null);
 		certificateDataSService.selCertificateDataS(map);
 		List<CertificateDataS> list = (List<CertificateDataS>) map.get("o_cursor");
-		
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setApplyDate(df.dateToString2(list.get(i).getApplyDate()));
-			list.get(i).setPasspostDate(df.dateToString2(list.get(i).getPasspostDate()));
-		}
 		return list;
 	}
 

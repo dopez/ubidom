@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.LicenseDataS;
 import com.ubi.erp.pers.service.LicenseDataSService;
 
@@ -40,10 +39,6 @@ public class LicenseDataSController {
 		map.put("o_cursor", null);
 		licenseDataSService.selLicenseDataSR(map);
 		List<LicenseDataS> list = (List<LicenseDataS>) map.get("o_cursor");
-		DateFormatUtil df = new DateFormatUtil();
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setAchiDate(df.dateToString2(list.get(i).getAchiDate()));
-		}
 		return list;
 	}
 
@@ -55,11 +50,9 @@ public class LicenseDataSController {
 		List<LicenseDataS> list = new ArrayList<LicenseDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<LicenseDataS>>(){});
-		DateFormatUtil df = new DateFormatUtil();
 		
 		for(LicenseDataS licenseDataS : list) {
 			licenseDataS.setSysEmpNo(sysEmpNo);
-			licenseDataS.setAchiDate(df.dateToString(licenseDataS.getAchiDate()));
 			licenseDataSService.prcsLicenseDataS(licenseDataS);
 		}
 	}
