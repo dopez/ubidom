@@ -6,8 +6,7 @@
 	<resultMap id="HistorySMap" type="HistoryS"/>
 
 	<select id="selEquiHistorySL" statementType="CALLABLE">
-		 {call SP_PROD1_EQUIHISTORYS_SCH1(
-		 #{equiCode},#{supplyComp},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySMap, javaType=ResultSet})}
+		 {call SP_PROD1_EQUIHISTORYS_SCH1(#{equiCode},#{supplyComp},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySMap, javaType=ResultSet})}
 	</select>
 
 
