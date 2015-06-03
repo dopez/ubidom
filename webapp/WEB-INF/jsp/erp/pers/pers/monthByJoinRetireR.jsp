@@ -24,6 +24,9 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"퇴직일",   colId:"retireDate", width:"7", align:"center", type:"ro"});
 	gridMain.addHeader({name:"주민번호", colId:"regiNumb",   width:"7", align:"center", type:"ro"});	
 	gridMain.setUserData("","pk","postCode");
+	gridMain.dxObj.setUserData("","@enterDate","format_date");
+	gridMain.dxObj.setUserData("","@retireDate","format_date");
+	gridMain.setColSort("str");
 	gridMain.init();
 	
 	calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"},{input:"toDate",button:"calpicker2"}]);
@@ -34,16 +37,15 @@ $(document).ready(function(){
 	byId("toDate").value = t;
 });
 function fn_search(){
-	var obj={};
-	obj.kind = $("#kind").val();
-	obj.frDate = $("#frDate").val();
-	obj.toDate = $("#toDate").val();
+	var obj= gfn_getFormElemntsData("frmSearch");
 	fn_loadGridList(obj);
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
  function fn_loadGridList(params) {
+	 $('#frDate').keyup();
+	 $('#toDate').keyup();
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
 
@@ -67,7 +69,7 @@ function fn_excel(){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="frDate" id="frDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="frDate" id="frDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'toDate', 'max')">
@@ -76,7 +78,7 @@ function fn_excel(){
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="toDate" id="toDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="toDate" id="toDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'frDate', 'min')">

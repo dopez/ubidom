@@ -58,12 +58,7 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
  function fn_loadGridList(){
-		var obj={};
-		obj.workDate = $('#workDate').val();
-		obj.postCode = $('#postCode').val();
-		if(obj.postCode == ''){
-			obj.postCode = '%';
-		}
+	 var obj = gfn_getFormElemntsData("frmSearch");
 		gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
 	}
 	function fn_loadGridListCB(data){
@@ -79,7 +74,8 @@ function fn_excel(){
 		      return name+" :부서계 "+count+"명";
 		}
 		gridMain.dxObj.groupBy(1,["","#title","#cspan","","#stat_total","#stat_total","#stat_total","#stat_total"]);
-		$('#postCode').val('');
+		$('#workDate').keyup();
+		$('#postCode').val('%');
 		$('#postName').val('');
 	};
 	function fn_onClosePop(pName,data){
@@ -99,7 +95,7 @@ function fn_excel(){
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="postCode" name="postCode">
+      <input type="hidden" id="postCode" name="postCode" value="%">
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -108,7 +104,7 @@ function fn_excel(){
 			</label>
 			<div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
-                      <input name="workDate" id="workDate" type="text" value="" placeholder="" class="form-control input-xs">
+                      <input name="workDate" id="workDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                   </div>
                   <div class="col-sm-2 col-md-2">
                      <input type="button" id="calpicker" class="calicon form-control">

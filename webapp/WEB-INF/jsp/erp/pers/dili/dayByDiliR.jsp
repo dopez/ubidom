@@ -32,6 +32,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"지각",     colId:"lateTime",   width:"4", align:"center", type:"ro"});
 	gridMain.addHeader({name:"총근무",   colId:"totalTime",  width:"4", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","no");
+	gridMain.dxObj.setUserData("","@workDate","format_date");
 	gridMain.setColSort("str");
 	gridMain.init();
 
@@ -88,26 +89,15 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
 function fn_loadGridList(){
-	var obj={};
-	obj.frDate = $('#frDate').val();
-	obj.toDate = $('#toDate').val();
-	obj.postCode = $('#postCode').val();
-	obj.jikgun = $('#jikgun').val();
-	obj.workKind = $('#workKind').val();
-	obj.empNo = $('#empNo').val();
-	obj.inoutChk = $('input[name="inoutChk"]:checked').val();
-	if(obj.postCode == ''){
-		obj.postCode = '%';
-	}
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
+	var obj=gfn_getFormElemntsData("frmSearch");
 	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
 }
 function fn_loadGridListCB(data){
-	$('#empNo').val('');
+	$('#frDate').keyup();
+	$('#toDate').keyup();
+	$('#empNo').val('%');
 	$('#korName').val('');
-	$('#postCode').val('');
+	$('#postCode').val('%');
 	$('#postName').val('');
 };
 function fn_onClosePop(pName,data){
@@ -134,8 +124,8 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-     <input type="hidden" id="postCode" name="postCode">
-     <input type="hidden" id="empNo" name="empNo">
+     <input type="hidden" id="postCode" name="postCode" value="%">
+     <input type="hidden" id="empNo" name="empNo" value="%">
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
@@ -145,7 +135,7 @@ function fn_onClosePop(pName,data){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="frDate" id="frDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="frDate" id="frDate" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'toDate', 'max')">
@@ -158,7 +148,7 @@ function fn_onClosePop(pName,data){
                        </div>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="toDate" id="toDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="toDate" id="toDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                              <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'frDate', 'min')">

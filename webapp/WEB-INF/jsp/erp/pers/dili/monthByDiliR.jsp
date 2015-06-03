@@ -56,14 +56,7 @@ function fn_search(){
 	fn_loadGridMain();
 }
 function fn_loadGridMain(){
-	var obj={};
-	obj.frYymm = $('#frYymm').val();
-	obj.toYymm = $('#toYymm').val();
-	obj.postCode = $('#postCode').val();
-	obj.jikgun = $('#jikgun').val();
-	if(obj.postCode == ''){
-		obj.postCode = '%';
-	}
+	var obj = gfn_getFormElemntsData("frmSearch");
     gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 }
 function fn_loadGridMainCB(data){
@@ -74,7 +67,9 @@ function fn_loadGridMainCB(data){
 	}
 	gridMain.dxObj.groupBy(20,["","#title","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan"
 	                           ,"#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan","#cspan"]);
-	$('#postCode').val('');
+	$('#frYymm').keyup();
+	$('#toYymm').keyup();
+	$('#postCode').val('%');
 	$('#postName').val('');
 };
 function fn_excel(){
@@ -97,7 +92,7 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="postCode" name="postCode">
+      <input type="hidden" id="postCode" name="postCode" value="%">
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">
@@ -107,7 +102,7 @@ function fn_onClosePop(pName,data){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="frYymm" id="frYymm" value="">
+                              <input type="text" class="form-control input-xs format_date" name="frYymm" id="frYymm" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
                              <input type="button" id="calpicker1" class="calicon form-control"  onclick="setSens(1,'toYymm', 'max')">
@@ -116,7 +111,7 @@ function fn_onClosePop(pName,data){
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="toYymm" id="toYymm" value="">
+                              <input type="text" class="form-control input-xs format_date" name="toYymm" id="toYymm" value="">
                           </div>
                           <div class="col-sm-2 col-md-2"> 
                              <input type="button" id="calpicker2" class="calicon form-control"  onclick="setSens(1,'frYymm', 'min')">

@@ -38,6 +38,7 @@ var msk_options =  {
 $(function(){
 
 	  $('.format_date').mask('0000/00/00', $.extend(msk_options,{placeholder: "____/__/__"}));
+	  $('.format_month').mask('0000/00', $.extend(msk_options,{placeholder: "____/__"}));
 	  $('.format_regi').mask('000000-0000000', msk_options);
 	  $('.format_hp').mask('000000-0000000', msk_options);
 	  $('.format_tel').mask('000000-0000000', msk_options);

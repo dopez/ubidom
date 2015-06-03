@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.DayByDiliS;
 import com.ubi.erp.pers.service.DayByDiliSService;
 
@@ -33,10 +32,9 @@ public class DayByDiliSController {
 	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<DayByDiliS> selDayByDiliS(HttpServletRequest request, HttpServletResponse response,HttpSession session,DayByDiliS dayByDiliS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateFormatUtil df = new DateFormatUtil();
 		String compId = (String) session.getAttribute("compId");
 		String postCode = dayByDiliS.getPostCode();
-		String workDate = df.dateToString(dayByDiliS.getWorkDate());
+		String workDate = dayByDiliS.getWorkDay();
 		String jikgun = dayByDiliS.getJikgun();
 		map.put("compId", compId);
 		map.put("workDate", workDate);
@@ -45,10 +43,6 @@ public class DayByDiliSController {
 		map.put("o_cursor", null);
 		dayByDiliSService.selDayByDiliS(map);
 		List<DayByDiliS> list = (List<DayByDiliS>) map.get("o_cursor");
-		
-		for(int i = 0; i<list.size();i++){
-			list.get(i).setWorkDate(df.dateToString2(list.get(i).getWorkDate()));
-		}
 		return list;
 	}
 	

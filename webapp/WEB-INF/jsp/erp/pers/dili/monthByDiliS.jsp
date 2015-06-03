@@ -90,12 +90,7 @@ $(document).ready(function(){
 	fn_comboSet(combo);
 });
 function fn_loadGridMstPOPCB(data){
-	var obj={};
-	obj.yymm = $('#yymm').val();
-	obj.empNo = $('#empNo').val();
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
+	var obj=gfn_getFormElemntsData("frmMain");
 	if(data[0].cnt > 0){
 		if(MsgManager.confirmMsg("INF005")) { 
 			gfn_callAjaxForGrid(gridMst,obj,"gridPopSave",subLayout.cells("a"));
@@ -133,9 +128,9 @@ comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
 }
 function doOnMstRowSelect(id,ind){
-	var obj = {};
-	obj.yymm = $('#yymm').val();
-	obj.empNo = gridMst.setCells(id,3).getValue();
+	var empNoVal = gridMst.setCells(id,3).getValue();
+	$('#empNo').val(empNoVal); 
+	var obj=gfn_getFormElemntsData("frmMain");
 	fn_loadGridDtl(obj);
 }
 //doc ready end
@@ -189,17 +184,7 @@ function fn_excel(){
 	gridMst.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_loadGridMst(){
-	var obj={};
-	obj.yymm = $('#yymm').val();
-	obj.postCode = $('#postCode').val();
-	obj.jikgun = $('#jikgun').val();
-	obj.empNo = $('#empNo').val();
-	if(obj.postCode == ''){
-		obj.postCode = '%';
-	}
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
+	var obj=gfn_getFormElemntsData("frmMain");
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
 }
 function fn_loadGridMstCB(data){
@@ -209,8 +194,9 @@ function fn_loadGridMstCB(data){
 		obj.empNo = data[0].empNo;
 		fn_loadGridDtl(obj);
 	}
-	$('#empNo').val('');
-	$('#postCode').val('');
+	$('#yymm').keyup();
+	$('#empNo').val('%');
+	$('#postCode').val('%');
 	$('#korName').val('');
 	$('#postName').val('');
 }
@@ -219,7 +205,7 @@ function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 }
 function fn_loadGridDtlCB(data){
-	
+	$('#empNo').val('%');
 }
 function fn_onClosePop(pName,data){
 	var i;
@@ -249,8 +235,8 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
     <div class="container">
         <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
-           <input type="hidden" id="postCode" name="postCode">
-           <input type="hidden" id="empNo" name="empNo">
+           <input type="hidden" id="postCode" name="postCode" value="%">
+           <input type="hidden" id="empNo" name="empNo" value="%">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
@@ -259,7 +245,7 @@ function fn_onClosePop(pName,data){
                         </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs format_month">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker" class="calicon form-control">

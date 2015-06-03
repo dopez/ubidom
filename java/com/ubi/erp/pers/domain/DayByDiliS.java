@@ -31,6 +31,7 @@ public class DayByDiliS implements Serializable {
 	private String frDate;
 	private String toDate;
 	private int cnt;
+	private String workDay;
 
 	public DayByDiliS() {
 		super();
@@ -218,6 +219,14 @@ public class DayByDiliS implements Serializable {
 
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
+	}
+
+	public String getWorkDay() {
+		return workDay;
+	}
+
+	public void setWorkDay(String workDay) {
+		this.workDay = workDay;
 	}
 
 	public static long getSerialversionuid() {
