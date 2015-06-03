@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-06-02T13:56:31 -->
+<!-- 2015-06-02T14:34:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersDataP" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ceko"/>
@@ -93,7 +93,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="414" splitType="Prevent">
+		<band height="368" splitType="Prevent">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
@@ -2038,7 +2038,7 @@
 				</image>
 			</frame>
 			<subreport>
-				<reportElement x="0" y="322" width="554" height="46" uuid="41368f4c-50f6-482f-843f-99aa144e9adb">
+				<reportElement style="common" x="0" y="322" width="554" height="46" uuid="41368f4c-50f6-482f-843f-99aa144e9adb">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -2051,14 +2051,20 @@
 				<dataSourceExpression><![CDATA[$P{SubData1}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SubUrl1}]]></subreportExpression>
 			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46">
 			<subreport>
-				<reportElement x="0" y="368" width="555" height="46" uuid="96640c24-9e99-4291-9f1f-cc1cc66887e9">
+				<reportElement style="common" x="0" y="0" width="554" height="46" uuid="96640c24-9e99-4291-9f1f-cc1cc66887e9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<dataSourceExpression><![CDATA[$P{SubData2}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SubUrl2}]]></subreportExpression>
 			</subreport>
 		</band>
-	</pageHeader>
+	</columnHeader>
 </jasperReport>

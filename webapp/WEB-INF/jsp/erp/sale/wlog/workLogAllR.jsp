@@ -23,10 +23,37 @@
                 gridMain.setColAlign("center,center,center,center,left,left,center");
                 gridMain.setColTypes("ro,ro,ro,ro,ro,ro,ro");
                 gridMain.setColSorting("str,str,str,str,str,str,str");
+                gridMain = new dxGrid(subLayout.cells("a"),false);
+                gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
+                gridMain.addHeader({name:"일자",colId:"logDate",width:"5",align:"center",type:"ro"});
+                gridMain.addHeader({name:"고객",colId:"custKorName",width:"5",align:"center",type:"ro"});
+                gridMain.addHeader({name:"종류",colId:"workKind",width:"5",align:"center",type:"ro"});
+                gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ed"});
+                gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ed"});
+                gridMain.setUserData("","pk","");
+                gridMain.setColSort("str");
                 gridMain.init();
-
-
-                //calRangeDate
+                gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
+                  
+                //combo
+                var combo01 = dhtmlXComboFromSelect("workKind");
+                combo01.setTemplate({
+            	    input: "#interCode#",
+            	    input: "#interName#",
+            	    columns: [
+            	       {header: "내부코드", width: 100,  option: "#interCode#"},
+            		   {header: "코드명",   width: 100,  option: "#interName#"}
+            	    ]
+                });
+                combo01.enableFilteringMode(true);
+                combo01.enableAutocomplete(true);
+                combo01.allowFreeText(true);
+                combo01.readonly(true);
+                fn_comboCodeLoad(combo01);	
+                combo01.attachEvent("onClose", function() {
+            			comboVal = combo01.getSelectedText().interCode;
+            	})
+                //setDate;
                 calMain = new dhtmlXCalendarObject([{
                     input: "stDate",
                     button: "calpicker1"
@@ -38,22 +65,87 @@
                 calMain.hideTime();
                 var t = dateformat(new Date());
                 byId("stDate").value = t;
-
-                toolbar.attachEvent("onClick", function(id) {
-        			if(id == "btn1"){
-        				fn_insert();
-        			}
-        		});
+                byId("edDate").value = t;
                 //popUp
-                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-                function doOnRowDblClicked(rowId,colId){
-        				gfn_big_load_popup(910,500,'','sale/workLogPOP');
-        		}
+                $("#empNo, #custKorName").click(function(e){
+            		if(e.target.id == "empNo"){
+            			popParam = e;
+            			gfn_load_pop('w1','common/empPOP',true,{"empNo":$(this).val()});
+            		  }else if(e.target.id == "custKorName"){
+            			var param = ""
+            	        gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": param});
+            		  }
+                })
+                fn_search();
             })
+            //doc ready end
+            function fn_search() {
+                var obj = {};
+                obj.logKind = PscrnParm;
+                obj.frDate = $("#stDate").val();
+                obj.toDate = $("#edDate").val();
+                obj.empNo = $("#empNo").val();
+                obj.workKind = comboVal;
+                obj.custCode = $("#custCode").val();
+                if(obj.empNo==null||obj.empNo.length<=0){
+                	obj.empNo = '%';
+                }
+                if(obj.workKind==null||obj.workKind.length<=0){
+                	obj.workKind = '%';
+                }
+                if(obj.custCode==null||obj.custCode.length<=0){
+                	obj.custCode = '%';
+                }
+                gfn_callAjaxForGrid(gridMain, obj, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+            }
+            //excel
+            function fn_excel(){
+            	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+             };
+            //print
+            function  fn_print(){
+            	gridMain.printView();
+             }
+            function fn_gridMainSelCallbckFunc(data) {
+            }
 
-            function fn_insert() {
-            		gridMain.addRow(gridMain.getUID(),"1,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST,TEST",1);
-        	}
+            function fn_onClosePop(pName, data) {
+                var i;
+                var obj = {};
+                if (pName == "custCode") {
+                    for (i = 0; i < data.length; i++) {
+                        obj.custKorName = data[i].custKorName;
+                        obj.custCode = data[i].custCode;
+                        $('#custCode').val(obj.custCode);
+                        $('#custKorName').val(obj.custKorName);
+                    }
+                } else if (pName == "empNo") {
+                    for (i = 0; i < data.length; i++) {
+                        obj.korName = data[i].korName;
+                        obj.empNo = data[i].empNo;
+                        //$('#korName').val(obj.korName);
+                        $('#empNo').val(obj.empNo);
+                    }
+                }
+            }
+
+            function fn_comboCodeLoad(comboId) {
+                var param = {};
+                param.code = "W01"
+                comboId.addOption([{value: 0,text: {interCode: '%',interName: '전체'}}]);
+                $.ajax({
+                    "url": "/erp/cmm/InterCodeR",
+                    "type": "post",
+                    "data": param,
+                    "success": function(data) {
+                        var list = data;
+                        for (var i = 1; i < list.length; i++) {
+                            comboId.addOption([{value: i,text: {interCode: list[i].interCode,interName: list[i].interName}}]);
+                        }
+                        comboId.selectOption(0);
+                    }
+                });
+            }
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">

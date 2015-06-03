@@ -82,19 +82,4 @@ public class PersDataPController {
 		return new ModelAndView("PersDataP", parameterMap);
 		
 	}
-	/*@SuppressWarnings("unchecked")
-	@RequestMapping("/report/persDataPtest")
-	public ModelAndView persDataPtest(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws ParseException {
-		String compId = (String) session.getAttribute("compId");
-		String empno = request.getParameter("empNo");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("V_COMPID", compId);
-		map.put("V_EMP_NO", empno);
-		map.put("o_cursor", null);
-		PersDataPService.selCareerData(map);
-		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("o_cursor");
-
-		return JasperReportUtil.render("persDataPtest",list, "pdf");
-	}
-*/
 }
