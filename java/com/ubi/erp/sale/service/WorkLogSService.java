@@ -37,9 +37,7 @@ public class WorkLogSService {
 	}
 
 	public void prcsGridMain(List<WorkLogS> list, String sysEmpNo, String compId) throws ParseException {
-		DateFormatUtil df = new DateFormatUtil();
 		for(WorkLogS workLogs : list) {
-			workLogs.setLogDate(df.dateToString(workLogs.getLogDate()));
 			workLogs.setSysEmpNo(sysEmpNo);
 			workLogs.setCompId(compId);
 			if("INSERT".equals(workLogs.getCudKey())) {

@@ -108,7 +108,7 @@ function fn_save() {
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-
+		console.log(jsonStr);
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -184,7 +184,7 @@ function fn_onClosePop(pName, data) {
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_date" >
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
