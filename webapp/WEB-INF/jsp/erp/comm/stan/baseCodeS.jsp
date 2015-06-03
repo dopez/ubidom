@@ -19,6 +19,8 @@ $(document).ready(function(){
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"코드",   colId:"code",     width:"30", align:"center", type:"ro"});
 	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",   type:"ro"});
+	gridMst.setColSort("str");	
+	gridMst.setUserData("","pk","code");
 	gridMst.init();
 	gridMst.attachEvent("onRowSelect",doOnGridMstSelect);
 	
@@ -28,6 +30,8 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"7", type:"ed"});
 	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"5", align:"center",type:"ed"});
+	gridDtl.setColSort("str");	
+	gridDtl.setUserData("","pk","");
 	gridDtl.init();	
 	
 	fn_loadGridMst(1);
@@ -151,6 +155,7 @@ function fn_loadGridMst(flag){
 	}else if(flag == 0){
 		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"));
 	}
+	
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
