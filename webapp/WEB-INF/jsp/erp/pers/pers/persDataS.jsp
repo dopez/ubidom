@@ -222,6 +222,7 @@ function fn_new(){
 		});
 	}
 }; 
+
 function fn_remove(){
 	$('#cudKey').val('DELETE');
     var rodid = gridMain.getSelectedRowId();
@@ -246,9 +247,9 @@ function fn_loadFormListCB(data){
 		  $("#target").attr("src",path);
 		}else{
 			$('#target').removeAttr('src');
-		}
-	
-}
+		}	
+};
+
 function fn_onOpenPop(pName){
 	var value;
 	if(pName=="postCode"){
