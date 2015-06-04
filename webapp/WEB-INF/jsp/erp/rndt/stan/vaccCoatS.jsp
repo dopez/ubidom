@@ -30,26 +30,20 @@ $(document).ready(function(){
     subLayout.cells("c").setText("증착조건");
     gridDtl = new dxGrid(subLayout.cells("c"),false);
     gridDtl.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"cntr"});
-    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"5",align:"center",type:"ro"});
-    
-    gridDtl.addHeader({name:"모재코드",colId:"matrCodeMj",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"약품코드",colId:"matrCode",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"적용일자",colId:"applyDate",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"설비코드",colId:"equiCode",width:"5",align:"center",type:"ro"});
-    
-    gridDtl.addHeader({name:"온도",colId:"temperature",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"두께",colId:"thickness",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"10",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"10",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"온도",colId:"temperature",width:"10",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"10",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"10",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"10",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"두께",colId:"thickness",width:"10",align:"center",type:"ed"});
     gridDtl.addHeader({name:"Rate",colId:"rate",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"방식",colId:"method",width:"5",align:"center",type:"ed"});
-    gridDtl.setUserData("","pk","No");
+    gridDtl.addHeader({name:"방식",colId:"method",width:"10",align:"center",type:"ed"});
+    gridDtl.setUserData("","pk","");
     gridDtl.setColSort("str");
     gridDtl.init();
-    //gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
+    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
     //set date//
     calStDate = new dhtmlXCalendarObject([{input:"stDate",button: "calpicker1"}]);
     calStDate.loadUserLanguage("ko");
@@ -69,12 +63,12 @@ function fn_save(){
 
 }
 function fn_gridDtlSave(){
-	var gridMstRowIdx = gridDtl.getSelectedRowIndex();
+	var gridMstRowIdx = gridMst.getSelectedRowIndex();
     var applyDateColIdx = gridDtl.getColIndexById('cudKey');
     var c = gridDtl.setCells2(gridMstRowIdx, applyDateColIdx).getValue();
     console.log(c);
  
-	/* var jsonStr = gridDtl.getJsonUpdated2();
+	var jsonStr = gridDtl.getJsonUpdated2();
 	console.log(jsonStr);
     $("#jsonData").val(jsonStr);
     if (jsonStr == "[]" || jsonStr.length <= 0){
@@ -90,18 +84,15 @@ function fn_gridDtlSave(){
         success: function(gridMstRowIdx) {
             fn_gridDtlSaveCallbckFunc(gridMstRowIdx);
         }
-    }); */
+    });
 }
 function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(selectedId);
-	var colIndex=gridDtl.dxObj.getColIndexById("cudKey");
-	var cellObj = gridDtl.dxObj.cells(selectedId,colIndex);
-
 }
 function fn_gridDtlSaveCallbckFunc(gridMstRowIdx){
 	dhtmlx.alert("저장완료");
-	//gridMst.selectRow(gridMstRowIdx);
+	gridMst.selectRow(gridMstRowIdx);
 }
 function fn_add() {
 	if(equiCode==""||typeof equiCode=="undefined"){
@@ -133,10 +124,6 @@ function fn_doOnDtlRowSelect(rId, cellId){
             "matrKind2": "P"
         });
 	}
-	var gridMstRowIdx = gridDtl.getSelectedRowIndex();
-    var applyDateColIdx = gridDtl.getColIndexById('cudKey');
-    var c = gridDtl.setCells2(gridMstRowIdx, applyDateColIdx).getValue();
-    console.log(c);
 }
 function fn_onClosePop(mkind, data) {
     var i;
