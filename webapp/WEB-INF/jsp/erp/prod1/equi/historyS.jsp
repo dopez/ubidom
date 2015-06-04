@@ -11,6 +11,8 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl01, gridDtl02;
 var calMain;
 var toolbar01, toolbar02;
+var combo01, combo02, combo03;
+var cFlag = true;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4],"3L");
 	//설비이력등록
@@ -30,7 +32,7 @@ $(document).ready(function(){
 	gridMst.addHeader({name:"설비명",   colId:"equiName",   width:"30", align:"center", type:"ro"});
 	gridMst.addHeader({name:"사용공정", colId:"useProcess", width:"30", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
-	gridMst.setUserData("","pk","no");
+	gridMst.setUserData("","pk","equiCode");
 	gridMst.init(); 
 	toolbar.attachEvent("onClick",gridMstOnClick);
 	gridMst.attachEvent("onRowSelect",doOnGridMstSelect);
@@ -40,35 +42,39 @@ $(document).ready(function(){
 	              {id: "a2",text: "소모성부품이력등록"}]});
 	
 	 gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
-	    gridDtl01.addHeader({name:"NO",           colId:"no", width:"4",  align:"center", type:"cntr"});
-	    gridDtl01.addHeader({name:"항목코드",     colId:"",   width:"7",  align:"center", type:"combo"});
-	    gridDtl01.addHeader({name:"항목명",       colId:"",   width:"7",  align:"center", type:"ro"});
-	    gridDtl01.addHeader({name:"주기",         colId:"",   width:"10", align:"center", type:"combo"});
-	    gridDtl01.addHeader({name:"최종점검일자", colId:"",   width:"7",  align:"center", type:"dhxCalendarA"});	
-	    gridDtl01.setUserData("","pk","no");
-	    //gridDtl01.dxObj.setUserData("","@endDate","format_date");
+	    gridDtl01.addHeader({name:"NO",           colId:"no",        width:"4",  align:"center", type:"cntr"});
+	    gridDtl01.addHeader({name:"항목명",       colId:"checkItem", width:"7",  align:"center", type:"combo"});
+	    gridDtl01.addHeader({name:"주기단위",     colId:"cycleKind", width:"7",  align:"center", type:"combo"});
+	    gridDtl01.addHeader({name:"주기",         colId:"cycle",     width:"7",  align:"center", type:"edn"});
+	    gridDtl01.addHeader({name:"최종점검일자", colId:"finalDate", width:"7",  align:"center", type:"dhxCalendarA"});	
+	    gridDtl01.addHeader({name:"비고",         colId:"rmk",       width:"15", align:"center", type:"ed"});
+	    gridDtl01.setUserData("","pk","checkItem");
+	    gridDtl01.dxObj.setUserData("","@finalDate","format_date");
 	    gridDtl01.setColSort("str");
 	    gridDtl01.init(); 
+	    gridDtl01.cs_setColumnHidden(["equiCode"]);
 	    
 	    var gridTab01 = gridTabbar.tabs("a1");
-	    toolbar01 = subToolbar(toolbar01,gridTab01,[1,2,3,4,5,6]);
+	    toolbar01 = subToolbar(toolbar01,gridTab01,[1,3,4,5,6]);
 		toolbar01.attachEvent("onClick",gridDtl01OnClick);
 	    
 	    
 	    gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
-	    gridDtl02.addHeader({name:"NO",       colId:"no", width:"4",  align:"center",  type:"cntr"});
-	    gridDtl02.addHeader({name:"부품코드", colId:"",   width:"7",  align:"center",  type:"ro"});
-	    gridDtl02.addHeader({name:"부품명",   colId:"",   width:"7",  align:"center",  type:"ro"});
-	    gridDtl02.addHeader({name:"규격",     colId:"",   width:"10", align:"center",  type:"ed"});
-	    gridDtl02.addHeader({name:"교환주기", colId:"",   width:"7",  align:"center",  type:"ed"});
-	    gridDtl02.addHeader({name:"적정재고", colId:"",   width:"7",  align:"center",  type:"ed"});
-	    gridDtl02.addHeader({name:"보험회사", colId:"",   width:"7",  align:"center",  type:"ed"});	
-	    gridDtl02.setUserData("","pk","no");
+	    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"4",  align:"center",  type:"cntr"});
+	    gridDtl02.addHeader({name:"부품코드", colId:"partCode",  width:"8",  align:"center",  type:"ro"});
+	    gridDtl02.addHeader({name:"부품명",   colId:"partName",  width:"8",  align:"center",  type:"ro"});
+	    gridDtl02.addHeader({name:"규격",     colId:"partSpec",  width:"10", align:"center",  type:"ro"});
+	    gridDtl02.addHeader({name:"주기단위", colId:"cycleKind", width:"7",  align:"center", type:"combo"});
+	    gridDtl02.addHeader({name:"교환주기", colId:"cycle",     width:"7",  align:"center",  type:"edn"});
+	    gridDtl02.addHeader({name:"적정재고", colId:"safeStock", width:"7",  align:"center",  type:"edn"});
+	    gridDtl02.addHeader({name:"보험회사", colId:"insurance", width:"7",  align:"center",  type:"ed"});	
+	    gridDtl02.setUserData("","pk","partCode");
 	    gridDtl02.setColSort("str");
 	    gridDtl02.init(); 
-
+	    gridDtl02.cs_setColumnHidden(["equiCode"]);
+	    gridDtl02.attachEvent("onRowSelect",doOnGridDtl02Select);
 		var gridTab02 = gridTabbar.tabs("a2");
-		toolbar02 = subToolbar(toolbar02,gridTab02,[1,2,3,4,5,6]);
+		toolbar02 = subToolbar(toolbar02,gridTab02,[1,3,4,5,6]);
 		toolbar02.attachEvent("onClick",gridDtl02OnClick);
 	    
 	calMain = new dhtmlXCalendarObject([{input:"buyDate",button:"calpicker1"},{input:"regiDate",button:"calpicker2"}]); 
@@ -90,6 +96,7 @@ $(document).ready(function(){
 	 		} 
 		}
 		if(e.target.id == "delImg"){
+			  disableValue(1);
 		       byId("cudKey").value = "UPDATE";
               $.ajax({
                url : "/erp/prod1/equi/historyS/prcsEquiFileDelete",
@@ -102,23 +109,76 @@ $(document).ready(function(){
               }
           }); 
 		}
-		if(e.target.id == "eqCode"){
-			//gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+	}).keyup(function(e){
+		if(e.target.id == "korName"){
+			if(e.keyCode == '9'){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		    }
+		 }	
+	  });
+	 
+	
+	$("#supplyComp,#splyComp,#eqCode").dblclick(function(e){
+		if(e.target.id == "supplyComp"){
+			cFlag = true;
+			gfn_load_pop('w1','common/supplyCompCodePOP',true,{"supplyComp":$(this).val()});
 		}
 		if(e.target.id == "splyComp"){
-			//gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			cFlag = false;
+			gfn_load_pop('w1','common/supplyCompCodePOP',true,{"supplyComp":$(this).val()});
+		}
+		if(e.target.id == "eqCode"){
+			gfn_load_pop('w1','common/equiCodePOP',true,{"eqCode":$(this).val()});
 		}
 	});
-	
+
 	fn_gridMstSearch();
 	byId("cudKey").value = "INSERT";
+	
+	combo01 =gridDtl01.getColumnCombo(1);
+	fn_comboSet(combo01,"E02");
+	combo02 =gridDtl01.getColumnCombo(2);
+	fn_comboSet(combo02,"C10");
+	combo03 =gridDtl02.getColumnCombo(4);
+	fn_comboSet(combo03,"C10");
+	
 });
+
+function fn_comboSet(comboId,params){
+	comboId.setTemplate({
+		    input: "#interName#",
+		    columns: [
+			   {header: "코드명",   width: 100,  option: "#interName#"}
+		    ]
+		});
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	var obj={};
+	obj.compId = '100';
+	obj.code = params;
+	doOnOpen(comboId,obj);
+} 
+function doOnOpen(comboId,params){
+	$.ajax({
+		"url":"/erp/cmm/InterCodeR",
+		"type":"post",
+		"data":params,
+		"success" : function(data){
+		  var list = data;
+		  for(var i=0;i<list.length;i++){
+			  comboId.addOption(list[i].interCode,list[i].interName);	  
+		  }
+		}
+  });	
+};
+
 function gridMstOnClick(id){
    if(id == "btn1"){
 	   fn_gridMstSearch();
 	}
    if(id == "btn2"){
-	    fn_new();
+	   fn_gridMstNew();
 	}
    if(id == "btn3"){
 		fn_formSave();	 
@@ -130,29 +190,68 @@ function gridMstOnClick(id){
 
 function gridDtl01OnClick(id){
 	if(id == "btn1"){
-		  alert(2);
+		fn_tab1Search();
+	}
+	if(id == "btn3"){
+		fn_tab1Save();
+	}
+	if(id == "btn4"){
+		fn_tab1Remove();
+	}
+	if(id == "btn5"){
+		fn_tab1Add();
+	}
+	if(id == "btn6"){
+		fn_tab1Delete();
 	}
 };
 
 function gridDtl02OnClick(id){
 	if(id == "btn1"){
-		  alert(3);
+		fn_tab2Search();
 	}
+	if(id == "btn3"){
+		fn_tab2Save();
+	}
+	if(id == "btn4"){
+		fn_tab2Remove();
+	}
+	if(id == "btn5"){
+		fn_tab2Add();
+	}
+	if(id == "btn6"){
+		fn_tab2Delete();
+	}
+};
+function fileUploadCB(data){
+	fn_formSave();
 };
 function fn_calValue(){
 	var t = dateformat(new Date());
 	byId("buyDate").value = t;
 	byId("regiDate").value = t;
 };
+
+function disableValue(flag){
+	if(flag == 1){
+	  $("input[name=equiCode]").attr("disabled",false);
+	  $("input[name=equiName]").attr("disabled",false);
+	  
+	}else{
+	  $("input[name=equiCode]").attr("disabled",true);
+	  $("input[name=equiName]").attr("disabled",true);
+	}
+}
 function fn_gridMstSearch(){
 	fn_loadGridMst(); 
-	   fn_new();
+	fn_gridMstNew();
 }
-function fn_new(){
+function fn_gridMstNew(){
 	byId("frmMain").reset();
 	byId("frmSearch").reset();
 	$('#target').removeAttr('src');
 	fn_calValue();
+	disableValue(1);
 	byId("cudKey").value = "INSERT";
 }
 function fn_loadGridMst(){
@@ -164,7 +263,7 @@ function fn_loadGridMst(){
 	}
 	var params = gfn_getFormElemntsData('frmSearch');
     gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
-    fn_new();
+    fn_gridMstNew();
 };
 function fn_formSave(){
 	 f_dxRules = {
@@ -172,6 +271,7 @@ function fn_formSave(){
 		equiName : ["설비명",r_notEmpty],
 	  };
 	 if(gfn_formValidation('frmMain')){
+		 disableValue(1);
 		var params = gfn_getFormElemntsData('frmMain');
 		  $.ajax(
 		   {
@@ -192,8 +292,9 @@ function fn_gridMstRemove(){
 	   gridMst.cs_deleteRow(rodid); 
 }
 function doOnGridMstSelect(id,ind){
-	fn_new();
+	fn_gridMstNew();
 	byId("cudKey").value = "UPDATE";
+	disableValue(2);
 	var obj={};
 	obj.equiCode= gridMst.setCells(id,1).getValue();
 	fn_loadFormList(obj);
@@ -202,7 +303,6 @@ function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridFormSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
-	alert(data[0].imgPath);
 	if(data[0].imgPath != null){
 		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
 		  $("#target").attr("src",path);
@@ -211,9 +311,109 @@ function fn_loadFormListCB(data){
 		}
 };
 
-function fileUploadCB(data){
-	byId("cudKey").value = "UPDATE";
-	fn_formSave();
+function fn_tab1Search(){
+	gfn_callAjaxForGrid(gridDtl01,{},"gridTab1Search",subLayout.cells("c"));
+};
+
+function fn_tab2Search(){
+	gfn_callAjaxForGrid(gridDtl02,{},"gridTab2Search",subLayout.cells("c"));
+};
+
+function fn_tab1Save(){
+	var rowIdx = gridMst.getSelectedRowIndex();
+	 var jsonStr = gridDtl01.getJsonUpdated2();
+   if (jsonStr == null || jsonStr.length <= 0) return;         		
+       $("#jsonData").val(jsonStr);  
+        $.ajax({
+          url : "/erp/prod1/equi/historyS/gridTab1Save",
+          type : "POST",
+          data : $("#tab1form").serialize(),
+          async : true,
+          success : function(data) {
+          MsgManager.alertMsg("INF001");
+          gridMst.selectRow(rowIdx,true,true,true);
+           }
+      });  
+};
+
+function fn_tab1Remove(){
+	for(var i=0; i<gridDtl01.getRowsNum();i++){
+		gridDtl01.cs_deleteRow(gridDtl01.getRowId(i));	 
+	 }
+};
+
+function fn_tab1Add(){
+	var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{
+	 var totalColNum = gridDtl01.getColumnCount();
+	    var data = new Array(totalColNum);
+	    var finalDateColIdx = gridDtl01.getColIndexById('finalDate');
+		var equiCodeColIdx = gridDtl01.getColIndexById('equiCode');
+		var cycleColIdx = gridDtl01.getColIndexById('cycle');
+		    data[finalDateColIdx] = dateformat(new Date());
+	        data[equiCodeColIdx] = gridMst.setCells(rowCheck,1).getValue();
+	        data[equiCodeColIdx] = 0;
+		    gridDtl01.addRow(data);
+	}
+};
+
+function fn_tab1Delete(){
+    var rodid = gridDtl01.getSelectedRowId();
+    gridDtl01.cs_deleteRow(rodid);
+};
+
+doOnGridDtl02Select
+function doOnGridDtl02Select(id,ind){
+	if(ind==1){
+   gfn_load_pop('w1','prod1/compHistoryPOP',true,{});
+	}
+}
+
+function fn_tab2Save(){
+	var rowIdx = gridMst.getSelectedRowIndex();
+	 var jsonStr = gridDtl02.getJsonUpdated2();
+   if (jsonStr == null || jsonStr.length <= 0) return;         		
+       $("#jsonData2").val(jsonStr);  
+        $.ajax({
+          url : "/erp/prod1/equi/historyS/gridTab2Save",
+          type : "POST",
+          data : $("#tab2form").serialize(),
+          async : true,
+          success : function(data) {
+          MsgManager.alertMsg("INF001");
+          fn_tab2Search();
+           }
+      });  
+};
+
+function fn_tab2Remove(){
+	for(var i=0; i<gridDtl02.getRowsNum();i++){
+		gridDtl02.cs_deleteRow(gridDtl02.getRowId(i));	 
+	 }
+};
+
+function fn_tab2Add(){
+	var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{
+	 var totalColNum = gridDtl02.getColumnCount();
+	 var data = new Array(totalColNum);
+		var equiCodeColIdx = gridDtl02.getColIndexById('equiCode');
+		var cycleColIdx = gridDtl02.getColIndexById('cycle');
+		var safeStockColIdx = gridDtl02.getColIndexById('safeStock');
+	        data[equiCodeColIdx] = gridMst.setCells(rowCheck,1).getValue();
+	        data[equiCodeColIdx] = 0;
+	        data[safeStockColIdx] = 0;
+		    gridDtl02.addRow(data);
+	}
+};
+
+function fn_tab2Delete(){
+    var rodid = gridDtl02.getSelectedRowId();
+    gridDtl02.cs_deleteRow(rodid);
 };
 
 function fn_onClosePop(pName,data){
@@ -226,9 +426,38 @@ function fn_onClosePop(pName,data){
 				$('#korName').val(obj.korName);
 				$('#empNo').val(obj.empNo);
 		}
-	}	  
+	}
+	 if(pName == "equiCode"){
+			for(i=0;i<data.length;i++){
+				obj.equiCode=data[i].equiCode;
+					$('#eqCode').val(obj.equiCode);
+			}
+	  }
+	 if(pName == "partCode"){
+			for(i=0;i<data.length;i++){
+				var rowIdx = gridDtl02.getSelectedRowIndex();
+				gridDtl02.setCells2(rowIdx,1).setValue(data[i].partCode);
+				gridDtl02.setCells2(rowIdx,2).setValue(data[i].partName);
+				gridDtl02.setCells2(rowIdx,3).setValue(data[i].partSpec);
+			}
+	  }
  };
+ 
+ function fn_closeCustCodePop(data){
+	 if(cFlag){
+		 $('#supplyComp').val(data); 
+	 }else{
+		 $('#splyComp').val(data);
+	 }
+	 
+ }
 </script>
+<form id="tab1form" name="tab1form" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+</form>
+<form id="tab2form" name="tab2form" method="post">
+    <input type="hidden" id="jsonData2" name="jsonData2" />
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
@@ -260,7 +489,26 @@ function fn_onClosePop(pName,data){
           <input type="hidden" id="cudKey" name="cudKey" />
           <input type="hidden" id="empNo" name="empNo" />
           <input type="hidden" id="imgPath"  name="imgPath">
-      <input id="fileName" type="file" name="fileName" data-url="/erp/prod1/equi/historyS/prcsEquiFileUpload" multiple style="display: none;">
+          <input id="fileName" type="file" name="fileName" data-url="/erp/prod1/equi/historyS/prcsEquiFileUpload" multiple style="display: none;">
+       <div class="col-sm-4 col-md-4">
+	     <div class="row">
+		   <div class="form-group form-group-sm">
+			  <div class="col-sm-9 col-md-9 col-sm-offset-1 col-md-offset-1">
+				 <img  src=""  height="180px;" width="400px;" id="target" name="target">
+			  </div>
+		   </div>
+ 		  </div>
+		  <div class="row">
+		   <div class="form-group form-group-sm">
+			  <div class="col-sm-2 col-md-2 col-sm-offset-3 col-md-offset-3">
+				 <input name="updImg" id="updImg" type="button" value="첨부" class="form-control btn btn-default btn-xs">
+			  </div>
+			  <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+				  <input name="delImg" id="delImg" type="button" value="삭제" class="form-control btn btn-default btn-xs">
+			  </div>
+		   </div>
+ 		 </div>
+	   </div>
        <div class="col-sm-6 col-md-6">
           <div class="row">
 	         <div class="form-group form-group-sm">
@@ -382,25 +630,6 @@ function fn_onClosePop(pName,data){
 	     </div>
 	   </div>
 	</div> 
-	  <div class="col-sm-4 col-md-4">
-	     <div class="row">
-		   <div class="form-group form-group-sm">
-			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
-				 <img  src=""  height="180px;" width="350px;" id="target" name="target">
-			  </div>
-		   </div>
- 		  </div>
-		  <div class="row">
-		   <div class="form-group form-group-sm">
-			  <div class="col-sm-2 col-md-2 col-sm-offset-3 col-md-offset-3">
-				 <input name="updImg" id="updImg" type="button" value="첨부" class="form-control btn btn-default btn-xs">
-			  </div>
-			  <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
-				  <input name="delImg" id="delImg" type="button" value="삭제" class="form-control btn btn-default btn-xs">
-			  </div>
-		   </div>
- 		 </div>
-	   </div>
     </form>
   </div>  
 </div>

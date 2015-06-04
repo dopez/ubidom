@@ -5,6 +5,12 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var config={
+		title:"설비코드",
+		id:"equiCode",
+		width:"300",
+		height:"500"
+	}
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
 	//설비코드 도우미
@@ -14,16 +20,34 @@ $(document).ready(function(){
     
     layout.cells("b").attachObject("bootContainer");
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("설비코드,설비명",null,
-			["text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("150,150");
-	gridMain.setColAlign("left,left");
-	gridMain.setColTypes("ro,ro");
-	gridMain.setColSorting("str,str");
-	gridMain.init(); 
+    gridMain = new dxGrid(subLayout.cells("a"), false);
+    gridMain.addHeader({name:"설비코드", colId:"equiCode", width:"14", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비명",   colId:"equiName", width:"14", align:"center", type:"ro"});
+	gridMain.setUserData("","pk","equiCode");
+	gridMain.setColSort("str");
+	gridMain.init();
+	fn_search();
 });
+function fn_search(){
+	if($('#equiName').val() == ''){
+		$('#equiName').val('%');
+	}
+	 var params = gfn_getFormElemntsData('frmSearch');
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/prod1/equi/historyS/equiCodeSearch",subLayout.cells("a"),fn_loadGridListCodeCB);
+}
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+};
+
+function doOnRowDblClicked(rId,cInd){
+	  var row = rId-1;
+	  var cell = cInd;
+	  var equiCode = gridMain.setCells2(row,0).getValue();
+	  var arr = [{"equiCode":equiCode}];
+	  parent.fn_onClosePop(config.id,arr);
+	  parent.dhxWins.window("w1").close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

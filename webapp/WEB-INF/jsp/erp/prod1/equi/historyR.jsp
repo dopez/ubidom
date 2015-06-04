@@ -13,24 +13,46 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,설비코드,설비명,규격,용량,사용공정,거래처,담당자,전화번호,CP번호,"+
-			           "제작처,금액,구입일자,사용유무,사용중지사유",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			               "100,100,100,100,100");
-	gridMain.setColAlign("center,left,left,left,right,left,left,left,left,left,"+
-			             "left,right,center,left,left");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
-			             "ro,ron,ro,ro,ro");
-	gridMain.setColSorting("int,str,str,str,int,str,str,str,str,str,"+
-			               "str,int,date,str,str");
-	gridMain.init();	
+	
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO",           colId:"no",             width:"3", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"설비코드",     colId:"equiCode",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비명",       colId:"equiName",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",         colId:"standard",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"용량",         colId:"capacity",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사용공정",     colId:"useProcess",     width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"거래처",       colId:"supplyComp",     width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"담당자",       colId:"korName",        width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"제작처",       colId:"makeComp",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"금액",         colId:"buyMoney",       width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"구입일자",     colId:"buyDate",        width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사용유무",     colId:"useYn",          width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사용중지사유", colId:"useStopRemarks", width:"5", align:"center", type:"ro"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","no");
+	gridMain.dxObj.setUserData("","@buyDate","format_date");
+	gridMain.init(); 
+	
+	$("#equiCode").keyup(function(e) {
+    	if(e.target.id == "equiCode"){
+    		 gridMain.filterBy(1,byId("equiCode").value);
+		}
+	 });
 
 });
+function fn_search(){
+    fn_loadGridMain();
+}
+function fn_loadGridMain() {
+	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
+};
+
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+}
+function fn_print(){
+	gridMain.printView();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -43,7 +65,7 @@ $(document).ready(function(){
 		        	설비코드
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-			         <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('부품코드','common/componentCodePOP')">
+			         <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
 			       </div>
 		        </div>
 	        </div>

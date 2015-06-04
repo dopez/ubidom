@@ -154,7 +154,7 @@ function gfn_getFormElemntsData(formId,added) {
 			        if ($(this).is(":checked")) {
 			            $(els).val($(this).val())
 			        } else {
-			        	$(els).val("0");
+			        	$(els).val('0');
 			        }
 			    });
 		}

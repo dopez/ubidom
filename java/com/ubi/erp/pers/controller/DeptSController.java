@@ -53,13 +53,7 @@ public class DeptSController {
 		List<DeptS> list = new ArrayList<DeptS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<DeptS>>(){});
-		
-		for(DeptS deptS : list) {
-			deptS.setPostNameMst(deptS.getPostName());
-			deptS.setSysEmpNo(sysEmpNo);
-			deptS.setCompId(compId);
-			deptSService.prcsDeptS(deptS);
-		}
+		deptSService.prcsDeptS(list,sysEmpNo,compId);
 	}
 	
 	@SuppressWarnings("unchecked")

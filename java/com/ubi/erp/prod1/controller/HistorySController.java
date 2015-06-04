@@ -1,6 +1,7 @@
 package com.ubi.erp.prod1.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MultiValueMap;
@@ -22,6 +25,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ubi.erp.cmm.file.AttachFileService;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.prod1.domain.HistoryS;
+import com.ubi.erp.prod1.domain.HistorySPop;
+import com.ubi.erp.prod1.service.HistorySPopService;
 import com.ubi.erp.prod1.service.HistorySService;
 
 @RestController
@@ -30,6 +35,9 @@ public class HistorySController {
 	
 	@Autowired
 	private HistorySService historySSservice;
+	
+	@Autowired
+	private HistorySPopService historySPopService;
 	
 	@Autowired
 	private AttachFileService attachFileService;
@@ -64,11 +72,34 @@ public class HistorySController {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/equiCodeSearch",method = RequestMethod.POST)
+	public List<HistoryS> selEquiCode(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String equiName = historyS.getEquiName();
+		map.put("equiName", equiName);
+		map.put("o_cursor", null);
+		historySSservice.selEquiCode(map);
+		List<HistoryS> list = (List<HistoryS>) map.get("o_cursor");
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/partCodeSearch",method = RequestMethod.POST)
+	public List<HistorySPop> selPartCode(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistorySPop historySPop) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String partName = historySPop.getPartName();
+		map.put("partName", partName);
+		map.put("o_cursor", null);
+		historySPopService.selPartCode(map);
+		List<HistorySPop> list = (List<HistorySPop>) map.get("o_cursor");
+		return list;
+	}
+	
 	@RequestMapping(value = "/gridFormSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEquiHistoryS(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		System.out.println("saveFilename :::"+saveFilename);
 		historyS.setSysEmpNo(sysEmpNo);
 		if(saveFilename != null){  
 			 historyS.setImgPath(saveFilename);
@@ -97,7 +128,6 @@ public class HistorySController {
 			 		 String onlyName = fileName.substring(0, fileName.lastIndexOf("."));  
 			 		    saveFilename = fileName;  
 			 		    
-			 		   System.out.println("saveFilename 222:::"+saveFilename);
 				// 파일명이 중복되는 경우 변경처리  
 				if (new File(saveDir + "/" + fileName).exists()) {  
 			 		int fileSeq = 1;  
@@ -124,5 +154,47 @@ public class HistorySController {
 	public boolean isFileExists(String saveDir, String onlyName, int fileSeq, String ext) {
 		return new File(saveDir + "/" + onlyName + "_" + (fileSeq) + "." + ext).exists();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridTab1Search",method = RequestMethod.POST)
+	public List<HistorySPop> selEquiCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("o_cursor", null);
+		historySPopService.selEquiCheck(map);
+		List<HistorySPop> list = (List<HistorySPop>) map.get("o_cursor");
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/gridTab2Search",method = RequestMethod.POST)
+	public List<HistorySPop> selPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("o_cursor", null);
+		historySPopService.selPartCodeHistory(map);
+		List<HistorySPop> list = (List<HistorySPop>) map.get("o_cursor");
+		return list;
+	}
+	
+	@RequestMapping(value = "/gridTab1Save", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsEquiCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		String sysEmpNo = (String) session.getAttribute("empNo");
+		String jsonData = request.getParameter("jsonData");
+		List<HistorySPop> list = new ArrayList<HistorySPop>();
+		ObjectMapper mapper = new ObjectMapper();
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<HistorySPop>>(){});
+		historySPopService.prcsEquiCheck(list,sysEmpNo);
+	}
+	
+	@RequestMapping(value = "/gridTab2Save", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+		String sysEmpNo = (String) session.getAttribute("empNo");
+		String jsonData = request.getParameter("jsonData2");
+		List<HistorySPop> list = new ArrayList<HistorySPop>();
+		ObjectMapper mapper = new ObjectMapper();
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<HistorySPop>>(){});
+		historySPopService.prcsPartCodeHistory(list,sysEmpNo);
+	}
+	
 }

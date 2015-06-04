@@ -5,30 +5,63 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var config={
+		title:"부품코드",
+		id:"partCode",
+		width:"400",
+		height:"500"
+	}
 $(document).ready(function(){
-	Ubi.setContainer(0,[1,2,3,4,5,6],"1C");
-	//소모성부품이력등록
+	Ubi.setContainer(1,[1],"1C");
+	//부품코드 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("부품코드,부품명,규격,교환주기,적정재고",null,
-			["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100");
-	gridMain.setColAlign("left,left,left,right,right");
-	gridMain.setColTypes("ro,ro,ro,ron,ron");
-	gridMain.setColSorting("str,str,str");
-	gridMain.init(); 
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	gridMain.addRow(gridMain.getUID(),",,,,",1);
-	
-	function doOnRowDblClicked(rowId,colId){
-		if(colId==0){
-		gfn_load_popup('부품코드','common/componentCodePOP');
-		}
-	}
+    layout.cells("b").attachObject("bootContainer");
+    
+    gridMain = new dxGrid(subLayout.cells("a"), false);
+    gridMain.addHeader({name:"부품코드", colId:"partCode", width:"11", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부품명",   colId:"partName", width:"11", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"partSpec", width:"15", align:"center", type:"ro"});
+	gridMain.setUserData("","pk","equiCode");
+	gridMain.setColSort("str");
+	gridMain.init();
+	fn_search();
 });
+function fn_search(){
+	if($('#partName').val() == ''){
+		$('#partName').val('%');
+	}
+	 var params = gfn_getFormElemntsData('frmSearch');
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/prod1/equi/historyS/partCodeSearch",subLayout.cells("a"),fn_loadGridListCodeCB);
+}
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+	$('#partName').val('');
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+};
+
+function doOnRowDblClicked(rId,cInd){
+	  var row = gridMain.getSelectedRowIndex();
+	  var partCode = gridMain.setCells2(row,0).getValue();
+	  var partName = gridMain.setCells2(row,1).getValue();
+	  var partSpec = gridMain.setCells2(row,2).getValue();
+	  var arr = [{"partCode":partCode,"partName":partName,"partSpec":partSpec}];
+	  parent.fn_onClosePop(config.id,arr);
+	  parent.dhxWins.window("w1").close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
+<div id="bootContainer" style="position: relative;">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
+		<div class="form-group form-group-sm" style="width: 200px;">
+		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
+			 부품명
+			</label>
+			<div class="col-xs-6">
+			  <input name="partName" id="partName" type="text" value="" placeholder="" class="form-control input-xs">
+			</div>
+		</div>  
+  </form>
+</div>
