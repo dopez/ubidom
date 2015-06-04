@@ -29,6 +29,7 @@ response.setDateHeader("Expires", 0);
 <script type="text/javascript" src="/common/js/common.js"></script>
 <script type="text/javascript" src="/common/js/dhtmlx_full.js"></script>
 <script type="text/javascript" src="/common/js/msg_manager.js"></script>
+<script type="text/javascript" src="/common/js/global.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/component/bootstrap-3.3.2-dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/component/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" />
