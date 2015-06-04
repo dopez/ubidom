@@ -4,10 +4,8 @@
 $(function(){	
 	$(document).ajaxComplete(function(event, xhr, settings){
 		if(xhr.getResponseHeader("EXCEPTION")=="Y") {
-			if(xhr.getResponseHeader("EXCEPTION_TYPE")=="BIZ") {
-				var exObj = JSON.parse(xhr.responseText);
-				alert(MsgManager.getMsg(exObj.EXCEPTION_MSG_CODE, exObj.EXCEPTION_MSG_PARAM));
-			}
+			var exObj = JSON.parse(xhr.responseText);
+			alert(MsgManager.getMsg(exObj.EXCEPTION_MSG_CODE, exObj.EXCEPTION_MSG_PARAM));
 		}
 	});
 	

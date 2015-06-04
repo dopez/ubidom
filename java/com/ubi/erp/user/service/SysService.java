@@ -50,9 +50,13 @@ public class SysService
 
 	public void prcsSys(List<Sys> list) {
 		for (Sys sys : list) {
-			if ("CREATE".equals(sys.getCudKey())) {
+			if ("INSERT".equals(sys.getCudKey())) {
+				sys.setCreator("C2000000");
+				sys.setEditor("C2000000");
 				dao.insSys(sys);
 			} else if ("UPDATE".equals(sys.getCudKey())) {
+				sys.setCreator("C2000000");
+				sys.setEditor("C2000000");
 				dao.updSys(sys);
 			} else if ("DELETE".equals(sys.getCudKey())) {
 				dao.delSys(sys);

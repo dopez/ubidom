@@ -242,18 +242,14 @@ function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
-	if(data[0].imgPath != null){
-		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
-		  $("#target").attr("src",path);
-		}else{
-			$('#target').removeAttr('src');
-		}	
+	
+	$("#target").attr("src", "/erp/pers/pers/persDataS/getPersImg?empNo=" + data[0].empNo);
 };
 
 function fn_onOpenPop(pName){
 	var value;
 	if(pName=="postCode"){
-		value =  $("#postName").val();	  
+		value =  $("#postName").val();
 	}else if(pName == "persCode"){
 		var obj={};
 		obj.compId= gridMain.setCells2(gridMain.getSelectedRowIndex(),4).getValue();
@@ -333,7 +329,7 @@ function fn_onClosePop(pName,data){
 	     <div class="row">
 		   <div class="form-group form-group-sm">
 			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
-				 <img  src=""  height="150px;" width="400px;" id="target" name="target">
+				 <img src=""  height="150px;" width="400px;" id="target" name="target">
 			  </div>
 		   </div>
  		  </div>
