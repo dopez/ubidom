@@ -33,7 +33,7 @@ $(document).ready(function() {
 
     comboMatrGubn = dhtmlXComboFromSelect("matrGubn");
     fn_comboOpt(comboMatrGubn,"자재");
-    
+
     comboDisKind = dhtmlXComboFromSelect("disKind");
     fn_comboOpt(comboDisKind,"제조","개봉");
    
@@ -132,10 +132,12 @@ function fn_save(){
 			 keepTemp1 : ["보관온도",r_onlyNumber],
 			 keepTemp2 : ["보관온도",r_onlyNumber]
 			};
-		   
  	if(gfn_formValidation('frmMain')){
 		fn_nullReplaceInt();
 		var params = $("#frmMain").serialize();
+		if(byId("cudKey").value == "DELETE"){
+			fn_new();
+		}
        $.ajax(
 		{
 		  type:'POST',
@@ -145,7 +147,6 @@ function fn_save(){
 		  {
 			MsgManager.alertMsg("INF001"); 
 			byId("cudKey").value = "UPDATE";
-			fn_disabledInput("on");
 			fn_loadGridMain();
 		  }
 	   }); 
@@ -227,6 +228,7 @@ function fn_loadFormMain(param){
 }
 
 function fn_loadFormCallback(data){
+	fn_disabledInput("on");
 	comboAcctKind.setComboValue(data[0].acctKind);
 	comboChemicalKind.setComboValue(data[0].chemicalKind);
 	comboUseYn.setComboValue(data[0].useYn);
