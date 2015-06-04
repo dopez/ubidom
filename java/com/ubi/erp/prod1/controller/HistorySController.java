@@ -68,7 +68,6 @@ public class HistorySController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEquiHistoryS(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
-		System.out.println("saveFilename :::"+saveFilename);
 		historyS.setSysEmpNo(sysEmpNo);
 		if(saveFilename != null){  
 			 historyS.setImgPath(saveFilename);
@@ -97,7 +96,6 @@ public class HistorySController {
 			 		 String onlyName = fileName.substring(0, fileName.lastIndexOf("."));  
 			 		    saveFilename = fileName;  
 			 		    
-			 		   System.out.println("saveFilename 222:::"+saveFilename);
 				// 파일명이 중복되는 경우 변경처리  
 				if (new File(saveDir + "/" + fileName).exists()) {  
 			 		int fileSeq = 1;  

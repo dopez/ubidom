@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("HistoryS")
-public class HistoryS implements Serializable {
+@Alias("HistoryR")
+public class HistoryR implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String cudKey;
 	private String equiCode;
 	private String equiName;
 	private String useProcess;
@@ -21,20 +20,10 @@ public class HistoryS implements Serializable {
 	private String makeComp;
 	private String useYn;
 	private String useStopRemarks;
-	private String imgPath;
-	private String sysEmpNo;
 	private String korName;
 
-	public HistoryS() {
+	public HistoryR() {
 		super();
-	}
-
-	public String getCudKey() {
-		return cudKey;
-	}
-
-	public void setCudKey(String cudKey) {
-		this.cudKey = cudKey;
 	}
 
 	public String getEquiCode() {
@@ -59,14 +48,6 @@ public class HistoryS implements Serializable {
 
 	public void setUseProcess(String useProcess) {
 		this.useProcess = useProcess;
-	}
-
-	public String getKorName() {
-		return korName;
-	}
-
-	public void setKorName(String korName) {
-		this.korName = korName;
 	}
 
 	public String getStandard() {
@@ -149,20 +130,12 @@ public class HistoryS implements Serializable {
 		this.useStopRemarks = useStopRemarks;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getKorName() {
+		return korName;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-
-	public String getSysEmpNo() {
-		return sysEmpNo;
-	}
-
-	public void setSysEmpNo(String sysEmpNo) {
-		this.sysEmpNo = sysEmpNo;
+	public void setKorName(String korName) {
+		this.korName = korName;
 	}
 
 	public static long getSerialversionuid() {

@@ -90,6 +90,7 @@ $(document).ready(function(){
 	 		} 
 		}
 		if(e.target.id == "delImg"){
+			  disableValue(1);
 		       byId("cudKey").value = "UPDATE";
               $.ajax({
                url : "/erp/prod1/equi/historyS/prcsEquiFileDelete",
@@ -110,6 +111,12 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#korName").keyup(function(e) {
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+	 }); 
+	
 	fn_gridMstSearch();
 	byId("cudKey").value = "INSERT";
 });
@@ -118,7 +125,7 @@ function gridMstOnClick(id){
 	   fn_gridMstSearch();
 	}
    if(id == "btn2"){
-	    fn_new();
+	   fn_gridMstNew();
 	}
    if(id == "btn3"){
 		fn_formSave();	 
@@ -139,20 +146,35 @@ function gridDtl02OnClick(id){
 		  alert(3);
 	}
 };
+function fileUploadCB(data){
+	fn_formSave();
+};
 function fn_calValue(){
 	var t = dateformat(new Date());
 	byId("buyDate").value = t;
 	byId("regiDate").value = t;
 };
+
+function disableValue(flag){
+	if(flag == 1){
+	  $("input[name=equiCode]").attr("disabled",false);
+	  $("input[name=equiName]").attr("disabled",false);
+	  
+	}else{
+	  $("input[name=equiCode]").attr("disabled",true);
+	  $("input[name=equiName]").attr("disabled",true);
+	}
+}
 function fn_gridMstSearch(){
 	fn_loadGridMst(); 
-	   fn_new();
+	fn_gridMstNew();
 }
-function fn_new(){
+function fn_gridMstNew(){
 	byId("frmMain").reset();
 	byId("frmSearch").reset();
 	$('#target').removeAttr('src');
 	fn_calValue();
+	disableValue(1);
 	byId("cudKey").value = "INSERT";
 }
 function fn_loadGridMst(){
@@ -164,7 +186,7 @@ function fn_loadGridMst(){
 	}
 	var params = gfn_getFormElemntsData('frmSearch');
     gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
-    fn_new();
+    fn_gridMstNew();
 };
 function fn_formSave(){
 	 f_dxRules = {
@@ -172,6 +194,7 @@ function fn_formSave(){
 		equiName : ["설비명",r_notEmpty],
 	  };
 	 if(gfn_formValidation('frmMain')){
+		 disableValue(1);
 		var params = gfn_getFormElemntsData('frmMain');
 		  $.ajax(
 		   {
@@ -192,8 +215,9 @@ function fn_gridMstRemove(){
 	   gridMst.cs_deleteRow(rodid); 
 }
 function doOnGridMstSelect(id,ind){
-	fn_new();
+	fn_gridMstNew();
 	byId("cudKey").value = "UPDATE";
+	disableValue(2);
 	var obj={};
 	obj.equiCode= gridMst.setCells(id,1).getValue();
 	fn_loadFormList(obj);
@@ -202,7 +226,6 @@ function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridFormSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
-	alert(data[0].imgPath);
 	if(data[0].imgPath != null){
 		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
 		  $("#target").attr("src",path);
@@ -210,12 +233,6 @@ function fn_loadFormListCB(data){
 			$('#target').removeAttr('src');
 		}
 };
-
-function fileUploadCB(data){
-	byId("cudKey").value = "UPDATE";
-	fn_formSave();
-};
-
 function fn_onClosePop(pName,data){
 	var i;
 	var obj={};
@@ -260,7 +277,26 @@ function fn_onClosePop(pName,data){
           <input type="hidden" id="cudKey" name="cudKey" />
           <input type="hidden" id="empNo" name="empNo" />
           <input type="hidden" id="imgPath"  name="imgPath">
-      <input id="fileName" type="file" name="fileName" data-url="/erp/prod1/equi/historyS/prcsEquiFileUpload" multiple style="display: none;">
+          <input id="fileName" type="file" name="fileName" data-url="/erp/prod1/equi/historyS/prcsEquiFileUpload" multiple style="display: none;">
+       <div class="col-sm-4 col-md-4">
+	     <div class="row">
+		   <div class="form-group form-group-sm">
+			  <div class="col-sm-9 col-md-9 col-sm-offset-1 col-md-offset-1">
+				 <img  src=""  height="180px;" width="400px;" id="target" name="target">
+			  </div>
+		   </div>
+ 		  </div>
+		  <div class="row">
+		   <div class="form-group form-group-sm">
+			  <div class="col-sm-2 col-md-2 col-sm-offset-3 col-md-offset-3">
+				 <input name="updImg" id="updImg" type="button" value="첨부" class="form-control btn btn-default btn-xs">
+			  </div>
+			  <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+				  <input name="delImg" id="delImg" type="button" value="삭제" class="form-control btn btn-default btn-xs">
+			  </div>
+		   </div>
+ 		 </div>
+	   </div>
        <div class="col-sm-6 col-md-6">
           <div class="row">
 	         <div class="form-group form-group-sm">
@@ -382,25 +418,6 @@ function fn_onClosePop(pName,data){
 	     </div>
 	   </div>
 	</div> 
-	  <div class="col-sm-4 col-md-4">
-	     <div class="row">
-		   <div class="form-group form-group-sm">
-			  <div class="col-sm-7 col-md-7 col-sm-offset-1 col-md-offset-1">
-				 <img  src=""  height="180px;" width="350px;" id="target" name="target">
-			  </div>
-		   </div>
- 		  </div>
-		  <div class="row">
-		   <div class="form-group form-group-sm">
-			  <div class="col-sm-2 col-md-2 col-sm-offset-3 col-md-offset-3">
-				 <input name="updImg" id="updImg" type="button" value="첨부" class="form-control btn btn-default btn-xs">
-			  </div>
-			  <div class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
-				  <input name="delImg" id="delImg" type="button" value="삭제" class="form-control btn btn-default btn-xs">
-			  </div>
-		   </div>
- 		 </div>
-	   </div>
     </form>
   </div>  
 </div>
