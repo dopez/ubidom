@@ -27,8 +27,11 @@ public class PersAppointSService {
 		dao.selPersAppointSR(map);
 	}
 
-	public void prcsPersAppointS(PersAppointS persAppointS) {
-		dao.prcsPersAppointS(persAppointS);
+	public void prcsPersAppointS(List<PersAppointS> list, String sysEmpNo) {
+		for(PersAppointS persAppointS : list) {
+			persAppointS.setSysEmpNo(sysEmpNo);
+			dao.prcsPersAppointS(persAppointS);
+		}
 	}
 
 	public List<PersAppointS> selPersBaseCode(PersAppointS persAppointS) {

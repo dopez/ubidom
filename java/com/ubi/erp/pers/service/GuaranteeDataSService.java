@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,15 +23,22 @@ public class GuaranteeDataSService {
 		dao.selGuaranteeDataSR1(map);
 	}
 
-	public void prcsGuaranteeDataS1(GuaranteeDataS guaranteeDataS) {
-		dao.prcsGuaranteeDataS1(guaranteeDataS);
+	public void prcsGuaranteeDataS1(List<GuaranteeDataS> list, String sysEmpNo) {
+		for(GuaranteeDataS guaranteeDataS : list) {
+			guaranteeDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsGuaranteeDataS1(guaranteeDataS);
+		}
 	}
 
 	public void selGuaranteeDataSR2(Map<String, Object> map) {
 		dao.selGuaranteeDataSR2(map);
 	}
 
-	public void prcsGuaranteeDataS2(GuaranteeDataS guaranteeDataS) {
-		dao.prcsGuaranteeDataS2(guaranteeDataS);
+	public void prcsGuaranteeDataS2(List<GuaranteeDataS> list, String sysEmpNo) {
+		for(GuaranteeDataS guaranteeDataS : list) {
+			guaranteeDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsGuaranteeDataS2(guaranteeDataS);
+		}
+		
 	}
 }

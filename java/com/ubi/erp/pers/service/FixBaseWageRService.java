@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,7 +28,12 @@ public class FixBaseWageRService {
 		dao.selFixBaseWageRR(map);
 	}
 
-	public void prcsFixBaseWageR(FixBaseWageR fixBaseWageR) {
-		dao.prcsFixBaseWageR(fixBaseWageR);
+	public void prcsFixBaseWageR(List<FixBaseWageR> list, String compId, String sysEmpNo) {
+		for(FixBaseWageR fixBaseWageR : list) {
+			fixBaseWageR.setSysEmpNo(sysEmpNo);
+			fixBaseWageR.setCompId(compId);
+			dao.prcsFixBaseWageR(fixBaseWageR);
+		}
+		
 	}
 }

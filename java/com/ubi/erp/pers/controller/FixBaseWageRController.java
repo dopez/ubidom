@@ -71,11 +71,6 @@ public class FixBaseWageRController {
 		List<FixBaseWageR> list = new ArrayList<FixBaseWageR>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<FixBaseWageR>>(){});
-		
-		for(FixBaseWageR fixBaseWageR : list) {
-			fixBaseWageR.setSysEmpNo(sysEmpNo);
-			fixBaseWageR.setCompId(compId);
-			fixBaseWageRService.prcsFixBaseWageR(fixBaseWageR);
-		}
+		fixBaseWageRService.prcsFixBaseWageR(list,compId,sysEmpNo);
 	}
 }

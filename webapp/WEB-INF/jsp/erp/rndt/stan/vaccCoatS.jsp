@@ -30,17 +30,17 @@ $(document).ready(function(){
     subLayout.cells("c").setText("증착조건");
     gridDtl = new dxGrid(subLayout.cells("c"),false);
     gridDtl.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"cntr"});
-    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"10",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"10",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"온도",colId:"temperature",width:"10",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"10",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"10",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"10",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"두께",colId:"thickness",width:"10",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"5",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"5",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"온도",colId:"temperature",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"두께",colId:"thickness",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"Rate",colId:"rate",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"방식",colId:"method",width:"10",align:"center",type:"ed"});
-    gridDtl.setUserData("","pk","");
+    gridDtl.addHeader({name:"방식",colId:"method",width:"5",align:"center",type:"ed"});
+    gridDtl.setUserData("","pk","No");
     gridDtl.setColSort("str");
     gridDtl.init();
     gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
@@ -63,11 +63,6 @@ function fn_save(){
 
 }
 function fn_gridDtlSave(){
-	var gridMstRowIdx = gridMst.getSelectedRowIndex();
-    var applyDateColIdx = gridDtl.getColIndexById('cudKey');
-    var c = gridDtl.setCells2(gridMstRowIdx, applyDateColIdx).getValue();
-    console.log(c);
- 
 	var jsonStr = gridDtl.getJsonUpdated2();
 	console.log(jsonStr);
     $("#jsonData").val(jsonStr);
@@ -82,17 +77,18 @@ function fn_gridDtlSave(){
         data: frmParam,
         async: true,
         success: function(gridMstRowIdx) {
-            fn_gridDtlSaveCallbckFunc(gridMstRowIdx);
+            fn_gridDtlSaveCallbckFunc();
         }
     });
 }
 function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(selectedId);
+
 }
-function fn_gridDtlSaveCallbckFunc(gridMstRowIdx){
+function fn_gridDtlSaveCallbckFunc(){
 	dhtmlx.alert("저장완료");
-	gridMst.selectRow(gridMstRowIdx);
+	//gridMst.selectRow(gridMstRowIdx);
 }
 function fn_add() {
 	if(equiCode==""||typeof equiCode=="undefined"){
@@ -168,8 +164,10 @@ function fn_getGridDtl(equiCode){
 	gfn_callAjaxForGrid(gridDtl, param, "gridDtlSel", subLayout.cells("c"), fn_gridDtlSelCallbckFunc);
 }
 function fn_gridDtlSelCallbckFunc(data){
+	if(data != ''){
     byId("stDate").value = data[0].applyDate;
     $('#stDate').mask('0000/00/00');
+	}
 }
 function fn_getEquiCode(){
 	var param = "";

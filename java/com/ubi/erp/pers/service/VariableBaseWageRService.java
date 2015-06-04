@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,7 +28,13 @@ public class VariableBaseWageRService {
 		dao.selVariableBaseWageRR(map);
 	}
 
-	public void prcsVariableBaseWageR(VariableBaseWageR variableBaseWageR) {
-		dao.prcsVariableBaseWageR(variableBaseWageR);
+	public void prcsVariableBaseWageR(List<VariableBaseWageR> list,String sysEmpNo,String compId,String yymm) {
+		for(VariableBaseWageR variableBaseWageR : list) {
+			variableBaseWageR.setSysEmpNo(sysEmpNo);
+			variableBaseWageR.setCompId(compId);
+			variableBaseWageR.setYymm(yymm);
+			dao.prcsVariableBaseWageR(variableBaseWageR);
+		}
+		
 	}
 }

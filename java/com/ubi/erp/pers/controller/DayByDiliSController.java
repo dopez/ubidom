@@ -54,11 +54,7 @@ public class DayByDiliSController {
 		List<DayByDiliS> list = new ArrayList<DayByDiliS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<DayByDiliS>>(){});
-		
-		for(DayByDiliS dayByDiliS : list) {
-			dayByDiliS.setSysEmpNo(sysEmpNo);
-			dayByDiliSService.prcsDayByDiliS(dayByDiliS);
-		}
+		dayByDiliSService.prcsDayByDiliS(list,sysEmpNo);
 	}
 	
 	@SuppressWarnings("unchecked")

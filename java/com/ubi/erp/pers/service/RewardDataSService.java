@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,7 +24,11 @@ public class RewardDataSService {
 		dao.selRewardDataSR(map);
 	}
 
-	public void prcsRewardDataS(RewardDataS rewardDataS) {
-		dao.prcsRewardDataS(rewardDataS);
+	public void prcsRewardDataS(List<RewardDataS> list,String sysEmpNo) {
+		for(RewardDataS rewardDataS : list) {
+			rewardDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsRewardDataS(rewardDataS);
+		}
+		
 	}
 }

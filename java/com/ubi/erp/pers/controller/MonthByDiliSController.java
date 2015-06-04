@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.pers.domain.MonthByDiliS;
 import com.ubi.erp.pers.service.MonthByDiliSService;
 
@@ -74,12 +73,7 @@ public class MonthByDiliSController {
 		List<MonthByDiliS> list = new ArrayList<MonthByDiliS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<MonthByDiliS>>(){});
-
-		for(MonthByDiliS monthByDiliS : list) {
-			monthByDiliS.setSysEmpNo(sysEmpNo);
-			monthByDiliS.setYymm(monthDate);
-			monthByDiliSService.prcsMonthByDiliS(monthByDiliS);
-		}
+		monthByDiliSService.prcsMonthByDiliS(list,sysEmpNo,monthDate);
 	}
 	
 	

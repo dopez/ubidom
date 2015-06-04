@@ -214,7 +214,7 @@ function fn_remove(){
 		         부품코드
 		        </label>
 		        <div class="col-sm-4 col-md-4">
-			      <input name="partCode" id="partCode" type="text" value="" placeholder="" class="form-control input-xs">
+			      <input name="partCode" id="partCode" type="text" value="" maxlength="5" class="form-control input-xs">
 		        </div>
 	        </div>
 	      </div>  

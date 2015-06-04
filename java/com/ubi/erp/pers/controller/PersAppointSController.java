@@ -68,11 +68,7 @@ public class PersAppointSController {
 		List<PersAppointS> list = new ArrayList<PersAppointS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<PersAppointS>>(){});
-		
-		for(PersAppointS persAppointS : list) {
-			persAppointS.setSysEmpNo(sysEmpNo);
-			persAppointSService.prcsPersAppointS(persAppointS);
-		}
+		persAppointSService.prcsPersAppointS(list,sysEmpNo);
 	}
 	
 	@SuppressWarnings("unchecked")
