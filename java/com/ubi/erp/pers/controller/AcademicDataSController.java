@@ -50,11 +50,7 @@ public class AcademicDataSController {
 		List<AcademicDataS> list = new ArrayList<AcademicDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<AcademicDataS>>(){});
-
-		for(AcademicDataS academicDataS : list) {
-			academicDataS.setSysEmpNo(sysEmpNo);
-			academicDataSSservice.prcsAcademicDataS(academicDataS);
-		}
+		academicDataSSservice.prcsAcademicDataS(list,sysEmpNo);
 	}
 	
 }

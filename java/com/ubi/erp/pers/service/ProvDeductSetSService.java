@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,7 +24,12 @@ public class ProvDeductSetSService {
 		dao.selProvDeductSetS(map);
 	}
 
-	public void prcsProvDeductSetS(ProvDeductSetS provDeductSetS) {
-		dao.prcsProvDeductSetS(provDeductSetS);
+	public void prcsProvDeductSetS(List<ProvDeductSetS> list, String compId, String sysEmpNo) {
+		for(ProvDeductSetS provDeductSetS : list) {
+			provDeductSetS.setSysEmpNo(sysEmpNo);
+			provDeductSetS.setCompId(compId);
+			dao.prcsProvDeductSetS(provDeductSetS);
+		}
+		
 	}
 }

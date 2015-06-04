@@ -70,11 +70,7 @@ public class FamilyDataSController {
 		List<FamilyDataS> list = new ArrayList<FamilyDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<FamilyDataS>>(){});
-		
-		for(FamilyDataS familyDataS : list) {
-			familyDataS.setSysEmpNo(sysEmpNo);
-			familyDataSSservice.prcsFamilyDataS(familyDataS);
-		}
+		familyDataSSservice.prcsFamilyDataS(list, sysEmpNo);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,7 +24,11 @@ public class LicenseDataSService {
 		dao.selLicenseDataSR(map);
 	}
 
-	public void prcsLicenseDataS(LicenseDataS licenseDataS) {
-		dao.prcsLicenseDataS(licenseDataS);
+	public void prcsLicenseDataS(List<LicenseDataS> list, String sysEmpNo) {
+		for(LicenseDataS licenseDataS : list) {
+			licenseDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsLicenseDataS(licenseDataS);
+		}
+		
 	}
 }

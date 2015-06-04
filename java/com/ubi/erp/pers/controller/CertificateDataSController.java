@@ -57,12 +57,7 @@ public class CertificateDataSController {
 		List<CertificateDataS> list = new ArrayList<CertificateDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<CertificateDataS>>(){});
-		
-		for(CertificateDataS certificateDataS : list) {
-			certificateDataS.setCompId(compId);
-			certificateDataS.setSysEmpNo(sysEmpNo);
-			certificateDataSService.prcsCertificateDataS(certificateDataS);
-		}
+		certificateDataSService.prcsCertificateDataS(list,compId,sysEmpNo);
 	}
 	
 	@SuppressWarnings("unchecked")

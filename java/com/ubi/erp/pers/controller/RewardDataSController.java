@@ -50,10 +50,6 @@ public class RewardDataSController {
 		List<RewardDataS> list = new ArrayList<RewardDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<RewardDataS>>(){});
-		
-		for(RewardDataS rewardDataS : list) {
-			rewardDataS.setSysEmpNo(sysEmpNo);
-			rewardDataSService.prcsRewardDataS(rewardDataS);
-		}
+		rewardDataSService.prcsRewardDataS(list,sysEmpNo);
 	}
 }

@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,18 +30,19 @@ public class MonthByDiliSService {
 
 	}
 
-	public void prcsMonthByDiliS(MonthByDiliS monthByDiliS) {
-		dao.prcsMonthByDiliS(monthByDiliS);
-
+	public void prcsMonthByDiliS(List<MonthByDiliS> list, String sysEmpNo, String monthDate) {
+		for(MonthByDiliS monthByDiliS : list) {
+			monthByDiliS.setSysEmpNo(sysEmpNo);
+			monthByDiliS.setYymm(monthDate);
+			dao.prcsMonthByDiliS(monthByDiliS);
+		}
 	}
 
 	public void selMonthByDiliSPopC(Map<String, Object> map) {
 		dao.selMonthByDiliSPopC(map);
-
 	}
 
 	public void prcsMonthByDiliSPopI(MonthByDiliS monthByDiliS) {
 		dao.prcsMonthByDiliSPopI(monthByDiliS);
-
 	}
 }

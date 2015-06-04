@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,7 +27,10 @@ public class AcademicDataSService {
 		dao.selAcademicDataSR(map);
 	}
 
-	public void prcsAcademicDataS(AcademicDataS academicDataS) {
-		dao.prcsAcademicDataS(academicDataS);
+	public void prcsAcademicDataS(List<AcademicDataS> list, String sysEmpNo) {
+		for(AcademicDataS academicDataS : list) {
+			academicDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsAcademicDataS(academicDataS);
+		}
 	}
 }

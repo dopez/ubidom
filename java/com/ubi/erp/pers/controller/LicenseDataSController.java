@@ -50,10 +50,6 @@ public class LicenseDataSController {
 		List<LicenseDataS> list = new ArrayList<LicenseDataS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<LicenseDataS>>(){});
-		
-		for(LicenseDataS licenseDataS : list) {
-			licenseDataS.setSysEmpNo(sysEmpNo);
-			licenseDataSService.prcsLicenseDataS(licenseDataS);
-		}
+		licenseDataSService.prcsLicenseDataS(list,sysEmpNo);
 	}
 }

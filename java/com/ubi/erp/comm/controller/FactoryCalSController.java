@@ -72,16 +72,7 @@ public class FactoryCalSController {
 		List<FactoryCalS> list = new ArrayList<FactoryCalS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<FactoryCalS>>(){});
-		
-		for(FactoryCalS factoryCalS : list) {
-			factoryCalS.setSysEmpNo(sysEmpNo);
-			factoryCalS.setCompId(compId);
-			factoryCalS.setYyyy(yValue);
-			factoryCalS.setMm(mValue);
-			factoryCalS.setWeekKnd(weKnd);
-			
-			factoryCalSSservice.saveFactoryCalS(factoryCalS);
-		}
+		factoryCalSSservice.saveFactoryCalS(list,sysEmpNo,compId,yValue,mValue,weKnd);
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,8 +24,11 @@ public class DayByDiliSService {
 		dao.selDayByDiliS(map);
 	}
 
-	public void prcsDayByDiliS(DayByDiliS dayByDiliS) {
-		dao.prcsDayByDiliS(dayByDiliS);
+	public void prcsDayByDiliS(List<DayByDiliS> list, String sysEmpNo) {
+		for(DayByDiliS dayByDiliS : list) {
+			dayByDiliS.setSysEmpNo(sysEmpNo);
+			dao.prcsDayByDiliS(dayByDiliS);
+		}
 	}
 	
 	public void selDayByDiliSPopC(Map<String, Object> map) {

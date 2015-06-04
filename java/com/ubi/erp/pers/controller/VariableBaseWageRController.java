@@ -74,12 +74,6 @@ public class VariableBaseWageRController {
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<VariableBaseWageR>>(){});
 		String yymm = request.getParameter("monthDate");
-		System.out.println("monthDate :::::::"+yymm);
-		for(VariableBaseWageR variableBaseWageR : list) {
-			variableBaseWageR.setSysEmpNo(sysEmpNo);
-			variableBaseWageR.setCompId(compId);
-			variableBaseWageR.setYymm(yymm);
-			variableBaseWageRService.prcsVariableBaseWageR(variableBaseWageR);
-		}
+		variableBaseWageRService.prcsVariableBaseWageR(list,sysEmpNo,compId,yymm);
 	}
 }

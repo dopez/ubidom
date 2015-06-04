@@ -78,15 +78,7 @@ public class GuaranteeDataSController {
 			mapper2 = new ObjectMapper();
 			list2 = mapper2.readValue(jsonData2, new TypeReference<ArrayList<GuaranteeDataS>>(){});
 		}
-		
-		for(GuaranteeDataS guaranteeDataS : list1) {
-			guaranteeDataS.setSysEmpNo(sysEmpNo);
-			guaranteeDataSService.prcsGuaranteeDataS2(guaranteeDataS);
-		}
-		
-		for(GuaranteeDataS guaranteeDataS : list2) {
-			guaranteeDataS.setSysEmpNo(sysEmpNo);
-			guaranteeDataSService.prcsGuaranteeDataS1(guaranteeDataS);
-		}
+		guaranteeDataSService.prcsGuaranteeDataS2(list1,sysEmpNo);
+		guaranteeDataSService.prcsGuaranteeDataS1(list2,sysEmpNo);
 	}
 }

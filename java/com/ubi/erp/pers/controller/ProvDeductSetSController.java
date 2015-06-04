@@ -49,11 +49,6 @@ public class ProvDeductSetSController {
 		List<ProvDeductSetS> list = new ArrayList<ProvDeductSetS>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<ProvDeductSetS>>(){});
-		
-		for(ProvDeductSetS provDeductSetS : list) {
-			provDeductSetS.setSysEmpNo(sysEmpNo);
-			provDeductSetS.setCompId(compId);
-			provDeductSetSService.prcsProvDeductSetS(provDeductSetS);
-		}
+		provDeductSetSService.prcsProvDeductSetS(list,compId,sysEmpNo);
 	}
 }

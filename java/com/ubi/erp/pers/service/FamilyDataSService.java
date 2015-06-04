@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,7 +27,10 @@ public class FamilyDataSService {
 		dao.selFamilyDataSR(map);
 	}
 
-	public void prcsFamilyDataS(FamilyDataS familyDataS) {
-		dao.prcsFamilyDataS(familyDataS);
+	public void prcsFamilyDataS(List<FamilyDataS> list, String sysEmpNo) {
+		for(FamilyDataS familyDataS : list) {
+			familyDataS.setSysEmpNo(sysEmpNo);
+			dao.prcsFamilyDataS(familyDataS);
+		}
 	}
 }
