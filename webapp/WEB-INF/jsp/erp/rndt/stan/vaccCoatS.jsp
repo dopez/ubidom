@@ -32,12 +32,6 @@ $(document).ready(function(){
     gridDtl.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"cntr"});
     gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"5",align:"center",type:"ro"});
     gridDtl.addHeader({name:"약품명",colId:"matrName",width:"5",align:"center",type:"ro"});
-    
-    gridDtl.addHeader({name:"모재코드",colId:"matrCodeMj",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"약품코드",colId:"matrCode",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"적용일자",colId:"applyDate",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"설비코드",colId:"equiCode",width:"5",align:"center",type:"ro"});
-    
     gridDtl.addHeader({name:"온도",colId:"temperature",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"etching1",width:"5",align:"center",type:"ed"});
@@ -49,7 +43,7 @@ $(document).ready(function(){
     gridDtl.setUserData("","pk","No");
     gridDtl.setColSort("str");
     gridDtl.init();
-    //gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
+    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
     //set date//
     calStDate = new dhtmlXCalendarObject([{input:"stDate",button: "calpicker1"}]);
     calStDate.loadUserLanguage("ko");
@@ -72,9 +66,8 @@ function fn_gridDtlSave(){
 	var gridMstRowIdx = gridDtl.getSelectedRowIndex();
     var applyDateColIdx = gridDtl.getColIndexById('cudKey');
     var c = gridDtl.setCells2(gridMstRowIdx, applyDateColIdx).getValue();
-    console.log(c);
  
-	/* var jsonStr = gridDtl.getJsonUpdated2();
+	 var jsonStr = gridDtl.getJsonUpdated2();
 	console.log(jsonStr);
     $("#jsonData").val(jsonStr);
     if (jsonStr == "[]" || jsonStr.length <= 0){
@@ -90,17 +83,15 @@ function fn_gridDtlSave(){
         success: function(gridMstRowIdx) {
             fn_gridDtlSaveCallbckFunc(gridMstRowIdx);
         }
-    }); */
+    });
 }
 function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(selectedId);
-	var colIndex=gridDtl.dxObj.getColIndexById("cudKey");
-	var cellObj = gridDtl.dxObj.cells(selectedId,colIndex);
 
 }
 function fn_gridDtlSaveCallbckFunc(gridMstRowIdx){
-	dhtmlx.alert("저장완료");
+	//dhtmlx.alert("저장완료");
 	//gridMst.selectRow(gridMstRowIdx);
 }
 function fn_add() {
@@ -133,10 +124,6 @@ function fn_doOnDtlRowSelect(rId, cellId){
             "matrKind2": "P"
         });
 	}
-	var gridMstRowIdx = gridDtl.getSelectedRowIndex();
-    var applyDateColIdx = gridDtl.getColIndexById('cudKey');
-    var c = gridDtl.setCells2(gridMstRowIdx, applyDateColIdx).getValue();
-    console.log(c);
 }
 function fn_onClosePop(mkind, data) {
     var i;
@@ -181,8 +168,10 @@ function fn_getGridDtl(equiCode){
 	gfn_callAjaxForGrid(gridDtl, param, "gridDtlSel", subLayout.cells("c"), fn_gridDtlSelCallbckFunc);
 }
 function fn_gridDtlSelCallbckFunc(data){
+	if(data != ''){
     byId("stDate").value = data[0].applyDate;
     $('#stDate').mask('0000/00/00');
+	}
 }
 function fn_getEquiCode(){
 	var param = "";
