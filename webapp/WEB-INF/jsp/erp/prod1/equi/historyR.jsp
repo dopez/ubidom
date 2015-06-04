@@ -32,39 +32,27 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","no");
 	gridMain.dxObj.setUserData("","@buyDate","format_date");
 	gridMain.init(); 
+	
+	$("#equiCode").keyup(function(e) {
+    	if(e.target.id == "equiCode"){
+    		 gridMain.filterBy(1,byId("equiCode").value);
+		}
+	 });
 
 });
 function fn_search(){
-	var obj={};
-	obj.equiCode = $("#equiCode").val();
-	if(obj.equiCode == ''){
-		obj.equiCode = '%';
-	}
-    fn_loadGridMain(obj);
+    fn_loadGridMain();
 }
-function fn_loadGridMain(params) {
-	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
+function fn_loadGridMain() {
+	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
 
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_print(){
-	/* var url = "/erp/pers/stan/deptR/report/deptR.do";
-	url = url + "?postName=" + $("#postName").val();
-	window.open(url,'rpt',''); */
+	gridMain.printView();
 }
-function fn_onClosePop(pName,data){
-	if(pName=="equiCode"){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			obj.equiName=data[i].equiName;
-			obj.equiCode=data[i].equiCode;
-			 $("#equiCode").val(obj.equiCode);
-		}		  
-	}	  
- };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -194,7 +194,7 @@ function fn_remove(){
 			      <div class="col-sm-2 col-md-2">
 			        <input name="ptCode" id="ptCode" type="text" value="" placeholder="" class="form-control input-xs">
 			      </div>
-			      <div class="col-sm-3 col-md-3" style="margin-left: 10px;">
+			      <div class="col-sm-2 col-md-2" style="margin-left: 10px;">
 			        <input name="ptName" id="ptName" type="text" value="" placeholder="" class="form-control input-xs">			
  			      </div>
 		       </div>

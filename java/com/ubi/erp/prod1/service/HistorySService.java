@@ -30,4 +30,8 @@ public class HistorySService {
 	public void prcsEquiHistoryS(HistoryS historyS) {
 		dao.prcsEquiHistoryS(historyS);
 	}
+	
+	public void selEquiCode(Map<String, Object> map) {
+		dao.selEquiCode(map);
+	}
 }

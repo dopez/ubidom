@@ -27,8 +27,7 @@ public class ComponentCodeRController {
 	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
 	public List<ComponentCodeR> selEquiHistorySL(HttpServletRequest request, HttpServletResponse response,HttpSession session,ComponentCodeR componentCodeR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String partCode = componentCodeR.getPartCode();
-		map.put("partCode", partCode);
+		map.put("partCode", "%");
 		map.put("o_cursor", null);
 		componentCodeRSservice.selComponentCodeR(map);
 		List<ComponentCodeR> list = (List<ComponentCodeR>) map.get("o_cursor");

@@ -34,23 +34,16 @@ $(document).ready(function(){
 
 });
 function fn_search(){
-	var obj={};
-	obj.partCode = $("#partCode").val();
-	if(obj.partCode == ''){
-		obj.partCode = '%';
-	}
-    fn_loadGridMain(obj);
+    fn_loadGridMain();
 }
 function fn_loadGridMain(params) {
-	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
+	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_print(){
-	/* var url = "/erp/pers/stan/deptR/report/deptR.do";
-	url = url + "?postName=" + $("#postName").val();
-	window.open(url,'rpt',''); */
+	gridMain.printView();
 }
 
 </script>

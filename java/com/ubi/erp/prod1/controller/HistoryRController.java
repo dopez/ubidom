@@ -29,8 +29,7 @@ public class HistoryRController {
 			HttpServletResponse response, HttpSession session, HistoryR historyR)
 			throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String equiCode = historyR.getEquiCode();
-		map.put("equiCode", equiCode);
+		map.put("equiCode", "%");
 		map.put("o_cursor", null);
 		historyRSservice.selEquiHistoryR(map);
 		List<HistoryR> list = (List<HistoryR>) map.get("o_cursor");
