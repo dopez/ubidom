@@ -5,6 +5,7 @@
         var gridMain;
         var combo01;
 		var combo02;
+
         $(document).ready(function() {
 
             Ubi.setContainer(1, [1,2,3,4,5,6,7,8,9,10], "1C"); //계정코드입력
@@ -27,24 +28,29 @@
         	gridMain.addHeader({name:"차대구분",   colId:"crDrChk",  width:"7",  align:"center", type:"combo"});
         	gridMain.addHeader({name:"사용구분", colId:"codeChk",   width:"7",  align:"center", type:"combo"});
         	gridMain.setColSort("str");
-        	gridMain.dxObj.setUserData("","@acCode","format_date");
             gridMain.init();
-            gridMain.cs_setColumnHidden(["acCodeOld"]);
+            gridMain.cs_setColumnHidden(["acCodeOld","acCd1","acCd2","acCd3","acCd4"]);
+            gridMain.attachEvent("onRowSelect",doOnRowSelect);
             gridMain.dxObj.enableSmartRendering(false);
         	combo01 = gridMain.getColumnCombo(9);
         	fn_comboSet(combo01,0);
         	combo02 = gridMain.getColumnCombo(10);
         	fn_comboSet(combo02,1);
 
-
-        	gridMain.dxObj.groupBy(0);
-
         	fn_search();
-
+        	gridMain.dxObj.selectRow(0,true,true,true);
         })
+
+		function doOnRowSelect(id,ind){
+			var acCodeColIdx = gridMain.getColIndexById('acCode');
+			var acCodeOldColIdx = gridMain.getColIndexById('acCodeOld');
+			var val = gridMain.setCells(id,acCodeColIdx).getValue();
+			gridMain.setCells(id,acCodeOldColIdx).setValue(val);
+
+		}
 		function fn_delete(){
-		    var rodid = gridMain.getSelectedRowId();
-		    gridMain.cs_deleteRow(rodid);
+		    var rowId = gridMain.getSelectedRowId();
+		    gridMain.cs_deleteRow(rowId);
 		}
         function fn_add(){
         	var selectedRow = gridMain.getSelectedRowId();
@@ -57,24 +63,65 @@
         		var acCd2ColIdx = gridMain.getColIndexById('acCd2');
         		var acCd3ColIdx = gridMain.getColIndexById('acCd3');
         		var acNm1ColIdx = gridMain.getColIndexById('acNm1');
+        		var acNm2ColIdx = gridMain.getColIndexById('acNm2');
+        		var acNm3ColIdx = gridMain.getColIndexById('acNm3');
         		var values=gridMain.dxObj.collectValues(acNm1ColIdx);
-        		var idx = fruits.indexOf(gridMain.setCells(selectedRow,acNm1ColIdx).getValue());
+        		var rowIndex=gridMain.dxObj.getRowIndex(selectedRow);
+        		var idx = values.indexOf(gridMain.setCells(selectedRow,acNm1ColIdx).getValue())
+        		data[acNm1ColIdx] = gridMain.setCells(selectedRow,acNm1ColIdx).getValue();
+        		data[acNm2ColIdx] = gridMain.setCells(selectedRow,acNm2ColIdx).getValue();
+        		data[acNm3ColIdx] = gridMain.setCells(selectedRow,acNm3ColIdx).getValue();
         		data[acCd1ColIdx] = gridMain.setCells(selectedRow,acCd1ColIdx).getValue();
         	    data[acCd2ColIdx] = gridMain.setCells(selectedRow,acCd2ColIdx).getValue();
         	    data[acCd3ColIdx] = gridMain.setCells(selectedRow,acCd3ColIdx).getValue();
-        	    gridMain.addRow(data,idx);
+        	    gridMain.addRow(data,rowIndex+1);
         	}
          }
-         function fn_search() {
-			 gfn_callAjaxForGrid(gridMain,$("#frmSearch").serialize(),"search", subLayout.cells("a"))
+         function fn_search(){
+        	 	$.ajax({
+			    	url:  "/erp/acnt/stan/accCodeS/search",
+			        type: "POST",
+			        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+			        data: $("#frmSearch").serialize(),
+			        async: true,
+			        dataType: "json",
+			        beforeSend: function() {
+			            layout.progressOn();
+			        },
+			        success: function(data, status) {
+			        	gridMain.clearAll();
+			        	gridMain.parse(data,"js");
+			        	gridMain.dxObj.groupBy(0);
+			        },
+			        complete: function() {
+			        	 subLayout.cells("a").progressOff();
+			        }
+			    });
+// 			 gfn_callAjaxForGrid(gridMain,$("#frmSearch").serialize(),"search", subLayout.cells("a"))
          }
 
 		 function fn_save(){
-			 console.log('click save');
+
 			 var jsonStr = gridMain.getJsonUpdated2();
+
 			 $("#jsonData").val(jsonStr);
-			 console.log('jsonStr',jsonStr)
-			 gfn_callAjaxForGrid(gridMain,$("#pform").serialize(),"save", subLayout.cells("a"))
+
+        	 $.ajax({
+			    	url:  "/erp/acnt/stan/accCodeS/save",
+			        type: "POST",
+			        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+			        data: $("#pform").serialize(),
+			        async: true,
+			        dataType: "json",
+			        success: function(data, status) {
+						if(data.rtnCode == "1"){
+							MsgManager.alertMsg("INF001");
+						}else{
+							return;
+						}
+			        }
+			 });
+// 			 gfn_callAjaxForGrid(gridMain,$("#pform").serialize(),"save", subLayout.cells("a"))
 		 }
 		 function fn_excel(){
 				gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
