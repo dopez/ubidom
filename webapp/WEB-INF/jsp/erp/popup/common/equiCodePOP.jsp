@@ -37,6 +37,7 @@ function fn_search(){
 }
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {
+	$('#equiName').val('');
 	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 };
 
