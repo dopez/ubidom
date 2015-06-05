@@ -208,7 +208,6 @@ function fn_new(){
 	if(gfn_formValidation('frmMain')){
 		 disableValue(1);
 		var params = gfn_getFormElemntsData('frmMain');
-		console.log("params : ",params);
 	     $.ajax(
 			{
 			  type:'POST',
@@ -242,8 +241,9 @@ function fn_loadFormListCB(data){
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
-	
-	$("#target").attr("src", "/erp/pers/pers/persDataS/getPersImg?empNo=" + data[0].empNo);
+	if(data[0].imgPath != null){			
+	  $("#target").attr("src", "/erp/pers/pers/persDataS/getPersImg?empNo=" + data[0].empNo);
+	}
 };
 
 function fn_onOpenPop(pName){

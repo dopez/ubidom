@@ -298,25 +298,39 @@ function doOnGridMstSelect(id,ind){
 	var obj={};
 	obj.equiCode= gridMst.setCells(id,1).getValue();
 	fn_loadFormList(obj);
+	fn_tab1Search();
+	fn_tab2Search();
 }
 function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridFormSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
-	if(data[0].imgPath != null){
-		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
-		  $("#target").attr("src",path);
-		}else{
-			$('#target').removeAttr('src');
-		}
+	if(data[0].imgPath != null){			
+		  $("#target").attr("src", "/erp/prod1/equi/historyS/getEquiImg?equiCode=" + data[0].equiCode);
+	}
 };
 
 function fn_tab1Search(){
-	gfn_callAjaxForGrid(gridDtl01,{},"gridTab1Search",subLayout.cells("c"));
+	var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{
+		obj = {};
+		obj.equiCode = gridMst.setCells(rowCheck,1).getValue();
+	  gfn_callAjaxForGrid(gridDtl01,obj,"gridTab1Search",subLayout.cells("c"));
+	}
 };
 
 function fn_tab2Search(){
-	gfn_callAjaxForGrid(gridDtl02,{},"gridTab2Search",subLayout.cells("c"));
+	var rowCheck = gridMst.getSelectedRowId();
+	if(rowCheck == null){
+		return false;
+	}else{
+		obj = {};
+		obj.equiCode = gridMst.setCells(rowCheck,1).getValue();
+		gfn_callAjaxForGrid(gridDtl02,obj,"gridTab2Search",subLayout.cells("c"));
+	}
+	
 };
 
 function fn_tab1Save(){
@@ -331,7 +345,7 @@ function fn_tab1Save(){
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          gridMst.selectRow(rowIdx,true,true,true);
+          fn_tab1Search();
            }
       });  
 };
@@ -354,7 +368,7 @@ function fn_tab1Add(){
 		var cycleColIdx = gridDtl01.getColIndexById('cycle');
 		    data[finalDateColIdx] = dateformat(new Date());
 	        data[equiCodeColIdx] = gridMst.setCells(rowCheck,1).getValue();
-	        data[equiCodeColIdx] = 0;
+	        data[cycleColIdx] = 0;
 		    gridDtl01.addRow(data);
 	}
 };
@@ -405,7 +419,7 @@ function fn_tab2Add(){
 		var cycleColIdx = gridDtl02.getColIndexById('cycle');
 		var safeStockColIdx = gridDtl02.getColIndexById('safeStock');
 	        data[equiCodeColIdx] = gridMst.setCells(rowCheck,1).getValue();
-	        data[equiCodeColIdx] = 0;
+	        data[cycleColIdx] = 0;
 	        data[safeStockColIdx] = 0;
 		    gridDtl02.addRow(data);
 	}
