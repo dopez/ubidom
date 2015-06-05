@@ -2,30 +2,38 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
         <script type="text/javascript">
 	        var layout,toolbar,subLayout;
-	        var gridMst,gridDtl;
+	        var gridMst,gridDtl,subLayoutD;
             var calMain;
             $(document).ready(function() {
 
-            	Ubi.setContainer(2, [1, 2, 3, 4], "3E"); //BOM등록
+            	Ubi.setContainer(0, [1, 2, 3, 4], "4C"); //BOM등록
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
                 subLayout = Ubi.getSubLayout();
 
                 //form//
-                layout.cells("b").attachObject("bootContainer2");
+                //subLayout.cells("b").attachObject("bootContainer2");
 
                 //form02//
-                subLayout.cells("b").attachObject("bootContainer3");
-                subLayout.cells("b").setHeight(80);
+
 
                 //up
-
-
-                gridMst = subLayout.cells("a").attachGrid();
+                subLayout.cells("a").setWidth("300");
+				gridItem = new dxGrid(subLayout.cells("a"), false);
+				gridItem.addHeader({name:"제품코드",colId:"pCode",width:"50",align:"center",type:"ro"});
+				gridItem.addHeader({name:"제품명",colId:"pName",width:"50",align:"center",type:"ro"});
+				gridItem.setColSort("str");	
+				gridItem.setUserData("","pk","pCode");
+				gridItem.init(); 
+				
+				subLayout.cells("b").attachObject("bootContainer2");
+				subLayout.cells("b").setHeight(80);
+				
+				subLayout.cells("c").setHeight(260);
+                gridMst = subLayout.cells("c").attachGrid();
                 gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
                 gridMst.setHeader("계정번호,계정일자,사유", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
-
                 gridMst.setInitWidths("100,100,780");
                 gridMst.setColAlign("center,center,left");
                 gridMst.setColTypes("ro,ro,ro");
@@ -33,9 +41,16 @@
                 gridMst.init();
 
                 //down
-                gridDtl = subLayout.cells("c").attachGrid();
-                subLayout.cells("c").showHeader();
-                subLayout.cells("c").setText("BOM");
+                
+                subLayoutD = subLayout.cells("d").attachLayout("2E");
+                subLayoutD.cells("a").hideHeader();
+                subLayoutD.cells("a").attachObject("bootContainer3");
+                subLayoutD.cells("a").setHeight(80);
+				
+                
+                subLayoutD.cells("b").showHeader();
+                subLayoutD.cells("b").setText("BOM");
+                gridDtl = subLayoutD.cells("b").attachGrid();
                 gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
 
                 gridDtl.setHeader("순번,공정,자재코드,자재명,소요량,Loss율", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
