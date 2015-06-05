@@ -2,9 +2,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 var layout, toolbar, subLayout;
-var gridMain;
+var gridMain//,itemGubn, itemKind1,itemKind2,itemKind3;
 var calStDate;
-var comboItemGubn;
 $(document).ready(function(){
 		Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //제품코드등록
 		
@@ -24,7 +23,8 @@ $(document).ready(function(){
 		gridMain.setColSort("str");	
 		gridMain.setUserData("","pk","pCode");
 		gridMain.init(); 
-		
+		gridMain.attachEvent("onRowSelect",doOnRowSelect);
+
 		//right form
 		subLayout.cells("b").attachObject("productCodeInfo");
 		
@@ -45,33 +45,194 @@ $(document).ready(function(){
 		byId("enterDate").value = t;
 		
 		//combo
-		comboItemGubn = dhtmlXComboFromSelect("itemGubn");
-		comboItemGubn.addOption("1","제품");
-		comboItemGubn.addOption("2","상품");
-		
-		
+		itemGubn = dhtmlXComboFromSelect("itemGubn");
+		itemGubn.addOption("1","제품");
+		itemGubn.addOption("2","상품");
+		itemGubn.readonly(true);
+	    comboAcctKind = dhtmlXComboFromSelect("acctKind");
+		itemKind1 = dhtmlXComboFromSelect("itemKind1");
+		itemKind2 = dhtmlXComboFromSelect("itemKind2");
+		itemKind3 = dhtmlXComboFromSelect("itemKind3");
+		/* grouping combo*/
+		fn_comboSet(itemKind1, "A001");
+		fn_comboSet(comboAcctKind, "J04");
+        fn_comboSet(itemKind2, "A002");
+        fn_comboSet(itemKind3, "A003");
 
+		fn_search();
+		fn_new();
 })
 //doc Ready End
+function doOnRowSelect(id, ind){
+	fn_new();
+	fn_setEnable("off");
 
-//조회 버튼 동작
-function fn_search() {
- 
+	byId("cudKey").value = "UPDATE";
+	var obj={};
+	obj.itemCode= gridMain.setCells(id,0).getValue();
+	fn_loadFormList(obj);	
 }
-
+function fn_loadFormList(obj){
+	gfn_callAjaxForForm("frmMain",obj,"formMain",fn_loadFormListCB);
+}
+function fn_loadFormListCB(data){
+	//selectOption
+	itemGubn.setComboValue(data[0].itemGubn);
+    itemKind1.setComboValue(data[0].itemKind1);
+    itemKind2.setComboValue(data[0].itemKind2);
+    itemKind3.setComboValue(data[0].itemKind3);
+    comboAcctKind.setComboValue(data[0].itemGubn);
+    $("#itemCodeTemp").val(data[0].itemCode);
+}
 //신규 버튼 동작
 function fn_new(){
-	
+    byId("frmSearch").reset();
+    byId("frmMain").reset();
+	byId("enterDate").value = dateformat(new Date());
+	fn_setEnable("on");
+	byId("cudKey").value = "INSERT";                    
+	$("input[name=itemCode]").attr("disabled", true);
+    $("input[name=itemNumb]").attr("disabled", true);
+
 }
 
+function fn_gridMainSel(){
+	if($("#pCode").val() == ""){
+		$("#pCode").val("%");
+	}
+	if($("#pName").val() == ""){
+		$("#pName").val("%");
+	}
+	var obj= gfn_getFormElemntsData('frmSearch');
+    gfn_callAjaxForGrid(gridMain,obj,"gridMainSel",subLayout.cells("a"));
+    byId("frmSearch").reset();
+
+}
+//조회 버튼 동작
+function fn_search() {
+	fn_gridMainSel();
+}
+function fn_validForm(){
+	if($('#cudKey').val()=='INSERT'){
+	fn_comboValid(itemKind1,"대분류");
+	fn_comboValid(itemKind2,"중분류");
+	fn_comboValid(itemKind3,"소분류");
+	fn_comboValid(itemGubn,"제품구분");
+	}
+	f_dxRules = {
+			itemName: ["제품명", r_notEmpty],
+		    itemSpec: ["제품규격", r_notEmpty],
+		    itemUnit: ["단위", r_notEmpty],
+		    packUnit: ["포장단위", r_onlyNumber],
+		    safetyQty: ["안전재고", r_onlyNumber],
+		    leadTime: ["lead time", r_onlyNumber],
+		    totWet: ["총중량", r_onlyNumber],
+		    baseWet: ["순중량", r_onlyNumber],
+		    keepTemp1: ["보관온도", r_onlyNumber],
+		    keepTemp2: ["보관온도", r_onlyNumber]
+			};
+}
 //저장 버튼 동작
-function fn_save(){
-	
+function fn_save() {
+    fn_validForm();
+    $("input[name=itemCode]").attr("disabled", false);
+    $("input[name=itemNumb]").attr("disabled", false);
+    if (gfn_formValidation('frmMain')) {
+        var params = gfn_getFormElemntsData('frmMain');
+        console.log(params)
+        $.ajax({
+            type: 'POST',
+            url: "/erp/rndt/stan/goodsCodeS/frmSave",
+            data: params,
+            success: function(data) {
+                MsgManager.alertMsg("INF001");
+                fn_search();
+                fn_saveFrmCallbck()
+                }
+        });
+    }
+}
+function fn_saveFrmCallbck(){
+	if ($('#cudKey').val() == 'DELETE') {
+        fn_new();
+        return;
+    }else{
+    var obj ={}; 
+    obj.itemCode = $("#itemCodeTemp").val();
+    fn_loadFormList(obj);
+    $("input[name=itemCode]").attr("disabled", true);
+    $("input[name=itemNumb]").attr("disabled", true);
+    }
+}
+//삭제 버튼 동작
+function fn_remove() {
+    $('#cudKey').val('DELETE');
+    var rodid = gridMain.getSelectedRowId();
+    gridMain.cs_deleteRow(rodid);
 }
 
-//삭제 버튼 동작
-function fn_remove(){
-	
+function fn_comboValid(comboId, name) {
+    var comboChk = comboId.getSelectedValue();
+    if (comboChk == null || comboChk == "" || typeof comboChk == "undefined") {
+        dhtmlx.alert(name + " 선택은 필수 항목입니다.");
+        return;
+    }
+    return;
+}
+
+
+function fn_comboSet(comboId,params){
+	comboId.setTemplate({
+		    input: "#interCode#",
+		    input: "#interName#",
+		    columns: [
+		       {header: "내부코드", width: 100,  option: "#interCode#"},
+			   {header: "코드명",   width: 100,  option: "#interName#"}
+		    ]
+		});
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	comboId.readonly(true);
+	var obj={};
+	obj.compId = '100';
+	obj.code = params;
+	doOnOpen(comboId,obj);
+}
+function doOnOpen(comboId,params){
+	$.ajax({
+		"url":"/erp/cmm/InterCodeR",
+		"type":"post",
+		"data":params,
+		"success" : function(data){
+		  var list = data;
+		  for(var i=0;i<list.length;i++){
+			 comboId.addOption([
+			  {value: list[i].interCode, text:
+			  {interCode: list[i].interCode,
+			   interName: list[i].interName}}   
+			   ]);	
+		    }
+		}
+  });	
+};
+function fn_setEnable(flag){
+	if(flag=="on"){
+	    itemKind1.enable();
+	    itemGubn.enable();
+	    itemKind2.enable();
+	    itemKind3.enable();
+	    itemGubn.unSelectOption();
+	    itemKind1.unSelectOption();
+		itemKind2.unSelectOption();
+		itemKind3.unSelectOption();
+	}else if(flag=="off"){
+    itemKind1.disable();
+    itemGubn.disable();
+    itemKind2.disable();
+    itemKind3.disable();
+
+	}
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -99,13 +260,14 @@ function fn_remove(){
 </div>
 <div id="productCodeInfo">
     <form id="frmMain" class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;">
+    <input type="hidden" id="cudKey" name="cudKey" />
+    <input type="hidden" id="itemCodeTemp" name="itemCodeTemp" />
     <div class="container">
         <div class="row">
             <div class="form-group form-group-sm">
-                <label class="col-sm-2 col-md-2 control-label" for="textinput">
-                    제품코드 </label>
+                <label class="col-sm-2 col-md-2 control-label" for="textinput"> 제품코드 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 구분 </label>
                 <div class="col-sm-2 col-md-2">
@@ -116,8 +278,7 @@ function fn_remove(){
         </div>
         <div class="row">
             <div class="form-group form-group-sm">
-                <label class="col-sm-2 col-md-2 control-label" for="textinput">
-                    대분류 </label>
+                <label class="col-sm-2 col-md-2 control-label" for="textinput"> 대분류 </label>
                 <div class="col-sm-2 col-md-2">
                     <select name="itemKind1" id="itemKind1" class="form-control input-xs">
                     </select>
@@ -149,8 +310,11 @@ function fn_remove(){
                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                     일련번호 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="itemNumb" id="itemNumb" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="itemNumb" id="itemNumb" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                 </div>
+                <div class="col-sm-2 col-md-2">
+                    <p style="margin: 6px 0px -5px 15px;">일련번호는 저장 시 자동 생성</p>
+           		 </div>
             </div>
         </div>
         <div class="row">
@@ -180,7 +344,7 @@ function fn_remove(){
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 포장단위 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="packUnit" id="packUnit" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="packUnit" id="packUnit" type="text" value="0" placeholder="" class="form-control input-xs">
                 </div>
             </div>
         </div>
@@ -191,12 +355,14 @@ function fn_remove(){
                     <!-- disKind -->
                 <div class="col-sm-2 col-md-2">
                     <select name="disKind" id="disKind" class="form-control input-xs">
+                    	<option value="0">제조</option>                    
+                    	<option value="1">개봉</option>                    
                     </select>
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 유효기간 </label>
                 <div class="col-sm-2 col-md-2">
                     <div class="col-sm-10 col-md-10">
-                        <input name="validTime" id="validTime" type="text" value="" placeholder="" class="form-control input-xs">
+                        <input name="validTime" id="validTime" type="text" value="" placeholder="" class="form-control input-xs format_date">
                     </div>
                      <div class="col-sm-2 col-md-2">
                         <input type="button" id="calpicker1" class="calicon form-control">
@@ -209,11 +375,11 @@ function fn_remove(){
                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                     LEAD TIME </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="leadTime" id="leadTime" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="leadTime" id="leadTime" type="text" value="0" placeholder="" class="form-control input-xs">
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 안전재고 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="safetyQty" id="safetyQty" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="safetyQty" id="safetyQty" type="text" value="0" placeholder="" class="form-control input-xs">
                 </div>
                 <div class="col-sm-2 col-md-2">
                     <input type="radio" name="safetyKind" value="2" checked="checked">변동
@@ -226,11 +392,11 @@ function fn_remove(){
                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                     순중량</label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="baseWet" id="baseWet" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="baseWet" id="baseWet" type="text" value="0" placeholder="" class="form-control input-xs">
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 총중량 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="totWet" id="totWet" type="text" value="" placeholder="" class="form-control input-xs">
+                    <input name="totWet" id="totWet" type="text" value="0" placeholder="" class="form-control input-xs">
                 </div>
             </div>
         </div>
@@ -240,17 +406,19 @@ function fn_remove(){
                     검사유무</label>
                 <div class="col-sm-2 col-md-2">
                     <select name="inspYn" id="inspYn" class="form-control input-xs">
+                    	<option value="0">무검사</option>
+                    	<option value="1">검사</option>
                     </select>
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 보관온도 </label>
                 <div class="col-sm-2 col-md-2">
                     <div class="col-sm-4 col-md-4">
-                        <input name="keepTemp1" id="keepTemp1" type="text" value="" placeholder="" class="form-control input-xs">
+                        <input name="keepTemp1" id="keepTemp1" type="text" value="0" placeholder="" class="form-control input-xs">
                     </div>
                     <label class="col-sm-4 col-md-4" style="text-align: center; vertical-align: middle;">~</label>
 
                     <div class="col-sm-4 col-md-4">
-                        <input name="keepTemp2" id="keepTemp2" type="text" value="" placeholder="" class="form-control input-xs">
+                        <input name="keepTemp2" id="keepTemp2" type="text" value="0" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
                 <label class="col-sm-2 col-md-2" style="vertical-align: middle;">
@@ -263,7 +431,7 @@ function fn_remove(){
                         등록일자 </label>
                     <div class="col-sm-2 col-md-2">
                         <div class="col-sm-10 col-md-10">
-                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker2" class="calicon form-control">
@@ -272,6 +440,8 @@ function fn_remove(){
                     <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 사용구분 </label>
                     <div class="col-sm-2 col-md-2">
                         <select id="useYn" name="useYn" class="form-control input-xs">
+                        	<option value="0">사용</option>
+                    		<option value="1">미사용</option>
                         </select>
                     </div>
                 </div>
@@ -285,9 +455,8 @@ function fn_remove(){
                     </div>
                     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 사용중지일자 </label>
                     <div class="col-sm-2 col-md-2">
-
                         <div class="col-sm-10 col-md-10">
-                            <input name="endDate" id="endDate" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="endDate" id="endDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker3" class="calicon form-control">
