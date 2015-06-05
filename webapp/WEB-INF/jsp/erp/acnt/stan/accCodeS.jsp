@@ -38,7 +38,7 @@
         	fn_comboSet(combo02,1);
 
         	fn_search();
-        	gridMain.dxObj.selectRow(0,true,true,true);
+
         })
 
 		function doOnRowSelect(id,ind){
@@ -74,7 +74,7 @@
         		data[acCd1ColIdx] = gridMain.setCells(selectedRow,acCd1ColIdx).getValue();
         	    data[acCd2ColIdx] = gridMain.setCells(selectedRow,acCd2ColIdx).getValue();
         	    data[acCd3ColIdx] = gridMain.setCells(selectedRow,acCd3ColIdx).getValue();
-        	    gridMain.addRow(data,rowIndex+1);
+        	    gridMain.addRow(data,idx+1);
         	}
          }
          function fn_search(){
@@ -123,6 +123,9 @@
 			 });
 // 			 gfn_callAjaxForGrid(gridMain,$("#pform").serialize(),"save", subLayout.cells("a"))
 		 }
+		 function fn_print(){
+				gridMain.getDxObj().printView();
+		 };
 		 function fn_excel(){
 				gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 		 };
@@ -173,7 +176,7 @@
                         <div class="col-sm-8 col-md-8">
                             <label class=" col-sm-2 col-md-2 control-label" for="textinput">계정분류</label>
                             <div class="col-sm-2 col-md-2">
-                                <input name="acCd1" id="" type="text" value="%" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('계정분류','common/accCodePOP')">
+                                <input name="acCd1" id="" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('계정분류','common/accCodePOP')">
                             </div>
                         </div>
                     </div>

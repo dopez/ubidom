@@ -65,7 +65,7 @@ function fn_save(){
 function fn_gridDtlSave(){
 	var jsonStr = gridDtl.getJsonUpdated2();
     $("#jsonData").val(jsonStr);
-    console.log(jsonStr);
+
     if (jsonStr == "[]" || jsonStr.length <= 0){
     	dhtmlx.alert("변경된 사항이 없습니다.");
     	return;
@@ -83,7 +83,7 @@ function fn_gridDtlSave(){
 }
 function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
-    console.log(selectedId);
+  
     if(selectedId==null|| selectedId == "" || typeof selectedId == "undefined"){
     	dhtmlx.alert("삭제할 행을 선택해주세요");
     	return;

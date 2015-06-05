@@ -17,7 +17,7 @@ $(document).ready(function() {
     //form//
     layout.cells("b").attachObject("bootContainer2");
 
-    //grid	
+    //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
     gridMain.addHeader({name:"일자",colId:"logDate",width:"5",align:"center",type:"ro"});
@@ -28,7 +28,7 @@ $(document).ready(function() {
     gridMain.setColSort("str");
     gridMain.init();
     gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName","custKorName","workKind"]);
-      
+
     //setDate;
     calMain = new dhtmlXCalendarObject([{
         input: "stDate",
@@ -76,7 +76,7 @@ function fn_search() {
     if(obj.custCode==null||obj.custCode.length<=0){
     	obj.custCode = '%';
     }
-    console.log(obj);
+
     gfn_callAjaxForGrid(gridMain, obj, "/erp/sale/wlog/workLogPersR/gridMainSelProd1", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 //excel

@@ -20,7 +20,7 @@ $(document).ready(function() {
     //form//
     layout.cells("b").attachObject("bootContainer");
 
-    //grid	
+    //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
     gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ed"});
@@ -29,7 +29,7 @@ $(document).ready(function() {
     gridMain.setColSort("str");
     gridMain.init();
     gridMain.cs_setColumnHidden(["empNo","logDate","logSeq","logNum","logName","custCode","logKind","custKorName","workKind"]);
-	
+
     //setDate//
     calStDate = new dhtmlXCalendarObject([{
         input: "stDate",
@@ -39,13 +39,13 @@ $(document).ready(function() {
     calStDate.hideTime();
     var t = dateformat(new Date());
     byId("stDate").value = t;
-	
+
     //seq
     fn_getSeqReturn();
-    
+
     //popUp
     //gridMain.attachEvent("onRowSelect",doOnRowSelect);
-     
+
 	$("#korName").click(function(e){
 		if(e.target.id == "korName"){
 			popParam = e;
@@ -80,12 +80,12 @@ function fn_search() {
     $("input[name=empNo]").attr("disabled",false);
     $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData('frmMain');
-    console.log(param);
+
     gfn_callAjaxForGrid(gridMain, param, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
 }
 
 function fn_gridMainSelCallbckFunc(data) {
-    console.log(data);
+
     $("input[name=empNo]").attr("disabled",true);
     $("input[name=seqNo]").attr("disabled",true);
     if($("#empNo").val() == "%"){
@@ -114,7 +114,7 @@ function fn_save() {
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-		console.log(jsonStr);
+
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -187,7 +187,7 @@ function fn_onClosePop(pName, data) {
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
                 <input type="hidden" id = "logKind" name="logKind">
-        
+
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">

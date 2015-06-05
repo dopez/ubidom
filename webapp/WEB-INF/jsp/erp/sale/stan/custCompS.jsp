@@ -145,10 +145,10 @@ function fn_save(){
 
 		var d = fn_process1();
 		$("#frmMain input[name='custCode']").val(d.custCode);
-		console.log("D",d);
+	
 		if(d.rtnCode=="0"){
 			if(gfn_formValidation('frmMain')){
-				console.log("0");
+				
 				fn_process2();
 				fn_process3();
 				fn_search();
@@ -221,7 +221,7 @@ function fn_onClosePop(pName,data){
 		var empNoColIndex = gridDtl.dxObj.getColIndexById("empNo");
 		var empNameColIndex = gridDtl.dxObj.getColIndexById("empName");
 		var selectedId = gridDtl.dxObj.getSelectedRowId();
-		console.log(data[0]);
+		
 		gridDtl.setCells(selectedId,empNoColIndex).setValue(data[0].empNo);
 		gridDtl.setCells(selectedId,empNameColIndex).setValue(data[0].korName);
 	};
