@@ -47,10 +47,12 @@ public class VaccCoatSController {
 	public List<VaccCoatS> selGridDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session, VaccCoatS vaccCoatS) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String equiCode = request.getParameter("equiCode");
+		String applyDate = request.getParameter("applyDate");
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMP_ID", comp);
 		map.put("V_EQUI_CODE", equiCode);
+		map.put("V_APPLY_DATE", applyDate);
 		map.put("o_cursor", null);
 		vaccCoatSService.selGridDtl(map);
 		List<VaccCoatS> list  = (List<VaccCoatS>) map.get("o_cursor");
