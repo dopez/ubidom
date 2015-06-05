@@ -31,6 +31,8 @@ public class ComponentCodeSController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String partCode = request.getParameter("ptCode");
 		String partName = request.getParameter("ptName");
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("partCode", partCode);
 		map.put("partName", partName);
 		map.put("o_cursor", null);
@@ -41,9 +43,11 @@ public class ComponentCodeSController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridFormSearch",method = RequestMethod.POST)
-	public List<ComponentCodeS> selEquiHistorySR(HttpServletRequest request, HttpServletResponse response,ComponentCodeS componentCodeS) throws Exception {
+	public List<ComponentCodeS> selEquiHistorySR(HttpServletRequest request, HttpServletResponse response,HttpSession session,ComponentCodeS componentCodeS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String partCode = componentCodeS.getPartCode();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("partCode", partCode);
 		map.put("o_cursor", null);
 		componentCodeSSservice.selComponentCodeSR(map);
@@ -55,6 +59,8 @@ public class ComponentCodeSController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEquiHistoryS(HttpServletRequest request, HttpServletResponse response,HttpSession session,ComponentCodeS componentCodeS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
+		String compId = (String) session.getAttribute("compId");
+		componentCodeS.setCompId(compId);
 		componentCodeS.setSysEmpNo(sysEmpNo);
 		componentCodeSSservice.prcsComponentCodeS(componentCodeS);
 	}

@@ -52,6 +52,8 @@ public class HistorySController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String equiCode = request.getParameter("eqCode");
 		String supplyComp = request.getParameter("splyComp");
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiCode", equiCode);
 		map.put("supplyComp", supplyComp);
 		map.put("o_cursor", null);
@@ -62,9 +64,11 @@ public class HistorySController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridFormSearch",method = RequestMethod.POST)
-	public List<HistoryS> selEquiHistorySR(HttpServletRequest request, HttpServletResponse response,HistoryS historyS) throws Exception {
+	public List<HistoryS> selEquiHistorySR(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String equiCode = historyS.getEquiCode();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historySSservice.selEquiHistorySR(map);
@@ -77,6 +81,8 @@ public class HistorySController {
 	public List<HistoryS> selEquiCode(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String equiName = historyS.getEquiName();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiName", equiName);
 		map.put("o_cursor", null);
 		historySSservice.selEquiCode(map);
@@ -89,6 +95,8 @@ public class HistorySController {
 	public List<HistorySPop> selPartCode(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistorySPop historySPop) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String partName = historySPop.getPartName();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("partName", partName);
 		map.put("o_cursor", null);
 		historySPopService.selPartCode(map);
@@ -100,6 +108,8 @@ public class HistorySController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEquiHistoryS(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
+		String compId = (String) session.getAttribute("compId");
+		historyS.setCompId(compId);
 		historyS.setSysEmpNo(sysEmpNo);
 		if(saveFilename != null){  
 			 historyS.setImgPath(saveFilename);
@@ -126,9 +136,11 @@ public class HistorySController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridTab1Search",method = RequestMethod.POST)
-	public List<HistorySPop> selEquiCheck(HttpServletRequest request, HttpServletResponse response,HistorySPop historySPop) throws Exception {
+	public List<HistorySPop> selEquiCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistorySPop historySPop) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String equiCode = historySPop.getEquiCode();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historySPopService.selEquiCheck(map);
@@ -138,9 +150,11 @@ public class HistorySController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridTab2Search",method = RequestMethod.POST)
-	public List<HistorySPop> selPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HistorySPop historySPop) throws Exception {
+	public List<HistorySPop> selPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistorySPop historySPop) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String equiCode = historySPop.getEquiCode();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historySPopService.selPartCodeHistory(map);
@@ -152,22 +166,24 @@ public class HistorySController {
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsEquiCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
+		String compId = (String) session.getAttribute("compId");
 		String jsonData = request.getParameter("jsonData");
 		List<HistorySPop> list = new ArrayList<HistorySPop>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<HistorySPop>>(){});
-		historySPopService.prcsEquiCheck(list,sysEmpNo);
+		historySPopService.prcsEquiCheck(list,sysEmpNo,compId);
 	}
 	
 	@RequestMapping(value = "/gridTab2Save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
+		String compId = (String) session.getAttribute("compId");
 		String jsonData = request.getParameter("jsonData2");
 		List<HistorySPop> list = new ArrayList<HistorySPop>();
 		ObjectMapper mapper = new ObjectMapper();
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<HistorySPop>>(){});
-		historySPopService.prcsPartCodeHistory(list,sysEmpNo);
+		historySPopService.prcsPartCodeHistory(list,sysEmpNo,compId);
 	}
 	
 	@RequestMapping(value = "/getEquiImg")

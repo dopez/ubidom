@@ -1,15 +1,15 @@
 
 //####################### Javascript global settings #######################//
 
-$(function(){	
+$(function(){
 	$(document).ajaxComplete(function(event, xhr, settings){
 		if(xhr.getResponseHeader("EXCEPTION")=="Y") {
 			var exObj = JSON.parse(xhr.responseText);
 			alert(MsgManager.getMsg(exObj.EXCEPTION_MSG_CODE, exObj.EXCEPTION_MSG_PARAM));
 		}
 	});
-	
-	$(document).ajaxError(function(e, xhr, settings, exception) {			
+
+	$(document).ajaxError(function(e, xhr, settings, exception) {
 		if(xhr.status == 0){
 			return;
 		} else if(xhr.status == 401) {	// 세션이 없을 경우
@@ -21,7 +21,7 @@ $(function(){
 		} else { // 서버오류
 			//ExceptionUtil.errorInternalError(settings);
 		}
-	});	
+	});
 });
 
 var ExceptionUtil = {

@@ -15,22 +15,26 @@ $(document).ready(function(){
     
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,"+
-			           "점검자,비고",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			               "100,100");
-	gridMain.setColAlign("center,left,left,left,left,left,center,center,center,left,"+
-			             "left,left");
-	gridMain.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
-			             "ro,ro");
-	gridMain.setColSorting("int,str,str,str,str,str,date,date,date,str,"+
-			               "str,str");
-	gridMain.init();
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO",           colId:"no",          width:"4", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"설비코드",     colId:"equiCode",    width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비명",       colId:"equiName",    width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"항목코드",     colId:"checkItem",   width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"항목명",       colId:"checkItemNm", width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"주기단위",     colId:"cycleKind",   width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검주기",     colId:"cycle",       width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"최종점검일자", colId:"finalDate",   width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검예정일자", colId:"finalPreDate",width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검일자",     colId:"checkDate",   width:"6", align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"점검결과",     colId:"checkReq",    width:"6", align:"center", type:"combo"});
+	gridMain.addHeader({name:"점검자",       colId:"korName",     width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"비고",         colId:"rmk",         width:"8", align:"center", type:"ed"});
+	gridMain.setColSort("str");	
+	gridMain.setUserData("","pk","no");
+	gridMain.dxObj.setUserData("","@finalDate","format_date");
+	gridMain.dxObj.setUserData("","@finalPreDate","format_date");
+	gridMain.dxObj.setUserData("","@checkDate","format_date");
+	gridMain.init(); 
 
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
@@ -40,6 +44,20 @@ $(document).ready(function(){
 	byId("edDate").value = t;
 	
 });
+function fn_search(){
+    fn_loadGridMain();
+}
+function fn_loadGridMain() {
+	var params = gfn_getFormElemntsData('frmSearch');
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
+};
+
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+}
+function fn_print(){
+	gridMain.printView();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -54,7 +72,7 @@ $(document).ready(function(){
 				    <div class="col-sm-6 col-md-6">
                         <div class="col-sm-4 col-md-4">
                            <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="stDate" id="stDate" value="">
                            </div>
                            <div class="col-sm-2 col-md-2">
                                <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
@@ -63,7 +81,7 @@ $(document).ready(function(){
                         <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="edDate" id="edDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
                                  <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
@@ -80,7 +98,7 @@ $(document).ready(function(){
 			     설비코드
 			    </label>
 			    <div class="col-sm-2 col-md-2">
-			      <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('설비코드','common/equiCodePOP')">
+			      <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs">
 			    </div>
 		      </div>
 	       </div>

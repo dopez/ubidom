@@ -24,8 +24,9 @@ public class HistorySPopService {
 		dao.selEquiCheck(map);
 	}
 
-	public void prcsEquiCheck(List<HistorySPop> list,String sysEmpNo) {
+	public void prcsEquiCheck(List<HistorySPop> list,String sysEmpNo,String compId) {
 		for(HistorySPop historySPop : list) {
+			historySPop.setCompId(compId);
 			historySPop.setSysEmpNo(sysEmpNo);
 			dao.prcsEquiCheck(historySPop);
 		}
@@ -35,8 +36,9 @@ public class HistorySPopService {
 		dao.selPartCodeHistory(map);
 	}
 
-	public void prcsPartCodeHistory(List<HistorySPop> list,String sysEmpNo) {
+	public void prcsPartCodeHistory(List<HistorySPop> list,String sysEmpNo,String compId) {
 		for(HistorySPop historySPop : list) {
+			historySPop.setCompId(compId);
 			historySPop.setSysEmpNo(sysEmpNo);
 			dao.prcsPartCodeHistory(historySPop);
 		}

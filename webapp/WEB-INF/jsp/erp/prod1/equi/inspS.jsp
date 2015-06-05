@@ -5,8 +5,9 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
+var combo;
 $(document).ready(function(){
-	Ubi.setContainer(4,[1,2,3,4,5,6],"2E");
+	Ubi.setContainer(3,[1,2,3,4,6],"2E");
 	//설비점검등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -14,70 +15,193 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,"+
-			          "점검자,비고,선택",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			              "100,100,100");
-	gridMst.setColAlign("center,left,left,left,left,left,center,center,center,left,"+
-			            "left,left,center");
-	gridMst.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,ro,ro,"+
-			            "ro,ro,ra");
-	gridMst.setColSorting("int,str,str,str,str,str,date,date,date,str,"+
-			              "str,str,na");
-	gridMst.init();	
-	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("점검대상");
-	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("No,설비코드,설비명,점검항목코드,점검항목명,점검주기,최종점검일자,점검예정일자,점검일자,점검결과,"+
-			          "점검자,비고",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100,100,100,100,"+
-			              "100,100");
-	gridDtl.setColAlign("center,left,left,left,left,left,center,center,center,left,"+
-			            "left,left");
-	gridDtl.setColTypes("ron,ro,ro,ro,ro,ro,ro,ro,dhxCalendarA,dhxCalendarA,"+
-			            "ed,ed");
-	gridDtl.setColSorting("int,str,str,str,str,str,date,date,date,date,"+
-			              "str,str");
-	gridDtl.init();	
+	gridMst = new dxGrid(subLayout.cells("a"), false);
+	gridMst.addHeader({name:"NO",           colId:"no",            width:"4", align:"center", type:"cntr"});
+	gridMst.addHeader({name:"설비코드",     colId:"equiCode",      width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"항목코드",     colId:"checkItem",     width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"항목명",       colId:"checkItemName", width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"주기단위",     colId:"cycleKindName", width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"점검주기",     colId:"cycle",         width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"최종점검일자", colId:"finalDate",     width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
+	gridMst.setColSort("str");	
+	gridMst.setUserData("","pk","no");
+	gridMst.dxObj.setUserData("","@finalDate","format_date");
+	gridMst.dxObj.setUserData("","@chkPlanDate","format_date");
+	gridMst.init(); 
+	gridMst.cs_setColumnHidden(["cycleKind"]);
+	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+
 	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("점검결과");
+	subLayout.cells("b").setText("점검대상");
+	gridDtl = new dxGrid(subLayout.cells("b"), false);
+	gridDtl.addHeader({name:"NO",           colId:"no",            width:"4", align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"설비코드",     colId:"equiCode",      width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"항목코드",     colId:"checkItem",     width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"항목명",       colId:"checkItemName", width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"주기단위",     colId:"cycleKindName", width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검주기",     colId:"cycle",         width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"최종점검일자", colId:"preFinalDate",  width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검일자",     colId:"checkDate",     width:"6", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"점검결과",     colId:"result",        width:"6", align:"center", type:"combo"});
+	gridDtl.addHeader({name:"점검자",       colId:"korName",       width:"6", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"비고",         colId:"rmk",           width:"8", align:"center", type:"ed"});
+	gridDtl.setColSort("str");	
+	gridDtl.setUserData("","pk","no");
+	gridDtl.dxObj.setUserData("","@preFinalDate","format_date");
+	gridDtl.dxObj.setUserData("","@chkPlanDate","format_date");
+	gridDtl.dxObj.setUserData("","@checkDate","format_date");
+	gridDtl.init(); 
+	gridDtl.cs_setColumnHidden(["checkEmp","cycleKind"]);
+	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 	
-	calMain = new dhtmlXCalendarObject([{input:"inspDate",button:"calpicker"},{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]); 
+	calMain = new dhtmlXCalendarObject([{input:"pfDate",button:"calpicker"},{input:"ptDate",button:"calpicker1"},{input:"checkDate",button:"calpicker2"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
-	byId("inspDate").value = t;
-	byId("stDate").value = t;
-	byId("edDate").value = t;
-		
-	toolbar.attachEvent("onClick", function(id) {
-		if(id == "btn5"){
-			gridMst.addRow(gridMst.getUID(),"1,,,,,,,,,,,,",1);
-		  }
+	byId("pfDate").value = t;
+	byId("ptDate").value = t;
+	byId("checkDate").value = t;
+	
+	$("#eqCode").dblclick(function(e){
+		if(e.target.id == "eqCode"){
+			gfn_load_pop('w1','common/equiCodePOP',true,{"eqCode":$(this).val()});
+		}
 	});
+	
+	combo =gridDtl.getColumnCombo(10);
+	combo.setTemplate({
+	    input: "#interName#",
+	    columns: [
+		   {header: "코드명",   width: 100,  option: "#interName#"}
+	    ]
+	});
+	combo.addOption("1","양호");
+	combo.addOption("2","이상");
+	combo.addOption("3","보류");
+	combo.enableFilteringMode(true);
+	combo.enableAutocomplete(true);
+	combo.allowFreeText(true);
 		
-	function doOnRowDblClicked(rowId,colId){
-		if(colId==10){
-			gfn_load_popup('점검자','common/chargePOP');
-		  }
-	}
 });
+function doOnRowDblClicked(rId,cInd){
+	var totalColNum = gridDtl.getColumnCount();
+    var data = new Array(totalColNum);
+	var equiCodeColIdx     = gridDtl.getColIndexById('equiCode');    
+	var equiNameColIdx     = gridDtl.getColIndexById('equiName');
+	var checkItemColIdx    = gridDtl.getColIndexById('checkItem');    
+	var checkItemNmColIdx  = gridDtl.getColIndexById('checkItemName');
+	var cycleNameColIdx    = gridDtl.getColIndexById('cycleKindName');
+	var cycleKindColIdx    = gridDtl.getColIndexById('cycleKind');    
+	var cycleColIdx        = gridDtl.getColIndexById('cycle');
+	var finalDateColIdx    = gridDtl.getColIndexById('preFinalDate');    
+	var chkPlanDateColIdx = gridDtl.getColIndexById('chkPlanDate');
+	  data[equiCodeColIdx]     = gridMst.setCells(rId,1).getValue();
+      data[equiNameColIdx]     = gridMst.setCells(rId,2).getValue();
+      data[checkItemColIdx]    = gridMst.setCells(rId,3).getValue();
+      data[checkItemNmColIdx]  = gridMst.setCells(rId,4).getValue();
+      data[cycleNameColIdx]    = gridMst.setCells(rId,5).getValue();
+      data[cycleColIdx]        = gridMst.setCells(rId,6).getValue();
+	  data[finalDateColIdx]    = gridMst.setCells(rId,7).getValue();
+      data[chkPlanDateColIdx]  = gridMst.setCells(rId,8).getValue();  
+      data[cycleKindColIdx]    = gridMst.setCells(rId,9).getValue();
+	  gridDtl.addRow(data);
+};
+
+function doOnDtlRowSelect(id,ind){
+	if(ind==11){
+		gfn_load_pop('w1','common/empPOP',true,{});
+	}
+};
+
+function fn_search(){
+	fn_loadGridMst();
+	fh_loadGridDtl();
+};
+
+function fn_loadGridMst(){
+	if($('#eqCode').val() == ''){
+		$('#eqCode').val('%');
+	}
+	var params = gfn_getFormElemntsData('frmSearch');
+    gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
+};
+
+function fh_loadGridDtl(){
+	if($('#eqCode').val() == ''){
+		$('#eqCode').val('%');
+	}
+	var params = gfn_getFormElemntsData('frmSearch');
+    gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
+    $('#eqCode').val('');
+};
+function fn_loadGridDtlCB(data){
+	$('#pfDate').keyup();
+	$('#ptDate').keyup();
+	$('#checkDate').keyup();
+}
+function fn_new(){
+	gridDtl.clearAll();
+};
+
+function fn_save(){
+	var rowIdx = gridMst.getSelectedRowIndex();
+	 var jsonStr = gridDtl.getJsonUpdated2();
+	 if(jsonStr == null || jsonStr.length <= 0 ) return;
+	 $("#jsonData").val(jsonStr);
+    $.ajax({
+       url : "/erp/prod1/equi/inspS/gridDtlSave",
+       type : "POST",
+       data : $("#pform").serialize(),
+       async : true,
+       success : function(data) {
+       MsgManager.alertMsg("INF001");
+       gridMst.selectRow(rowIdx,true,true,true);
+       fn_new();
+        }
+   }); 
+};
+
+function fn_remove(){
+	for(var i=0; i<gridDtl.getRowsNum();i++){
+		gridDtl.cs_deleteRow(gridDtl.getRowId(i));	 
+	 }
+};
+
+function fn_delete(){
+	var rodid = gridDtl.getSelectedRowId();
+	gridDtl.cs_deleteRow(rodid);
+};
+
+function fn_onClosePop(pName,data){
+	var i;
+      if(pName == "empNo"){
+		for(i=0;i<data.length;i++){
+			var selIdx = gridDtl.getSelectedRowIndex();
+			gridDtl.setCells2(selIdx,11).setValue(data[i].korName);
+			gridDtl.setCells2(selIdx,13).setValue(data[i].empNo);
+		}
+      }
+	  if(pName == "equiCode"){
+		  for(i=0;i<data.length;i++){
+			 $('#eqCode').val(data[i].equiCode);
+		   }
+	  }
+		  
+ };
 </script>
+<form id="pform" name="pform" method="post">
+    <input type="hidden" id="jsonData" name="jsonData" />
+</form>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	   <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+	   <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
          <div class="row">
 		    <div class="form-group form-group-sm">
 		      <div class="col-sm-8 col-md-8">
@@ -86,16 +210,11 @@ $(document).ready(function(){
 			    </label>
 			    <div class="col-sm-2 col-md-2">
                     <div class="col-sm-10 col-md-10">
-                       <input name="inspDate" id="inspDate" type="text" value="" placeholder="" class="form-control input-xs">
+                       <input name="checkDate" id="checkDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                     </div>
                     <div class="col-sm-2 col-md-2">
                          <input type="button" id="calpicker" class="calicon form-control">
                     </div>              
-                 </div>
-                 <div class="col-sm-1 col-md-1">
-                     <div class="col-sm-11 col-md-11 col-sm-offset-1 col-md-offset-1">
-                        <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
-                     </div>
                  </div>
 		     </div>
 	       </div>
@@ -104,24 +223,24 @@ $(document).ready(function(){
 		   <div class="form-group form-group-sm">
 			   <div class="col-sm-8 col-md-8">
 				   <label class="col-sm-2 col-md-2 control-label" for="textinput">
-				    점검기간 
+				    점검예정기간 
 				   </label>
 				   <div class="col-sm-6 col-md-6">
                        <div class="col-sm-4 col-md-4">
                            <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="pfDate" id="pfDate" value="">
                            </div>
                            <div class="col-sm-2 col-md-2">
-                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')"/>
+                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'ptDate', 'max')"/>
                            </div>
                         </div>
                         <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                            <div class="col-sm-4 col-md-4">
                               <div class="col-sm-10 col-md-10">
-                                <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                                <input type="text" class="form-control input-xs format_date" name="ptDate" id="ptDate" value="">
                               </div>
                               <div class="col-sm-2 col-md-2">
-                                  <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                                  <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'pfDate', 'min')">
                               </div>
                            </div> 
                        </div>              
@@ -135,23 +254,11 @@ $(document).ready(function(){
 			         설비코드
 			        </label>
 			        <div class="col-sm-2 col-md-2">
-			          <input name="equiCode" id="equiCode" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_big_load_popup(403,400,'설비코드','prod1/equiCodePOP')">
+			          <input name="eqCode" id="eqCode" type="text" value="" placeholder="" class="form-control input-xs">
 			        </div>
 		        </div>
 	         </div>
 	       </div>   
-           <div class="row">
-	         <div class="form-group form-group-sm">
-		       <div class="col-sm-8 col-md-8">
-			      <label class="col-sm-2 col-md-2 control-label" for="textinput">
-			       등록자
-			      </label>
-			      <div class="col-sm-2 col-md-2">
-			        <input name="register" id="register" type="text" value="" placeholder="" class="form-control input-xs">
-			      </div>
-		      </div>
-	        </div>
-	      </div>
        </form>
    </div>    
 </div>

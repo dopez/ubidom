@@ -52,7 +52,7 @@ $(document).ready(function(){
     byId("stDate").value = t;
     gridMst.attachEvent("onRowSelect",fn_doOnMstRowSelect);
     gridDtl.attachEvent("onRowSelect",fn_doOnDtlRowSelect);
-	
+
     //gridMstSel
     fn_getEquiCode();
     alert("hi");
@@ -61,7 +61,7 @@ $(document).ready(function(){
 
 function fn_save(){
 	var jsonStr = gridDtl.getJsonUpdated2();
-	console.log(jsonStr);
+
     $("#jsonData").val(jsonStr);
     if (jsonStr == "[]" || jsonStr.length <= 0){
     	dhtmlx.alert("변경된 사항이 없습니다.");
@@ -83,10 +83,10 @@ function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
     var cudKeyIdx = gridDtl.getColIndexById('cudKey');
     var cudKeyVal = gridDtl.setCells2(selectedId, cudKeyIdx).getValue();
-	console.log(cudKeyVal);
-	console.log("딜리트로우 타기 전 커드키 밸류 = "+cudKeyVal);
+
+
     gridDtl.cs_deleteRow(selectedId);
-	console.log("딜리트로우 타고 난 후 커드키 밸류 = "+cudKeyVal);
+
 }
 /*gridDtl 한줄 삽입*/
 function fn_add() {

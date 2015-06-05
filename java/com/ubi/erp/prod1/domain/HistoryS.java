@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("HistoryS")
 public class HistoryS implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String compId;
 	private String cudKey;
 	private String equiCode;
 	private String equiName;
@@ -27,6 +28,14 @@ public class HistoryS implements Serializable {
 
 	public HistoryS() {
 		super();
+	}
+
+	public String getCompId() {
+		return compId;
+	}
+
+	public void setCompId(String compId) {
+		this.compId = compId;
 	}
 
 	public String getCudKey() {

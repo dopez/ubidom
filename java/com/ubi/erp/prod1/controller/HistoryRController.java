@@ -29,6 +29,8 @@ public class HistoryRController {
 			HttpServletResponse response, HttpSession session, HistoryR historyR)
 			throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
 		map.put("equiCode", "%");
 		map.put("o_cursor", null);
 		historyRSservice.selEquiHistoryR(map);
