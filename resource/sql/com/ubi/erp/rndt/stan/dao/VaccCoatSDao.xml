@@ -14,6 +14,7 @@
 		 	SP_RNDT_VACCCOATS_SCH(
 		 		#{V_COMP_ID},
 		 		#{V_EQUI_CODE},
+		 		#{V_APPLY_DATE},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=VaccCoatSMap, javaType=ResultSet}
 		 	)
 		 }	

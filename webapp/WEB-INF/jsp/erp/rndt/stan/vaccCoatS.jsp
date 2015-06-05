@@ -40,10 +40,11 @@ $(document).ready(function(){
     gridDtl.addHeader({name:"Rate",colId:"rate",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"방식",colId:"method",width:"5",align:"center",type:"ed"});
-    gridDtl.setUserData("","pk","No");
+    gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"5",align:"center",type:"ed"});
+    gridDtl.setUserData("","pk","rNum");
     gridDtl.setColSort("str");
     gridDtl.init();
-    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","applyDate","equiCode"]);
+    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","equiCode","cudKey"]);
     //set date//
     calStDate = new dhtmlXCalendarObject([{input:"stDate",button: "calpicker1"}]);
     calStDate.loadUserLanguage("ko");
@@ -60,12 +61,11 @@ $(document).ready(function(){
 
 function fn_save(){
 	fn_gridDtlSave();
-
 }
 function fn_gridDtlSave(){
 	var jsonStr = gridDtl.getJsonUpdated2();
-	console.log(jsonStr);
     $("#jsonData").val(jsonStr);
+    console.log(jsonStr);
     if (jsonStr == "[]" || jsonStr.length <= 0){
     	dhtmlx.alert("변경된 사항이 없습니다.");
     	return;
@@ -76,19 +76,30 @@ function fn_gridDtlSave(){
         type: "POST",
         data: frmParam,
         async: true,
-        success: function(gridMstRowIdx) {
+        success: function() {
             fn_gridDtlSaveCallbckFunc();
         }
     });
 }
 function fn_delete(){
     var selectedId = gridDtl.getSelectedRowId();
+    console.log(selectedId);
+    if(selectedId==null|| selectedId == "" || typeof selectedId == "undefined"){
+    	dhtmlx.alert("삭제할 행을 선택해주세요");
+    	return;
+    }
     gridDtl.cs_deleteRow(selectedId);
-
+}
+function fn_remove(){
+    var selectedId = gridDtl.getSelectedRowId();
+  	var totalRowNum = gridDtl.getRowsNum();
+    for(var i=1; i<=totalRowNum; i++){
+		 gridDtl.cs_deleteRow(i);
+	}
 }
 function fn_gridDtlSaveCallbckFunc(){
+	fn_getGridDtl(equiCode);
 	dhtmlx.alert("저장완료");
-	//gridMst.selectRow(gridMstRowIdx);
 }
 function fn_add() {
 	if(equiCode==""||typeof equiCode=="undefined"){
@@ -160,13 +171,17 @@ function fn_doOnMstRowSelect(rId, cellId){
 }
 function fn_getGridDtl(equiCode){
 	var param = {};
+	var splitfrDate = $("#stDate").val().split("/");
+    var stDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
 	param.equiCode = equiCode;
+	param.applyDate = stDate;
 	gfn_callAjaxForGrid(gridDtl, param, "gridDtlSel", subLayout.cells("c"), fn_gridDtlSelCallbckFunc);
 }
 function fn_gridDtlSelCallbckFunc(data){
 	if(data != ''){
     byId("stDate").value = data[0].applyDate;
     $('#stDate').mask('0000/00/00');
+    $('#stDate').mask('####/##/##');
 	}
 }
 function fn_getEquiCode(){
