@@ -7,9 +7,9 @@ function gfn_temp(grid,data,param, url, layout, callbackFn){
 
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
-			
+
 	        	var classNm = grid.dxObj.getUserData("","@"+[key]);
-	        	
+
 	        	if(classNm != null){
 	        		var input = $("<input type='hidden'>").appendTo("body");
 	        		var gDate = data[i][key];
@@ -26,7 +26,7 @@ function gfn_temp(grid,data,param, url, layout, callbackFn){
 	};
 	grid.clearAll();
     grid.parse(data,"js");
-    
+
     return data;
 }
 
@@ -54,7 +54,7 @@ function gfn_callAjaxComm(param,url,callbackFn) {
             }
         },
         error: function(xhr) { // if error occured
-            console.log(xhr.statusText + xhr.responseText);
+
         }
     });
 
@@ -74,21 +74,21 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
             layout.progressOn();
         },
         success: function(data, status) {
-        	
+
           gData = gfn_temp(grid,data,param, url, layout, callbackFn);
-            
+
           if (callbackFn != undefined) {
               callbackFn.call(this, data);
            }
         },
         failure: function(data) {
-            console.log(data.d);
+
         },
         complete: function() {
             layout.progressOff();
         },
         error: function(xhr) { // if error occured
-            console.log(xhr.statusText + xhr.responseText);
+
         }
     });
 	return gData;
@@ -117,7 +117,7 @@ function gfn_callAjaxForForm(formId, p_data, url, callbackFn) {
 
         },
         error: function(xhr) { // if error occured
-            console.log(xhr.statusText + xhr.responseText);
+
         }
     });
     return gData;
@@ -159,9 +159,9 @@ function gfn_getFormElemntsData(formId,added) {
 			    });
 		}
 		if(added != undefined)addElements(formId,added);
-		
+
 		editElements(formId);
 		createElements(formId);
-		
+
 		return  $("#"+formId).serialize();
 }

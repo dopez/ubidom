@@ -10,7 +10,7 @@ $(document).ready(function(){
 	//시스템 메뉴 등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
+    subLayout = Ubi.getSubLayout();
 
 	//좌측 트리 그리드
 	subLayout.cells("a").setWidth(300);
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	fn_treeMainConf();
 	treeMain.enableThreeStateCheckboxes(true);
 	treeMain.enableCheckBoxes(true, true);
-	
+
 	//우측 그리드 config
 	gridMain = new dxGrid(subLayout.cells("b"), false);
 	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"cntr"});//화면순서
@@ -36,17 +36,17 @@ $(document).ready(function(){
 	gridMain.init();
 
  	gridMain.attachEvent("onDrop",fn_onDrop);
- 	
+
 	var comboGbn = gridMain.getColumnCombo(1);
 	comboGbn.addOption("0","폴더");
 	comboGbn.addOption("1","윈도우");
 	var comboGbn2 = gridMain.getColumnCombo(6);
 	comboGbn2.addOption("1","사용");
-	comboGbn2.addOption("0","미사용");	
-	
+	comboGbn2.addOption("0","미사용");
+
 	//더블 클릭 시 팝업
  	gridMain.attachEvent("onRowDblClicked",fn_loadPop);
-	
+
 	//대분류 메뉴 로드
 	fn_loadGridMain('0000000000');
 });
@@ -94,7 +94,7 @@ function fn_saveGridMain(){
 	var colIndex=gridMain.dxObj.getColIndexById("cudKey");
 	var cellObj = gridMain.dxObj.cells(rodid,colIndex);
 	var test = cellObj.getValue();
-    console.log(test+"   "+jsonStr);
+
 	    if ($("#Pmenucd").val()==0){
 	    	$("#Pmenucd").val('0000000000');
 	    }
@@ -111,7 +111,7 @@ function fn_saveGridMain(){
 	            fn_loadGridMain(menucd);
 	        }
 	    });
-    
+
 }
 
 //한줄삽입
@@ -183,8 +183,8 @@ var fncSelectItem = function(tree, id) {
 	} catch(e){
 		alert(e);
 	}
-	
-	if(exegbn=="0") { // 우측 그리드 조회 
+
+	if(exegbn=="0") { // 우측 그리드 조회
 		fn_loadGridMain(id);
 		$("#Pmenucd").val(id);
 	}

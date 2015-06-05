@@ -11,10 +11,10 @@ $(document).ready(function(){
 	//품목코드 도우미
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
-    
+    subLayout = Ubi.getSubLayout();
+
     layout.cells("b").attachObject("bootContainer");
-    
+
 	gridMain = subLayout.cells("a").attachGrid();
 	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
 	gridMain.setHeader("품목코드,품목명",null,
@@ -24,12 +24,12 @@ $(document).ready(function(){
 	gridMain.setColAlign("left,left");
 	gridMain.setColTypes("ro,ro");
 	gridMain.setColSorting("str,str");
-	gridMain.init(); 
-	
+	gridMain.init();
+
 	orinGrid = parent.window.gridMst;
 	var getValue = orinGrid.setCells2(orinGrid.getSelectedRowIndex(),0).getValue();
 	alert(getValue);
-	
+
 	toolbar.attachEvent("onClick", function(id) {
 	      if (id == "btn1") {
 	           fn_loadGridList("/erp/subTest", {}, gridMain, fn_PopValue);
@@ -48,7 +48,7 @@ $(document).ready(function(){
 					grid.clearAll();
 					grid.parse(rtn, "js");
 					setGridHeight();
-					if (callback != null) { 
+					if (callback != null) {
 						callback();
 					}
 		        } else {
@@ -57,12 +57,12 @@ $(document).ready(function(){
 		        }
 			});
 	};
-	
+
 
 	  function fn_PopValue(){
 		gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	  }
- 
+
 	  function doOnRowDblClicked(rId,cInd){
 		  var row = rId-1;
 		  var cell = cInd;
@@ -70,14 +70,14 @@ $(document).ready(function(){
 		  var itemName = gridMain.cells2(row,cell+1).getValue();
 		 orinGrid.setCells2(orinGrid.getSelectedRowIndex(),0).setValue(itemCode);
 		 orinGrid.setCells2(orinGrid.getSelectedRowIndex(),1).setValue(itemName);
-		 
-		 console.log(window);
+
+
 	  }
 });
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
 			 품목명
@@ -85,6 +85,6 @@ $(document).ready(function(){
 			<div class="col-xs-6">
 			  <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
-		</div>  
+		</div>
   </form>
 </div>

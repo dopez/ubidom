@@ -18,7 +18,7 @@ $(document).ready(function() {
     //form//
     layout.cells("b").attachObject("bootContainer");
 
-    //grid	
+    //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
     gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ed"});
@@ -27,7 +27,7 @@ $(document).ready(function() {
     gridMain.setColSort("str");
     gridMain.init();
     gridMain.cs_setColumnHidden(["empNo","logDate","logSeq","logNum","logName","custCode","logKind","custKorName","workKind"]);
-	
+
     //setDate//
     calStDate = new dhtmlXCalendarObject([{
         input: "stDate",
@@ -37,13 +37,13 @@ $(document).ready(function() {
     calStDate.hideTime();
     var t = dateformat(new Date());
     byId("stDate").value = t;
-	
+
     //seq
     fn_getSeqReturn();
-    
+
     //popUp
     //gridMain.attachEvent("onRowSelect",doOnRowSelect);
-     
+
 	$("#korName").click(function(e){
 		if(e.target.id == "korName"){
 			popParam = e;
@@ -54,7 +54,7 @@ $(document).ready(function() {
 })
 //doc ready end
 function fn_remove(){
-	console.log("123");
+
  	//var test  =  $("#workKind").val();
 	var fruitValue  = $('input:radio[name="workKind"]:checked').val();
 	alert(fruitValue);
@@ -108,16 +108,16 @@ function fn_save() {
     var empNoColIdx = gridMain.getColIndexById('empNo');
     var logNameVal = $('#logName').val();
     var logNumVal = $('#logNum').val();
-    
+
     if (logNameVal == null || logNameVal.length <= 0 || logNumVal == null || logNumVal.length <= 0) {
         dhtmlx.alert("과제번호 / 과제명을 입력해주세요.");
         return;
-    } 
-     
+    }
+
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-		console.log(jsonStr);
+
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({
@@ -129,7 +129,7 @@ function fn_save() {
                 fn_gridMainSaveCallbckFunc(data);
             }
         });
-    
+
 }
 function fn_gridMainSaveCallbckFunc(data) {
   	var totalRowNum = gridMain.getRowsNum();

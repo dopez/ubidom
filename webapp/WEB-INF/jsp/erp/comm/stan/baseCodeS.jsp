@@ -10,30 +10,30 @@ $(document).ready(function(){
 	//제코드등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
-	
+    subLayout = Ubi.getSubLayout();
+
 	layout.cells("b").attachObject("bootContainer");//attach search Condition div
-	
+
 	//좌측 그리드 config
 	subLayout.cells("a").setWidth(250);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"코드",   colId:"code",     width:"30", align:"center", type:"ro"});
 	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",   type:"ro"});
-	gridMst.setColSort("str");	
+	gridMst.setColSort("str");
 	gridMst.setUserData("","pk","code");
 	gridMst.init();
 	gridMst.attachEvent("onRowSelect",doOnGridMstSelect);
-	
+
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"내부코드",   colId:"interCode", width:"4", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"7", type:"ed"});
 	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"5", align:"center",type:"ed"});
-	gridDtl.setColSort("str");	
+	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","");
-	gridDtl.init();	
-	
+	gridDtl.init();
+
 	fn_loadGridMst(1);
 
 });
@@ -71,7 +71,7 @@ function fn_save() {
     var jsonStr = gridMst.getJsonUpdated2();
     var jsonStrSubString = jsonStr.substring(0, 2);
     $("#jsonData").val(jsonStr);
-	console.log(jsonStr);
+
     var jsonStr2 = gridDtl.getJsonUpdated2();
     var jsonStrSubString2 = jsonStr2.substring(0, 2);
     $("#jsonData2").val(jsonStr2);
@@ -132,7 +132,7 @@ function fn_add(){
 		gridDtl.addRow(data);
 		gridDtl.selectRow(totalRowNum);
 	}
-  	
+
 }
 //한줄삭제 버튼 동작
 function fn_delete(){
@@ -155,7 +155,7 @@ function fn_loadGridMst(flag){
 	}else if(flag == 0){
 		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"));
 	}
-	
+
 	gridDtl.clearAll();
 }
 //우측 그리드 로드
@@ -177,12 +177,12 @@ function fn_First_loadGridMst(data){
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
  <div class="container">
-	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
+	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			  <div class="col-sm-6 col-md-6">
-			   <label class="col-sm-4 col-md-4 control-label" for="textinput"> 
+			   <label class="col-sm-4 col-md-4 control-label" for="textinput">
 					코드
 			   </label>
 				<div class="col-sm-2 col-md-2">
@@ -196,7 +196,7 @@ function fn_First_loadGridMst(data){
 			  </div>
 		  </div>
 	    </div>
-      </div>     
+      </div>
   </form>
- </div> 
+ </div>
 </div>

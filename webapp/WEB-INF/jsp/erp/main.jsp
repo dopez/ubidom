@@ -40,10 +40,10 @@ $( document ).ready(function() {
 		mainLayout.cells("b").collapse();
 	});
 	$(".dhx_toolbar_dhx_skyblue div.dhx_toolbar_btn input.dhxtoolbar_input").delegate(":input, change keyup",function(e){
-		console.log("asdfas");
+
 	});
 	leftToolbar.attachEvent("onEnter", function(id, value){
-		console.log(value);
+
 		mainMenu.getDxObj().findItem(value,0,1);
 	});
 	leftToolbar.attachEvent("onValueChange", function(id, value){
@@ -91,7 +91,7 @@ $( document ).ready(function() {
 		mainLayout.setSizes();
 	});
 	$('#full_screen').click(function(event) {
-		console.log("click")
+
 		event.preventDefault();
 
 	});
@@ -143,7 +143,7 @@ function fncMenuConf() {
 	});
 	req.done(function(jsonData) {
 		if("[]"!=JSON.stringify(jsonData)) {
-			console.log(jsonData);
+
 			var data = {menuTree:jsonData};
 			fncSetMenuLoad(data);
 		} else {
@@ -223,7 +223,7 @@ var fncSelectItem = function(tree, id) {
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
 			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
-			 console.log(uri);
+
 			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 

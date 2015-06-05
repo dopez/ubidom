@@ -16,22 +16,22 @@ $(document).ready(function(){
 	//권한등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
-    
+    subLayout = Ubi.getSubLayout();
+
     //사용자별, 그룹별 라디오 버튼 div
     layout.cells("b").attachObject("groupGbn");
 
     //cell 사이즈
     subLayout.cells("a").setWidth(230);
 	subLayout.cells("b").setWidth(130);
-	
+
 	//버튼 div
 	divAddDel = subLayout.cells("b").attachObject("divAddDel");
-	
+
 	//라디오 버튼 클릭 function
 	fn_rdo_onClick();
-	
-	
+
+
 	//버튼 클릭 이벤트
 	$("#btnAdd").on("click",fn_btnAdd);
 	$("#btnDel").on("click",fn_btnDel);
@@ -44,34 +44,34 @@ function fn_rdo_onClick() {
   	gridMst = new dxGrid(subLayout.cells("a"), false);
       gridMst.addHeader({name:"사용자ID", colId:"multicd", 	width:"50", align:"center", type:"ro"});
   	gridMst.addHeader({name:"사용자명", 	 colId:"pname", 	width:"49", align:"center", type:"ro"});
-  	gridMst.setColSort("str");	
+  	gridMst.setColSort("str");
   	gridMst.setUserData("","pk","multicd");
   	gridMst.dxObj.enableMultiselect(true);
   	gridMst.init();
-  	
+
   	gridDtl = new dxGrid(subLayout.cells("c"), false);
   	gridDtl.addHeader({name:"사용자ID", colId:"logid", 	width:"18", align:"center", type:"ro"});
   	gridDtl.addHeader({name:"사용자명", 	 colId:"personname", 	width:"18", align:"center", type:"ro"});
-  	gridDtl.setColSort("str");	
+  	gridDtl.setColSort("str");
   	gridDtl.setUserData("","pk","logid");
   	gridDtl.dxObj.enableMultiselect(true);
   	gridDtl.init();
-  	
+
   	fn_authList();
   	fn_noAuthList();
-  	
+
   } else {
   	gridMst = new dxGrid(subLayout.cells("a"), false);
       gridMst.addHeader({name:"그룹코드", colId:"groupId", 	width:"50", align:"center", type:"ro"});
   	gridMst.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"48", align:"center", type:"ro"});
-  	gridMst.setColSort("str");	
+  	gridMst.setColSort("str");
   	gridMst.setUserData("","pk","userId");
   	gridMst.init();
-  	
+
   	gridDtl = new dxGrid(subLayout.cells("c"), false);
   	gridDtl.addHeader({name:"그룹코드", colId:"groupId", 	width:"20", align:"center", type:"ro"});
   	gridDtl.addHeader({name:"그룹명", 	 colId:"groupName", 	width:"20", align:"center", type:"ro"});
-  	gridDtl.setColSort("str");	
+  	gridDtl.setColSort("str");
   	gridDtl.setUserData("","pk","userId");
   	gridDtl.init();
   }
@@ -101,7 +101,7 @@ function fn_save(){
                 fn_noAuthList();
             }
         });
-    
+
 }
 
 //우측 그리드 조회
@@ -118,7 +118,7 @@ function fn_authList(){
 
 //콜백
 function fn_callBack(){
-	
+
 }
 
 
@@ -127,17 +127,17 @@ function fn_btnAdd(){
 	var selRowId = {};
     	selRowId = gridDtl.getSelectedRowId();
    	var selRowIdArr = selRowId.split(",");
-   	
+
    	var	logid = {};
    	var personname = {};
-	
+
    	var totalColNum = gridMst.getColumnCount();
   	var totalRowNum = gridMst.getRowsNum();
-  	
+
   	var multicdColIdx = gridMst.getColIndexById("multicd");
   	var pnameColIdx = gridMst.getColIndexById("pname");
   	var data = new Array(totalColNum);
-  	
+
    	for(i=0;i<selRowIdArr.length;i++){
 	    logid[i] = gridDtl.setCells(selRowIdArr[i], "0").getValue();
 	    personname[i] = gridDtl.setCells(selRowIdArr[i], "1").getValue();
@@ -162,8 +162,7 @@ function fn_btnDel() {
             if (jsonStr == null || jsonStr.length <= 0) return;
             $("#jsonData").val(jsonStr);
             $("#Pmenucd").val(menucd);
-            console.log(jsonStr);
-            console.log($("#hiddenform").serialize());
+
             $.ajax({
                 url: "/erp/system/stan/menuS/prcsAuthSave",
                 type: "POST",
@@ -220,7 +219,7 @@ dxGrid.prototype.getJsonUpdated3 = function(excludeCols) {
 		var gubun = this.dxObj.cells2(i,cudColIdx).getValue().toUpperCase();
 		if (gubun == actInsert || gubun == actUpdate || gubun == actDelete) {
 			var row={};
-			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){ 
+			for(var j = 0; j < this.dxObj.getColumnsNum(); j++){
 				colId = this.dxObj.getColumnId(j);
 				colNm = this.dxObj.getColLabel(j);
 				colVal = this.dxObj.cells2(i,j).getValue();

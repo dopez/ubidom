@@ -116,7 +116,7 @@ function fn_save() {
         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
-		console.log(jsonStr);
+	
         if (jsonStr == null || jsonStr.length <= 0) return;
 
         $.ajax({

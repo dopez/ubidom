@@ -8,24 +8,24 @@ var combo01, combo02, combo03;
 $(document).ready(function(){
 	//부품코드등록
 	Ubi.setContainer(1,[1,2,3,4],"2U");
-	
+
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
-    subLayout = Ubi.getSubLayout(); 
-	
+    subLayout = Ubi.getSubLayout();
+
 	layout.cells("b").attachObject("bootContainer");
-	
+
 	subLayout.cells("b").attachObject("bootContainer2");
-	
+
 	subLayout.cells("a").setWidth(400);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",         width:"15", align:"center", type:"cntr"});
 	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"25", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"35", align:"center", type:"ro"});
 	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"25", align:"center", type:"ro"});
-	gridMain.setColSort("str");	
+	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","no");
-	gridMain.init(); 
+	gridMain.init();
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
 	combo01 = dhtmlXComboFromSelect("kind1");
@@ -34,7 +34,7 @@ $(document).ready(function(){
 		 var kind1Val = combo01.getSelectedValue();
          $('#partCode').val(kind1Val);
 	});
-	
+
 	combo02 = dhtmlXComboFromSelect("kind2");
 	   fn_comboSet(combo02,"E11");
 	combo02.attachEvent("onClose", function(){
@@ -42,10 +42,10 @@ $(document).ready(function(){
 		   var kind1Val = combo01.getSelectedValue();
 		   $('#partCode').val(kind1Val+kind2Val);
 	}); 
-	
+
 	combo03 = dhtmlXComboFromSelect("partUnit");
 	   fn_comboSet(combo03,"C02");
-	   
+
 	   $("#ptCode,#ptName").keyup(function(e) {
 	    	if(e.target.id == "ptCode"){
 	    		 gridMain.filterBy(1,byId("ptCode").value);
@@ -53,8 +53,8 @@ $(document).ready(function(){
 	    	if(e.target.id == "ptName"){
 	    		 gridMain.filterBy(2,byId("ptName").value);
 			}
-		 });   
-	   
+		 });
+
 	byId("cudKey").value = "INSERT";
 	fn_search();
 });
@@ -87,23 +87,23 @@ function doOnOpen(comboId,params){
 			 comboId.addOption([
 			  {value: list[i].interCode, text:
 			  {interCode: list[i].interCode,
-			   interName: list[i].interName}}   
-			   ]);	
+			   interName: list[i].interName}}
+			   ]);
 		    }
 		}
-  });	
-};	
+  });
+};
 function doOnRowSelect(id,ind){
 	fn_new();
 	byId("cudKey").value = "UPDATE";
 	disableValue(2);
 	var obj={};
 	obj.partCode= gridMain.setCells(id,1).getValue();
-	fn_loadFormList(obj);	
+	fn_loadFormList(obj);
 };
 
 function fn_search(){
-	fn_loadGridList(); 
+	fn_loadGridList();
 	fn_new();
 }
 function fn_new(){
@@ -127,7 +127,7 @@ function fn_save(){
 		 disableValue(1);
 		 $("input[name=partCode]").attr("disabled",false);
 		var params = gfn_getFormElemntsData('frmMain');
-		console.log("params : ",params);
+
 	     $.ajax(
 			{
 			  type:'POST',
@@ -135,19 +135,19 @@ function fn_save(){
 			  data:params,
 			  success:function(data)
 			  {
-			   MsgManager.alertMsg("INF001"); 
+			   MsgManager.alertMsg("INF001");
 			   fn_search();
 			  }
 		});
 	}
-}; 
+};
 function disableValue(flag){
 	if(flag == 1){
 	  $("input[name=partCode]").attr("disabled",true);
 	  combo01.enable();
 	  combo02.enable();
 	  combo03.enable();
-	  
+
 	}else{
 	  $("input[name=partCode]").attr("disabled",true);
 	  combo01.disable();
@@ -184,7 +184,7 @@ function fn_remove(){
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	   <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">      
+	   <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
           <div class="row">
 	         <div class="form-group form-group-sm">
 		        <div class="col-sm-8 col-md-8">
@@ -195,7 +195,7 @@ function fn_remove(){
 			        <input name="ptCode" id="ptCode" type="text" value="" placeholder="" class="form-control input-xs">
 			      </div>
 			      <div class="col-sm-2 col-md-2" style="margin-left: 10px;">
-			        <input name="ptName" id="ptName" type="text" value="" placeholder="" class="form-control input-xs">			
+			        <input name="ptName" id="ptName" type="text" value="" placeholder="" class="form-control input-xs">
  			      </div>
 		       </div>
 	        </div>
@@ -205,7 +205,7 @@ function fn_remove(){
 </div>
 <div id="bootContainer2" style="position: relative;">
 <div class="container">
-	  <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">      
+	  <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-left:5px;padding-bottom:5px;margin:0px;">
         <input type="hidden" id="cudKey" name="cudKey" />
          <div class="row">
 	        <div class="form-group form-group-sm">
@@ -217,13 +217,13 @@ function fn_remove(){
 			      <input name="partCode" id="partCode" type="text" value="" maxlength="5" class="form-control input-xs">
 		        </div>
 	        </div>
-	      </div>  
+	      </div>
 	    </div>
 	    <div class="row">
 	       <div class="form-group form-group-sm">
 	         <div class="col-sm-8 col-md-8">
-		       <label class="col-sm-2 col-md-2 control-label" for="textinput"> 
-				종류 
+		       <label class="col-sm-2 col-md-2 control-label" for="textinput">
+				종류
 			  </label>
 			  <div class="col-sm-2 col-md-2">
 			  	  <select name="kind1" id="kind1" class="form-control input-xs">
@@ -234,7 +234,7 @@ function fn_remove(){
 			  	  </select>
 			  </div>
 	       </div>
-	      </div> 
+	      </div>
 	    </div>
 	    <div class="row">
 	        <div class="form-group form-group-sm">
@@ -245,7 +245,7 @@ function fn_remove(){
 		       <div class="col-sm-4 col-md-4">
 			      <input name="partName" id="partName" type="text" value="" placeholder="" class="form-control input-xs">
 		       </div>
-		     </div>  
+		     </div>
 	      </div>
 	   </div>
 	   <div class="row">
@@ -257,7 +257,7 @@ function fn_remove(){
 		       <div class="col-sm-4 col-md-4">
 			      <input name="partSpec" id="partSpec" type="text" value="" placeholder="" class="form-control input-xs">
 		       </div>
-		     </div>  
+		     </div>
 	       </div>
 	   </div>
 	   <div class="row">
@@ -270,7 +270,7 @@ function fn_remove(){
 			  	  <select name="partUnit" id="partUnit" class="form-control input-xs">
 			  	  </select>
 			  </div>
-		    </div>  
+		    </div>
 	       </div>
 	   </div>
 	   <div class="row">
@@ -282,7 +282,7 @@ function fn_remove(){
 		       <div class="col-sm-4 col-md-4">
 			      <input name="rmk" id="rmk" type="text" value="" placeholder="" class="form-control input-xs">
 		      </div>
-		    </div>  
+		    </div>
 	       </div>
 	   </div>
      </form>
