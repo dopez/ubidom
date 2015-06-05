@@ -8,6 +8,7 @@ import org.apache.ibatis.type.Alias;
 public class HistorySPop implements Serializable {
 	private static final long serialVersionUID = 1L;
 	// 공통항목
+	private String compId;
 	private String no;
 	private String cudKey;
 	private String equiCode;
@@ -27,6 +28,14 @@ public class HistorySPop implements Serializable {
 
 	public HistorySPop() {
 		super();
+	}
+
+	public String getCompId() {
+		return compId;
+	}
+
+	public void setCompId(String compId) {
+		this.compId = compId;
 	}
 
 	public String getNo() {

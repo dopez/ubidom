@@ -39,8 +39,8 @@ $(document).ready(function(){
 	   fn_comboSet(combo02,"E11");
 	combo02.attachEvent("onClose", function(){
 		   var kind2Val = combo02.getSelectedValue();
-		   var kind1Val = $('#partCode').val();
-         $('#partCode').val(kind1Val+kind2Val);
+		   var kind1Val = combo01.getSelectedValue();
+		   $('#partCode').val(kind1Val+kind2Val);
 	}); 
 	
 	combo03 = dhtmlXComboFromSelect("partUnit");

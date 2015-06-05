@@ -6,18 +6,18 @@
 	<resultMap id="ComponentCodeSMap" type="ComponentCodeS"/>
 
 	<select id="selComponentCodeSL" statementType="CALLABLE">
-		 {call SP_PROD1_COMPONENTCODES_SCH1(#{partCode},#{partName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ComponentCodeSMap, javaType=ResultSet})}
+		 {call SP_PROD1_COMPONENTCODES_SCH1(#{compId},#{partCode},#{partName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ComponentCodeSMap, javaType=ResultSet})}
 	</select>
 
 
 	<select id="selComponentCodeSR" statementType="CALLABLE">
-		 {call SP_PROD1_COMPONENTCODES_SCH2(#{partCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ComponentCodeSMap, javaType=ResultSet})}	
+		 {call SP_PROD1_COMPONENTCODES_SCH2(#{compId},#{partCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ComponentCodeSMap, javaType=ResultSet})}	
 	</select>
 	
 		<insert id="prcsComponentCodeS" statementType="CALLABLE" parameterType="ComponentCodeS">
   		{call SP_PROD1_COMPONENTCODES_SAVE(
-  		#{cudKey},#{partCode},#{kind1},#{kind2},#{partName},
-  		#{partSpec},#{partUnit},#{rmk},#{sysEmpNo}
+  		#{cudKey},#{compId},#{partCode},#{kind1},#{kind2},
+  		#{partName},#{partSpec},#{partUnit},#{rmk},#{sysEmpNo}
   		)}	
   	</insert>
 </mapper>

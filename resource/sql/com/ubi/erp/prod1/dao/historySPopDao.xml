@@ -6,29 +6,30 @@
 	<resultMap id="HistorySPopMap" type="HistorySPop"/>
 
 	<select id="selEquiCheck" statementType="CALLABLE">
-		 {call SP_PROD1_EQUICHECK_SCH(#{equiCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}
+		 {call SP_PROD1_EQUICHECK_SCH(#{compId},#{equiCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}
 	</select>
 	
 	<insert id="prcsEquiCheck" statementType="CALLABLE" parameterType="HistoryS">
   		{call SP_PROD1_EQUICHECK_SAVE(
-  		#{cudKey},#{equiCode},#{checkItem},#{cycleKind},#{cycle},
-  		#{finalDate},#{rmk},#{sysEmpNo}
+  		#{cudKey},#{compId},#{equiCode},#{checkItem},#{cycleKind},
+  		#{cycle},#{finalDate},#{rmk},#{sysEmpNo}
   		)}	
   	</insert>
   	
   	<select id="selPartCodeHistory" statementType="CALLABLE">
-		 {call SP_PROD1_PARTCODEHISTORY_SCH(#{equiCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}
+		 {call SP_PROD1_PARTCODEHISTORY_SCH(#{compId},#{equiCode},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}
 	</select>
 	
 	<insert id="prcsPartCodeHistory" statementType="CALLABLE" parameterType="HistoryS">
   		{call SP_PROD1_PARTCODEHISTORY_SAVE(
-  		#{cudKey},#{equiCode},#{partCode},#{partName},#{partSpec},
-  		#{cycleKind},#{cycle},#{safeStock},#{insurance},#{sysEmpNo}
+  		#{cudKey},#{compId},#{equiCode},#{partCode},#{partName},
+  		#{partSpec},#{cycleKind},#{cycle},#{safeStock},#{insurance},
+  		#{sysEmpNo}
   		)}	
   	</insert>
   	
   	<select id="selPartCode" statementType="CALLABLE">
-		 {call SP_PROD1_PARTCODE_SCH(#{partName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}	
+		 {call SP_PROD1_PARTCODE_SCH(#{compId},#{partName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySPopMap, javaType=ResultSet})}	
 	</select>
 	
 </mapper>

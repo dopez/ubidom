@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("ComponentCodeS")
 public class ComponentCodeS implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String compId;
 	private String cudKey;
 	private String partCode;
 	private String kind1;
@@ -19,6 +20,14 @@ public class ComponentCodeS implements Serializable {
 
 	public ComponentCodeS() {
 		super();
+	}
+
+	public String getCompId() {
+		return compId;
+	}
+
+	public void setCompId(String compId) {
+		this.compId = compId;
 	}
 
 	public String getCudKey() {
