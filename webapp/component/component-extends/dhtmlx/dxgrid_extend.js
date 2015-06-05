@@ -349,7 +349,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				colVal = this.dxObj.cells2(i,j).getValue();
 				colType = this.dxObj.getColType(j);
 
-				if(colType =="dhxCalendar" || colType == "dhxCalendarA"){
+				if(colType=="ro" || colType =="dhxCalendar" || colType == "dhxCalendarA"){
 					var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
 					colVal = colVal.replace(regExp, "");
 				}

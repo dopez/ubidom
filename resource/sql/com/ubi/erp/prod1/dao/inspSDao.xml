@@ -12,7 +12,7 @@
 
 	<select id="selEquiInspSR" statementType="CALLABLE">
 		 {call SP_PROD1_EQUIINSPS_SCH2(#{compId},#{equiCode},#{checkDate},
-		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySMap, javaType=ResultSet})}	
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=InspSMap, javaType=ResultSet})}	
 	</select>
 
 	<insert id="prcsEquiInspS" statementType="CALLABLE" parameterType="InspS">

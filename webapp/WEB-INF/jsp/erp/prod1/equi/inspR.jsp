@@ -16,19 +16,19 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",           colId:"no",          width:"4", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"설비코드",     colId:"equiCode",    width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"설비명",       colId:"equiName",    width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"항목코드",     colId:"checkItem",   width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"항목명",       colId:"checkItemNm", width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"주기단위",     colId:"cycleKind",   width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검주기",     colId:"cycle",       width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"최종점검일자", colId:"finalDate",   width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검예정일자", colId:"finalPreDate",width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검일자",     colId:"checkDate",   width:"6", align:"center", type:"dhxCalendarA"});
-	gridMain.addHeader({name:"점검결과",     colId:"checkReq",    width:"6", align:"center", type:"combo"});
-	gridMain.addHeader({name:"점검자",       colId:"korName",     width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"비고",         colId:"rmk",         width:"8", align:"center", type:"ed"});
+	gridMain.addHeader({name:"NO",           colId:"no",            width:"3", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"설비코드",     colId:"equiCode",      width:"5", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"항목코드",     colId:"checkItem",     width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"항목명",       colId:"checkItemName", width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"주기단위",     colId:"cycleKindName", width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검주기",     colId:"cycle",         width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"최종점검일자", colId:"preFinalDate",  width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검일자",     colId:"checkDate",     width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검결과",     colId:"result",        width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검자",       colId:"korName",       width:"6", align:"center", type:"ro"});
+	gridMain.addHeader({name:"비고",         colId:"rmk",           width:"8", align:"center", type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.dxObj.setUserData("","@finalDate","format_date");
@@ -36,22 +36,29 @@ $(document).ready(function(){
 	gridMain.dxObj.setUserData("","@checkDate","format_date");
 	gridMain.init(); 
 
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+	calMain = new dhtmlXCalendarObject([{input:"pfDate",button:"calpicker1"},{input:"ptDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	var t = dateformat(new Date());
-	byId("stDate").value = t;
-	byId("edDate").value = t;
+	byId("pfDate").value = t;
+	byId("ptDate").value = t;
 	
 });
 function fn_search(){
     fn_loadGridMain();
 }
 function fn_loadGridMain() {
+	if($('#equiCode').val() == ''){
+		$('#equiCode').val('%');
+	}
 	var params = gfn_getFormElemntsData('frmSearch');
-	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 };
-
+function fn_loadGridMainCB(data){
+	 $('#equiCode').val('');
+	$('#pfDate').keyup();
+	$('#ptDate').keyup();
+}
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
@@ -72,19 +79,19 @@ function fn_print(){
 				    <div class="col-sm-6 col-md-6">
                         <div class="col-sm-4 col-md-4">
                            <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs format_date" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="pfDate" id="pfDate" value="">
                            </div>
                            <div class="col-sm-2 col-md-2">
-                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                               <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'ptDate', 'max')">
                            </div>
                         </div>
                         <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs format_date" name="edDate" id="edDate" value="">
+                              <input type="text" class="form-control input-xs format_date" name="ptDate" id="ptDate" value="">
                           </div>
                           <div class="col-sm-2 col-md-2">
-                                 <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                                 <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'pfDate', 'min')">
                           </div>
                        </div> 
                    </div>              
@@ -111,13 +118,13 @@ function fn_print(){
 			     </label>
 			     <div class="col-sm-3 col-md-3">
 			         <div class="col-sm-4 col-md-4">
-					    <input type="radio" name="gubn" id="gubn" value="전체" checked="checked">전체
+					    <input type="radio" name="resultGbn" id="resultGbn" value="%" checked="checked">전체
 			         </div>
 			         <div class="col-sm-4 col-md-4">
-					    <input type="radio" name="gubn" id="gubn" value="이상">이상
+					    <input type="radio" name="resultGbn" id="resultGbn" value="1">양호
 			         </div>
 			         <div class="col-sm-4 col-md-4">
-					    <input type="radio" name="gubn" id="gubn" value="양호">양호
+					    <input type="radio" name="resultGbn" id="resultGbn" value="2">이상
 				     </div>
 			     </div>
 		      </div>
