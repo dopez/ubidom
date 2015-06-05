@@ -21,11 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.file.AttachFileService;
+import com.ubi.erp.cmm.file.ImageUploadService;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
-import com.ubi.erp.user.domain.AttachFile;
 
 @RestController
 @RequestMapping(value = "/erp/pers/pers/persDataS")
@@ -35,7 +34,7 @@ public class PersDataSController {
 	private PersDataSService persDataSService;
 	
 	@Autowired
-	private AttachFileService attachFileService;
+	private ImageUploadService imageUploadService;
 	
 	private String saveFilename;  
 	
@@ -88,22 +87,17 @@ public class PersDataSController {
 		//파일 업로드 및 삭제 추가
 	@RequestMapping(value = "/prcsFileUpload")
 	 public void prcsfileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(
-				PropertyUtil.getString("attach.savedir"), request, response);
-			 
-		for(int i=0;i<uploadFileList.size();i++){
-			saveFilename = uploadFileList.get(i).getFileSaveNm();	
-		}
-		System.out.println("saveFileName :::::"+saveFilename);
+	  String saveDir = PropertyUtil.getString("attach.pers.dir");
+	  saveFilename = imageUploadService.uploadImgFile(saveDir, request, response);
 	}
 		
 	@RequestMapping(value = "/prcsFileDelete")
 	public void prcsfileDelete(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {	  
-		AttachFile attachFile = new AttachFile();
-		attachFile.setFilePath(persDataS.getImgPath());
-		attachFileService.deleteAttachFilePath(attachFile);
-		saveFilename = null;
-		prcsPersData(request, response, session, persDataS); 		
+		 String delDir = PropertyUtil.getString("attach.pers.dir");
+		 String imgPath = persDataS.getImgPath(); 
+		  imageUploadService.deleteImgFile(delDir, imgPath);
+		  saveFilename = null;
+		prcsPersData(request, response, session, persDataS);  
      }
 	
 	@RequestMapping(value = "/getPersImg")

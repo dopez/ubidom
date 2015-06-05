@@ -17,9 +17,9 @@ $(function(){
 		} else if(xhr.status == 403) {	// 권한이 없을 경우
 			ExceptionUtil.errorNoAuthorize(settings);
 		} else if(xhr.status == 404) {	// 잘못된 URL 요청
-			ExceptionUtil.errorPageNotFound(settings);
+			//ExceptionUtil.errorPageNotFound(settings);
 		} else { // 서버오류
-			ExceptionUtil.errorInternalError(settings);
+			//ExceptionUtil.errorInternalError(settings);
 		}
 	});	
 });

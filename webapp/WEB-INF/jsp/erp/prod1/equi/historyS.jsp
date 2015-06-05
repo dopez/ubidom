@@ -303,12 +303,9 @@ function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridFormSearch",fn_loadFormListCB);
 };
 function fn_loadFormListCB(data){
-	if(data[0].imgPath != null){
-		  var path = "${pageContext.request.contextPath}/images/temp/"+data[0].imgPath;
-		  $("#target").attr("src",path);
-		}else{
-			$('#target').removeAttr('src');
-		}
+	if(data[0].imgPath != null){			
+		  $("#target").attr("src", "/erp/prod1/equi/historyS/getEquiImg?equiCode=" + data[0].equiCode);
+	}
 };
 
 function fn_tab1Search(){

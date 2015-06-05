@@ -1,5 +1,9 @@
 package com.ubi.erp.prod1.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,22 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.cmm.file.AttachFileService;
+import com.ubi.erp.cmm.file.ImageUploadService;
 import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.prod1.domain.HistoryS;
 import com.ubi.erp.prod1.domain.HistorySPop;
 import com.ubi.erp.prod1.service.HistorySPopService;
 import com.ubi.erp.prod1.service.HistorySService;
-import com.ubi.erp.user.domain.AttachFile;
 
 @RestController
 @RequestMapping(value = "/erp/prod1/equi/historyS")
@@ -37,7 +42,7 @@ public class HistorySController {
 	private HistorySPopService historySPopService;
 	
 	@Autowired
-	private AttachFileService attachFileService;
+	private ImageUploadService imageUploadService;
 	
 	private String saveFilename;  
 	
@@ -106,20 +111,15 @@ public class HistorySController {
 	
 	@RequestMapping(value = "/prcsEquiFileUpload")
 	 public void prcsEquiFileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(
-				PropertyUtil.getString("attach.savedir"), request, response);
-		
-		for(int i=0;i<uploadFileList.size();i++){
-			saveFilename = uploadFileList.get(i).getFileSaveNm();	
-		}
-		System.out.println("saveFileName :::::"+saveFilename);
+		String saveDir = PropertyUtil.getString("attach.equi.dir");
+		  saveFilename = imageUploadService.uploadImgFile(saveDir, request, response);
 	}
 		
 	@RequestMapping(value = "/prcsEquiFileDelete")
 	public void prcsEquiFileDelete(HttpServletRequest request, HttpServletResponse response,HttpSession session,HistoryS historyS) throws Exception {	  
-		AttachFile attachFile = new AttachFile();
-		attachFile.setFilePath(historyS.getImgPath());
-		attachFileService.deleteAttachFilePath(attachFile);
+		 String delDir = PropertyUtil.getString("attach.equi.dir");
+		 String imgPath = historyS.getImgPath(); 
+		imageUploadService.deleteImgFile(delDir, imgPath);
 		saveFilename = null; 
 	   prcsEquiHistoryS(request, response, session, historyS);  
 	} 
@@ -166,4 +166,27 @@ public class HistorySController {
 		historySPopService.prcsPartCodeHistory(list,sysEmpNo);
 	}
 	
+	@RequestMapping(value = "/getEquiImg")
+	public void getPersImg(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "equiCode", required = true) String equiCode) throws Exception {
+		response.setContentType("image/jpeg");
+		File file = new File(PropertyUtil.getString("attach.equi.dir") + "/" + equiCode + ".jpg");
+		FileInputStream fis = null;
+		OutputStream os = null;
+
+		try {
+			fis = new FileInputStream(file);
+			os = response.getOutputStream();
+			IOUtils.copy(fis, os);
+		} catch (FileNotFoundException ex) {
+			file = new File(PropertyUtil.getString("attach.equi.dir") + "/blank.jpg");
+			fis = new FileInputStream(file);
+			os = response.getOutputStream();
+			IOUtils.copy(fis, os);
+		} finally {
+			if (fis != null)
+				fis.close();
+			if (os != null)
+				os.close();
+		}
+	}
 }
