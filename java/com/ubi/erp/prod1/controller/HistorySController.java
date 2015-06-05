@@ -126,8 +126,10 @@ public class HistorySController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridTab1Search",method = RequestMethod.POST)
-	public List<HistorySPop> selEquiCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<HistorySPop> selEquiCheck(HttpServletRequest request, HttpServletResponse response,HistorySPop historySPop) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		String equiCode = historySPop.getEquiCode();
+		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historySPopService.selEquiCheck(map);
 		List<HistorySPop> list = (List<HistorySPop>) map.get("o_cursor");
@@ -136,8 +138,10 @@ public class HistorySController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridTab2Search",method = RequestMethod.POST)
-	public List<HistorySPop> selPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<HistorySPop> selPartCodeHistory(HttpServletRequest request, HttpServletResponse response,HistorySPop historySPop) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		String equiCode = historySPop.getEquiCode();
+		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historySPopService.selPartCodeHistory(map);
 		List<HistorySPop> list = (List<HistorySPop>) map.get("o_cursor");
