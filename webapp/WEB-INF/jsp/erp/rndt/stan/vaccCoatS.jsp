@@ -40,11 +40,11 @@ $(document).ready(function(){
     gridDtl.addHeader({name:"Rate",colId:"rate",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"5",align:"center",type:"ed"});
     gridDtl.addHeader({name:"방식",colId:"method",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"5",align:"center",type:"ed"});
+    //gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"5",align:"center",type:"ed"});
     gridDtl.setUserData("","pk","rNum");
     gridDtl.setColSort("str");
     gridDtl.init();
-    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","equiCode","cudKey"]);
+    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","equiCode","cudKey","applyDate"]);
     //set date//
     calStDate = new dhtmlXCalendarObject([{input:"stDate",button: "calpicker1"}]);
     calStDate.loadUserLanguage("ko");
