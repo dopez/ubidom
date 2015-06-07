@@ -3,10 +3,11 @@
         <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst,gridDtl,subLayoutD;
-   var calMain;
+var calMain;
+var popParam;
    $(document).ready(function() {
 
-   	Ubi.setContainer(1, [1, 2, 3, 4], "3L"); //BOM등록
+   	Ubi.setContainer(1, [1, 2, 3, 4,5,6], "3L"); //BOM등록
 
         layout = Ubi.getLayout();
         toolbar = Ubi.getToolbar();
@@ -50,6 +51,9 @@ var gridMst,gridDtl,subLayoutD;
 	   
 	   subLayout.cells("c").showHeader();
 	   subLayout.cells("c").setText("BOM");
+	   subLayout.cells("c").hideArrow();
+	   var tbrlayout = subLayout.cells("c");
+	   subToolbar("toolbar",tbrlayout,[5,6]);
 	   gridDtl = new dxGrid(subLayout.cells("c"), false);
 	   gridDtl.addHeader({name:"순번",colId:"",width:"10",align:"center",type:"ed"});
 	   gridDtl.addHeader({name:"공정",colId:"",width:"10",align:"center",type:"ed"});
@@ -61,6 +65,17 @@ var gridMst,gridDtl,subLayoutD;
 	   gridDtl.setUserData("","pk","");
 	   gridDtl.init();
 	
+		$("#empNo, #appvEmpNo").click(function(e){
+			if(e.target.id == "empNo"){
+				popParam = e;
+				gfn_load_pop('w1','common/empPOP',true,{"empNo":$(this).val()});
+			  }
+			if(e.target.id == "appvEmpNo"){
+				popParam = e;
+				gfn_load_pop('w1','common/empPOP',true,{"appvEmpNo":$(this).val()});
+			  }
+	    })
+	    
 	   //set date//
 	   calMain = new dhtmlXCalendarObject([{input: "gjDate",button: "calpicker1"},{input: "appvlDate",button: "calpicker2"}, {input: "edDate",button: "calpicker3"}]);
 	   calMain.loadUserLanguage("ko");
@@ -70,6 +85,9 @@ var gridMst,gridDtl,subLayoutD;
 	   fn_selGridItem();
 	   
 })
+function fn_add(){
+	alert("hi");	   
+}
 function fn_search() {
 	   fn_selGridItem();
    }
@@ -85,7 +103,27 @@ function fn_selGridItem(){
     gfn_callAjaxForGrid(gridItem,obj,"gridItemSel",subLayout.cells("a"));
     byId("frmSearch").reset();
 }
-        </script>
+function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
+	if (pName == "empNo") {
+        for (i = 0; i < data.length; i++) {
+            obj.korName = data[i].korName;
+            obj.empNo = data[i].empNo;
+            $('#empNo').val(obj.korName);
+            //$('#empNo').val(obj.empNo);
+        }
+    }else if (pName == "appvEmpNo") {
+        for (i = 0; i < data.length; i++) {
+            obj.korName = data[i].korName;
+            obj.empNo = data[i].empNo;
+            $('#appvEmpNo').val(obj.korName);
+            //$('#empNo').val(obj.empNo);
+            //저장할 때 gridMain.setCells2(selRowIdx,empNoColIdx).setValue($("#empNo").val()); 맞춰주기
+        }
+    }
+ };
+</script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
 <div id="bootContainer">
@@ -143,7 +181,7 @@ function fn_selGridItem(){
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 col-md-2 control-label" for="textinput"> 승인자 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="appvEmpNo" id="appvEmpNo" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                         <label class="col-sm-2 col-md-2 control-label" for="textinput"> 승인일자 </label>
                         <div class="col-sm-2 col-md-2">

@@ -53,11 +53,14 @@ $(document).ready(function(){
 		itemKind1 = dhtmlXComboFromSelect("itemKind1");
 		itemKind2 = dhtmlXComboFromSelect("itemKind2");
 		itemKind3 = dhtmlXComboFromSelect("itemKind3");
+		itemUnit = dhtmlXComboFromSelect("itemUnit");
+		
 		/* grouping combo*/
 		fn_comboSet(itemKind1, "A001");
 		fn_comboSet(comboAcctKind, "J04");
         fn_comboSet(itemKind2, "A002");
         fn_comboSet(itemKind3, "A003");
+        fn_comboSet(itemUnit, "C02");
 
 		fn_search();
 		fn_new();
@@ -81,6 +84,7 @@ function fn_loadFormListCB(data){
     itemKind1.setComboValue(data[0].itemKind1);
     itemKind2.setComboValue(data[0].itemKind2);
     itemKind3.setComboValue(data[0].itemKind3);
+    itemUnit.setComboValue(data[0].itemUnit);
     comboAcctKind.setComboValue(data[0].itemGubn);
     $("#itemCodeTemp").val(data[0].itemCode);
 }
@@ -114,15 +118,15 @@ function fn_search() {
 }
 function fn_validForm(){
 	if($('#cudKey').val()=='INSERT'){
-	fn_comboValid(itemKind1,"대분류");
-	fn_comboValid(itemKind2,"중분류");
-	fn_comboValid(itemKind3,"소분류");
-	fn_comboValid(itemGubn,"제품구분");
+	fn_comboValid(itemKind1,"대분류"); return;
+	fn_comboValid(itemKind2,"중분류"); return;
+	fn_comboValid(itemKind3,"소분류"); return;
+	fn_comboValid(itemGubn,"제품구분"); return;
+	fn_comboValid(itemUnit,"단위"); return;
 	}
 	f_dxRules = {
 			itemName: ["제품명", r_notEmpty],
 		    itemSpec: ["제품규격", r_notEmpty],
-		    itemUnit: ["단위", r_notEmpty],
 		    packUnit: ["포장단위", r_onlyNumber],
 		    safetyQty: ["안전재고", r_onlyNumber],
 		    leadTime: ["lead time", r_onlyNumber],
@@ -147,7 +151,7 @@ function fn_save() {
             success: function(data) {
                 MsgManager.alertMsg("INF001");
                 fn_search();
-                fn_saveFrmCallbck()
+                fn_saveFrmCallbck();
                 }
         });
     }
@@ -160,9 +164,9 @@ function fn_saveFrmCallbck(){
     var obj ={}; 
     obj.itemCode = $("#itemCodeTemp").val();
     fn_loadFormList(obj);
+    }
     $("input[name=itemCode]").attr("disabled", true);
     $("input[name=itemNumb]").attr("disabled", true);
-    }
 }
 //삭제 버튼 동작
 function fn_remove() {
@@ -222,15 +226,18 @@ function fn_setEnable(flag){
 	    itemGubn.enable();
 	    itemKind2.enable();
 	    itemKind3.enable();
+	    itemUnit.enable();
 	    itemGubn.unSelectOption();
 	    itemKind1.unSelectOption();
 		itemKind2.unSelectOption();
 		itemKind3.unSelectOption();
+		itemUnit.unSelectOption();
 	}else if(flag=="off"){
     itemKind1.disable();
     itemGubn.disable();
     itemKind2.disable();
     itemKind3.disable();
+    itemUnit.disable();
 
 	}
 }
@@ -340,7 +347,9 @@ function fn_setEnable(flag){
                 <label class="col-sm-2 col-md-2 control-label" for="textinput">
                     단위 </label>
                 <div class="col-sm-2 col-md-2">
-                    <input name="itemUnit" id="itemUnit" type="text" value="" placeholder="" class="form-control input-xs">
+                    <!-- <input name="itemUnit" id="itemUnit" type="text" value="" placeholder="" class="form-control input-xs"> -->
+					<select name="itemUnit" id="itemUnit" class="form-control input-xs">
+                    </select>
                 </div>
                 <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 포장단위 </label>
                 <div class="col-sm-2 col-md-2">
