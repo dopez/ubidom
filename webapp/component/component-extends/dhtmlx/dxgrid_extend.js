@@ -730,3 +730,11 @@ dxGrid.prototype.setColumnExcellType = function(colIdx,type){
 dxGrid.prototype.detachFooter = function(footerIdx){
 	return this.dxObj.detachFooter(footerIdx);
 }
+
+dxGrid.prototype.enableMultiselect = function(flag){
+	return this.dxObj.enableMultiselect(flag);
+}
+
+dxGrid.prototype.deleteRow = function(rId){
+	return this.dxObj.deleteRow(rId);
+}

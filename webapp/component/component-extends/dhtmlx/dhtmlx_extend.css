@@ -19,3 +19,16 @@ background:url("/images/calendar/Calendar-icon.png") no-repeat;
 background-position: right top;
 border: 0px;
 }
+
+
+.imgTest{
+	background-image: url(/images/button/dhtmlx/row_add.gif); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 3px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    padding-left: 16px;     /* make text start to the right of the image */
+}
+
+ 

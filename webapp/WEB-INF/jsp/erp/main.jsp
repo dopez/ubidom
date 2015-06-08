@@ -20,7 +20,7 @@ var mainMenu;
 var leftForm;
 var leftToolbar;
 var scrnParm;
-
+var urlId;
 $( document ).ready(function() {
 
 	mainLayout = new dhtmlXLayoutObject({
@@ -70,7 +70,6 @@ $( document ).ready(function() {
  	//mainLayout.cells("d").collapse();
 
 	mainTabbar.attachEvent("onSelect", function(id, lastId){
-
 		mainMenu.getDxObj().selectItem(id);
 		//Tabbar 클릭시 Tree scroll이 해당위치로 이동
 		mainMenu.getDxObj().focusItem(id);

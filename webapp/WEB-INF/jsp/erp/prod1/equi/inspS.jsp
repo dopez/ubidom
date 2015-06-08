@@ -31,12 +31,15 @@ $(document).ready(function(){
 	gridMst.setUserData("","pk","no");
 	gridMst.dxObj.setUserData("","@finalDate","format_date");
 	gridMst.dxObj.setUserData("","@chkPlanDate","format_date");
+	gridMst.enableMultiselect(true);
 	gridMst.init(); 
 	gridMst.cs_setColumnHidden(["cycleKind"]);
 	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	
 	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("점검대상");
+	//subLayout.cells("b").setText("점검대상");
+     subLayout.cells("b").setText('점검대상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+     '&nbsp;&nbsp;<input type="button" value=" 선택항목 추가" onclick="multiRowSelect()" class="imgTest" style="color: blue; background-color: buttonhighlight;"');
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",           colId:"no",            width:"3", align:"center", type:"cntr"});
 	gridDtl.addHeader({name:"설비코드",     colId:"equiCode",      width:"5", align:"left",   type:"ro"});
@@ -111,6 +114,8 @@ function doOnRowDblClicked(rId,cInd){
       data[chkPlanDateColIdx]  = gridMst.setCells(rId,8).getValue();  
       data[cycleKindColIdx]    = gridMst.setCells(rId,9).getValue();
 	  gridDtl.addRow(data);
+	  var delInx = gridMst.getSelectedRowIndex();
+	  gridMst.deleteRow(rId);
 };
 
 function doOnDtlRowSelect(id,ind){
@@ -118,6 +123,41 @@ function doOnDtlRowSelect(id,ind){
 		gfn_load_pop('w1','common/empPOP',true,{});
 	}
 };
+
+function multiRowSelect(){
+	var selRowId = {};
+    	selRowId = gridMst.getSelectedRowId();
+   	var selRowIdArr = selRowId.split(",");
+ 
+	var totalRowNum = gridMst.getRowsNum();
+	for(i=0;i<selRowIdArr.length;i++){
+		var totalColNum = gridDtl.getColumnCount();
+	    var data = new Array(totalColNum);
+		var equiCodeColIdx     = gridDtl.getColIndexById('equiCode');    
+		var equiNameColIdx     = gridDtl.getColIndexById('equiName');
+		var checkItemColIdx    = gridDtl.getColIndexById('checkItem');    
+		var checkItemNmColIdx  = gridDtl.getColIndexById('checkItemName');
+		var cycleNameColIdx    = gridDtl.getColIndexById('cycleKindName');
+		var cycleKindColIdx    = gridDtl.getColIndexById('cycleKind');    
+		var cycleColIdx        = gridDtl.getColIndexById('cycle');
+		var finalDateColIdx    = gridDtl.getColIndexById('preFinalDate');    
+		var chkPlanDateColIdx = gridDtl.getColIndexById('chkPlanDate');
+		  data[equiCodeColIdx]     = gridMst.setCells(selRowIdArr[i],1).getValue();
+	      data[equiNameColIdx]     = gridMst.setCells(selRowIdArr[i],2).getValue();
+	      data[checkItemColIdx]    = gridMst.setCells(selRowIdArr[i],3).getValue();
+	      data[checkItemNmColIdx]  = gridMst.setCells(selRowIdArr[i],4).getValue();
+	      data[cycleNameColIdx]    = gridMst.setCells(selRowIdArr[i],5).getValue();
+	      data[cycleColIdx]        = gridMst.setCells(selRowIdArr[i],6).getValue();
+		  data[finalDateColIdx]    = gridMst.setCells(selRowIdArr[i],7).getValue();
+	      data[chkPlanDateColIdx]  = gridMst.setCells(selRowIdArr[i],8).getValue();  
+	      data[cycleKindColIdx]    = gridMst.setCells(selRowIdArr[i],9).getValue();
+		  gridDtl.addRow(data);
+		  var delInx = gridMst.getSelectedRowIndex();
+		  gridMst.deleteRow(selRowIdArr[i]);
+   	}
+	
+
+}
 
 function fn_search(){
 	fn_loadGridMst();
@@ -257,7 +297,7 @@ function fn_onClosePop(pName,data){
 			        </div>
 		        </div>
 	         </div>
-	       </div>   
+	       </div>  
        </form>
    </div>    
 </div>
