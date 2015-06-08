@@ -20,9 +20,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(400);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",         width:"15", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"35", align:"center", type:"ro"});
-	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"25", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"35", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"25", align:"left",   type:"ro"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","no");
 	gridMain.init();

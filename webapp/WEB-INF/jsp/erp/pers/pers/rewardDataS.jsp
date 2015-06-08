@@ -17,9 +17,9 @@ $(document).ready(function(){
 	gridMst = subLayout.cells("a").attachGrid();
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
 	gridMst.setUserData("","pk","no");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -27,11 +27,11 @@ $(document).ready(function(){
 	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO",       colId:"no",         width:"4", align:"center",  type:"cntr"});
-	gridDtl.addHeader({name:"구분",     colId:"przPun",     width:"7", align:"center",  type:"combo"});
-	gridDtl.addHeader({name:"시행일",   colId:"stDate",     width:"7", align:"center",  type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"시행처",   colId:"apprCust",   width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"상벌내역", colId:"przPunCont", width:"13", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"NO",       colId:"no",         width:"4",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"구분",     colId:"przPun",     width:"7",  align:"left",   type:"combo"});
+	gridDtl.addHeader({name:"시행일",   colId:"stDate",     width:"7",  align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"시행처",   colId:"apprCust",   width:"10", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"상벌내역", colId:"przPunCont", width:"13", align:"left",   type:"ed"});
 	gridDtl.setUserData("","pk","no");
 	gridDtl.dxObj.setUserData("","@stDate","format_date");
 	gridDtl.setColSort("str");

@@ -26,9 +26,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(300);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 

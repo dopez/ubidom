@@ -40,7 +40,7 @@ function gfn_getMappingUrl(param){
 
 function gfn_callAjaxComm(param,url,callbackFn) {
 	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
-
+var gData = [];
 	$.ajax({
     	url:  url,
         type: "POST",
@@ -49,6 +49,7 @@ function gfn_callAjaxComm(param,url,callbackFn) {
         async: false,
         dataType: "json",
         success: function(data, status) {
+        	gData=data;
             if (callbackFn != undefined) {
                 callbackFn.call(this, data);
             }
@@ -57,7 +58,7 @@ function gfn_callAjaxComm(param,url,callbackFn) {
 
         }
     });
-
+return gData;
 }
 
 function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {

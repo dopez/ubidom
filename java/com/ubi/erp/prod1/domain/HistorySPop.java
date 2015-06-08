@@ -23,6 +23,7 @@ public class HistorySPop implements Serializable {
 	private String partCode;
 	private String partName;
 	private String partSpec;
+	private String partUnit;
 	private int safeStock;
 	private String insurance;
 
@@ -132,6 +133,14 @@ public class HistorySPop implements Serializable {
 
 	public void setPartSpec(String partSpec) {
 		this.partSpec = partSpec;
+	}
+
+	public String getPartUnit() {
+		return partUnit;
+	}
+
+	public void setPartUnit(String partUnit) {
+		this.partUnit = partUnit;
 	}
 
 	public int getSafeStock() {

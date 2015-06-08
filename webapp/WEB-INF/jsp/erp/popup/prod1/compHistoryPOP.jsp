@@ -24,9 +24,10 @@ $(document).ready(function(){
     gridMain.addHeader({name:"부품코드", colId:"partCode", width:"11", align:"center", type:"ro"});
 	gridMain.addHeader({name:"부품명",   colId:"partName", width:"11", align:"center", type:"ro"});
 	gridMain.addHeader({name:"규격",     colId:"partSpec", width:"15", align:"center", type:"ro"});
-	gridMain.setUserData("","pk","equiCode");
+	gridMain.setUserData("","pk","partCode");
 	gridMain.setColSort("str");
 	gridMain.init();
+	gridMain.cs_setColumnHidden(["partUnit"]);
 	fn_search();
 });
 function fn_search(){
@@ -47,7 +48,8 @@ function doOnRowDblClicked(rId,cInd){
 	  var partCode = gridMain.setCells2(row,0).getValue();
 	  var partName = gridMain.setCells2(row,1).getValue();
 	  var partSpec = gridMain.setCells2(row,2).getValue();
-	  var arr = [{"partCode":partCode,"partName":partName,"partSpec":partSpec}];
+	  var partUnit = gridMain.setCells2(row,3).getValue();
+	  var arr = [{"partCode":partCode,"partName":partName,"partSpec":partSpec,"partUnit":partUnit}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }

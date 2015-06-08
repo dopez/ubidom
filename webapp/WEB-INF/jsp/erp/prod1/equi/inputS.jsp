@@ -14,52 +14,75 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMst = subLayout.cells("a").attachGrid();
-	gridMst.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMst.setHeader("발주일자,공급업체,부품코드,부품명,규격,단위,발주수량,입고수량,미입고수량,선택",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMst.setInitWidths("100,100,100,100,100,100,100,100,100,100");
-	gridMst.setColAlign("center,left,left,left,left,left,right,right,right,center");
-	gridMst.setColTypes("ro,ro,ro,ro,ro,ro,edn,edn,edn,ra");
-	gridMst.setColSorting("date,str,str,str,str,str,int,int,int,na");
-	gridMst.init();	
-	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	subLayout.cells("a").showHeader();
-	subLayout.cells("a").setText("발주내역");
-	
-	gridDtl = subLayout.cells("b").attachGrid();
-	gridDtl.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridDtl.setHeader("부품코드,부품명,규격,단위,발주수량,미입고수량,입고수량",null,
-			         ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			          "text-align:center;","text-align:center;"]);
-	gridDtl.setInitWidths("100,100,100,100,100,100,100");
-	gridDtl.setColAlign("left,left,left,left,edn,edn,edn");
-	gridDtl.setColTypes("ro,ro,ro,ro,edn,edn,edn");
-	gridDtl.setColSorting("str,str,str,str,int,int,int");
-	gridDtl.init();	
-	gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
-	subLayout.cells("b").showHeader();
-	subLayout.cells("b").setText("입고내역");
-	
+	 subLayout.cells("a").showHeader();
+	 subLayout.cells("a").setText("발주내역");
+	 gridMst = new dxGrid(subLayout.cells("a"),false);
+	 gridMst.addHeader({name:"No",         colId:"no",         width:"3",align:"center", type:"cntr"});
+	 gridMst.addHeader({name:"발주일자",   colId:"baljuDate",  width:"5",align:"center", type:"ro"});
+	 gridMst.addHeader({name:"공급업체",   colId:"supplyComp", width:"5",align:"left",   type:"ro"});
+	 gridMst.addHeader({name:"부품코드",   colId:"partCode",   width:"5",align:"left",   type:"ro"});
+	 gridMst.addHeader({name:"부품명",     colId:"partName",   width:"5",align:"left",   type:"ro"});
+	 gridMst.addHeader({name:"규격",       colId:"partSpec",   width:"5",align:"left",   type:"ro"});
+	 gridMst.addHeader({name:"단위",       colId:"partUnit",   width:"5",align:"left",   type:"ro"});
+	 gridMst.addHeader({name:"발주수량",   colId:"baljuAmont", width:"5",align:"right",  type:"ro"});
+	 gridMst.addHeader({name:"입고수량",   colId:"ipAmont",    width:"5",align:"right",  type:"ed"});
+	 gridMst.addHeader({name:"미입고수량", colId:"mipAmount",  width:"5",align:"right",  type:"ed"});
+	 gridMst.setUserData("","pk","no");
+	 gridMst.setColSort("str");
+	 gridMst.dxObj.setUserData("","@baljuDate","format_date");
+	 gridMst.init();	
+	 gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+    //선택 없애고 더블클릭으로 변경
+    
+	 subLayout.cells("b").showHeader();
+	 subLayout.cells("b").setText("입고내역");
+	 gridDtl = new dxGrid(subLayout.cells("b"),false);
+	 gridDtl.addHeader({name:"No",         colId:"no",         width:"3",align:"center", type:"cntr"});
+	 gridDtl.addHeader({name:"부품코드",   colId:"partCode",   width:"5",align:"left",   type:"ro"});
+	 gridDtl.addHeader({name:"부품명",     colId:"partName",   width:"5",align:"left",   type:"ro"});
+	 gridDtl.addHeader({name:"규격",       colId:"partSpec",   width:"5",align:"left",   type:"ro"});
+	 gridDtl.addHeader({name:"단위",       colId:"partUnit",   width:"5",align:"left",   type:"ro"});
+	 gridDtl.addHeader({name:"발주수량",   colId:"baljuAmont", width:"5",align:"right",  type:"ro"});
+	 gridDtl.addHeader({name:"미입고수량", colId:"ipAmont",    width:"5",align:"right",  type:"ed"});
+	 gridDtl.addHeader({name:"입고수량",   colId:"mipAmount",  width:"5",align:"right",  type:"ed"});
+	 gridDtl.setUserData("","pk","no");
+	 gridDtl.setColSort("str");
+	 gridDtl.init();	
+
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("stDate").value = t;
 		
-	toolbar.attachEvent("onClick", function(id) {
-		if(id == "btn5"){
-			gridMst.addRow(gridMst.getUID(),"2014-04-20,유비덤,,,,,,,,",1);
-		  }
-	});
-		
-	function doOnRowDblClicked(rowId,colId){
-	    if(colId==2){
-			gfn_load_popup('부품코드','common/componentCodePOP');
-		   }
-	}	
 });
+function doOnRowDblClicked(rId,cInd){
+	
+};
+
+function fn_search(){
+	
+};
+
+function fn_new(){
+	
+};
+
+function fn_save(){
+	
+};
+
+function fn_remove(){
+	
+}
+
+function fn_add(){
+	
+};
+
+function fn_delete(){
+	
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -73,7 +96,7 @@ $(document).ready(function(){
 			  </label>
 			  <div class="col-sm-2 col-md-2">
                   <div class="col-sm-10 col-md-10">
-                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                      <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_dat e">
                   </div>
                   <div class="col-sm-2 col-md-2">
                         <input type="button" id="calpicker" class="calicon form-control">
@@ -94,7 +117,7 @@ $(document).ready(function(){
 			     등록자
 			   </label>
 		 	   <div class="col-sm-2 col-md-2">
-			     <input name="register" id="register" type="text" value="" placeholder="" class="form-control input-xs">
+			     <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
 		 	   </div>
 		     </div>
 	       </div>
@@ -106,7 +129,7 @@ $(document).ready(function(){
 			    공급업체
 			   </label>
 			   <div class="col-sm-2 col-md-2">
-			     <input name="supplyCom" id="supplyCom" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('공급업체코드','common/supplyCompCodePOP')">
+			     <input name="supplyComp" id="supplyComp" type="text" value=""  class="form-control input-xs">
 			   </div>
 		     </div>
 	      </div>

@@ -16,9 +16,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(300);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
 	gridMst.setUserData("","pk","no");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -27,12 +27,12 @@ $(document).ready(function(){
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",       colId:"no",       width:"4", align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"자격구분", colId:"qualKind", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"자격증명", colId:"qualName", width:"8", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"자격등급", colId:"qualGd",   width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"수당",     colId:"qualPay",  width:"7", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"자격구분", colId:"qualKind", width:"7", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"자격증명", colId:"qualName", width:"8", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"자격등급", colId:"qualGd",   width:"7", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"수당",     colId:"qualPay",  width:"7", align:"right",  type:"ed"});
 	gridDtl.addHeader({name:"취득일자", colId:"achiDate", width:"7", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"시행처",   colId:"apprCust", width:"10", align:"center", type:"ed"});	
+	gridDtl.addHeader({name:"시행처",   colId:"apprCust", width:"10", align:"left",  type:"ed"});	
 	gridDtl.setUserData("","pk","no");
 	gridDtl.dxObj.setUserData("","@achiDate","format_date");
 	gridDtl.setColSort("str");

@@ -321,3 +321,9 @@ function fileupload(tagId,imgId,callbackFn){
 	    });
 	 return true;
 }
+
+function searchDate(dateValue){
+	var splitfrDate = dateValue.split("/");
+    var dateValue = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+    return dateValue;
+}
