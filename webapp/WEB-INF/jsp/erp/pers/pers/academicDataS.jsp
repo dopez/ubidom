@@ -16,9 +16,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(300);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
 	gridMst.setUserData("","pk","no");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -27,13 +27,13 @@ $(document).ready(function(){
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",         colId:"no",        width:"5", align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"구분",       colId:"eduKind",   width:"7", align:"center", type:"combo"});
-	gridDtl.addHeader({name:"학교/소속",  colId:"eduName",   width:"7", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"구분",       colId:"eduKind",   width:"7", align:"left",   type:"combo"});
+	gridDtl.addHeader({name:"학교/소속",  colId:"eduName",   width:"7", align:"left",   type:"ed"});
 	gridDtl.addHeader({name:"시작일자",   colId:"startDate", width:"7", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"종료일자",   colId:"endDate",   width:"7", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"전공1/부서", colId:"specCode1", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"전공2/업무", colId:"specCode2", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"졸업/직위",  colId:"gradLast",  width:"7", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"전공1/부서", colId:"specCode1", width:"7", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"전공2/업무", colId:"specCode2", width:"7", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"졸업/직위",  colId:"gradLast",  width:"7", align:"left",   type:"ed"});
 	gridDtl.setUserData("","pk","no");
 	gridDtl.dxObj.setUserData("","@startDate","format_date");
 	gridDtl.dxObj.setUserData("","@endDate","format_date");

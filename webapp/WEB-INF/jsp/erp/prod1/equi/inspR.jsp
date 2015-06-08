@@ -17,18 +17,18 @@ $(document).ready(function(){
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",           colId:"no",            width:"3", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"설비코드",     colId:"equiCode",      width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"항목코드",     colId:"checkItem",     width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"항목명",       colId:"checkItemName", width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비코드",     colId:"equiCode",      width:"5", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"항목코드",     colId:"checkItem",     width:"4", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"항목명",       colId:"checkItemName", width:"4", align:"left",   type:"ro"});
 	gridMain.addHeader({name:"주기단위",     colId:"cycleKindName", width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검주기",     colId:"cycle",         width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검주기",     colId:"cycle",         width:"4", align:"right",  type:"ro"});
 	gridMain.addHeader({name:"최종점검일자", colId:"preFinalDate",  width:"6", align:"center", type:"ro"});
 	gridMain.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
 	gridMain.addHeader({name:"점검일자",     colId:"checkDate",     width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검결과",     colId:"result",        width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"점검자",       colId:"korName",       width:"6", align:"center", type:"ro"});
-	gridMain.addHeader({name:"비고",         colId:"rmk",           width:"8", align:"center", type:"ro"});
+	gridMain.addHeader({name:"점검결과",     colId:"result",        width:"4", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"점검자",       colId:"korName",       width:"6", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"비고",         colId:"rmk",           width:"8", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.dxObj.setUserData("","@finalDate","format_date");

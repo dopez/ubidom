@@ -129,15 +129,15 @@ function fn_remove(){
 
 function fn_add(){
     gridMain.addHeader({name:"No",       colId:"no",        width:"3",align:"center", type:"cntr"});
-    gridMain.addHeader({name:"부품코드", colId:"partCode",  width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"부품명",   colId:"partName",  width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"규격",     colId:"partSpec",  width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"단위",     colId:"partUnit",  width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"수량",     colId:"amount",    width:"5",align:"center", type:"ed"});
-    gridMain.addHeader({name:"단가",     colId:"unitPrice", width:"5",align:"center", type:"ed"});
-    gridMain.addHeader({name:"금액",     colId:"money",     width:"5",align:"center", type:"ed"});
+    gridMain.addHeader({name:"부품코드", colId:"partCode",  width:"5",align:"left", type:"ro"});
+    gridMain.addHeader({name:"부품명",   colId:"partName",  width:"5",align:"left", type:"ro"});
+    gridMain.addHeader({name:"규격",     colId:"partSpec",  width:"5",align:"left", type:"ro"});
+    gridMain.addHeader({name:"단위",     colId:"partUnit",  width:"5",align:"left", type:"ro"});
+    gridMain.addHeader({name:"수량",     colId:"amount",    width:"5",align:"right", type:"ed"});
+    gridMain.addHeader({name:"단가",     colId:"unitPrice", width:"5",align:"right", type:"ed"});
+    gridMain.addHeader({name:"금액",     colId:"money",     width:"5",align:"right", type:"ed"});
     gridMain.addHeader({name:"납기일자", colId:"nabgiDate", width:"5",align:"center", type:"dhxCalendarA"});
-    gridMain.addHeader({name:"납품장소", colId:"nabgiAddr", width:"5",align:"center", type:"ed"});
+    gridMain.addHeader({name:"납품장소", colId:"nabgiAddr", width:"5",align:"left", type:"ed"});
 	
 	var totalColNum = gridMain.getColumnCount();
 	 var data = new Array(totalColNum);

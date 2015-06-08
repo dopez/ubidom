@@ -28,9 +28,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(300);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"NO",       colId:"no",         width:"10", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"설비코드", colId:"equiCode",   width:"30", align:"center", type:"ro"});
-	gridMst.addHeader({name:"설비명",   colId:"equiName",   width:"30", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사용공정", colId:"useProcess", width:"30", align:"center", type:"ro"});
+	gridMst.addHeader({name:"설비코드", colId:"equiCode",   width:"30", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"설비명",   colId:"equiName",   width:"30", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"사용공정", colId:"useProcess", width:"30", align:"left",   type:"ro"});
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","equiCode");
 	gridMst.init(); 
@@ -43,11 +43,11 @@ $(document).ready(function(){
 	
 	 gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
 	    gridDtl01.addHeader({name:"NO",           colId:"no",        width:"4",  align:"center", type:"cntr"});
-	    gridDtl01.addHeader({name:"항목명",       colId:"checkItem", width:"7",  align:"center", type:"combo"});
-	    gridDtl01.addHeader({name:"주기단위",     colId:"cycleKind", width:"7",  align:"center", type:"combo"});
-	    gridDtl01.addHeader({name:"주기",         colId:"cycle",     width:"7",  align:"center", type:"edn"});
+	    gridDtl01.addHeader({name:"항목명",       colId:"checkItem", width:"7",  align:"left",   type:"combo"});
+	    gridDtl01.addHeader({name:"주기단위",     colId:"cycleKind", width:"7",  align:"center",  type:"combo"});
+	    gridDtl01.addHeader({name:"주기",         colId:"cycle",     width:"7",  align:"right",  type:"edn"});
 	    gridDtl01.addHeader({name:"최종점검일자", colId:"finalDate", width:"7",  align:"center", type:"dhxCalendarA"});	
-	    gridDtl01.addHeader({name:"비고",         colId:"rmk",       width:"15", align:"center", type:"ed"});
+	    gridDtl01.addHeader({name:"비고",         colId:"rmk",       width:"15", align:"left",   type:"ed"});
 	    gridDtl01.setUserData("","pk","checkItem");
 	    gridDtl01.dxObj.setUserData("","@finalDate","format_date");
 	    gridDtl01.setColSort("str");
@@ -60,14 +60,14 @@ $(document).ready(function(){
 	    
 	    
 	    gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
-	    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"4",  align:"center",  type:"cntr"});
-	    gridDtl02.addHeader({name:"부품코드", colId:"partCode",  width:"8",  align:"center",  type:"ro"});
-	    gridDtl02.addHeader({name:"부품명",   colId:"partName",  width:"8",  align:"center",  type:"ro"});
-	    gridDtl02.addHeader({name:"규격",     colId:"partSpec",  width:"10", align:"center",  type:"ro"});
-	    gridDtl02.addHeader({name:"주기단위", colId:"cycleKind", width:"7",  align:"center", type:"combo"});
-	    gridDtl02.addHeader({name:"교환주기", colId:"cycle",     width:"7",  align:"center",  type:"edn"});
-	    gridDtl02.addHeader({name:"적정재고", colId:"safeStock", width:"7",  align:"center",  type:"edn"});
-	    gridDtl02.addHeader({name:"보험회사", colId:"insurance", width:"7",  align:"center",  type:"ed"});	
+	    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"4",  align:"center", type:"cntr"});
+	    gridDtl02.addHeader({name:"부품코드", colId:"partCode",  width:"8",  align:"left",   type:"ro"});
+	    gridDtl02.addHeader({name:"부품명",   colId:"partName",  width:"8",  align:"left",   type:"ro"});
+	    gridDtl02.addHeader({name:"규격",     colId:"partSpec",  width:"10", align:"left",   type:"ro"});
+	    gridDtl02.addHeader({name:"주기단위", colId:"cycleKind", width:"7",  align:"center",  type:"combo"});
+	    gridDtl02.addHeader({name:"교환주기", colId:"cycle",     width:"7",  align:"right",  type:"edn"});
+	    gridDtl02.addHeader({name:"적정재고", colId:"safeStock", width:"7",  align:"right",  type:"edn"});
+	    gridDtl02.addHeader({name:"보험회사", colId:"insurance", width:"7",  align:"left",   type:"ed"});	
 	    gridDtl02.setUserData("","pk","partCode");
 	    gridDtl02.setColSort("str");
 	    gridDtl02.init(); 

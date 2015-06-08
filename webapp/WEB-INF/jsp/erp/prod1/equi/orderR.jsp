@@ -18,17 +18,17 @@ $(document).ready(function(){
 	gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",       colId:"no",         width:"3",align:"center", type:"cntr"});
     gridMain.addHeader({name:"일자",     colId:"regiDate",   width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"공급업체", colId:"supplyComp", width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"등록자",   colId:"korName",    width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"부품명",   colId:"partName",   width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"수량",     colId:"amount",     width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"단가",     colId:"unitPrice",  width:"5",align:"center", type:"ro"});
-    gridMain.addHeader({name:"금액",     colId:"money",      width:"5",align:"center", type:"ro"});
+    gridMain.addHeader({name:"공급업체", colId:"supplyComp", width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"등록자",   colId:"korName",    width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"부품명",   colId:"partName",   width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"5",align:"left",   type:"ro"});
+    gridMain.addHeader({name:"수량",     colId:"amount",     width:"5",align:"right",  type:"ro"});
+    gridMain.addHeader({name:"단가",     colId:"unitPrice",  width:"5",align:"right",  type:"ro"});
+    gridMain.addHeader({name:"금액",     colId:"money",      width:"5",align:"right",  type:"ro"});
     gridMain.addHeader({name:"납기일자", colId:"nabgiDate",  width:"6",align:"center", type:"ro"});
-    gridMain.addHeader({name:"납품장소", colId:"nabgiAddr",  width:"8",align:"left", type:"ro"});
+    gridMain.addHeader({name:"납품장소", colId:"nabgiAddr",  width:"8",align:"left",   type:"ro"});
     gridMain.setUserData("","pk","no");
     gridMain.setColSort("str");
     gridMain.dxObj.setUserData("","@regiDate","format_date");
@@ -36,7 +36,6 @@ $(document).ready(function(){
     gridMainAttachFooter();
     gridMain.init();	
     gridMain.enableSmartRendering(false);
-	// 일계, 합계 필요
 
 	calMain = new dhtmlXCalendarObject([{input:"pfDate",button:"calpicker1"},{input:"ptDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");

@@ -17,9 +17,9 @@ $(document).ready(function(){
 	subLayout.cells("a").setWidth(300);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
 	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"center", type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
 	gridMst.setUserData("","pk","no");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -27,13 +27,13 @@ $(document).ready(function(){
 	gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO",         colId:"no",      width:"4", align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"교육주관처", colId:"eduCust", width:"7", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육과정명", colId:"eduName", width:"12", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육기간",   colId:"eduDate", width:"12", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"교육구분",   colId:"gbn",     width:"5", align:"center", type:"combo"});
-	gridDtl.addHeader({name:"교육시간",   colId:"eduTime", width:"6", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"비고",       colId:"remarks", width:"17", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"NO",         colId:"no",      width:"4",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"교육주관처", colId:"eduCust", width:"7",  align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"교육과정명", colId:"eduName", width:"12", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"교육기간",   colId:"eduDate", width:"12", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"교육구분",   colId:"gbn",     width:"5",  align:"left",   type:"combo"});
+	gridDtl.addHeader({name:"교육시간",   colId:"eduTime", width:"6",  align:"right",  type:"ed"});
+	gridDtl.addHeader({name:"비고",       colId:"remarks", width:"17", align:"left",   type:"ed"});
 	gridDtl.setUserData("","pk","no");
 	gridDtl.setColSort("str");
 	gridDtl.init(); 

@@ -15,8 +15,8 @@ $(document).ready(function(){
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",       width:"4", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"7", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서명",   colId:"postName", width:"7", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서코드", colId:"postCode", width:"7", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부서명",   colId:"postName", width:"7", align:"left",   type:"ro"});
 	gridMain.addHeader({name:"시작일",   colId:"stDate",   width:"7", align:"center", type:"ro"});
 	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"7", align:"center", type:"ro"});	
 	gridMain.setUserData("","pk","postCode");

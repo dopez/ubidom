@@ -17,13 +17,13 @@ $(document).ready(function(){
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",         width:"3", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"부서",     colId:"postName",   width:"8", align:"center", type:"ro"});
-	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",    width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"근무시간", colId:"workTime",   width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"연장시간", colId:"overTime",   width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"야근시간", colId:"nightTime",  width:"4", align:"center", type:"ro"});
-	gridMain.addHeader({name:"특근",     colId:"holiTime",   width:"4", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서",     colId:"postName",   width:"8", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"직위",     colId:"jikweeName", width:"5", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"5", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"근무시간", colId:"workTime",   width:"4", align:"right",  type:"ro"});
+	gridMain.addHeader({name:"연장시간", colId:"overTime",   width:"4", align:"right",  type:"ro"});
+	gridMain.addHeader({name:"야근시간", colId:"nightTime",  width:"4", align:"right",  type:"ro"});
+	gridMain.addHeader({name:"특근",     colId:"holiTime",   width:"4", align:"right",  type:"ro"});
 	gridMain.setUserData("","pk","no");
 	gridMain.setColSort("str");
 	gridMainAttachFooter();
