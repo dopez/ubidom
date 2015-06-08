@@ -378,7 +378,6 @@ function fn_tab1Delete(){
     gridDtl01.cs_deleteRow(rodid);
 };
 
-doOnGridDtl02Select
 function doOnGridDtl02Select(id,ind){
 	if(ind==1){
    gfn_load_pop('w1','prod1/compHistoryPOP',true,{});

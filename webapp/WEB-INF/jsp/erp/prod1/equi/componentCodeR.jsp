@@ -36,7 +36,7 @@ $(document).ready(function(){
 function fn_search(){
     fn_loadGridMain();
 }
-function fn_loadGridMain(params) {
+function fn_loadGridMain() {
 	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
 function fn_excel(){
