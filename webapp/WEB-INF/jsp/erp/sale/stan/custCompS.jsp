@@ -53,7 +53,12 @@ $( document ).ready(function() {
 	gridDtl.attachEvent("onRowSelect",doRowDblClickedDtl);
 
     $("#pcSearchBtn").click(function(e){
-   	 	execDaumPostcode();
+    	if($('#type1').is(':checked')){
+    		execDaumPostcode("postNo","custAddress");
+    	}else{
+    		execDaumPostcode("postNo","custAddressB");
+    	}
+
 	});
 
 	$("#custName").dblclick(function(e){
@@ -76,7 +81,7 @@ function fn_search(){
 		obj.custName="%";
 	}
 	gfn_callAjaxForGrid(gridMst,obj,"mst",subLayout.cells("a"));
-	gridMst.dxObj.selectRow(0);
+	gridMst.dxObj.selectRow(0,true,true,true);
 
 };
 
@@ -142,8 +147,7 @@ function fn_save(){
 
 	if(crud == "INSERT"){
 
-		var d = fn_process1();
-
+		var d = fn_process1()[0];
 
 		$("#frmMain input[name='custCode']").val(d.custCode);
 
@@ -354,10 +358,10 @@ function fn_callBckFun(data){
                     </label>
                     <div class="col-sm-3 col-md-3">
                         <div class="col-sm-4 col-md-4">
-                            <input type="radio" name="telNo" id="postGbn" value="도로명" checked>도로명
+                            <input type="radio" name="postGbn" id="type1" value="도로명" checked>도로명
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <input type="radio" name="telNo" id="postGbn" value="지번">지번
+                            <input type="radio" name="postGbn" id="type2" value="지번">지번
                         </div>
                     </div>
                 </div>
