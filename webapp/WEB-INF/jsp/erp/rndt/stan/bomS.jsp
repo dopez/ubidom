@@ -34,8 +34,6 @@ var popFlag;
 		subLayoutRightForm = subLayoutA.cells("b");
 
 		subLayoutRightForm.hideHeader();
-		/* 				subLayoutRightForm.showHeader();
-		subLayoutRightForm.setText('<input type="button" value="Click me!">'); */
 		subLayoutRightForm.attachObject("bootContainer2");
 		
 		subLayoutLeftGrid.setWidth(500);
@@ -95,16 +93,15 @@ var popFlag;
 	   
 	   fn_setDblMask();
 	   fn_loadGridItem();
-
-	   fn_Insert();
-	   
 })
+/*자재코드 팝업*/
 function fn_getMatrPop(rid,colIdx){
    	  var param = ""
       if (colIdx == 2) {
            gfn_load_pop('w1', 'common/matrCodePOP', true, {"matrCode": param});
       }
-   }
+}
+/*아래그리드 한줄삽입 시*/
 function fn_setBomEle(){
   	var totalRowNum = gridDtl.getRowsNum();
     var totalColNum = gridDtl.getColumnCount();
@@ -224,8 +221,6 @@ function fn_frmMainSave(){
 			 	gjCode : ["개정번호",r_notEmpty],
 			 	empName : ["작성자",r_notEmpty],
 			 	appvEmpName : ["승인자",r_notEmpty]
-			 	/* rpWeight : ["기준중량",r_onlyNumber],
-			 	adjQty : ["기준중량",r_onlyNumber] */
 			  };
 	 fn_callAjaxFrmMain();
 }
@@ -299,6 +294,7 @@ function fn_loadGridMstCallBck(){
 }
 /*제품 그리드 조회*/
 function fn_loadGridItem(){
+	fn_Insert();
 	if($("#pCode").val() == ""){
 		$("#pCode").val("%");
 	}
@@ -350,11 +346,7 @@ function fn_onClosePop(pName,data){
 /*숫자 인풋 마스킹*/
 function fn_setDblMask(){
 	$('.double').mask('000,000.00', {reverse: true,placeholder: "0.00"});
-	//$('.double').mask('000,000,000,000,000.00', {reverse: true});
 }
-/* function fn_setDblUnMask(){
-	$('.double').mask('000.000.000.000.000,00', {reverse: true});
-} */
 /*실수로 파싱*/
 function fn_setDefVal(){
 	if($("#rpWeight").val() == ""){
@@ -383,6 +375,7 @@ function fn_setDateKeyUp(){
 	$("#appvlDate").keyup();
 	$("#edDate").keyup();
 }
+/*콤보박스*/
 function fn_comboLoad(comboId, inputName, params, colIndx) {
     comboId.setTemplate({
         input: "#interName#",
