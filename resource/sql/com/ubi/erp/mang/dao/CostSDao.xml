@@ -5,33 +5,50 @@
 
 	<resultMap type="CostS" id="CostSMap"/>
 
- 	<select id="getSrh" statementType="CALLABLE">
-		 {call SP_ACC_CODES_SCH(
+ 	<select id="getSrhA" statementType="CALLABLE">
+		 {call SP_COMM_PRC_CUST_SCH1(
 		 		#{V_COMPID},
-		 		#{V_AC_CD1},
+		 		#{V_ITEM_DIV},
+		 		#{V_IO_CHK},
+		 		#{V_ITEM_NAME},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=CostSMap, javaType=ResultSet}
 		 	)
 		 }
 	</select>
- 	<select id="prcsSave" statementType="CALLABLE">
-		 {call SP_ACC_CODES_SAVE(
+ 	<select id="getSrhB" statementType="CALLABLE">
+		 {call SP_COMM_PRC_CUST_SCH2(
+		 		#{V_COMPID},
+		 		#{V_ITEM_DIV},
+		 		#{V_IO_CHK},
+		 		#{V_ITEM_CODE},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=CostSMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
+ 	<select id="getSrhC" statementType="CALLABLE">
+		 {call SP_COMM_PRC_CUST_SCH3(
+		 		#{V_COMPID},
+		 		#{V_ITEM_DIV},
+		 		#{V_IO_CHK},
+		 		#{V_ITEM_CODE},
+		 		#{V_CUST_CODE},
+		 		#{V_MNY_EA},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=CostSMap, javaType=ResultSet}
+		 	)
+		 }
+	</select>
+ 	<select id="prcsSaveC" statementType="CALLABLE">
+		 {call SP_COMM_PRC_CUST_SAVE(
 		 		#{cudKey},
 		 		#{compId},
-		 		#{acCd1},
-		 		#{acCd2},
-		 		#{acCd3},
-		 		#{acCd4},
-		 		#{acSeq},
-		 		#{acCode},
-		 		#{acNm1},
-		 		#{acNm2},
-		 		#{acNm3},
-		 		#{acNm4},
-		 		#{acName},
-		 		#{cAcCode},
-		 		#{crDrChk},
-		 		#{codeChk},
-		 		#{acCodeOld},
+		 		#{ioChk},
+		 		#{itemCode},
+		 		#{custCode},
+		 		#{pstDate},
+		 		#{pendDate},
+		 		#{prc},
+		 		#{mnyEa},
+		 		#{bigo},
 		 		#{sysEmpNo}
 		 	)
 		 }

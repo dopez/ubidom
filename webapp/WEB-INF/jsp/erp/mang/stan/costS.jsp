@@ -2,11 +2,11 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
             var layout, toolbar, subLayout
-            var gridMst;
-            var gridDtl;
+            var gridFst,gridThd,gridScd;
+
             $(document).ready(function() {
 
-                Ubi.setContainer(2, [1, 2, 3, 4, 5, 6], "2U"); /*매출단가등록 */
+                Ubi.setContainer(2, [1, 2, 3, 4, 5, 6], "3L"); /*매출단가등록 */
 
                 layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
@@ -17,80 +17,91 @@
 
                 //left grid
                 subLayout.cells("a").setWidth(203);
-            	gridMst = new dxGrid(subLayout.cells("a"), false);
-            	gridMst.addHeader({name:"고객코드", colId:"custCode", width:"45", align:"center", type:"ro"});
-            	gridMst.addHeader({name:"고객명", 	colId:"custKorName", width:"45", align:"center", type:"ro"});
-            	gridMst.setUserData("","pk","custCode");
-            	gridMst.setColSort("str");
-                gridMst.init();
+            	gridFst = new dxGrid(subLayout.cells("a"), false);
+            	gridFst.addHeader({name:"품목코드", colId:"custCode", width:"45", align:"center", type:"ro"});
+            	gridFst.addHeader({name:"품목명", 	colId:"custKorName", width:"45", align:"center", type:"ro"});
+            	gridFst.addHeader({name:"품목규격", 	colId:"custKorName", width:"45", align:"center", type:"ro"});
+            	gridFst.setUserData("","pk","custCode");
+            	gridFst.setColSort("str");
+                gridFst.init();
 
-                gridMst.attachEvent("onRowSelect",doOnRowSelectMst);
+                gridFst.attachEvent("onRowSelect",doOnRowSelectMst);
                 //right grid
-                gridDtl = new dxGrid(subLayout.cells("b"), false);
-				gridDtl.addHeader({name:"품목코드", colId:"custCode", width:"10", align:"center", type:"ro"});
-				gridDtl.addHeader({name:"품명", colId:"empNo", width:"10", align:"center", type:"ro"});
-				gridDtl.addHeader({name:"규격", colId:"empName", width:"10", align:"center", type:"ro"});
-				gridDtl.addHeader({name:"단위", 	colId:"jobPosition", width:"19", align:"center", type:"ed"});
-				gridDtl.addHeader({name:"통화단위", 	colId:"deptName", width:"10", align:"center", type:"ed"});
-				gridDtl.addHeader({name:"단가", 	colId:"hpNo", width:"10", align:"center", type:"ed"});
-				gridDtl.addHeader({name:"적용일자", 	colId:"telNo", width:"10", align:"center", type:"ed"});
-				gridDtl.setUserData("","pk","custCode");
-				gridDtl.setColSort("str");
-                gridDtl.init();
+                gridScd = new dxGrid(subLayout.cells("b"), false);
+				gridScd.addHeader({name:"거래처코드", colId:"custCode", width:"10", align:"center", type:"ro"});
+				gridScd.addHeader({name:"거래처명", colId:"empNo", width:"10", align:"center", type:"ro"});
+				gridScd.addHeader({name:"통화단위", colId:"empName", width:"10", align:"center", type:"ro"});
+				gridScd.addHeader({name:"단가", 	colId:"jobPosition", width:"19", align:"center", type:"ed"});
+				gridScd.addHeader({name:"적용일자", 	colId:"telNo", width:"10", align:"center", type:"ed"});
+				gridScd.setUserData("","pk","custCode");
+				gridScd.setColSort("str");
+                gridScd.init();
+
+                gridThd = new dxGrid(subLayout.cells("c"), false);
+                gridThd.addHeader({name:"통화단위", colId:"custCode", width:"10", align:"center", type:"ro"});
+                gridThd.addHeader({name:"단가", colId:"empNo", width:"10", align:"center", type:"ro"});
+                gridThd.addHeader({name:"시작일자", colId:"empName", width:"10", align:"center", type:"ro"});
+                gridThd.addHeader({name:"종료일자", 	colId:"jobPosition", width:"19", align:"center", type:"ed"});
+                gridThd.setUserData("","pk","custCode");
+                gridThd.setColSort("str");
+                gridThd.init();
 
                 fn_search();
                 //popUp
-                gridDtl.attachEvent("onRowDblClicked",doOnRowDblClicked);
-                function doOnRowDblClicked(rowId,colId){
-        			if(colId==0 || colId==1){
-        				gfn_load_popup('품목코드','common/itemCodePOP');
-        			}
-        		}
+                gridScd.attachEvent("onRowDblClicked",doOnRowDblClicked);
+
             })
+            function doOnRowDblClicked(rowId,colId){
+    			if(colId==0 || colId==1){
+    				gfn_load_popup('품목코드','common/itemCodePOP');
+    			}
+    		};
 
 			function fn_search(){
-				gridDtl.clearAll();
+				gridScd.clearAll();
 				$("#frmMain").exClearForm();
 				var obj={};
 				if(!$("#frmSearch input[name='custCode']").val().length){
 					obj.custCode="%";
 					obj.custName="%";
 				}
-				gfn_callAjaxForGrid(gridMst,obj,"mst",subLayout.cells("a"));
-				gridMst.dxObj.selectRow(0,true,true,true);
+				gfn_callAjaxForGrid(gridFst,obj,"mst",subLayout.cells("a"));
+				gridFst.dxObj.selectRow(0,true,true,true);
 
 			};
+
 			function doOnRowSelectMst(id,ind){
 				$("#frmMain").exClearForm();
 				$("#cudKey").val("UPDATE");
 				var obj = {};
-				obj.custCode= gridMst.setCells(id,0).getValue();
-				obj.custName= gridMst.setCells(id,1).getValue();
+				obj.custCode= gridFst.setCells(id,0).getValue();
+				obj.custName= gridFst.setCells(id,1).getValue();
 				gfn_callAjaxForForm("frmMain",obj,"mst");
-				gfn_callAjaxForGrid(gridDtl,obj,"dtl",subLayout.cells("b"));
+				gfn_callAjaxForGrid(gridScd,obj,"dtl",subLayout.cells("b"));
 
 			};
+
 			function fn_add(){
 				var custCode = $("#frmMain input[name='custCode']").val();
 
-				var totalColNum = gridDtl.getColumnCount();
+				var totalColNum = gridScd.getColumnCount();
 			    var data = new Array(totalColNum);
 
-			    var custCodeColIdx = gridDtl.getColIndexById("custCode");
-			    var startDateColIdx = gridDtl.getColIndexById('startDate');
-			    var stopDateColIdx = gridDtl.getColIndexById('stopDate');
+			    var custCodeColIdx = gridScd.getColIndexById("custCode");
+			    var startDateColIdx = gridScd.getColIndexById('startDate');
+			    var stopDateColIdx = gridScd.getColIndexById('stopDate');
 
 			    data[custCodeColIdx] = custCode;
 			    var date = dateformat(new Date());
 				data[startDateColIdx] = date;
 				data[stopDateColIdx] = date;
 
-			    gridDtl.addRow(data);
+			    gridScd.addRow(data);
 			};
 
 			function fn_delete(){
-				var selectedId = gridDtl.getSelectedRowId();
-				gridDtl.cs_deleteRow(selectedId);
+				var selectedId = gridScd.getSelectedRowId();
+				gridScd.cs_deleteRow(selectedId);
 			};
 
 	        function fn_comboSet(comboId,id) {
@@ -124,7 +135,7 @@
 	             comboId.enableFilteringMode(true);
 	             comboId.enableAutocomplete(true);
 	             comboId.allowFreeText(true);
-	        }
+	        };
         </script>
         <div id="container" style="position: relative; width: 100%; height: 100%;">
         </div>
