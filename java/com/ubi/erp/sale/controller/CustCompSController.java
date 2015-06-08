@@ -48,9 +48,7 @@ public class CustCompSController {
 
  		custCompSService.getMasterSearch(map);
 
- 		List<CustCompS> list = (List<CustCompS>) map.get("o_cursor");
- 		logger.debug("mst resultset is "+list);
-		return list;
+		return  (List<CustCompS>) map.get("o_cursor");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -67,9 +65,7 @@ public class CustCompSController {
 
  		custCompSService.getDetailSearch(map);
 
-		List<CustCompS> list = (List<CustCompS>) map.get("o_cursor");
-
-		return list;
+		return (List<CustCompS>) map.get("o_cursor");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,11 +89,7 @@ public class CustCompSController {
 
  		custCompSService.getChkValidSave(map);
 
-		List<CustCompS> list = (List<CustCompS>) map.get("o_cursor");
-
-		logger.debug("chkValid resultset is "+list);
-
-		return list;
+		return (List<CustCompS>) map.get("o_cursor");
 	}
 
 	@RequestMapping(value = "/mstSave", method = RequestMethod.POST)
@@ -109,7 +101,7 @@ public class CustCompSController {
 
 	    custCompS.setSysEmpNo(sysEmpNo);
 	    custCompS.setCompId(compId);
-	    logger.debug("getRegiNumb is "+custCompS.getRegiNumb());
+
 	    custCompSService.prcsMasterSave(custCompS);
 
 	}
@@ -122,7 +114,7 @@ public class CustCompSController {
 	    String sysEmpNo = (String) session.getAttribute("empNo");
 
 	    String jsonData = request.getParameter("jsonData");
-	    logger.debug("jsonData is "+jsonData);
+
 		List<CustCompS> list = new ArrayList<CustCompS>();
 
 		ObjectMapper mapper = new ObjectMapper();

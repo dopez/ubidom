@@ -22,6 +22,7 @@ $( document ).ready(function() {
 	gridMst.addHeader({name:"고객코드", colId:"custCode", width:"45", align:"center", type:"ro"});
 	gridMst.addHeader({name:"고객명", 	colId:"custKorName", width:"45", align:"center", type:"ro"});
 	gridMst.addHeader({name:"사업자번호", 	colId:"custNumb", width:"45", align:"center", type:"ro"});
+	gridMst.setUserData("","pk","custCode");
 	gridMst.setColSort("str");
 
 	gridMst.init();
@@ -37,9 +38,10 @@ $( document ).ready(function() {
 	gridDtl.addHeader({name:"HP번호", 	colId:"hpNo", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"전화", 	colId:"telNo", width:"10", align:"center", type:"ed"});
 	gridDtl.addHeader({name:"이메일", 	colId:"eMail", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"시작일자", 	colId:"startDate", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"중지일자", 	colId:"stopDate", width:"10", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"시작일자", 	colId:"startDate", width:"10", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"중지일자", 	colId:"stopDate", width:"10", align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"비고", 	colId:"rmk", width:"10", align:"center", type:"ed"});
+	gridDtl.setUserData("","pk","custCode");
 	gridDtl.setColSort("str");
 
 
@@ -107,8 +109,8 @@ function fn_add(){
 
     data[custCodeColIdx] = custCode;
     var date = dateformat(new Date());
-	data[startDateColIdx] = "99991231";
-	data[stopDateColIdx] = "99991231";
+	data[startDateColIdx] = date;
+	data[stopDateColIdx] = date;
 
     gridDtl.addRow(data);
 
@@ -126,47 +128,44 @@ function fn_remove(){
 };
 
 function fn_new(){
+	$("#frmMain")[0].reset();
 	gridMst.clearSelection();
 	gridDtl.clearAll();
-	$("#frmMain").exClearForm();
 	$("#cudKey").val("INSERT");
+
 };
 
 function fn_save(){
 
 	var crud = $("#cudKey").val();
 
-	f_dxRules = {
-			   custKorName : ["고객명",r_notEmpty],
-		       regiNumb: ["주민번호",r_notEmpty]
-	};
 
 	if(crud == "INSERT"){
 
 		var d = fn_process1();
+
+
 		$("#frmMain input[name='custCode']").val(d.custCode);
-	
+
 		if(d.rtnCode=="0"){
-			if(gfn_formValidation('frmMain')){
-				
 				fn_process2();
 				fn_process3();
 				fn_search();
-			};
+
 		};
 
 		if(d.rtnCode=="1"){
 			dhtmlx.confirm("거래처명이 중복입니다. 저장하시겠습니까?", function(result){
-				if(gfn_formValidation('frmMain')){
+
 					fn_process2();
 					fn_process3();
 					fn_search();
-				};
+
 			});
 		};
 
 		if(d.rtnCode=="2"){
-			dhtmlx.confirm("사업자 번호가 중복입니다.");
+			dhtmlx.alert("사업자 번호가 중복입니다.");
 			$( "#custNumb" ).focus();
 		};
 	};
@@ -191,11 +190,11 @@ function fn_save(){
 		obj.custKorName = $("#custKorName").val();
 		obj.regiNumb = $("#regiNumb").val();
 
-		gfn_callAjaxComm(obj,"chkValid",callBckFun);
+		return gfn_callAjaxComm(obj,"chkValid",fn_callBckFun);
 	};
 
     function fn_process2(){
-    	gfn_callAjaxComm($("#frmMain").serialize(),"mstSave");
+    	gfn_callAjaxComm(gfn_getFormElemntsData("frmMain"),"mstSave");
     };
     function fn_process3(){
 	 	var jsonStr = gridDtl.getJsonUpdated2();
@@ -221,7 +220,7 @@ function fn_onClosePop(pName,data){
 		var empNoColIndex = gridDtl.dxObj.getColIndexById("empNo");
 		var empNameColIndex = gridDtl.dxObj.getColIndexById("empName");
 		var selectedId = gridDtl.dxObj.getSelectedRowId();
-		
+
 		gridDtl.setCells(selectedId,empNoColIndex).setValue(data[0].empNo);
 		gridDtl.setCells(selectedId,empNameColIndex).setValue(data[0].korName);
 	};
@@ -230,12 +229,14 @@ function fn_onOpenPop(){
 
 }
 function fn_callBckFun(data){
+
 	var count=gridDtl.dxObj.getRowsNum();
 	if(count>0){
 		for(var i=0;i<count;i++){
 			gridDtl.setCells2(i,0).setValue(data[0].custCode);
 		}
 	}
+
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
@@ -307,7 +308,7 @@ function fn_callBckFun(data){
                         사업자등록번호
                     </label>
                     <div class="col-sm-2 col-md-2">
-                        <input name="custNumb" id="custNumb" type="text" value="" placeholder="" class="form-control input-xs format_date" required >
+                        <input name="custNumb" id="custNumb" type="text" value="" placeholder="" class="form-control input-xs" required >
                     </div>
                     <label class=" col-sm-2 col-md-2 control-label" for="textinput">
                         법인번호
@@ -343,7 +344,7 @@ function fn_callBckFun(data){
                             <input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                         <div class="col-sm-3 col-md-3">
-                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn" onclick="gfn_load_popup('우편번호','common/zipCodePOP')">
+                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </div>
@@ -434,20 +435,19 @@ function fn_callBckFun(data){
                         구분
                     </label>
                     <div class="col-sm-10 col-md-10">
-                        <input type="checkbox" name="custKindA" value="" checked>매출
-                        <input type="checkbox" name="custKindB" value="">매입
-                        <input type="checkbox" name="custKindL" value="">외주
-                        <input type="checkbox" name="custKindH" value="">금융
-                        <input type="checkbox" name="custKindQ" value="">품질
-                        <input type="checkbox" name="custKindZ" value="">총무
-                        <input type="checkbox" name="custKindE" value="">Buyer
+                        <input type="checkbox" name="custKindA" value="1" checked>매출
+                        <input type="checkbox" name="custKindB" value="1">매입
+                        <input type="checkbox" name="custKindL" value="1">외주
+                        <input type="checkbox" name="custKindH" value="1">금융
+                        <input type="checkbox" name="custKindQ" value="1">품질
+                        <input type="checkbox" name="custKindZ" value="1">총무
+                        <input type="checkbox" name="custKindE" value="1">Buyer
                     </div>
                 </div>
             </div>
             <input type="hidden"  name="cudKey" id="cudKey"/>
             <input type="hidden" id="" name="hpNo"/>
             <input type="hidden" id="" name="rmk"/>
-            <input type="hidden" name="dsfsdfdsf">
         </form>
     </div>
     <div id="subGrid" style="width:800px;margin-left:200px;height:300px;"></div>
