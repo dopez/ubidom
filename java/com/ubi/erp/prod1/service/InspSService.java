@@ -32,7 +32,6 @@ public class InspSService {
 		for(InspS inspS : list) {
 			inspS.setCompId(compId);
 			inspS.setSysEmpNo(sysEmpNo);
-			System.out.println(inspS.getCheckEmp());
 			if(inspS.getCheckEmp() == null){
 				inspS.setCheckEmp(sysEmpNo);
 			}
