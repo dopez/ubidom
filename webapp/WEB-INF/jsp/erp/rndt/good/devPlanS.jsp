@@ -158,16 +158,11 @@ $(document).ready(function() {
         })
         
 })
-        </script>
+</script>
 <script type="text/javascript" src="/js/erp/rndt/tab1.js"></script>
-
-
-      
-      <style>
-      </style>
-      <div id="container" style="position: relative; width: 100%; height: 100%;">
-      </div>
-      <div id="bootContainer2">
+<div id="container" style="position: relative; width: 100%; height: 100%;">
+</div>
+<div id="bootContainer2">
 <div class="container">
           <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
               <div class="row">
