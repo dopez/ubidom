@@ -197,6 +197,7 @@ function fn_setSaveParams(){
 		   
 }
 function fn_search(){
+	
 	fn_getEquiCode();
 }
 

@@ -556,7 +556,7 @@ function fn_closeCustCodePop(param){
                     <label class="col-sm-2 col-md-2 control-label" for="textinput"> 등록일자 </label>
                     <div class="col-sm-2 col-md-2">
                         <div class="col-sm-10 col-md-10">
-                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs date">
+                            <input name="enterDate" id="enterDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker1" class="calicon form-control">
@@ -565,7 +565,7 @@ function fn_closeCustCodePop(param){
                     <label class="  col-sm-2 col-md-2 control-label" for="textinput"> 사용중지일자 </label>
                     <div class="col-sm-2 col-md-2">
                         <div class="col-sm-10 col-md-10">
-                            <input name="useEndDate" id="useEndDate" type="text" value="" placeholder="" class="form-control input-xs date">
+                            <input name="useEndDate" id="useEndDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <input type="button" id="calpicker2" class="calicon form-control">

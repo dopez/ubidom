@@ -19,7 +19,7 @@ $(document).ready(function() {
     		gridMain.addHeader({name:"중분류",colId:"itemKind2",width:"5",align:"center",type:"ro"});
     		gridMain.addHeader({name:"소분류",colId:"itemKind3",width:"5",align:"center",type:"ro"});
     		gridMain.addHeader({name:"제품코드",colId:"itemCode",width:"10",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"제품명",colId:"itemName",width:"5",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"제품명",colId:"itemName",width:"5",align:"left",type:"ro"});
     		gridMain.addHeader({name:"규격",colId:"itemSpec",width:"5",align:"center",type:"ro"});
     		gridMain.addHeader({name:"단위",colId:"itemUnit",width:"5",align:"center",type:"ro"});
     		gridMain.addHeader({name:"포장단위",colId:"packUnit",width:"5",align:"center",type:"ro"});

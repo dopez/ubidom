@@ -15,10 +15,10 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");//attach search Condition div
 
 	//좌측 그리드 config
-	subLayout.cells("a").setWidth(250);
+	subLayout.cells("a").setWidth(260);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"코드",   colId:"code",     width:"30", align:"center", type:"ro"});
-	gridMst.addHeader({name:"코드명", colId:"codeName", width:"70", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"코드",   colId:"code",     width:"100", align:"center", type:"ro"});
+	gridMst.addHeader({name:"코드명", colId:"codeName", width:"149", align:"left",   type:"ro"});
 	gridMst.setColSort("str");
 	gridMst.setUserData("","pk","code");
 	gridMst.init();
@@ -26,10 +26,10 @@ $(document).ready(function(){
 
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"내부코드",   colId:"interCode", width:"4", align:"center",type:"ed"});
-	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"7", type:"ed"});
-	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"5", align:"center",type:"ed"});
-	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"5", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"내부코드",   colId:"interCode", width:"70", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"150", type:"ed"});
+	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"50", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"50", align:"center",type:"ed"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","");
 	gridDtl.init();

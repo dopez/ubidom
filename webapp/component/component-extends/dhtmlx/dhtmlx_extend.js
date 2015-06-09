@@ -327,3 +327,34 @@ function searchDate(dateValue){
     var dateValue = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
     return dateValue;
 }
+function gfn_1col_comboLoad(comboId, inputName, params, colIndx) {
+    comboId.setTemplate({
+        input: "#interName#",
+        columns: [{
+            header: "종 류",
+            width: 100,
+            option: "#interName#"
+        }]
+    });
+    comboId.enableFilteringMode(true);
+    comboId.enableAutocomplete(true);
+    comboId.allowFreeText(true);
+    var obj = {};
+    obj.compId = '100';
+    obj.code = params;
+    doOnOpen(comboId, obj, colIndx);
+}
+
+function doOnOpen(comboId, params, colIndx) {
+    $.ajax({
+        "url": "/erp/cmm/InterCodeR",
+        "type": "post",
+        "data": params,
+        "success": function(data) {
+            var list = data;
+            for (var i = 0; i < list.length; i++) {
+                comboId.addOption(list[i].interCode, list[i].interName);
+            }
+        }
+    });
+}
