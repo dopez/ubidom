@@ -16,12 +16,12 @@ $(document).ready(function(){
 	
 	//grid init
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"코드분류",   colId:"code",      width:"7",  type:"ro"});
-	gridMain.addHeader({name:"코드분류명", colId:"codeName",  width:"7",  type:"ro"});
-	gridMain.addHeader({name:"내부코드",   colId:"interCode", width:"7",  type:"ro"});
-	gridMain.addHeader({name:"내부코드명", colId:"interName", width:"10", type:"ro"});
-	gridMain.addHeader({name:"참조변수",   colId:"addVar",    width:"7",  align:"center", type:"ro"});
-	gridMain.addHeader({name:"비고",       colId:"descRmk",   width:"7",  type:"ro"});
+	gridMain.addHeader({name:"코드분류",   colId:"code",      width:"100",  type:"ro"});
+	gridMain.addHeader({name:"코드분류명", colId:"codeName",  width:"150",  type:"ro"});
+	gridMain.addHeader({name:"내부코드",   colId:"interCode", width:"100",  type:"ro"});
+	gridMain.addHeader({name:"내부코드명", colId:"interName", width:"150", type:"ro"});
+	gridMain.addHeader({name:"참조변수",   colId:"addVar",    width:"60",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"비고",       colId:"descRmk",   width:"50",  type:"ro"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","code");
 	gridMain.init();	

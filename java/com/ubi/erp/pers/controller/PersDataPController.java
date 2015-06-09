@@ -70,16 +70,31 @@ public class PersDataPController {
 		JRBeanCollectionDataSource subData2 = new JRBeanCollectionDataSource(list2);
 		
 		System.out.println("stage3");
+		response.setContentType("image/jpeg");
+
 		File file = new File(PropertyUtil.getString("attach.pers.dir") + "/" + empno + ".jpg");
 		FileInputStream fis = null;
 		OutputStream os = null;
 		fis = new FileInputStream(file);
 		os = response.getOutputStream();
+/*		try{
+		fis = new FileInputStream(file);
+		os = response.getOutputStream();
+		} catch(FileNotFoundException ex){
+			file = new File(PropertyUtil.getString("attach.pers.dir") + "/blank.jpg");
+			fis = new FileInputStream(file);
+			os = response.getOutputStream();
+		} finally{
+			if(fis != null)
+				fis.close();
+			if(os != null)
+				os.close();
+		}*/
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("datasource", datasrc);
-		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub1.jasper");
+		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir3") + "/WEB-INF/report/pers/persDataPsub1.jasper");
 		parameterMap.put("SubData1", subData1);
-		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub2.jasper");
+		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir3") + "/WEB-INF/report/pers/persDataPsub2.jasper");
 		parameterMap.put("SubData2", subData2);
 		parameterMap.put("fis", fis);
 		parameterMap.put("format", "pdf");

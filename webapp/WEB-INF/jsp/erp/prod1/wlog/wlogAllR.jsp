@@ -19,11 +19,11 @@ $(document).ready(function() {
 
     //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
-    gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"일자",colId:"logDate",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"담당",colId:"korName",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ro"});
-    gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ro"});
+    gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"일자",colId:"logDate",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"담당",colId:"korName",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"내용",colId:"logNote",width:"200",align:"left",type:"ro"});
+    gridMain.addHeader({name:"첨부",colId:"fileName",width:"100",align:"left",type:"ro"});
     gridMain.dxObj.setUserData("","@logDate","format_date");
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");

@@ -15,11 +15,11 @@ $(document).ready(function(){
 		layout.cells("b").attachObject("bootContainer2");
 		
 		//left grid
-		subLayout.cells("a").setWidth("252");
+		subLayout.cells("a").setWidth("300");
 		
 		gridMain = new dxGrid(subLayout.cells("a"), false);
-		gridMain.addHeader({name:"제품코드",colId:"pCode",width:"50",align:"center",type:"ro"});
-		gridMain.addHeader({name:"제품명",colId:"pName",width:"50",align:"left",type:"ro"});
+		gridMain.addHeader({name:"제품코드",colId:"pCode",width:"150",align:"center",type:"ro"});
+		gridMain.addHeader({name:"제품명",colId:"pName",width:"147",align:"left",type:"ro"});
 		gridMain.setColSort("str");	
 		gridMain.setUserData("","pk","pCode");
 		gridMain.init(); 

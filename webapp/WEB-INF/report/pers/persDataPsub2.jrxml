@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-06-04T16:17:48 -->
+<!-- 2015-06-09T12:48:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="persDataPsub2" pageWidth="554" pageHeight="48" columnWidth="554" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3603fcb2-1f83-4d30-9c23-837d7141cfc1">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="common" isDefault="true" mode="Opaque" fontName="HY중고딕" isBold="true" pdfFontName="H2GTRM.TTF" pdfEncoding="Identity-H"/>
@@ -151,7 +151,7 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="common" x="0" y="0" width="114" height="16" uuid="109b75e6-5a12-4065-91d2-98231b0777af">
 					<property name="local_mesure_unity" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -168,7 +168,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{famRel}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="common" x="114" y="0" width="110" height="16" uuid="e0ad7c33-5aac-4359-a031-21d2ba0c1072">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -184,7 +184,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{famName}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="common" x="224" y="0" width="110" height="16" uuid="c3d7e8c8-bbf7-433a-a005-557e9535c4f7">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -200,7 +200,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{juminNo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="common" x="334" y="0" width="110" height="16" uuid="f480fd1b-b423-4039-8014-c5092ab122c0">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -217,7 +217,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{scholarship}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="common" x="444" y="0" width="110" height="16" uuid="648d7b36-5f9a-4744-b667-195e79682536">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
