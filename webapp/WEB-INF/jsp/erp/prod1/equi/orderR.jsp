@@ -64,11 +64,13 @@ $(document).ready(function(){
 function doOnRowDbClicked(rId,cInd){
 	var dateValue = gridMain.setCells(rId,1).getValue();
 	var seqValue = gridMain.setCells(rId,16).getValue();
-    var compValue = gridMain.setCells(rId,18).getValue();
-	mainTabbar.forEachTab(function(tab){
-	    tabId = tab.getId();
-	});
-	var preId = tabId-1;
+	var ids = mainTabbar.getAllTabs();
+	var preId = "1000000551";
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			mainTabbar.tabs(preId).close();
+		}
+	}
 	var uri = mainMenu.getUserData(preId, "uri");
 	var menuItemText = mainMenu.getDxObj().getItemText(preId);
 	mainTabbar.addTab(preId, menuItemText, null, null, true, true);
