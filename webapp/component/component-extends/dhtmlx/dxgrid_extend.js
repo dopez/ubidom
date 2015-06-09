@@ -69,7 +69,7 @@ dxGrid.prototype.addHeader = function(val){
 dxGrid.prototype.init = function() {
 	this.setHeader(this.headerName.join(","));
 	this.setColId(this.headerColId.join(","));
-	this.setColWidthP(this.headerWidth.join(","));
+	this.setColWidth(this.headerWidth.join(","));
 	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
 	this.setColSort("str");
