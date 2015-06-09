@@ -64,13 +64,13 @@ input[type=checkbox], input[type=radio] {
 
 @media ( min-width :768px) {
 	.container {
-		width: 970px;
+		width: 1170px;
 	}
 }
 
 @media ( min-width :992px) {
 	.container {
-		width: 970px;
+		width: 1170px;
 	}
 }
 
