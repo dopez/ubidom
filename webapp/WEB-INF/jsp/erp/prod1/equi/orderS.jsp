@@ -66,10 +66,10 @@ function doOnRowSelect(id,ind){
 	if(ind==1){
 		gfn_load_pop('w1','prod1/compHistoryPOP',true,{});
 	}
-	totalTimeCalcul(id);
+	totalQtyCalcul(id);
 };
 
-function totalTimeCalcul(id){
+function totalQtyCalcul(id){
 	sum = gridMain.setCells(id,7).getValue()*1;
 	qtyValue = gridMain.setCells(id,5).getValue()*1;
 	costValue = gridMain.setCells(id,6).getValue()*1;

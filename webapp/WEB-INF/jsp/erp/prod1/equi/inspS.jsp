@@ -155,8 +155,6 @@ function multiRowSelect(){
 		  var delInx = gridMst.getSelectedRowIndex();
 		  gridMst.deleteRow(selRowIdArr[i]);
    	}
-	
-
 }
 
 function fn_search(){
