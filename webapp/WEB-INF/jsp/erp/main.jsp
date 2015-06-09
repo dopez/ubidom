@@ -20,7 +20,6 @@ var mainMenu;
 var leftForm;
 var leftToolbar;
 var scrnParm;
-var urlId;
 $( document ).ready(function() {
 
 	mainLayout = new dhtmlXLayoutObject({
