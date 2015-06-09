@@ -9,23 +9,30 @@ public class BaseCodeS implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String code;
+
 	private String codeName;
+
 	private String comp;
+
 	private String cudKey;
+
 	private String sysEmpNo;
+
 	private String sysDate;
+
 	private String interCode;
+
 	private String interName;
+
 	private String addVar;
+
 	private String descRmk;
 
 	public BaseCodeS() {
 		super();
 	}
 
-	public BaseCodeS(String code, String codeName, String comp, String cudKey,
-			String sysEmpNo, String sysDate, String interCode,
-			String interName, String addVar, String descRmk) {
+	public BaseCodeS(String code, String codeName, String comp, String cudKey, String sysEmpNo, String sysDate, String interCode, String interName, String addVar, String descRmk) {
 		super();
 		this.code = code;
 		this.codeName = codeName;
