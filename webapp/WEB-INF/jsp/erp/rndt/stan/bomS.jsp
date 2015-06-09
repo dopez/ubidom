@@ -20,8 +20,8 @@ var popFlag;
        //up
 		subLayout.cells("a").setWidth("300");
 		gridItem = new dxGrid(subLayout.cells("a"), false);
-		gridItem.addHeader({name:"제품코드",colId:"pCode",width:"50",align:"center",type:"ro"});
-		gridItem.addHeader({name:"제품명",colId:"pName",width:"49",align:"left",type:"ro"});
+		gridItem.addHeader({name:"제품코드",colId:"pCode",width:"150",align:"center",type:"ro"});
+		gridItem.addHeader({name:"제품명",colId:"pName",width:"147",align:"left",type:"ro"});
 		gridItem.setColSort("str");	
 		gridItem.setUserData("","pk","pCode");
 		gridItem.init(); 
@@ -39,12 +39,12 @@ var popFlag;
 		subLayoutLeftGrid.setWidth(500);
 		subLayoutLeftGrid.hideHeader();
 		gridMst = new dxGrid(subLayoutLeftGrid, false);
-		gridMst.addHeader({name:"개정번호",colId:"revNo",width:"20",align:"center",type:"ro"});
-		gridMst.addHeader({name:"개정일자",colId:"revDate",width:"20",align:"center",type:"ro"});
-		gridMst.addHeader({name:"사유",colId:"revCause",width:"60",align:"center",type:"ro"});
+		gridMst.addHeader({name:"개정번호",colId:"revNo",width:"100",align:"center",type:"ro"});
+		gridMst.addHeader({name:"개정일자",colId:"revDate",width:"100",align:"center",type:"ro"});
+		gridMst.addHeader({name:"사유",colId:"revCause",width:"297",align:"center",type:"ro"});
 		gridMst.dxObj.setUserData("","@revDate","format_date");
 		gridMst.setColSort("str");	
-		gridMst.setUserData("","pk","");
+		gridMst.setUserData("","pk","revNo");
 		gridMst.init(); 
 		gridMst.attachEvent("onRowSelect",fn_gridMstSelect);
 
@@ -57,19 +57,24 @@ var popFlag;
 	   subTb = subToolbar("toolbar",tbrlayout,[3,4,5,6]);
 	   subTb.attachEvent("onClick",subToolbarOnClick);
 	   gridDtl = new dxGrid(subLayout.cells("c"), false);
-	   gridDtl.addHeader({name:"개정번호",colId:"revNo",width:"10",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"공정",colId:"progNaem",width:"10",align:"center",type:"combo"});
-	   gridDtl.addHeader({name:"자재코드",colId:"matrCode",width:"10",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"10",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"10",align:"right",type:"ed"});
-	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"10",align:"right",type:"ed"});
+	   gridDtl.addHeader({name:"개정번호",colId:"revNo",width:"100",align:"center",type:"ro"});
+	   gridDtl.addHeader({name:"공정",colId:"progNaem",width:"100",align:"center",type:"combo"});
+	   gridDtl.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
+	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"ro"});
+	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"ed"});
+	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"ed"});
 	   gridDtl.setColSort("str");	
-	   gridDtl.setUserData("","pk","");
+	   gridDtl.setUserData("","pk","revNo");
 	   gridDtl.init();
+	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");
+	   gridDtl.dxObj.setNumberFormat("0,000.00",5,".",","); */
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
+       gridDtl.cs_setNumberFormat(["wet","loss"],"0,000.00");
        gridDtl.attachEvent("onRowSelect",fn_getMatrPop);
-	   
-       
+
+       $("#btnGjCh").on("click",function(){
+    	   fn_btnClick();
+       })
        /*팝업*/
     	$("#empName, #appvEmpName","#btnGjCh").click(function(e){
 			if(e.target.id == "empName"){
@@ -82,9 +87,10 @@ var popFlag;
 				popFlag = 2;
 				gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
 			  }
-			if(e.target.id == "btnGjCh"){
+/* 			if(e.target.id == "btnGjCh"){
+				alert("hi");
 				fn_btnClick();
-			}
+			} */
 	    })
 	    /*콤보*/
 	    var combo01 = gridDtl.getColumnCombo(1);
@@ -114,8 +120,9 @@ function fn_btnClick(){
 			url:"/erp/rndt/stan/bomS/prcsBomCopy",
 			data:params,
 			success:function(data){
-				//MsgManager.alertMsg("INF001"); 
-				dhtmlx.alert("?");
+				dhtmlx.alert("복사완료");
+				fn_setNew();
+				fn_frmMainSaveCallBck();
 		    }
 		});
 }
@@ -134,10 +141,9 @@ function fn_setBomEle(){
     
     var revNoColIdx = gridDtl.getColIndexById('revNo');
     var itemCodeColIdx = gridDtl.getColIndexById('itemCode');
-    
     data[revNoColIdx] = $("#gjCode").val();
     data[itemCodeColIdx] = $("#itemCode").val();
-
+    
     gridDtl.addRow(data);
     gridDtl.selectRow(totalRowNum);
    }
@@ -148,6 +154,7 @@ function fn_setDate(){
 function toolbarOnClick(id){
    if(id == "btn1"){//조회
 	   gridMst.clearAll();
+	   fn_setNew();
 	   fn_loadGridItem();
 	}
    if(id == "btn2"){//신규
@@ -166,6 +173,7 @@ function toolbarOnClick(id){
 	    	gridMst.cs_deleteRow(rodid);
 	    	fn_setDefVal();
 	    	fn_callAjaxFrmMain();
+	    	gridDtl.clearAll();
 	    }
 	    byId("frmMain").reset();
 		fn_Insert();
@@ -173,7 +181,6 @@ function toolbarOnClick(id){
 	}
 }
 function fn_setNew(){
-	//gridMst.clearAll();
 	gridDtl.clearAll();
     byId("frmMain").reset();
 	fn_Insert();
@@ -514,14 +521,8 @@ function doOnOpen(comboId, params, colIndx) {
                         <div class="col-sm-2 col-md-2">
                             <input name="gjCode" id="gjCode" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
-                        <label class="col-sm-2 col-md-2 control-label" for="textinput"> 개정일자 </label>
-                        <div class="col-sm-2 col-md-2">
-                            <div class="col-sm-10 col-md-10">
-                                <input name="gjDate" id="gjDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
-                            </div>
-                            <div class="col-sm-2 col-md-2">
-                                <input type="button" id="calpicker1" class="calicon form-control">
-                            </div>
+                        <div class="col-sm-offset-2 col-md-offset-2 col-sm-2 col-md-2">
+                            <input name="btnGjCh" id="btnGjCh" type="button" value="개정복사" placeholder="" class="form-control btn btn-default btn-xs">
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -529,8 +530,14 @@ function doOnOpen(comboId, params, colIndx) {
                         <div class="col-sm-2 col-md-2">
                             <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
-                        <div class="col-sm-offset-2 col-md-offset-2 col-sm-2 col-md-2">
-                            <input name="btnGjCh" id="btnGjCh" type="button" value="개정변경" placeholder="" class="form-control btn btn-default btn-xs">
+						<label class="col-sm-2 col-md-2 control-label" for="textinput"> 개정일자 </label>
+                        <div class="col-sm-2 col-md-2">
+                            <div class="col-sm-10 col-md-10">
+                                <input name="gjDate" id="gjDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                            </div>
+                            <div class="col-sm-2 col-md-2">
+                                <input type="button" id="calpicker1" class="calicon form-control">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
