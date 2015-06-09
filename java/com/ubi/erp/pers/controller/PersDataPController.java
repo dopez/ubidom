@@ -1,7 +1,11 @@
 package com.ubi.erp.pers.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,18 +16,16 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ubi.erp.cmm.util.JasperReportUtil;
 import com.ubi.erp.cmm.util.PropertyUtil;
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
-import com.ubi.erp.pers.domain.PersDataP;
 import com.ubi.erp.pers.service.PersDataPService;
 import com.ubi.erp.rndt.controller.BaseCodeSController;
 
@@ -37,7 +39,7 @@ public class PersDataPController {
 	private static final Logger logger = LoggerFactory.getLogger(BaseCodeSController.class);
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/report/persDataP")
-	public ModelAndView persDataP(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws ParseException {
+	public ModelAndView persDataP(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws ParseException, IOException {
 		String compId = (String) session.getAttribute("compId");
 		String empno = request.getParameter("empNo");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -68,17 +70,23 @@ public class PersDataPController {
 		JRBeanCollectionDataSource subData2 = new JRBeanCollectionDataSource(list2);
 		
 		System.out.println("stage3");
-		
+		File file = new File(PropertyUtil.getString("attach.pers.dir") + "/" + empno + ".jpg");
+		FileInputStream fis = null;
+		OutputStream os = null;
+		fis = new FileInputStream(file);
+		os = response.getOutputStream();
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("datasource", datasrc);
 		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub1.jasper");
 		parameterMap.put("SubData1", subData1);
 		parameterMap.put("SubUrl2", PropertyUtil.getString("prj.base.dir2") + "/WEB-INF/report/pers/persDataPsub2.jasper");
 		parameterMap.put("SubData2", subData2);
+		parameterMap.put("fis", fis);
 		parameterMap.put("format", "pdf");
 		
 		System.out.println("stage4");
 		
+		//IOUtils.copy(fis, os);
 		return new ModelAndView("PersDataP", parameterMap);
 		
 	}
