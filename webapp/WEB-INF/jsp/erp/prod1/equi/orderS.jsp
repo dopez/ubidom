@@ -15,17 +15,17 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
     gridMain = new dxGrid(subLayout.cells("a"),false);
-    gridMain.addHeader({name:"No",       colId:"no",          width:"3",  align:"center", type:"cntr"});
-    gridMain.addHeader({name:"부품코드", colId:"partCode",    width:"5",  align:"left",   type:"ro"});
-    gridMain.addHeader({name:"부품명",   colId:"partName",    width:"5",  align:"left",   type:"ro"});
-    gridMain.addHeader({name:"규격",     colId:"partSpec",    width:"5",  align:"left",   type:"ro"});
-    gridMain.addHeader({name:"단위",     colId:"partUnit",    width:"5",  align:"left",   type:"ro"});
-    gridMain.addHeader({name:"수량",     colId:"qty",         width:"5",  align:"right",  type:"edn"});
-    gridMain.addHeader({name:"단가",     colId:"cost",        width:"5",  align:"right",  type:"edn"});
-    gridMain.addHeader({name:"금액",     colId:"amt",         width:"5",  align:"right",  type:"ro"});
-    gridMain.addHeader({name:"납기일자", colId:"deliReqDate", width:"5",  align:"center", type:"dhxCalendarA"});
-    gridMain.addHeader({name:"납품장소", colId:"deliReqArea", width:"12", align:"left",   type:"ed"});
-    gridMain.addHeader({name:"비고",     colId:"rmk",         width:"12", align:"left",   type:"ed"});
+    gridMain.addHeader({name:"No",       colId:"no",          width:"50",  align:"center", type:"cntr"});
+    gridMain.addHeader({name:"부품코드", colId:"partCode",    width:"80",  align:"left",   type:"ro"});
+    gridMain.addHeader({name:"부품명",   colId:"partName",    width:"80",  align:"left",   type:"ro"});
+    gridMain.addHeader({name:"규격",     colId:"partSpec",    width:"80",  align:"left",   type:"ro"});
+    gridMain.addHeader({name:"단위",     colId:"partUnit",    width:"80",  align:"left",   type:"ro"});
+    gridMain.addHeader({name:"수량",     colId:"qty",         width:"60",  align:"right",  type:"edn"});
+    gridMain.addHeader({name:"단가",     colId:"cost",        width:"60",  align:"right",  type:"edn"});
+    gridMain.addHeader({name:"금액",     colId:"amt",         width:"60",  align:"right",  type:"ro"});
+    gridMain.addHeader({name:"납기일자", colId:"deliReqDate", width:"80",  align:"center", type:"dhxCalendarA"});
+    gridMain.addHeader({name:"납품장소", colId:"deliReqArea", width:"180", align:"left",   type:"ed"});
+    gridMain.addHeader({name:"비고",     colId:"rmk",         width:"180", align:"left",   type:"ed"});
     gridMain.setUserData("","pk","no");
     gridMain.setColSort("str");
     gridMain.dxObj.setUserData("","@deliReqDate","format_date");

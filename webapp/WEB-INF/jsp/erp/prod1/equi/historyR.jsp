@@ -15,19 +15,19 @@ $(document).ready(function(){
 	
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",           colId:"no",             width:"3", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"설비코드",     colId:"equiCode",       width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"설비명",       colId:"equiName",       width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"규격",         colId:"standard",       width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"용량",         colId:"capacity",       width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"사용공정",     colId:"useProcess",     width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"거래처",       colId:"supplyComp",     width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"담당자",       colId:"korName",        width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"제작처",       colId:"makeComp",       width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"금액",         colId:"buyMoney",       width:"5", align:"right",  type:"ro"});
-	gridMain.addHeader({name:"구입일자",     colId:"buyDate",        width:"5", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사용유무",     colId:"useYn",          width:"5", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"사용중지사유", colId:"useStopRemarks", width:"5", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"NO",           colId:"no",             width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"설비코드",     colId:"equiCode",       width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"설비명",       colId:"equiName",       width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"규격",         colId:"standard",       width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"용량",         colId:"capacity",       width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"사용공정",     colId:"useProcess",     width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"거래처",       colId:"supplyComp",     width:"100", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"담당자",       colId:"korName",        width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"제작처",       colId:"makeComp",       width:"100", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"금액",         colId:"buyMoney",       width:"80",  align:"right",  type:"ro"});
+	gridMain.addHeader({name:"구입일자",     colId:"buyDate",        width:"80",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"사용유무",     colId:"useYn",          width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"사용중지사유", colId:"useStopRemarks", width:"180", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.dxObj.setUserData("","@buyDate","format_date");

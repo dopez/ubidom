@@ -21,8 +21,8 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"설비코드", colId:"equiCode", width:"14", align:"center", type:"ro"});
-	gridMain.addHeader({name:"설비명",   colId:"equiName", width:"14", align:"center", type:"ro"});
+    gridMain.addHeader({name:"설비코드", colId:"equiCode", width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"설비명",   colId:"equiName", width:"140", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","equiCode");
 	gridMain.setColSort("str");
 	gridMain.init();

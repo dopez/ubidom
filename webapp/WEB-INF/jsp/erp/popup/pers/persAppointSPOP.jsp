@@ -9,7 +9,7 @@ var empNo;
 var config={
 		title:"인사발령등록",
 		id:"persCode", 
-		width:"980",
+		width:"950",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -20,18 +20,18 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"No",         colId:"no",       width:"5",  align:"center", type:"cntr"});
-    gridMain.addHeader({name:"발령일",     colId:"balDate",  width:"10", align:"center", type:"dhxCalendarA"});
-    gridMain.addHeader({name:"급여구분",   colId:"payGbn",   width:"7",  align:"center", type:"combo"});
-    gridMain.addHeader({name:"근무구분",   colId:"serveGbn", width:"7",  align:"center", type:"combo"});
-    gridMain.addHeader({name:"발령구분",   colId:"balGbn",   width:"7",  align:"center", type:"combo"});
-    gridMain.addHeader({name:"부서코드",   colId:"postCode", width:"7",  align:"center", type:"ro"});
-	gridMain.addHeader({name:"발령부서",   colId:"postName", width:"7",  align:"center", type:"ro"});
-	gridMain.addHeader({name:"발령직군",   colId:"jikgun",   width:"7",  align:"center", type:"combo"});
-	gridMain.addHeader({name:"발령직무",   colId:"jikmu",    width:"7",  align:"center", type:"combo"});
-	gridMain.addHeader({name:"발령직위",   colId:"jikwee",   width:"7",  align:"center", type:"combo"});
-	gridMain.addHeader({name:"발령직책",   colId:"jikchak",  width:"7",  align:"center", type:"combo"});
-	gridMain.addHeader({name:"급여사업장", colId:"compId",   width:"7",  align:"center", type:"combo"});
+    gridMain.addHeader({name:"No",         colId:"no",       width:"50",  align:"center", type:"cntr"});
+    gridMain.addHeader({name:"발령일",     colId:"balDate",  width:"80", align:"center", type:"dhxCalendarA"});
+    gridMain.addHeader({name:"급여구분",   colId:"payGbn",   width:"80",  align:"center", type:"combo"});
+    gridMain.addHeader({name:"근무구분",   colId:"serveGbn", width:"80",  align:"center", type:"combo"});
+    gridMain.addHeader({name:"발령구분",   colId:"balGbn",   width:"80",  align:"center", type:"combo"});
+    gridMain.addHeader({name:"부서코드",   colId:"postCode", width:"80",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"발령부서",   colId:"postName", width:"80",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"발령직군",   colId:"jikgun",   width:"80",  align:"center", type:"combo"});
+	gridMain.addHeader({name:"발령직무",   colId:"jikmu",    width:"80",  align:"center", type:"combo"});
+	gridMain.addHeader({name:"발령직위",   colId:"jikwee",   width:"80",  align:"center", type:"combo"});
+	gridMain.addHeader({name:"발령직책",   colId:"jikchak",  width:"80",  align:"center", type:"combo"});
+	gridMain.addHeader({name:"급여사업장", colId:"compId",   width:"80",  align:"center", type:"combo"});
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
 	gridMain.cs_setColumnHidden(["empNo"]);
