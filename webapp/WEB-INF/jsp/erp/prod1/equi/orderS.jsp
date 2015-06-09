@@ -42,7 +42,6 @@ $(document).ready(function(){
 			
 		  }
 		if(e.target.id == "supplyComp"){
-			cFlag = true;
 			gfn_load_pop('w1','common/customPOP',true,{"supplyComp":$(this).val()});
 		}
     })
@@ -85,8 +84,6 @@ function fn_getSeqReturn(){
 };
 
  function fn_SetSeq(data) {
-	 console.log(data);
-	 alert(data[0].seq);
     $("#setSeq").val(data[0].seq);
     for(var i=0; i<gridMain.getRowsNum();i++){
 		  gridMain.setCells2(i,13).setValue(data[0].seq);
@@ -124,7 +121,7 @@ function fn_save(){
 	}else{
 		fn_getSeqReturn();
 	}
-	 var setDate = $('#stDate').val();
+	  var setDate = $('#stDate').val();
 	var custCode = $('#custCode').val();
 	$('#setDate').val(setDate);
 	for(var i=0; i<gridMain.getRowsNum();i++){
@@ -143,7 +140,7 @@ function fn_save(){
          MsgManager.alertMsg("INF001");
           fn_search();
           }
-     });  
+     });   
 };
 
 function fn_remove(){

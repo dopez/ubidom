@@ -39,25 +39,35 @@ public class OrderSController {
 		return mnv;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/gridGetInspS",method = RequestMethod.GET)
-	public List<OrderS> selEquiInspRtoInspS(HttpServletRequest request, HttpServletResponse response,HttpSession session,OrderS orderS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
+	@RequestMapping(value = "/gridGetInspS", method = RequestMethod.GET)
+	public ModelAndView selEquiInspRtoInspS(HttpServletRequest request, HttpServletResponse response, HttpSession session, OrderS orderS) throws ParseException {
 		String setDate = request.getParameter("stDate");
 		String setSeq = orderS.getSetSeq();
-		map.put("compId", compId);
-		map.put("setDate", setDate);
-		map.put("setSeq", setSeq);
-		map.put("o_cursor", null);
-		orderSSservice.selEquiOrderS(map);
-		List<OrderS> list = (List<OrderS>) map.get("o_cursor");
-		return list;
+		String compId = orderS.getCompId();
+		ModelAndView mnv = new ModelAndView("/erp/prod1/equi/orderS");
+		mnv.addObject("setDate", setDate);
+		mnv.addObject("setSeq", setSeq);
+		mnv.addObject("compId", compId);
+		return mnv;
 	}
+
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @RequestMapping(value = "/gridGetInspS",method = RequestMethod.GET)
+	 * public List<OrderS> selEquiInspRtoInspS(HttpServletRequest request,
+	 * HttpServletResponse response,HttpSession session,OrderS orderS) throws
+	 * Exception { Map<String, Object> map = new HashMap<String, Object>();
+	 * String compId = (String) session.getAttribute("compId"); String setDate =
+	 * request.getParameter("stDate"); String setSeq = orderS.getSetSeq();
+	 * map.put("compId", compId); map.put("setDate", setDate); map.put("setSeq",
+	 * setSeq); map.put("o_cursor", null); orderSSservice.selEquiOrderS(map);
+	 * List<OrderS> list = (List<OrderS>) map.get("o_cursor"); return list; }
+	 */
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
-	public List<OrderS> selEquiInspS(HttpServletRequest request, HttpServletResponse response,HttpSession session,OrderS orderS) throws Exception {
+	public List<OrderS> selEquiOrderS(HttpServletRequest request, HttpServletResponse response, HttpSession session, OrderS orderS) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String setDate = request.getParameter("stDate");

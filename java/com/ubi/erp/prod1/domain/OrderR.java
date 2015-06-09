@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("OrderS")
-public class OrderS implements Serializable {
+@Alias("OrderR")
+public class OrderR implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// 공통항목
@@ -50,7 +50,15 @@ public class OrderS implements Serializable {
 
 	private String partUnit;
 
-	public OrderS() {
+	private String pfDate;
+
+	private String ptDate;
+
+	private String orderName;
+
+	private String custKorName;
+
+	public OrderR() {
 		super();
 	}
 
@@ -212,6 +220,38 @@ public class OrderS implements Serializable {
 
 	public void setPartUnit(String partUnit) {
 		this.partUnit = partUnit;
+	}
+
+	public String getPfDate() {
+		return pfDate;
+	}
+
+	public void setPfDate(String pfDate) {
+		this.pfDate = pfDate;
+	}
+
+	public String getPtDate() {
+		return ptDate;
+	}
+
+	public void setPtDate(String ptDate) {
+		this.ptDate = ptDate;
+	}
+
+	public String getOrderName() {
+		return orderName;
+	}
+
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
+
+	public String getCustKorName() {
+		return custKorName;
+	}
+
+	public void setCustKorName(String custKorName) {
+		this.custKorName = custKorName;
 	}
 
 	public static long getSerialversionuid() {
