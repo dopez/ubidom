@@ -6,6 +6,10 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 var amountSum = 0, moneySum = 0;
+var mainMenu = parent.mainMenu;
+var mainTabbar = parent.mainTabbar;
+var tabId = null;
+var uri = null;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8,9],"1C");
 	//발주조회
@@ -58,13 +62,17 @@ $(document).ready(function(){
 	
 });
 function doOnRowDbClicked(rId,cInd){
-	/* location.replace("/erp/prod1/equi/orderS.do"); */
-/* 	 var url = "/erp/prod1/equi/orderS/gridGetInspS";
-	url = url + "?stDate=" + searchDate(gridMain.setCells(rId,1).getValue());
-	url = url + "&setSeq="+ gridMain.setCells(rId,16).getValue();
-	url = url + "&compId="+ gridMain.setCells(rId,18).getValue(); 
-	window.open(url,'rpt',''); */
-	 //window.location.href = url;
+	var dateValue = gridMain.setCells(rId,1).getValue();
+	var seqValue = gridMain.setCells(rId,16).getValue();
+    var compValue = gridMain.setCells(rId,18).getValue();
+	mainTabbar.forEachTab(function(tab){
+	    tabId = tab.getId();
+	});
+	var preId = tabId-1;
+	var uri = mainMenu.getUserData(preId, "uri");
+	var menuItemText = mainMenu.getDxObj().getItemText(preId);
+	mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+	mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue, setSeq:seqValue});
 };
 
 function gridMainAttachFooter(){

@@ -50,9 +50,13 @@ $(document).ready(function(){
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
-	byId("stDate").value = t;
+	if($('#stDate').val() == ''){
+	  byId("stDate").value = t;
+	}
 	
+	fn_search();
 });
+
 function doOnCellChanged(rId,cInd,nValue){
 	if(cInd==6){
 		doOnRowSelect(rId,cInd);
@@ -220,7 +224,7 @@ function fn_onClosePop(pName,data){
 			       </label>
 			       <div class="col-sm-2 col-md-2">
                       <div class="col-sm-10 col-md-10">
-                        <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                        <input name="stDate" id="stDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date">
                       </div>
                     <div class="col-sm-2 col-md-2">
                          <input type="button" id="calpicker" class="calicon form-control">
@@ -228,7 +232,7 @@ function fn_onClosePop(pName,data){
                    </div>
                   <div class="col-sm-1 col-md-1">
                      <div class="col-sm-11 col-md-11 col-sm-offset-1 col-md-offset-1">
-                      <input name="setSeq" id="setSeq" type="text" value="" class="form-control input-xs" disabled="disabled">
+                      <input name="setSeq" id="setSeq" type="text" value="${setSeq}" class="form-control input-xs" disabled="disabled">
                      </div>
                  </div>
 		      </div>
