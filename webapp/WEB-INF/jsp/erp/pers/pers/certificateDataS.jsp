@@ -14,17 +14,17 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",           width:"4", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"발급일자", colId:"passpostDate", width:"7", align:"center", type:"dhxCalendarA"});
-	gridMain.addHeader({name:"발급번호", colId:"passpostNo",   width:"7", align:"left",   type:"ed"});
-	gridMain.addHeader({name:"구분",     colId:"certKind",     width:"5", align:"left",   type:"combo"});
-	gridMain.addHeader({name:"성명",     colId:"korName",      width:"7", align:"left",   type:"ro"});	
-	gridMain.addHeader({name:"담당업무", colId:"workName",     width:"7", align:"left",   type:"ed"});	
-	gridMain.addHeader({name:"신청일자", colId:"applyDate",    width:"7", align:"center", type:"dhxCalendarA"});
-	gridMain.addHeader({name:"용도",     colId:"useType",      width:"7", align:"left",   type:"ed"});
-	gridMain.addHeader({name:"제출처",   colId:"custSubject",  width:"7", align:"left",   type:"ed"});
-	gridMain.addHeader({name:"발급자",   colId:"balgbja",      width:"7", align:"left",   type:"ed"});
-	gridMain.addHeader({name:"매수",     colId:"maesu",        width:"4", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"NO",       colId:"no",           width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"발급일자", colId:"passpostDate", width:"80",  align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"발급번호", colId:"passpostNo",   width:"80",  align:"left",   type:"ed"});
+	gridMain.addHeader({name:"구분",     colId:"certKind",     width:"80",  align:"left",   type:"combo"});
+	gridMain.addHeader({name:"성명",     colId:"korName",      width:"80",  align:"left",   type:"ro"});	
+	gridMain.addHeader({name:"담당업무", colId:"workName",     width:"80",  align:"left",   type:"ed"});	
+	gridMain.addHeader({name:"신청일자", colId:"applyDate",    width:"80",  align:"center", type:"dhxCalendarA"});
+	gridMain.addHeader({name:"용도",     colId:"useType",      width:"100", align:"left",   type:"ed"});
+	gridMain.addHeader({name:"제출처",   colId:"custSubject",  width:"150", align:"left",   type:"ed"});
+	gridMain.addHeader({name:"발급자",   colId:"balgbja",      width:"80",  align:"left",   type:"ed"});
+	gridMain.addHeader({name:"매수",     colId:"maesu",        width:"50",  align:"right",  type:"edn"});
 	gridMain.setUserData("","pk","no");
 	gridMain.dxObj.setUserData("","@passpostDate","format_date");
 	gridMain.dxObj.setUserData("","@applyDate","format_date");

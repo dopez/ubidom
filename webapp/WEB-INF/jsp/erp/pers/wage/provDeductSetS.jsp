@@ -12,17 +12,17 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
     gridMain = new dxGrid(subLayout.cells("a"),false);
-	gridMain.addHeader({name:"NO",           colId:"no", 	      width:"3",  align:"center", type:"cntr"});
-    gridMain.addHeader({name:"지급/공제",    colId:"subjectKind", width:"5",  align:"left",   type:"combo"});
-    gridMain.addHeader({name:"코드",         colId:"subjectCode", width:"5",  align:"left",   type:"ed"});
-    gridMain.addHeader({name:"항목명",       colId:"subjectName", width:"5",  align:"left",   type:"ed"});
-    gridMain.addHeader({name:"출력순서",     colId:"useOrder", 	  width:"5",  align:"right",  type:"ed"});
-    gridMain.addHeader({name:"계산구분",     colId:"calcKind", 	  width:"5",  align:"left",   type:"combo"});
-    gridMain.addHeader({name:"평균임금",     colId:"avgKind", 	  width:"5",  align:"right",  type:"ch"});
-    gridMain.addHeader({name:"과세(사무)",   colId:"taxYnO", 	  width:"5",  align:"right",  type:"combo"});
-    gridMain.addHeader({name:"과세(생산)",   colId:"taxYnM", 	  width:"5",  align:"right",  type:"combo"});
-    gridMain.addHeader({name:"비과세한도액", colId:"nonTaxAmt",   width:"6",  align:"right",  type:"edn"});
-    gridMain.addHeader({name:"비고",         colId:"remarks", 	  width:"10", align:"left",   type:"ed"});
+	gridMain.addHeader({name:"NO",           colId:"no", 	      width:"50",  align:"center", type:"cntr"});
+    gridMain.addHeader({name:"지급/공제",    colId:"subjectKind", width:"80",  align:"left",   type:"combo"});
+    gridMain.addHeader({name:"코드",         colId:"subjectCode", width:"80",  align:"left",   type:"ed"});
+    gridMain.addHeader({name:"항목명",       colId:"subjectName", width:"100", align:"left",   type:"ed"});
+    gridMain.addHeader({name:"출력순서",     colId:"useOrder", 	  width:"60",  align:"right",  type:"ed"});
+    gridMain.addHeader({name:"계산구분",     colId:"calcKind", 	  width:"80",  align:"left",   type:"combo"});
+    gridMain.addHeader({name:"평균임금",     colId:"avgKind", 	  width:"80",  align:"center", type:"ch"});
+    gridMain.addHeader({name:"과세(사무)",   colId:"taxYnO", 	  width:"90",  align:"right",  type:"combo"});
+    gridMain.addHeader({name:"과세(생산)",   colId:"taxYnM", 	  width:"90",  align:"right",  type:"combo"});
+    gridMain.addHeader({name:"비과세한도액", colId:"nonTaxAmt",   width:"90",  align:"right",  type:"edn"});
+    gridMain.addHeader({name:"비고",         colId:"remarks", 	  width:"150", align:"left",   type:"ed"});
     gridMain.setColSort("str");
     gridMain.setUserData("","pk","no");
  	gridMain.init();	

@@ -15,12 +15,12 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	subLayout.cells("a").setWidth(300);
+	subLayout.cells("a").setWidth(303);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});	
+	gridMst.addHeader({name:"NO",       colId:"no",       width:"50", align:"center", type:"cntr"});
+	gridMst.addHeader({name:"사원번호", colId:"empNo",    width:"70", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",     colId:"korName",  width:"90", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"부서",     colId:"postName", width:"90", align:"left",   type:"ro"});	
 	gridMst.setUserData("","pk","no");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -32,14 +32,14 @@ $(document).ready(function(){
               {id: "a2",text: "보증보험"}]});
 	
     gridDtl01 = new dxGrid(gridTabbar.tabs("a1"), false);
-    gridDtl01.addHeader({name:"NO",           colId:"no",         width:"4",  align:"center", type:"cntr"});
-    gridDtl01.addHeader({name:"관계",         colId:"relatKind",  width:"7",  align:"left",   type:"combo"});
-    gridDtl01.addHeader({name:"성명",         colId:"relatName",  width:"7",  align:"left",   type:"ed"});
-    gridDtl01.addHeader({name:"주민등록번호", colId:"juminNo",    width:"10", align:"left",   type:"ed"});
-    gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"7",  align:"left",   type:"ed"});
-    gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"7",  align:"left",   type:"ed"});
-    gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"7",  align:"left",   type:"ed"});
-    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"7",  align:"left",   type:"ed"});	
+    gridDtl01.addHeader({name:"NO",           colId:"no",         width:"50",  align:"center", type:"cntr"});
+    gridDtl01.addHeader({name:"관계",         colId:"relatKind",  width:"80",  align:"left",   type:"combo"});
+    gridDtl01.addHeader({name:"성명",         colId:"relatName",  width:"80",  align:"left",   type:"ed"});
+    gridDtl01.addHeader({name:"주민등록번호", colId:"juminNo",    width:"120", align:"left",   type:"ed"});
+    gridDtl01.addHeader({name:"직장명",       colId:"compName",   width:"90",  align:"left",   type:"ed"});
+    gridDtl01.addHeader({name:"직위",         colId:"jikweeName", width:"90",  align:"left",   type:"ed"});
+    gridDtl01.addHeader({name:"학력",         colId:"scholName",  width:"90",  align:"left",   type:"ed"});
+    gridDtl01.addHeader({name:"거주지",       colId:"addrs",      width:"120", align:"left",   type:"ed"});	
     gridDtl01.setUserData("","pk","no");
     gridDtl01.setColSort("str");
     gridDtl01.init(); 
@@ -47,13 +47,13 @@ $(document).ready(function(){
     gridDtl01.attachEvent("onRowSelect",doOnDtl01RowSelect);
     
     gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
-    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"4", align:"center", type:"cntr"});
-    gridDtl02.addHeader({name:"시작일",   colId:"startDate", width:"7", align:"center", type:"dhxCalendarA"});
-    gridDtl02.addHeader({name:"종료일",   colId:"endDate",   width:"7", align:"center", type:"dhxCalendarA"});
-    gridDtl02.addHeader({name:"계약내용", colId:"insuCont",  width:"10", align:"left",  type:"ed"});
-    gridDtl02.addHeader({name:"보험료",   colId:"premium",   width:"7", align:"right",  type:"ed"});
-    gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"7", align:"right",  type:"ed"});
-    gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"7", align:"left",   type:"ed"});	
+    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"50", align:"center", type:"cntr"});
+    gridDtl02.addHeader({name:"시작일",   colId:"startDate", width:"80", align:"center", type:"dhxCalendarA"});
+    gridDtl02.addHeader({name:"종료일",   colId:"endDate",   width:"80", align:"center", type:"dhxCalendarA"});
+    gridDtl02.addHeader({name:"계약내용", colId:"insuCont",  width:"120", align:"left",  type:"ed"});
+    gridDtl02.addHeader({name:"보험료",   colId:"premium",   width:"80", align:"right",  type:"ed"});
+    gridDtl02.addHeader({name:"보험금",   colId:"insuAmt",   width:"80", align:"right",  type:"ed"});
+    gridDtl02.addHeader({name:"보험회사", colId:"insuComp",  width:"100", align:"left",   type:"ed"});	
     gridDtl02.setUserData("","pk","no");
     gridDtl02.dxObj.setUserData("","@startDate","format_date");
     gridDtl02.dxObj.setUserData("","@endDate","format_date");

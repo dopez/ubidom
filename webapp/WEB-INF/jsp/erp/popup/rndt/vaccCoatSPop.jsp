@@ -10,7 +10,7 @@ var kindParam = parent.kindParam;
 var config={
 		title:"자재코드조회",
 		id:"matrCode", 
-		width:"500",
+		width:"380",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -27,9 +27,9 @@ $(document).ready(function(){
     	$("#matrKindinput").val("모재");
     }
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"15",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재명",colId:"matrName",width:"17",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"15",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재명",colId:"matrName",width:"120",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"140",align:"center",type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","");
 	gridMain.init();

@@ -16,12 +16,12 @@ $(document).ready(function(){
 	
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",         width:"5",  align:"center", type:"cntr"});
-	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"비고",     colId:"rmk",        width:"15", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"비고",     colId:"rmk",        width:"150", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
