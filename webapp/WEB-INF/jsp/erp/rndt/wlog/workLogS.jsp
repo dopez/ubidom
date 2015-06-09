@@ -20,9 +20,9 @@ $(document).ready(function() {
 
     //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
-    gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ed"});
-    gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ed"});
+    gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"내용",colId:"logNote",width:"100",align:"left",type:"ed"});
+    gridMain.addHeader({name:"첨부",colId:"fileName",width:"100",align:"left",type:"ed"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
     gridMain.init();
