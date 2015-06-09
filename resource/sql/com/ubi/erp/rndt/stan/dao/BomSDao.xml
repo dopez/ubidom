@@ -16,7 +16,7 @@
 		 }	
 	</select>
 	<select id="selMatrCodePop" statementType="CALLABLE" >
-		 {call 
+		 {call
 		 	SP_COMM_MATRCODEPOP_SCH(
 		 		#{V_COMPID},
 		 		#{V_MATR_NAME},
