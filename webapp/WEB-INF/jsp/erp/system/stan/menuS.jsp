@@ -22,13 +22,13 @@ $(document).ready(function(){
 
 	//우측 그리드 config
 	gridMain = new dxGrid(subLayout.cells("b"), false);
-	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"5", type:"cntr"});//화면순서
-	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"8", type:"combo"});//화면구분(폴더/윈도우)
-	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"10", type:"ro"});
-	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"15", align:"",type:"ed"});
-	gridMain.addHeader({name:"URI", colId:"uri", width:"25", align:"",type:"ed"});
-	gridMain.addHeader({name:"웹매개변수", colId:"scrnParm", align:"center",width:"7", type:"ed"});
-	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"combo"});
+	gridMain.addHeader({name:"순서", colId:"seq", align:"center",width:"50", type:"cntr"});//화면순서
+	gridMain.addHeader({name:"화면구분", colId:"menugbn", align:"center",width:"80", type:"combo"});//화면구분(폴더/윈도우)
+	gridMain.addHeader({name:"메뉴코드", colId:"menucd", align:"center",width:"100", type:"ro"});
+	gridMain.addHeader({name:"메뉴명", colId:"menuname", width:"150", align:"",type:"ed"});
+	gridMain.addHeader({name:"URI", colId:"uri", width:"250", align:"",type:"ed"});
+	gridMain.addHeader({name:"웹매개변수", colId:"scrnParm", align:"center",width:"70", type:"ed"});
+	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"70", align:"center",type:"combo"});
  	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
 	gridMain.setColSort("str");
 	gridMain.setUserData("","pk","menucd");

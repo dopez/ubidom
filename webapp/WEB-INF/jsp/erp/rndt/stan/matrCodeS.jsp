@@ -17,9 +17,9 @@ $(document).ready(function() {
     subLayout.cells("a").setWidth("302");
     
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"31",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재명",colId:"matrName",width:"35",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"33",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"99",align:"center",type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","pCode");
 	gridMain.init();

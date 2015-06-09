@@ -14,15 +14,15 @@ $(document).ready(function() {
             layout.cells("b").attachObject("bootContainer2");
 
     		gridMain = new dxGrid(subLayout.cells("a"), false);
-    		gridMain.addHeader({name:"구분",colId:"itemGubn",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"대분류",colId:"itemKind1",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"중분류",colId:"itemKind2",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"소분류",colId:"itemKind3",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"제품코드",colId:"itemCode",width:"10",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"제품명",colId:"itemName",width:"5",align:"left",type:"ro"});
-    		gridMain.addHeader({name:"규격",colId:"itemSpec",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"단위",colId:"itemUnit",width:"5",align:"center",type:"ro"});
-    		gridMain.addHeader({name:"포장단위",colId:"packUnit",width:"5",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"구분",colId:"itemGubn",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"대분류",colId:"itemKind1",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"중분류",colId:"itemKind2",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"소분류",colId:"itemKind3",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"제품코드",colId:"itemCode",width:"150",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"제품명",colId:"itemName",width:"100",align:"left",type:"ro"});
+    		gridMain.addHeader({name:"규격",colId:"itemSpec",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"단위",colId:"itemUnit",width:"100",align:"center",type:"ro"});
+    		gridMain.addHeader({name:"포장단위",colId:"packUnit",width:"100",align:"right",type:"ro"});
     		gridMain.setColSort("str");	
     		gridMain.setUserData("","pk","pCode");
     		gridMain.init(); 

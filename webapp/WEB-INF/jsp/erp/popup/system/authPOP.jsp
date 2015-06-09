@@ -42,16 +42,16 @@ $(document).ready(function(){
 function fn_rdo_onClick() {
   if (userGbn.checked) {
   	gridMst = new dxGrid(subLayout.cells("a"), false);
-      gridMst.addHeader({name:"사용자ID", colId:"multicd", 	width:"50", align:"center", type:"ro"});
-  	gridMst.addHeader({name:"사용자명", 	 colId:"pname", 	width:"49", align:"center", type:"ro"});
+      gridMst.addHeader({name:"사용자ID", colId:"multicd", 	width:"100", align:"center", type:"ro"});
+  	gridMst.addHeader({name:"사용자명", 	 colId:"pname", 	width:"128", align:"center", type:"ro"});
   	gridMst.setColSort("str");
   	gridMst.setUserData("","pk","multicd");
   	gridMst.dxObj.enableMultiselect(true);
   	gridMst.init();
 
   	gridDtl = new dxGrid(subLayout.cells("c"), false);
-  	gridDtl.addHeader({name:"사용자ID", colId:"logid", 	width:"18", align:"center", type:"ro"});
-  	gridDtl.addHeader({name:"사용자명", 	 colId:"personname", 	width:"18", align:"center", type:"ro"});
+  	gridDtl.addHeader({name:"사용자ID", colId:"logid", 	width:"100", align:"center", type:"ro"});
+  	gridDtl.addHeader({name:"사용자명", 	 colId:"personname", 	width:"130", align:"center", type:"ro"});
   	gridDtl.setColSort("str");
   	gridDtl.setUserData("","pk","logid");
   	gridDtl.dxObj.enableMultiselect(true);
