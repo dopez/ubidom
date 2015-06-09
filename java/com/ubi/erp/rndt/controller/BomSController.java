@@ -125,6 +125,21 @@ public class BomSController {
 		
 		BomSService.prcsFrmMainSave(BomS);
 	}
+	@RequestMapping(value = "/prcsBomCopy", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsBomCopy(HttpServletRequest request, HttpServletResponse response,HttpSession session, BomS BomS) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");		
+		String itemCode = request.getParameter("itemCode");
+		String revNo = request.getParameter("revNo");
+		
+		BomS.setSysEmpNo(sysEmpNo);
+		BomS.setCompId(compId);
+		BomS.setItemCode(itemCode);
+		BomS.setRevNo(revNo);
+		
+		BomSService.prcsBomCopy(BomS);
+	}
 	@RequestMapping(value = "/prcsGridDtl", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsGridDtl(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {

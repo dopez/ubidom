@@ -21,4 +21,6 @@ public interface BomSDao {
 
 	void prcsGridDtl(BomS bomS);
 
+	void prcsBomCopy(BomS bomS);
+
 }

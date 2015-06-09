@@ -51,5 +51,9 @@ public class BomSService {
 		}	
 		
 	}
+	public void prcsBomCopy(BomS bomS) {
+		dao.prcsBomCopy(bomS);
+		
+	}
 		
 }

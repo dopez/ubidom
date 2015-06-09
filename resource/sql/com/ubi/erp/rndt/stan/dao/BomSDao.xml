@@ -89,4 +89,14 @@
 		 	)
 		 }	
 	</insert>
+	<insert id="prcsBomCopy" statementType="CALLABLE" >
+		 {call 
+		 	SP_STND_BOMS_COPY(
+		 		#{compId}, 
+		 		#{itemCode},
+		 		#{revNo},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
 </mapper>

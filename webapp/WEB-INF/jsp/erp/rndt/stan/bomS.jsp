@@ -2,7 +2,7 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
         <script type="text/javascript">
 var layout,toolbar,subLayout;
-var gridMst,gridDtl,subLayoutD,subTb;
+var gridMst,gridDtl,subLayoutD,subTb,combo01;
 var calMain;
 var popParam;
 var popFlag;
@@ -68,9 +68,10 @@ var popFlag;
 	   gridDtl.init();
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
        gridDtl.attachEvent("onRowSelect",fn_getMatrPop);
-
+	   
+       
        /*팝업*/
-		$("#empName, #appvEmpName").click(function(e){
+    	$("#empName, #appvEmpName","#btnGjCh").click(function(e){
 			if(e.target.id == "empName"){
 				popParam = e;
 				popFlag = 1;
@@ -81,10 +82,19 @@ var popFlag;
 				popFlag = 2;
 				gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
 			  }
+			if(e.target.id == "btnGjCh"){
+				fn_btnClick();
+			}
 	    })
 	    /*콤보*/
 	    var combo01 = gridDtl.getColumnCombo(1);
 		fn_comboLoad(combo01,gridDtl.getColumnId(2),"J03",1);
+		combo01.attachEvent("onClose",function(){
+               var selIdx = gridDtl.getSelectedRowIndex()
+			   var progColIdx = gridDtl.getColIndexById('prog');
+			   var interCd = combo01.getSelectedText().interCode;
+			   gridDtl.setCells2(selIdx,progColIdx).setValue(interCd);
+		});
 	   //set date//
 	   calMain = new dhtmlXCalendarObject([{input: "gjDate",button: "calpicker1"},{input: "appvlDate",button: "calpicker2"}, {input: "edDate",button: "calpicker3"}]);
 	   calMain.loadUserLanguage("ko");
@@ -94,6 +104,21 @@ var popFlag;
 	   fn_setDblMask();
 	   fn_loadGridItem();
 })
+/*개정변경 버튼 동작*/
+function fn_btnClick(){
+	   var params = {};
+	   params.itemCode = $("#itemCode").val();
+	   params.revNo = $("#gjCode").val();
+	   $.ajax({
+			type:'POST',
+			url:"/erp/rndt/stan/bomS/prcsBomCopy",
+			data:params,
+			success:function(data){
+				//MsgManager.alertMsg("INF001"); 
+				dhtmlx.alert("?");
+		    }
+		});
+}
 /*자재코드 팝업*/
 function fn_getMatrPop(rid,colIdx){
    	  var param = ""
@@ -122,8 +147,8 @@ function fn_setDate(){
    }
 function toolbarOnClick(id){
    if(id == "btn1"){//조회
+	   gridMst.clearAll();
 	   fn_loadGridItem();
-	
 	}
    if(id == "btn2"){//신규
 	   fn_setNew();
@@ -148,7 +173,7 @@ function toolbarOnClick(id){
 	}
 }
 function fn_setNew(){
-	gridMst.clearAll();
+	//gridMst.clearAll();
 	gridDtl.clearAll();
     byId("frmMain").reset();
 	fn_Insert();
@@ -159,7 +184,7 @@ function subToolbarOnClick(id){
 	   fn_saveGridDtl();
 	}
    if(id == "btn4"){//삭제
-
+	   fn_removeGridDtl();
 	}
    if(id == "btn5"){//한줄삽입
 	   fn_addGridDtl();
@@ -174,7 +199,6 @@ function fn_saveGridDtl(){
     $("#jsonData").val(jsonStr);
     var frmParam = $("#frmServer").serialize();
     if (jsonStr == null || jsonStr.length <= 0) return;
-
      $.ajax({
         url: "/erp/rndt/stan/bomS/prcsGridDtl",
         type: "POST",
@@ -210,6 +234,14 @@ function fn_deleteGridDtl(){
    		gridDtl.cs_deleteRow(selectedId);
 	}	
 }
+/*아래 그리드 전체삭제*/
+function fn_removeGridDtl(){
+    var selectedId = gridDtl.getSelectedRowId();
+  	var totalRowNum = gridDtl.getRowsNum();
+    for(var i=1; i<=totalRowNum; i++){
+		 gridDtl.cs_deleteRow(i);
+	}
+}
 /*right form 저장*/
 function fn_frmMainSave(){
 	if($("#itemCode").val() == ""){
@@ -227,9 +259,7 @@ function fn_frmMainSave(){
 function fn_callAjaxFrmMain(){
 	if(gfn_formValidation('frmMain')){
 		var params = gfn_getFormElemntsData('frmMain');
-		console.log(params);
-		  $.ajax(
-		   {
+		  $.ajax({
 			type:'POST',
 			url:"/erp/rndt/stan/bomS/prcsFrmMainSave",
 			data:params,
@@ -258,6 +288,7 @@ function fn_gridMstSelect(id,ind){
 		dhtmlx.alert("제품코드를 선택해주세요")
 		return;
 	}
+	  $("input[name=btnGjCh]").attr("disabled",false);
 	var obj = {};
 	obj.revNo = gridMst.setCells(id,0).getValue();
 	obj.itemCode = $("#itemCode").val();
@@ -275,13 +306,16 @@ function fn_loadFrmMain(obj){
 }
 /*폼 콜백*/
 function fn_loadFrmMainCB(data){
-	console.log(data[0].gjCode);
+	
 }
 /*gridItem 선택 시*/
 function fn_gridItemSelect(id, ind){
 	var obj={};
 	obj.itemCode= gridItem.setCells(id,0).getValue();
 	$("#itemCode").val(obj.itemCode);
+	fn_disInput();
+    $("input[name=btnGjCh]").attr("disabled",true);
+	fn_setNew();
 	fn_loadGridMst(obj);	
 }
 /*gridMst 조회*/
@@ -310,7 +344,33 @@ function fn_gridItemCB(data){
 	var obj = {}
 	obj.itemCode = data[0].pCode;
 	$("#itemCode").val(data[0].pCode);
-	fn_loadGridMst(obj)
+	fn_disInput("disable");
+	//fn_loadGridMst(obj)
+}
+/*제품코드 선택전 폼은 disabled*/
+function fn_disInput(flag){
+	if(flag == "disable"){
+	  $("input[name=gjCode]").attr("disabled",true);
+	  $("input[name=gjDate]").attr("disabled",true);
+	  $("input[name=empName]").attr("disabled",true);
+	  $("input[name=gjCause]").attr("disabled",true);
+	  $("input[name=appvEmpName]").attr("disabled",true);
+	  $("input[name=appvlDate]").attr("disabled",true);
+	  $("input[name=btnGjCh]").attr("disabled",true);
+	  $("input[name=rpWeight]").attr("disabled",true);
+	  $("input[name=adjQty]").attr("disabled",true);
+	  $("input[name=edDate]").attr("disabled",true);
+	}else{
+		$("input[name=gjCode]").attr("disabled",false);
+		  $("input[name=gjDate]").attr("disabled",false);
+		  $("input[name=empName]").attr("disabled",false);
+		  $("input[name=gjCause]").attr("disabled",false);
+		  $("input[name=appvEmpName]").attr("disabled",false);
+		  $("input[name=appvlDate]").attr("disabled",false);
+		  $("input[name=rpWeight]").attr("disabled",false);
+		  $("input[name=adjQty]").attr("disabled",false);
+		  $("input[name=edDate]").attr("disabled",false);
+	}
 }
 /*팝업 닫을 때 */
 function fn_onClosePop(pName,data){
@@ -327,14 +387,16 @@ function fn_onClosePop(pName,data){
             gridDtl.setCells2(selRowIdx, matrNameIdx).setValue(obj.matrName);
         }
     }
-	if (popFlag == 1) {
+	
+	if (pName=="empNo"&& popFlag == 1) {
         for (i = 0; i < data.length; i++) {
             obj.korName = data[i].korName;
             obj.empNo = data[i].empNo;
             $('#empName').val(obj.korName);
             $('#empNo').val(obj.empNo);
         }
-    }else if (popFlag == 2) {
+    }
+	if (pName=="empNo"&& popFlag == 2) {
         for (i = 0; i < data.length; i++) {
             obj.korName = data[i].korName;
             obj.empNo = data[i].empNo;
@@ -378,13 +440,13 @@ function fn_setDateKeyUp(){
 /*콤보박스*/
 function fn_comboLoad(comboId, inputName, params, colIndx) {
     comboId.setTemplate({
-        input: "#interName#",
-        columns: [{
-            header: "종 류",
-            width: 100,
-            option: "#interName#"
-        }]
-    });
+	    input: "#interCode#",
+	    input: "#interName#",
+	    columns: [
+	       {header: "공정코드", width: 100,  option: "#interCode#"},
+		   {header: "공정명",   width: 100,  option: "#interName#"}
+	    ]
+	});
     comboId.enableFilteringMode(true);
     comboId.enableAutocomplete(true);
     comboId.allowFreeText(true);
@@ -402,7 +464,11 @@ function doOnOpen(comboId, params, colIndx) {
         "success": function(data) {
             var list = data;
             for (var i = 0; i < list.length; i++) {
-                comboId.addOption(list[i].interCode, list[i].interName);
+   			 comboId.addOption([
+   			   			  {value: list[i].interCode, text:
+   			   			  {interCode: list[i].interCode,
+   			   			   interName: list[i].interName}}   
+   			   			   ]);
             }
         }
     });

@@ -26,8 +26,8 @@ $(document).ready(function(){
 
 	//우측 그리드 config
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"내부코드",   colId:"interCode", width:"4", align:"center",type:"ed"});
-	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"7", type:"ed"});
+	gridDtl.addHeader({name:"내부코드",   colId:"interCode", width:"10", align:"center",type:"ed"});
+	gridDtl.addHeader({name:"내부코드명", colId:"interName", width:"17", type:"ed"});
 	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"5", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"5", align:"center",type:"ed"});
 	gridDtl.setColSort("str");

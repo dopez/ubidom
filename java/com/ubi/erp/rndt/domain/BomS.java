@@ -38,6 +38,8 @@ public class BomS implements Serializable {
 	private double adjQty;
 	private String edDate;
 	private String appvlDate;
+	private String empName;
+	private String appvEmpName;
 	
 	private String matrName;
 	private String progNaem;
@@ -281,5 +283,17 @@ public class BomS implements Serializable {
 	}
 	public void setAppvlDate(String appvlDate) {
 		this.appvlDate = appvlDate;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public String getAppvEmpName() {
+		return appvEmpName;
+	}
+	public void setAppvEmpName(String appvEmpName) {
+		this.appvEmpName = appvEmpName;
 	}
 }
