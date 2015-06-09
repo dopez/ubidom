@@ -15,11 +15,11 @@ $(document).ready(function(){
 
 	subLayout.cells("b").attachObject("bootContainer2");
 	
-	subLayout.cells("a").setWidth(250);
+	subLayout.cells("a").setWidth(253);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",         colId:"no",        width:"15", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"사업장번호", colId:"compId",    width:"42", align:"center", type:"ro"});
-	gridMain.addHeader({name:"사업장",     colId:"compName",  width:"42", align:"center", type:"ro"});
+	gridMain.addHeader({name:"NO",         colId:"no",        width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"사업장번호", colId:"compId",    width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"사업장",     colId:"compName",  width:"100", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","compId");
 	gridMain.setColSort("str");
 	gridMain.init(); 

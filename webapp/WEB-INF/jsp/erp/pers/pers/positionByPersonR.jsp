@@ -12,56 +12,32 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout();
 
 	layout.cells("b").attachObject("bootContainer");
-// 	POST_CODE, POST_NAME, '18', '12', '13', '14', '15', '16', '21', '23', '31', '41', '51', '81', '11', '62', '63', '64', '82', '17', '10', '84', '73'
-
-// 18    감    사
-// 12    부 사 장
-// 13    전무이사
-// 14    상무이사
-// 15    이    사
-// 16    이사대우
-// 21    본 부 장
-// 23    부    장
-// 31    차    장
-// 41    과    장
-// 51    대    리
-// 81    별 정 직
-// 11    사    장
-// 62    직    장
-// 63    반    장
-// 64    사    원
-// 82    임 시 직
-// 83    주    임
-// 17    고    문
-// 10    회    장
-// 84    계약직
-// 73    계    장
 	grid = new dxGrid(subLayout.cells("a"), false);
-	grid.addHeader({name:"고객코드", colId:"postCode", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"고객명", 	colId:"postName", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont1", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont2", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont3", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont4", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont3", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont5", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont6", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont7", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont8", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont9", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont0", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont10", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont11", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont12", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont13" ,width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont14", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont15", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont16", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont17", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont18", width:"45", align:"right", type:"ro"});
-	grid.addHeader({name:"사업자번호", 	colId:"cont19", width:"45", align:"right", type:"ro"});
+	grid.addHeader({name:"고객코드", colId:"postCode", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"고객명", 	colId:"postName", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont1", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont2", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont3", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont4", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont3", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont5", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont6", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont7", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont8", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont9", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont0", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont10", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont11", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont12", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont13" ,width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont14", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont15", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont16", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont17", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont18", width:"80", align:"right", type:"ro"});
+	grid.addHeader({name:"사업자번호", 	colId:"cont19", width:"80", align:"right", type:"ro"});
 	grid.setColSort("str");
-
+	grid.setUserData("","pk","postCode");
 	grid.init();
 	fn_search();
 });

@@ -14,26 +14,26 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
-	
-	subLayout.cells("a").setWidth(450);
+
+	subLayout.cells("a").setWidth(493);
 	gridMst = new dxGrid(subLayout.cells("a"),false);
-	gridMst.addHeader({name:"NO",           colId:"no", 	    width:"10",  align:"center", type:"cntr"});
-	gridMst.addHeader({name:"사번",         colId:"empNo",      width:"15",  align:"left",   type:"ro"});
-	gridMst.addHeader({name:"성명",         colId:"korName",    width:"15",  align:"left",   type:"ro"});
-    gridMst.addHeader({name:"부서",         colId:"postName",   width:"15",  align:"left",   type:"ro"});
-    gridMst.addHeader({name:"직위",         colId:"jikweeName", width:"15",  align:"left",   type:"ro"});
-    gridMst.addHeader({name:"주민등록번호", colId:"regiNumb",   width:"29",  align:"left",   type:"ro"});
+	gridMst.addHeader({name:"NO",           colId:"no", 	    width:"50",  align:"center", type:"cntr"});
+	gridMst.addHeader({name:"사번",         colId:"empNo",      width:"80",  align:"left",   type:"ro"});
+	gridMst.addHeader({name:"성명",         colId:"korName",    width:"80",  align:"left",   type:"ro"});
+    gridMst.addHeader({name:"부서",         colId:"postName",   width:"80",  align:"left",   type:"ro"});
+    gridMst.addHeader({name:"직위",         colId:"jikweeName", width:"80",  align:"left",   type:"ro"});
+    gridMst.addHeader({name:"주민등록번호", colId:"regiNumb",   width:"120", align:"left",   type:"ro"});
     gridMst.setColSort("str");
     gridMst.setUserData("","pk","no");
     gridMst.init();	
     gridMst.attachEvent("onRowSelect",doOnMstRowSelect);
 
     gridDtl = new dxGrid(subLayout.cells("b"),false);
-    gridDtl.addHeader({name:"NO",        colId:"no", 	      width:"5",  align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"지급/공제", colId:"subjectKind", width:"7",  align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"코드",      colId:"subjectCode", width:"7",  align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"9",  align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"금액",      colId:"payAmt",      width:"9",  align:"right", type:"edn"});
+    gridDtl.addHeader({name:"NO",        colId:"no", 	      width:"50",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"지급/공제", colId:"subjectKind", width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"코드",      colId:"subjectCode", width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"항목명",    colId:"subjectName", width:"100", align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"금액",      colId:"payAmt",      width:"100", align:"right", type:"edn"});
 	gridDtl.setColSort("str");
 	gridDtl.setUserData("","pk","no");
     gridDtlAttachFooter();
