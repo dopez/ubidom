@@ -1,10 +1,10 @@
 function fn_setTab4(){
 	tab4 = new dxGrid(subTabbar.tabs("a4"), false);
-	tab4.addHeader({name:"구분",colId:"",width:"100",align:"center",type:"combo"});
-	tab4.addHeader({name:"당해년도",colId:"",width:"50",align:"center",type:"ed"});
-	tab4.addHeader({name:"#cspan",colId:"",width:"50",align:"center",type:"ed"});
-	tab4.addHeader({name:"Total(MM)",colId:"",width:"150",align:"center",type:"ed"});
-	tab4.addHeader({name:"비고",colId:"",width:"500",align:"center",type:"ed"});
+	tab4.addHeader({name:"구분",colId:"dataKind",width:"100",align:"center",type:"combo"});
+	tab4.addHeader({name:"당해년도",colId:"staff",width:"50",align:"center",type:"ed"});
+	tab4.addHeader({name:"#cspan",colId:"mm",width:"50",align:"center",type:"ed"});
+	tab4.addHeader({name:"Total(MM)",colId:"totMm",width:"150",align:"center",type:"ed"});
+	tab4.addHeader({name:"비고",colId:"remarks",width:"500",align:"center",type:"ed"});
 	tab4.setColSort("str");	
 	tab4.setUserData("","pk","");
 	tab4.atchHeader();
