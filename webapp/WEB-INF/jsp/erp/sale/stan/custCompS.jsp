@@ -19,28 +19,27 @@ $( document ).ready(function() {
 	subLayout.cells("a").setWidth("303");
 
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"고객코드", colId:"custCode", width:"45", align:"center", type:"ro"});
-	gridMst.addHeader({name:"고객명", 	colId:"custKorName", width:"45", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사업자번호", 	colId:"custNumb", width:"45", align:"center", type:"ro"});
+	gridMst.addHeader({name:"고객코드",   colId:"custCode",    width:"100", align:"center", type:"ro"});
+	gridMst.addHeader({name:"고객명", 	  colId:"custKorName", width:"100", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사업자번호", colId:"custNumb",    width:"100", align:"center", type:"ro"});
 	gridMst.setUserData("","pk","custCode");
 	gridMst.setColSort("str");
-
 	gridMst.init();
 
 	gridMst.attachEvent("onRowSelect",doOnRowSelectMst);
 
 	gridDtl = new dxGrid("subGrid", false);
-	gridDtl.addHeader({name:"고객코드", colId:"custCode", width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"사원번호", colId:"empNo", width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"이름", colId:"empName", width:"10", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"직책", 	colId:"jobPosition", width:"19", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"소속", 	colId:"deptName", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"HP번호", 	colId:"hpNo", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"전화", 	colId:"telNo", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"이메일", 	colId:"eMail", width:"10", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"시작일자", 	colId:"startDate", width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"중지일자", 	colId:"stopDate", width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"비고", 	colId:"rmk", width:"10", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"고객코드", colId:"custCode",    width:"80",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"사원번호", colId:"empNo",       width:"80",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"이름",     colId:"empName",     width:"80",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"직책", 	colId:"jobPosition", width:"80",  align:"center", type:"ed"});
+	gridDtl.addHeader({name:"소속", 	colId:"deptName",    width:"80",  align:"center", type:"ed"});
+	gridDtl.addHeader({name:"HP번호", 	colId:"hpNo",        width:"80",  align:"center", type:"ed"});
+	gridDtl.addHeader({name:"전화", 	colId:"telNo",       width:"80",  align:"center", type:"ed"});
+	gridDtl.addHeader({name:"이메일", 	colId:"eMail",       width:"100", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"시작일자", colId:"startDate",   width:"80",  align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"중지일자", colId:"stopDate",    width:"80",  align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"비고", 	colId:"rmk",         width:"180", align:"center", type:"ed"});
 	gridDtl.setUserData("","pk","custCode");
 	gridDtl.setColSort("str");
 
