@@ -31,7 +31,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"70", align:"center",type:"combo"});
  	//gridMain.addHeader({name:"사용구분", colId:"exegbn", width:"5", align:"center",type:"ch"});
 	gridMain.setColSort("str");
-	gridMain.setUserData("","pk","menucd");
+	gridMain.setUserData("","pk","seq");
 	gridMain.enableDragAndDrop(true);
 	gridMain.init();
 
