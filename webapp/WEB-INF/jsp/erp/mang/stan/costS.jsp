@@ -14,12 +14,11 @@
 
                 layout.cells("b").attachObject("bootContainer");
 
-
                 subLayout.cells("a").setWidth(303);
             	gridFst = new dxGrid(subLayout.cells("a"), false);
-            	gridFst.addHeader({name:"품목코드", colId:"itemCode", width:"30", align:"left", type:"ro"});
-            	gridFst.addHeader({name:"품목명", 	colId:"itemName", width:"35", align:"left", type:"ro"});
-            	gridFst.addHeader({name:"품목규격", 	colId:"itemSpec", width:"35", align:"left", type:"ro"});
+            	gridFst.addHeader({name:"품목코드", colId:"itemCode", width:"80", align:"left", type:"ro"});
+            	gridFst.addHeader({name:"품목명", 	colId:"itemName", width:"80", align:"left", type:"ro"});
+            	gridFst.addHeader({name:"품목규격", 	colId:"itemSpec", width:"80", align:"left", type:"ro"});
             	gridFst.setUserData("","pk","itemCode");
             	gridFst.setColSort("str");
                 gridFst.init();
@@ -30,26 +29,27 @@
 				gridScd.addHeader({name:"거래처코드", colId:"custCode", width:"80", align:"left", type:"ro"});
 				gridScd.addHeader({name:"거래처명", colId:"custName", width:"80", align:"left", type:"ro"});
 				gridScd.addHeader({name:"통화단위", colId:"mnyEa", width:"80", align:"left", type:"combo"});
-				gridScd.addHeader({name:"단가", 	colId:"prc", width:"80", align:"left", type:"ed"});
+				gridScd.addHeader({name:"단가", 	colId:"prc", width:"80", align:"right", type:"edn"});
 				gridScd.addHeader({name:"적용일자", 	colId:"pstDate", width:"80", align:"left", type:"dhxCalendarA"});
-				gridScd.setUserData("","pk","custCode");
+				gridScd.setUserData("","pk","custName");
 				gridScd.setColSort("str");
                 gridScd.init();
+
                 gridScd.cs_setColumnHidden(["ioChk","bigo","pendDate","itemCode"]);
 
                 gridScd.attachEvent("onRowSelect",doOnRowSelectScd);
 
                 gridThd = new dxGrid(subLayout.cells("c"), false);
-                gridThd.addHeader({name:"통화단위", colId:"mnyEa", width:"10", align:"center", type:"ro"});
-                gridThd.addHeader({name:"단가", colId:"prc", width:"10", align:"center", type:"ro"});
-                gridThd.addHeader({name:"시작일자", colId:"pstDate", width:"10", align:"center", type:"ro"});
-                gridThd.addHeader({name:"종료일자", 	colId:"pendDate", width:"19", align:"center", type:"ro"});
-                gridScd.setUserData("","pk","mnyEa");
+                gridThd.addHeader({name:"통화단위", colId:"mnyEa", width:"80", align:"center", type:"ro"});
+                gridThd.addHeader({name:"단가", colId:"prc", width:"80", align:"center", type:"ro"});
+                gridThd.addHeader({name:"시작일자", colId:"pstDate", width:"100", align:"center", type:"ro"});
+                gridThd.addHeader({name:"종료일자", 	colId:"pendDate", width:"100", align:"center", type:"ro"});
+                gridThd.setUserData("","pk","mnyEa");
                 gridThd.setColSort("str");
                 gridThd.init();
 
                 fn_search();
-                fn_startSetCombo();
+                fn_comboLoad();
 
                 $('input[name=itemDiv],input[name=ioChk]', '#frmSearch').change(function() {
                 	fn_search();
@@ -57,8 +57,8 @@
             })
 
 			function fn_search(){
-				gridScd.dxObj.clearAll();
-				gridThd.dxObj.clearAll();
+				gridScd.clearAll();
+				gridThd.clearAll();
 				if(!$("input[name='itemName2'], #frmSearch ").val().length){
 					$("input[name='itemName'], #frmSearch ").val("%");
 				}else{
@@ -69,11 +69,13 @@
 			}
 
 			function doOnRowSelectFst(id,ind){
-				gridThd.dxObj.clearAll();
+				gridThd.clearAll();
 				var obj = {};
+
 				obj.itemDiv =  $('input[name=itemDiv]:checked', '#frmSearch').val();
 				obj.ioChk =  $('input[name=ioChk]:checked', '#frmSearch').val();
-				obj.itemCode= gridFst.setCells(id,0).getValue();
+				var itemCodeColIdx = gridFst.getColIndexById('itemCode');
+				obj.itemCode= gridFst.setCells(id,itemCodeColIdx).getValue();
 				gfn_callAjaxForGrid(gridScd,obj,"searchB",subLayout.cells("b"));
 
 			}
@@ -147,40 +149,31 @@
 	        		}
 	        	};
 	         }
-	        function fn_comboLoad(comboId,inputName,params,colIndx){
-	        	comboId.setTemplate({
+	        function fn_comboLoad(){
+
+	        	var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
+	        	var combo01 = gridScd.getColumnCombo(mnyEaColIdx);
+	          	var obj={};
+
+	        	combo01.setTemplate({
 	        	    input: "#interName#",
 	        	    columns: [
 	        		   {header: "구 분",   width: 100,  option: "#interName#"}
 	        	    ]
 	        	});
-	        	comboId.enableFilteringMode(true);
-	        	comboId.enableAutocomplete(true);
-	        	comboId.allowFreeText(true);
-	        	var obj={};
-	        	obj.compId = '100';
-	        	obj.code = params;
-	        	doOnOpen(comboId,obj,colIndx);
-	        }
-	        function doOnOpen(comboId,params,colIndx){
-	    		$.ajax({
-	    			"url":"/erp/cmm/InterCodeR",
-	    			"type":"post",
-	    			"data":params,
-	    			"success" : function(data){
-	    			  var list = data;
-	    			  for(var i=0;i<list.length;i++){
-	    				  comboId.addOption(list[i].interCode,list[i].interName);
-	    			    }
-	    			}
-	    	  });
-	    	}
-	        function fn_startSetCombo(){
-	        	var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
-	        	var combo01 = gridScd.getColumnCombo(mnyEaColIdx);
-	        	fn_comboLoad(combo01,gridScd.getColumnId(mnyEaColIdx),"C01",mnyEaColIdx);
-	        }
 
+	        	combo01.enableFilteringMode(true);
+	        	combo01.enableAutocomplete(true);
+	        	combo01.allowFreeText(true);
+
+	        	obj.compId = '100';
+	        	obj.code = "C01";
+
+	        	var rtnVal = gfn_callAjaxComm(obj,"/erp/cmm/InterCodeR");
+  			    for(var i=0;i<rtnVal.length;i++){
+				    combo01.addOption(rtnVal[i].interCode,rtnVal[i].interName);
+			    }
+	        }
         </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
@@ -190,6 +183,21 @@
 <div id="bootContainer" style="position: relative; width: 100%; height: 100%;">
     <div class="container">
         <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
+             <div class="row">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-8 col-md-8">
+                        <label class=" col-sm-2 col-md-2 control-label" for="textinput">
+                            품목명
+                        </label>
+                        <div class="col-sm-2 col-md-2">
+                            <div class="col-sm-12 col-md-12">
+                                <input name="itemName2" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input type="hidden" name="itemName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
@@ -218,26 +226,7 @@
                 </div>
             </div>
             </div>
-            <div class="row">
-                <div class="form-group form-group-sm">
-                    <div class="col-sm-8 col-md-8">
-                        <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                            품목명
-                        </label>
-                        <div class="col-sm-4 col-md-4">
-                            <div class="col-sm-10 col-md-10">
-                                <input name="itemName2" type="text" value="" placeholder="" class="form-control input-xs">
-                                <input type="hidden" name="itemName">
-                            </div>
-                            <div class="col-sm-2 col-md-2">
-                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch" onclick="gfn_load_popup('품목코드','common/itemCodePOP');">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </form>
     </div>
 </div>

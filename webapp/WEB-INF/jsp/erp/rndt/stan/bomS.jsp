@@ -75,8 +75,16 @@ var popFlag;
        $("#btnGjCh").on("click",function(){
     	   fn_btnClick();
        })
+       $("#empName").on("click",function(){
+			popFlag = 1;
+			gfn_load_pop('w1','common/empPOP',true,{"empName":$(this).val()});
+       })
+       $("#appvEmpName").on("click",function(){
+			popFlag = 2;
+			gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
+       })
        /*팝업*/
-    	$("#empName, #appvEmpName","#btnGjCh").click(function(e){
+/*     	$("#empName, #appvEmpName","#btnGjCh").click(function(e){
 			if(e.target.id == "empName"){
 				popParam = e;
 				popFlag = 1;
@@ -87,11 +95,11 @@ var popFlag;
 				popFlag = 2;
 				gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
 			  }
-/* 			if(e.target.id == "btnGjCh"){
+ 			if(e.target.id == "btnGjCh"){
 				alert("hi");
 				fn_btnClick();
-			} */
-	    })
+			}
+	    }) */
 	    /*콤보*/
 	    var combo01 = gridDtl.getColumnCombo(1);
 		fn_comboLoad(combo01,gridDtl.getColumnId(2),"J03",1);
@@ -317,9 +325,13 @@ function fn_loadFrmMainCB(data){
 }
 /*gridItem 선택 시*/
 function fn_gridItemSelect(id, ind){
+	var v = gridItem.setCells(id,0).getValue();
 	var obj={};
 	obj.itemCode= gridItem.setCells(id,0).getValue();
-	$("#itemCode").val(obj.itemCode);
+	console.log(v);
+	byId("itemCode").value = v;
+	$("#itemCode").val(v);
+	$("input[name=itemCode]").val(v);
 	fn_disInput();
     $("input[name=btnGjCh]").attr("disabled",true);
 	fn_setNew();
@@ -330,8 +342,9 @@ function fn_loadGridMst(obj){
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSel",subLayoutLeftGrid,fn_loadGridMstCallBck);
 }
 /*gridMst 조회 콜백*/
-function fn_loadGridMstCallBck(){
-	fn_setDateKeyUp();	
+function fn_loadGridMstCallBck(data){
+	//console.log("data = ",data[0]);
+	fn_setDateKeyUp();
 }
 /*제품 그리드 조회*/
 function fn_loadGridItem(){
@@ -350,9 +363,9 @@ function fn_loadGridItem(){
 function fn_gridItemCB(data){
 	var obj = {}
 	obj.itemCode = data[0].pCode;
-	$("#itemCode").val(data[0].pCode);
+	//$("#itemCode").val(data[0].pCode);
 	fn_disInput("disable");
-	//fn_loadGridMst(obj)
+	fn_loadGridMst(obj)
 }
 /*제품코드 선택전 폼은 disabled*/
 function fn_disInput(flag){
@@ -509,7 +522,7 @@ function doOnOpen(comboId, params, colIndx) {
 <div id="bootContainer2">
     <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
     <input type="hidden" id="cudKey" name="cudKey" />
-	<input name="itemCode" id="itemCode" type="hidden"/>
+	<!-- <input name="itemCode" id="itemCode" type="hidden"/> -->
 	<input name="empNo" id="empNo" type="hidden"/>
 	<input name="appvEmpNo" id="appvEmpNo" type="hidden"/>
 	<input name="rmk" id="rmk" type="hidden"/>
@@ -580,6 +593,9 @@ function doOnOpen(comboId, params, colIndx) {
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker3" class="calicon form-control">
                             </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+<input name="itemCode" id="itemCode" type="text"/>
                         </div>
                     </div>
                 </div>
