@@ -19,6 +19,8 @@
 		 	SP_STND_BOMR_SCH(
 		 		#{V_COMP_ID},
 		 		#{V_ITEM_CODE},
+		 		#{V_ITEM_NAME},
+		 		#{V_REV_NO},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=BomRMap, javaType=ResultSet}
 		 	)
 		 }	
