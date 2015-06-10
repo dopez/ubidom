@@ -26,7 +26,7 @@ public class CostS implements Serializable{
 	private String mnyEa;
 	private String bigo;
 
-	private String crud;
+	private String cudKey;
 	private String sysEmpNo;
 
 	public String getItemCode() {
@@ -101,12 +101,7 @@ public class CostS implements Serializable{
 	public void setBigo(String bigo) {
 		this.bigo = bigo;
 	}
-	public String getCrud() {
-		return crud;
-	}
-	public void setCrud(String crud) {
-		this.crud = crud;
-	}
+
 	public String getSysEmpNo() {
 		return sysEmpNo;
 	}
@@ -115,6 +110,12 @@ public class CostS implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getCudKey() {
+		return cudKey;
+	}
+	public void setCudKey(String cudKey) {
+		this.cudKey = cudKey;
 	}
 
 

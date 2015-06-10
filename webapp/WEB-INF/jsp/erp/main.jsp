@@ -222,7 +222,7 @@ var fncSelectItem = function(tree, id) {
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
 			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
-
+			  console.log(uri);
 			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 
