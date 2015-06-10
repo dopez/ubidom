@@ -16,12 +16,12 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",        colId:"no",       width:"3",  align:"center", type:"cntr"});
-	gridMain.addHeader({name:"일자",      colId:"dd",       width:"4",  align:"center", type:"ro"});
-	gridMain.addHeader({name:"요일",      colId:"dayWeek",  width:"5",  align:"center", type:"ro"});
-	gridMain.addHeader({name:"평일/휴무", colId:"holyKnd",  width:"7",  align:"center", type:"combo"});
-	gridMain.addHeader({name:"근무시간",  colId:"workTime", width:"5",  align:"center", type:"ed"});
-	gridMain.addHeader({name:"내역",      colId:"note",     width:"15", align:"left",   type:"ed"});
+	gridMain.addHeader({name:"NO",        colId:"no",       width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"일자",      colId:"dd",       width:"50",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"요일",      colId:"dayWeek",  width:"50",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"평일/휴무", colId:"holyKnd",  width:"70",  align:"center", type:"combo"});
+	gridMain.addHeader({name:"근무시간",  colId:"workTime", width:"70",  align:"center", type:"ed"});
+	gridMain.addHeader({name:"내역",      colId:"note",     width:"250", align:"left",   type:"ed"});
 	gridMain.setUserData("","pk","no");
 	gridMain.setColSort("str");
 	gridMain.init(); 

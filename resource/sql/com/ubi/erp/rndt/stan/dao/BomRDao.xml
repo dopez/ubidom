@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.rndt.dao.BomRDao">
+
+<resultMap type="BomR" id="BomRMap"/>
+
+	<select id="selItemCodePop" statementType="CALLABLE" >
+		 {call 
+		 	SP_COMM_ITEMCODEPOP_SCH(
+		 		#{V_COMPID},
+		 		#{V_ITEM_NAME},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=BomRMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selGridMain" statementType="CALLABLE" >
+		 {call
+		 	SP_STND_BOMR_SCH(
+		 		#{V_COMP_ID},
+		 		#{V_ITEM_CODE},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=BomRMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+</mapper>

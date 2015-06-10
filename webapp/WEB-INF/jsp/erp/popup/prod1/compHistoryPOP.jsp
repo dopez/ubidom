@@ -8,7 +8,7 @@ var toolbar;
 var config={
 		title:"부품코드",
 		id:"partCode",
-		width:"400",
+		width:"380",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -21,9 +21,9 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"부품코드", colId:"partCode", width:"11", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부품명",   colId:"partName", width:"11", align:"center", type:"ro"});
-	gridMain.addHeader({name:"규격",     colId:"partSpec", width:"15", align:"center", type:"ro"});
+    gridMain.addHeader({name:"부품코드", colId:"partCode", width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"부품명",   colId:"partName", width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"partSpec", width:"160", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","partCode");
 	gridMain.setColSort("str");
 	gridMain.init();

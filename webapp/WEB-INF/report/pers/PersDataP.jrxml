@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-06-04T09:13:17 -->
+<!-- 2015-06-09T12:53:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersDataP" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ceko"/>
@@ -9,6 +9,12 @@
 	<parameter name="SubUrl1" class="java.lang.String"/>
 	<parameter name="SubData2" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="SubUrl2" class="java.lang.String"/>
+	<parameter name="fis" class="java.io.FileInputStream">
+		<parameterDescription><![CDATA[fis]]></parameterDescription>
+	</parameter>
+	<parameter name="os" class="java.io.FileOutputStream">
+		<parameterDescription><![CDATA[os]]></parameterDescription>
+	</parameter>
 	<field name="empNo" class="java.lang.String"/>
 	<field name="korName" class="java.lang.String"/>
 	<field name="engName" class="java.lang.String"/>
@@ -542,7 +548,7 @@
 					<font fontName="HY중고딕"/>
 					<paragraph leftIndent="2" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bldKind}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{bldKind}.startsWith("0") ? "정상" : "비정상")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="common" x="266" y="128" width="20" height="64" uuid="5e73ebe6-3859-441a-88bd-d79d2b15cf9f">
@@ -879,7 +885,7 @@
 					<font fontName="HY중고딕"/>
 					<paragraph leftIndent="2" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{armyMerit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{armyMerit}.startsWith("0") ? "비보훈대상" : "보훈대상")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="common" x="0" y="208" width="20" height="112" uuid="3bcddcdd-1a25-47c3-91d4-9abee32bfaad">
@@ -1986,7 +1992,7 @@
 					<font fontName="HY중고딕"/>
 					<paragraph leftIndent="2" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{disorderCont}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{disorderCont}.startsWith("0") ? "무" : "유")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="common" x="422" y="80" width="132" height="16" uuid="fed127ef-f11a-4240-b18c-b36bc957e468">
@@ -2021,7 +2027,7 @@
 					<rightPen lineWidth="0.3" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<image hAlign="Center" vAlign="Middle">
-					<reportElement style="common" x="30" y="2" width="70" height="93" uuid="75a912da-1bc3-46ce-8533-696c9a3e6f59">
+					<reportElement style="common" x="15" y="2" width="100" height="93" uuid="75a912da-1bc3-46ce-8533-696c9a3e6f59">
 						<property name="local_mesure_unitheight" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="local_mesure_unitwidth" value="pixel"/>
@@ -2035,6 +2041,7 @@
 						<bottomPen lineWidth="0.3" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.3" lineStyle="Solid" lineColor="#000000"/>
 					</box>
+					<imageExpression><![CDATA[$P{fis}]]></imageExpression>
 				</image>
 			</frame>
 		</band>

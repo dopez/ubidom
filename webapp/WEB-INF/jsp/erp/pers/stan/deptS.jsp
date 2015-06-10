@@ -12,10 +12,10 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
-	subLayout.cells("a").setWidth(250);
+	subLayout.cells("a").setWidth(253);
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"49", align:"center", type:"ro"});
-	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"49", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서코드", colId:"postCode", width:"100", align:"center", type:"ro"});
+	gridMst.addHeader({name:"부서명", 	colId:"postName", width:"150", align:"center", type:"ro"});
 	gridMst.setUserData("","pk","postCode");
 	gridMst.setColSort("str");
 	gridMst.init(); 
@@ -23,12 +23,12 @@ $(document).ready(function(){
 	fn_loadGridListCode(1);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO",       colId:"no",       width:"5",  align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"10", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"시작일",   colId:"stDate",   width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"종료일", 	colId:"endDate",  width:"10", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"10", align:"left",   type:"ed"});
-	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"10", align:"left",   type:"combo"});
+	gridDtl.addHeader({name:"NO",       colId:"no",       width:"50", align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"부서코드", colId:"postCode", width:"90", align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"시작일",   colId:"stDate",   width:"90", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"종료일", 	colId:"endDate",  width:"90", align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"부서명",   colId:"postName", width:"90", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"원가구분", colId:"costKind", width:"90", align:"left",   type:"combo"});
 	gridDtl.setUserData("","pk","postCode");
 	gridDtl.dxObj.setUserData("","@stDate","format_date");
 	gridDtl.dxObj.setUserData("","@endDate","format_date"); 

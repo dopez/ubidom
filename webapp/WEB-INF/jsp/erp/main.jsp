@@ -20,7 +20,6 @@ var mainMenu;
 var leftForm;
 var leftToolbar;
 var scrnParm;
-var urlId;
 $( document ).ready(function() {
 
 	mainLayout = new dhtmlXLayoutObject({
@@ -208,7 +207,7 @@ var fncSelectItem = function(tree, id) {
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
 		scrnParm = tree.getUserData(id, "scrnParm");
-
+		
 		var menuItemText = tree.getDxObj().getItemText(id);
 
 		mainTabbar.forEachTab(function(tab){

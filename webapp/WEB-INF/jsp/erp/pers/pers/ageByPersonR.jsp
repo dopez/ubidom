@@ -17,20 +17,21 @@ $(document).ready(function(){
 
 
 	grid = new dxGrid(subLayout.cells("a"), false);
-	grid.addHeader({name:"NO",       colId:"no",       width:"5",  align:"right", type:"cntr"});
-	grid.addHeader({name:"부서명", colId:"postName", width:"10", align:"left", type:"ro"});
-	grid.addHeader({name:"20세이하",   colId:"one",   width:"10", align:"right", type:"dhxCalendarA"});
-	grid.addHeader({name:"21~15", 	colId:"two",  width:"10", align:"right", type:"dhxCalendarA"});
-	grid.addHeader({name:"26~30",   colId:"three", width:"10", align:"right", type:"ed"});
-	grid.addHeader({name:"31~35",   colId:"four", width:"10", align:"right", type:"ed"});
-	grid.addHeader({name:"36~40",   colId:"five", width:"10", align:"right", type:"ed"});
-	grid.addHeader({name:"41~45",   colId:"six", width:"10", align:"right", type:"ed"});
-	grid.addHeader({name:"46~50", colId:"seven", width:"10", align:"right", type:"combo"});
-	grid.addHeader({name:"56~60",  colId:"eight", width:"10", align:"right", type:"combo"});
-	grid.addHeader({name:"61세이상", colId:"nine", width:"10", align:"right", type:"combo"});
-	grid.addHeader({name:"합계", colId:"ten", width:"10", align:"right", type:"combo"});
-	grid.addHeader({name:"평균", colId:"costKind", width:"10", align:"right", type:"combo"});
+	grid.addHeader({name:"NO",       colId:"no",       width:"50",  align:"right", type:"cntr"});
+	grid.addHeader({name:"부서명", colId:"postName", width:"80", align:"left", type:"ro"});
+	grid.addHeader({name:"20세이하",   colId:"one",   width:"80", align:"right", type:"dhxCalendarA"});
+	grid.addHeader({name:"21~15", 	colId:"two",  width:"80", align:"right", type:"dhxCalendarA"});
+	grid.addHeader({name:"26~30",   colId:"three", width:"80", align:"right", type:"ed"});
+	grid.addHeader({name:"31~35",   colId:"four", width:"80", align:"right", type:"ed"});
+	grid.addHeader({name:"36~40",   colId:"five", width:"80", align:"right", type:"ed"});
+	grid.addHeader({name:"41~45",   colId:"six", width:"80", align:"right", type:"ed"});
+	grid.addHeader({name:"46~50", colId:"seven", width:"80", align:"right", type:"combo"});
+	grid.addHeader({name:"56~60",  colId:"eight", width:"80", align:"right", type:"combo"});
+	grid.addHeader({name:"61세이상", colId:"nine", width:"80", align:"right", type:"combo"});
+	grid.addHeader({name:"합계", colId:"ten", width:"80", align:"right", type:"combo"});
+	grid.addHeader({name:"평균", colId:"costKind", width:"80", align:"right", type:"combo"});
 	grid.setUserData("","pk","postCode");
+	grid.setColSort("str");
 // 	grid.attachFooter(",연령합계,,,,,,,,,"+
 //     ",,,");
 

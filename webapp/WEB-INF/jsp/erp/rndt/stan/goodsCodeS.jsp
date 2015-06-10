@@ -15,11 +15,11 @@ $(document).ready(function(){
 		layout.cells("b").attachObject("bootContainer2");
 		
 		//left grid
-		subLayout.cells("a").setWidth("252");
+		subLayout.cells("a").setWidth("300");
 		
 		gridMain = new dxGrid(subLayout.cells("a"), false);
-		gridMain.addHeader({name:"제품코드",colId:"pCode",width:"50",align:"center",type:"ro"});
-		gridMain.addHeader({name:"제품명",colId:"pName",width:"50",align:"center",type:"ro"});
+		gridMain.addHeader({name:"제품코드",colId:"pCode",width:"150",align:"center",type:"ro"});
+		gridMain.addHeader({name:"제품명",colId:"pName",width:"147",align:"left",type:"ro"});
 		gridMain.setColSort("str");	
 		gridMain.setUserData("","pk","pCode");
 		gridMain.init(); 
@@ -170,9 +170,15 @@ function fn_saveFrmCallbck(){
 }
 //삭제 버튼 동작
 function fn_remove() {
-    $('#cudKey').val('DELETE');
     var rodid = gridMain.getSelectedRowId();
-    gridMain.cs_deleteRow(rodid);
+    if(rodid == "" || rodid ==null){
+    	dhtmlx.alert("삭제할 행을 선택하세요");
+    	return;
+    }else{
+    	$('#cudKey').val('DELETE');
+    	gridMain.cs_deleteRow(rodid);
+    	fn_save();
+    }
 }
 
 function fn_comboValid(comboId, name) {

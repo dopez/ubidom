@@ -17,8 +17,8 @@ $(document).ready(function(){
     //left grid//
     subLayout.cells("a").setWidth(253);
 	gridMst = new dxGrid(subLayout.cells("a"),false);
-	gridMst.addHeader({name:"설비코드",colId:"equiCode",width:"50",align:"center",type:"ro"});
-	gridMst.addHeader({name:"설비명",colId:"equiName",width:"49",align:"center",type:"ro"});
+	gridMst.addHeader({name:"설비코드",colId:"equiCode",width:"103",align:"center",type:"ro"});
+	gridMst.addHeader({name:"설비명",colId:"equiName",width:"150",align:"left",type:"ro"});
 	gridMst.setUserData("","pk","");
 	gridMst.setColSort("str");
 	gridMst.init();
@@ -29,18 +29,18 @@ $(document).ready(function(){
 
     subLayout.cells("c").setText("증착조건");
     gridDtl = new dxGrid(subLayout.cells("c"),false);
-    gridDtl.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"cntr"});
-    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"5",align:"center",type:"ro"});
-    gridDtl.addHeader({name:"온도",colId:"temperature",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"두께",colId:"thickness",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"Rate",colId:"rate",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"5",align:"center",type:"ed"});
-    gridDtl.addHeader({name:"방식",colId:"method",width:"5",align:"center",type:"ed"});
-    //gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"5",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"cntr"});
+    gridDtl.addHeader({name:"모재",colId:"matrCodeMjName",width:"100",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"약품명",colId:"matrName",width:"100",align:"center",type:"ro"});
+    gridDtl.addHeader({name:"온도",colId:"temperature",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"진공도",colId:"vacuumRate",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"에칭",colId:"etching1",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"어시스트",colId:"assist",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"두께",colId:"thickness",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"Rate",colId:"rate",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"100",align:"center",type:"ed"});
+    gridDtl.addHeader({name:"방식",colId:"method",width:"100",align:"center",type:"ed"});
+    //gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"100",align:"center",type:"ed"});
     gridDtl.setUserData("","pk","rNum");
     gridDtl.setColSort("str");
     gridDtl.init();
@@ -197,6 +197,7 @@ function fn_setSaveParams(){
 		   
 }
 function fn_search(){
+	
 	fn_getEquiCode();
 }
 

@@ -4,8 +4,6 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
-var urlId = parent.urlId;
-var mainMenu = parent.mainMenu;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//부품코드조회
@@ -18,16 +16,16 @@ $(document).ready(function(){
 	
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",         width:"5",  align:"center", type:"cntr"});
-	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"7",  align:"left",   type:"ro"});
-	gridMain.addHeader({name:"비고",     colId:"rmk",        width:"15", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"부품코드", colId:"partCode",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부품명",   colId:"partName",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"partSpec",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"단위",     colId:"partUnit",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"비고",     colId:"rmk",        width:"150", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+	
 	$("#partCode").keyup(function(e) {
     	if(e.target.id == "partCode"){
     		 gridMain.filterBy(1,byId("partCode").value);
@@ -35,17 +33,12 @@ $(document).ready(function(){
 	 });
 
 });
-function doOnRowDblClicked(rId,cInd){
-	alert(urlId);
-	mainMenu.getDxObj().selectItem(urlId-1);
-};
 function fn_search(){
     fn_loadGridMain();
 }
 function fn_loadGridMain() {
 	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
-
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }

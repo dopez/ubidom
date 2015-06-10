@@ -5,32 +5,54 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
+var config={
+		title:"품목코드",
+		id:"itemCode",
+		width:"300",
+		height:"500"
+	}
 $(document).ready(function(){
 	Ubi.setContainer(1,[1],"1C");
-	//품목 도우미
+	//제품코드 팝업
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout(); 
     
     layout.cells("b").attachObject("bootContainer");
     
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("품목코드,품목명,규격",null,
-			["text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100");
-	gridMain.setColAlign("left,left,left");
-	gridMain.setColTypes("ro,ro,ro");
-	gridMain.setColSorting("str,str,str");
-	gridMain.init(); 
+    gridMain = new dxGrid(subLayout.cells("a"), false);
+    gridMain.addHeader({name:"품목코드",   colId:"itemCode", 	width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"품목명", colId:"itemName", width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격", colId:"itemSpec", width:"140", align:"center", type:"ro"});
+	gridMain.setUserData("","pk","itemCode");
+	gridMain.init();
+	fn_search();
 });
+ function fn_search(){
+	 var params = "itemName=" + $("#itemName").val();
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/rndt/stan/bomR/itemCodePop",subLayout.cells("a"),fn_loadGridListCodeCB);
+}
+//fn_loadGridListCode callback 함수
+function fn_loadGridListCodeCB() {
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+};
+
+function doOnRowDblClicked(rId,cInd){
+	  var row = rId-1;
+	  var cell = cInd;
+	  var itemCode = gridMain.setCells2(row,0).getValue();
+	  var itemName = gridMain.setCells2(row,1).getValue();
+	  var arr = [{"itemCode":itemCode,"itemName":itemName}];
+	  parent.fn_onClosePop(config.id,arr);
+	  parent.dhxWins.window("w1").close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
-		   <label class="col-xs-4 control-label" id="poplabel" for="textinput">
-			 품목명
+		   <label class="col-xs-4 control-label"  id="poplabel"for="textinput">
+			 사원명
 			</label>
 			<div class="col-xs-6">
 			  <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">

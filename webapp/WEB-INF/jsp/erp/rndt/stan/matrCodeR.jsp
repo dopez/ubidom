@@ -16,13 +16,13 @@ $(document).ready(function() {
     
     //grid
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"자재구분",colId:"matrGubn",width:"5",align:"center",type:"ron"});
-	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"7",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재명",colId:"matrName",width:"10",align:"center",type:"ro"});
-	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"10",align:"center",type:"ro"});
-    gridMain.addHeader({name:"포장단위",	colId:"packUnit", width:"6", align:"right", type:"ron"});
-    gridMain.addHeader({name:"발주단위",	colId:"morderUnit", width:"6", align:"right", type:"ron"});
-    gridMain.addHeader({name:"입고단위",	colId:"inputUnit", width:"6", align:"right", type:"ron"});
+	gridMain.addHeader({name:"자재구분",colId:"matrGubn",width:"100",align:"center",type:"ron"});
+	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재명",colId:"matrName",width:"150",align:"center",type:"ro"});
+	gridMain.addHeader({name:"자재규격",colId:"matrSpec",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"포장단위",	colId:"packUnit", width:"100", align:"right", type:"ron"});
+    gridMain.addHeader({name:"발주단위",	colId:"morderUnit", width:"100", align:"right", type:"ron"});
+    gridMain.addHeader({name:"입고단위",	colId:"inputUnit", width:"100", align:"right", type:"ron"});
     gridMain.setColSort("str");
     gridMain.setUserData("","pk","matrCode");
     gridMain.init();

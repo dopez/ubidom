@@ -14,15 +14,15 @@ $(document).ready(function(){
 	layout.cells("b").attachObject("bootContainer");
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",         width:"5", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"입사일",   colId:"enterDate",  width:"7", align:"center", type:"ro"});
-	gridMain.addHeader({name:"부서코드", colId:"postCode",   width:"7", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"부서명",   colId:"postName",   width:"7", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"직위", 	 colId:"jikweeName", width:"7", align:"left",   type:"ro"});	
-	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"7", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",    width:"7", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"퇴직일",   colId:"retireDate", width:"7", align:"center", type:"ro"});
-	gridMain.addHeader({name:"주민번호", colId:"regiNumb",   width:"7", align:"left",   type:"ro"});	
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"50",  align:"center", type:"cntr"});
+	gridMain.addHeader({name:"입사일",   colId:"enterDate",  width:"80",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"부서코드", colId:"postCode",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부서명",   colId:"postName",   width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"직위", 	 colId:"jikweeName", width:"80",  align:"left",   type:"ro"});	
+	gridMain.addHeader({name:"사번",     colId:"empNo",      width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",    width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"퇴직일",   colId:"retireDate", width:"80",  align:"center", type:"ro"});
+	gridMain.addHeader({name:"주민번호", colId:"regiNumb",   width:"120", align:"left",   type:"ro"});	
 	gridMain.setUserData("","pk","postCode");
 	gridMain.dxObj.setUserData("","@enterDate","format_date");
 	gridMain.dxObj.setUserData("","@retireDate","format_date");

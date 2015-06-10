@@ -23,12 +23,12 @@ $(document).ready(function(){
 	
 	subLayout.cells("b").attachObject("bootContainer2");
 	
-	subLayout.cells("a").setWidth(300);
+	subLayout.cells("a").setWidth(303);
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"NO",       colId:"no",       width:"15", align:"center", type:"cntr"});
-	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"35", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"성명",     colId:"korName",  width:"25", align:"left",   type:"ro"});
-	gridMain.addHeader({name:"부서",     colId:"postName", width:"25", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"NO",       colId:"no",       width:"50", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"사원번호", colId:"empNo",    width:"70", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",  width:"90", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"부서",     colId:"postName", width:"90", align:"left",   type:"ro"});
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
@@ -104,9 +104,20 @@ $(document).ready(function(){
 	byId("cudKey").value = "INSERT";
 	fn_search();
 });
+$(window).resize(function(){
+var h = $(window).height();
+var w = $(window).width();
+	if(w<1300){
+		$('#bootContainer2').css("overflow-x",'scroll');
+	}
+	if(h<400){
+		$('#bootContainer2').css("overflow-y",'scroll');
+	}
+});
+
 function fileUploadCB(data){
 	fn_save();
-}
+};
 
  function fn_comboSet(comboId,params,tagName){
 	comboId.setTemplate({
@@ -308,7 +319,7 @@ function fn_onClosePop(pName,data){
   </form>
  </div> 
 </div>
-<div id="bootContainer2" style="position: relative; width: 100%; height: 100%;">
+<div id="bootContainer2" style="position: relative; width: 100%; height: 100%;" >
   <div class="container">	
 	<form class="form-horizontal" id="frmMain" name="frmMain" enctype="multipart/form-data" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 	  <input type="hidden" id="cudKey" name="cudKey" />

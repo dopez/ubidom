@@ -22,11 +22,11 @@ $(document).ready(function() {
 
     //grid	
     gridMain = new dxGrid(subLayout.cells("a"),false);
-    gridMain.addHeader({name:"No",colId:"rNum",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"고객",colId:"custKorName",width:"5",align:"center",type:"ro"});
-    gridMain.addHeader({name:"종류",colId:"workKind",width:"5",align:"center",type:"combo"});
-    gridMain.addHeader({name:"내용",colId:"logNote",width:"15",align:"left",type:"ed"});
-    gridMain.addHeader({name:"첨부",colId:"fileName",width:"5",align:"left",type:"ed"});
+    gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"고객",colId:"custKorName",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"combo"});
+    gridMain.addHeader({name:"내용",colId:"logNote",width:"200",align:"left",type:"ed"});
+    gridMain.addHeader({name:"첨부",colId:"fileName",width:"50",align:"left",type:"ed"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
     gridMain.init();
@@ -48,7 +48,7 @@ $(document).ready(function() {
     byId("stDate").value = t;
 	
     //seq
-    fn_getSeqReturn();
+    //fn_getSeqReturn();
     
     //popUp
     gridMain.attachEvent("onRowSelect",doOnRowSelect);
@@ -83,8 +83,11 @@ function fn_search() {
     if($("#empNo").val() == ""){
     	$("#empNo").val("%");
     };
-    $("input[name=empNo]").attr("disabled",false);
+    if($("#seqNo").val() == ""){
+    	$("#seqNo").val("%");
+    };
     $("input[name=seqNo]").attr("disabled",false);
+    $("input[name=empNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData('frmMain');
     gfn_callAjaxForGrid(gridMain, param, "gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);
 }
@@ -104,16 +107,21 @@ function fn_delete() {
     gridMain.cs_deleteRow(selectedId);
     $('#empNo').val(logInEmp);
 }
-
+function fn_remove(){
+	  	var totalRowNum = gridDtl.getRowsNum();
+	    for(var i=1; i<=totalRowNum; i++){
+			 gridDtl.cs_deleteRow(i);
+		}
+}
 function fn_save() {
+  	var totalRowNum = gridMain.getRowsNum();
+	 fn_getSeqReturn();
     var selRowIdx = gridMain.getSelectedRowIndex();
-    var empNoColIdx = gridMain.getColIndexById('empNo');
-    var empNoVal = $('#empNo').val();
-    if (empNoVal == null || empNoVal.length <= 0) {
-        dhtmlx.alert("사원이름을 입력해주세요.");
-    } else {
-        gridMain.setCells2(selRowIdx, empNoColIdx).setValue(empNoVal);
-        var jsonStr = gridMain.getJsonUpdated2();
+    var logSeqCol = gridMain.getColIndexById('logSeq');
+    for(var i = 0 ;i<totalRowNum;i++){
+        gridMain.setCells2(i, logSeqCol).setValue($("#seqNo").val());
+    }
+         var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
 	
@@ -128,7 +136,6 @@ function fn_save() {
                 fn_gridMainSaveCallbckFunc(data);
             }
         });
-    }
 
 }
 
@@ -181,6 +188,10 @@ function doOnRowSelect(rowId, colIdx) {
 }
 
 function fn_add() {
+    var empNoVal = $('#empNo').val();
+    if (empNoVal == null || empNoVal.length <= 0) {
+        dhtmlx.alert("사원이름을 입력해주세요.");
+    } 
   	var totalRowNum = gridMain.getRowsNum();
     var totalColNum = gridMain.getColumnCount();
     var data = new Array(totalColNum);

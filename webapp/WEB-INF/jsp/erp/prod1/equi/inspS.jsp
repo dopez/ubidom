@@ -18,15 +18,15 @@ $(document).ready(function(){
 	subLayout.cells("a").showHeader();
 	subLayout.cells("a").setText("점검대상");
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"NO",           colId:"no",            width:"3", align:"center", type:"cntr"});
-	gridMst.addHeader({name:"설비코드",     colId:"equiCode",      width:"6", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"항목코드",     colId:"checkItem",     width:"4", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"항목명",       colId:"checkItemName", width:"4", align:"left",   type:"ro"});
-	gridMst.addHeader({name:"주기단위",     colId:"cycleKindName", width:"4", align:"center", type:"ro"});
-	gridMst.addHeader({name:"점검주기",     colId:"cycle",         width:"4", align:"right",  type:"ro"});
-	gridMst.addHeader({name:"최종점검일자", colId:"finalDate",     width:"6", align:"center", type:"ro"});
-	gridMst.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
+	gridMst.addHeader({name:"NO",           colId:"no",            width:"50", align:"center", type:"cntr"});
+	gridMst.addHeader({name:"설비코드",     colId:"equiCode",      width:"80", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"설비명",       colId:"equiName",      width:"80", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"항목코드",     colId:"checkItem",     width:"80", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"항목명",       colId:"checkItemName", width:"80", align:"left",   type:"ro"});
+	gridMst.addHeader({name:"주기단위",     colId:"cycleKindName", width:"80", align:"center", type:"ro"});
+	gridMst.addHeader({name:"점검주기",     colId:"cycle",         width:"60", align:"right",  type:"ro"});
+	gridMst.addHeader({name:"최종점검일자", colId:"finalDate",     width:"90", align:"center", type:"ro"});
+	gridMst.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"90", align:"center", type:"ro"});
 	gridMst.setColSort("str");	
 	gridMst.setUserData("","pk","no");
 	gridMst.dxObj.setUserData("","@finalDate","format_date");
@@ -41,19 +41,19 @@ $(document).ready(function(){
      subLayout.cells("b").setText('점검대상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
      '&nbsp;&nbsp;<input type="button" value=" 선택항목 추가" onclick="multiRowSelect()" class="imgTest" style="color: blue; background-color: buttonhighlight;"');
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
-	gridDtl.addHeader({name:"NO",           colId:"no",            width:"3", align:"center", type:"cntr"});
-	gridDtl.addHeader({name:"설비코드",     colId:"equiCode",      width:"5", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"설비명",       colId:"equiName",      width:"6", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"항목코드",     colId:"checkItem",     width:"4", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"항목명",       colId:"checkItemName", width:"4", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"주기단위",     colId:"cycleKindName", width:"4", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"점검주기",     colId:"cycle",         width:"4", align:"right",  type:"ro"});
-	gridDtl.addHeader({name:"최종점검일자", colId:"preFinalDate",  width:"6", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"6", align:"center", type:"ro"});
-	gridDtl.addHeader({name:"점검일자",     colId:"checkDate",     width:"6", align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"점검결과",     colId:"result",        width:"4", align:"left",   type:"combo"});
-	gridDtl.addHeader({name:"점검자",       colId:"korName",       width:"6", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"비고",         colId:"rmk",           width:"8", align:"left",   type:"ed"});
+	gridDtl.addHeader({name:"NO",           colId:"no",            width:"50",  align:"center", type:"cntr"});
+	gridDtl.addHeader({name:"설비코드",     colId:"equiCode",      width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"설비명",       colId:"equiName",      width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"항목코드",     colId:"checkItem",     width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"항목명",       colId:"checkItemName", width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"주기단위",     colId:"cycleKindName", width:"80",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검주기",     colId:"cycle",         width:"60",  align:"right",  type:"ro"});
+	gridDtl.addHeader({name:"최종점검일자", colId:"preFinalDate",  width:"90",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"90",  align:"center", type:"ro"});
+	gridDtl.addHeader({name:"점검일자",     colId:"checkDate",     width:"80",  align:"center", type:"dhxCalendarA"});
+	gridDtl.addHeader({name:"점검결과",     colId:"result",        width:"80",  align:"left",   type:"combo"});
+	gridDtl.addHeader({name:"점검자",       colId:"korName",       width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"비고",         colId:"rmk",           width:"180", align:"left",   type:"ed"});
 	gridDtl.setColSort("str");	
 	gridDtl.setUserData("","pk","no");
 	gridDtl.dxObj.setUserData("","@preFinalDate","format_date");
@@ -155,8 +155,6 @@ function multiRowSelect(){
 		  var delInx = gridMst.getSelectedRowIndex();
 		  gridMst.deleteRow(selRowIdArr[i]);
    	}
-	
-
 }
 
 function fn_search(){
