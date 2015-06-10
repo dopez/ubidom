@@ -103,7 +103,6 @@ function doOnRowDblClicked(rId,cInd){
 	      data[inputEmpColIdx]    = $('#empNo').val();
 	      data[amtColIdx]   = (data[qtyColIdx]*1) * (data[costColIdx]*1);
 		  gridDtl.addRow(data);
-		  var delInx = gridMst.getSelectedRowIndex();
 		  gridMst.deleteRow(rId);
 	}
 };
@@ -148,7 +147,6 @@ function multiRowSelect(){
 		      data[oldQtyColIdx]      = gridMst.setCells(selRowIdArr[i],9).getValue();
 		      data[amtColIdx]   = (data[qtyColIdx]*1) * (data[costColIdx]*1);
 		      gridDtl.addRow(data);
-			  var delInx = gridMst.getSelectedRowIndex();
 			  gridMst.deleteRow(selRowIdArr[i]);
 	   	  }
 	}
