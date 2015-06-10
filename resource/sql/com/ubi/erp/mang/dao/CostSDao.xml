@@ -37,7 +37,7 @@
 		 	)
 		 }
 	</select>
- 	<select id="prcsSaveC" statementType="CALLABLE">
+ 	<select id="prcsSaveB" statementType="CALLABLE">
 		 {call SP_COMM_PRC_CUST_SAVE(
 		 		#{cudKey},
 		 		#{compId},
