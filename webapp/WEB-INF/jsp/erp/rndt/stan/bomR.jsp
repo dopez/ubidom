@@ -16,35 +16,48 @@ $( document ).ready(function() {
 
 	//grid	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"개정번호",colId:"revNo",width:"100",align:"center",type:"ro"})
-	gridMain.addHeader({name:"품목코드",colId:"itemCode",width:"150",align:"center",type:"ro"})
-	gridMain.addHeader({name:"품명",colId:"itemName",width:"100",align:"center",type:"ro"})
-	gridMain.addHeader({name:"규격",colId:"itemSpec",width:"100",align:"center",type:"ro"})
-	gridMain.addHeader({name:"단위",colId:"itemUnit",width:"100",align:"center",type:"ro"})
-	gridMain.addHeader({name:"수량",colId:"wet",width:"100",align:"center",type:"ro"})
-	gridMain.addHeader({name:"Loss율",colId:"loss",width:"100",align:"center",type:"ro"})
+	gridMain.addHeader({name:"제품코드",colId:"itemCode",width:"120",align:"center",type:"ro"})
+	gridMain.addHeader({name:"품명",colId:"itemName",width:"100",align:"left",type:"ro"})
+	gridMain.addHeader({name:"규격",colId:"itemSpec",width:"100",align:"left",type:"ro"})
+	gridMain.addHeader({name:"단위",colId:"itemUnit",width:"70",align:"center",type:"ro"})
+	gridMain.addHeader({name:"개정번호",colId:"revNo",width:"70",align:"center",type:"ro"})
+	gridMain.addHeader({name:"개정일자",colId:"revDate",width:"100",align:"center",type:"ro"})
+	gridMain.addHeader({name:"개정사유",colId:"revCause",width:"200",align:"center",type:"ro"})
+	gridMain.addHeader({name:"기준중량",colId:"rpWeight",width:"100",align:"right",type:"ro"})
+	gridMain.addHeader({name:"가감기준량",colId:"adjQty",width:"100",align:"right",type:"ro"})
+	gridMain.addHeader({name:"자재코드",colId:"matrCode",width:"120",align:"center",type:"ro"})
+	gridMain.addHeader({name:"자재명",colId:"matrName",width:"100",align:"left",type:"ro"})
 	gridMain.addHeader({name:"공정",colId:"prog",width:"100",align:"center",type:"ro"})
+	gridMain.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"ro"})
+	gridMain.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"ro"})
 	gridMain.addHeader({name:"승인일자",colId:"apprDate",width:"100",align:"center",type:"ro"})
 	gridMain.addHeader({name:"종료일자",colId:"endDate",width:"100",align:"center",type:"ro"})
 	gridMain.addHeader({name:"비고",colId:"rmk ",width:"100",align:"center",type:"ro"})
+	gridMain.dxObj.setUserData("","@revDate","format_date");
 	gridMain.dxObj.setUserData("","@apprDate","format_date");
 	gridMain.dxObj.setUserData("","@endDate","format_date");
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","revNo");
 	gridMain.init();
 	
-	$("#itemCode, #btnSearch").click(function(e){
-		if(e.target.id == "itemCode" || e.target.id == "btnSearch"){
-			gfn_load_pop('w1','common/itemPOP',true,{"itemCode":$(this).val()});
+	$("#itemName, #btnSearch").click(function(e){
+		if(e.target.id == "itemName" || e.target.id == "btnSearch"){
+			gfn_load_pop('w1','common/itemPOP',true,{"itemName":$(this).val()});
 		  }
 	})
-	fn_search();
+	//fn_search();
 })
 function fn_search(){
+		if($("#itemName").val()=="" || $("#itemName").val()==null){
+			dhtmlx.alert("제품명을 입력해주세요");
+		}else{
 		var obj = {};
 		obj.itemCode = $("#itemCode").val();
+		obj.itemName = $("#itemName").val();
+		obj.revNo = $("#revNo").val();
 		gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_test);
-		byId("frmSearch").reset();
+		//byId("frmSearch").reset();
+		}
 }
 function fn_test(){
 	//gridMain.dxObj.groupBy(1);
@@ -66,8 +79,8 @@ function fn_onClosePop(pName,data){
             $("#itemCode").val(obj.itemCode);
            	$("#itemName").val(obj.itemName);
         }
-    }
 	fn_search();
+    }
 };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -78,17 +91,14 @@ function fn_onClosePop(pName,data){
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
-                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 품목코드 </label>
-                        <div class="col-sm-3 col-md-3">
-                            <div class="col-sm-9 col-md-9">
-                                <input name="itemName" id="itemName" type="hidden" value="" placeholder="" class="form-control input-xs">
-                                <input name="itemCode" id="itemCode" type="text" value="" placeholder="" class="form-control input-xs">
-                            </div>
-                            <div class="col-sm-3 col-md-3">
-                                <button type="button" class="btn btn-default form-control" name="btnSearch" id="btnSearch">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </div>
+                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제품명 </label>
+                        <div class="col-sm-2 col-md-2">
+                           <input name="itemName" id="itemName" type="text" value="" placeholder="" class="form-control input-xs">
+                           <input name="itemCode" id="itemCode" type="hidden" value="" placeholder="" class="form-control input-xs">
+                        </div>
+                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개정번호 </label>
+                        <div class="col-sm-1 col-md-1">
+                        	<input name="revNo" id="revNo" type="text" value="" placeholder="0000" class="form-control input-xs" style="text-align: right">
                         </div>
                     </div>
                 </div>

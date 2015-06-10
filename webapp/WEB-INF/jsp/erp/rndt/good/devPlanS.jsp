@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
-var layout, toolbar, subLayout;
-var gridMst;
-var gridDtl;
+var layout, toolbar, subLayout,subToolbar;
 var calMain;
-var tbar;
+var subTabbar,tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
+var tbar1,tbar2,tbar3,tbar4,tbar5,tbar6,tbar7,tbar8;
+var tabId = "a1";
+var tbar;//추후 삭제
+var combo01;
 $(document).ready(function() {
 
 
-		Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발계획등록
+		Ubi.setContainer(4, [1, 2, 3, 4,5,6], "1C"); //개발계획등록
 
         layout = Ubi.getLayout();
         toolbar = Ubi.getToolbar();
@@ -28,7 +30,7 @@ $(document).ready(function() {
         byId("stDate").value = t;
         
         //tabbar//	
-        var subTabbar = subLayout.cells("a").attachTabbar({
+        subTabbar = subLayout.cells("a").attachTabbar({
             tabs: [{id: "a1",text: "목적/배경",active: true}, 
                    {id: "a2",text: "기술/시장/경쟁사동향"}, 
                    {id: "a3",text: "개발일정"}, 
@@ -38,68 +40,24 @@ $(document).ready(function() {
                    {id: "a7",text: "투자계획"}, 
                    {id: "a8",text: "시장규모"}]
         });
-
-        var tab1 = subTabbar.tabs("a1").attachGrid();
-        var tab2 = subTabbar.tabs("a2").attachGrid();
-        var tab3 = subTabbar.tabs("a3").attachGrid();
-        var tab4 = subTabbar.tabs("a4").attachGrid();
-        var tab5 = subTabbar.tabs("a5").attachLayout("2E");
+        subTabbar.setArrowsMode("auto");
+        subTabbar.attachEvent("onTabClick", function(id, lastId){
+			tabId = id;
+		});
+        
         var tab6 = subTabbar.tabs("a6").attachLayout("2E");
         var tab7 = subTabbar.tabs("a7").attachGrid();
         var tab8 = subTabbar.tabs("a8").attachGrid();
 
         //1번탭 "목적/배경"
-        tab1.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab1.setHeader("No, 내  용", null, ["text-align:center;", "text-align:center;"]);
-        tab1.setInitWidths("50,756");
-        tab1.setColAlign("left,left");
-        tab1.setColTypes("ro,ed");
-        tab1.setColSorting("str,str");
-        tab1.init();
-
-        //2번탭 "기술/시장/경쟁사동향"
-        tab2.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab2.setHeader("No, 내  용", null, ["text-align:center;", "text-align:center;"]);
-        tab2.setInitWidths("50,756");
-        tab2.setColAlign("left,left");
-        tab2.setColTypes("ro,ed");
-        tab2.setColSorting("str,str");
-        tab2.init();
-
-        //3번탭 "개발일정"
-        tab3.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab3.setHeader("개발일정,#cspan,#cspan,주관부서,#cspan,관련부서선행Role(제조/생산/마케팅),OutSourcing 계획", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", ]);
-        tab3.attachHeader("구분,일자,일수,주,부,#rspan,#rspan", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", ]);
-        tab3.setInitWidths("100,100,100,100,100,300,300");
-        tab3.setColAlign("center,center,center,center,center,left,left");
-        tab3.setColTypes("coro,ed,ed,ed,ed,ed,ed");
-        tab3.setColSorting("str,str,str,str,str,str,str");
-        tab3.init();
-
-        //4번탭 "인원계획"
-        tab4.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab4.setHeader("구분,당해년도,#cspan,Total(MM),비고", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
-        tab4.attachHeader("#rspan,인원,MM,#rspan,#rspan", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
-        tab4.attachFooter("합계, , , , ", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
-        tab4.setInitWidths("100,50,50,150,500");
-        tab4.setColAlign("center,center,center,center,left");
-        tab4.setColTypes("coro,ed,ed,ed,txt");
-        tab4.setColSorting("str,str,str,str,str");
-        tab4.init();
-
-        //5번탭 "개발목표(수준)"
-        tab5.cells("a").setHeight(65);
-        tab5.cells("a").setText("1.수준");
-        tab5.cells("b").setText("2. 개발목표 주요 Spec 및 차별화 Point");
-        tab5.cells("a").attachObject("devGoal");
-        var tab5Grid = tab5.cells("b").attachGrid();
-        tab5Grid.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab5Grid.setHeader("No, 주요 Spec 및 차별화 Point", null, ["text-align:center;", "text-align:center;"]);
-        tab5Grid.setInitWidths("50,800");
-        tab5Grid.setColAlign("left,left");
-        tab5Grid.setColTypes("ro,ed");
-        tab5Grid.setColSorting("str,str");
-        tab5Grid.init();
+        	tab1 = subTabbar.tabs("a1").attachObject("tab1");
+        	tab2 = subTabbar.tabs("a2").attachObject("tab2");
+        	
+        	fn_setTabColor(tabId);
+        	
+        	fn_setTab3();
+        	fn_setTab4();
+        	fn_setTab5();
 
         //6번탭 "성과활용계획"
         tab6.cells("a").setHeight(150);
@@ -139,29 +97,120 @@ $(document).ready(function() {
         tab8.attachFooter("적용제품,,#cspan,#cspan", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
         tab8.init();
         
-        
-/*         //set tool bar//
-        for (var i = 1; i < 9; i++) {
-            var a = tbar
-            if (i < 7) {
-               var abc =  subToolbar(a + i, subTabbar.tabs("a" + i), [3, 4, 5, 6]);
-            } else {
-                var def = subToolbar(a + i, subTabbar.tabs("a" + i), [3, 4]);
-            }
-        } */
-        var a = tbar;
-        var test = subToolbar(a+1,subTabbar.tabs("a"+1),[3,4,5,6])
-        test.attachEvent("onClick",function(id){
-        	   if(id == "btn3"){//조회
-					alert("hi");
-        		}
-        })
-        
 })
+
+function fn_add(){
+	if(tabId=="a3"){
+		fn_addTab3();
+	}
+	if(tabId=="a4"){
+		fn_addTab4();
+	}
+}
+function fn_save(){
+	if(tabId=="a1"){
+		alert("1번째 탭 입니다.");
+	}
+	if(tabId=="a2"){
+		alert("2번째 탭 입니다.");
+	}
+}
+
+
+function fn_textAreaSetbg(color)
+{
+	document.getElementById("tab1Note").style.background=color
+	document.getElementById("tab2Note").style.background=color
+	document.getElementById("tab5Note").style.background=color
+}
+function fn_setTabColor(tabId){
+	if(tabId=="a1"||tabId=="a2"){
+		$(".dhx_cell_cont_tabbar",".dhx_cell_tabbar").css("background-color","#f9f9f8");
+	}
+}
 </script>
-<script type="text/javascript" src="/js/erp/rndt/tab1.js"></script>
+<script type="text/javascript" src="/js/erp/rndt/devPlanSTab3.js"></script>
+<script type="text/javascript" src="/js/erp/rndt/devPlanSTab4.js"></script>
+<script type="text/javascript" src="/js/erp/rndt/devPlanSTab5.js"></script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
+<div id="tab1" class="container">
+    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab1">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="form-group form-group-sm">
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 내용 </label>
+                    <div class="col-sm-10 col-md-10">
+                        <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
+		                          cols="50" rows="10" name="tab1Note" id="tab1Note"
+		                          placeholder="" class="form-control input-xs"
+		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="tab2" class="container">
+    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab2">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="form-group form-group-sm">
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 내용 </label>
+                    <div class="col-sm-10 col-md-10">
+                        <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
+		                          cols="50" rows="10" name="tab2Note" id="tab2Note"
+		                          placeholder="" class="form-control input-xs"
+		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="tab5_1" class="container">
+    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab5_1">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="form-group form-group-sm">
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 제품 </label>
+                    <div class="col-sm-2 col-md-2">
+                        <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+                    </div>
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 기술 </label>
+                    <div class="col-sm-2 col-md-2">
+                        <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+                    </div>
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 목표재료 </label>
+                    <div class="col-sm-2 col-md-2">
+                        <input name="empName" id="empName" type="text" value="" placeholder="" class="form-control input-xs">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="tab5_2" class="container">
+    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab5_2">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="form-group form-group-sm">
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 내용 </label>
+                    <div class="col-sm-10 col-md-10">
+                        <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
+		                          cols="50" rows="10" name="tab5Note" id="tab5Note"
+		                          placeholder="" class="form-control input-xs"
+		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div id="bootContainer2">
 <div class="container">
           <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
@@ -233,28 +282,6 @@ $(document).ready(function() {
                   </div>
               </div>
           </form>
-          </div>
-      </div>
-      <div id="devGoal" class="container">
-          <div class="row">
-              <div class="form-group form-group-sm">
-                  <div class="col-sm-6">
-                      <label for="textinput" class="col-xs-1 col-sm-1 col-md-1 control-label">제품</label>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                          <input type="text" class="form-control input-xs" id="devProduct" name="devProduct" value="">
-                      </div>
-                      <label for="textinput" class="col-xs-1 col-sm-1 col-md-1 control-label">기술</label>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                          <input type="text" class="form-control input-xs" id="devTech" name="devTech" value="">
-                      </div>
-                      <label for="textinput" class="col-xs-1 col-sm-1 col-md-1 control-label">목표
-                          <br>재료비
-                      </label>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                          <input type="text" class="form-control input-xs" id="devMtrlCost" name="devMtrlCost" value="">
-                      </div>
-                  </div>
-              </div>
           </div>
       </div>
       <div id="devPerfoPlan" class="container">
