@@ -60,11 +60,15 @@ $( document ).ready(function() {
 	mainLayout.cells("b").setWidth(220);
 	mainLayout.cells("a").setHeight(50);
 	mainLayout.cells("a").fixSize(false, true);
-	//mainLayout.cells("b").fixSize(true, false);
-	//mainLayout.cells("b").fixSize(false, true);
-
-	mainLayout.cells("c").fixSize(true, true);
-	mainLayout.cells("b").fixSize(true, true);
+	
+	/* 메뉴 쪽 레이아웃 사이즈 조절 가능*/
+	mainLayout.cells("b").fixSize(true, false);
+	mainLayout.cells("b").fixSize(false, true);
+	
+	/* 메뉴 쪽 레이아웃 사이즈 조절 불가능*/
+	//mainLayout.cells("c").fixSize(true, true);
+	//mainLayout.cells("b").fixSize(true, true);
+	
 	//mainLayout.cells("a").collapse();
  	//mainLayout.cells("d").collapse();
 
@@ -221,7 +225,7 @@ var fncSelectItem = function(tree, id) {
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
 			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
-
+			  console.log(uri);
 			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 
@@ -245,13 +249,12 @@ function setViewFullPath(id){
 <div id="top">
 	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
 	<a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp;
-	<a href="#" onclick="window.open('/report/testPdf.do','rpt','');">TEST_PDF</a>&nbsp;&nbsp;
 	<a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a>
 	</div>
 
 	<div style="float:right;margin-top:15px;margin-right:30px;"id="logout">
-		<a  href="#" id="full_screen">전체화면</a>
-		<a  href="#" id="log_out">로그아웃</a></div>
+<!-- 		<a  href="#" id="full_screen">전체화면</a>
+ -->		<a  href="#" id="log_out">로그아웃</a></div>
 	</div>
 <div id="container"></div>
 <div id="statusBar" style="height:20px;">STATUS BAR</div>

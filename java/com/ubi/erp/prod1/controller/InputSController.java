@@ -73,10 +73,11 @@ public class InputSController {
 		}
 		String setDate = request.getParameter("stDate");
 		String setSeq = inputS.getSetSeq();
+		String custCode = inputS.getCustCode();
 		map.put("compId", compId);
 		map.put("setDate", setDate);
 		map.put("setSeq", setSeq);
-		map.put("custCode", "%");
+		map.put("custCode", custCode);
 		map.put("o_cursor", null);
 		inputSSservice.selEquiInputSR(map);
 		List<InputS> list = (List<InputS>) map.get("o_cursor");
