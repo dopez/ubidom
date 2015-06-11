@@ -59,28 +59,19 @@ $(document).ready(function(){
 	
 });
 function doOnRowDbClicked(rId,cInd){
-	var cFlag = false;
 	var dateValue = gridMain.setCells(rId,1).getValue();
 	var seqValue = gridMain.setCells(rId,14).getValue();
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000553";
 	for(var i=0;i<ids.length;i++){
 		if(ids[i] == preId){
-			if(MsgManager.confirmMsg("INF006")) { 
-				mainTabbar.tabs(preId).close();
-				cFlag = true;
-			}else{
-				return;
-			}
+			mainTabbar.tabs(preId).close();
 		}
 	}
-	if(cFlag){
 		var uri = mainMenu.getUserData(preId, "uri");
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue, setSeq:seqValue});	
-	}
-	
 };
 
 function gridMainAttachFooter(){

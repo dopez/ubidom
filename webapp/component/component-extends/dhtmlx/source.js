@@ -69,7 +69,7 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         type: "POST",
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
         data: param,
-        async: true,
+        async: false,
         dataType: "json",
         beforeSend: function() {
             layout.progressOn();

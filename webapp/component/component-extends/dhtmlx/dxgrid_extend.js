@@ -72,7 +72,7 @@ dxGrid.prototype.init = function() {
 	this.setColWidth(this.headerWidth.join(","));
 	this.setColAlign(this.headerAlign.join(","));
 	this.setColType(this.headerType.join(","));
-	this.cs_setColSort(this.headerType.join(","));
+	this.setColSort("str");
 	this.dxObj.setStyle(
 		    "border-bottom-width:2px;", "border:1px solid silver;","", ""
 	);
@@ -95,20 +95,6 @@ dxGrid.prototype.init = function() {
 
 
 };
-dxGrid.prototype.cs_setColSort = function(val) {
-	var arrLenth = val.split(",");
-	var sortingArr = [];
-	for(var i=0;i<arrLenth.length;i++){
-		if(arrLenth[i] == "ron" || arrLenth[i] == "edn"){
-			this.dxObj.setColSorting("int");
-			sortingArr[i] = "int";
-		}else{
-			sortingArr[i] = "str";
-		}
-	}
-	sortingArr = sortingArr.join(",");
-	this.dxObj.setColSorting(sortingArr);
-}
 
 dxGrid.prototype.setHeader = function(headers) {
 	headers += ",<font color=FFFFFF>cudKey</font>";
@@ -362,19 +348,24 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				colNm = this.dxObj.getColLabel(j);
 				colVal = this.dxObj.cells2(i,j).getValue();
 				colType = this.dxObj.getColType(j);
-				
-				var classNm = this.dxObj.getUserData("","@"+colId);
 
-	        	if(classNm != null){
-	        		var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
-					colVal = colVal.replace(regExp, "");
-	        	 }
-
-				/*if(colType=="ro" || colType =="dhxCalendar" || colType == "dhxCalendarA"){
+				if(colType=="ro" || colType =="dhxCalendar" || colType == "dhxCalendarA"){
 					var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
 					colVal = colVal.replace(regExp, "");
-				}*/
+				}
 
+
+				/*if(classNm!= null){
+				   var els = $('<input>').attr({
+				       type: 'hidden',
+				       id: "",
+				       name: colId
+				   }).appendTo("body");
+				   $(els).addClass(classNm).val(colVal).keyup();
+				   $.applyDataMask($(els));
+				   colVal=$(els).cleanVal();
+				   $(els).remove();
+				}*/
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
