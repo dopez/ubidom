@@ -66,13 +66,12 @@ var uri = null;
 	   gridDtl.addHeader({name:"공정",colId:"progNaem",width:"100",align:"center",type:"combo"});
 	   gridDtl.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
 	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"ed"});
-	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"ed"});
+	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"edn"});
+	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"edn"});
 	   gridDtl.setColSort("str");	
 	   gridDtl.setUserData("","pk","revNo");
 	   gridDtl.init();
-	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");
-	   gridDtl.dxObj.setNumberFormat("0,000.00",5,".",","); */
+	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");*/
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
        gridDtl.cs_setNumberFormat(["wet","loss"],"0,000.00");
        gridDtl.attachEvent("onRowSelect",fn_getMatrPop);

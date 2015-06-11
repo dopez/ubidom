@@ -44,7 +44,7 @@ $(document).ready(function(){
     gridDtl.setUserData("","pk","rNum");
     gridDtl.setColSort("str");
     gridDtl.init();
-    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","equiCode","cudKey","applyDate"]);
+    gridDtl.cs_setColumnHidden(["matrCodeMj","matrCode","equiCode","applyDate"]);
     //set date//
     calStDate = new dhtmlXCalendarObject([{input:"stDate",button: "calpicker1"}]);
     calStDate.loadUserLanguage("ko");
@@ -65,7 +65,6 @@ function fn_save(){
 function fn_gridDtlSave(){
 	var jsonStr = gridDtl.getJsonUpdated2();
     $("#jsonData").val(jsonStr);
-
     if (jsonStr == "[]" || jsonStr.length <= 0){
     	dhtmlx.alert("변경된 사항이 없습니다.");
     	return;
@@ -175,6 +174,7 @@ function fn_getGridDtl(equiCode){
     var stDate = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
 	param.equiCode = equiCode;
 	param.applyDate = stDate;
+	console.log(param);
 	gfn_callAjaxForGrid(gridDtl, param, "gridDtlSel", subLayout.cells("c"), fn_gridDtlSelCallbckFunc);
 }
 function fn_gridDtlSelCallbckFunc(data){
@@ -190,8 +190,7 @@ function fn_getEquiCode(){
 }
 
 function fn_gridMstSelCallbckFunc(data){
-    var t = dateformat(new Date());
-    byId("stDate").value = t;
+   
 }
 function fn_setSaveParams(){
 		   
