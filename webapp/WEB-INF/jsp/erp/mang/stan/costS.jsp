@@ -71,7 +71,6 @@
 			function doOnRowSelectFst(id,ind){
 				gridThd.clearAll();
 				var obj = {};
-
 				obj.itemDiv =  $('input[name=itemDiv]:checked', '#frmSearch').val();
 				obj.ioChk =  $('input[name=ioChk]:checked', '#frmSearch').val();
 				var itemCodeColIdx = gridFst.getColIndexById('itemCode');
@@ -115,6 +114,7 @@
 			function fn_delete(){
 				gridScd.cs_deleteRow(gridScd.getSelectedRowId());
 			}
+
 			function fn_save(){
 				 var fstSelectedId = gridFst.dxObj.getSelectedRowId();
 				 var fstItemCodeColIdx = gridFst.getColIndexById('itemCode');
@@ -148,7 +148,7 @@
 	        			gridScd.setCells(selectedId,cudKeyColIndex).setValue("UPDATE");
 	        		}
 	        	};
-	         }
+	        }
 	        function fn_comboLoad(){
 
 	        	var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
@@ -178,12 +178,12 @@
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
 <form id="pform" name="pform" method="post">
-  		<input type="hidden" id="jsonData" name="jsonData" />
+    <input type="hidden" id="jsonData" name="jsonData" />
 </form>
 <div id="bootContainer" style="position: relative; width: 100%; height: 100%;">
     <div class="container">
         <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
-             <div class="row">
+            <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput">
@@ -217,8 +217,7 @@
                         </label>
                         <div class="col-sm-3 col-md-3">
                             <div class="col-sm-6 col-md-6">
-                                <input type="radio" name="ioChk" id="ioChk1" value="1" checked="checked">매입
-                            </div>
+                                <input type="radio" name="ioChk" id="ioChk1" value="1" checked="checked">매입                           </div>
                             <div class="col-sm-6 0col-md-6">
                                 <input type="radio" name="ioChk" id="ioChk2" value="2">매출
                             </div>
@@ -226,7 +225,6 @@
                 </div>
             </div>
             </div>
-
         </form>
     </div>
 </div>
