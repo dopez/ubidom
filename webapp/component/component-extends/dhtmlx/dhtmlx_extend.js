@@ -339,6 +339,7 @@ function gfn_1col_comboLoad(comboId, inputName, params, colIndx) {
     comboId.enableFilteringMode(true);
     comboId.enableAutocomplete(true);
     comboId.allowFreeText(true);
+    comboId.readonly(true);
     var obj = {};
     obj.compId = '100';
     obj.code = params;
@@ -358,3 +359,56 @@ function doOnOpen(comboId, params, colIndx) {
         }
     });
 }
+
+function gfn_single_comboLoad(comboId,value,key,cLength){
+	comboId.setTemplate({
+	    input: "#interName#",
+	    columns: [
+	       {header: "구분", width: 100,  option: "#interName#"}
+	    ]
+	});
+	for(var i=0;i<cLength;i++){
+		comboId.addOption(value[i],key[i]);
+	}
+
+comboId.enableFilteringMode(true);
+comboId.enableAutocomplete(true);
+comboId.allowFreeText(true);
+comboId.readonly(true);
+}
+
+function gfn_check_jumin(value) {
+	 var preValue = value.substring(0,6);
+	 var nextValue = value.substring(7,13);
+	 var jumin = preValue+nextValue;
+console.log(jumin);
+	 var fmt = /^\d{6}[1234]\d{6}$/;  //포멧 설정
+	 if (!fmt.test(jumin)) {
+	   return false;
+	  }
+
+	  // 생년월일 검사
+	  var birthYear = (jumin.charAt(6) <= "2") ? "19" : "20";
+	  birthYear += jumin.substr(0, 2);
+	  var birthMonth = jumin.substr(2, 2) - 1;
+	  var birthDate = jumin.substr(4, 2);
+	  var birth = new Date(birthYear, birthMonth, birthDate);
+
+	  if ( birth.getYear() % 100 != jumin.substr(0, 2) ||
+	       birth.getMonth() != birthMonth ||
+	       birth.getDate() != birthDate) {
+	     return false;
+	  }
+
+	  // Check Sum 코드의 유효성 검사
+	  var buf = new Array(13);
+	  for (var i = 0; i < 13; i++) buf[i] = parseInt(jumin.charAt(i));
+	 
+	  multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];
+	  for (var sum = 0, i = 0; i < 12; i++) sum += (buf[i] *= multipliers[i]);
+
+	  if ((11 - (sum % 11)) % 10 != buf[12]) {
+	     return false;
+	  }
+	  return true;
+	}

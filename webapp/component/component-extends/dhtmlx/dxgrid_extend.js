@@ -682,6 +682,10 @@ dxGrid.prototype.cs_deleteRow = function(rowId){
 	}
 }
 
+dxGrid.prototype.cs_addRow = function(rowId){
+	return this.dxObj.setRowTextStyle(rowId, "font-family:arial;font-style:color:#000000;");
+}
+
 dxGrid.prototype.cs_setColumnHidden = function(arr){
 
 	for(var i in arr){

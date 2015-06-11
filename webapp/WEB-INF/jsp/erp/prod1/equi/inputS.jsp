@@ -67,7 +67,9 @@ $(document).ready(function(){
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
-	byId("stDate").value = t;
+	if($('#stDate').val() == ''){
+		  byId("stDate").value = t;
+		}
 	
 	fn_loadGridMst();
 	fn_search();	
