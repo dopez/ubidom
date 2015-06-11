@@ -7,6 +7,10 @@ var calMain;
 var popParam;
 var popFlag;
 var itemCdVal;
+var mainMenu = parent.mainMenu;
+var mainTabbar = parent.mainTabbar;
+var tabId = null;
+var uri = null;
    $(document).ready(function() {
 
    	Ubi.setContainer(1, [1, 2, 3, 4], "3L"); //BOM등록
@@ -62,16 +66,39 @@ var itemCdVal;
 	   gridDtl.addHeader({name:"공정",colId:"progNaem",width:"100",align:"center",type:"combo"});
 	   gridDtl.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
 	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"ed"});
-	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"ed"});
+	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"edn"});
+	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"edn"});
 	   gridDtl.setColSort("str");	
 	   gridDtl.setUserData("","pk","revNo");
 	   gridDtl.init();
-	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");
-	   gridDtl.dxObj.setNumberFormat("0,000.00",5,".",","); */
+	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");*/
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
        gridDtl.cs_setNumberFormat(["wet","loss"],"0,000.00");
        gridDtl.attachEvent("onRowSelect",fn_getMatrPop);
+		
+       $("#btnItemCd").on("click", function(){
+    	var cFlag = false;
+   		var ids = mainTabbar.getAllTabs();
+    	console.log("ids",ids);
+   		var preId = "1000000664";
+		for(var i=0;i<ids.length;i++){
+			if(ids[i] == preId){
+				if(MsgManager.confirmMsg("INF006")) { 
+					mainTabbar.tabs(preId).close();
+					cFlag = true;
+				}else{
+					return
+				}
+			}
+		}
+		cFlag = true;
+		if(cFlag){
+			var uri = mainMenu.getUserData(preId, "uri");
+			var menuItemText = mainMenu.getDxObj().getItemText(preId);
+			mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+			mainTabbar.tabs(preId).attachURL("/"+uri+".do");	
+		}
+       })
 
        $("#btnGjCh").on("click",function(){
     	   fn_btnClick();
@@ -84,23 +111,6 @@ var itemCdVal;
 			popFlag = 2;
 			gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
        })
-       /*팝업*/
-/*     	$("#empName, #appvEmpName","#btnGjCh").click(function(e){
-			if(e.target.id == "empName"){
-				popParam = e;
-				popFlag = 1;
-				gfn_load_pop('w1','common/empPOP',true,{"empName":$(this).val()});
-			  }
-			if(e.target.id == "appvEmpName"){
-				popParam = e;
-				popFlag = 2;
-				gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
-			  }
- 			if(e.target.id == "btnGjCh"){
-				alert("hi");
-				fn_btnClick();
-			}
-	    }) */
 	    /*콤보*/
 	    var combo01 = gridDtl.getColumnCombo(1);
 		fn_comboLoad(combo01,gridDtl.getColumnId(2),"J03",1);
@@ -119,6 +129,8 @@ var itemCdVal;
 	   fn_setDblMask();
 	   fn_loadGridItem();
 })
+
+
 /*개정변경 버튼 동작*/
 function fn_btnClick(){
 	   var params = {};
@@ -343,7 +355,6 @@ function fn_loadGridMst(obj){
 /*gridMst 조회 콜백*/
 function fn_loadGridMstCallBck(data){
 	console.log(data);
-	//console.log("data = ",data[0].itemCode);
 	//fn_setDateKeyUp();
 }
 /*제품 그리드 조회*/
@@ -363,7 +374,6 @@ function fn_loadGridItem(){
 function fn_gridItemCB(data){
 	var obj = {}
 	obj.itemCode = data[0].pCode;
-	//$("#itemCode").val(data[0].pCode);
 	fn_disInput("disable");
 	fn_loadGridMst(obj)
 }
@@ -513,6 +523,9 @@ function doOnOpen(comboId, params, colIndx) {
                         <div class="col-sm-3 col-md-3">
                             <input name="pName" id="pName" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
+                        <div class="col-sm-offset-2 col-md-offset-2 col-sm-2 col-md-2">
+                            <input name="btnItemCd" id="btnItemCd" type="button" value="제품코드등록" placeholder="" class="form-control btn btn-default btn-xs">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -522,7 +535,7 @@ function doOnOpen(comboId, params, colIndx) {
 <div id="bootContainer2">
     <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
     <input type="hidden" id="cudKey" name="cudKey" />
-	<!-- <input name="itemCode" id="itemCode" type="hidden"/> -->
+	<input name="itemCode" id="itemCode" type="hidden"/>
 	<input name="empNo" id="empNo" type="hidden"/>
 	<input name="appvEmpNo" id="appvEmpNo" type="hidden"/>
 	<input name="rmk" id="rmk" type="hidden"/>
@@ -595,7 +608,6 @@ function doOnOpen(comboId, params, colIndx) {
                             </div>
                         </div>
                         <div class="col-sm-2 col-md-2">
-<input name="itemCode" id="itemCode" type="text"/>
                         </div>
                     </div>
                 </div>

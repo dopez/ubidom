@@ -91,7 +91,17 @@ function fn_save() {
     }
 }
 function fn_mstSave(){
-	gfn_callAjaxForGrid(gridMst,$("#hiddenform").serialize(),"gridMstSave",subLayout.cells("a"),fn_gridMstSaveCallBack);
+    $.ajax({
+        url : "/erp/comm/stan/baseCodeS/gridMstSave",
+        type : "POST",
+        data : $("#hiddenform").serialize(),
+        async : true,
+        success : function(data) {
+            MsgManager.alertMsg("INF001");
+            fn_loadGridMst(0);
+        }
+    })
+	//gfn_callAjaxForGrid(gridMst,$("#hiddenform").serialize(),"gridMstSave",subLayout.cells("a"),fn_gridMstSaveCallBack);
 }
 function fn_gridMstSaveCallBack(){
     MsgManager.alertMsg("INF001");
