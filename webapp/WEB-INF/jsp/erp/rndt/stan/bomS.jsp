@@ -92,12 +92,12 @@ var uri = null;
 				}
 			}
 		}
-    	console.log("in if cFlag",cFlag);
+		cFlag = true;
 		if(cFlag){
 			var uri = mainMenu.getUserData(preId, "uri");
 			var menuItemText = mainMenu.getDxObj().getItemText(preId);
 			mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-			mainTabbar.tabs(preId).attachURL("/"+uri+".do",false);	
+			mainTabbar.tabs(preId).attachURL("/"+uri+".do");	
 		}
        })
 
