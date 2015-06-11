@@ -30,14 +30,15 @@
 				gridScd.addHeader({name:"거래처명", colId:"custName", width:"80", align:"left", type:"ro"});
 				gridScd.addHeader({name:"통화단위", colId:"mnyEa", width:"80", align:"left", type:"combo"});
 				gridScd.addHeader({name:"단가", 	colId:"prc", width:"80", align:"right", type:"edn"});
-				gridScd.addHeader({name:"적용일자", 	colId:"pstDate", width:"80", align:"left", type:"dhxCalendarA"});
+				gridScd.addHeader({name:"적용일자", 	colId:"pstDate", width:"80", align:"center", type:"dhxCalendarA"});
 				gridScd.setUserData("","pk","custName");
 				gridScd.setColSort("str");
                 gridScd.init();
 
-                gridScd.cs_setColumnHidden(["ioChk","bigo","pendDate","itemCode"]);
+                gridScd.cs_setColumnHidden(["ioChk","itemCode","pendDate","bigo"]);
 
                 gridScd.attachEvent("onRowSelect",doOnRowSelectScd);
+                gridScd.attachEvent("onRowDblClicked",doOnRowDblClicked);
 
                 gridThd = new dxGrid(subLayout.cells("c"), false);
                 gridThd.addHeader({name:"통화단위", colId:"mnyEa", width:"80", align:"center", type:"ro"});
@@ -69,6 +70,7 @@
 			}
 
 			function doOnRowSelectFst(id,ind){
+				gridScd.clearAll();
 				gridThd.clearAll();
 				var obj = {};
 				obj.itemDiv =  $('input[name=itemDiv]:checked', '#frmSearch').val();
@@ -80,34 +82,39 @@
 			}
 
 			function doOnRowSelectScd(id,ind){
+				gridThd.clearAll();
 				var obj = {};
-				if(ind == 0 || ind == 1){
-					gfn_load_pop('w1','common/customPOP',true,{});
-				}else{
-					var fstSelectedId = gridFst.dxObj.getSelectedRowId();
-					var itemCodeColIdx = gridFst.getColIndexById('itemCode');
-					var cudKeyColIdx = gridFst.getColIndexById('cudKey');
-					var custCodeColIdx = gridScd.getColIndexById('custCode');
-					var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
-					var cudKeyVal= gridScd.setCells(id,cudKeyColIdx).getValue();
-					obj.itemDiv =  $('input[name=itemDiv]:checked', '#frmSearch').val();
-					obj.ioChk =  $('input[name=ioChk]:checked', '#frmSearch').val();
-					obj.itemCode= gridFst.setCells(fstSelectedId,itemCodeColIdx).getValue();
-					obj.custCode= gridScd.setCells(id,custCodeColIdx).getValue();
-					obj.mnyEa= gridScd.setCells(id,mnyEaColIdx).getValue();
-	 				if(!cudKeyVal.length){
-						gfn_callAjaxForGrid(gridThd,obj,"searchC",subLayout.cells("c"));
-
-	 				}
+				var fstSelectedId = gridFst.dxObj.getSelectedRowId();
+				var itemCodeColIdx = gridFst.getColIndexById('itemCode');
+				var cudKeyColIdx = gridFst.getColIndexById('cudKey');
+				var custCodeColIdx = gridScd.getColIndexById('custCode');
+				var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
+				var cudKeyVal= gridScd.setCells(id,cudKeyColIdx).getValue();
+				obj.itemDiv =  $('input[name=itemDiv]:checked', '#frmSearch').val();
+				obj.ioChk =  $('input[name=ioChk]:checked', '#frmSearch').val();
+				obj.itemCode= gridFst.setCells(fstSelectedId,itemCodeColIdx).getValue();
+				obj.custCode= gridScd.setCells(id,custCodeColIdx).getValue();
+				obj.mnyEa= gridScd.setCells(id,mnyEaColIdx).getValue();
+ 				if(!cudKeyVal.length){
+					gfn_callAjaxForGrid(gridThd,obj,"searchC",subLayout.cells("c"));
 				}
 			}
+
+			function doOnRowDblClicked(id,ind){
+				if(ind == 0 || ind == 1){
+					gfn_load_pop('w1','common/customPOP',true,{});
+				}
+			}
+
 
 			function fn_add(){
 				var totalColNum = gridScd.getColumnCount();
 			    var data = new Array(totalColNum);
 			    var psdDateColIdx = gridScd.getColIndexById('pstDate');
+			    var prcColIdx = gridScd.getColIndexById('prc');
 			    var date = dateformat(new Date());
 				data[psdDateColIdx] = date;
+				data[prcColIdx] = "0";
 			    gridScd.addRow(data);
 			}
 
@@ -153,7 +160,6 @@
 
 	        	var mnyEaColIdx = gridScd.getColIndexById('mnyEa');
 	        	var combo01 = gridScd.getColumnCombo(mnyEaColIdx);
-	          	var obj={};
 
 	        	combo01.setTemplate({
 	        	    input: "#interName#",
@@ -166,6 +172,7 @@
 	        	combo01.enableAutocomplete(true);
 	        	combo01.allowFreeText(true);
 
+	        	var obj={};
 	        	obj.compId = '100';
 	        	obj.code = "C01";
 
@@ -217,13 +224,13 @@
                         </label>
                         <div class="col-sm-3 col-md-3">
                             <div class="col-sm-6 col-md-6">
-                                <input type="radio" name="ioChk" id="ioChk1" value="1" checked="checked">매입                           </div>
+                                <input type="radio" name="ioChk" id="ioChk1" value="1" checked="checked">매입</div>
                             <div class="col-sm-6 0col-md-6">
                                 <input type="radio" name="ioChk" id="ioChk2" value="2">매출
                             </div>
                         </div>
-                </div>
-            </div>
+                	</div>
+            	</div>
             </div>
         </form>
     </div>
