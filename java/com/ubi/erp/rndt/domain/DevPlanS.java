@@ -12,6 +12,24 @@ public class DevPlanS implements Serializable {
 
 	private String cudKey;
 
+	/* tab cudKey */
+	private String cudKey1;
+
+	private String cudKey2;
+
+	private String cudKey51;
+
+	private String cudKey52;
+
+	private String cudKey61;
+
+	private String cudKey62;
+
+	private String cudKey63;
+
+	private String cudKey8;
+
+
 	// mst
 	private String setDate;
 
@@ -373,6 +391,70 @@ public class DevPlanS implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getCudKey1() {
+		return cudKey1;
+	}
+
+	public void setCudKey1(String cudKey1) {
+		this.cudKey1 = cudKey1;
+	}
+
+	public String getCudKey2() {
+		return cudKey2;
+	}
+
+	public void setCudKey2(String cudKey2) {
+		this.cudKey2 = cudKey2;
+	}
+
+	public String getCudKey51() {
+		return cudKey51;
+	}
+
+	public void setCudKey51(String cudKey51) {
+		this.cudKey51 = cudKey51;
+	}
+
+	public String getCudKey52() {
+		return cudKey52;
+	}
+
+	public void setCudKey52(String cudKey52) {
+		this.cudKey52 = cudKey52;
+	}
+
+	public String getCudKey61() {
+		return cudKey61;
+	}
+
+	public void setCudKey61(String cudKey61) {
+		this.cudKey61 = cudKey61;
+	}
+
+	public String getCudKey62() {
+		return cudKey62;
+	}
+
+	public void setCudKey62(String cudKey62) {
+		this.cudKey62 = cudKey62;
+	}
+
+	public String getCudKey63() {
+		return cudKey63;
+	}
+
+	public void setCudKey63(String cudKey63) {
+		this.cudKey63 = cudKey63;
+	}
+
+	public String getCudKey8() {
+		return cudKey8;
+	}
+
+	public void setCudKey8(String cudKey8) {
+		this.cudKey8 = cudKey8;
 	}
 
 }
