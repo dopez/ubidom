@@ -203,8 +203,13 @@ function fn_add(){
 <script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab8.js"></script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
+<style>
+form{
+	padding-top: 10px; padding-bottom: 5px; margin: 0px;
+}
+</style>
 <div id="tab1" class="container">
-    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab1">
+    <form class="form-horizontal"  id="frmTab1">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -213,8 +218,8 @@ function fn_add(){
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-                        </textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+</textarea>
                         <input name="contentsKind" id="contentsKind" type="hidden" value="1" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
@@ -223,7 +228,7 @@ function fn_add(){
     </form>
 </div>
 <div id="tab2" class="container">
-    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab2">
+    <form class="form-horizontal"  id="frmTab2">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -232,8 +237,8 @@ function fn_add(){
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-                        </textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+</textarea>
                         <input name="contentsKind" id="contentsKind" type="hidden" value="2" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
@@ -264,7 +269,7 @@ function fn_add(){
     </form>
 </div>
 <div id="tab5_2" class="container">
-    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab5_2">
+    <form class="form-horizontal"  id="frmTab5_2">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -273,8 +278,8 @@ function fn_add(){
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-                        </textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+</textarea>
                     </div>
                 </div>
             </div>
@@ -318,7 +323,7 @@ function fn_add(){
     </form>
 </div>
 <div id="tab6_3" class="container">
-    <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmTab6_3">
+    <form class="form-horizontal"  id="frmTab6_3">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -327,8 +332,8 @@ function fn_add(){
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="this.value=''; fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-                        </textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
+</textarea>
                     </div>
                 </div>
             </div>
@@ -351,7 +356,7 @@ function fn_add(){
 </div>
 <div id="bootContainer2">
     <div class="container">
-        <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+        <form class="form-horizontal"  id="frmMain">
         <input type="hidden" id="cudKey" name="cudKey">
         <script type="text/javascript">
         function fn_setCud(flag){
