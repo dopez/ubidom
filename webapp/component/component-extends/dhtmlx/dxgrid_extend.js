@@ -363,7 +363,7 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				colVal = this.dxObj.cells2(i,j).getValue();
 				colType = this.dxObj.getColType(j);
 				
-				var classNm = grid.dxObj.getUserData("","@"+colId);
+				var classNm = this.dxObj.getUserData("","@"+colId);
 
 	        	if(classNm != null){
 	        		var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
