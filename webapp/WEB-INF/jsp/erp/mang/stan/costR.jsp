@@ -14,7 +14,7 @@ $( document ).ready(function() {
 	layout.cells("b").attachObject("bootContainer");
 
 	gridMain = new dxGrid(subLayout.cells("a"), false);
-	gridMain.addHeader({name:"고객코드", colId:"custCode", width:"80", align:"left", type:"ro"});
+	gridMain.addHeader({name:"고객코드",  colId:"custCode", width:"80", align:"left", type:"ro"});
 	gridMain.addHeader({name:"고객명", 	colId:"custName", width:"80", align:"left", type:"ro"});
 	gridMain.addHeader({name:"품목코드", 	colId:"itemCode", width:"80", align:"left", type:"ro"});
 	gridMain.addHeader({name:"품명", 	colId:"itemName", width:"80", align:"left", type:"ro"});
@@ -26,14 +26,17 @@ $( document ).ready(function() {
 	gridMain.setUserData("","pk","itemCode");
 	gridMain.setColSort("str");
 	gridMain.init();
+
+	fn_search();
 });
 function fn_search(){
-	function fn_search(){
-		$("input[name='itemName'], #frmSearch ").val($.trim($("input[name='itemName2'], #frmSearch ").val()+"%"));
-		$("input[name='CustCode'], #frmSearch ").val($.trim($("input[name='CustCode2'], #frmSearch ").val()+"%"));
-		gfn_callAjaxForGrid(gridMain,$("#frmSearch").serialize(),"searchA",subLayout.cells("a"));
-		gridMain.dxObj.selectRow(0,true,true,true);
-	}
+
+	$("input[name='itemName'], #frmSearch ").val($("input[name='itemName2'], #frmSearch ").val()+"%");
+	$("input[name='custName'], #frmSearch ").val($("input[name='custName2'], #frmSearch ").val()+"%");
+
+	gfn_callAjaxForGrid(gridMain,$("#frmSearch").serialize(),"searchA",subLayout.cells("a"));
+	gridMain.dxObj.selectRow(0,true,true,true);
+
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
