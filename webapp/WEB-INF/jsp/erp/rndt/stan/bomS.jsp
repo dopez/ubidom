@@ -6,6 +6,7 @@ var gridMst,gridDtl,subLayoutD,subTb,combo01;
 var calMain;
 var popParam;
 var popFlag;
+var itemCdVal;
    $(document).ready(function() {
 
    	Ubi.setContainer(1, [1, 2, 3, 4], "3L"); //BOM등록
@@ -259,10 +260,11 @@ function fn_removeGridDtl(){
 }
 /*right form 저장*/
 function fn_frmMainSave(){
-	if($("#itemCode").val() == ""){
+	if(itemCdVal == ""|| itemCdVal==null){
 		dhtmlx.alert("제품코드를 선택해주세요")
 		return;
 	}
+	$("#itemCode").val(itemCdVal);
 	fn_setDefVal();
 	 f_dxRules = {
 			 	gjCode : ["개정번호",r_notEmpty],
@@ -325,26 +327,24 @@ function fn_loadFrmMainCB(data){
 }
 /*gridItem 선택 시*/
 function fn_gridItemSelect(id, ind){
-	var v = gridItem.setCells(id,0).getValue();
 	var obj={};
 	obj.itemCode= gridItem.setCells(id,0).getValue();
-	console.log(v);
-	byId("itemCode").value = v;
-	$("#itemCode").val(v);
-	$("input[name=itemCode]").val(v);
+	fn_setNew();
+	byId("itemCode").value = obj.itemCode;
+	itemCdVal = obj.itemCode;
 	fn_disInput();
     $("input[name=btnGjCh]").attr("disabled",true);
-	fn_setNew();
 	fn_loadGridMst(obj);	
 }
 /*gridMst 조회*/
 function fn_loadGridMst(obj){
-    gfn_callAjaxForGrid(gridMst,obj,"gridMstSel",subLayoutLeftGrid,fn_loadGridMstCallBck);
+    gfn_callAjaxForGrid(gridMst,obj,"gridMstSel",subLayoutLeftGrid);
 }
 /*gridMst 조회 콜백*/
 function fn_loadGridMstCallBck(data){
-	//console.log("data = ",data[0]);
-	fn_setDateKeyUp();
+	console.log(data);
+	//console.log("data = ",data[0].itemCode);
+	//fn_setDateKeyUp();
 }
 /*제품 그리드 조회*/
 function fn_loadGridItem(){
