@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubi.erp.mang.domain.CostS;
+import com.ubi.erp.mang.domain.CostR;
 import com.ubi.erp.mang.service.CostRService;
 
 @RestController
-@RequestMapping(value = "/erp/mang/stan/costS")
+@RequestMapping(value = "/erp/mang/stan/costR")
 public class CostRController {
 
 	@Autowired
 	private CostRService costRService;
-	@SuppressWarnings("unchecked")
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchA",method = RequestMethod.POST)
-	public List<CostS> getSrhA(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<CostR> getSrhA(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
@@ -37,13 +37,13 @@ public class CostRController {
 		map.put("V_COMPID", compId);
 		map.put("V_ITEM_DIV",itemDiv);
 		map.put("V_IO_CHK", ioChk);
-		map.put("V_ITEM_CODE",itemName);
-		map.put("V_CUST_CODE",custName);
+		map.put("V_ITEM_NAME",itemName);
+		map.put("V_CUST_NAME",custName);
 		map.put("o_cursor",null);
 
 		costRService.getSrhA(map);
 
-		return (List<CostS>) map.get("o_cursor");
+		return (List<CostR>) map.get("o_cursor");
 
 	}
 }
