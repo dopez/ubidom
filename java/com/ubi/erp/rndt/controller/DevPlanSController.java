@@ -26,7 +26,7 @@ import com.ubi.erp.rndt.domain.DevPlanS;
 import com.ubi.erp.rndt.service.DevPlanSService;
 
 @RestController
-@RequestMapping(value = "/erp/rndt/stan/DevPlanS")
+@RequestMapping(value = "/erp/rndt/stan/devPlanS")
 public class DevPlanSController {
 
 	@Autowired
@@ -37,11 +37,21 @@ public class DevPlanSController {
 	public ModelAndView getSession(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String empNo = (String) session.getAttribute("empNo");
 		String empName = (String) session.getAttribute("empName");
-		ModelAndView mnv = new ModelAndView("/erp/rndt/stan/DevPlanS");
+		ModelAndView mnv = new ModelAndView("/erp/rndt/stan/devPlanS");
 		mnv.addObject("empNo", empNo);
 		mnv.addObject("empName", empName);
 		return mnv;
 
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView selEquiInspRtoOrderS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		ModelAndView mnv = new ModelAndView("/erp/rndt/stan/devPlanS");
+		mnv.addObject("setDate", setDate);
+		mnv.addObject("setSeq", setSeq);
+		return mnv;
 	}
 
 	@SuppressWarnings("unchecked")

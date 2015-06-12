@@ -27,8 +27,9 @@ $(document).ready(function() {
         calMain = new dhtmlXCalendarObject([{input: "setDate",button: "calpicker1"}]);
         calMain.loadUserLanguage("ko");
         calMain.hideTime();
-        fn_setDate();
-        //tabbar//	
+    	if($('#stDate').val() == ''){
+    		  byId("stDate").value = dateformat(new Date());
+    		}        //tabbar//	
         subTabbar = subLayout.cells("a").attachTabbar({
             tabs: [{id: "a1",text: "목적/배경",active: true}, 
                    {id: "a2",text: "기술/시장/경쟁사동향"}, 
@@ -438,7 +439,7 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                                <input name="setDate" id="setDate" type="text" value="10" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -446,7 +447,7 @@ form{
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="setSeq" id="setSeq" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                <input name="setSeq" id="setSeq" type="text" value="${setSeq}" placeholder="" class="form-control input-xs" disabled="disabled">
                             </div>
                         </div>
                         <div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">

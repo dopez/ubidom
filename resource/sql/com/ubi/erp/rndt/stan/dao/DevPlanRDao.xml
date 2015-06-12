@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.rndt.dao.DevPlanRDao">
+
+<resultMap type="DevPlanR" id="DevPlanRMap"/>
+
+	<select id="selGridMain" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVPLANR_SCH(
+		 		#{V_COMP_ID},
+		 		#{V_ST_DATE},
+		 		#{V_ED_DATE},
+		 		#{V_WRITER_EMP},
+		 		#{V_PPS_EMP},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevPlanRMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+</mapper>
