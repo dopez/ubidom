@@ -192,7 +192,6 @@ function fn_save(){
 
 		if(gfn_formValidation('frmMain')){
 			fn_process2();
-
 			fn_process3();
 			fn_search();
 		};
@@ -209,20 +208,17 @@ function fn_save(){
 		obj.custKorName = $("#custKorName").val();
 		obj.regiNumb = $("#regiNumb").val();
 		gfn_callAjaxComm(obj,"chkValid",callBckFun);
-
-
-	};
-
+	}
     function fn_process2(){
     	gfn_callAjaxComm(gfn_getFormElemntsData("frmMain"),"mstSave");
-    };
+    }
     function fn_process3(){
 	 	var jsonStr = gridDtl.getJsonUpdated2();
 	    $("#jsonData").val(jsonStr);
 	    gfn_callAjaxComm($("#frmServer").serialize(),"dtlSave");
 	    dhtmlx.alert("저장 완료");
 	    custCodeVal = $("#frmMain input[name='custCode']").val();
-    };
+    }
 }
 
 function fn_onClosePop(pName,data){
@@ -257,7 +253,7 @@ function fn_callBckFun(data){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer">
-    <div class="container">
+    <div class="container" style="overflow:auto;">
         <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
             <div class="row">
                 <div class="form-group form-group-sm">

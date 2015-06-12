@@ -60,15 +60,15 @@ $( document ).ready(function() {
 	mainLayout.cells("b").setWidth(220);
 	mainLayout.cells("a").setHeight(50);
 	mainLayout.cells("a").fixSize(false, true);
-	
+
 	/* 메뉴 쪽 레이아웃 사이즈 조절 가능*/
 	mainLayout.cells("b").fixSize(true, false);
 	mainLayout.cells("b").fixSize(false, true);
-	
+
 	/* 메뉴 쪽 레이아웃 사이즈 조절 불가능*/
 	//mainLayout.cells("c").fixSize(true, true);
 	//mainLayout.cells("b").fixSize(true, true);
-	
+
 	//mainLayout.cells("a").collapse();
  	//mainLayout.cells("d").collapse();
 
@@ -211,7 +211,7 @@ var fncSelectItem = function(tree, id) {
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
 		scrnParm = tree.getUserData(id, "scrnParm");
-		
+
 		var menuItemText = tree.getDxObj().getItemText(id);
 
 		mainTabbar.forEachTab(function(tab){
@@ -257,4 +257,4 @@ function setViewFullPath(id){
  -->		<a  href="#" id="log_out">로그아웃</a></div>
 	</div>
 <div id="container"></div>
-<div id="statusBar" style="height:20px;">STATUS BAR</div>
+<!-- <div id="statusBar" style="height:20px;">STATUS BAR</div> -->
