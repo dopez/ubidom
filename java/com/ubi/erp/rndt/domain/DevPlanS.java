@@ -17,18 +17,9 @@ public class DevPlanS implements Serializable {
 
 	private String cudKey2;
 
-	private String cudKey51;
+	private String cudKey5;
 
-	private String cudKey52;
-
-	private String cudKey61;
-
-	private String cudKey62;
-
-	private String cudKey63;
-
-	private String cudKey8;
-
+	private String cudKey6;
 
 	// mst
 	private String setDate;
@@ -409,52 +400,20 @@ public class DevPlanS implements Serializable {
 		this.cudKey2 = cudKey2;
 	}
 
-	public String getCudKey51() {
-		return cudKey51;
+	public String getCudKey5() {
+		return cudKey5;
 	}
 
-	public void setCudKey51(String cudKey51) {
-		this.cudKey51 = cudKey51;
+	public void setCudKey5(String cudKey5) {
+		this.cudKey5 = cudKey5;
 	}
 
-	public String getCudKey52() {
-		return cudKey52;
+	public String getCudKey6() {
+		return cudKey6;
 	}
 
-	public void setCudKey52(String cudKey52) {
-		this.cudKey52 = cudKey52;
-	}
-
-	public String getCudKey61() {
-		return cudKey61;
-	}
-
-	public void setCudKey61(String cudKey61) {
-		this.cudKey61 = cudKey61;
-	}
-
-	public String getCudKey62() {
-		return cudKey62;
-	}
-
-	public void setCudKey62(String cudKey62) {
-		this.cudKey62 = cudKey62;
-	}
-
-	public String getCudKey63() {
-		return cudKey63;
-	}
-
-	public void setCudKey63(String cudKey63) {
-		this.cudKey63 = cudKey63;
-	}
-
-	public String getCudKey8() {
-		return cudKey8;
-	}
-
-	public void setCudKey8(String cudKey8) {
-		this.cudKey8 = cudKey8;
+	public void setCudKey6(String cudKey6) {
+		this.cudKey6 = cudKey6;
 	}
 
 }

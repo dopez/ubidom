@@ -1,8 +1,8 @@
-@charset "utf-8"; 
+@charset "utf-8";
 *{margin: 0;padding: 0;}
 *html #container { height: 100%;}
 html {height:100%; font-size:12px; color:#555555; line-height:150%; font-family: 돋움,Dotum, AppleGothic, sans-serif; background-color:#e7e7e7;}
-body {height: 99%; font-size:12px; color:#555555; line-height:150%; font-family: 돋움,Dotum, AppleGothic, sans-serif; background-color:#e7e7e7;}
+body {height: 100%; font-size:12px; color:#555555; line-height:150%; font-family: 돋움,Dotum, AppleGothic, sans-serif; background-color:#e7e7e7;}
 
 ul{float:left; list-style-type:none;}
 li{float:left; list-style-type:none;}

@@ -75,19 +75,30 @@ $(document).ready(function() {
         if(devPlanRParam=="UPDATE"){
 
         }else{
-	    fn_setCud("i");
-     	byId("cudKey1").value = 'INSERT';
-     	byId("cudKey2").value = 'INSERT';
-     	byId("cudKey5").value = 'INSERT';
-     	byId("cudKey6").value = 'INSERT';
+        	fn_new();
         }
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
-	byId("frmTab1").reset();
-	
 	fn_setDate();
-	
+    $('#setDate').keyup();
+	byId("frmTab1").reset();
+	byId("frmTab2").reset();
+	tab3.clearAll();
+	tab4.clearAll();
+	byId("frmTab5_1").reset();
+	byId("frmTab5_2").reset();
+	byId("frmTab6_1").reset();
+	byId("frmTab6_2").reset();
+	byId("frmTab6_3").reset();
+	tab7.clearAll();
+	tab8Grid.clearAll();
+	fn_setRowsTab8();
+    fn_setCud("i");
+ 	byId("cudKey1").value = 'INSERT';
+ 	byId("cudKey2").value = 'INSERT';
+ 	byId("cudKey5").value = 'INSERT';
+ 	byId("cudKey6").value = 'INSERT';
 }
 
 function fn_frmSearch(){
@@ -98,6 +109,18 @@ function fn_frmSearch(){
 			mainParam.setSeq = "%";
 	}
 	gfn_callAjaxForForm(frmMain, mainParam, "selFrmMain");
+}
+function fn_delete(){
+	fn_tabDelete("a3",tab3);
+	fn_tabDelete("a4",tab4);
+	fn_tabDelete("a7",tab7);
+}
+
+function fn_tabDelete(id,grid){
+	if(tabId==id){
+	    var selectedId = grid.getSelectedRowId();
+	    grid.cs_deleteRow(selectedId);
+	}
 }
 function fn_search(){
 	fn_frmSearch();
@@ -165,7 +188,11 @@ function fn_frmMain(id) {
         fn_setCud("u");
     }
 }
-
+function fn_remove(){
+    fn_setCud("d");
+    fn_frmMainSave();
+    fn_new();
+}
 /*set date*/
 function fn_setDate(){
     t = dateformat(new Date());
@@ -321,8 +348,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                     </div>
                 </div>
             </div>
@@ -376,8 +402,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                     </div>
                 </div>
             </div>
@@ -387,23 +412,9 @@ form{
 <form class="form-horizontal"  id="frmTab7">
 <input type="hidden" id="jsonData7" name="jsonData7">
 </form>
-<div id="tab8" class="container">
-    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab8">
-                <input type="hidden" id="cudKey8" name="cudKey8">
-                <input type="hidden" id="jsonData8" name="jsonData8">
-                
-        <div class="row">
-            <div class="col-sm-8 col-md-8">
-                <div class="form-group form-group-sm">
-                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 적용제품 </label>
-                    <div class="col-sm-10 col-md-10">
-                        <input name="appItem" id="appItem" type="text" value="" placeholder="" class="form-control input-xs">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
+<form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab8">
+ <input type="hidden" id="jsonData8" name="jsonData8">
+</form>
 <div id="bootContainer2">
     <div class="container">
         <form class="form-horizontal"  id="frmMain">

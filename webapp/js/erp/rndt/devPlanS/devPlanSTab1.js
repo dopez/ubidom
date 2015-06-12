@@ -5,6 +5,10 @@ function fn_setTab1(){
     	if(id=="btn3"){
     		fn_tab1Save();
     	}
+    	if(id=="btn4"){
+    		$('#cudKey1').val('DELETE');
+    		fn_tab1Save();
+    	}
     })
 }
 function fn_tab1Save(){
@@ -24,8 +28,12 @@ function fn_tab1Save(){
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
-            	byId("cudKey1").value = 'UPDATE';
-                }
+            	if($('#cudKey1').val()=='DELETE'){
+            		byId("cudKey1").value = 'INSERT';
+            	}else{
+            		byId("cudKey1").value = 'UPDATE';
+            	}
+             }
         });
     }
 }
