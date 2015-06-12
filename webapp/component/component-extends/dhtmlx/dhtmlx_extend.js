@@ -381,7 +381,6 @@ function gfn_check_jumin(value) {
 	 var preValue = value.substring(0,6);
 	 var nextValue = value.substring(7,14);
 	 var jumin = preValue+nextValue;
-console.log(jumin);
 	 var fmt = /^\d{6}[1234]\d{6}$/;  //포멧 설정
 	 if (!fmt.test(jumin)) {
 	   return false;

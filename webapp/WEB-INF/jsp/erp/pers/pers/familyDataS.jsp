@@ -113,7 +113,7 @@ function fn_save(){
 	           }
 	      });
 	}else{
-		MsgManager.alertMsg("WRN004");
+		MsgManager.alertMsg("WRN008");
 		return;
 	}
 }

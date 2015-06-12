@@ -329,7 +329,6 @@ dxGrid.prototype.getJsonUpdated = function(excludeCols) {
 	return jsonStr;
 };
 
-//Get Json from CUD rows 특수기호 포함
 dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 	this.dxObj.editStop();
 	var jsonStr = "";
@@ -348,24 +347,15 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				colNm = this.dxObj.getColLabel(j);
 				colVal = this.dxObj.cells2(i,j).getValue();
 				colType = this.dxObj.getColType(j);
+				
+				var classNm = this.dxObj.getUserData("","@"+colId);
 
-				if(colType=="ro" || colType =="dhxCalendar" || colType == "dhxCalendarA"){
-					var regExp = /[\{\}\[\]\/?;:|\)*`!^\+<>@\#$%&\\\=\(\'\"]/gi;
+	        	if(classNm != null){
+	        		console.log("1",colVal);
+	        		var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
 					colVal = colVal.replace(regExp, "");
-				}
-
-
-				/*if(classNm!= null){
-				   var els = $('<input>').attr({
-				       type: 'hidden',
-				       id: "",
-				       name: colId
-				   }).appendTo("body");
-				   $(els).addClass(classNm).val(colVal).keyup();
-				   $.applyDataMask($(els));
-				   colVal=$(els).cleanVal();
-				   $(els).remove();
-				}*/
+					console.log("2",colVal);
+	        	 }
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
 					this.dxObj.selectCell(i, j, false, true, false);
