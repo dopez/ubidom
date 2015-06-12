@@ -60,11 +60,7 @@
 			function fn_search(){
 				gridScd.clearAll();
 				gridThd.clearAll();
-				if(!$("input[name='itemName2'], #frmSearch ").val().length){
-					$("input[name='itemName'], #frmSearch ").val("%");
-				}else{
-					$("input[name='itemName'], #frmSearch ").val($("#frmSearch input[name='itemName2']").val());
-				}
+				$("input[name='itemName'], #frmSearch ").val($("input[name='itemName2'], #frmSearch ").val()+"%");
 				gfn_callAjaxForGrid(gridFst,$("#frmSearch").serialize(),"searchA",subLayout.cells("a"));
 				gridFst.dxObj.selectRow(0,true,true,true);
 			}
@@ -151,7 +147,7 @@
 	        		var cudKeyVal = gridScd.setCells(selectedId,cudKeyColIndex).getValue();
 	        		gridScd.setCells(selectedId,custCodeColIndex).setValue(data[0].custCode);
 	        		gridScd.setCells(selectedId,custNameColIndex).setValue(data[0].custKorName);
-	        		if(!cudKeyVal.length){
+	        		if(cudKeyVal==""){
 	        			gridScd.setCells(selectedId,cudKeyColIndex).setValue("UPDATE");
 	        		}
 	        	};

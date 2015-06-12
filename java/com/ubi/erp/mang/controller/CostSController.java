@@ -65,7 +65,10 @@ public class CostSController {
 		String itemDiv = request.getParameter("itemDiv");
 		String ioChk = request.getParameter("ioChk");
 		String itemCode = request.getParameter("itemCode");
-
+		logger.debug("V_COMPID is "+compId);
+		logger.debug("V_ITEM_DIV is "+itemDiv);
+		logger.debug("V_IO_CHK is "+ioChk);
+		logger.debug("V_ITEM_CODE is "+itemCode);
 		map.put("V_COMPID", compId);
 		map.put("V_ITEM_DIV", itemDiv);
 		map.put("V_IO_CHK", ioChk);

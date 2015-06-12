@@ -4,11 +4,15 @@
 var layout, toolbar, subLayout,subToolbar;
 var calMain,t;
 var subTabbar,tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
+var tab1Toolbar,tab2Toolbar,tab3Toolbar,tab4Toolbar,tab5Toolbar,tab6Toolbar,tab7Toolbar,tab8Toolbar
 var tabId = "a1";
 var combo01,combo02,combo03;
+var devPlanRParam; //= ${param};
+var dateVal;
+var seqVal;
 $(document).ready(function() {
 
-		Ubi.setContainer(4, [1, 2, 3, 4,5,6], "1C"); //개발계획등록
+		Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발계획등록
 
         layout = Ubi.getLayout();
         toolbar = Ubi.getToolbar();
@@ -17,9 +21,8 @@ $(document).ready(function() {
         //form//
         layout.cells("b").attachObject("bootContainer2");
         layout.cells("b").setHeight(180);
-
-		toolbar.attachEvent("onClick",fn_mainBtn);
-        
+		
+    	toolbar.attachEvent("onClick", fn_frmMain);
         //setDate//
         calMain = new dhtmlXCalendarObject([{input: "setDate",button: "calpicker1"}]);
         calMain.loadUserLanguage("ko");
@@ -41,9 +44,9 @@ $(document).ready(function() {
             tabId = id;
         });
         /*tab set*/
-        tab1 = subTabbar.tabs("a1").attachObject("tab1");
-        tab2 = subTabbar.tabs("a2").attachObject("tab2");
-        fn_setTabColor(tabId);
+
+        fn_setTab1();
+        fn_setTab2();
         fn_setTab3();
         fn_setTab4();
         fn_setTab5();
@@ -51,6 +54,7 @@ $(document).ready(function() {
         fn_setTab7();
         fn_setTab8();
         
+        fn_setTabColor(tabId);
         /*popUp*/
          $("#writerName, #ppsName, #postName").click(function(e){
 			if(e.target.id == "writerName"){
@@ -67,13 +71,25 @@ $(document).ready(function() {
 	    })
         /*set seq*/
         //fn_getSeqReturn();
-        
+
+        if(devPlanRParam=="UPDATE"){
+
+        }else{
+	    fn_setCud("i");
+     	byId("cudKey1").value = 'INSERT';
+     	byId("cudKey2").value = 'INSERT';
+     	byId("cudKey5").value = 'INSERT';
+     	byId("cudKey6").value = 'INSERT';
+        }
 })/*doc ready end*/
-function fn_mainBtn(id){
-	if(id=="btn3"){
-		alert("hi");
-	}
+function fn_new(){
+	byId("frmMain").reset();
+	byId("frmTab1").reset();
+	
+	fn_setDate();
+	
 }
+
 function fn_frmSearch(){
 	var mainParam = {};
 	mainParam.setDate = $("#setDate").val();
@@ -110,18 +126,46 @@ function fn_search(){
 		fn_searchTab8();
 	}
 }
-
-
-
-function fn_save(){
-	
-	if(tabId=="a1"){
-		alert("1번째 탭 입니다.");
-	}
-	if(tabId=="a2"){
-		alert("2번째 탭 입니다.");
+function fn_seqValid(){
+	var vFlag = "";
+	if($("#setSeq").val()==null||$("#setSeq").val()==""
+			||typeof $("#setSeq").val()=="undefined"
+			||seqVal.length<=0||seqVal==null
+			||seqVal==""){
+		dhtmlx.alert("위 Form부터 작성/저장 하세요");
+		vFlag = false;
+		return vFlag;
+	}else{
+		vFlag = true;
+		return vFlag;
 	}
 }
+function fn_frmMainSave(){
+	$("input[name=setSeq]").attr("disabled",false);
+	dateVal = searchDate($("#setDate").val());
+	seqVal = $("#setSeq").val();
+ 	var params = gfn_getFormElemntsData('frmMain');
+	$("input[name=setSeq]").attr("disabled",true);
+    $.ajax({
+        type: 'POST',
+        url: "/erp/rndt/stan/DevPlanS/frmMainSave",
+        data: params,
+        success: function(data) {
+            MsgManager.alertMsg("INF001");
+            }
+    });
+}
+function fn_frmMain(id) {
+    if (id == "btn3") {
+        if ($('#setSeq').val() == '') {
+            fn_getSeqReturn();
+        }
+        fn_frmMainSave();
+        $('#setDate').keyup();
+        fn_setCud("u");
+    }
+}
+
 /*set date*/
 function fn_setDate(){
     t = dateformat(new Date());
@@ -148,7 +192,7 @@ function fn_getSeqReturn(){
 	    gfn_callAjaxComm(obj,"/erp/comm/stan/tableSeq/selTableSeq1",fn_SetSeq); 
 };
 function fn_SetSeq(data) {
-   $("#setSeq").val(data[0].setSeq);
+   $("#setSeq").val(data[0].seq);
 };
 function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
@@ -183,18 +227,10 @@ function fn_onClosePop(pName,data){
         }
     }
 };
-function fn_add(){
-	if(tabId=="a3"){
-		fn_addTab3();
-	}
-	if(tabId=="a4"){
-		fn_addTab4();
-	}
-	if(tabId=="a7"){
-		fn_addTab7();
-	}
-}
+
 </script>
+<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab1.js"></script>
+<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab2.js"></script>
 <script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab3.js"></script>
 <script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab4.js"></script>
 <script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab5.js"></script>
@@ -210,6 +246,7 @@ form{
 </style>
 <div id="tab1" class="container">
     <form class="form-horizontal"  id="frmTab1">
+            <input type="hidden" id="cudKey1" name="cudKey1">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -218,8 +255,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                         <input name="contentsKind" id="contentsKind" type="hidden" value="1" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
@@ -229,6 +265,7 @@ form{
 </div>
 <div id="tab2" class="container">
     <form class="form-horizontal"  id="frmTab2">
+    <input type="hidden" id="cudKey2" name="cudKey2">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -237,8 +274,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                         <input name="contentsKind" id="contentsKind" type="hidden" value="2" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
@@ -246,8 +282,15 @@ form{
         </div>
     </form>
 </div>
+<form class="form-horizontal"  id="frmTab3">
+<input type="hidden" id="jsonData3" name="jsonData3">
+</form>
+<form class="form-horizontal"  id="frmTab4">
+<input type="hidden" id="jsonData4" name="jsonData4">
+</form>
 <div id="tab5_1" class="container">
     <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab5_1">
+        <input type="hidden" id="cudKey5" name="cudKey5">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -288,6 +331,7 @@ form{
 </div>
 <div id="tab6_1" class="container">
     <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab6_1">
+        <input type="hidden" id="cudKey6" name="cudKey6">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -340,8 +384,14 @@ form{
         </div>
     </form>
 </div>
+<form class="form-horizontal"  id="frmTab7">
+<input type="hidden" id="jsonData7" name="jsonData7">
+</form>
 <div id="tab8" class="container">
-    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab6_2">
+    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab8">
+                <input type="hidden" id="cudKey8" name="cudKey8">
+                <input type="hidden" id="jsonData8" name="jsonData8">
+                
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -377,7 +427,7 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -399,8 +449,8 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 작성자 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="writerName" id="writerName" type="text" value="" placeholder="" class="form-control input-xs">
-                            <input name="writerEmp" id="writerEmp" type="hidden" value="" placeholder="" class="form-control input-xs">
+                            <input name="writerName" id="writerName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
+                            <input name="writerEmp" id="writerEmp" type="hidden" value="${empNo}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>

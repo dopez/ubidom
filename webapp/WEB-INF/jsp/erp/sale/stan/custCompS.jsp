@@ -6,6 +6,7 @@ var layout, toolbar, subLayout;
 var gridMain;
 var gridDtl;
 var f_dxRules;
+var custCodeVal;
 $( document ).ready(function() {
 
 	Ubi.setContainer(1,[1,2,3,4,5,6],"2U");
@@ -19,27 +20,28 @@ $( document ).ready(function() {
 	subLayout.cells("a").setWidth("303");
 
 	gridMst = new dxGrid(subLayout.cells("a"), false);
-	gridMst.addHeader({name:"고객코드",   colId:"custCode",    width:"100", align:"center", type:"ro"});
-	gridMst.addHeader({name:"고객명", 	  colId:"custKorName", width:"100", align:"center", type:"ro"});
-	gridMst.addHeader({name:"사업자번호", colId:"custNumb",    width:"100", align:"center", type:"ro"});
+	gridMst.addHeader({name:"고객코드", colId:"custCode", width:"80", align:"center", type:"ro"});
+	gridMst.addHeader({name:"고객명", 	colId:"custKorName", width:"80", align:"center", type:"ro"});
+	gridMst.addHeader({name:"사업자번호", 	colId:"custNumb", width:"120", align:"center", type:"ro"});
 	gridMst.setUserData("","pk","custCode");
 	gridMst.setColSort("str");
+
 	gridMst.init();
 
 	gridMst.attachEvent("onRowSelect",doOnRowSelectMst);
 
 	gridDtl = new dxGrid("subGrid", false);
-	gridDtl.addHeader({name:"고객코드", colId:"custCode",    width:"80",  align:"center", type:"ro"});
-	gridDtl.addHeader({name:"사원번호", colId:"empNo",       width:"80",  align:"center", type:"ro"});
-	gridDtl.addHeader({name:"이름",     colId:"empName",     width:"80",  align:"center", type:"ro"});
-	gridDtl.addHeader({name:"직책", 	colId:"jobPosition", width:"80",  align:"center", type:"ed"});
-	gridDtl.addHeader({name:"소속", 	colId:"deptName",    width:"80",  align:"center", type:"ed"});
-	gridDtl.addHeader({name:"HP번호", 	colId:"hpNo",        width:"80",  align:"center", type:"ed"});
-	gridDtl.addHeader({name:"전화", 	colId:"telNo",       width:"80",  align:"center", type:"ed"});
-	gridDtl.addHeader({name:"이메일", 	colId:"eMail",       width:"100", align:"center", type:"ed"});
-	gridDtl.addHeader({name:"시작일자", colId:"startDate",   width:"80",  align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"중지일자", colId:"stopDate",    width:"80",  align:"center", type:"dhxCalendarA"});
-	gridDtl.addHeader({name:"비고", 	colId:"rmk",         width:"180", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"고객코드", colId:"custCode", width:"80", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"사원번호", colId:"empNo", width:"80", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"이름", colId:"empName", width:"80", align:"center", type:"ro"});
+	gridDtl.addHeader({name:"직책", 	colId:"jobPosition", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"소속", 	colId:"deptName", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"HP번호", 	colId:"hpNo", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"전화", 	colId:"telNo", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"이메일", 	colId:"eMail", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"시작일자", 	colId:"startDate", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"중지일자", 	colId:"stopDate", width:"80", align:"center", type:"ed"});
+	gridDtl.addHeader({name:"비고", 	colId:"rmk", width:"80", align:"center", type:"ed"});
 	gridDtl.setUserData("","pk","custCode");
 	gridDtl.setColSort("str");
 
@@ -52,12 +54,11 @@ $( document ).ready(function() {
 	gridDtl.attachEvent("onRowSelect",doRowDblClickedDtl);
 
     $("#pcSearchBtn").click(function(e){
-    	if($('#type1').is(':checked')){
+    	if($("#postGbn1").is(":checked")){
     		execDaumPostcode("postNo","custAddress");
     	}else{
     		execDaumPostcode("postNo","custAddressB");
     	}
-
 	});
 
 	$("#custName").dblclick(function(e){
@@ -73,19 +74,30 @@ $( document ).ready(function() {
 
 function fn_search(){
 	gridDtl.clearAll();
-	$("#frmMain").exClearForm();
+	$("#frmMain")[0].reset();
+	$("input:checkbox","#frmMain").removeAttr('checked');
 	var obj={};
 	if(!$("#frmSearch input[name='custCode']").val().length){
 		obj.custCode="%";
 		obj.custName="%";
 	}
 	gfn_callAjaxForGrid(gridMst,obj,"mst",subLayout.cells("a"));
-	gridMst.dxObj.selectRow(0,true,true,true);
+	var custCodeColIdx = gridMst.getColIndexById("custCode");
+	var values=gridMst.dxObj.collectValues(custCodeColIdx);
 
-};
+	if(custCodeVal != undefined){
+
+		gridMst.dxObj.selectRow(values.indexOf(custCodeVal),true,true,true);
+	}else{
+		gridMst.dxObj.selectRow(0,true,true,true);
+	}
+
+
+}
 
 function doOnRowSelectMst(id,ind){
-	$("#frmMain").exClearForm();
+	$("#frmMain")[0].reset();
+	$("input:checkbox","#frmMain").removeAttr('checked');
 	$("#cudKey").val("UPDATE");
 	var obj = {};
 	obj.custCode= gridMst.setCells(id,0).getValue();
@@ -93,9 +105,9 @@ function doOnRowSelectMst(id,ind){
 	gfn_callAjaxForForm("frmMain",obj,"mst");
 	gfn_callAjaxForGrid(gridDtl,obj,"dtl",subLayout.cells("b"));
 
-};
+}
+
 function doRowDblClickedDtl(rId,cInd){
-	gridDtl.editCell();
 	if(cInd == 2){
 		gfn_load_pop('w1','common/empPOP',true,{});
 	}
@@ -113,62 +125,68 @@ function fn_add(){
 
     data[custCodeColIdx] = custCode;
     var date = dateformat(new Date());
-	data[startDateColIdx] = date;
-	data[stopDateColIdx] = date;
+	data[startDateColIdx] = "99991231";
+	data[stopDateColIdx] = "99991231";
 
     gridDtl.addRow(data);
 
 
-};
+}
 
 function fn_delete(){
 	var selectedId = gridDtl.getSelectedRowId();
 	gridDtl.cs_deleteRow(selectedId);
-};
+}
 
 function fn_remove(){
 	$("#cudKey").val("DELETE");
 	fn_save();
-};
+}
 
 function fn_new(){
-	$("#frmMain")[0].reset();
 	gridMst.clearSelection();
 	gridDtl.clearAll();
+	$("#frmMain")[0].reset();
+	$("input:checkbox","#frmMain").removeAttr('checked');
+// 	$("#custKindA").attr("checked",true);
 	$("#cudKey").val("INSERT");
-
-};
+	console.log("fn_new()")
+}
 
 function fn_save(){
 
 	var crud = $("#cudKey").val();
 
+	f_dxRules = {
+			   custKorName : ["고객명",r_notEmpty],
+		       regiNumb: ["주민번호",r_notEmpty]
+	};
 
 	if(crud == "INSERT"){
 
 		var d = fn_process1()[0];
-
 		$("#frmMain input[name='custCode']").val(d.custCode);
 
 		if(d.rtnCode=="0"){
+			if(gfn_formValidation('frmMain')){
 				fn_process2();
 				fn_process3();
 				fn_search();
-
+			};
 		};
 
 		if(d.rtnCode=="1"){
 			dhtmlx.confirm("거래처명이 중복입니다. 저장하시겠습니까?", function(result){
-
+				if(gfn_formValidation('frmMain')){
 					fn_process2();
 					fn_process3();
 					fn_search();
-
+				};
 			});
 		};
 
 		if(d.rtnCode=="2"){
-			dhtmlx.alert("사업자 번호가 중복입니다.");
+			dhtmlx.confirm("사업자 번호가 중복입니다.");
 			$( "#custNumb" ).focus();
 		};
 	};
@@ -177,6 +195,7 @@ function fn_save(){
 
 		if(gfn_formValidation('frmMain')){
 			fn_process2();
+
 			fn_process3();
 			fn_search();
 		};
@@ -192,8 +211,9 @@ function fn_save(){
 		obj.cudKey = $("#cudKey").val();
 		obj.custKorName = $("#custKorName").val();
 		obj.regiNumb = $("#regiNumb").val();
+		gfn_callAjaxComm(obj,"chkValid",callBckFun);
 
-		return gfn_callAjaxComm(obj,"chkValid",fn_callBckFun);
+
 	};
 
     function fn_process2(){
@@ -204,8 +224,9 @@ function fn_save(){
 	    $("#jsonData").val(jsonStr);
 	    gfn_callAjaxComm($("#frmServer").serialize(),"dtlSave");
 	    dhtmlx.alert("저장 완료");
+	    custCodeVal=$("#frmMain input[name='custCode']").val();
     };
-};
+}
 
 function fn_onClosePop(pName,data){
 
@@ -217,29 +238,23 @@ function fn_onClosePop(pName,data){
 			$("#postName").val(obj.postName);
 			$("#postCode").val(obj.postCode);
 		}
-	};
-
+	}
 	if(pName == "empNo"){
 		var empNoColIndex = gridDtl.dxObj.getColIndexById("empNo");
 		var empNameColIndex = gridDtl.dxObj.getColIndexById("empName");
 		var selectedId = gridDtl.dxObj.getSelectedRowId();
-
 		gridDtl.setCells(selectedId,empNoColIndex).setValue(data[0].empNo);
 		gridDtl.setCells(selectedId,empNameColIndex).setValue(data[0].korName);
-	};
- };
-function fn_onOpenPop(){
-
+	}
 }
-function fn_callBckFun(data){
 
+function fn_callBckFun(data){
 	var count=gridDtl.dxObj.getRowsNum();
-	if(count>0){
+	if(count > 0){
 		for(var i=0;i<count;i++){
 			gridDtl.setCells2(i,0).setValue(data[0].custCode);
 		}
 	}
-
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
@@ -347,7 +362,7 @@ function fn_callBckFun(data){
                             <input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                         <div class="col-sm-3 col-md-3">
-                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn">
+                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn" onclick="gfn_load_popup('우편번호','common/zipCodePOP')">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </div>
@@ -357,10 +372,10 @@ function fn_callBckFun(data){
                     </label>
                     <div class="col-sm-3 col-md-3">
                         <div class="col-sm-4 col-md-4">
-                            <input type="radio" name="postGbn" id="type1" value="도로명" checked>도로명
+                            <input type="radio" name="postGbn" id="postGbn1" value="도로명" checked>도로명
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <input type="radio" name="postGbn" id="type2" value="지번">지번
+                            <input type="radio" name="postGbn" id="postGbn2" value="지번">지번
                         </div>
                     </div>
                 </div>
