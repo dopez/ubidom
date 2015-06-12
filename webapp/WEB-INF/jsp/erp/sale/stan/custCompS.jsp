@@ -102,6 +102,7 @@ function doOnRowSelectMst(id,ind){
 	obj.custName= gridMst.setCells(id,1).getValue();
 	gfn_callAjaxForForm("frmMain",obj,"mst");
 	gfn_callAjaxForGrid(gridDtl,obj,"dtl",subLayout.cells("b"));
+	$("#subGrid").css("height","300px");
 
 }
 
@@ -253,7 +254,7 @@ function fn_callBckFun(data){
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer">
-    <div class="container" style="overflow:auto;">
+    <div class="container" style="">
         <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
             <div class="row">
                 <div class="form-group form-group-sm">
