@@ -63,7 +63,7 @@ $(document).ready(function(){
 	gridDtl.cs_setColumnHidden(["checkEmp","cycleKind"]);
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 	
-	calMain = new dhtmlXCalendarObject([{input:"pfDate",button:"calpicker"},{input:"ptDate",button:"calpicker1"},{input:"checkDate",button:"calpicker2"}]); 
+	calMain = new dhtmlXCalendarObject([{input:"checkDate",button:"calpicker"},{input:"pfDate",button:"calpicker1"},{input:"ptDate",button:"calpicker2"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
 	var t = dateformat(new Date());

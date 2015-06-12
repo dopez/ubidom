@@ -62,7 +62,7 @@ function doOnRowDbClicked(rId,cInd){
 	var cFlag = true;
 	var setDateIdx = gridMain.getColIndexById('setDate');
 	var setSeqIdx = gridMain.getColIndexById('setSeq');
-	var dateValue = gridMain.setCells(rId,setDateidx).getValue();
+	var dateValue = gridMain.setCells(rId,setDateIdx).getValue();
 	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000553";

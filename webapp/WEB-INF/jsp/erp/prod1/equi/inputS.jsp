@@ -191,13 +191,20 @@ function fn_loadGridDtl(){
 
 function fn_loadGridDtlCB(data){
 	$("input[name=setSeq]").attr("disabled",true);
-	$('#supplyComp').val('');
-	$('#custCode').val('');
+	if(data == null || data == ''){
+		$('#supplyComp').val('');
+		$('#custCode').val('');
+	}else{
+		$('#supplyComp').val(data[0].custKorName);
+		$('#custCode').val(data[0].custCode);
+	}
+	
 	$('#stDate').keyup();
 };
 
 function fn_new(){
 	gridDtl.clearAll();
+	girdDtl.parse("","js");
 	fn_loadGridMst();
 	$('#setSeq').val('');	
 };

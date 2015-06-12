@@ -327,7 +327,7 @@ function searchDate(dateValue){
     var dateValue = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
     return dateValue;
 }
-function gfn_1col_comboLoad(comboId, inputName, params, colIndx) {
+function gfn_1col_comboLoad(comboId, params) {
     comboId.setTemplate({
         input: "#interName#",
         columns: [{
@@ -339,14 +339,13 @@ function gfn_1col_comboLoad(comboId, inputName, params, colIndx) {
     comboId.enableFilteringMode(true);
     comboId.enableAutocomplete(true);
     comboId.allowFreeText(true);
-    comboId.readonly(true);
     var obj = {};
     obj.compId = '100';
     obj.code = params;
-    doOnOpen(comboId, obj, colIndx);
+    doOnOpen(comboId, obj);
 }
 
-function doOnOpen(comboId, params, colIndx) {
+function doOnOpen(comboId, params) {
     $.ajax({
         "url": "/erp/cmm/InterCodeR",
         "type": "post",
@@ -374,7 +373,6 @@ function gfn_single_comboLoad(comboId,value,key,cLength){
 comboId.enableFilteringMode(true);
 comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
-comboId.readonly(true);
 }
 
 function gfn_check_jumin(value) {
@@ -410,4 +408,19 @@ function gfn_check_jumin(value) {
 	     return false;
 	  }
 	  return true;
-	}
+}
+
+function cs_selectRow_check(grid,colId,colValue){
+	 var rowIdx;
+	 var ColIdIdx = grid.getColIndexById(colId);
+		var values=grid.dxObj.collectValues(ColIdIdx);
+		for(var i=0;i<values.length;i++){
+			if(colValue == values[i]){
+				rowIdx = i;
+				break;
+			}else{
+				rowIdx = 0;
+			}
+		}
+	return rowIdx;
+}

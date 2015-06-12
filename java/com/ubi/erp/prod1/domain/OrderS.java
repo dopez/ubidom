@@ -50,6 +50,8 @@ public class OrderS implements Serializable {
 
 	private String partUnit;
 
+	private String custKorName;
+
 	public OrderS() {
 		super();
 	}
@@ -212,6 +214,14 @@ public class OrderS implements Serializable {
 
 	public void setPartUnit(String partUnit) {
 		this.partUnit = partUnit;
+	}
+
+	public String getCustKorName() {
+		return custKorName;
+	}
+
+	public void setCustKorName(String custKorName) {
+		this.custKorName = custKorName;
 	}
 
 	public static long getSerialversionuid() {

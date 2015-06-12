@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo;
+var postCodeVal;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6],"2U");
 	//부서등록
@@ -42,7 +43,13 @@ $(document).ready(function(){
 			postName : [r_notEmpty],
 			costKind : [r_notEmpty]
 		};
-   
+	
+	$("#postName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(1,byId("postName").value);
+		}
+	 }); 
+	
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
 	});
@@ -51,7 +58,7 @@ $(document).ready(function(){
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
    fn_search();
-  	
+  
 });
 function fn_cellChange(flag){
 	if(flag==1){
@@ -63,38 +70,38 @@ function fn_cellChange(flag){
 
 function fn_new(){
 	 gridDtl.clearAll();
-	 fn_addRow(1);
+	 gridDtl.parse("","js");
      fn_cellChange(1);       
 }
 function fn_add(){
-	fn_addRow(2);
-}
-
-function fn_addRow(flag){
-	var postCodeValue;
-	 if(flag ==1){
-		postCodeValue = "";
+	var postCodeValue = null;
+	var postCodeIdx = gridDtl.getColIndexById('postCode');
+	var RowsNum =  gridDtl.getRowsNum();
+	if(RowsNum == 0){
+		postCodeValue = '';
 	}else{
-		var postCodeIdx = gridDtl.getColIndexById('postCode');
-		postCodeValue = gridDtl.setCells2(0,postCodeIdx).getValue();
+	   postCodeValue = gridDtl.setCells2(0,postCodeIdx).getValue();
 	}
-	 var totalColNum = gridDtl.getColumnCount();
-	    var data = new Array(totalColNum);
-	    var postCodeIdx = gridDtl.getColIndexById("postCode");
-	    var stDateColIdx = gridDtl.getColIndexById('stDate');
-	    var endDateColIdx = gridDtl.getColIndexById('endDate');
-		    data[postCodeIdx] = postCodeValue;
-			data[stDateColIdx] = dateformat(new Date());
-			data[endDateColIdx] = "9999/12/31";
-	        gridDtl.addRow(data);
+	var totalColNum = gridDtl.getColumnCount();
+    var data = new Array(totalColNum);
+    var postCodeIdx = gridDtl.getColIndexById("postCode");
+    var stDateColIdx = gridDtl.getColIndexById('stDate');
+    var endDateColIdx = gridDtl.getColIndexById('endDate');
+	    data[postCodeIdx] = postCodeValue;
+		data[stDateColIdx] = dateformat(new Date());
+		data[endDateColIdx] = "9999/12/31";
+        gridDtl.addRow(data);
 }
 
 function fn_delete(){
-      var rodid = gridDtl.getSelectedRowId();
-      gridDtl.cs_deleteRow(rodid);
+	var rodid = gridDtl.getSelectedRowId();
+    gridDtl.cs_deleteRow(rodid);
 }
 
  function fn_save(){
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	var colIdx = gridDtl.getColIndexById('postCode');
+	    postCodeVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	 if (jsonStr == null || jsonStr.length <= 0) return;         		
 	    $("#jsonData").val(jsonStr);                      
@@ -109,7 +116,7 @@ function fn_delete(){
 	         }
 	  });
  } 
- 
+
 function doOnRowSelect(id,ind){
 	var postCodeIdx = gridMst.getColIndexById('postCode');
 	var postNameIdx = gridMst.getColIndexById('postName');
@@ -130,11 +137,9 @@ function fn_loadGridMst() {
 };
 
 function fn_loadGridMstCB(data) {
-	var obj={};
-	obj.postName=data[0].postName;
-	obj.postCode=data[0].postCode;
-	fn_loadGridDtl(obj);
-	fn_cellChange(2); 
+	 fn_cellChange(2);
+	var rowIdx = cs_selectRow_check(gridMst,"postCode",postCodeVal)
+		gridMst.selectRow(rowIdx,true,true,true);
 };
 
 // dept 조회로직
