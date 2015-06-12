@@ -12,6 +12,9 @@ function fn_setTab6(){
     tab6Toolbar.attachEvent("onClick",function(id){
     	if(id=="btn3"){
     		fn_tab6Save();
+    	}if(id=="btn4"){
+			$('#cudKey6').val('DELETE');
+			fn_tab6Save();
     	}
     })
 }
@@ -35,8 +38,12 @@ function fn_tab6Save(){
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
-            	byId("cudKey6").value = 'UPDATE';
-                }
+            	if($('#cudKey6').val()=='DELETE'){
+            		byId("cudKey6").value = 'INSERT';
+            	}else{
+            		byId("cudKey6").value = 'UPDATE';
+            	}
+              }
         });
     }
 }

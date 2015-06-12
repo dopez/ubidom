@@ -153,4 +153,18 @@ public class DevPlanSService {
 		}
 	}
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void prcsFrmTab6Save(DevPlanS devPlanS) {
+		dao.prcsFrmTab6Save(devPlanS);
+	}
+
 }

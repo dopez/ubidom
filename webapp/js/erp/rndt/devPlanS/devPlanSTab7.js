@@ -19,13 +19,10 @@ function fn_setTab7(){
     		fn_tab7Save();
     	}
     	if(id=="btn4"){
-    		
+    		fn_tab7Remove();
     	}
     	if(id=="btn5"){
-   			fn_addtab7();
-    	}
-    	if(id=="btn6"){
-    		
+   			fn_addTab7();
     	}
     })
 	combo03 = tab7.getColumnCombo(0);
@@ -33,6 +30,19 @@ function fn_setTab7(){
 	combo03.addOption("2","완료");
 	combo03.addOption("3","이관");
 	combo03.addOption("4","출시");
+}
+function fn_tab7Remove(){
+	var jsonStr = tab7.getJsonUpdated2();
+	if (jsonStr == "[]" || jsonStr.length <= 2){
+		dhtmlx.alert("삭제할 행이 없습니다.");
+	}else{
+		var cudKeyColIdx = tab7.getColIndexById('cudKey');
+		tab7.dxObj.forEachRow(function(id) {
+		tab7.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
+		fn_tab7Save();
+		tab7.clearAll();
+	}
 }
 function fn_addTab7(){
   	var totalRowNum = tab7.getRowsNum();
@@ -57,7 +67,7 @@ function fn_tab7Save(){
 			g_dxRules = {planKind : [r_notEmpty]}
 			if(gfn_validation("planKind", "구분",1||2||3||4)){
 				$("#jsonData7").val(jsonStr);
-				var params = $("#frTab7").serialize();
+				var params = $("#frmTab7").serialize();
 				$.ajax({
 			         url : "/erp/rndt/stan/DevPlanS/gridTab7Save",
 			         type : "POST",

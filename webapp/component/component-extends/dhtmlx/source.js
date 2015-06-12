@@ -1,26 +1,14 @@
-/**functin(a,b,c
- * [a,b,c]
- *
- */
-
-function gfn_temp(grid,data,param, url, layout, callbackFn){
-
+function gfn_temp(grid,data){
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
-
 	        	var classNm = grid.dxObj.getUserData("","@"+[key]);
-
-	        	if(classNm != null){
-	        		var input = $("<input type='hidden'>").appendTo("body");
-	        		var gDate = data[i][key];
-	        		$(input).attr("id",[key]);
-	        		$('#'+[key]).attr("class",classNm);
-	        		$('#'+[key]).val(data[i][key]);
-	        		$('#'+[key]).keyup();
-	        		data[i][key] = $('#'+[key]).val();
-	        		if(gDate == $('#'+[key]).val()){
-	        			gfn_callAjaxForGrid(grid, param, url, layout, callbackFn);
-	        		}
+	        	if(classNm == 'format_date'){
+	        		var maskDate = dateMask(data[i][key]);
+	        		data[i][key] = maskDate;
+	        	}
+	        	if(classNm == 'format_jumin'){
+	        		var maskJumin = juminMask(data[i][key]);
+	        		data[i][key] = maskJumin;
 	        	}
 		  }
 	};
@@ -69,14 +57,14 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         type: "POST",
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
         data: param,
-        async: true,
+        async: false,
         dataType: "json",
         beforeSend: function() {
             layout.progressOn();
         },
         success: function(data, status) {
 
-          gData = gfn_temp(grid,data,param, url, layout, callbackFn);
+          gData = gfn_temp(grid,data);
 
           if (callbackFn != undefined) {
               callbackFn.call(this, data);

@@ -62,19 +62,30 @@ $(document).ready(function(){
 	
 });
 function doOnRowDbClicked(rId,cInd){
-	var dateValue = gridMain.setCells(rId,1).getValue();
-	var seqValue = gridMain.setCells(rId,16).getValue();
+	var cFlag = true;
+	var setDateIdx = gridMain.getColIndexById('setDate');
+	var setSeqIdx = gridMain.getColIndexById('setSeq');
+	var dateValue = gridMain.setCells(rId,setDateIdx).getValue();
+	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000551";
 	for(var i=0;i<ids.length;i++){
 		if(ids[i] == preId){
-			mainTabbar.tabs(preId).close();
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+			}else{
+				cFlag = false;
+				return;
+			}
 		}
 	}
-	var uri = mainMenu.getUserData(preId, "uri");
-	var menuItemText = mainMenu.getDxObj().getItemText(preId);
-	mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-	mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue, setSeq:seqValue});
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue,setSeq:seqValue});	
+	}
 };
 
 function gridMainAttachFooter(){
