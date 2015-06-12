@@ -15,4 +15,140 @@
 		 	)
 		 }	
 	</select>
+	
+	<insert id="prcsFrmMainSave" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE1(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{writerEmp, jdbcType=VARCHAR},
+		 		#{ppsEmp, jdbcType=VARCHAR},
+		 		#{ppsDept, jdbcType=INTEGER},
+		 		#{problemName, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsFrmTab1Save" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE2(
+		 		#{cudKey1},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{contentsKind},
+		 		#{contents, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsFrmTab5Save" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE6(
+		 		#{cudKey5},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{itemName, jdbcType=VARCHAR},
+		 		#{techName, jdbcType=VARCHAR},
+		 		#{targetMatr, jdbcType=VARCHAR},
+		 		#{remarks, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsFrmTab2Save" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE3(
+		 		#{cudKey2},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{contentsKind},
+		 		#{contents, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsFrmTab6Save" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE7(
+		 		#{cudKey6},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{patentLocal, jdbcType=VARCHAR},
+		 		#{patentFore, jdbcType=VARCHAR},
+		 		#{paperLocal, jdbcType=VARCHAR},
+		 		#{paperFore, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsGridTab3" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE4(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{planKind},
+		 		#{planDate, jdbcType=VARCHAR},
+		 		#{dayQty, jdbcType=INTEGER},
+		 		#{juDept, jdbcType=VARCHAR},
+		 		#{booDept, jdbcType=VARCHAR},
+		 		#{role, jdbcType=VARCHAR},
+		 		#{outSourcing, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsGridTab4" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE5(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{dataKind},
+		 		#{staff, jdbcType=INTEGER},
+		 		#{mm, jdbcType=INTEGER},
+		 		#{totMm, jdbcType=INTEGER},
+		 		#{remarks, jdbcType=VARCHAR},
+				#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsGridTab7" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE8(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{investKind},
+		 		#{dhAmt, jdbcType=INTEGER},
+		 		#{totAmt, jdbcType=INTEGER},
+				#{remarks, jdbcType=VARCHAR},
+		 		#{sysEmpNo}
+		 	)
+		 }
+	</insert>
+	<insert id="prcsGridTab8" statementType="CALLABLE">
+		 {call
+		 	SP_RNDT_DEVPLANS_SAVE9(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{marketKind},
+		 		#{localAmt, jdbcType=INTEGER},
+		 		#{foreAmt, jdbcType=INTEGER},
+				#{remarks, jdbcType=VARCHAR},
+		 		#{sysEmpNo}
+		 	)
+		 }
+	</insert>
 </mapper>
