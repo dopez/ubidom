@@ -23,25 +23,41 @@ function fn_setTab4(){
 	tab4.init();
 	tab4.cs_setColumnHidden(["setDate","setSeq"]);
 	tab4Toolbar = subToolbar(tab4Toolbar,subTabbar.tabs("a4"),[3,4,5,6]);
-	tab4Toolbar.attachEvent("onClick",function(id){
-    	if(id=="btn3"){
-    		fn_tab4Save();
-    	}
-    	if(id=="btn4"){
-    		
-    	}
-    	if(id=="btn5"){
-   			fn_addTab4();
-    	}
-    	if(id=="btn6"){
-    		
-    	}
-    })
+	tab4Toolbar.attachEvent("onClick",fn_tab4Btn)
 	combo02 = tab4.getColumnCombo(0);
 	combo02.addOption("1","착수");
 	combo02.addOption("2","완료");
 	combo02.addOption("3","이관");
 	combo02.addOption("4","출시");
+}
+function fn_tab4Btn(id){
+	if(id=="btn3"){
+		fn_tab4Save();
+	}
+	if(id=="btn4"){
+		fn_tab4Remove();
+	}
+	if(id=="btn5"){
+		fn_addTab4();
+	}
+	if(id=="btn6"){
+	    var selectedId = tab4.getSelectedRowId();
+	    console.log(selectedId);
+		tab4.cs_deleteRow(selectedId);
+	}
+}
+function fn_tab4Remove(){
+	var jsonStr = tab4.getJsonUpdated2();
+	if (jsonStr == "[]" || jsonStr.length <= 2){
+		dhtmlx.alert("삭제할 행이 없습니다.");
+	}else{
+		var cudKeyColIdx = tab4.getColIndexById('cudKey');
+		tab4.dxObj.forEachRow(function(id) {
+		tab4.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
+		fn_tab4Save();
+		tab4.clearAll();
+	}
 }
 function fn_addTab4(){
   	var totalRowNum = tab4.getRowsNum();

@@ -29,13 +29,10 @@ function fn_setTab3(){
     		fn_tab3Save();
     	}
     	if(id=="btn4"){
-    		
+    		fn_tab3Remove();
     	}
     	if(id=="btn5"){
    			fn_addTab3();
-    	}
-    	if(id=="btn6"){
-    		
     	}
     })
 	combo01 = tab3.getColumnCombo(0);
@@ -43,6 +40,19 @@ function fn_setTab3(){
 	combo01.addOption("2","완료");
 	combo01.addOption("3","이관");
 	combo01.addOption("4","출시");
+}
+function fn_tab3Remove(){
+	var jsonStr = tab3.getJsonUpdated2();
+	if (jsonStr == "[]" || jsonStr.length <= 2){
+		dhtmlx.alert("삭제할 행이 없습니다.");
+	}else{
+		var cudKeyColIdx = tab3.getColIndexById('cudKey');
+		tab3.dxObj.forEachRow(function(id) {
+		tab3.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
+		fn_tab3Save();
+		tab3.clearAll();
+	}
 }
 function fn_addTab3(){
   	var totalRowNum = tab3.getRowsNum();

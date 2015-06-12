@@ -11,23 +11,40 @@ function fn_setTab8(){
 	tab8Grid.dxObj.enableColSpan(true);
 	tab8Grid.init();
 	tab8Grid.cs_setColumnHidden(["setDate","setSeq"]);
-	
-    tab8Grid.addRow(["Market Size"]);
-    tab8Grid.addRow(["예상매출액"]);
-    tab8Grid.addRow(["예상경상익율"]);
-    tab8Grid.addRow(["Target Market"]);
-    tab8Grid.addRow(["적용제품"]);
-    tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
-    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;")
+	fn_setRowsTab8()
+    
 	tab8Toolbar = subToolbar(tab8Toolbar,subTabbar.tabs("a8"),[3,4]);
 	tab8Toolbar.attachEvent("onClick",function(id){
     	if(id=="btn3"){
     		fn_tab8Save();
     	}
     	if(id=="btn4"){
-    		
+    		fn_tab8GridRemove();
     	}
     })
+}
+function fn_setRowsTab8(){
+	tab8Grid.addRow(["Market Size"]);
+    tab8Grid.addRow(["예상매출액"]);
+    tab8Grid.addRow(["예상경상익율"]);
+    tab8Grid.addRow(["Target Market"]);
+    tab8Grid.addRow(["적용제품"]);
+    tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
+    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;")
+}
+function fn_tab8GridRemove(){
+	var jsonStr = tab8Grid.getJsonUpdated2();
+	if (jsonStr == "[]" || jsonStr.length <= 2){
+		dhtmlx.alert("삭제할 행이 없습니다.");
+	}else{
+		var cudKeyColIdx = tab8Grid.getColIndexById('cudKey');
+		tab8Grid.dxObj.forEachRow(function(id) {
+		tab8Grid.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
+		fn_tab8Save();
+		tab8Grid.clearAll();
+		fn_setRowsTab8();
+	}
 }
 function fn_tab8Save(){
 	if(fn_seqValid()){

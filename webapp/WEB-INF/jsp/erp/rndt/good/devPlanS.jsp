@@ -75,30 +75,30 @@ $(document).ready(function() {
         if(devPlanRParam=="UPDATE"){
 
         }else{
-	    fn_setCud("i");
-     	byId("cudKey1").value = 'INSERT';
-     	byId("cudKey2").value = 'INSERT';
-     	byId("cudKey5").value = 'INSERT';
-     	byId("cudKey6").value = 'INSERT';
+        	fn_new();
         }
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
 	fn_setDate();
+    $('#setDate').keyup();
 	byId("frmTab1").reset();
 	byId("frmTab2").reset();
-	byId("frmTab3").reset();
-	
-	byId("frmTab4").reset();
+	tab3.clearAll();
+	tab4.clearAll();
 	byId("frmTab5_1").reset();
 	byId("frmTab5_2").reset();
 	byId("frmTab6_1").reset();
 	byId("frmTab6_2").reset();
 	byId("frmTab6_3").reset();
-	byId("frmTab7").reset();
-	byId("frmTab8").reset();
-	
-	
+	tab7.clearAll();
+	tab8Grid.clearAll();
+	fn_setRowsTab8();
+    fn_setCud("i");
+ 	byId("cudKey1").value = 'INSERT';
+ 	byId("cudKey2").value = 'INSERT';
+ 	byId("cudKey5").value = 'INSERT';
+ 	byId("cudKey6").value = 'INSERT';
 }
 
 function fn_frmSearch(){
@@ -109,6 +109,18 @@ function fn_frmSearch(){
 			mainParam.setSeq = "%";
 	}
 	gfn_callAjaxForForm(frmMain, mainParam, "selFrmMain");
+}
+function fn_delete(){
+	fn_tabDelete("a3",tab3);
+	fn_tabDelete("a4",tab4);
+	fn_tabDelete("a7",tab7);
+}
+
+function fn_tabDelete(id,grid){
+	if(tabId==id){
+	    var selectedId = grid.getSelectedRowId();
+	    grid.cs_deleteRow(selectedId);
+	}
 }
 function fn_search(){
 	fn_frmSearch();
@@ -176,7 +188,11 @@ function fn_frmMain(id) {
         fn_setCud("u");
     }
 }
-
+function fn_remove(){
+    fn_setCud("d");
+    fn_frmMainSave();
+    fn_new();
+}
 /*set date*/
 function fn_setDate(){
     t = dateformat(new Date());
