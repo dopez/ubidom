@@ -84,9 +84,20 @@ $(document).ready(function() {
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
-	byId("frmTab1").reset();
-	
 	fn_setDate();
+	byId("frmTab1").reset();
+	byId("frmTab2").reset();
+	byId("frmTab3").reset();
+	
+	byId("frmTab4").reset();
+	byId("frmTab5_1").reset();
+	byId("frmTab5_2").reset();
+	byId("frmTab6_1").reset();
+	byId("frmTab6_2").reset();
+	byId("frmTab6_3").reset();
+	byId("frmTab7").reset();
+	byId("frmTab8").reset();
+	
 	
 }
 
@@ -321,8 +332,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                     </div>
                 </div>
             </div>
@@ -376,8 +386,7 @@ form{
                         <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')">
-</textarea>
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
                     </div>
                 </div>
             </div>
@@ -387,23 +396,9 @@ form{
 <form class="form-horizontal"  id="frmTab7">
 <input type="hidden" id="jsonData7" name="jsonData7">
 </form>
-<div id="tab8" class="container">
-    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab8">
-                <input type="hidden" id="cudKey8" name="cudKey8">
-                <input type="hidden" id="jsonData8" name="jsonData8">
-                
-        <div class="row">
-            <div class="col-sm-8 col-md-8">
-                <div class="form-group form-group-sm">
-                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 적용제품 </label>
-                    <div class="col-sm-10 col-md-10">
-                        <input name="appItem" id="appItem" type="text" value="" placeholder="" class="form-control input-xs">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
+<form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab8">
+ <input type="hidden" id="jsonData8" name="jsonData8">
+</form>
 <div id="bootContainer2">
     <div class="container">
         <form class="form-horizontal"  id="frmMain">

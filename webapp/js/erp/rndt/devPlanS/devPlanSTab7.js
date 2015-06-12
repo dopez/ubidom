@@ -22,7 +22,7 @@ function fn_setTab7(){
     		
     	}
     	if(id=="btn5"){
-   			fn_addtab7();
+   			fn_addTab7();
     	}
     	if(id=="btn6"){
     		
@@ -57,7 +57,7 @@ function fn_tab7Save(){
 			g_dxRules = {planKind : [r_notEmpty]}
 			if(gfn_validation("planKind", "구분",1||2||3||4)){
 				$("#jsonData7").val(jsonStr);
-				var params = $("#frTab7").serialize();
+				var params = $("#frmTab7").serialize();
 				$.ajax({
 			         url : "/erp/rndt/stan/DevPlanS/gridTab7Save",
 			         type : "POST",

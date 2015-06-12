@@ -144,8 +144,8 @@
 		 		#{setDate},
 		 		#{setSeq},
 		 		#{marketKind},
-		 		#{localAmt, jdbcType=INTEGER},
-		 		#{foreAmt, jdbcType=INTEGER},
+		 		#{localAmt, jdbcType=VARCHAR},
+		 		#{foreAmt, jdbcType=VARCHAR},
 				#{remarks, jdbcType=VARCHAR},
 		 		#{sysEmpNo}
 		 	)

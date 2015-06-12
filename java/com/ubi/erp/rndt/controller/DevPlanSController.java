@@ -93,19 +93,6 @@ public class DevPlanSController {
 		}
 	}
 
-	@RequestMapping(value = "/frmTab5Save", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void prcsFrmTab5Save(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevPlanS DevPlanS) throws Exception {
-		String compId = (String) session.getAttribute("compId");
-		String sysEmpNo = (String) session.getAttribute("empNo");
-
-		DevPlanS.setSysEmpNo(sysEmpNo);
-		DevPlanS.setCompId(compId);
-
-		DevPlanSService.prcsFrmTab5Save(DevPlanS);
-
-	}
-
 	@RequestMapping(value = "/gridTab3Save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsGridTab3(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
@@ -132,6 +119,32 @@ public class DevPlanSController {
 		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<DevPlanS>>() {
 		});
 		DevPlanSService.prcsGridTab4(list, sysEmpNo, compId);
+	}
+
+	@RequestMapping(value = "/frmTab5Save", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsFrmTab5Save(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevPlanS DevPlanS) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");
+
+		DevPlanS.setSysEmpNo(sysEmpNo);
+		DevPlanS.setCompId(compId);
+
+		DevPlanSService.prcsFrmTab5Save(DevPlanS);
+
+	}
+
+	@RequestMapping(value = "/frmTab6Save", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsFrmTab6Save(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevPlanS DevPlanS) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");
+
+		DevPlanS.setSysEmpNo(sysEmpNo);
+		DevPlanS.setCompId(compId);
+
+		DevPlanSService.prcsFrmTab6Save(DevPlanS);
+
 	}
 
 	@RequestMapping(value = "/gridTab7Save", method = RequestMethod.POST)
