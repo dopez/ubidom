@@ -1,35 +1,3 @@
-/**functin(a,b,c
- * [a,b,c]
- *
- */
-
-/*function gfn_temp(grid,data,param, url, layout, callbackFn){
-
-	for(var i=0;i<data.length;i++){
-		for (var key in data[i]) {
-
-	        	var classNm = grid.dxObj.getUserData("","@"+[key]);
-
-	        	if(classNm != null){
-	        		var input = $("<input type='hidden'>").appendTo("body");
-	        		var gDate = data[i][key];
-	        		$(input).attr("id",[key]);
-	        		$('#'+[key]).attr("class",classNm);
-	        		$('#'+[key]).val(data[i][key]);
-	        		$('#'+[key]).keyup();
-	        		data[i][key] = $('#'+[key]).val();
-	        		if(gDate == $('#'+[key]).val()){
-	        			gfn_callAjaxForGrid(grid, param, url, layout, callbackFn);
-	        		}
-	        	}
-		  }
-	};
-	grid.clearAll();
-    grid.parse(data,"js");
-
-    return data;
-}*/
-
 function gfn_temp(grid,data){
 	for(var i=0;i<data.length;i++){
 		for (var key in data[i]) {
@@ -37,6 +5,10 @@ function gfn_temp(grid,data){
 	        	if(classNm == 'format_date'){
 	        		var maskDate = dateMask(data[i][key]);
 	        		data[i][key] = maskDate;
+	        	}
+	        	if(classNm == 'format_jumin'){
+	        		var maskJumin = juminMask(data[i][key]);
+	        		data[i][key] = maskJumin;
 	        	}
 		  }
 	};

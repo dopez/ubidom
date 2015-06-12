@@ -95,7 +95,7 @@ function fn_add(){
 function fn_save(){
 	var dtlIdx = gridDtl.getSelectedRowIndex();
 	var juminIdx = gridDtl.getColIndexById('juminNo');  
-	var juminValue = gridDtl.setCells(dtlIdx,juminIdx).getValue();
+	var juminValue = gridDtl.setCells2(dtlIdx,juminIdx).getValue();
 	var jFlag = gfn_check_jumin(juminValue);
 	if(jFlag){
 		var rowIdx = gridMst.getSelectedRowIndex();
