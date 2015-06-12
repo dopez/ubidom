@@ -44,7 +44,7 @@ $(document).ready(function(){
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 	fn_search();
 	
-	$("#postName,#korName").click(function(e){
+	$("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 		}
@@ -52,6 +52,15 @@ $(document).ready(function(){
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		}
 	});
+	
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(3,byId("postName").value);
+		}
+    	if(e.target.id == "korName"){
+    		gridMst.filterBy(2,byId("korName").value);
+		}
+	 }); 
 	
 	combo01 =gridDtl.getColumnCombo(5);
 	combo02 =gridDtl.getColumnCombo(6);

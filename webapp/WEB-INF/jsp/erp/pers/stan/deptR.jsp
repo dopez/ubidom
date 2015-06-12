@@ -25,6 +25,12 @@ $(document).ready(function(){
 	gridMain.setColSort("str");
 	gridMain.init();
 	
+	$("#postName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMain.filterBy(1,byId("postName").value);
+		}
+	 }); 
+	
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 	});

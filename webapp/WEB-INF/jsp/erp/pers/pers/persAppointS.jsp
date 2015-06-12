@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var status;
+var  combo09;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
@@ -33,7 +34,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"근무구분",   colId:"serveGbn", width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"발령구분",   colId:"balGbn",   width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"부서코드",   colId:"postCode", width:"80", align:"left",   type:"ro"});
-	gridDtl.addHeader({name:"발령부서",   colId:"postName", width:"80", align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"발령부서",   colId:"postName", width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"발령직군",   colId:"jikgun",   width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"발령직무",   colId:"jikmu",    width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"발령직위",   colId:"jikwee",   width:"80", align:"left",   type:"combo"});
@@ -44,9 +45,10 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.init();
 	gridDtl.cs_setColumnHidden(["empNo"]);
+	gridDtl.attachEvent("onKeyPress", doOnKeyPress);
 
 	fn_search();
-	gridDtl.attachEvent("onRowSelect",gridDtlOnRowSelect);
+	gridDtl.attachEvent("onRowDblClicked",gridDtlOnRowDbSelect);
 	
 	$("#postName,#korName").click(function(e){
 		if(e.target.id == "postName"){
@@ -58,8 +60,65 @@ $(document).ready(function(){
 		}
 	});
 	
- 	fn_startSetCombo();
+	var combo01 = gridDtl.getColumnCombo(2);
+	var combo02 = gridDtl.getColumnCombo(3);
+	var combo03 = gridDtl.getColumnCombo(4);
+	var combo04 = gridDtl.getColumnCombo(7);
+	var combo05 = gridDtl.getColumnCombo(8);
+	var combo06 = gridDtl.getColumnCombo(9);
+	var combo07 = gridDtl.getColumnCombo(10);
+	var combo08 = gridDtl.getColumnCombo(11);
+	 combo09 = gridDtl.getColumnCombo(6);
+	gfn_1col_comboLoad(combo01,"P001");
+	gfn_1col_comboLoad(combo02,"P002");
+	gfn_1col_comboLoad(combo03,"P003");
+	gfn_1col_comboLoad(combo04,"P004");
+	gfn_1col_comboLoad(combo05,"P005");
+	gfn_1col_comboLoad(combo06,"004");
+	gfn_1col_comboLoad(combo07,"P006");
+	gfn_1col_comboLoad(combo08,"000");
+	fn_comboLoad('N', combo09);
+	
+	combo09.attachEvent("onClose", function(){
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().postCode);
+	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
+	});
 });
+function fn_comboLoad(N,comboId){
+	
+	comboId.setTemplate({
+	    input: "#interName#",
+	    columns: [
+          {header: "부서코드", width: 110, option: "#postCode#"},
+          {header: "부서명", width: 100, option: "#postName#"}
+	    ]
+	});
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	var obj={};
+	obj.postName = '%';
+		$.ajax({
+			"url":"/erp/pers/stan/deptS/gridMstSearch",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(list[i].postCode,
+						  {"postCode":list[i].postCode,"postName":list[i].postName});
+				  
+                  } 
+			}
+	  });	
+};
+function doOnKeyPress(code,cFlag,sFlag){
+	var colIdx = gridDtl.getColIndexById('postName'); 
+	if(code == 13){
+		fn_comboLoad(combo09);
+	}
+};
 function fn_search(){
 	fn_loadGridLeftList();
 	gridDtl.clearAll(); 
@@ -88,30 +147,13 @@ function gridMstOnRowSelect(id,ind){
 	obj.empNo = gridMst.setCells(id,1).getValue();
 	fn_loadGridRightList(obj);
 }
-function gridDtlOnRowSelect(id,ind){
+function gridDtlOnRowDbSelect(rInd,cInd){
 	status = 1;
-	if(ind==5){
+	if(cInd==6){
 	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
 	}
 }
-function fn_startSetCombo(){
-	var combo01 = gridDtl.getColumnCombo(2);
-	fn_comboLoad(combo01,gridDtl.getColumnId(2),"P001",2);
-	var combo02 = gridDtl.getColumnCombo(3);
-	fn_comboLoad(combo02,gridDtl.getColumnId(3),"P002",3);
-	var combo03 = gridDtl.getColumnCombo(4);
-	fn_comboLoad(combo03,gridDtl.getColumnId(4),"P003",4);
-	var combo04 = gridDtl.getColumnCombo(7);
-	fn_comboLoad(combo04,gridDtl.getColumnId(7),"P004",7);
-	var combo05 = gridDtl.getColumnCombo(8);
-	fn_comboLoad(combo05,gridDtl.getColumnId(8),"P005",8);
-	var combo06 = gridDtl.getColumnCombo(9);
-	fn_comboLoad(combo06,gridDtl.getColumnId(9),"004",9);
-	var combo07 = gridDtl.getColumnCombo(10);
-	fn_comboLoad(combo07,gridDtl.getColumnId(10),"P006",10);
-	var combo08 = gridDtl.getColumnCombo(11);
-	fn_comboLoad(combo08,gridDtl.getColumnId(11),"000",11);
-}
+
 function fn_loadGridRightList(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
@@ -151,35 +193,6 @@ function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(rodid);
 }
-
-function fn_comboLoad(comboId,inputName,params,colIndx){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-		   {header: "구 분",   width: 100,  option: "#interName#"}
-	    ]
-	});
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
-	var obj={};
-	obj.compId = '100';
-	obj.code = params;
-	doOnOpen(comboId,obj,colIndx);
-}
-function doOnOpen(comboId,params,colIndx){
-		$.ajax({
-			"url":"/erp/cmm/InterCodeR",
-			"type":"post",
-			"data":params,
-			"success" : function(data){
-			  var list = data;
-			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(list[i].interCode,list[i].interName);
-			    }
-			}
-	  });	
-};
 
 function fn_onClosePop(pName,data){
 	var i;

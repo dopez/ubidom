@@ -351,10 +351,8 @@ dxGrid.prototype.getJsonUpdated2 = function(excludeCols) {
 				var classNm = this.dxObj.getUserData("","@"+colId);
 
 	        	if(classNm != null){
-	        		console.log("1",colVal);
 	        		var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
 					colVal = colVal.replace(regExp, "");
-					console.log("2",colVal);
 	        	 }
 
 				if(!gfn_validation(colId, colNm, colVal) ) {
@@ -663,9 +661,16 @@ dxGrid.prototype.cs_setHeaderMenu = function(){
 dxGrid.prototype.cs_deleteRow = function(rowId){
 	var colIndex=this.dxObj.getColIndexById("cudKey");
 	var cellObj = this.dxObj.cells(rowId,colIndex);
-
 	if(cellObj.getValue() == "INSERT"){
-		this.dxObj.deleteRow(rowId)
+		var rowIdx = this.dxObj.getRowIndex(rowId);
+		var rowsIdx = this.dxObj.getRowsNum();
+		
+		this.dxObj.deleteRow(rowId);
+		if((rowIdx+1) == rowsIdx){
+			rowIdx = rowIdx-1;
+		}
+		this.dxObj.selectRow(rowIdx);
+		
 	}else{
 		cellObj.setValue("DELETE");
 		return this.dxObj.setRowTextStyle(rowId, "font-family:arial;font-style: italic;color:#C0C0C0;");

@@ -30,7 +30,7 @@ $(document).ready(function(){
     gridMain.setColSort("str");
     gridMain.dxObj.setUserData("","@deliReqDate","format_date");
     gridMain.init();	
-    gridMain.cs_setColumnHidden(["orderEmp","custCode","setSeq","setNo"]);
+    gridMain.cs_setColumnHidden(["orderEmp","custCode","setSeq","setNo","custKorName"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 	gridMain.attachEvent("onCellChanged",doOnCellChanged);
 	
@@ -106,8 +106,15 @@ function fn_loadGridMain(){
 
 function fn_loadGridMainCB(data){
 	$("input[name=setSeq]").attr("disabled",true);
-	$('#supplyComp').val('');
-	$('#custCode').val('');
+	console.log(data);
+	if(data == null || data == ''){
+		$('#supplyComp').val('');
+		$('#custCode').val('');	
+	}else{
+		$('#supplyComp').val(data[0].custKorName);
+		$('#custCode').val(data[0].custCode);	
+	}
+	
 	$('#stDate').keyup();
 }
 
