@@ -14,7 +14,6 @@ $( document ).ready(function() {
     toolbar = Ubi.getToolbar();
     subLayout = Ubi.getSubLayout();
 	//공급업체등록
-
 	layout.cells("b").attachObject("bootContainer");
 	subLayout.cells("b").attachObject("bootContainer2");
 	subLayout.cells("a").setWidth("303");
@@ -51,7 +50,7 @@ $( document ).ready(function() {
 	fn_search();
 
 	gridDtl.dxObj.setColumnHidden(1,true);
-	gridDtl.attachEvent("onRowSelect",doRowDblClickedDtl);
+	gridDtl.attachEvent("onRowDblClicked",doRowDblClickedDtl);
 
     $("#pcSearchBtn").click(function(e){
     	if($("#postGbn1").is(":checked")){
@@ -86,7 +85,6 @@ function fn_search(){
 	var values=gridMst.dxObj.collectValues(custCodeColIdx);
 
 	if(custCodeVal != undefined){
-
 		gridMst.dxObj.selectRow(values.indexOf(custCodeVal),true,true,true);
 	}else{
 		gridMst.dxObj.selectRow(0,true,true,true);
@@ -150,7 +148,6 @@ function fn_new(){
 	$("input:checkbox","#frmMain").removeAttr('checked');
 // 	$("#custKindA").attr("checked",true);
 	$("#cudKey").val("INSERT");
-	console.log("fn_new()")
 }
 
 function fn_save(){
@@ -224,7 +221,7 @@ function fn_save(){
 	    $("#jsonData").val(jsonStr);
 	    gfn_callAjaxComm($("#frmServer").serialize(),"dtlSave");
 	    dhtmlx.alert("저장 완료");
-	    custCodeVal=$("#frmMain input[name='custCode']").val();
+	    custCodeVal = $("#frmMain input[name='custCode']").val();
     };
 }
 
@@ -250,9 +247,10 @@ function fn_onClosePop(pName,data){
 
 function fn_callBckFun(data){
 	var count=gridDtl.dxObj.getRowsNum();
+	var custCodeColIndex = gridDtl.getColIndexById("custCode");
 	if(count > 0){
 		for(var i=0;i<count;i++){
-			gridDtl.setCells2(i,0).setValue(data[0].custCode);
+			gridDtl.setCells2(i,custCodeColIndex).setValue(data[0].custCode);
 		}
 	}
 }
@@ -362,7 +360,7 @@ function fn_callBckFun(data){
                             <input name="postNo" id="postNo" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                         <div class="col-sm-3 col-md-3">
-                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn" onclick="gfn_load_popup('우편번호','common/zipCodePOP')">
+                            <button type="button" class="btn btn-default form-control" name="pcSearchBtn" id="pcSearchBtn">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </div>
@@ -439,10 +437,10 @@ function fn_callBckFun(data){
                     </label>
                     <div class="col-sm-3 col-md-3">
                         <div class="col-sm-4 col-md-4">
-                            <input type="radio" name="useYn" id="useYnT" value="" checked>거래
+                            <input type="radio" name="useYn" id="useYn1" value="" checked>거래
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <input type="radio" name="useYn" id="useYnF" value="">거래중지
+                            <input type="radio" name="useYn" id="useYn2" value="">거래중지
                         </div>
                     </div>
                 </div>
