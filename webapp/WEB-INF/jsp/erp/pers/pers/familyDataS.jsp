@@ -38,6 +38,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"최종학력", colId:"scholarship", width:"80",  align:"left",   type:"ed"});
 	gridDtl.setUserData("","pk","no");
 	gridDtl.setColSort("str");
+	gridDtl.dxObj.setUserData("","@juminNo","format_jumin");
 	gridDtl.init(); 
 	gridDtl.cs_setColumnHidden(["empNo","compId","seq"]);
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
@@ -54,28 +55,10 @@ $(document).ready(function(){
 	
 	combo01 =gridDtl.getColumnCombo(5);
 	combo02 =gridDtl.getColumnCombo(6);
-	fn_comboSet(combo01,1);
-	fn_comboSet(combo02,2);
+	gfn_single_comboLoad(combo01,["1","2"],["동거","비동거"],2);
+	gfn_single_comboLoad(combo02,["0","1"],["비장애","장애"],2);
 	
 });
-function fn_comboSet(comboId,flag){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	if(flag == 1){
-		comboId.addOption("1","동거");
-		comboId.addOption("2","비동거");
-	}else{
-		comboId.addOption("0","비장애");
-		comboId.addOption("1","장애");
-	}
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
 function doOnMstRowSelect(id,ind){
 	var obj={};
 	obj.compId = gridMst.setCells(id,4).getValue();
@@ -98,30 +81,41 @@ function fn_add(){
 	if(rowCheck == null){
 		return false;
 	}else{
+	 var empNoIdx = gridMst.getColIndexById('empNo');
+	 var compIdIdx = gridMst.getColIndexById('compId');
 	 var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
 		var empNoColIdx = gridDtl.getColIndexById('empNo');    
 		var compIdColIdx = gridDtl.getColIndexById('compId');  
-	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
-	        data[compIdColIdx] = gridMst.setCells(rowCheck,4).getValue();
+	        data[empNoColIdx] = gridMst.setCells(rowCheck,empNoIdx).getValue();
+	        data[compIdColIdx] = gridMst.setCells(rowCheck,compIdIdx).getValue();
 		    gridDtl.addRow(data);
 	}
 }
 function fn_save(){
-	var rowIdx = gridMst.getSelectedRowIndex();
-	var jsonStr = gridDtl.getJsonUpdated2();
-   if (jsonStr == null || jsonStr.length <= 0) return;         		
-       $("#jsonData").val(jsonStr);                      
-       $.ajax({
-          url : "/erp/pers/pers/familyDataS/gridDtlSave",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-          gridMst.selectRow(rowIdx,true,true,true);
-           }
-      }); 
+	var dtlIdx = gridDtl.getSelectedRowIndex();
+	var juminIdx = gridDtl.getColIndexById('juminNo');  
+	var juminValue = gridDtl.setCells2(dtlIdx,juminIdx).getValue();
+	var jFlag = gfn_check_jumin(juminValue);
+	if(jFlag){
+		var rowIdx = gridMst.getSelectedRowIndex();
+		var jsonStr = gridDtl.getJsonUpdated2();
+	   if (jsonStr == null || jsonStr.length <= 0) return;         		
+	       $("#jsonData").val(jsonStr);                      
+	       $.ajax({
+	          url : "/erp/pers/pers/familyDataS/gridDtlSave",
+	          type : "POST",
+	          data : $("#pform").serialize(),
+	          async : true,
+	          success : function(data) {
+	          MsgManager.alertMsg("INF001");
+	          gridMst.selectRow(rowIdx,true,true,true);
+	           }
+	      });
+	}else{
+		MsgManager.alertMsg("WRN008");
+		return;
+	}
 }
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();

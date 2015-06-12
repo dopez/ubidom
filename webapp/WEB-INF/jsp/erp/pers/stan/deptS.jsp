@@ -4,6 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
+var combo;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6],"2U");
 	//부서등록
@@ -20,7 +21,6 @@ $(document).ready(function(){
 	gridMst.setColSort("str");
 	gridMst.init(); 
 	gridMst.attachEvent("onRowSelect",doOnRowSelect);
-	fn_loadGridListCode(1);
 	
 	gridDtl = new dxGrid(subLayout.cells("b"), false);
 	gridDtl.addHeader({name:"NO",       colId:"no",       width:"50", align:"center", type:"cntr"});
@@ -42,26 +42,15 @@ $(document).ready(function(){
 			postName : [r_notEmpty],
 			costKind : [r_notEmpty]
 		};
-	
-	gridDtl.attachEvent("onEmptyClick",doOnEmptyClick);
-
-	var combo=gridDtl.getColumnCombo(5);
-	combo.setTemplate({
-		    input: "#costKind#",
-		    columns: [
-		        {header: "원가구분", width: 100,  option: "#costKind#"}
-		    ]
-	}); 
-	combo.addOption("판관","판관");
-	combo.addOption("제조","제조");
-
-   combo.enableFilteringMode(true);
-   combo.enableAutocomplete(true);
-   combo.allowFreeText(true);
    
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
 	});
+   
+   combo =gridDtl.getColumnCombo(5);
+   gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
+   
+   fn_search();
   	
 });
 function fn_cellChange(flag){
@@ -86,7 +75,8 @@ function fn_addRow(flag){
 	 if(flag ==1){
 		postCodeValue = "";
 	}else{
-		postCodeValue = gridDtl.setCells2(0,1).getValue();
+		var postCodeIdx = gridDtl.getColIndexById('postCode');
+		postCodeValue = gridDtl.setCells2(0,postCodeIdx).getValue();
 	}
 	 var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
@@ -121,56 +111,35 @@ function fn_delete(){
  } 
  
 function doOnRowSelect(id,ind){
+	var postCodeIdx = gridMst.getColIndexById('postCode');
+	var postNameIdx = gridMst.getColIndexById('postName');
 	var obj = {};
-	obj.postCode= gridMst.setCells(id,0).getValue();
-	obj.postName= gridMst.setCells(id,1).getValue();
-	fn_loadGridList(obj,2);
+	obj.postCode= gridMst.setCells(id,postCodeIdx).getValue();
+	obj.postName= gridMst.setCells(id,postNameIdx).getValue();
+	fn_loadGridDtl(obj);
 	fn_cellChange(2);
 }
 
-function doOnEmptyClick(ev){
-	gridDtl.clearSelection();
-}
-
 function fn_search(){
-	fn_loadGridListCode(1);
-	fn_cellChange(2); 
+	fn_loadGridMst();
 }
-// dept 조회로직
-function fn_loadGridList(params,flag) {
-		var callbackFn;
-		if(flag == 1){
-			gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridListCB);
-		}else{
-			gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
-		}
-	    
-};
 
-// deptCode 조회로직
-function fn_loadGridListCode(flag) {
+function fn_loadGridMst() {
 	var params ="postName=" + $("#postName").val();
-	var callbackFn;
-	if(flag == 1){
-		gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),fn_loadGridListCodeCB); 
-	}else{
-		gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a")); 
-	}
+	gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB); 
 };
 
- // fn_loadGridList callback 함수
-function fn_loadGridListCB(data) {
+function fn_loadGridMstCB(data) {
 	var obj={};
 	obj.postName=data[0].postName;
 	obj.postCode=data[0].postCode;
-	fn_loadGridListCode(obj,2);
+	fn_loadGridDtl(obj);
+	fn_cellChange(2); 
 };
-//fn_loadGridListCode callback 함수
-function fn_loadGridListCodeCB(data) {
-	var obj={};
-	obj.postName=data[0].postName;
-	obj.postCode=data[0].postCode;
-	fn_loadGridList(obj,2);
+
+// dept 조회로직
+function fn_loadGridDtl(params) {
+  gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));  
 };
 
 function fn_onClosePop(pName,data){
@@ -181,7 +150,6 @@ function fn_onClosePop(pName,data){
 			var params =  "postName=" + data[i].postName;
 			obj.postName=data[i].postName;
 			obj.postCode=data[i].postCode;
-			fn_loadGridListCode(obj,1);
 			$("#postName").val(obj.postName);
 		}		  
 	}	  

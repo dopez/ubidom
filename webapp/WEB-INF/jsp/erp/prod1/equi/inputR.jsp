@@ -59,9 +59,11 @@ $(document).ready(function(){
 	
 });
 function doOnRowDbClicked(rId,cInd){
-	var cFlag = false;
-	var dateValue = gridMain.setCells(rId,1).getValue();
-	var seqValue = gridMain.setCells(rId,14).getValue();
+	var cFlag = true;
+	var setDateIdx = gridMain.getColIndexById('setDate');
+	var setSeqIdx = gridMain.getColIndexById('setSeq');
+	var dateValue = gridMain.setCells(rId,setDateidx).getValue();
+	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000553";
 	for(var i=0;i<ids.length;i++){
@@ -70,16 +72,16 @@ function doOnRowDbClicked(rId,cInd){
 				mainTabbar.tabs(preId).close();
 				cFlag = true;
 			}else{
+				cFlag = false;
 				return;
 			}
 		}
 	}
-	cFlag = true;
 	if(cFlag){
 		var uri = mainMenu.getUserData(preId, "uri");
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue, setSeq:seqValue});	
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue,setSeq:seqValue});	
 	}
 	
 };

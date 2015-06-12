@@ -40,7 +40,7 @@ public class OrderSController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView selEquiInspRtoInspS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+	public ModelAndView selEquiInspRtoOrderS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
 		ModelAndView mnv = new ModelAndView("/erp/prod1/equi/orderS");

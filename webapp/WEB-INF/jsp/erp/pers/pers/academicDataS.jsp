@@ -53,22 +53,8 @@ $(document).ready(function(){
 	});
 	
 	combo01 =gridDtl.getColumnCombo(1);
-	fn_comboSet(combo01);
+	gfn_single_comboLoad(combo01,["1","2"],["학력","경력"],2);
 });
-function fn_comboSet(comboId){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	comboId.addOption("1","학력");
-	comboId.addOption("2","경력");
-
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
 function doOnMstRowSelect(id,ind){
 	var obj={};
 	obj.compId = gridMst.setCells(id,4).getValue();

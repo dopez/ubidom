@@ -53,3 +53,29 @@ function fn_monthLen(month){
 		}
 		return initMonth;
 }
+
+function dateMask(data){
+	var maskDate = null;
+	if(data != null && data !=''){
+	 var yyyy = data.substring(0,4);      
+     var mm = data.substring(4,6);     
+     var dd  = data.substring(6,8);   
+     maskDate = yyyy+'/'+mm+'/'+dd;
+	}else{
+		maskDate = data;
+	}
+     return maskDate;
+}
+
+function juminMask(data){
+	var maskJumin = null;
+	if(data != null && data !=''){
+		var preValue = data.substring(0,7);
+		var nextValue = data.substring(7,13);  
+		maskJumin = preValue+'-'+nextValue;
+		}else{
+			maskJumin = data;
+		}
+	return maskJumin;
+	
+}

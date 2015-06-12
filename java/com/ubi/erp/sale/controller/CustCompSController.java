@@ -30,8 +30,10 @@ import com.ubi.erp.sale.service.CustCompSService;
 @JsonInclude(Include.NON_NULL)
 public class CustCompSController {
     private static final Logger logger = LoggerFactory.getLogger(CustCompSController.class);
+
 	@Autowired
 	private CustCompSService custCompSService;
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mst",method = RequestMethod.POST)
 	public List<CustCompS> getMasterSearch(HttpServletRequest request,HttpServletResponse response, HttpSession session, CustCompS CustCompS) throws Exception {

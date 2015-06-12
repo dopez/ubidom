@@ -19,7 +19,7 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"부서명",   colId:"postName", width:"90", align:"left",   type:"ro"});
 	gridMain.addHeader({name:"시작일",   colId:"stDate",   width:"90", align:"center", type:"ro"});
 	gridMain.addHeader({name:"종료일", 	 colId:"endDate",  width:"90", align:"center", type:"ro"});	
-	gridMain.setUserData("","pk","postCode");
+	gridMain.setUserData("","pk","");
 	gridMain.dxObj.setUserData("","@stDate","format_date");
 	gridMain.dxObj.setUserData("","@endDate","format_date");
 	gridMain.setColSort("str");
@@ -62,7 +62,6 @@ function fn_loadGridList(params) {
 			obj.postName=data[i].postName;
 			obj.postCode=data[i].postCode;
 			obj.historyKind = $('input[name="historyKind"]:checked').val();
-			 fn_loadGridList(obj);
 			 $("#postName").val(obj.postName);
 		}		  
 	}	  
