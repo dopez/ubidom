@@ -36,6 +36,8 @@ $(document).ready(function(){
 	gridMain.setColSort("str");
 	gridMain.init();
 
+	fn_search();
+	
 	calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"},{input:"toDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
@@ -44,9 +46,9 @@ $(document).ready(function(){
 	byId("toDate").value = t;
 	
 	combo =gridMain.getColumnCombo(6);
-	fn_comboSet(combo);
+	gfn_1col_comboLoad(combo,"P008");
 	
-	$("#postName,#korName").click(function(e){
+	$("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 		}
@@ -55,68 +57,35 @@ $(document).ready(function(){
 		}
 	});
 	
-});
-function fn_comboSet(comboId){
-	var params={};
-	params.compId = '100';
-	params.code = 'P008';
-	
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			  comboId.addOption(list[i].interCode,list[i].interName);
-		    }
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMain.filterBy(2,byId("postName").value);
 		}
-  });
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-};
+    	if(e.target.id == "korName"){
+    		gridMain.filterBy(5,byId("korName").value);
+		}
+	 }); 
+	
+});
+
 function fn_search(){
-	fn_loadGridList();
+	fn_loadGridMain();
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
-function fn_loadGridList(){
+function fn_loadGridMain(){
 	var obj=gfn_getFormElemntsData("frmSearch");
-	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
-}
-function fn_loadGridListCB(data){
 	$('#frDate').keyup();
 	$('#toDate').keyup();
-	$('#empNo').val('%');
-	$('#korName').val('');
-	$('#postCode').val('%');
-	$('#postName').val('');
-};
+	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
+}
+
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
+		$('#postName').val(data[0].postName);	  
 	}else if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
@@ -124,8 +93,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-     <input type="hidden" id="postCode" name="postCode" value="%">
-     <input type="hidden" id="empNo" name="empNo" value="%">
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">

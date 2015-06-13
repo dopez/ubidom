@@ -70,8 +70,8 @@ function dateMask(data){
 function juminMask(data){
 	var maskJumin = null;
 	if(data != null && data !=''){
-		var preValue = data.substring(0,7);
-		var nextValue = data.substring(7,13);  
+		var preValue = data.substring(0,6);
+		var nextValue = data.substring(6,13);  
 		maskJumin = preValue+'-'+nextValue;
 		}else{
 			maskJumin = data;

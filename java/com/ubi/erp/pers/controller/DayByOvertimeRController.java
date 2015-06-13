@@ -29,7 +29,7 @@ public class DayByOvertimeRController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String workDate = dayByOvertimeR.getWorkDate();
-		String postCode = dayByOvertimeR.getPostCode();
+		String postCode = dayByOvertimeR.getPostName();
 		map.put("compId", compId);
 		map.put("workDate", workDate);
 		map.put("postCode", postCode);

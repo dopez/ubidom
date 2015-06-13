@@ -61,23 +61,20 @@ $(document).ready(function(){
 	
 	fn_search();
 	
-	 $("#korName").click(function(e){
-			if(e.target.id == "korName"){
-				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-			}
-		});
+	$("#korName").dblclick(function(e){
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+	});
 
+	$("#korName").keyup(function(e) {
+    	if(e.target.id == "korName"){
+    		gridDtl.filterBy(2,byId("korName").value);
+		}
+	 });
 });
 function fn_search(){
-	var obj={};
-	obj.compId = $("#compId").val();
-	obj.empNo = $("#empNo").val();
-	obj.postCode = $("#postCode").val();
-	obj.jikgun = $("#jikgun").val();
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
-	fn_loadGridList(obj);
+	fn_loadGridList();
 };
 function gridMstAttachFooter(){
 	gridMst.atchFooter();
@@ -111,11 +108,14 @@ function fn_excel(){
 	 }
  };
  
- function fn_loadGridList(params) {
+ function fn_loadGridList() {
+	 var params={};
+	 params.compId = $("#compId").val();
+	 params.empNo = $("#korName").val();
+	 params.postCode = $("#postCode").val();
+	 params.jikgun = $("#jikgun").val();
 	 gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),gridMstSearchCB);
 	 gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("a"));
-	 byId("frmSearch").reset();
-	 $('#empNo').val('');
 };
 function gridMstSearchCB(data){
 	oneSum = 0,twoSum = 0,threeSum = 0,fourSum = 0,fiveSum = 0,
@@ -136,23 +136,15 @@ function gridMstSearchCB(data){
 	  gridMstAttachFooter();
 }
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-  if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+    if(pName == "empNo"){
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
   <div class="container">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="empNo" name="empNo">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">

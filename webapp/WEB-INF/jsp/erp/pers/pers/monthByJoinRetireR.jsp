@@ -37,13 +37,13 @@ $(document).ready(function(){
 	byId("toDate").value = t;
 });
 function fn_search(){
-	var obj= gfn_getFormElemntsData("frmSearch");
-	fn_loadGridList(obj);
+	fn_loadGridMain();
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
- function fn_loadGridList(params) {
+ function fn_loadGridMain(params) {
+	 var params= gfn_getFormElemntsData("frmSearch");
 	 $('#frDate').keyup();
 	 $('#toDate').keyup();
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));

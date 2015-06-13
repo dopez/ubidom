@@ -30,7 +30,7 @@ public class MonthByDiliRController {
 		String compId = (String) session.getAttribute("compId");
 		String frYymm = monthByDiliR.getFrYymm();
 		String toYymm = monthByDiliR.getToYymm();
-		String postCode = monthByDiliR.getPostCode();
+		String postCode = monthByDiliR.getPostName();
 		String jikgun = monthByDiliR.getJikgun();
 		map.put("compId", compId);
      	map.put("frYymm", frYymm);

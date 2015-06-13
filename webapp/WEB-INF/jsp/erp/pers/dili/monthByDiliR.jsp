@@ -49,9 +49,19 @@ $(document).ready(function(){
 	byId("frYymm").value = t+"/"+m;
 	byId("toYymm").value = t+"/"+m;
 	
-	$("#postName").click(function(e){
-	  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()}); 
+	fn_search();
+	
+	$("#postName").dblclick(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
 	});
+	
+	$("#postName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMain.filterBy(1,byId("postName").value);
+		}
+	 }); 
 });
 function fn_search(){
 	fn_loadGridMain();
@@ -74,30 +84,21 @@ function fn_loadGridMainCB(data){
 	
 	$('#frYymm').keyup();
 	$('#toYymm').keyup();
-	$('#postCode').val('%');
-	$('#postName').val('');
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
-}
+};
+
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
-	}
+		$('#postName').val(data[0].postName);	  
+	}  
  };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="postCode" name="postCode" value="%">
       <div class="row">
 		 <div class="form-group form-group-sm">
 			<div class="col-sm-8 col-md-8">

@@ -35,8 +35,8 @@ public class VariableBaseWageRController {
 		String compId = (String) session.getAttribute("compId");
 		String serveGbn = variableBaseWageR.getServeGbn();
 		String jikgun = variableBaseWageR.getJikgun();
-		String postCode = variableBaseWageR.getPostCode();
-		String empNo = variableBaseWageR.getEmpNo();
+		String postCode = variableBaseWageR.getPostName();
+		String empNo = variableBaseWageR.getKorName();
 		map.put("compId", compId);
 		map.put("postCode", postCode);
 		map.put("empNo",empNo);
