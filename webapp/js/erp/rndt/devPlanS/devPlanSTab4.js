@@ -84,7 +84,7 @@ function fn_tab4Save(){
 				$("#jsonData4").val(jsonStr);
 				var params = $("#frmTab4").serialize();
 				$.ajax({
-			         url : "/erp/rndt/stan/devPlanS/gridTab4Save",
+			         url : "/erp/rndt/good/devPlanS/gridTab4Save",
 			         type : "POST",
 			         data : params,
 			         async : true,
