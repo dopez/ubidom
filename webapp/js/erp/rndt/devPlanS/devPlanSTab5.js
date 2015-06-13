@@ -31,7 +31,7 @@ function fn_tab5Save(){
     	
         $.ajax({
             type: 'POST',
-            url: "/erp/rndt/stan/DevPlanS/frmTab5Save",
+            url: "/erp/rndt/stan/devPlanS/frmTab5Save",
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
