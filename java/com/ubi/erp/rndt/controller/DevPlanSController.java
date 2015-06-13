@@ -26,7 +26,7 @@ import com.ubi.erp.rndt.domain.DevPlanS;
 import com.ubi.erp.rndt.service.DevPlanSService;
 
 @RestController
-@RequestMapping(value = "/erp/rndt/stan/devPlanS")
+@RequestMapping(value = "/erp/rndt/good/devPlanS")
 public class DevPlanSController {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class DevPlanSController {
 	public ModelAndView getSession(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String empNo = (String) session.getAttribute("empNo");
 		String empName = (String) session.getAttribute("empName");
-		ModelAndView mnv = new ModelAndView("/erp/rndt/stan/devPlanS");
+		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devPlanS");
 		mnv.addObject("empNo", empNo);
 		mnv.addObject("empName", empName);
 		return mnv;
@@ -45,12 +45,15 @@ public class DevPlanSController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView selEquiInspRtoOrderS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+	public ModelAndView selDevPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
-		ModelAndView mnv = new ModelAndView("/erp/rndt/stan/devPlanS");
+		System.out.println("parameter complete");
+		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devPlanS");
+		System.out.println("mnv url");
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
+		System.out.println("ADD OBJECT");
 		return mnv;
 	}
 

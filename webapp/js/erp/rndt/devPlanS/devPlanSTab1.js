@@ -24,7 +24,7 @@ function fn_tab1Save(){
     	
         $.ajax({
             type: 'POST',
-            url: "/erp/rndt/stan/DevPlanS/frmTab1Save",
+            url: "/erp/rndt/good/devPlanS/frmTab1Save",
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");

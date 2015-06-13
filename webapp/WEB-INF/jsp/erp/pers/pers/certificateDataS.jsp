@@ -32,6 +32,8 @@ $(document).ready(function(){
 	gridMain.cs_setColumnHidden(["empNo"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 	
+	fn_search();
+	
 	g_dxRules = {
 			passpostNo :   [r_notEmpty, r_len + "|3"],
 			passpostDate : [r_notEmpty],
@@ -48,8 +50,10 @@ $(document).ready(function(){
 	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"endDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
-	fn_calValue();
-	fn_search();
+	var t = dateformat(new Date());
+	byId("stDate").value = t;
+	byId("endDate").value = t;
+	
 	
 	$("#certiBtn").click(function(){
 		var rowCheck = gridMain.getSelectedRowId();
@@ -65,32 +69,16 @@ $(document).ready(function(){
 	});
 	
 	var combo =gridMain.getColumnCombo(3);
-	  combo.setTemplate({
-		    input: "#interName#",
-		    columns: [
-		       {header: "구분", width: 100,  option: "#interName#"}
-		    ]
-		});
-
-	 combo.addOption("1","재직");
-	 combo.addOption("2","경력");
-	 combo.enableFilteringMode(true);
-	 combo.enableAutocomplete(true);
-	 combo.allowFreeText(true);
+	gfn_single_comboLoad(combo,["1","2"],["재직","경력"],2);
 });
 function doOnRowSelect(id,ind){
 	if(ind==4){
 		gfn_load_pop('w1','common/empPOP',true,{"korName":""});
 		}
 }
-function fn_calValue(){
-	var t = dateformat(new Date());
-	byId("stDate").value = t;
-	byId("endDate").value = t;
-};
+
 function fn_search(){
-	fn_loadGridLeftList();
-	fn_calValue();
+	fn_loadGridMain();
 }
 function fn_add(){
 	 var totalColNum = gridMain.getColumnCount();
@@ -123,23 +111,15 @@ function fn_delete(){
     gridMain.cs_deleteRow(rodid);
 }
 
-function fn_loadGridLeftList(){
-	var obj= gfn_getFormElemntsData('frmMain');
-	
+function fn_loadGridMain(){
+	var obj= gfn_getFormElemntsData('frmMain');	
     gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
-    byId("frmMain").reset();
 }
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				var selRowIdx = gridMain.getSelectedRowIndex();
-				gridMain.setCells2(selRowIdx,4).setValue(obj.korName);
-				gridMain.setCells2(selRowIdx,11).setValue(obj.empNo); 
-		}		  
+		var selRowIdx = gridMain.getSelectedRowIndex();
+		gridMain.setCells2(selRowIdx,4).setValue(data[0].korName);
+		gridMain.setCells2(selRowIdx,11).setValue(data[0].empNo); 		  
 	}  
  };
 </script>

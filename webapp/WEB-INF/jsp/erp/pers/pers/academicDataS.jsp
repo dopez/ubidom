@@ -4,6 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//학력/경력사항등록
@@ -43,7 +44,7 @@ $(document).ready(function(){
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 	fn_search();
 	
-	$("#postName,#korName").click(function(e){
+	$("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 		}
@@ -52,32 +53,49 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(3,byId("postName").value);
+		}
+    	if(e.target.id == "korName"){
+    		gridMst.filterBy(2,byId("korName").value);
+		}
+	 });
+	
 	combo01 =gridDtl.getColumnCombo(1);
 	gfn_single_comboLoad(combo01,["1","2"],["학력","경력"],2);
+	
+	
 });
 function doOnMstRowSelect(id,ind){
+	var compIdx = gridMst.getColIndexById('compId');
+	var empIdx = gridMst.getColIndexById('empNo');
 	var obj={};
-	obj.compId = gridMst.setCells(id,4).getValue();
-	obj.empNo = gridMst.setCells(id,1).getValue();
-	fn_loadGridRightList(obj);
+	obj.compId = gridMst.setCells(id,compIdx).getValue();
+	obj.empNo = gridMst.setCells(id,empIdx).getValue();
+	fn_loadGridDtl(obj);
 }
 function doOnDtlRowSelect(id,ind){
+	var seqIdx = gridDtl.getColIndexById('seq');
 	var no = gridDtl.setCells(id,0).getValue();
-	var seqValue = gridDtl.setCells(id,10).getValue();
+	var seqValue = gridDtl.setCells(id,seqIdx).getValue();
 	if(seqValue == ""){
-		gridDtl.setCells(id,10).setValue(no);
+		gridDtl.setCells(id,seqIdx).setValue(no);
 	}
 }
 function fn_search(){
 	gridDtl.clearAll();
-	fn_loadGridLeftList();
+	gridDtl.parse("","js");
+	fn_loadGridLMst();
 }
 function fn_add(){
 	var rowCheck = gridMst.getSelectedRowId();
 	if(rowCheck == null){
 		return false;
 	}else{
-	 var totalColNum = gridDtl.getColumnCount();
+	    var empNoIdx = gridMst.getColIndexById('empNo');
+		var compIdIdx = gridMst.getColIndexById('compId');
+	    var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
 	    var startDateColIdx = gridDtl.getColIndexById('startDate');
 	    var endDateColIdx = gridDtl.getColIndexById('endDate');
@@ -85,13 +103,16 @@ function fn_add(){
 		var compIdColIdx = gridDtl.getColIndexById('compId');
 		    data[startDateColIdx] = dateformat(new Date());
 	        data[endDateColIdx] = dateformat(new Date());
-	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
-	        data[compIdColIdx] = gridMst.setCells(rowCheck,4).getValue();
+	        data[empNoColIdx] = gridMst.setCells(rowCheck,empNoIdx).getValue();
+	        data[compIdColIdx] = gridMst.setCells(rowCheck,compIdIdx).getValue();
 		    gridDtl.addRow(data);
 	}
 }
 function fn_save(){
-	var rowIdx = gridMst.getSelectedRowIndex();
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	var colIdx = gridDtl.getColIndexById('empNo');
+	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
+	
 	 var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);  
@@ -102,7 +123,8 @@ function fn_save(){
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          gridMst.selectRow(rowIdx,true,true,true);
+          fn_search();
+          rowSelVal = null;
            }
       });  
 }
@@ -112,40 +134,28 @@ function fn_delete(){
     gridDtl.cs_deleteRow(rodid);
 }
 
-function fn_loadGridLeftList(){
+function fn_loadGridLMst(){
 	var obj={};
 	obj.jikgun = $('#jikgun').val();
 	obj.serveGbn = $('#serveGbn').val();
-	obj.postCode = $('#postCode').val();
-	obj.empNo = $('#empNo').val();
-    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
+	obj.postCode = $('#postName').val();
+	obj.empNo = $('#korName').val();
+    gfn_callAjaxForGrid(gridMst,obj,"/erp/pers/pers/familyDataS/gridMstSearch",subLayout.cells("a"),fn_loadGridLMstCB);
 }
-function fn_loadGridLeftListCB(data){
-	byId("frmMain").reset();
-	$('#postCode').val('');
-	$('#empNo').val('');
-};
-function fn_loadGridRightList(params){
+
+function fn_loadGridLMstCB(data){
+	var rowIdx = cs_selectRow_check(gridMst,"empNo",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
+}
+function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
+		$('#postName').val(data[0].postName);	  
 	}else if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
@@ -156,8 +166,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" name="postCode" id="postCode">
-      <input type="hidden" name="empNo" id="empNo">
       <div class="row">
 	   <div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">

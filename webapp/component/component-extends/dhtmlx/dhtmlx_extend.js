@@ -375,7 +375,28 @@ comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
 }
 
-function gfn_check_jumin(value) {
+
+function gfn_check_jumin(grid,colId) {
+	var jFlag = true;
+	for(var i = 0; i < grid.getRowsNum(); i++) {
+	     colIdIdx = grid.getColIndexById(colId);
+		 colVal   = grid.dxObj.cells2(i,colIdIdx).getValue();		
+		var classNm = grid.dxObj.getUserData("","@"+colId);
+	       
+		if(classNm == 'format_jumin'){
+			if(colVal != ''){
+	           jFlag = check_jumin_flag(colVal);
+	           if(!jFlag){
+	        	 break;
+	           }
+			 }
+	       }
+	  }
+	return jFlag;
+}
+
+
+function check_jumin_flag(value) {
 	 var preValue = value.substring(0,6);
 	 var nextValue = value.substring(7,14);
 	 var jumin = preValue+nextValue;

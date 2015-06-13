@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;  
 var calMain;
 var combo;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,6,8],"3E");
 	//월근태
@@ -69,13 +70,9 @@ $(document).ready(function(){
     m = fn_monthLen(m);
 	byId("yymm").value = t+"/"+m;
 	
-	$("#postName,#korName,#monthBtn,#diliSaveBtn").click(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
+	fn_search();
+	
+	$("#monthBtn,#diliSaveBtn").click(function(e){
 		if(e.target.id == "monthBtn"){
 			var obj={};
 			obj.yymm = $('#yymm').val();
@@ -86,8 +83,27 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#postName,#korName").dblclick(function(e){
+		if(e.target.id == "postName"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+	});
+	
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(1,byId("postName").value);
+		}
+    	if(e.target.id == "korName"){
+    		gridMst.filterBy(4,byId("korName").value);
+		}
+	 }); 
+	
+	
 	combo =gridDtl.getColumnCombo(2);
-	fn_comboSet(combo);
+	gfn_1col_comboLoad(combo,"P008");
 });
 function fn_loadGridMstPOPCB(data){
 	var obj=gfn_getFormElemntsData("frmMain");
@@ -101,35 +117,11 @@ function fn_loadGridMstPOPCB(data){
 		fn_search();
 	}
 }
-function fn_comboSet(comboId){
-	var params={};
-	params.compId = '100';
-	params.code = 'P008';
-	
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			  comboId.addOption(list[i].interCode,list[i].interName);
-		    }
-		}
-  });
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
+
 function doOnMstRowSelect(id,ind){
-	var empNoVal = gridMst.setCells(id,3).getValue();
-	$('#empNo').val(empNoVal); 
+	var empIdx = gridMst.getColIndexById('empNo');
+	var empNoVal = gridMst.setCells(id,empIdx).getValue();
+	$('#empNo').val(empNoVal);
 	var obj=gfn_getFormElemntsData("frmMain");
 	fn_loadGridDtl(obj);
 }
@@ -139,6 +131,10 @@ function fn_search(){
 	fn_loadGridMst();
 }
 function fn_save(){
+	var rowIdx = gridMst.getSelectedRowIndex();
+	var colIdx = gridMst.getColIndexById('empNo');
+	rowSelVal=gridMst.setCells2(rowIdx, colIdx).getValue();
+	
 	var dateValue = $('#yymm').val();
 	$('#monthDate').val(dateValue);
 	 var jsonStr = gridMst.getJsonUpdated2();
@@ -152,11 +148,15 @@ function fn_save(){
 	          success : function(data) {
 	          MsgManager.alertMsg("INF001");
 	          fn_search();
+	          rowSelVal = null;
 	           }
 	      });
 };
 function fn_DtlSave(){
-	 var rowIdx = gridMst.getSelectedRowIndex();
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	var colIdx = gridDtl.getColIndexById('empNo');
+	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
+	
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
@@ -167,7 +167,8 @@ function fn_DtlSave(){
 	          async : true,
 	          success : function(data) {
 	          MsgManager.alertMsg("INF001");
-	          gridMst.selectRow(rowIdx,true,true,true);
+	          fn_search();
+	          rowSelVal = null;
 	           }
 	      });
 };
@@ -185,45 +186,26 @@ function fn_excel(){
 }
 function fn_loadGridMst(){
 	var obj=gfn_getFormElemntsData("frmMain");
+	
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
 }
 function fn_loadGridMstCB(data){
-	if(data != ''){
-		var empNoVal = data[0].empNo;
-		$('#empNo').val(empNoVal); 
-		var obj=gfn_getFormElemntsData("frmMain");
-		fn_loadGridDtl(obj);
-	}
-	$('#yymm').keyup();
-	$('#empNo').val('%');
-	$('#postCode').val('%');
-	$('#korName').val('');
-	$('#postName').val('');
+	var rowIdx = cs_selectRow_check(gridMst,"empNo",rowSelVal);
+	gridMst.selectRow(rowIdx,true,true,true);
+
 }
 
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 }
 function fn_loadGridDtlCB(data){
-	$('#empNo').val('%');
+	$('#yymm').keyup();
 }
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
+		$('#postName').val(data[0].postName);	  
 	}else if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
@@ -235,8 +217,7 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
     <div class="container">
         <form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">
-           <input type="hidden" id="postCode" name="postCode" value="%">
-           <input type="hidden" id="empNo" name="empNo" value="%">
+           <input type="hidden" id="empNo" name="empNo">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">

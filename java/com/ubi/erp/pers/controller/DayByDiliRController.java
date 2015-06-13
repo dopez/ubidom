@@ -30,10 +30,10 @@ public class DayByDiliRController {
 		String compId = (String) session.getAttribute("compId");
 		String frDate = dayByDiliR.getFrDate();
 		String toDate = dayByDiliR.getToDate();
-		String postCode = dayByDiliR.getPostCode();
+		String postCode = dayByDiliR.getPostName();
 		String jikgun = dayByDiliR.getJikgun();
 		String workKind = dayByDiliR.getWorkKind();
-		String empNo = dayByDiliR.getEmpNo();
+		String empNo = dayByDiliR.getKorName();
 		String inoutChk = dayByDiliR.getInoutChk();
 		map.put("compId", compId);
 		map.put("frDate", frDate);

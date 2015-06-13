@@ -46,16 +46,26 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("workDay").value = t;
 	
-	$("#postName,#diliSBtn").click(function(e){
-		if(e.target.id == 'postName'){
-			gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()}); 
-		}else if(e.target.id == 'diliSBtn'){
+	$("#postCode").dblclick(function(e){
+		if(e.target.id == "postCode"){
+		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+	});
+	
+	$("#diliSBtn").click(function(e){
+        if(e.target.id == 'diliSBtn'){
 			gfn_load_pop('w1','pers/dayByDiliSPOP',true,{});
 		} 
 	});
 	
+	$("#postCode").keyup(function(e) {
+    	if(e.target.id == "postCode"){
+    		gridMain.filterBy(2,byId("postCode").value);
+		}
+	 });
+	
 	combo =gridMain.getColumnCombo(6);
-	fn_comboSet(combo);
+	gfn_1col_comboLoad(combo,"P008");
 });
 function doOnCellChanged(rId,cInd,nValue){
 	if(cInd==8){
@@ -80,36 +90,9 @@ function doOnCellChanged(rId,cInd,nValue){
 function doOnRowSelect(id,ind){
 	totalTimeCalcul(id);
 }
-function fn_comboSet(comboId){
-	var params={};
-	params.compId = '100';
-	params.code = 'P008';
-	
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			  comboId.addOption(list[i].interCode,list[i].interName);
-		    }
-		}
-  });
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
-
 
 function fn_search(){
-	fn_loadGridLeftList();
+	fn_loadGridMain();
 }
 function totalTimeCalcul(id){
 	sum = gridMain.setCells(id,14).getValue()*1;
@@ -148,26 +131,15 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 
-function fn_loadGridLeftList(){
+function fn_loadGridMain(){
 	var obj= gfn_getFormElemntsData("frmMain");
-    gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
+	$('#workDay').keyup();
+    gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
 }
 
-function fn_loadGridLeftListCB(data){
-	$('#workDay').keyup();
-	$('#postCode').val('%');
-	$('#postName').val('');
-};
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
+		$('#postCode').val(data[0].postName);	  
 	}else if(pName == 'saveDiliS'){
 		MsgManager.alertMsg("INF001");
 		fn_search();
@@ -181,7 +153,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="postCode" name="postCode" value="%">
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
@@ -209,7 +180,7 @@ function fn_onClosePop(pName,data){
 			 부서
 			 </label>
 			<div class="col-sm-2 col-md-2">
-			  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="postCode" id="postCode" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 			<label class="col-sm-1 col-md-1 control-label" for="textinput">
 			 직군

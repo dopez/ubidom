@@ -73,11 +73,17 @@ $(document).ready(function() {
         /*set seq*/
         //fn_getSeqReturn();
 
-        if(devPlanRParam=="UPDATE"){
-
+        if($("#openParam").val()=="u"){
+        	//fn_new();
+        	fn_setCud("u");
+         	byId("cudKey1").value = 'UPDATE';
+         	byId("cudKey2").value = 'UPDATE';
+         	byId("cudKey5").value = 'UPDATE';
+         	byId("cudKey6").value = 'UPDATE';
         }else{
         	fn_new();
         }
+
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
@@ -172,7 +178,7 @@ function fn_frmMainSave(){
 	$("input[name=setSeq]").attr("disabled",true);
     $.ajax({
         type: 'POST',
-        url: "/erp/rndt/stan/DevPlanS/frmMainSave",
+        url: "/erp/rndt/stan/devPlanS/frmMainSave",
         data: params,
         success: function(data) {
             MsgManager.alertMsg("INF001");
@@ -420,6 +426,7 @@ form{
     <div class="container">
         <form class="form-horizontal"  id="frmMain">
         <input type="hidden" id="cudKey" name="cudKey">
+        <input type="hidden" value="${openParam}"id="openParam" name="openParam">
         <script type="text/javascript">
         function fn_setCud(flag){
         	if(flag=="i"){

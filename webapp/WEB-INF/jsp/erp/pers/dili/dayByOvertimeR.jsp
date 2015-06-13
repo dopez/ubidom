@@ -34,13 +34,23 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("workDate").value = t;
 	
-	$("#postName").click(function(e){
+	fn_search();
+	
+	$("#postName").dblclick(function(e){
+		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
 	});
+	
+	$("#postName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMain.filterBy(1,byId("postName").value);
+		}
+	 }); 
 });
 function fn_search(){
 	gridMain.clearAll();
-	fn_loadGridList();
+	fn_loadGridMain();
 };
 function gridMainAttachFooter(){
   gridMain.atchFooter();
@@ -57,11 +67,11 @@ function gridMainAttachFooter(){
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
  };
- function fn_loadGridList(){
+ function fn_loadGridMain(){
 	 var obj = gfn_getFormElemntsData("frmSearch");
-		gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridListCB);
+		gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 	}
-	function fn_loadGridListCB(data){
+	function fn_loadGridMainCB(data){
 	   workSum = 0,overSum = 0,nightSum = 0,holiSum = 0;
 		for(var i=0; i<data.length;i++){
 			workSum += data[i].workTime*1;   overSum += data[i].overTime*1;
@@ -75,27 +85,17 @@ function fn_excel(){
 		}
 		gridMain.dxObj.groupBy(1,["","#title","#cspan","","#stat_total","#stat_total","#stat_total","#stat_total"]);
 		$('#workDate').keyup();
-		$('#postCode').val('%');
-		$('#postName').val('');
-	};
-	function fn_onClosePop(pName,data){
-		var i;
-		var obj={};
-		if(pName=="postCode"){
-			for(i=0;i<data.length;i++){
-				obj.postName=data[i].postName;
-				obj.postCode=data[i].postCode;
-				$('#postName').val(obj.postName);
-				$('#postCode').val(obj.postCode);
-			}		  
-		}
-	 };
+};
+function fn_onClosePop(pName,data){
+	if(pName=="postCode"){
+		$('#postName').val(data[0].postName);	  
+	}	  
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
  <div class="container">
-	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-      <input type="hidden" id="postCode" name="postCode" value="%">
+	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">

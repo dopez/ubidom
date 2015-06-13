@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
 var payAmtSum = 0;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,3],"2U");
 	//급여기본자료(유동/공제)
@@ -40,7 +41,7 @@ $(document).ready(function(){
     gridDtl.init();	
     gridDtl.cs_setColumnHidden(["empNo"]);	
 
-    $("#postName,#korName").click(function(e){
+    $("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 		}
@@ -48,21 +49,28 @@ $(document).ready(function(){
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		}
 	});
+	
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(3,byId("postName").value);
+		}
+    	if(e.target.id == "korName"){
+    		gridMst.filterBy(2,byId("korName").value);
+		}
+	 }); 
     
 	calMain = new dhtmlXCalendarObject([{input:"yymm",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
     calMain.setDateFormat("%Y/%m");
     calMain.hideTime();	   
-    
-    calMainValue();
-    fn_search();
-});
-function calMainValue(){
-	var t = new Date().getFullYear();
+    var t = new Date().getFullYear();
     var m = +new Date().getMonth()+1;
     m = fn_monthLen(m);
 	byId("yymm").value = t+"/"+m;
-}
+	
+    fn_search();
+});
+
 function gridDtlAttachFooter(){
 	gridDtl.atchFooter();
 	gridDtl.addAtchFooter({atchFooterName:"합 계"});
@@ -81,7 +89,8 @@ function fn_loadGridMst(){
 }
 function doOnMstRowSelect(id,ind){
 	payAmtSum = 0;
-	var empNoVal = gridMst.setCells(id,1).getValue();
+	var empIdx = gridMst.getColIndexById('empNo');
+	var empNoVal = gridMst.setCells(id,empIdx).getValue();
 	$('#empNo').val(empNoVal);
 	var obj=gfn_getFormElemntsData("frmMain");
 	fn_loadGridDtl(obj);
@@ -90,6 +99,10 @@ function doOnMstRowSelect(id,ind){
 function fn_save(){
 	var dateValue = $('#yymm').val();
 	$('#monthDate').val(dateValue);
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	var colIdx = gridDtl.getColIndexById('empNo');
+	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
+	
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);  
@@ -102,34 +115,27 @@ function fn_save(){
 	          success : function(data) {
 	          MsgManager.alertMsg("INF001");
 	          fn_search();
-	           }
+		      rowSelVal = null;
+	          }
 	  });
 };
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 }
 function fn_loadGridMstCB(data){
-	var obj=gfn_getFormElemntsData("frmMain");
-	fn_loadGridDtl(obj); 
-	
-	byId("frmMain").reset();
-	$('#postCode').val('%');
-	$('#empNo').val('%');
-	calMainValue();
+	$('#yymm').keyup();
+	var rowIdx = cs_selectRow_check(gridMst,"empNo",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
 };
 function fn_loadGridDtlCB(data){
 	$('#yymm').keyup();
-	$('#postCode').val('%');
-	$('#empNo').val('%');
+	var MempIdx = gridMst.getColIndexById('empNo');
+	var DempIdx = gridDtl.getColIndexById('empNo');
 	var rodIdx = gridMst.getSelectedRowIndex();
-	var empNo;
-	if(rodIdx == -1){
-	  empNo = gridMst.setCells2(0,1).getValue();
-	}else{
-	  empNo = gridMst.setCells2(rodIdx,1).getValue();
-	}
+	var empNo = gridMst.setCells2(rodIdx,MempIdx).getValue();
+	
 	for(var i=0; i<data.length;i++){
-		gridDtl.setCells2(i,5).setValue(empNo);
+		gridDtl.setCells2(i,DempIdx).setValue(empNo);
 		payAmtSum += data[i].payAmt*1;
 	 }
 	gridDtl.detachFooter(0);
@@ -137,22 +143,10 @@ function fn_loadGridDtlCB(data){
 }
 
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$('#postName').val(obj.postName);
-			$('#postCode').val(obj.postCode);
-		}		  
+		$('#postName').val(data[0].postName);	  
 	}else if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
@@ -164,9 +158,8 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">  
-      <input type="hidden" name="postCode" id="postCode" value="%">
-      <input type="hidden" name="empNo" id="empNo" value="%">
-	<div class="row">
+	  <input type="hidden" id="empNo" name="empNo">
+	  <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
 			<label class="col-sm-2 col-md-2 control-label" for="textinput">
