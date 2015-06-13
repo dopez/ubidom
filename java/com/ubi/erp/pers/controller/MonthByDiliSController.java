@@ -34,9 +34,9 @@ public class MonthByDiliSController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String yymm = monthByDiliS.getYymm();
-		String postCode = monthByDiliS.getPostCode();
+		String postCode = monthByDiliS.getPostName();
 		String jikgun = monthByDiliS.getJikgun();
-		String empNo = monthByDiliS.getEmpNo();
+		String empNo = monthByDiliS.getKorName();
 		map.put("compId", compId);
      	map.put("yymm", yymm);
 		map.put("postCode", postCode);

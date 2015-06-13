@@ -29,40 +29,17 @@ $(document).ready(function(){
  	gridMain.cs_setColumnHidden(["compId"]);
 
  	combo01 =gridMain.getColumnCombo(1);
-	fn_comboSet(combo01,1);
 	combo02 =gridMain.getColumnCombo(5);
-	fn_comboSet(combo02,2);
 	combo03 =gridMain.getColumnCombo(7);
-	fn_comboSet(combo03,3);
 	combo04 =gridMain.getColumnCombo(8);
-	fn_comboSet(combo04,3);
-});
-function fn_comboSet(comboId,comboNum){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	if(comboNum == 1){
-	  comboId.addOption("1","지급");
-	  comboId.addOption("2","공제");	
-	}else if(comboNum == 2){
-	   comboId.addOption("C","계산식");
-	   comboId.addOption("F","고정수당");
-	   comboId.addOption("N","변동수당");
-	   comboId.addOption("P","변동(가지급)");
-	}
-    else if(comboNum == 3){
-       comboId.addOption("T","과세");
- 	   comboId.addOption("N","비과세");
- 	   comboId.addOption("O","연장비과세");
-	}
+	gfn_single_comboLoad(combo01,["1","2"],["지급","공제"],2);
+	gfn_single_comboLoad(combo02,["C","F","N","P"],["계산식","고정수당","변동수당","변동(가지급)"],4);
+	gfn_single_comboLoad(combo03,["T","N","O"],["과세","비과세","연장비과세"],3);
+	gfn_single_comboLoad(combo04,["T","N","O"],["과세","비과세","연장비과세"],3);
 
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
+	fn_search();
+});
+
 function fn_search(){
 	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a")); 
 }

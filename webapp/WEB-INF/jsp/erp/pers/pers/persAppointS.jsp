@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var status;
 var  combo09;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
@@ -40,25 +41,32 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"발령직위",   colId:"jikwee",   width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"발령직책",   colId:"jikchak",  width:"80", align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"급여사업장", colId:"compId",   width:"80", align:"left",   type:"combo"});
-	gridDtl.setUserData("","pk","empNo");
+	gridDtl.setUserData("","pk","");
 	gridDtl.dxObj.setUserData("","@balDate","format_date");
 	gridDtl.setColSort("str");
 	gridDtl.init();
 	gridDtl.cs_setColumnHidden(["empNo"]);
-	gridDtl.attachEvent("onKeyPress", doOnKeyPress);
 
 	fn_search();
-	gridDtl.attachEvent("onRowDblClicked",gridDtlOnRowDbSelect);
+	gridDtl.attachEvent("onRowDblClicked",onGridDtlDblClicked);
 	
-	$("#postName,#korName").click(function(e){
+	$("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
 		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		  status = 2;
 		}
 		if(e.target.id == "korName"){
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		}
 	});
+	
+	$("#postName,#korName").keyup(function(e) {
+    	if(e.target.id == "postName"){
+    		gridMst.filterBy(3,byId("postName").value);
+		}
+    	if(e.target.id == "korName"){
+    		gridMst.filterBy(2,byId("korName").value);
+		}
+	 }); 
 	
 	var combo01 = gridDtl.getColumnCombo(2);
 	var combo02 = gridDtl.getColumnCombo(3);
@@ -77,7 +85,7 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo06,"004");
 	gfn_1col_comboLoad(combo07,"P006");
 	gfn_1col_comboLoad(combo08,"000");
-	fn_comboLoad('N', combo09);
+	fn_comboLoad(combo09);
 	
 	combo09.attachEvent("onClose", function(){
 	var rowIdx = gridDtl.getSelectedRowIndex();
@@ -85,8 +93,7 @@ $(document).ready(function(){
 	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
 	});
 });
-function fn_comboLoad(N,comboId){
-	
+function fn_comboLoad(comboId){
 	comboId.setTemplate({
 	    input: "#interName#",
 	    columns: [
@@ -107,54 +114,45 @@ function fn_comboLoad(N,comboId){
 			  var list = data;
 			  for(var i=0;i<list.length;i++){
 				  comboId.addOption(list[i].postCode,
-						  {"postCode":list[i].postCode,"postName":list[i].postName});
+			    {"postCode":list[i].postCode,"postName":list[i].postName});
 				  
                   } 
 			}
 	  });	
 };
-function doOnKeyPress(code,cFlag,sFlag){
-	var colIdx = gridDtl.getColIndexById('postName'); 
-	if(code == 13){
-		fn_comboLoad(combo09);
-	}
-};
+
 function fn_search(){
-	fn_loadGridLeftList();
-	gridDtl.clearAll(); 
+	gridDtl.clearAll();
+	gridDtl.parse("","js");
+	fn_loadGridMst();
 }
-function fn_loadGridLeftList(){
+function fn_loadGridMst(){
 	var obj={};
-	obj.postCode = $('#postCode').val();
-	obj.empNo = $('#empNo').val();
+	obj.postCode = $('#postName').val();
+	obj.empNo = $('#korName').val();
 	obj.serveGbn= $('input[name="serveGbn"]:checked').val();
-	if(obj.postCode == ''){
-		obj.postCode = '%';
-	}
-	if(obj.empNo == ''){
-		obj.empNo = '%';
-	}
-    gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridLeftListCB);
+    gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
 };
-function fn_loadGridLeftListCB(data){
-	byId("frmMain").reset();
-	$('#postCode').val('');
-	$('#empNo').val('');
+function fn_loadGridMstCB(data){
+	var rowIdx = cs_selectRow_check(gridMst,"empNo",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
 };
 function gridMstOnRowSelect(id,ind){
+	var compIdx = gridMst.getColIndexById('compId');
+	var empIdx = gridMst.getColIndexById('empNo');
 	var obj={};
-	obj.compId = gridMst.setCells(id,4).getValue();
-	obj.empNo = gridMst.setCells(id,1).getValue();
-	fn_loadGridRightList(obj);
+	obj.compId = gridMst.setCells(id,compIdx).getValue();
+	obj.empNo = gridMst.setCells(id,empIdx).getValue();
+	fn_loadGridDtl(obj);
 }
-function gridDtlOnRowDbSelect(rInd,cInd){
+function onGridDtlDblClicked(rInd,cInd){
 	status = 1;
-	if(cInd==6){
+	if(cInd==5){
 	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
 	}
 }
 
-function fn_loadGridRightList(params){
+function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
@@ -163,18 +161,22 @@ function fn_add(){
 	if(rowCheck == null){
 		return false;
 	}else{
-	 var totalColNum = gridDtl.getColumnCount();
+		var empNoIdx = gridMst.getColIndexById('empNo');
+	    var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
 	    var balDateColIdx = gridDtl.getColIndexById('balDate');
 		var empNoColIdx = gridDtl.getColIndexById('empNo');    
 	        data[balDateColIdx] = dateformat(new Date());
-	        data[empNoColIdx] = gridMst.setCells(rowCheck,1).getValue();
+	        data[empNoColIdx] = gridMst.setCells(rowCheck,empNoIdx).getValue();
 		    gridDtl.addRow(data);
 	}
 }
 function fn_save(){
-	 var rowIdx = gridMst.getSelectedRowIndex();
-	 var jsonStr = gridDtl.getJsonUpdated2();
+	var rowIdx = gridDtl.getSelectedRowIndex();
+	var colIdx = gridDtl.getColIndexById('empNo');
+	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
+	
+	var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
        $.ajax({
@@ -184,7 +186,8 @@ function fn_save(){
           async : true,
           success : function(data) {
           MsgManager.alertMsg("INF001");
-          gridMst.selectRow(rowIdx,true,true,true);
+          fn_search();
+          rowSelVal = null;
           }
       }); 
 };
@@ -195,30 +198,20 @@ function fn_delete(){
 }
 
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
 	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			if(status == 1){
-				var selRowIdx = gridDtl.getSelectedRowIndex();
-				gridDtl.setCells2(selRowIdx,5).setValue(obj.postCode);
-				gridDtl.setCells2(selRowIdx,6).setValue(obj.postName); 
-			}else{
-				$('#postName').val(obj.postName);
-				$('#postCode').val(obj.postCode);
-				status = 1;
-			}
-			
-		}		  
-	}else if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
+		if(status == 1){
+			var postCodeIdx = gridDtl.getColIndexById('postCode');
+			var postNameIdx = gridDtl.getColIndexById('postName');
+			var selRowIdx = gridDtl.getSelectedRowIndex();
+			gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
+			gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName); 
+		}else{
+			$('#postName').val(data[0].postName);
+			status = 1;
+		}	  
+	}
+	else if(pName == "empNo"){
+	     $('#korName').val(data[0].korName);
 	}	  
  };
 </script>
@@ -229,8 +222,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
   <div class="container">
 	<form class="form-horizontal" id="frmMain" name="frmMain" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-     <input type="hidden" id="postCode" name="postCode" />
-     <input type="hidden" id="empNo" name="empNo" />
       <div class="row">
 		<div class="form-group form-group-sm">
 		  <div class="col-sm-8 col-md-8">
