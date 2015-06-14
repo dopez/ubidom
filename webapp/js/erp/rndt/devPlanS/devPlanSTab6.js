@@ -47,3 +47,12 @@ function fn_tab6Save(){
         });
     }
 }
+function fn_selfrmTab6CB_1(data){
+	
+}
+function fn_selfrmTab6CB_2(data){
+	
+}
+function fn_selfrmTab6CB_3(data){
+	
+}

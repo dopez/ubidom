@@ -39,3 +39,6 @@ function fn_tab2Save(){
         });
     }
 }
+function fn_selfrmTab2CB(data){
+	
+}

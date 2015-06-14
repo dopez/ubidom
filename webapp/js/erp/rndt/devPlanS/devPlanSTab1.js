@@ -20,6 +20,8 @@ function fn_tab1Save(){
     	param.setDate = dateVal
     	param.setSeq = seqVal
     	
+    	console.log("tab1 seqVal = ",seqVal);
+    	console.log("tab1 dateVal = ",dateVal);
     	console.log("tab1 param = ",param);
     	
         $.ajax({
@@ -36,4 +38,7 @@ function fn_tab1Save(){
              }
         });
     }
+}
+function fn_selfrmTab1CB(data){
+	console.log(data);
 }

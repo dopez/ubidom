@@ -23,6 +23,9 @@ function fn_setTab8(){
     	}
     })
 }
+function fn_selgridTab8CB(data){
+	
+}
 function fn_setRowsTab8(){
 	tab8Grid.addRow(["Market Size"]);
     tab8Grid.addRow(["예상매출액"]);

@@ -78,6 +78,8 @@ $(document).ready(function() {
          	byId("cudKey2").value = 'UPDATE';
          	byId("cudKey5").value = 'UPDATE';
          	byId("cudKey6").value = 'UPDATE';
+        	dateVal = searchDate($("#setDate").val());
+        	seqVal = $("#setSeq").val();
         }else{
         	fn_new();
         }
@@ -109,11 +111,11 @@ function fn_frmSearch(){
 	var mainParam = {};
 	mainParam.setDate = searchDate($("#setDate").val());
 	mainParam.setSeq = $("#setSeq").val();
-	console.log(mainParam);
+	//console.log(mainParam);
 	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
 }
 function fn_frmSearchCB(data){
-	console.log(data)
+	//console.log("devS frmMain data=",data);
 }
 function fn_delete(){
 	fn_tabDelete("a3",tab3);
@@ -130,36 +132,58 @@ function fn_tabDelete(id,grid){
 function fn_search(){
 	fn_frmSearch();
 	if(tabId=="a1"){
-		fn_searchTab1();
+		alert(1);
+		fn_searchFrmTab("frmTab1",tabId,fn_selfrmTab1CB);
+		alert(2);
 	}
 	if(tabId=="a2"){
-		fn_searchTab2();
+		fn_searchFrmTab("frmTab2",tabId,fn_selfrmTab2CB);
 	}
 	if(tabId=="a3"){
-		fn_searchTab3();
+		fn_searchGridTab(tab3,tabId,subTabbar.tabs("a3"),fn_selgridTab3CB)	
 	}
 	if(tabId=="a4"){
-		fn_searchTab4();
+		fn_searchGridTab(tab4,tabId,subTabbar.tabs("a4"),fn_selgridTab4CB)	
 	}
 	if(tabId=="a5"){
-		fn_searchTab5();
+		fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
+		fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
 	}
 	if(tabId=="a6"){
-		fn_searchTab6();
+		fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
+		fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
+		fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
 	}
 	if(tabId=="a7"){
-		fn_searchTab7();
+		fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
 	}
 	if(tabId=="a8"){
-		fn_searchTab8();
+		fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
 	}
+}
+var setSearchParam = {};
+function fn_setSearchParam(){
+	setSearchParam.setDate = dateVal;
+	setSearchParam.setSeq = seqVal;
+	setSearchParam.tabId = tabId;
+	return setSearchParam;
+}
+function fn_searchGridTab(grid,tabId,layout,cbFunc){
+	fn_setSearchParam();
+	console.log(setSearchParam);
+	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
+
+}
+function fn_searchFrmTab(form,tabId,cbFunc){
+	fn_setSearchParam();
+	console.log(setSearchParam);
+	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
+	//gfn_callAjaxForForm("frmMain", obj, "selFrmMain",fn_frmSearchCB);
 }
 function fn_seqValid(){
 	var vFlag = "";
 	if($("#setSeq").val()==null||$("#setSeq").val()==""
-			||typeof $("#setSeq").val()=="undefined"
-			||seqVal.length<=0||seqVal==null
-			||seqVal==""){
+			||typeof $("#setSeq").val()=="undefined"){
 		dhtmlx.alert("위 Form부터 작성/저장 하세요");
 		vFlag = false;
 		return vFlag;

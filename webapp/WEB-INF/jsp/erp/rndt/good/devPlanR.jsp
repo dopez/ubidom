@@ -81,9 +81,6 @@ function doOnRowDbClicked(rId,cInd){
 	var dateValue = searchDate(gridMain.setCells(rId,setDateIdx).getValue());
 	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
 	var openP = "u";
-	var obj={};
-	obj.setDate = dateValue;
-	obj.setSeq = seqValue;
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000680";
 	for(var i=0;i<ids.length;i++){
@@ -119,6 +116,7 @@ function fn_selGridMain(){
 	 gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
 }
 function fn_selGridMainCB(data){
+	console.log("devR data=",data);
 }
 function fn_onClosePop(pName,data){
 	if (pName=="empNo"&& popFlag == 1) {

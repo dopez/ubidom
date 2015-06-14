@@ -34,6 +34,9 @@ public class DevPlanR implements Serializable {
 
 	private String problemName;
 	private String sysEmpNo;
+	private String writerName;
+	private String ppsName;
+	private String postName;
 
 	// tab 1,2
 	private String contentsKind;
@@ -414,6 +417,30 @@ public class DevPlanR implements Serializable {
 
 	public void setCudKey6(String cudKey6) {
 		this.cudKey6 = cudKey6;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public String getPpsName() {
+		return ppsName;
+	}
+
+	public void setPpsName(String ppsName) {
+		this.ppsName = ppsName;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 }
