@@ -70,11 +70,9 @@ $(document).ready(function() {
  				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 			}
 	    })
-        /*set seq*/
-        //fn_getSeqReturn();
-
         if($("#openParam").val()=="u"){
         	//fn_new();
+        	fn_frmSearch();
         	fn_setCud("u");
          	byId("cudKey1").value = 'UPDATE';
          	byId("cudKey2").value = 'UPDATE';
@@ -83,7 +81,6 @@ $(document).ready(function() {
         }else{
         	fn_new();
         }
-
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
@@ -110,12 +107,13 @@ function fn_new(){
 
 function fn_frmSearch(){
 	var mainParam = {};
-	mainParam.setDate = $("#setDate").val();
+	mainParam.setDate = searchDate($("#setDate").val());
 	mainParam.setSeq = $("#setSeq").val();
-	if(mainParam.setSeq==""|| mainParam.setSeq==null ||typeof mainParam.setSeq == "undefined"){
-			mainParam.setSeq = "%";
-	}
-	gfn_callAjaxForForm(frmMain, mainParam, "selFrmMain");
+	console.log(mainParam);
+	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
+}
+function fn_frmSearchCB(data){
+	console.log(data)
 }
 function fn_delete(){
 	fn_tabDelete("a3",tab3);
@@ -178,7 +176,7 @@ function fn_frmMainSave(){
 	$("input[name=setSeq]").attr("disabled",true);
     $.ajax({
         type: 'POST',
-        url: "/erp/rndt/stan/devPlanS/frmMainSave",
+        url: "/erp/rndt/good/devPlanS/frmMainSave",
         data: params,
         success: function(data) {
             MsgManager.alertMsg("INF001");
@@ -446,7 +444,7 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="10" placeholder="" class="form-control input-xs format_date">
+                                <input name="setDate" id="setDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">

@@ -48,11 +48,13 @@ public class DevPlanSController {
 	public ModelAndView selDevPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
+		String openParam = request.getParameter("openParam");
 		System.out.println("parameter complete");
 		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devPlanS");
 		System.out.println("mnv url");
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
+		mnv.addObject("openParam", openParam);
 		System.out.println("ADD OBJECT");
 		return mnv;
 	}

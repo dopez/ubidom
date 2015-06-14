@@ -80,6 +80,7 @@ function doOnRowDbClicked(rId,cInd){
 	var setSeqIdx = gridMain.getColIndexById('setSeq');
 	var dateValue = searchDate(gridMain.setCells(rId,setDateIdx).getValue());
 	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
+	var openP = "u";
 	var obj={};
 	obj.setDate = dateValue;
 	obj.setSeq = seqValue;
@@ -100,7 +101,7 @@ function doOnRowDbClicked(rId,cInd){
 		var uri = mainMenu.getUserData(preId, "uri");
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue});	
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue,openParam:openP});	
 /* 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue});	 */
 	}
 	

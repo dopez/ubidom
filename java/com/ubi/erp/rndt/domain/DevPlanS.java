@@ -29,11 +29,14 @@ public class DevPlanS implements Serializable {
 	private String writerEmp;
 
 	private String ppsEmp;
-
+	
 	private String ppsDept;
 
 	private String problemName;
 	private String sysEmpNo;
+	private String writerName;
+	private String ppsName;
+	private String postName;
 
 	// tab 1,2
 	private String contentsKind;
@@ -203,6 +206,30 @@ public class DevPlanS implements Serializable {
 
 	public void setDayQty(int dayQty) {
 		this.dayQty = dayQty;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public String getPpsName() {
+		return ppsName;
+	}
+
+	public void setPpsName(String ppsName) {
+		this.ppsName = ppsName;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 	public String getJuDept() {
