@@ -511,7 +511,10 @@ function fn_onClosePop(pName,data){
 				     색맹구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <input name="bldKind" id="bldKind" value="1" type="checkbox">
+				     <select name="bldKind" id="bldKind"  class="form-control input-xs">
+			           <option value="0">무</option>
+			           <option value="1">유</option>
+			         </select>
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     혈액형 
@@ -533,10 +536,13 @@ function fn_onClosePop(pName,data){
 				 장애유무 
 			    </label>
 			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-1 col-md-1">
-			          <input name="disorderYn" id="disorderYn" type="checkbox" value="1">
+			       <div class="col-sm-2 col-md-2">
+			          <select name="disorderYn" id="disorderYn"  class="form-control input-xs">
+			           <option value="0">비장애</option>
+			           <option value="1">장애</option>
+			         </select>
 			       </div>
-			       <div class="col-sm-6 col-md-6">
+			       <div class="col-sm-5 col-md-5">
 			         <input name="disorderCont" id="disorderCont" value="" type="text" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
@@ -569,7 +575,10 @@ function fn_onClosePop(pName,data){
 				     보훈대상 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <input name="armyMerit" id="armyMerit" type="checkbox" value="1" placeholder="" >
+				      <select name="armyMerit" id="armyMerit"  class="form-control input-xs">
+			           <option value="0">비대상</option>
+			           <option value="1">대상</option>
+			         </select>
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     재대구분 

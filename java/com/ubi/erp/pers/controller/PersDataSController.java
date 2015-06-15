@@ -72,6 +72,7 @@ public class PersDataSController {
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		persDataS.setSysEmpNo(sysEmpNo);
 		persDataS.setArmyJong(persDataS.getArmyKind());
+		System.out.println(persDataS.getBldKind());
 
 	 	if(saveFilename != null){  
 	 	persDataS.setImgPath(saveFilename);

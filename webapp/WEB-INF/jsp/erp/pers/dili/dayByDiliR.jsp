@@ -36,7 +36,7 @@ $(document).ready(function(){
 	gridMain.setColSort("str");
 	gridMain.init();
 
-	fn_search();
+
 	
 	calMain = new dhtmlXCalendarObject([{input:"frDate",button:"calpicker1"},{input:"toDate",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
@@ -65,6 +65,8 @@ $(document).ready(function(){
     		gridMain.filterBy(5,byId("korName").value);
 		}
 	 }); 
+	
+	fn_search();
 	
 });
 

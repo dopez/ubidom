@@ -47,7 +47,7 @@ $(document).ready(function(){
 	gridDtl.init();
 	gridDtl.cs_setColumnHidden(["empNo"]);
 
-	fn_search();
+	
 	gridDtl.attachEvent("onRowDblClicked",onGridDtlDblClicked);
 	
 	$("#postName,#korName").dblclick(function(e){
@@ -92,6 +92,8 @@ $(document).ready(function(){
 	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().postCode);
 	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
 	});
+	
+	fn_search();
 });
 function fn_comboLoad(comboId){
 	comboId.setTemplate({
