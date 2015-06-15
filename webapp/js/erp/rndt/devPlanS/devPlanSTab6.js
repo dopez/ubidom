@@ -18,6 +18,16 @@ function fn_setTab6(){
     	}
     })
 }
+function fn_frm6Chk(){
+	if($("#frmTab6_1").find("[name=patentLocal]").val()==""&&
+			$("#frmTab6_1").find("[name=patentFore]").val()==""&&
+			$("#frmTab6_2").find("[name=paperLocal]").val()==""&&
+			$("#frmTab6_3").find("[name=remarks]").val()==""){
+		byId("cudKey6").value = 'INSERT';
+	}else{
+		byId("cudKey6").value = 'UPDATE';
+	}
+}
 function fn_tab6Save(){
     if (fn_seqValid()) {
     	var param = {};

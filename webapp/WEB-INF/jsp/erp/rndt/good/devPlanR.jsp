@@ -23,9 +23,9 @@ $(document).ready(function() {
      //grid	
      gridMain = new dxGrid(subLayout.cells("a"),false);
      gridMain.addHeader({name:"일자",colId:"setDate",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"작성자",colId:"writerEmp",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"제안자",colId:"ppsEmp",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"제안부서",colId:"ppsDept",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"작성자",colId:"writerName",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"제안자",colId:"ppsName",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"제안부서",colId:"postName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"과제명",colId:"problemName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"개발예산(천원)",colId:"",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});

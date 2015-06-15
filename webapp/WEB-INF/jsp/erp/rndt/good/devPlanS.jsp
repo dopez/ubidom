@@ -75,21 +75,21 @@ $(document).ready(function() {
         	        	dateVal = searchDate($("#setDate").val());
         	seqVal = $("#setSeq").val();
         	fn_frmSearch();
-        		fn_searchFrmTab("frmTab1","a1",fn_selfrmTab1CB);
-        		fn_searchFrmTab("frmTab2","a2",fn_selfrmTab2CB);
-        		fn_searchGridTab(tab3,"a3",subTabbar.tabs("a3"),fn_selgridTab3CB)	
-        		fn_searchGridTab(tab4,"a4",subTabbar.tabs("a4"),fn_selgridTab4CB)	
-        		fn_searchFrmTab("frmTab5_1","a5",fn_selfrmTab5CB_1);
-        		fn_searchFrmTab("frmTab5_2","a5",fn_selfrmTab5CB_2);
-        		fn_searchFrmTab("tab6_1","a6",fn_selfrmTab6CB_1);
-        		fn_searchFrmTab("tab6_2","a6",fn_selfrmTab6CB_2);
-        		fn_searchFrmTab("tab6_3","a6",fn_selfrmTab6CB_3);
-        		fn_searchGridTab(tab7,"a7",subTabbar.tabs("a7"),fn_selgridTab7CB);	
-        		fn_searchGridTab(tab8Grid,"a8",tab8.cells("a"),fn_selgridTab8CB);	
+       		fn_searchFrmTab("frmTab1","a1",fn_selfrmTab1CB);
+       		fn_searchFrmTab("frmTab2","a2",fn_selfrmTab2CB);
+       		fn_searchGridTab(tab3,"a3",subTabbar.tabs("a3"),fn_selgridTab3CB)	
+       		fn_searchGridTab(tab4,"a4",subTabbar.tabs("a4"),fn_selgridTab4CB)	
+       		fn_searchFrmTab("frmTab5_1","a5",fn_selfrmTab5CB_1);
+       		fn_searchFrmTab("frmTab5_2","a5",fn_selfrmTab5CB_2);
+       		fn_searchFrmTab("tab6_1","a6",fn_selfrmTab6CB_1);
+       		fn_searchFrmTab("tab6_2","a6",fn_selfrmTab6CB_2);
+       		fn_searchFrmTab("tab6_3","a6",fn_selfrmTab6CB_3);
+       		fn_searchGridTab(tab7,"a7",subTabbar.tabs("a7"),fn_selgridTab7CB);	
+       		fn_searchGridTab(tab8Grid,"a8",tab8.cells("a"),fn_selgridTab8CB);	
         	fn_setCud("u");
-         	byId("cudKey1").value = 'UPDATE';
-         	byId("cudKey2").value = 'UPDATE';
-         	byId("cudKey5").value = 'UPDATE';
+         	fn_frm1Chk();
+         	fn_frm2Chk();
+         	fn_frm5Chk();
          	byId("cudKey6").value = 'UPDATE';
 
         }else{
