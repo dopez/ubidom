@@ -66,6 +66,8 @@ $(document).ready(function(){
 	
 	combo =gridMain.getColumnCombo(6);
 	gfn_1col_comboLoad(combo,"P008");
+	
+	fn_search();
 });
 function doOnCellChanged(rId,cInd,nValue){
 	if(cInd==8){
