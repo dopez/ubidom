@@ -20,9 +20,9 @@
 		'use strict';
 		
 		// 1. RowSpan 대상컬럼수만큼 생성(country, state)
-		var prevOneVal = { cellId: undefined, value: undefined };
-		var prevTwoVal = { cellId: undefined, value: undefined };
-		var prevThreeVal = { cellId: undefined, value: undefined };
+		var prevColOne = { cellId: undefined, value: undefined };
+		var prevColTwo = { cellId: undefined, value: undefined };
+		var prevColThree = { cellId: undefined, value: undefined };
 	
 		// 2. RowSpan 대상컬럼 속성에 cellattr 지정(변수명이 중복되지 않도록 정의)
 		$("#list").jqGrid({
@@ -34,38 +34,38 @@
 				{ name: 'sysNm', width: 150, align: 'center', 
 					cellattr: function (rowId, val, rawObject, cm, rdata) {
 						var result;
-						if (prevTwoVal.value == val) {
-							result = ' style="display: none" twospanid="' + prevTwoVal.cellId + '"';
-						} else {
-							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
-							result = ' twospan="1" id="' + cellId + '"';
-							prevTwoVal = { cellId: cellId, value: val };
-						}
-						return result;
-					}
-				},
-				{ name: 'viewIdx', width: 150, align: 'center',
-					cellattr: function (rowId, val, rawObject, cm, rdata) {
-						var result;
-						if (prevThreeVal.value == val) {
-							result = ' style="display: none" threespanid="' + prevThreeVal.cellId + '"';
-						} else {
-							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
-							result = ' threespan="1" id="' + cellId + '"';
-							prevThreeVal = { cellId: cellId, value: val };
-						}
-						return result;
-					}
-				},
-				{ name: 'useYn', width: 100, align: 'center', 
-					cellattr: function (rowId, val, rawObject, cm, rdata) {
-						var result;
-						if (prevOneVal.value == val) {
-							result = ' style="display: none" onespanid="' + prevOneVal.cellId + '"';
+						if (prevColOne.value == val) {
+							result = ' style="display: none" spanOne="' + prevColOne.cellId + '"';
 						} else {
 							var cellId = this.id + '_one_' + rowId + '_' + cm.name;
 							result = ' onespan="1" id="' + cellId + '"';
-							prevOneVal = { cellId: cellId, value: val };
+							prevColOne = { cellId: cellId, value: val };
+						}
+						return result;
+					}
+				},
+				{ name: 'viewIdx', width: 150, align: 'center', 
+					cellattr: function (rowId, val, rawObject, cm, rdata) {
+						var result;
+						if (prevColTwo.value == val) {
+							result = ' style="display: none" spanTwo="' + prevColTwo.cellId + '"';
+						} else {
+							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
+							result = ' twospan="1" id="' + cellId + '"';
+							prevColTwo = { cellId: cellId, value: val };
+						}
+						return result;
+					}
+				},
+				{ name: 'useYn', width: 150, align: 'center',
+					cellattr: function (rowId, val, rawObject, cm, rdata) {
+						var result;
+						if (prevColThree.value == val) {
+							result = ' style="display: none" spanThree="' + prevColThree.cellId + '"';
+						} else {
+							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
+							result = ' threespan="1" id="' + cellId + '"';
+							prevColThree = { cellId: cellId, value: val };
 						}
 						return result;
 					}
@@ -86,19 +86,18 @@
 				return false;
 			},
 			gridComplete: function () {
-				
 				// 3. RowSpan 정의
 				var grid = this;
 				$('td[onespan="1"]', grid).each(function () {
-					var spans = $('td[onespanid="' + this.id + '"]', grid).length + 1;
+					var spans = $('td[spanOne="' + this.id + '"]', grid).length + 1;
 					if (spans > 1) $(this).attr('rowspan', spans);
 				});
 				$('td[twospan="1"]', grid).each(function () {
-					var spans = $('td[twospanid="' + this.id + '"]', grid).length + 1;
+					var spans = $('td[spanTwo="' + this.id + '"]', grid).length + 1;
 					if (spans > 1) $(this).attr('rowspan', spans);
 				});
 				$('td[threespan="1"]', grid).each(function () {
-					var spans = $('td[threespanid="' + this.id + '"]', grid).length + 1;
+					var spans = $('td[spanThree="' + this.id + '"]', grid).length + 1;
 					if (spans > 1) $(this).attr('rowspan', spans);
 				});
 			}
