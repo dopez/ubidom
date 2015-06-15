@@ -54,12 +54,30 @@ public class WorkLogSController {
 		String logempno = request.getParameter("logempno");
 		String logseq = request.getParameter("logseq");
 		ModelAndView mnv = new ModelAndView("/erp/sale/wlog/workLogS");
+		ModelAndView mnv2 = new ModelAndView("/erp/rndt/wlog/workLogS");
+		mnv.addObject("logkind", logkind);
+		mnv.addObject("logdate", logdate);
+		mnv.addObject("empNo", logempno);
+		mnv.addObject("logseq", logseq);
 		mnv.addObject("logkind", logkind);
 		mnv.addObject("logdate", logdate);
 		mnv.addObject("empNo", logempno);
 		mnv.addObject("logseq", logseq);
 		return mnv;
 	}
+
+	/*
+	 * @RequestMapping(method = RequestMethod.POST) public ModelAndView
+	 * selRndtWlogs(HttpServletRequest request, HttpServletResponse response,
+	 * HttpSession session) throws ParseException { String logkind =
+	 * request.getParameter("logkind"); String logdate =
+	 * request.getParameter("logdate"); String logempno =
+	 * request.getParameter("logempno"); String logseq =
+	 * request.getParameter("logseq"); ModelAndView mnv = new
+	 * ModelAndView("/erp/rndt/wlog/workLogS"); mnv.addObject("logkind",
+	 * logkind); mnv.addObject("logdate", logdate); mnv.addObject("empNo",
+	 * logempno); mnv.addObject("logseq", logseq); return mnv; }
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
 	public List<WorkLogS> gridMainSel(HttpServletRequest request, HttpServletResponse response,HttpSession session, WorkLogS workLogS) throws Exception {

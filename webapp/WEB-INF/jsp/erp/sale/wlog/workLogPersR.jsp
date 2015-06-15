@@ -24,6 +24,7 @@ $(document).ready(function() {
     //grid	
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"순번",colId:"logSeq",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"일자",colId:"logDate",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"고객",colId:"custKorName",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"ro"});
@@ -33,7 +34,7 @@ $(document).ready(function() {
     gridMain.setColSort("str");
 	gridMain.dxObj.setUserData("","@logDate","format_date");
     gridMain.init();
-    gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
+    gridMain.cs_setColumnHidden(["compId","empNo","logDate","logNum","logName","custCode","logKind","korName"]);
     gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
 
     //combo

@@ -67,7 +67,7 @@ function fn_getSeqReturn() {
     obj.tableName = 'TBL_WORK_LOG';
     obj.seqColumn = 'LOG_SEQ';
     obj.dateColumn1 = 'LOG_DATE';
-    obj.columnData1 = $("#stDate").val();
+    obj.columnData1 = searchDate($("#stDate").val());
     obj.dateColumn2 = 'LOG_KIND';
     obj.columnData2 = PscrnParm;
     obj.returnLen = 3;
