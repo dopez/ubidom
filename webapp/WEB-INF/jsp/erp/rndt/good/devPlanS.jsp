@@ -67,12 +67,12 @@ $(document).ready(function() {
 				gfn_load_pop('w1','common/empPOP',true,{"ppsName":$(this).val()});
 			  }
  			if(e.target.id == "postName"){
+				popFlag = 5;
  				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 			}
 	    })
         if($("#openParam").val()=="u"){
-        	//fn_new();
-        	        	dateVal = searchDate($("#setDate").val());
+        	dateVal = searchDate($("#setDate").val());
         	seqVal = $("#setSeq").val();
         	fn_frmSearch();
        		fn_searchFrmTab("frmTab1","a1",fn_selfrmTab1CB);
@@ -90,7 +90,7 @@ $(document).ready(function() {
          	fn_frm1Chk();
          	fn_frm2Chk();
          	fn_frm5Chk();
-         	byId("cudKey6").value = 'UPDATE';
+         	fn_frm6Chk();
 
         }else{
         	fn_new();
@@ -98,6 +98,7 @@ $(document).ready(function() {
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
+	$("#setSeq").val("");
 	fn_setDate();
     $('#setDate').keyup();
 	byId("frmTab1").reset();
@@ -127,7 +128,7 @@ function fn_frmSearch(){
 	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
 }
 function fn_frmSearchCB(data){
-	//console.log("devS frmMain data=",data);
+	console.log("devS frmMain data=",data);
 }
 function fn_delete(){
 	fn_tabDelete("a3",tab3);
@@ -261,7 +262,34 @@ function fn_SetSeq(data) {
    $("#setSeq").val(data[0].seq);
 };
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
+    var selRowIdx = tab3.getSelectedRowIndex();
+    var juDeptIdx = tab3.getColIndexById('juDept');
+    var juPostNameIdx = tab3.getColIndexById('juPostName');
+    var booDeptIdx = tab3.getColIndexById('booDept');
+    var booPostNameIdx = tab3.getColIndexById('booPostName');
+	if(pName=="postCode"&& popFlag == 3){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+            tab3.setCells2(selRowIdx, juDeptIdx).setValue(obj.postCode);
+            tab3.setCells2(selRowIdx, juPostNameIdx).setValue(obj.postName);
+		}		  
+	}
+	if(pName=="postCode"&& popFlag == 4){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			tab3.setCells2(selRowIdx, booDeptIdx).setValue(obj.postCode);
+            tab3.setCells2(selRowIdx, booPostNameIdx).setValue(obj.postName);
+		}		  
+	}
+	if(pName=="postCode"&& popFlag == 5){
 		var i;
 		var obj={};
 		for(i=0;i<data.length;i++){

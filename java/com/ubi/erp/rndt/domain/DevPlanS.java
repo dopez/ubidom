@@ -54,6 +54,10 @@ public class DevPlanS implements Serializable {
 
 	private String booDept;
 
+	private String juPostName;
+
+	private String booPostName;
+
 	private String role;
 
 	private String outSourcing;
@@ -441,6 +445,22 @@ public class DevPlanS implements Serializable {
 
 	public void setCudKey6(String cudKey6) {
 		this.cudKey6 = cudKey6;
+	}
+
+	public String getJuPostName() {
+		return juPostName;
+	}
+
+	public void setJuPostName(String juPostName) {
+		this.juPostName = juPostName;
+	}
+
+	public String getBooPostName() {
+		return booPostName;
+	}
+
+	public void setBooPostName(String booPostName) {
+		this.booPostName = booPostName;
 	}
 
 }

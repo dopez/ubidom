@@ -27,11 +27,13 @@ $(document).ready(function() {
      gridMain.addHeader({name:"제안자",colId:"ppsName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"제안부서",colId:"postName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"과제명",colId:"problemName",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"개발예산(천원)",colId:"",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"개발예산(천원)",colId:"totAmt",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"개발일정",colId:"stDate",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"#cspan",colId:"endDate",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"#cspan",colId:"dd",width:"100",align:"center",type:"ro"});
 
  	gridMain.atchHeader();
+ 	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
@@ -41,6 +43,8 @@ $(document).ready(function() {
  	gridMain.addAtchHeader({atchHeaderName:"종료"});
  	gridMain.addAtchHeader({atchHeaderName:"일수"});
  	gridMain.dxObj.setUserData("","@setDate","format_date");
+ 	gridMain.dxObj.setUserData("","@stDate","format_date");
+ 	gridMain.dxObj.setUserData("","@endDate","format_date");
  	gridMain.setColSort("str");	
  	gridMain.setUserData("","pk","");
  	gridMain.atchHeaderInit();

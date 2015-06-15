@@ -17,10 +17,10 @@ function fn_setTab4(){
 	tab4.atchHeaderInit();
 	tab4.atchFooter();
 	tab4.addAtchFooter({atchFooterName:"합계"});
-	tab4.addAtchFooter({atchFooterName:""});
-	tab4.addAtchFooter({atchFooterName:""});
-	tab4.addAtchFooter({atchFooterName:""});
-	tab4.atchFooterInit();	
+	tab4.addAtchFooter({atchFooterName:"#stat_total"});
+	tab4.addAtchFooter({atchFooterName:"#stat_total"});
+	tab4.addAtchFooter({atchFooterName:"#stat_total"});
+	tab4.atchFooterInit();
 	tab4.init();
 	tab4.cs_setColumnHidden(["setDate","setSeq"]);
 	tab4.attachEvent("onRowSelect",doOnRowSelect);

@@ -3,8 +3,8 @@ function fn_setTab8(){
 	tab8.cells("a").hideHeader();
 	tab8Grid = new dxGrid(tab8.cells("a"), false);
 	tab8Grid.addHeader({name:"구분",colId:"marketKind",width:"100",align:"center",type:"ro"});
-	tab8Grid.addHeader({name:"당해년도(천원)",colId:"localAmt",width:"150",align:"right",type:"ed"});
-	tab8Grid.addHeader({name:"Total(천원)",colId:"foreAmt",width:"150",align:"right",type:"ed"});
+	tab8Grid.addHeader({name:"국내(백만원)",colId:"localAmt",width:"150",align:"right",type:"ed"});
+	tab8Grid.addHeader({name:"해외(천원)",colId:"foreAmt",width:"150",align:"right",type:"ed"});
 	tab8Grid.addHeader({name:"비고",colId:"remarks",width:"300",align:"left",type:"ed"});
 	tab8Grid.setColSort("str");	
 	tab8Grid.setUserData("","pk","");
@@ -24,7 +24,9 @@ function fn_setTab8(){
     })
 }
 function fn_selgridTab8CB(data){
-	
+	if(typeof data[0]=="undefined"){
+		fn_setRowsTab8();
+	}
 }
 function fn_setRowsTab8(){
 	tab8Grid.addRow(["Market Size"]);
