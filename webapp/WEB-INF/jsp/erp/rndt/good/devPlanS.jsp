@@ -189,7 +189,6 @@ function fn_searchFrmTab(form,tabId,cbFunc){
 	fn_setSearchParam(tabId);
 	console.log(setSearchParam);
 	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
-	//gfn_callAjaxForForm("frmMain", obj, "selFrmMain",fn_frmSearchCB);
 }
 function fn_seqValid(){
 	var vFlag = "";

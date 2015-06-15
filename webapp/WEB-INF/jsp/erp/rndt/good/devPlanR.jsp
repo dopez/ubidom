@@ -103,7 +103,6 @@ function doOnRowDbClicked(rId,cInd){
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue,openParam:openP});	
-/* 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue});	 */
 	}
 	
 };

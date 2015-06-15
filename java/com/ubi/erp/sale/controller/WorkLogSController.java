@@ -1,10 +1,10 @@
 package com.ubi.erp.sale.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ubi.erp.cmm.util.gson.DateFormatUtil;
 import com.ubi.erp.sale.domain.WorkLogS;
 import com.ubi.erp.sale.service.WorkLogSService;
 
@@ -46,6 +45,20 @@ public class WorkLogSController {
 		mnv.addObject("empName", empName);
 		return mnv;
 		
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView selDevPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+		String logkind = request.getParameter("logkind");
+		String logdate = request.getParameter("logdate");
+		String logempno = request.getParameter("logempno");
+		String logseq = request.getParameter("logseq");
+		ModelAndView mnv = new ModelAndView("/erp/sale/wlog/workLogS");
+		mnv.addObject("logkind", logkind);
+		mnv.addObject("logdate", logdate);
+		mnv.addObject("empNo", logempno);
+		mnv.addObject("logseq", logseq);
+		return mnv;
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
