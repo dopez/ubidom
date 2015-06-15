@@ -6,6 +6,10 @@ var gridMain;
 var calMain;
 var PscrnParm = parent.scrnParm;
 var comboVal;
+var mainMenu = parent.mainMenu;
+var mainTabbar = parent.mainTabbar;
+var tabId = null;
+var uri = null;
 $(document).ready(function() {
 
     Ubi.setContainer(4, [1, 8, 9], "1C"); //업무일지조회(담당)
@@ -20,6 +24,7 @@ $(document).ready(function() {
     //grid	
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+    gridMain.addHeader({name:"순번",colId:"logSeq",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"일자",colId:"logDate",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"고객",colId:"custKorName",width:"100",align:"center",type:"ro"});
     gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"ro"});
@@ -29,8 +34,9 @@ $(document).ready(function() {
     gridMain.setColSort("str");
 	gridMain.dxObj.setUserData("","@logDate","format_date");
     gridMain.init();
-    gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
-      
+    gridMain.cs_setColumnHidden(["compId","empNo","logDate","logNum","logName","custCode","logKind","korName"]);
+    gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
+
     //combo
     var combo01 = dhtmlXComboFromSelect("workKind");
     combo01.setTemplate({
@@ -75,6 +81,45 @@ $(document).ready(function() {
     fn_search();
 })
 //doc ready end
+function doOnRowDbClicked(rId,cInd){
+	var cFlag = true;
+	var logdateIdx = gridMain.getColIndexById('logDate');
+	var empNoIdx = gridMain.getColIndexById('empNo');
+	var seqIdx = gridMain.getColIndexById('logSeq');
+	var V_LOG_KIND = PscrnParm;
+	var V_LOG_DATE = searchDate(gridMain.setCells(rId,logdateIdx).getValue());
+	var V_EMP_NO = gridMain.setCells(rId,empNoIdx).getValue();
+	var V_LOG_SEQ = gridMain.setCells(rId,seqIdx).getValue();
+	var ids = mainTabbar.getAllTabs();
+	var preId;
+	if(PscrnParm==1){
+		preId = "1000000703";
+	}
+	if(PscrnParm==2){
+		preId = "1000000935";
+	}
+	if(PscrnParm==3){
+		preId = "1000000837";
+	}
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{logkind:V_LOG_KIND,logdate:V_LOG_DATE,logempno:V_EMP_NO,logseq:V_LOG_SEQ});	
+	}
+	
+};
 function fn_search() {
     var obj = {};
     var splitfrDate = $("#stDate").val().split("/");

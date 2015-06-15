@@ -167,4 +167,39 @@ public class DevPlanSService {
 		dao.prcsFrmTab6Save(devPlanS);
 	}
 
+	public void selFrmTab1(Map<String, Object> map) {
+		dao.selFrmTab1(map);
+		
+	}
+
+	public void selFrmTab2(Map<String, Object> map) {
+		dao.selFrmTab2(map);
+	}
+
+	public void selFrmTab5(Map<String, Object> map) {
+		dao.selFrmTab5(map);
+	}
+
+	public void selFrmTab6(Map<String, Object> map) {
+		dao.selFrmTab6(map);
+		
+	}
+
+	public void selGridTab3(Map<String, Object> map) {
+		dao.selGridTab3(map);
+		
+	}
+	public void selGridTab4(Map<String, Object> map) {
+		dao.selGridTab4(map);
+		
+	}
+	public void selGridTab7(Map<String, Object> map) {
+		dao.selGridTab7(map);
+		
+	}
+	public void selGridTab8(Map<String, Object> map) {
+		dao.selGridTab8(map);
+		
+	}
+
 }

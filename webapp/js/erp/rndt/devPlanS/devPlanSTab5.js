@@ -16,6 +16,16 @@ function fn_setTab5(){
     	}
     })
 }
+function fn_frm5Chk(){
+	if($("#frmTab5_1").find("[name=itemName]").val()==""&&
+			$("#frmTab5_1").find("[name=techName]").val()==""&&
+			$("#frmTab5_1").find("[name=targetMatr]").val()==""&&
+			$("#frmTab5_2").find("[name=remarks]").val()==""){
+		byId("cudKey5").value = 'INSERT';
+	}else{
+		byId("cudKey5").value = 'UPDATE';
+	}
+}
 function fn_tab5Save(){
     if (fn_seqValid()) {
     	var param = {};
@@ -43,4 +53,10 @@ function fn_tab5Save(){
             }
         });
     }
+}
+function fn_selfrmTab5CB_1(data){
+	
+}
+function fn_selfrmTab5CB_2(data){
+	
 }

@@ -34,6 +34,15 @@ public class DevPlanR implements Serializable {
 
 	private String problemName;
 	private String sysEmpNo;
+	private String writerName;
+	private String ppsName;
+	private String postName;
+
+	private String stDate;
+
+	private String endDate;
+
+	private int dd;
 
 	// tab 1,2
 	private String contentsKind;
@@ -92,6 +101,30 @@ public class DevPlanR implements Serializable {
 	private String marketKind;
 
 	private String localAmt;
+
+	public String getStDate() {
+		return stDate;
+	}
+
+	public void setStDate(String stDate) {
+		this.stDate = stDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getDd() {
+		return dd;
+	}
+
+	public void setDd(int dd) {
+		this.dd = dd;
+	}
 
 	private String foreAmt;
 
@@ -414,6 +447,30 @@ public class DevPlanR implements Serializable {
 
 	public void setCudKey6(String cudKey6) {
 		this.cudKey6 = cudKey6;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public String getPpsName() {
+		return ppsName;
+	}
+
+	public void setPpsName(String ppsName) {
+		this.ppsName = ppsName;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 }

@@ -117,4 +117,16 @@ public interface DevPlanSDao {
 	 * @param
 	 */
 	void prcsFrmTab6Save(DevPlanS devPlanS);
+
+	void selFrmTab1(Map<String, Object> map);
+
+	void selFrmTab2(Map<String, Object> map);
+
+	void selFrmTab5(Map<String, Object> map);
+	void selFrmTab6(Map<String, Object> map);
+
+	void selGridTab3(Map<String, Object> map);
+	void selGridTab4(Map<String, Object> map);
+	void selGridTab7(Map<String, Object> map);
+	void selGridTab8(Map<String, Object> map);
 }

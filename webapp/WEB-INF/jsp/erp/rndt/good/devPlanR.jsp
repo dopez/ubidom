@@ -23,15 +23,17 @@ $(document).ready(function() {
      //grid	
      gridMain = new dxGrid(subLayout.cells("a"),false);
      gridMain.addHeader({name:"일자",colId:"setDate",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"작성자",colId:"writerEmp",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"제안자",colId:"ppsEmp",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"제안부서",colId:"ppsDept",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"작성자",colId:"writerName",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"제안자",colId:"ppsName",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"제안부서",colId:"postName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"과제명",colId:"problemName",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"개발예산(천원)",colId:"",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"개발예산(천원)",colId:"totAmt",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"개발일정",colId:"stDate",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"#cspan",colId:"endDate",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"#cspan",colId:"dd",width:"100",align:"center",type:"ro"});
 
  	gridMain.atchHeader();
+ 	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
  	gridMain.addAtchHeader({atchHeaderName:"#rspan"});
@@ -41,6 +43,8 @@ $(document).ready(function() {
  	gridMain.addAtchHeader({atchHeaderName:"종료"});
  	gridMain.addAtchHeader({atchHeaderName:"일수"});
  	gridMain.dxObj.setUserData("","@setDate","format_date");
+ 	gridMain.dxObj.setUserData("","@stDate","format_date");
+ 	gridMain.dxObj.setUserData("","@endDate","format_date");
  	gridMain.setColSort("str");	
  	gridMain.setUserData("","pk","");
  	gridMain.atchHeaderInit();
@@ -80,9 +84,7 @@ function doOnRowDbClicked(rId,cInd){
 	var setSeqIdx = gridMain.getColIndexById('setSeq');
 	var dateValue = searchDate(gridMain.setCells(rId,setDateIdx).getValue());
 	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
-	var obj={};
-	obj.setDate = dateValue;
-	obj.setSeq = seqValue;
+	var openP = "u";
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000680";
 	for(var i=0;i<ids.length;i++){
@@ -100,8 +102,7 @@ function doOnRowDbClicked(rId,cInd){
 		var uri = mainMenu.getUserData(preId, "uri");
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue});	
-/* 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue});	 */
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue,openParam:openP});	
 	}
 	
 };
@@ -118,6 +119,7 @@ function fn_selGridMain(){
 	 gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
 }
 function fn_selGridMainCB(data){
+	console.log("devR data=",data);
 }
 function fn_onClosePop(pName,data){
 	if (pName=="empNo"&& popFlag == 1) {

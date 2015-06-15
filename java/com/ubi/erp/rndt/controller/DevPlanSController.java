@@ -48,12 +48,11 @@ public class DevPlanSController {
 	public ModelAndView selDevPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
-		System.out.println("parameter complete");
+		String openParam = request.getParameter("openParam");
 		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devPlanS");
-		System.out.println("mnv url");
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
-		System.out.println("ADD OBJECT");
+		mnv.addObject("openParam", openParam);
 		return mnv;
 	}
 
@@ -70,6 +69,54 @@ public class DevPlanSController {
 		map.put("V_SET_SEQ", setSeq);
 		map.put("o_cursor", null);
 		DevPlanSService.selFrmMain(map);
+		List<DevPlanS> list = (List<DevPlanS>) map.get("o_cursor");
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selFrmTab", method = RequestMethod.POST)
+	public List<DevPlanS> selFrmTab(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevPlanS DevPlanS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		if(tabId.equals("a1")){
+			DevPlanSService.selFrmTab1(map);		
+		}else if(tabId.equals("a2")){
+			DevPlanSService.selFrmTab2(map);		
+		}else if(tabId.equals("a5")){
+			DevPlanSService.selFrmTab5(map);
+		}else if(tabId.equals("a6")){
+			DevPlanSService.selFrmTab6(map);
+		}
+		List<DevPlanS> list = (List<DevPlanS>) map.get("o_cursor");
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selGridTab", method = RequestMethod.POST)
+	public List<DevPlanS> selGridTab(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevPlanS DevPlanS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		if(tabId.equals("a3")){
+			DevPlanSService.selGridTab3(map);		
+		}else if(tabId.equals("a4")){
+			DevPlanSService.selGridTab4(map);		
+		}else if(tabId.equals("a7")){
+			DevPlanSService.selGridTab7(map);
+		}else if(tabId.equals("a8")){
+			DevPlanSService.selGridTab8(map);
+		}
 		List<DevPlanS> list = (List<DevPlanS>) map.get("o_cursor");
 		return list;
 	}

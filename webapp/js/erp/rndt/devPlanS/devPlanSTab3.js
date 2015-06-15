@@ -3,8 +3,8 @@ function fn_setTab3(){
 	tab3.addHeader({name:"개발일정",colId:"planKind",width:"100",align:"center",type:"combo"});
 	tab3.addHeader({name:"#cspan",colId:"planDate",width:"100",align:"center",type:"dhxCalendarA"});
 	tab3.addHeader({name:"#cspan",colId:"dayQty",width:"100",align:"center",type:"ed"});
-	tab3.addHeader({name:"주관부서",colId:"juDept",width:"100",align:"center",type:"ed"});
-	tab3.addHeader({name:"#cspan",colId:"booDept",width:"100",align:"center",type:"ed"});
+	tab3.addHeader({name:"주관부서",colId:"juPostName",width:"100",align:"center",type:"ro"});
+	tab3.addHeader({name:"#cspan",colId:"booPostName",width:"100",align:"center",type:"ro"});
 	tab3.addHeader({name:"관련부서선행Role(제조/생산/마케팅)",colId:"role",width:"300",align:"center",type:"ed"});
 	tab3.addHeader({name:"OutSourcing 계획",colId:"outSourcing",width:"300",align:"center",type:"ed"});
 	/*tab3.addHeader({name:"일자",colId:"setDate",width:"100",align:"center",type:"ro"});
@@ -22,7 +22,9 @@ function fn_setTab3(){
 	tab3.addAtchHeader({atchHeaderName:"#rspan"});
 	tab3.atchHeaderInit();
 	tab3.init();
-	tab3.cs_setColumnHidden(["setDate","setSeq"]);
+	tab3.cs_setColumnHidden(["setDate","setSeq","juDept","booDept"]);
+    tab3.attachEvent("onRowDblClicked",fn_getJooBoo);
+
 	tab3Toolbar = subToolbar(tab3Toolbar,subTabbar.tabs("a3"),[3,4,5,6]);
 	tab3Toolbar.attachEvent("onClick",function(id){
     	if(id=="btn3"){
@@ -40,6 +42,22 @@ function fn_setTab3(){
 	combo01.addOption("2","완료");
 	combo01.addOption("3","이관");
 	combo01.addOption("4","출시");
+}
+function fn_getJooBoo(rId,colIdx){
+	 var selRowIdx = tab3.getSelectedRowIndex();
+     var juDeptIdx = tab3.getColIndexById('juDept');
+     var juPostNameIdx = tab3.getColIndexById('juPostName');
+     var booDeptIdx = tab3.getColIndexById('booDept');
+     var booPostNameIdx = tab3.getColIndexById('booPostName');
+ 	 
+    if (colIdx == 3) {
+    	 popFlag = 3
+    	 gfn_load_pop('w1','common/deptCodePOP',true,{"postName":tab3.setCells2(selRowIdx, juPostNameIdx).getValue()});
+    }
+ 	  if (colIdx == 4) {
+ 		  popFlag = 4
+ 		 gfn_load_pop('w1','common/deptCodePOP',true,{"postName":tab3.setCells2(selRowIdx, booPostNameIdx).getValue()});
+ 	  }
 }
 function fn_tab3Remove(){
 	var jsonStr = tab3.getJsonUpdated2();
@@ -90,4 +108,7 @@ function fn_tab3Save(){
 			}
 		}
 	}
+}
+function fn_selgridTab3CB(data){
+	
 }

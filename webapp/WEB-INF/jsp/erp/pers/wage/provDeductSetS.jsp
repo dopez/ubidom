@@ -41,7 +41,11 @@ $(document).ready(function(){
 });
 
 function fn_search(){
-	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a")); 
+	gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"),gridMainCB); 
+}
+
+function gridMainCB(data){
+	fncRowMerge(1);
 }
 
 function fn_save(){
@@ -67,6 +71,19 @@ function fn_add(){
 function fn_delete(){
 	var rodid = gridMain.getSelectedRowId();
 	gridMain.cs_deleteRow(rodid);
+}
+
+function fncRowMerge(colIdx) {
+	var preVal = gridMain.getDxObj().cells2(0,colIdx).getValue();
+	var nowVal = "";
+	for(var i = 1; i < gridMain.getRowsNum(); i++) {
+		nowVal = gridMain.getDxObj().cells2(i,colIdx).getValue();
+		if (preVal == nowVal) {
+			var rowID = gridMain.getRowId(i);
+			gridMain.getDxObj().setCellTextStyle(rowID, colIdx, "color:white;");
+		}
+		preVal = nowVal;
+	}
 }
 </script>
 <form id="pform" name="pform" method="post">

@@ -29,11 +29,14 @@ public class DevPlanS implements Serializable {
 	private String writerEmp;
 
 	private String ppsEmp;
-
+	
 	private String ppsDept;
 
 	private String problemName;
 	private String sysEmpNo;
+	private String writerName;
+	private String ppsName;
+	private String postName;
 
 	// tab 1,2
 	private String contentsKind;
@@ -50,6 +53,10 @@ public class DevPlanS implements Serializable {
 	private String juDept;
 
 	private String booDept;
+
+	private String juPostName;
+
+	private String booPostName;
 
 	private String role;
 
@@ -203,6 +210,30 @@ public class DevPlanS implements Serializable {
 
 	public void setDayQty(int dayQty) {
 		this.dayQty = dayQty;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public String getPpsName() {
+		return ppsName;
+	}
+
+	public void setPpsName(String ppsName) {
+		this.ppsName = ppsName;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 	public String getJuDept() {
@@ -414,6 +445,22 @@ public class DevPlanS implements Serializable {
 
 	public void setCudKey6(String cudKey6) {
 		this.cudKey6 = cudKey6;
+	}
+
+	public String getJuPostName() {
+		return juPostName;
+	}
+
+	public void setJuPostName(String juPostName) {
+		this.juPostName = juPostName;
+	}
+
+	public String getBooPostName() {
+		return booPostName;
+	}
+
+	public void setBooPostName(String booPostName) {
+		this.booPostName = booPostName;
 	}
 
 }

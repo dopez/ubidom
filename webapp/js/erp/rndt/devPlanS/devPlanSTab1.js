@@ -11,6 +11,13 @@ function fn_setTab1(){
     	}
     })
 }
+function fn_frm1Chk(){
+	if($("#frmTab1").find("[name=contents]").val()==""||$("#frmTab1").find("[name=contents]").val()==null){
+		byId("cudKey1").value = 'INSERT';
+	}else{
+		byId("cudKey1").value = 'UPDATE';
+	}
+}
 function fn_tab1Save(){
     if (fn_seqValid()) {
     	var param = {};
@@ -19,7 +26,6 @@ function fn_tab1Save(){
     	param.cudKey1 = $('#cudKey1').val();
     	param.setDate = dateVal
     	param.setSeq = seqVal
-    	
     	console.log("tab1 param = ",param);
     	
         $.ajax({
@@ -31,9 +37,16 @@ function fn_tab1Save(){
             	if($('#cudKey1').val()=='DELETE'){
             		byId("cudKey1").value = 'INSERT';
             	}else{
-            		byId("cudKey1").value = 'UPDATE';
+            		if($("#frmTab1").find("[name=contents]").val()==""||$("#frmTab1").find("[name=contents]").val()==null){
+            			byId("cudKey1").value = 'INSERT';
+            		}else{
+            			byId("cudKey1").value = 'UPDATE';
+            		}
             	}
              }
         });
     }
+}
+function fn_selfrmTab1CB(data){
+	console.log(data);
 }

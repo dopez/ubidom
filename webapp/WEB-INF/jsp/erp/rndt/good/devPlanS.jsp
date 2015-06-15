@@ -67,26 +67,38 @@ $(document).ready(function() {
 				gfn_load_pop('w1','common/empPOP',true,{"ppsName":$(this).val()});
 			  }
  			if(e.target.id == "postName"){
+				popFlag = 5;
  				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 			}
 	    })
-        /*set seq*/
-        //fn_getSeqReturn();
-
         if($("#openParam").val()=="u"){
-        	//fn_new();
+        	dateVal = searchDate($("#setDate").val());
+        	seqVal = $("#setSeq").val();
+        	fn_frmSearch();
+       		fn_searchFrmTab("frmTab1","a1",fn_selfrmTab1CB);
+       		fn_searchFrmTab("frmTab2","a2",fn_selfrmTab2CB);
+       		fn_searchGridTab(tab3,"a3",subTabbar.tabs("a3"),fn_selgridTab3CB)	
+       		fn_searchGridTab(tab4,"a4",subTabbar.tabs("a4"),fn_selgridTab4CB)	
+       		fn_searchFrmTab("frmTab5_1","a5",fn_selfrmTab5CB_1);
+       		fn_searchFrmTab("frmTab5_2","a5",fn_selfrmTab5CB_2);
+       		fn_searchFrmTab("tab6_1","a6",fn_selfrmTab6CB_1);
+       		fn_searchFrmTab("tab6_2","a6",fn_selfrmTab6CB_2);
+       		fn_searchFrmTab("tab6_3","a6",fn_selfrmTab6CB_3);
+       		fn_searchGridTab(tab7,"a7",subTabbar.tabs("a7"),fn_selgridTab7CB);	
+       		fn_searchGridTab(tab8Grid,"a8",tab8.cells("a"),fn_selgridTab8CB);	
         	fn_setCud("u");
-         	byId("cudKey1").value = 'UPDATE';
-         	byId("cudKey2").value = 'UPDATE';
-         	byId("cudKey5").value = 'UPDATE';
-         	byId("cudKey6").value = 'UPDATE';
+         	fn_frm1Chk();
+         	fn_frm2Chk();
+         	fn_frm5Chk();
+         	fn_frm6Chk();
+
         }else{
         	fn_new();
         }
-
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
+	$("#setSeq").val("");
 	fn_setDate();
     $('#setDate').keyup();
 	byId("frmTab1").reset();
@@ -110,12 +122,13 @@ function fn_new(){
 
 function fn_frmSearch(){
 	var mainParam = {};
-	mainParam.setDate = $("#setDate").val();
+	mainParam.setDate = searchDate($("#setDate").val());
 	mainParam.setSeq = $("#setSeq").val();
-	if(mainParam.setSeq==""|| mainParam.setSeq==null ||typeof mainParam.setSeq == "undefined"){
-			mainParam.setSeq = "%";
-	}
-	gfn_callAjaxForForm(frmMain, mainParam, "selFrmMain");
+	//console.log(mainParam);
+	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
+}
+function fn_frmSearchCB(data){
+	console.log("devS frmMain data=",data);
 }
 function fn_delete(){
 	fn_tabDelete("a3",tab3);
@@ -132,36 +145,55 @@ function fn_tabDelete(id,grid){
 function fn_search(){
 	fn_frmSearch();
 	if(tabId=="a1"){
-		fn_searchTab1();
+		fn_searchFrmTab("frmTab1",tabId,fn_selfrmTab1CB);
 	}
 	if(tabId=="a2"){
-		fn_searchTab2();
+		fn_searchFrmTab("frmTab2",tabId,fn_selfrmTab2CB);
 	}
 	if(tabId=="a3"){
-		fn_searchTab3();
+		fn_searchGridTab(tab3,tabId,subTabbar.tabs("a3"),fn_selgridTab3CB)	
 	}
 	if(tabId=="a4"){
-		fn_searchTab4();
+		fn_searchGridTab(tab4,tabId,subTabbar.tabs("a4"),fn_selgridTab4CB)	
 	}
 	if(tabId=="a5"){
-		fn_searchTab5();
+		fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
+		fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
 	}
 	if(tabId=="a6"){
-		fn_searchTab6();
+		fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
+		fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
+		fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
 	}
 	if(tabId=="a7"){
-		fn_searchTab7();
+		fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
 	}
 	if(tabId=="a8"){
-		fn_searchTab8();
+		fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
 	}
+}
+var setSearchParam = {};
+function fn_setSearchParam(tabId){
+	setSearchParam.setDate = dateVal;
+	setSearchParam.setSeq = seqVal;
+	setSearchParam.tabId = tabId;
+	return setSearchParam;
+}
+function fn_searchGridTab(grid,tabId,layout,cbFunc){
+	fn_setSearchParam(tabId);
+	console.log(setSearchParam);
+	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
+
+}
+function fn_searchFrmTab(form,tabId,cbFunc){
+	fn_setSearchParam(tabId);
+	console.log(setSearchParam);
+	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
 }
 function fn_seqValid(){
 	var vFlag = "";
 	if($("#setSeq").val()==null||$("#setSeq").val()==""
-			||typeof $("#setSeq").val()=="undefined"
-			||seqVal.length<=0||seqVal==null
-			||seqVal==""){
+			||typeof $("#setSeq").val()=="undefined"){
 		dhtmlx.alert("위 Form부터 작성/저장 하세요");
 		vFlag = false;
 		return vFlag;
@@ -178,7 +210,7 @@ function fn_frmMainSave(){
 	$("input[name=setSeq]").attr("disabled",true);
     $.ajax({
         type: 'POST',
-        url: "/erp/rndt/stan/devPlanS/frmMainSave",
+        url: "/erp/rndt/good/devPlanS/frmMainSave",
         data: params,
         success: function(data) {
             MsgManager.alertMsg("INF001");
@@ -229,7 +261,34 @@ function fn_SetSeq(data) {
    $("#setSeq").val(data[0].seq);
 };
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
+    var selRowIdx = tab3.getSelectedRowIndex();
+    var juDeptIdx = tab3.getColIndexById('juDept');
+    var juPostNameIdx = tab3.getColIndexById('juPostName');
+    var booDeptIdx = tab3.getColIndexById('booDept');
+    var booPostNameIdx = tab3.getColIndexById('booPostName');
+	if(pName=="postCode"&& popFlag == 3){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+            tab3.setCells2(selRowIdx, juDeptIdx).setValue(obj.postCode);
+            tab3.setCells2(selRowIdx, juPostNameIdx).setValue(obj.postName);
+		}		  
+	}
+	if(pName=="postCode"&& popFlag == 4){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			var params =  "postName=" + data[i].postName;
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			tab3.setCells2(selRowIdx, booDeptIdx).setValue(obj.postCode);
+            tab3.setCells2(selRowIdx, booPostNameIdx).setValue(obj.postName);
+		}		  
+	}
+	if(pName=="postCode"&& popFlag == 5){
 		var i;
 		var obj={};
 		for(i=0;i<data.length;i++){
@@ -446,7 +505,7 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="10" placeholder="" class="form-control input-xs format_date">
+                                <input name="setDate" id="setDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
