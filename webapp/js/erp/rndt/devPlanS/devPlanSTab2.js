@@ -11,9 +11,16 @@ function fn_setTab2(){
     	}
     })
 }
+function fn_frm2Chk(){
+	if($("#frmTab2").find("[name=contents]").val()==""||$("#frmTab2").find("[name=contents]").val()==null){
+		byId("cudKey2").value = 'INSERT';
+	}else{
+		byId("cudKey2").value = 'UPDATE';
+	}
+}
 function fn_tab2Save(){
     if (fn_seqValid()) {
-    	
+
     	var param = {};
     	param.contents = $("#frmTab2").find("[name=contents]").val();
     	param.contentsKind = $("#frmTab2").find("[name=contentsKind]").val();
@@ -33,12 +40,12 @@ function fn_tab2Save(){
             	if($('#cudKey2').val()=='DELETE'){
             		byId("cudKey2").value = 'INSERT';
             	}else{
-            		byId("cudKey2").value = 'UPDATE';
-            	}
-               }
+           			byId("cudKey2").value = 'UPDATE';
+             	}
+            }
         });
     }
 }
 function fn_selfrmTab2CB(data){
-	
+	console.log(data);
 }
