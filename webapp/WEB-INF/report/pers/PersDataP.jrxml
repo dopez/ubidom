@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
-<!-- 2015-06-09T12:53:30 -->
+<!-- 2015-06-16T17:55:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersDataP" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ceko"/>
@@ -2049,7 +2049,7 @@
 	<detail>
 		<band height="16">
 			<subreport>
-				<reportElement style="common" x="0" y="0" width="554" height="16" uuid="41368f4c-50f6-482f-843f-99aa144e9adb">
+				<reportElement style="common" x="0" y="0" width="554" height="16" isPrintInFirstWholeBand="true" uuid="41368f4c-50f6-482f-843f-99aa144e9adb">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -2065,7 +2065,7 @@
 		</band>
 		<band height="16">
 			<subreport>
-				<reportElement style="common" x="0" y="0" width="554" height="16" uuid="96640c24-9e99-4291-9f1f-cc1cc66887e9">
+				<reportElement style="common" x="0" y="0" width="554" height="16" isPrintInFirstWholeBand="true" uuid="96640c24-9e99-4291-9f1f-cc1cc66887e9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
