@@ -11,8 +11,9 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl01, gridDtl02;
 var calMain;
 var toolbar01, toolbar02;
-var combo01, combo02, combo03;
+var combo01, combo02, combo03, combo04, combo05;
 var cFlag = true;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4],"3L");
 	//설비이력등록
@@ -61,8 +62,8 @@ $(document).ready(function(){
 	    
 	    gridDtl02 = new dxGrid(gridTabbar.tabs("a2"), false);
 	    gridDtl02.addHeader({name:"NO",       colId:"no",        width:"50",  align:"center", type:"cntr"});
-	    gridDtl02.addHeader({name:"부품코드", colId:"partCode",  width:"80",  align:"left",   type:"ro"});
-	    gridDtl02.addHeader({name:"부품명",   colId:"partName",  width:"100",  align:"left",   type:"ro"});
+	    gridDtl02.addHeader({name:"부품코드", colId:"partCode",  width:"80",  align:"left",    type:"ro"});
+	    gridDtl02.addHeader({name:"부품명",   colId:"partName",  width:"100",  align:"left",   type:"combo"});
 	    gridDtl02.addHeader({name:"규격",     colId:"partSpec",  width:"80",  align:"left",   type:"ro"});
 	    gridDtl02.addHeader({name:"주기단위", colId:"cycleKind", width:"80",  align:"center",  type:"combo"});
 	    gridDtl02.addHeader({name:"교환주기", colId:"cycle",     width:"60",  align:"right",  type:"edn"});
@@ -72,7 +73,7 @@ $(document).ready(function(){
 	    gridDtl02.setColSort("str");
 	    gridDtl02.init(); 
 	    gridDtl02.cs_setColumnHidden(["equiCode"]);
-	    gridDtl02.attachEvent("onRowSelect",doOnGridDtl02Select);
+	    gridDtl02.attachEvent("onRowDblClicked",doOnGridDtl02Select);
 		var gridTab02 = gridTabbar.tabs("a2");
 		toolbar02 = subToolbar(toolbar02,gridTab02,[1,3,4,5,6]);
 		toolbar02.attachEvent("onClick",gridDtl02OnClick);
@@ -82,10 +83,7 @@ $(document).ready(function(){
 	calMain.hideTime();	   
 	fn_calValue();
 	
-	$("#korName,#eqCode,#splyComp,#updImg,#delImg").click(function(e){
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
+	$("#updImg,#delImg").click(function(e){
 		if(e.target.id == "updImg"){
 			 var rowCheck = gridMst.getSelectedRowId();
 	 		if(rowCheck == null){
@@ -109,13 +107,7 @@ $(document).ready(function(){
               }
           }); 
 		}
-	}).keyup(function(e){
-		if(e.target.id == "korName"){
-			if(e.keyCode == '9'){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		    }
-		 }	
-	  });
+	});
 	 
 	
 	$("#supplyComp,#splyComp,#eqCode").dblclick(function(e){
@@ -132,45 +124,77 @@ $(document).ready(function(){
 		}
 	});
 
-	fn_gridMstSearch();
 	byId("cudKey").value = "INSERT";
 	
 	combo01 =gridDtl01.getColumnCombo(1);
-	fn_comboSet(combo01,"E02");
 	combo02 =gridDtl01.getColumnCombo(2);
-	fn_comboSet(combo02,"C10");
 	combo03 =gridDtl02.getColumnCombo(4);
-	fn_comboSet(combo03,"C10");
+	combo04 = dhtmlXComboFromSelect("empNo");
+	combo05 =gridDtl02.getColumnCombo(2);
 	
+	gfn_1col_comboLoad(combo01,"E02");
+	gfn_1col_comboLoad(combo02,"C10");
+	gfn_1col_comboLoad(combo03,"C10");
+	fn_comboLoad(combo04,"1");
+	fn_comboLoad(combo05,"2");
+	
+	combo05.attachEvent("onClose", function(){
+		var rowIdx = gridDtl02.getSelectedRowIndex();
+		gridDtl02.setCells2(rowIdx,1).setValue(combo05.getSelectedText().partCode);
+		gridDtl02.setCells2(rowIdx,2).setValue(combo05.getSelectedText().partName);
+		gridDtl02.setCells2(rowIdx,3).setValue(combo05.getSelectedText().partSpec);
+	});
+	
+	fn_gridMstSearch();
 });
 
-function fn_comboSet(comboId,params){
-	comboId.setTemplate({
+function fn_comboLoad(comboId,cFlag){
+	var obj = {};
+	if(cFlag == 1){
+		comboId.setTemplate({
 		    input: "#interName#",
 		    columns: [
-			   {header: "코드명",   width: 100,  option: "#interName#"}
+	          {header: "사원명", width: 100, option: "#empNo#"}
 		    ]
 		});
+	    obj.korName = '';
+		$.ajax({
+			"url":"/erp/pers/pers/persAppointS/selEmpPop",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(list[i].empNo,list[i].korName);
+                  } 
+			}
+	  });
+	}else{
+		comboId.setTemplate({
+		    input: "#interName#",
+		    columns: [
+		      {header: "부품코드", width: 100, option: "#partCode#"},
+		      {header: "부품명",   width: 100, option: "#partName#"},
+	          {header: "부품규격", width: 100, option: "#partSpec#"}
+		    ]
+		});
+		obj.partName = '%';
+		$.ajax({
+			"url":"/erp/prod1/equi/historyS/partCodeSearch",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(i,
+			 {"partCode":list[i].partCode,"partName":list[i].partName,"partSpec":list[i].partSpec});
+                  } 
+			}
+	  });	
+	}
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);
-	var obj={};
-	obj.compId = '100';
-	obj.code = params;
-	doOnOpen(comboId,obj);
-} 
-function doOnOpen(comboId,params){
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			  comboId.addOption(list[i].interCode,list[i].interName);	  
-		  }
-		}
-  });	
 };
 
 function gridMstOnClick(id){
@@ -236,10 +260,12 @@ function disableValue(flag){
 	if(flag == 1){
 	  $("input[name=equiCode]").attr("disabled",false);
 	  $("input[name=equiName]").attr("disabled",false);
+	  combo04.enable();
 	  
 	}else{
 	  $("input[name=equiCode]").attr("disabled",true);
 	  $("input[name=equiName]").attr("disabled",true);
+	 combo04.disable();
 	}
 }
 function fn_gridMstSearch(){
@@ -255,16 +281,16 @@ function fn_gridMstNew(){
 	byId("cudKey").value = "INSERT";
 }
 function fn_loadGridMst(){
-	if($('#eqCode').val() == ''){
-		$('#eqCode').val('%');
-	}
-	if($('#splyComp').val() == ''){
-		$('#splyComp').val('%');
-	}
 	var params = gfn_getFormElemntsData('frmSearch');
-    gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
     fn_gridMstNew();
 };
+
+function fn_loadGridMstCB(data){
+	var rowIdx = cs_selectRow_check(gridMst,"equiCode",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
+};
+
 function fn_formSave(){
 	 f_dxRules = {
 		equiCode : ["설비코드",r_notEmpty],
@@ -272,6 +298,7 @@ function fn_formSave(){
 	  };
 	 if(gfn_formValidation('frmMain')){
 		 disableValue(1);
+		 rowSelVal = $('equiCode').val();
 		var params = gfn_getFormElemntsData('frmMain');
 		  $.ajax(
 		   {
@@ -282,6 +309,7 @@ function fn_formSave(){
 		    {
 			MsgManager.alertMsg("INF001"); 
 			fn_gridMstSearch();
+			rowSelVal = null;
 		    }
 		});
    }
@@ -308,6 +336,7 @@ function fn_loadFormListCB(data){
 	if(data[0].imgPath != null){			
 		  $("#target").attr("src", "/erp/prod1/equi/historyS/getEquiImg?equiCode=" + data[0].equiCode);
 	}
+	combo04.setComboValue(data[0].empNo);
 };
 
 function fn_tab1Search(){
@@ -334,7 +363,10 @@ function fn_tab2Search(){
 };
 
 function fn_tab1Save(){
-	var rowIdx = gridMst.getSelectedRowIndex();
+	var rowIdx = gridDtl01.getSelectedRowIndex();
+	var colIdx = gridDtl01.getColIndexById('equiCode');
+	rowSelVal=gridDtl01.setCells2(rowIdx, colIdx).getValue();
+	
 	 var jsonStr = gridDtl01.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);  
@@ -346,6 +378,7 @@ function fn_tab1Save(){
           success : function(data) {
           MsgManager.alertMsg("INF001");
           fn_tab1Search();
+          rowSelVal = null;
            }
       });  
 };
@@ -385,7 +418,10 @@ function doOnGridDtl02Select(id,ind){
 }
 
 function fn_tab2Save(){
-	var rowIdx = gridMst.getSelectedRowIndex();
+	var rowIdx = gridDtl02.getSelectedRowIndex();
+	var colIdx = gridDtl02.getColIndexById('equiCode');
+	rowSelVal=gridDtl02.setCells2(rowIdx, colIdx).getValue();
+	
 	 var jsonStr = gridDtl02.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData2").val(jsonStr);  
@@ -397,6 +433,7 @@ function fn_tab2Save(){
           success : function(data) {
           MsgManager.alertMsg("INF001");
           fn_tab2Search();
+          rowSelVal = null;
            }
       });  
 };
@@ -430,29 +467,14 @@ function fn_tab2Delete(){
 };
 
 function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-	 if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			obj.korName=data[i].korName;
-			obj.empNo=data[i].empNo;
-				$('#korName').val(obj.korName);
-				$('#empNo').val(obj.empNo);
-		}
-	}
 	 if(pName == "equiCode"){
-			for(i=0;i<data.length;i++){
-				obj.equiCode=data[i].equiCode;
-					$('#eqCode').val(obj.equiCode);
-			}
+		  $('#eqCode').val(data[0].equiCode);
 	  }
 	 if(pName == "partCode"){
-			for(i=0;i<data.length;i++){
-				var rowIdx = gridDtl02.getSelectedRowIndex();
-				gridDtl02.setCells2(rowIdx,1).setValue(data[i].partCode);
-				gridDtl02.setCells2(rowIdx,2).setValue(data[i].partName);
-				gridDtl02.setCells2(rowIdx,3).setValue(data[i].partSpec);
-			}
+		var rowIdx = gridDtl02.getSelectedRowIndex();
+		gridDtl02.setCells2(rowIdx,1).setValue(data[0].partCode);
+		gridDtl02.setCells2(rowIdx,2).setValue(data[0].partName);
+		gridDtl02.setCells2(rowIdx,3).setValue(data[0].partSpec);
 	  }
  };
  
@@ -500,7 +522,6 @@ function fn_onClosePop(pName,data){
   <div class="container">
 	   <form class="form-horizontal" id="frmMain" name="frmMain" enctype="multipart/form-data" style="padding-top:10px;padding-bottom:5px;margin:0px;">      
           <input type="hidden" id="cudKey" name="cudKey" />
-          <input type="hidden" id="empNo" name="empNo" />
           <input type="hidden" id="imgPath"  name="imgPath">
           <input id="fileName" type="file" name="fileName" data-url="/erp/prod1/equi/historyS/prcsEquiFileUpload" multiple style="display: none;">
        <div class="col-sm-4 col-md-4">
@@ -588,7 +609,8 @@ function fn_onClosePop(pName,data){
 		        담당자
 		      </label>
 		      <div class="col-sm-3 col-md-3">
-			    <input name="korName" id="korName" type="text" value="" placeholder="" class="form-control input-xs">
+			   <select name="empNo" id="empNo" class="form-control input-xs">
+			  	  </select>
 		      </div>
 	       </div>
 	   </div>

@@ -30,4 +30,8 @@ public class ComponentCodeSService {
 	public void prcsComponentCodeS(ComponentCodeS componentCodeS) {
 		dao.prcsComponentCodeS(componentCodeS);
 	}
+
+	public void selComponentCodePOP(Map<String, Object> map) {
+		dao.selComponentCodePOP(map);
+	}
 }

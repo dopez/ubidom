@@ -30,8 +30,9 @@ public class HistoryRController {
 			throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
+		String equiCode = historyR.getEquiCode();
 		map.put("compId", compId);
-		map.put("equiCode", "%");
+		map.put("equiCode", equiCode);
 		map.put("o_cursor", null);
 		historyRSservice.selEquiHistoryR(map);
 		List<HistoryR> list = (List<HistoryR>) map.get("o_cursor");

@@ -11,7 +11,7 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
-var combo01, combo02, combo03;
+var combo01, combo02, combo03, combo04;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4,9],"2U");
 	//인사자료등록
@@ -35,10 +35,7 @@ $(document).ready(function(){
 	gridMain.cs_setColumnHidden(["compId"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
-	$("#postName,#btnSearch,#persAppointBtn,#updImg,#delImg").click(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
+	$("#btnSearch,#persAppointBtn,#updImg,#delImg").click(function(e){
 		if(e.target.id == "btnSearch"){
 			execDaumPostcode("postNo","address");
 		}
@@ -76,10 +73,7 @@ $(document).ready(function(){
 		}
 	});
 	
-    $("#postName,#ptName,#empName").keyup(function(e) {
-    	if(e.target.id == "postName" && e.keyCode == '9'){
-    		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
+    $("#ptName,#empName").keyup(function(e) {
     	if(e.target.id == "ptName"){
     		 gridMain.filterBy(3,byId("ptName").value);
 		}
@@ -89,11 +83,17 @@ $(document).ready(function(){
 	 }); 
 	
 	combo01 = dhtmlXComboFromSelect("jikwee");
-	   fn_comboSet(combo01,"004","jikwee");
 	combo02 = dhtmlXComboFromSelect("jikmu");
-	   fn_comboSet(combo02,"P005","jikmu");
 	combo03 = dhtmlXComboFromSelect("jikchak");
-	   fn_comboSet(combo03,"P006","jikchak"); 
+	combo04 = dhtmlXComboFromSelect("postCode");
+	gfn_1col_comboLoad(combo01,"004");
+	gfn_1col_comboLoad(combo02,"P005");
+	gfn_1col_comboLoad(combo03,"P006");
+	fn_comboLoad(combo04);
+	
+	combo04.attachEvent("onClose", function(){
+		$('#postCode').val(combo04.getSelectedText().postCode);
+		});
 	
 	calMain = new dhtmlXCalendarObject([{input:"amryDate1",button:"calpicker1"},{input:"amryDate2",button:"calpicker2"},{input:"enterDate",button:"calpicker3"},
 	{input:"retireDate",button:"calpicker4"},{input:"retireMidDate",button:"calpicker5"}]);
@@ -115,44 +115,35 @@ var w = $(window).width();
 	}
 });
 
-function fileUploadCB(data){
-	fn_save();
-};
-
- function fn_comboSet(comboId,params,tagName){
+function fn_comboLoad(comboId){
 	comboId.setTemplate({
-		    input: "#interCode#",
-		    input: "#interName#",
-		    columns: [
-		       {header: "내부코드", width: 100,  option: "#interCode#"},
-			   {header: "코드명",   width: 100,  option: "#interName#"}
-		    ]
-		});
+	    input: "#interName#",
+	    columns: [
+          {header: "부서명", width: 100, option: "#postName#"}
+	    ]
+	});
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);
 	var obj={};
-	obj.compId = '100';
-	obj.code = params;
-	doOnOpen(comboId,obj,tagName);
-} 
-function doOnOpen(comboId,params,tagName){
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			 comboId.addOption([
-			  {value: list[i].interCode, text:
-			  {interCode: list[i].interCode,
-			   interName: list[i].interName}}   
-			   ]);	
-		    }
-		}
-  });	
-};		
+	obj.postName = '%';
+		$.ajax({
+			"url":"/erp/pers/stan/deptS/gridMstSearch",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(list[i].postCode, list[i].postName);
+                  } 
+			}
+	  });	
+};
+
+function fileUploadCB(data){
+	fn_save();
+};
+		
 function doOnRowSelect(id, ind){
 	fn_new();
 	byId("cudKey").value = "UPDATE";
@@ -167,17 +158,17 @@ function doOnRowSelect(id, ind){
 function disableValue(flag){
 	if(flag == 1){
 	  $("input[name=empNo]").attr("disabled",false);
-	  $("input[name=postName]").attr("disabled",false);
-	  combo01.enable();
-	  combo02.enable();
-	  combo03.enable();
-	  
-	}else{
-	  $("input[name=empNo]").attr("disabled",true);
-	  $("input[name=postName]").attr("disabled",true);
 	  combo01.disable();
 	  combo02.disable();
 	  combo03.disable();
+	  combo04.enable();
+	  
+	}else{
+	  $("input[name=empNo]").attr("disabled",true);
+	  combo01.disable();
+	  combo02.disable();
+	  combo03.disable();
+	  combo04.disable();
 	}
 }
 function fn_calValue(){
@@ -195,6 +186,7 @@ function fn_search(){
 function fn_new(){
 	byId("frmMain").reset();
 	byId("frmSearch").reset();
+	$('#bldKind').removeAttr('checked');
 	$('#target').removeAttr('src');
 	fn_calValue();
 	disableValue(1);
@@ -209,16 +201,19 @@ function fn_new(){
 	   empNo : ["사원번호",r_notEmpty,r_len + "|7"],
 	   korName : ["성명",r_notEmpty],
        regiNumb: ["주민번호",r_notEmpty,r_len + "|14"],
-       postName: ["부서",r_notEmpty],
-       jikwee: ["직위",r_notEmpty],
-       jikchak: ["직책",r_notEmpty],
+       postName: ["부서명",r_notEmpty],
        postNo: ["우편번호",r_notEmpty],
        address: ["주소",r_notEmpty],
        enterDate: ["입사날짜",r_notEmpty]
 	};
 	if(gfn_formValidation('frmMain')){
 		 disableValue(1);
+		  combo01.enable();
+		  combo02.enable();
+		  combo03.enable();
+		  
 		var params = gfn_getFormElemntsData('frmMain');
+		console.log("1",$('#bldKind').val());
 	     $.ajax(
 			{
 			  type:'POST',
@@ -247,11 +242,10 @@ function fn_loadFormList(params){
 };
 function fn_loadFormListCB(data){
 	var selIdx = gridMain.getSelectedRowIndex();
-	var postNm = gridMain.setCells2(selIdx,3).getValue();
-	$('#postName').val(postNm);
 	combo01.setComboValue(data[0].jikwee);
 	combo02.setComboValue(data[0].jikmu);
 	combo03.setComboValue(data[0].jikchak);
+	combo04.setComboValue(data[0].postCode);
 	if(data[0].imgPath != null){			
 	  $("#target").attr("src", "/erp/pers/pers/persDataS/getPersImg?empNo=" + data[0].empNo);
 	}
@@ -259,9 +253,7 @@ function fn_loadFormListCB(data){
 
 function fn_onOpenPop(pName){
 	var value;
-	if(pName=="postCode"){
-		value =  $("#postName").val();
-	}else if(pName == "persCode"){
+     if(pName == "persCode"){
 		var obj={};
 		obj.compId= gridMain.setCells2(gridMain.getSelectedRowIndex(),4).getValue();
 		obj.empNo=  gridMain.setCells2(gridMain.getSelectedRowIndex(),1).getValue();
@@ -270,18 +262,6 @@ function fn_onOpenPop(pName){
 	return value;
 };
 
-function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-	if(pName=="postCode"){
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$("#postName").val(obj.postName);
-			$("#postCode").val(obj.postCode);
-		}		  
-	}
- };
  function fn_print(){
 		var url = "/erp/pers/pers/persDataP/report/persDataP.do"; 
 			url = url + "?empNo=" + $("#empNo").val();
@@ -323,7 +303,6 @@ function fn_onClosePop(pName,data){
   <div class="container">	
 	<form class="form-horizontal" id="frmMain" name="frmMain" enctype="multipart/form-data" style="padding-top:10px;padding-bottom:5px;margin:0px;">
 	  <input type="hidden" id="cudKey" name="cudKey" />
-	  <input type="hidden" id="postCode" name="postCode" />
 	  <input type="hidden" id="character" name="character" />
 	  <input type="hidden" id="taste" name="taste" />
 	  <input type="hidden" id="partCont" name="partCont" />
@@ -400,7 +379,8 @@ function fn_onClosePop(pName,data){
 				부서명 
 			  </label>
 			  <div class="col-sm-2 col-md-2">
-				  <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs" >
+				  <select name="postCode" id="postCode" class="form-control input-xs">
+			  	  </select>
 			  </div>
 		   </div>
  		 </div>
@@ -511,10 +491,7 @@ function fn_onClosePop(pName,data){
 				     색맹구분 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				     <select name="bldKind" id="bldKind"  class="form-control input-xs">
-			           <option value="0">무</option>
-			           <option value="1">유</option>
-			         </select>
+			         <input type="checkbox" name="bldKind" id="bldKind" value="1">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     혈액형 
@@ -536,13 +513,10 @@ function fn_onClosePop(pName,data){
 				 장애유무 
 			    </label>
 			    <div class="col-sm-6 col-md-6">
-			       <div class="col-sm-2 col-md-2">
-			          <select name="disorderYn" id="disorderYn"  class="form-control input-xs">
-			           <option value="0">비장애</option>
-			           <option value="1">장애</option>
-			         </select>
+			       <div class="col-sm-1 col-md-1">
+			         <input type="checkbox" name="disorderYn" id="disorderYn" value="1">
 			       </div>
-			       <div class="col-sm-5 col-md-5">
+			       <div class="col-sm-6 col-md-6">
 			         <input name="disorderCont" id="disorderCont" value="" type="text" class="form-control input-xs">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
@@ -575,10 +549,7 @@ function fn_onClosePop(pName,data){
 				     보훈대상 
 			       </label>
 			       <div class="col-sm-2 col-md-2">
-				      <select name="armyMerit" id="armyMerit"  class="form-control input-xs">
-			           <option value="0">비대상</option>
-			           <option value="1">대상</option>
-			         </select>
+			           <input type="checkbox" name="armyMerit" id="armyMerit" value="1">
 			       </div>
 			       <label class="col-sm-3 col-md-3 control-label" for="textinput"> 
 				     재대구분 

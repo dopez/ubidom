@@ -70,11 +70,15 @@ function doOnRowSelect(id,ind){
 };
 
 function totalQtyCalcul(id){
-	sum = gridMain.setCells(id,7).getValue()*1;
-	qtyValue = gridMain.setCells(id,5).getValue()*1;
-	costValue = gridMain.setCells(id,6).getValue()*1;
+	var qtyColIdx = gridMain.getColIndexById('qty');
+	var costColIdx = gridMain.getColIndexById('cost');
+	var amtColIdx = gridMain.getColIndexById('amt');
+	
+	sum = gridMain.setCells(id,amtColIdx).getValue()*1;
+	qtyValue = gridMain.setCells(id,qtyColIdx).getValue()*1;
+	costValue = gridMain.setCells(id,costColIdx).getValue()*1;
 	sum = (qtyValue*costValue);
-	gridMain.setCells(id,7).setValue(sum);
+	gridMain.setCells(id,amtColIdx).setValue(sum);
 };
 
 function fn_getSeqReturn(){
@@ -124,10 +128,13 @@ function fn_new(){
 };
 
 function fn_save(){
+	var setSeqColIdx   = gridMain.getColIndexById('setSeq');
+	var custCodeColIdx = gridMain.getColIndexById('custCode');
+	
 	if($('#setSeq').val() != ''){
 		var seqValue = $('#setSeq').val();
 		 for(var i=0; i<gridMain.getRowsNum();i++){
-			  gridMain.setCells2(i,13).setValue(seqValue);
+			  gridMain.setCells2(i,setSeqColIdx).setValue(seqValue);
 			} 
 	}else{
 		fn_getSeqReturn();
@@ -136,7 +143,7 @@ function fn_save(){
 	var custCode = $('#custCode').val();
 	$('#setDate').val(setDate);
 	for(var i=0; i<gridMain.getRowsNum();i++){
-		  gridMain.setCells2(i,12).setValue(custCode);
+		  gridMain.setCells2(i,custCodeColIdx).setValue(custCode);
 		}
 	 var jsonStr = gridMain.getJsonUpdated2();
   if (jsonStr == null || jsonStr.length <= 0) return;         		

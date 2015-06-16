@@ -75,6 +75,7 @@ public class DeptSController {
 			ht.put("rtnCode", "-1");
 			ht.put("EXCEPTION_TYPE", "BIZ");
 			ht.put("EXCEPTION_MSG_CODE", "ERR002"); // 서버오류
+			// ht.put("EXCEPTION_MSG_CODE", e.getMessage()); // 서버오류
 		} finally {
 			if (!ht.isEmpty()) {
 				response.setHeader("EXCEPTION", "Y");

@@ -4,6 +4,7 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
+var combo01, combo02;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,3,5,6],"1C");
 	//재증명서발급
@@ -18,7 +19,8 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"발급일자", colId:"passpostDate", width:"80",  align:"center", type:"dhxCalendarA"});
 	gridMain.addHeader({name:"발급번호", colId:"passpostNo",   width:"80",  align:"left",   type:"ed"});
 	gridMain.addHeader({name:"구분",     colId:"certKind",     width:"80",  align:"left",   type:"combo"});
-	gridMain.addHeader({name:"성명",     colId:"korName",      width:"80",  align:"left",   type:"ro"});	
+	gridMain.addHeader({name:"사원번호", colId:"empNo",        width:"80",  align:"left",   type:"ro"});
+	gridMain.addHeader({name:"성명",     colId:"korName",      width:"80",  align:"left",   type:"combo"});	
 	gridMain.addHeader({name:"담당업무", colId:"workName",     width:"80",  align:"left",   type:"ed"});	
 	gridMain.addHeader({name:"신청일자", colId:"applyDate",    width:"80",  align:"center", type:"dhxCalendarA"});
 	gridMain.addHeader({name:"용도",     colId:"useType",      width:"100", align:"left",   type:"ed"});
@@ -29,11 +31,8 @@ $(document).ready(function(){
 	gridMain.dxObj.setUserData("","@passpostDate","format_date");
 	gridMain.dxObj.setUserData("","@applyDate","format_date");
 	gridMain.init(); 
-	gridMain.cs_setColumnHidden(["empNo"]);
-	gridMain.attachEvent("onRowSelect",doOnRowSelect);
-	
-	fn_search();
-	
+	gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
+
 	g_dxRules = {
 			passpostNo :   [r_notEmpty, r_len + "|3"],
 			passpostDate : [r_notEmpty],
@@ -61,17 +60,52 @@ $(document).ready(function(){
 			return false;
 		}else{
 			var url = "/erp/pers/pers/certificateDataS/report/CertificateDataP.do";
-			url = url + "?empNo=" + gridMain.setCells(rowCheck,11).getValue();
+			url = url + "?empNo=" + gridMain.setCells(rowCheck,4).getValue();
 			url = url + "&passpostDate="+ gridMain.setCells(rowCheck,1).getValue();
 			url = url + "&passpostNo="+ gridMain.setCells(rowCheck,2).getValue();
 			window.open(url,'rpt',''); 
 		}
 	});
-	
-	var combo =gridMain.getColumnCombo(3);
-	gfn_single_comboLoad(combo,["1","2"],["재직","경력"],2);
+	var certKindIdx = gridMain.getColIndexById('certKind');
+	var korNameIdx =  gridMain.getColIndexById('korName');
+	combo01 =gridMain.getColumnCombo(certKindIdx);
+	combo02 =gridMain.getColumnCombo(korNameIdx);
+	gfn_single_comboLoad(combo01,["1","2"],["재직","경력"],2);
+	fn_comboLoad(combo02);
+	combo02.attachEvent("onClose", function(){
+		var rowIdx = gridMain.getSelectedRowIndex();
+		gridMain.setCells2(rowIdx,4).setValue(combo02.getSelectedText().empNo);
+		gridMain.setCells2(rowIdx,5).setValue(combo02.getSelectedText().korName);
+		});
 });
-function doOnRowSelect(id,ind){
+function fn_comboLoad(comboId){
+	comboId.setTemplate({
+	    input: "#interName#",
+	    columns: [
+          {header: "사워번호", width: 110, option: "#empNo#"},
+          {header: "사원명", width: 100, option: "#korName#"}
+	    ]
+	});
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	var obj = {};
+	obj.korName = '';
+		$.ajax({
+			"url":"/erp/pers/pers/persAppointS/selEmpPop",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(list[i].empNo,
+			    {"empNo":list[i].empNo,"korName":list[i].korName});
+                  } 
+			}
+	  });	
+};
+
+function doOnRowDbClicked(id,ind){
 	if(ind==4){
 		gfn_load_pop('w1','common/empPOP',true,{"korName":""});
 		}
@@ -113,13 +147,21 @@ function fn_delete(){
 
 function fn_loadGridMain(){
 	var obj= gfn_getFormElemntsData('frmMain');	
-    gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 }
+
+function fn_loadGridMainCB(data){
+	$('#stDate').keyup();
+	$('#endDate').keyup();
+}
+
 function fn_onClosePop(pName,data){
 	if(pName=="empNo"){
+		var empNoIdx = gridMain.getColIndexById('empNo');
+		var korNameIdx = gridMain.getColIndexById('korName');
 		var selRowIdx = gridMain.getSelectedRowIndex();
-		gridMain.setCells2(selRowIdx,4).setValue(data[0].korName);
-		gridMain.setCells2(selRowIdx,11).setValue(data[0].empNo); 		  
+		gridMain.setCells2(selRowIdx,korNameIdx).setValue(data[0].korName);
+		gridMain.setCells2(selRowIdx,empNoIdx).setValue(data[0].empNo); 		  
 	}  
  };
 </script>

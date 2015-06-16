@@ -30,6 +30,7 @@ $(document).ready(function(){
 	 gridMst.setUserData("","pk","no");
 	 gridMst.setColSort("str");
 	 gridMst.dxObj.setUserData("","@setDate","format_date");
+	 gridMst.enableMultiselect(true);
 	 gridMst.init();	
 	 gridMst.cs_setColumnHidden(["compId","setSeq","setNo","custCode","orderKey","cost"]);
 	 gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
@@ -52,8 +53,9 @@ $(document).ready(function(){
 	 gridDtl.setColSort("str");
 	 gridDtl.init();
 	 gridDtl.attachEvent("onRowSelect",doOnRowSelect);
+	 gridDtl.attachEvent("onRowDblClicked",doOnRowDtlDblClicked);
 	 gridDtl.attachEvent("onCellChanged",doOnCellChanged);
-	 gridDtl.cs_setColumnHidden(["custCode","orderKey","setSeq","setNo","compId","inputEmp","oldQty","orderKey"]);
+	 gridDtl.cs_setColumnHidden(["custCode","orderKey","setSeq","setNo","compId","inputEmp","oldQty"]);
 	 $("#korName,#supplyComp").click(function(e){
 			if(e.target.id == "korName"){
 				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
@@ -75,13 +77,26 @@ $(document).ready(function(){
 	fn_search();	
 });
 function doOnRowDblClicked(rId,cInd){
+	var cudVal = gridMst.setCells(rId,gridMst.getColIndexById('cudKey')).getValue();
 	if($('#korName').val() == ''){
 		dhtmlx.alert("등록자는 필수 항목입니다.");
 		return;
 	}else if($('#supplyComp').val() == ''){
 		dhtmlx.alert("공급업체는 필수 항목입니다.");
 		return;
+	}else if(cudVal == 'DELETE'){
+		MsgManager.alertMsg("WRN010");
+		return;
 	}else{
+		var partCodeIdx =  gridMst.getColIndexById('partCode');
+		var partNameIdx =  gridMst.getColIndexById('partName');
+		var partSpecIdx =  gridMst.getColIndexById('partSpec');
+		var partUnitIdx =  gridMst.getColIndexById('partUnit');
+		var miqtyIdx      =  gridMst.getColIndexById('miQty');
+		var costIdx     =  gridMst.getColIndexById('cost');
+		var compIdIdx   =  gridMst.getColIndexById('compId');
+		var orderKeyIdx =  gridMst.getColIndexById('orderKey');
+		
 		var totalColNum = gridDtl.getColumnCount();
 	    var data = new Array(totalColNum);
 		var partCodeColIdx   = gridDtl.getColIndexById('partCode');    
@@ -94,34 +109,68 @@ function doOnRowDblClicked(rId,cInd){
 		var orderKeyColIdx   = gridDtl.getColIndexById('orderKey');
 		var compIdColIdx     = gridDtl.getColIndexById('compId');
 		var inputEmpColIdx   = gridDtl.getColIndexById('inputEmp');
-		  data[partCodeColIdx]   = gridMst.setCells(rId,3).getValue();
-	      data[partNameColIdx]   = gridMst.setCells(rId,4).getValue();
-	      data[partSpecColIdx]   = gridMst.setCells(rId,5).getValue();
-	      data[partUnitColIdx]   = gridMst.setCells(rId,6).getValue();
-	      data[qtyColIdx]        = gridMst.setCells(rId,9).getValue();
-	      data[costColIdx]       = gridMst.setCells(rId,15).getValue();
-	      data[compIdColIdx]     = gridMst.setCells(rId,10).getValue();
-	      data[orderKeyColIdx]   = gridMst.setCells(rId,14).getValue();
+		  data[partCodeColIdx]   = gridMst.setCells(rId,partCodeIdx).getValue();
+	      data[partNameColIdx]   = gridMst.setCells(rId,partNameIdx).getValue();
+	      data[partSpecColIdx]   = gridMst.setCells(rId,partSpecIdx).getValue();
+	      data[partUnitColIdx]   = gridMst.setCells(rId,partUnitIdx).getValue();
+	      data[qtyColIdx]        = gridMst.setCells(rId,miqtyIdx).getValue();
+	      data[costColIdx]       = gridMst.setCells(rId,costIdx).getValue();
+	      data[compIdColIdx]     = gridMst.setCells(rId,compIdIdx).getValue();
+	      data[orderKeyColIdx]   = gridMst.setCells(rId,orderKeyIdx).getValue();
 	      data[inputEmpColIdx]   = $('#empNo').val();
 	      data[amtColIdx]   = (data[qtyColIdx]*1) * (data[costColIdx]*1);
 		  gridDtl.addRow(data);
 		  var delInx = gridMst.getSelectedRowIndex();
-		  gridMst.deleteRow(rId);
+		  gridMst.cs_deleteRow(rId);
 	}
+};
+function doOnRowDtlDblClicked(rId,cInd){
+	var gridMstId = null;
+	var gridMstIdx = null;
+	var gridDtlOrderKey = gridDtl.setCells(rId,gridDtl.getColIndexById('orderKey')).getValue();
+	
+	for(var i=0;i<gridMst.getRowsNum();i++){
+		var gridMstOrderKey = gridMst.setCells2(i,gridMst.getColIndexById('orderKey')).getValue();
+		if(gridDtlOrderKey == gridMstOrderKey){
+			gridMstId = gridMst.getRowId(i);
+			gridMstIdx = i;
+		}
+	}
+	gridDtl.deleteRow(rId);
+	gridMst.setCells(gridMstId,gridMst.getColIndexById('cudKey')).setValue('UPDATE');
+	gridMst.cs_addRow(gridMstId);	
 };
 
 function multiRowSelect(){
+	var flag = true;
+	var selRowId = {};
+	selRowId = gridMst.getSelectedRowId();
+	var selRowIdArr = selRowId.split(",");
+	
+	for(j=0;j<selRowIdArr.length;j++){
+ 		var cudVal = gridMst.setCells(selRowIdArr[j],gridMst.getColIndexById('cudKey')).getValue();
+ 		if(cudVal == 'DELETE'){
+ 			MsgManager.alertMsg("WRN010");
+ 			flag = false;
+ 			return;
+ 		}
+ 	}
 	if($('#korName').val() == ''){
 		dhtmlx.alert("등록자는 필수 항목입니다.");
 		return;
 	}else if($('#supplyComp').val() == ''){
 		dhtmlx.alert("공급업체는 필수 항목입니다.");
 		return;
-	}else{
-		var selRowId = {};
-	    	selRowId = gridMst.getSelectedRowId();
-	   	var selRowIdArr = selRowId.split(",");
-	 
+	}else if(flag){
+		var partCodeIdx =  gridMst.getColIndexById('partCode');
+		var partNameIdx =  gridMst.getColIndexById('partName');
+		var partSpecIdx =  gridMst.getColIndexById('partSpec');
+		var partUnitIdx =  gridMst.getColIndexById('partUnit');
+		var miqtyIdx      =  gridMst.getColIndexById('miQty');
+		var costIdx     =  gridMst.getColIndexById('cost');
+		var compIdIdx   =  gridMst.getColIndexById('compId');
+		var orderKeyIdx =  gridMst.getColIndexById('orderKey');
+		
 		var totalRowNum = gridMst.getRowsNum();
 		for(i=0;i<selRowIdArr.length;i++){
 			var totalColNum = gridDtl.getColumnCount();
@@ -137,20 +186,20 @@ function multiRowSelect(){
 			var compIdColIdx     = gridDtl.getColIndexById('compId');
 			var inputEmpColIdx   = gridDtl.getColIndexById('inputEmp');
 			var oldQtyColIdx     = gridDtl.getColIndexById('oldQty');
-			  data[partCodeColIdx]   = gridMst.setCells(selRowIdArr[i],3).getValue();
-		      data[partNameColIdx]   = gridMst.setCells(selRowIdArr[i],4).getValue();
-		      data[partSpecColIdx]   = gridMst.setCells(selRowIdArr[i],5).getValue();
-		      data[partUnitColIdx]   = gridMst.setCells(selRowIdArr[i],6).getValue();
-		      data[qtyColIdx]        = gridMst.setCells(selRowIdArr[i],9).getValue();
-		      data[costColIdx]       = gridMst.setCells(selRowIdArr[i],15).getValue();
-		      data[compIdColIdx]     = gridMst.setCells(selRowIdArr[i],10).getValue();
-		      data[orderKeyColIdx]   = gridMst.setCells(selRowIdArr[i],14).getValue();
+			  data[partCodeColIdx]   = gridMst.setCells(selRowIdArr[i],partCodeIdx).getValue();
+		      data[partNameColIdx]   = gridMst.setCells(selRowIdArr[i],partNameIdx).getValue();
+		      data[partSpecColIdx]   = gridMst.setCells(selRowIdArr[i],partSpecIdx).getValue();
+		      data[partUnitColIdx]   = gridMst.setCells(selRowIdArr[i],partUnitIdx).getValue();
+		      data[qtyColIdx]        = gridMst.setCells(selRowIdArr[i],miqtyIdx).getValue();
+		      data[costColIdx]       = gridMst.setCells(selRowIdArr[i],costIdx).getValue();
+		      data[compIdColIdx]     = gridMst.setCells(selRowIdArr[i],compIdIdx).getValue();
+		      data[orderKeyColIdx]   = gridMst.setCells(selRowIdArr[i],orderKeyIdx).getValue();
 		      data[inputEmpColIdx]   = $('#empNo').val();
-		      data[oldQtyColIdx]     = gridMst.setCells(selRowIdArr[i],9).getValue();
+		      data[oldQtyColIdx]     = gridMst.setCells(selRowIdArr[i],miqtyIdx).getValue();
 		      data[amtColIdx]   = (data[qtyColIdx]*1) * (data[costColIdx]*1);
 		      gridDtl.addRow(data);
 			  var delInx = gridMst.getSelectedRowIndex();
-			  gridMst.deleteRow(selRowIdArr[i]);
+			  gridMst.cs_deleteRow(selRowIdArr[i]);
 	   	  }
 	}
 }
@@ -165,14 +214,19 @@ function doOnRowSelect(id,ind){
 };
 
 function totalQtyCalcul(id){
-	sum = gridDtl.setCells(id,7).getValue()*1;
-	qtyValue = gridDtl.setCells(id,5).getValue()*1;
-	costValue = gridDtl.setCells(id,6).getValue()*1;
+	var qtyColIdx   = gridDtl.getColIndexById('qty');  
+	var costColIdx   = gridDtl.getColIndexById('cost');  
+	var amtColIdx   = gridDtl.getColIndexById('amt');  
+	
+	sum = gridDtl.setCells(id,amtColIdx).getValue()*1;
+	qtyValue = gridDtl.setCells(id,qtyColIdx).getValue()*1;
+	costValue = gridDtl.setCells(id,costColIdx).getValue()*1;
 	sum = (qtyValue*costValue);
-	gridDtl.setCells(id,7).setValue(sum);
+	gridDtl.setCells(id,amtColIdx).setValue(sum);
 };
 
 function fn_search(){
+	fn_loadGridMst();
 	fn_loadGridDtl();
 };
 
@@ -182,9 +236,6 @@ function fn_loadGridMst(){
 
 function fn_loadGridDtl(){
 	$("input[name=setSeq]").attr("disabled",false);
-	if($('#custCode').val() == ''){
-		$('#custCode').val('%');
-	}
 	var obj = gfn_getFormElemntsData("frmMain");
 	gfn_callAjaxForGrid(gridDtl,obj,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 };
@@ -193,7 +244,6 @@ function fn_loadGridDtlCB(data){
 	$("input[name=setSeq]").attr("disabled",true);
 	if(data == null || data == ''){
 		$('#supplyComp').val('');
-		$('#custCode').val('');
 	}else{
 		$('#supplyComp').val(data[0].custKorName);
 		$('#custCode').val(data[0].custCode);
@@ -220,17 +270,20 @@ function fn_getSeqReturn(){
 };
 
 function fn_SetSeq(data) {
+	var setSeqIdx = gridDtl.getColIndexById('setSeq'); 
    $("#setSeq").val(data[0].seq);
    for(var i=0; i<gridDtl.getRowsNum();i++){
-	   gridDtl.setCells2(i,11).setValue(data[0].seq);
+	   gridDtl.setCells2(i,setSeqIdx).setValue(data[0].seq);
 		}  
 }; 
 
 function fn_save(){
+	var setSeqIdx = gridDtl.getColIndexById('setSeq'); 
+	var custCodeIdx = gridDtl.getColIndexById('custCode'); 
 	if($('#setSeq').val() != ''){
 		var seqValue = $('#setSeq').val();
 		 for(var i=0; i<gridDtl.getRowsNum();i++){
-			 gridDtl.setCells2(i,11).setValue(seqValue);
+			 gridDtl.setCells2(i,setSeqIdx).setValue(seqValue);
 			} 
 	}else{
 		fn_getSeqReturn();
@@ -238,8 +291,9 @@ function fn_save(){
 	  var setDate = $('#stDate').val();
 	var custCode = $('#custCode').val();
 	$('#setDate').val(setDate);
+	
 	for(var i=0; i<gridDtl.getRowsNum();i++){
-		 gridDtl.setCells2(i,9).setValue(custCode);
+		 gridDtl.setCells2(i,custCodeIdx).setValue(custCode);
 		}
 	 var jsonStr = gridDtl.getJsonUpdated2();
   if (jsonStr == null || jsonStr.length <= 0) return;         		
@@ -280,17 +334,18 @@ function fn_add(){
 		var compIdColIdx     = gridDtl.getColIndexById('compId');
 		var inputEmpColIdx   = gridDtl.getColIndexById('inputEmp');
 		var oldQtyColIdx     = gridDtl.getColIndexById('oldQty');
-		  data[partCodeColIdx]   = gridDtl.setCells(rowCheck,1).getValue();
-	      data[partNameColIdx]   = gridDtl.setCells(rowCheck,2).getValue();
-	      data[partSpecColIdx]   = gridDtl.setCells(rowCheck,3).getValue();
-	      data[partUnitColIdx]   = gridDtl.setCells(rowCheck,4).getValue();
-	      data[qtyColIdx]        = gridDtl.setCells(rowCheck,5).getValue();
-	      data[costColIdx]       = gridDtl.setCells(rowCheck,6).getValue();
-	      data[compIdColIdx]     = gridDtl.setCells(rowCheck,13).getValue();
-	      data[orderKeyColIdx]   = gridDtl.setCells(rowCheck,16).getValue();
+		var orderKeyColIdx   = gridDtl.getColIndexById('orderKey');
+		  data[partCodeColIdx]   = gridDtl.setCells(rowCheck,partCodeColIdx).getValue();
+	      data[partNameColIdx]   = gridDtl.setCells(rowCheck,partNameColIdx).getValue();
+	      data[partSpecColIdx]   = gridDtl.setCells(rowCheck,partSpecColIdx).getValue();
+	      data[partUnitColIdx]   = gridDtl.setCells(rowCheck,partUnitColIdx).getValue();
+	      data[qtyColIdx]        = gridDtl.setCells(rowCheck,qtyColIdx).getValue();
+	      data[costColIdx]       = gridDtl.setCells(rowCheck,costColIdx).getValue();
+	      data[compIdColIdx]     = gridDtl.setCells(rowCheck,compIdColIdx).getValue();
+	      data[orderKeyColIdx]   = gridDtl.setCells(rowCheck,orderKeyColIdx).getValue();
 	      data[inputEmpColIdx]   = $('#empNo').val();
-	      data[oldQtyColIdx]     = gridDtl.setCells(rowCheck,5).getValue();
-	      data[amtColIdx]        = gridDtl.setCells(rowCheck,7).getValue();
+	      data[oldQtyColIdx]     = gridDtl.setCells(rowCheck,oldQtyColIdx).getValue();
+	      data[amtColIdx]        = gridDtl.setCells(rowCheck,amtColIdx).getValue();
 		  gridDtl.addRow(data);
 	}
 };
