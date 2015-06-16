@@ -51,14 +51,23 @@ $(document).ready(function(){
 	byId("pfDate").value = t;
 	byId("ptDate").value = t;
 	
-	$("#supplyComp,#partCode").click(function(e){
-		if(e.target.id == "supplyComp"){
+	$("#custCode,#partCode").dblclick(function(e){
+		if(e.target.id == "custCode"){
 			gfn_load_pop('w1','common/customPOP',true,{"supplyComp":$(this).val()});
 		}
 		if(e.target.id == "partCode"){
 			gfn_load_pop('w1','prod1/compHistoryPOP',true,{});
 		}
-    })
+    });
+	
+	$("#custCode,#partCode").keyup(function(e) {
+    	if(e.target.id == "custCode"){
+    		gridMain.filterBy(2,byId("custCode").value);
+		}
+    	if(e.target.id == "partCode"){
+    		gridMain.filterBy(4,byId("partCode").value);
+		}
+	 }); 
 	
 });
 function doOnRowDbClicked(rId,cInd){
@@ -110,19 +119,11 @@ function fn_search(){
 };
 
 function fn_loadGridMain() {
-	if($('#partCode').val() == ''){
-		$('#partCode').val('%');
-	}
-	if($('#custCode').val() == ''){
-		$('#custCode').val('%');
-	}
 	 var params = gfn_getFormElemntsData("frmSearch");
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 };
 
 function fn_loadGridMainCB(data){
-	$('#partCode').val('');
-	$('#custCode').val('');
 	$('#pfDate').keyup();
 	$('#ptDate').keyup();
 	 gridMain.dxObj.customGroupFormat=function(name,count){
@@ -155,8 +156,7 @@ function fn_onClosePop(pName,data){
 	 if(pName == "partCode"){
 		 $('#partCode').val(data[0].partCode);
 	  }if(pName == "custCode"){
-		$('#supplyComp').val(data[0].custKorName);
-		$('#custCode').val(data[0].custCode);
+		$('#custCode').val(data[0].custKorName);
 	  } 
  };
 </script>
@@ -164,7 +164,6 @@ function fn_onClosePop(pName,data){
 <div id="bootContainer" style="position: relative;">
  <div class="container">
 	  <form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;">   
-        <input type="hidden" name="custCode" id="custCode" value=""> 
          <div class="row">
 		    <div class="form-group form-group-sm">
 			   <div class="col-sm-8 col-md-8">
@@ -200,7 +199,7 @@ function fn_onClosePop(pName,data){
 		 	   공급업체
 			 </label>
 			 <div class="col-sm-2 col-md-2">
-			    <input name="supplyComp" id="supplyComp" type="text" value="" placeholder="" class="form-control input-xs">
+			    <input name="custCode" id="custCode" type="text" value="" placeholder="" class="form-control input-xs">
 			</div>
 		  </div>
 	    </div>

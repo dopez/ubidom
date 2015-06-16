@@ -26,6 +26,12 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
 	
+	$("#partCode").dblclick(function(e){
+		if(e.target.id == "partCode"){
+		  gfn_load_pop('w1','common/componentCodePOP',true,{"partName":$(this).val()});
+		}
+	});
+	
 	$("#partCode").keyup(function(e) {
     	if(e.target.id == "partCode"){
     		 gridMain.filterBy(1,byId("partCode").value);
@@ -37,7 +43,8 @@ function fn_search(){
     fn_loadGridMain();
 }
 function fn_loadGridMain() {
-	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
+	var params = gfn_getFormElemntsData('frmSearch');
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");

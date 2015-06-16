@@ -33,6 +33,12 @@ $(document).ready(function(){
 	gridMain.dxObj.setUserData("","@buyDate","format_date");
 	gridMain.init(); 
 	
+	$("#equiCode,#partCode").dblclick(function(e){
+		if(e.target.id == "equiCode"){
+			gfn_load_pop('w1','common/equiCodePOP',true,{"supplyComp":$(this).val()});
+		}
+    });
+	
 	$("#equiCode").keyup(function(e) {
     	if(e.target.id == "equiCode"){
     		 gridMain.filterBy(1,byId("equiCode").value);
@@ -44,7 +50,8 @@ function fn_search(){
     fn_loadGridMain();
 }
 function fn_loadGridMain() {
-	 gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
+	var params = gfn_getFormElemntsData("frmSearch");
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
 
 function fn_excel(){
@@ -53,6 +60,14 @@ function fn_excel(){
 function fn_print(){
 	gridMain.printView();
 }
+
+function fn_onClosePop(pName,data){
+	var i;
+	var obj={};
+	 if(pName == "equiCode"){
+		 $('#equiCode').val(data[0].equiCode);
+	  }
+ };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

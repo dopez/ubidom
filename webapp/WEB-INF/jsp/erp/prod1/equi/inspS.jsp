@@ -5,7 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
-var combo;
+var combo, combo01;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,2,3,4,6],"2E");
 	//설비점검등록
@@ -33,7 +33,7 @@ $(document).ready(function(){
 	gridMst.dxObj.setUserData("","@chkPlanDate","format_date");
 	gridMst.enableMultiselect(true);
 	gridMst.init(); 
-	gridMst.cs_setColumnHidden(["cycleKind"]);
+	gridMst.cs_setColumnHidden(["cycleKind","orderKey"]);
 	gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	
 	subLayout.cells("b").showHeader();
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"점검예정일자", colId:"chkPlanDate",   width:"90",  align:"center", type:"ro"});
 	gridDtl.addHeader({name:"점검일자",     colId:"checkDate",     width:"80",  align:"center", type:"dhxCalendarA"});
 	gridDtl.addHeader({name:"점검결과",     colId:"result",        width:"80",  align:"left",   type:"combo"});
-	gridDtl.addHeader({name:"점검자",       colId:"korName",       width:"80",  align:"left",   type:"ro"});
+	gridDtl.addHeader({name:"점검자",       colId:"checkEmp",       width:"80",  align:"left",   type:"combo"});
 	gridDtl.addHeader({name:"비고",         colId:"rmk",           width:"180", align:"left",   type:"ed"});
 	gridDtl.setColSort("str");	
 	gridDtl.setUserData("","pk","no");
@@ -60,8 +60,8 @@ $(document).ready(function(){
 	gridDtl.dxObj.setUserData("","@chkPlanDate","format_date");
 	gridDtl.dxObj.setUserData("","@checkDate","format_date");
 	gridDtl.init(); 
-	gridDtl.cs_setColumnHidden(["checkEmp","cycleKind"]);
-	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
+	gridDtl.cs_setColumnHidden(["cycleKind","orderKey"]);
+	gridDtl.attachEvent("onRowDblClicked",doOnRowDtlDblClicked);
 	
 	calMain = new dhtmlXCalendarObject([{input:"checkDate",button:"calpicker"},{input:"pfDate",button:"calpicker1"},{input:"ptDate",button:"calpicker2"}]); 
 	calMain.loadUserLanguage("ko");
@@ -77,22 +77,57 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#eqCode").keyup(function(e) {
+    	if(e.target.id == "eqCode"){
+    		gridMst.filterBy(1,byId("eqCode").value);
+		}
+	 }); 
+	
 	combo =gridDtl.getColumnCombo(10);
-	combo.setTemplate({
-	    input: "#interName#",
-	    columns: [
-		   {header: "코드명",   width: 100,  option: "#interName#"}
-	    ]
-	});
-	combo.addOption("1","양호");
-	combo.addOption("2","이상");
-	combo.addOption("3","보류");
-	combo.enableFilteringMode(true);
-	combo.enableAutocomplete(true);
-	combo.allowFreeText(true);
+	combo01 = gridDtl.getColumnCombo(11);
+	 gfn_single_comboLoad(combo,["1","2","3"],["양호","이상","보류"],3);
+	 fn_comboLoad(combo01);
 		
 });
+function fn_comboLoad(comboId,cFlag){
+	var obj = {};
+		comboId.setTemplate({
+		    input: "#interName#",
+		    columns: [
+	          {header: "사원명", width: 100, option: "#empNo#"}
+		    ]
+		});
+	    obj.korName = '';
+		$.ajax({
+			"url":"/erp/pers/pers/persAppointS/selEmpPop",
+			"type":"post",
+			"data":obj,
+			"success" : function(data){
+			  var list = data;
+			  for(var i=0;i<list.length;i++){
+				  comboId.addOption(list[i].empNo,list[i].korName);
+                  } 
+			}
+	  });
+};
+
 function doOnRowDblClicked(rId,cInd){
+	var cudVal = gridMst.setCells(rId,gridMst.getColIndexById('cudKey')).getValue();
+	if(cudVal == 'DELETE'){
+		MsgManager.alertMsg("WRN010");
+		return;
+	}else{
+		var equiCodeIdx     = gridMst.getColIndexById('equiCode');    
+		var equiNameIdx     = gridMst.getColIndexById('equiName');
+		var checkItemIdx    = gridMst.getColIndexById('checkItem');    
+		var checkItemNmIdx  = gridMst.getColIndexById('checkItemName');
+		var cycleNameIdx    = gridMst.getColIndexById('cycleKindName');
+		var cycleKindIdx    = gridMst.getColIndexById('cycleKind');    
+		var cycleIdx        = gridMst.getColIndexById('cycle');
+		var finalDateIdx    = gridMst.getColIndexById('preFinalDate');    
+		var chkPlanDateIdx  = gridMst.getColIndexById('chkPlanDate');
+		var orderKeyIdx     = gridMst.getColIndexById('orderKey');
+		
 	var totalColNum = gridDtl.getColumnCount();
     var data = new Array(totalColNum);
 	var equiCodeColIdx     = gridDtl.getColIndexById('equiCode');    
@@ -103,58 +138,96 @@ function doOnRowDblClicked(rId,cInd){
 	var cycleKindColIdx    = gridDtl.getColIndexById('cycleKind');    
 	var cycleColIdx        = gridDtl.getColIndexById('cycle');
 	var finalDateColIdx    = gridDtl.getColIndexById('preFinalDate');    
-	var chkPlanDateColIdx = gridDtl.getColIndexById('chkPlanDate');
-	  data[equiCodeColIdx]     = gridMst.setCells(rId,1).getValue();
-      data[equiNameColIdx]     = gridMst.setCells(rId,2).getValue();
-      data[checkItemColIdx]    = gridMst.setCells(rId,3).getValue();
-      data[checkItemNmColIdx]  = gridMst.setCells(rId,4).getValue();
-      data[cycleNameColIdx]    = gridMst.setCells(rId,5).getValue();
-      data[cycleColIdx]        = gridMst.setCells(rId,6).getValue();
-	  data[finalDateColIdx]    = gridMst.setCells(rId,7).getValue();
-      data[chkPlanDateColIdx]  = gridMst.setCells(rId,8).getValue();  
-      data[cycleKindColIdx]    = gridMst.setCells(rId,9).getValue();
+	var chkPlanDateColIdx  = gridDtl.getColIndexById('chkPlanDate');
+	var orderKeyColIdx     = gridDtl.getColIndexById('orderKey');
+	  data[equiCodeColIdx]     = gridMst.setCells(rId,equiCodeIdx).getValue();
+      data[equiNameColIdx]     = gridMst.setCells(rId,equiNameIdx).getValue();
+      data[checkItemColIdx]    = gridMst.setCells(rId,checkItemIdx).getValue();
+      data[checkItemNmColIdx]  = gridMst.setCells(rId,checkItemNmIdx).getValue();
+      data[cycleNameColIdx]    = gridMst.setCells(rId,cycleNameIdx).getValue();
+      data[cycleColIdx]        = gridMst.setCells(rId,cycleIdx).getValue();
+	  data[finalDateColIdx]    = gridMst.setCells(rId,finalDateIdx).getValue();
+      data[chkPlanDateColIdx]  = gridMst.setCells(rId,chkPlanDateIdx).getValue();  
+      data[cycleKindColIdx]    = gridMst.setCells(rId,cycleKindIdx).getValue();
+      data[orderKeyColIdx]    = gridMst.setCells(rId,orderKeyIdx).getValue();
 	  gridDtl.addRow(data);
 	  var delInx = gridMst.getSelectedRowIndex();
-	  gridMst.deleteRow(rId);
-};
-
-function doOnDtlRowSelect(id,ind){
-	if(ind==11){
-		gfn_load_pop('w1','common/empPOP',true,{});
+	  gridMst.cs_deleteRow(rId);
 	}
 };
 
+function doOnRowDtlDblClicked(rId,cInd){
+	var gridMstId = null;
+	var gridMstIdx = null;
+	var gridDtlOrderKey = gridDtl.setCells(rId,gridDtl.getColIndexById('orderKey')).getValue();
+	
+	for(var i=0;i<gridMst.getRowsNum();i++){
+		var gridMstOrderKey = gridMst.setCells2(i,gridMst.getColIndexById('orderKey')).getValue();
+		if(gridDtlOrderKey == gridMstOrderKey){
+			gridMstId = gridMst.getRowId(i);
+			gridMstIdx = i;
+		}
+	}
+	
+	gridMst.setCells(gridMstId,gridMst.getColIndexById('cudKey')).setValue('UPDATE');
+	gridMst.cs_addRow(gridMstId);	
+	gridDtl.deleteRow(rId);
+};
+
 function multiRowSelect(){
+	var flag = true;
 	var selRowId = {};
     	selRowId = gridMst.getSelectedRowId();
    	var selRowIdArr = selRowId.split(",");
- 
-	var totalRowNum = gridMst.getRowsNum();
-	for(i=0;i<selRowIdArr.length;i++){
-		var totalColNum = gridDtl.getColumnCount();
-	    var data = new Array(totalColNum);
-		var equiCodeColIdx     = gridDtl.getColIndexById('equiCode');    
-		var equiNameColIdx     = gridDtl.getColIndexById('equiName');
-		var checkItemColIdx    = gridDtl.getColIndexById('checkItem');    
-		var checkItemNmColIdx  = gridDtl.getColIndexById('checkItemName');
-		var cycleNameColIdx    = gridDtl.getColIndexById('cycleKindName');
-		var cycleKindColIdx    = gridDtl.getColIndexById('cycleKind');    
-		var cycleColIdx        = gridDtl.getColIndexById('cycle');
-		var finalDateColIdx    = gridDtl.getColIndexById('preFinalDate');    
-		var chkPlanDateColIdx = gridDtl.getColIndexById('chkPlanDate');
-		  data[equiCodeColIdx]     = gridMst.setCells(selRowIdArr[i],1).getValue();
-	      data[equiNameColIdx]     = gridMst.setCells(selRowIdArr[i],2).getValue();
-	      data[checkItemColIdx]    = gridMst.setCells(selRowIdArr[i],3).getValue();
-	      data[checkItemNmColIdx]  = gridMst.setCells(selRowIdArr[i],4).getValue();
-	      data[cycleNameColIdx]    = gridMst.setCells(selRowIdArr[i],5).getValue();
-	      data[cycleColIdx]        = gridMst.setCells(selRowIdArr[i],6).getValue();
-		  data[finalDateColIdx]    = gridMst.setCells(selRowIdArr[i],7).getValue();
-	      data[chkPlanDateColIdx]  = gridMst.setCells(selRowIdArr[i],8).getValue();  
-	      data[cycleKindColIdx]    = gridMst.setCells(selRowIdArr[i],9).getValue();
-		  gridDtl.addRow(data);
-		  var delInx = gridMst.getSelectedRowIndex();
-		  gridMst.deleteRow(selRowIdArr[i]);
-   	}
+ 	for(j=0;j<selRowIdArr.length;j++){
+ 		var cudVal = gridMst.setCells(selRowIdArr[j],gridMst.getColIndexById('cudKey')).getValue();
+ 		if(cudVal == 'DELETE'){
+ 			MsgManager.alertMsg("WRN010");
+ 			flag = false;
+ 			return;
+ 		}
+ 	}
+ 	if(flag){
+ 		var equiCodeIdx     = gridMst.getColIndexById('equiCode');    
+		var equiNameIdx     = gridMst.getColIndexById('equiName');
+		var checkItemIdx    = gridMst.getColIndexById('checkItem');    
+		var checkItemNmIdx  = gridMst.getColIndexById('checkItemName');
+		var cycleNameIdx    = gridMst.getColIndexById('cycleKindName');
+		var cycleKindIdx    = gridMst.getColIndexById('cycleKind');    
+		var cycleIdx        = gridMst.getColIndexById('cycle');
+		var finalDateIdx    = gridMst.getColIndexById('preFinalDate');    
+		var chkPlanDateIdx  = gridMst.getColIndexById('chkPlanDate');
+	    var orderKeyIdx     = gridMst.getColIndexById('orderKey');
+ 		
+		var totalRowNum = gridMst.getRowsNum();
+		for(i=0;i<selRowIdArr.length;i++){
+			var totalColNum = gridDtl.getColumnCount();
+		    var data = new Array(totalColNum);
+			var equiCodeColIdx     = gridDtl.getColIndexById('equiCode');    
+			var equiNameColIdx     = gridDtl.getColIndexById('equiName');
+			var checkItemColIdx    = gridDtl.getColIndexById('checkItem');    
+			var checkItemNmColIdx  = gridDtl.getColIndexById('checkItemName');
+			var cycleNameColIdx    = gridDtl.getColIndexById('cycleKindName');
+			var cycleKindColIdx    = gridDtl.getColIndexById('cycleKind');    
+			var cycleColIdx        = gridDtl.getColIndexById('cycle');
+			var finalDateColIdx    = gridDtl.getColIndexById('preFinalDate');    
+			var chkPlanDateColIdx  = gridDtl.getColIndexById('chkPlanDate');
+			var orderKeyColIdx     = gridDtl.getColIndexById('orderKey');
+			  data[equiCodeColIdx]     = gridMst.setCells(selRowIdArr[i],equiCodeIdx).getValue();
+		      data[equiNameColIdx]     = gridMst.setCells(selRowIdArr[i],equiNameIdx).getValue();
+		      data[checkItemColIdx]    = gridMst.setCells(selRowIdArr[i],checkItemIdx).getValue();
+		      data[checkItemNmColIdx]  = gridMst.setCells(selRowIdArr[i],checkItemNmIdx).getValue();
+		      data[cycleNameColIdx]    = gridMst.setCells(selRowIdArr[i],cycleNameIdx).getValue();
+		      data[cycleColIdx]        = gridMst.setCells(selRowIdArr[i],cycleIdx).getValue();
+			  data[finalDateColIdx]    = gridMst.setCells(selRowIdArr[i],finalDateIdx).getValue();
+		      data[chkPlanDateColIdx]  = gridMst.setCells(selRowIdArr[i],chkPlanDateIdx).getValue();  
+		      data[cycleKindColIdx]    = gridMst.setCells(selRowIdArr[i],cycleKindIdx).getValue();
+		      data[orderKeyColIdx]    = gridMst.setCells(selRowIdArr[i],orderKeyIdx).getValue();
+			  gridDtl.addRow(data);
+			  var delInx = gridMst.getSelectedRowIndex();
+			  gridMst.cs_deleteRow(selRowIdArr[i]);
+	   	  }
+ 	}
 }
 
 function fn_search(){
@@ -163,9 +236,6 @@ function fn_search(){
 };
 
 function fn_loadGridMst(){
-	if($('#eqCode').val() == ''){
-		$('#eqCode').val('%');
-	}
 	var params = gfn_getFormElemntsData('frmSearch');
     gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
 };
@@ -216,18 +286,8 @@ function fn_delete(){
 };
 
 function fn_onClosePop(pName,data){
-	var i;
-      if(pName == "empNo"){
-		for(i=0;i<data.length;i++){
-			var selIdx = gridDtl.getSelectedRowIndex();
-			gridDtl.setCells2(selIdx,11).setValue(data[i].korName);
-			gridDtl.setCells2(selIdx,13).setValue(data[i].empNo);
-		}
-      }
 	  if(pName == "equiCode"){
-		  for(i=0;i<data.length;i++){
-			 $('#eqCode').val(data[i].equiCode);
-		   }
+		$('#eqCode').val(data[0].equiCode);
 	  }
 		  
  };

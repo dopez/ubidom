@@ -72,7 +72,10 @@ public class PersDataSController {
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		persDataS.setSysEmpNo(sysEmpNo);
 		persDataS.setArmyJong(persDataS.getArmyKind());
-		System.out.println(persDataS.getBldKind());
+
+		persDataS.setBldKind(checkValue(persDataS.getBldKind()));
+		persDataS.setArmyMerit(checkValue(persDataS.getArmyMerit()));
+		persDataS.setDisorderYn(checkValue(persDataS.getDisorderYn()));
 
 	 	if(saveFilename != null){  
 	 	persDataS.setImgPath(saveFilename);
@@ -125,4 +128,9 @@ public class PersDataSController {
 		}
 	}
 
+	public String checkValue(String chkVal) {
+		int length = chkVal.length();
+		String str = chkVal.substring(length - 1, length);
+		return str;
+	}
 }

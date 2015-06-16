@@ -136,13 +136,12 @@ function gfn_getFormElemntsData(formId,added) {
 			   $("#"+formId).find(':checkbox').each(function() {
 			       var els = $('<input>').attr({
 			            type: 'hidden',
-			            id: "",
+			            id: "", 
 			            name: $(this).attr("name")
 			        }).appendTo("#"+formId).addClass("crud-added");
-
 			        if ($(this).is(":checked")) {
-			            $(els).val($(this).val())
-			        } else {
+			            $(els).val($(this).val());
+			        } else { 
 			        	$(els).val('0');
 			        }
 			    });

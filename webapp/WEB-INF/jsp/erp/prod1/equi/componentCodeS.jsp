@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var combo01, combo02, combo03;
+var rowSelVal;
 $(document).ready(function(){
 	//부품코드등록
 	Ubi.setContainer(1,[1,2,3,4],"2U");
@@ -29,22 +30,28 @@ $(document).ready(function(){
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
 	combo01 = dhtmlXComboFromSelect("kind1");
-	   fn_comboSet(combo01,"E10");
+	combo02 = dhtmlXComboFromSelect("kind2");
+	combo03 = dhtmlXComboFromSelect("partUnit");
+	
+	gfn_1col_comboLoad(combo01,"E10");
+	gfn_1col_comboLoad(combo02,"E11");
+	gfn_1col_comboLoad(combo03,"C02");
+	
+	
 	combo01.attachEvent("onClose", function(){
 		 var kind1Val = combo01.getSelectedValue();
-         $('#partCode').val(kind1Val);
+		 if(kind1Val != null){
+           $('#partCode').val(kind1Val);
+		 }
 	});
 
-	combo02 = dhtmlXComboFromSelect("kind2");
-	   fn_comboSet(combo02,"E11");
 	combo02.attachEvent("onClose", function(){
 		   var kind2Val = combo02.getSelectedValue();
 		   var kind1Val = combo01.getSelectedValue();
-		   $('#partCode').val(kind1Val+kind2Val);
+		   if(kind2Val != null){
+		     $('#partCode').val(kind1Val+kind2Val);
+		   }
 	}); 
-
-	combo03 = dhtmlXComboFromSelect("partUnit");
-	   fn_comboSet(combo03,"C02");
 
 	   $("#ptCode,#ptName").keyup(function(e) {
 	    	if(e.target.id == "ptCode"){
@@ -58,41 +65,7 @@ $(document).ready(function(){
 	byId("cudKey").value = "INSERT";
 	fn_search();
 });
-function fn_comboSet(comboId,params){
-	comboId.setTemplate({
-		    input: "#interCode#",
-		    input: "#interName#",
-		    columns: [
-		       {header: "내부코드", width: 100,  option: "#interCode#"},
-			   {header: "코드명",   width: 100,  option: "#interName#"}
-		    ]
-		});
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
-	var obj={};
-	obj.compId = '100';
-	obj.code = params;
-	doOnOpen(comboId,obj);
-};
 
-function doOnOpen(comboId,params){
-	$.ajax({
-		"url":"/erp/cmm/InterCodeR",
-		"type":"post",
-		"data":params,
-		"success" : function(data){
-		  var list = data;
-		  for(var i=0;i<list.length;i++){
-			 comboId.addOption([
-			  {value: list[i].interCode, text:
-			  {interCode: list[i].interCode,
-			   interName: list[i].interName}}
-			   ]);
-		    }
-		}
-  });
-};
 function doOnRowSelect(id,ind){
 	fn_new();
 	byId("cudKey").value = "UPDATE";
@@ -118,7 +91,7 @@ function fn_new(){
 
 function fn_save(){
 	f_dxRules = {
-	   partCode : ["부품코드",r_notEmpty],
+	   partCode : ["부품코드",r_notEmpty, r_len + "|5"],
 	   kind1    : ["종류1",r_notEmpty],
        kind2    : ["종류2",r_notEmpty],
        partName : ["부품명",r_notEmpty],
@@ -127,7 +100,7 @@ function fn_save(){
 		 disableValue(1);
 		 $("input[name=partCode]").attr("disabled",false);
 		var params = gfn_getFormElemntsData('frmMain');
-
+		rowSelVal= $('#partCode').val();	
 	     $.ajax(
 			{
 			  type:'POST',
@@ -137,6 +110,7 @@ function fn_save(){
 			  {
 			   MsgManager.alertMsg("INF001");
 			   fn_search();
+			   rowSelVal = null;
 			  }
 		});
 	}
@@ -157,15 +131,15 @@ function disableValue(flag){
 };
 
 function fn_loadGridList(){
-	if($('#ptCode').val() == ''){
-		$('#ptCode').val('%');
-	}
-	if($('#ptName').val() == ''){
-		$('#ptName').val('%');
-	}
 	var params = gfn_getFormElemntsData('frmSearch');
-    gfn_callAjaxForGrid(gridMain,params,"gridMstSearch",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMain,params,"gridMstSearch",subLayout.cells("a"),fn_loadGridListCB);
 };
+
+function fn_loadGridListCB(data){
+	var rowIdx = cs_selectRow_check(gridMain,"partCode",rowSelVal)
+	gridMain.selectRow(rowIdx,true,true,true);
+};
+
 function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"gridFormSearch",fn_loadFormListCB);
 };

@@ -20,4 +20,8 @@
   		#{partName},#{partSpec},#{partUnit},#{rmk},#{sysEmpNo}
   		)}	
   	</insert>
+  	
+  	<select id="selComponentCodePOP" statementType="CALLABLE">
+		 {call SP_COMM_COMPONENTCODE_SCH(#{compId},#{partName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ComponentCodeSMap, javaType=ResultSet})}	
+	</select>
 </mapper>

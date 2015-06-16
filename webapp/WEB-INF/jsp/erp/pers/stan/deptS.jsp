@@ -111,8 +111,8 @@ function fn_delete(){
 	         data : $("#pform").serialize(),
 	         async : true,
 	         success : function(data) {
-	         MsgManager.alertMsg("INF001");
-	         fn_search();
+	        	 MsgManager.alertMsg("INF001");
+		         fn_search(); 
 	         }
 	  });
  } 

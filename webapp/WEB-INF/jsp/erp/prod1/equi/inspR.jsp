@@ -43,19 +43,27 @@ $(document).ready(function(){
 	byId("pfDate").value = t;
 	byId("ptDate").value = t;
 	
+	$("#equiCode").dblclick(function(e){
+		if(e.target.id == "equiCode"){
+			gfn_load_pop('w1','common/equiCodePOP',true,{"equiCode":$(this).val()});
+		}
+	});
+	
+	$("#equiCode").keyup(function(e) {
+    	if(e.target.id == "equiCode"){
+    		gridMain.filterBy(1,byId("equiCode").value);
+		}
+	 }); 
+	
 });
 function fn_search(){
     fn_loadGridMain();
 }
 function fn_loadGridMain() {
-	if($('#equiCode').val() == ''){
-		$('#equiCode').val('%');
-	}
 	var params = gfn_getFormElemntsData('frmSearch');
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
 };
 function fn_loadGridMainCB(data){
-	 $('#equiCode').val('');
 	$('#pfDate').keyup();
 	$('#ptDate').keyup();
 }
@@ -65,6 +73,13 @@ function fn_excel(){
 function fn_print(){
 	gridMain.printView();
 }
+
+function fn_onClosePop(pName,data){
+	  if(pName == "equiCode"){
+		$('#equiCode').val(data[0].equiCode);
+	  }
+		  
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -2,12 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 //납품요청등록
-var o;
 var grid1,grid2;
 var layout, toolbar, subLayout;
 var calMain;
 $(document).ready(function() {
-      Ubi.setContainer(1, [1,3,6], "2E");
+      Ubi.setContainer(1,[1,3,6], "2E");
                
       layout = Ubi.getLayout();
       toolbar = Ubi.getToolbar();
@@ -15,11 +14,8 @@ $(document).ready(function() {
      
       layout.cells("b").attachObject("bootContainer2");
 
-      subLayout.cells("a").showHeader();
- 	  subLayout.cells("a").setText("발주확인");
-      
  	 grid1 = new dxGrid(subLayout.cells("a"), false);
- 	 grid1.addHeader({name:"#master_checkbox", colId:"chkCol",        width:"40",  align:"center", type:"ch"});
+ 	 grid1.addHeader({name:"#master_checkbox",  colId:"chkCol",       width:"40",  align:"center", type:"ch"});
  	 grid1.addHeader({name:"발주일자",          colId:"morderDate",   width:"90",  align:"center", type:"ro"});
  	 grid1.addHeader({name:"프로젝트번호",      colId:"pjNo",         width:"90",  align:"left",   type:"ro"});
      grid1.addHeader({name:"도번코드",          colId:"dobunCode",    width:"150", align:"left",   type:"ro"});
@@ -36,25 +32,25 @@ $(document).ready(function() {
      grid1.addHeader({name:"납품요청수량",      colId:"inspReqQty",   width:"80",  align:"right",  type:"ron"});
      grid1.addHeader({name:"미요청수량",        colId:"janQty",       width:"70",  align:"right",  type:"ron"});
      grid1.addHeader({name:"납기요청일자",      colId:"deliReqDate",  width:"90",  align:"center", type:"ro"});
-     grid1.addHeader({name:"납품장소",          colId:"deliReqArea",  width:"150", align:"lefet",  type:"ro"});
+     grid1.addHeader({name:"납품장소",          colId:"deliReqArea",  width:"150", align:"left",  type:"ro"});
      grid1.addHeader({name:"요청일자",          colId:"reqDate",      width:"90",  align:"center", type:"ro"});
-     grid1.addHeader({name:"비고",              colId:"cont",         width:"180", align:"lefet",  type:"ro"});
+     grid1.addHeader({name:"비고",              colId:"cont",         width:"180", align:"left",  type:"ro"});
      grid1.setUserData("","pk","");
      grid1.dxObj.setUserData("","@morderDate","format_date");
      grid1.dxObj.setUserData("","@deliReqDate","format_date");
      grid1.dxObj.setUserData("","@reqDate","format_date");
      grid1.init(); 
      grid1.cs_setNumberFormat(["qty","wet","prc","amt","inspReqQty","janQty"]);
-     grid1.cs_setColumnHidden(["setDate","setNumb","seq","custCode","prog"]);
+     grid1.cs_setColumnHidden(["setDate","setNumb","seq","custCode","prog","morderKey"]);
      grid1.attachEvent("onCheckbox", doOnCheck);
-     grid1.attachEvent("onRowDblClicked",doOnGrid1DblClicked)
+     grid1.attachEvent("onRowDblClicked",doOnGrid1DblClicked);
      
-     subLayout.cells("b").showHeader();
-	 subLayout.cells("b").setText("납품요청");
+     subLayout.cells("a").showHeader();
+	 subLayout.cells("a").setText("발주확인");
 
      grid2 = new dxGrid(subLayout.cells("b"), false);
      grid2.addHeader({name:"납품일자",     colId:"reqDate",      width:"90",  align:"center", type:"ro"});
-     grid2.addHeader({name:"발주일자",     colId:"setDate",   width:"90",  align:"center", type:"ro"});
+     grid2.addHeader({name:"발주일자",     colId:"setDate",      width:"90",  align:"center", type:"ro"});
      grid2.addHeader({name:"프로젝트번호", colId:"pjNo",         width:"90",  align:"left",   type:"ro"});
      grid2.addHeader({name:"도번코드",     colId:"dobunCode",    width:"150", align:"left",   type:"ro"});
      grid2.addHeader({name:"품목코드",     colId:"itemCode",     width:"120", align:"left",   type:"ro"});
@@ -67,28 +63,31 @@ $(document).ready(function() {
      grid2.addHeader({name:"단가",         colId:"prc",          width:"70",  align:"right",  type:"edn"});
      grid2.addHeader({name:"금액",         colId:"amt",          width:"80",  align:"right",  type:"ron"});
      grid2.addHeader({name:"납기요청일자", colId:"deliReqDate",  width:"90",  align:"center", type:"ro"});
-     grid2.addHeader({name:"납품장소",     colId:"deliReqArea",  width:"150", align:"lefet",  type:"ro"});
-     grid2.addHeader({name:"비고",         colId:"rmks",         width:"180", align:"lefet",  type:"ed"});
+     grid2.addHeader({name:"납품장소",     colId:"deliReqArea",  width:"150", align:"left",  type:"ro"});
+     grid2.addHeader({name:"비고",         colId:"rmks",         width:"180", align:"left",  type:"ed"});
      grid2.setUserData("","pk","");
      grid2.dxObj.setUserData("","@reqDate","format_date");
      grid2.dxObj.setUserData("","@setDate","format_date");
      grid2.dxObj.setUserData("","@deliReqDate","format_date");
      grid2.init(); 
      grid2.cs_setNumberFormat(["reqQty","prc","amt"]);
-     grid2.cs_setColumnHidden(["setNumb","seq","custCode","gridIdx","reqSeq","inQty","badQty","prog"]);
-     grid2.attachEvent("onRowDblClicked",doOnGrid2DblClicked)
+     grid2.cs_setColumnHidden(["setNumb","seq","custCode","morderKey","reqSeq","inQty","badQty","prog","morderDate"]);
+     grid2.attachEvent("onRowDblClicked",doOnGrid2DblClicked);
      grid2.attachEvent("onRowSelect",doOnRowSelect);
      grid2.attachEvent("onCellChanged",doOnCellChanged);
      
+     subLayout.cells("b").showHeader();
+	 subLayout.cells("b").setText("납품요청");
      calMain = new dhtmlXCalendarObject([{input: "rqDate",button: "calpicker1"}]);
      calMain.loadUserLanguage("ko");
      calMain.hideTime();
      var t = dateformat(new Date());
      byId("rqDate").value = t;
  
-     fn_setFilter(grid1,true,true);
-     fn_setFilter(grid2,true);         
-      fn_search();
+     fn_setFilter(grid1,true);
+     fn_setFilter(grid2,true); 
+     
+     fn_search();
 
 });
 function doOnCellChanged(rId,cInd,nValue){
@@ -120,6 +119,11 @@ function doOnGrid1DblClicked(rId,cInd){
 };
 
 function fn_hanling_row_data(rId){
+	var cudVal = grid1.setCells(rId,grid1.getColIndexById('cudKey')).getValue();
+	if(cudVal == 'DELETE'){
+		MsgManager.alertMsg("WRN010");
+		return;
+	}else{
 	var totalColNum = grid2.getColumnCount();
 	var data = new Array(totalColNum);
 	var setDateColIdx      = grid2.getColIndexById('setDate');  
@@ -135,15 +139,17 @@ function fn_hanling_row_data(rId){
 	var itemSizeColIdx     = grid2.getColIndexById('itemSize'); 
 	var materialNameColIdx = grid2.getColIndexById('materialName');
 	var itemUnitColIdx     = grid2.getColIndexById('itemUnit');
-	var gridIdxColIdx      = grid2.getColIndexById('gridIdx');
+	var morderKeyColIdx    = grid2.getColIndexById('morderKey');
 	var prcColIdx          = grid2.getColIndexById('prc');
 	var amtColIdx          = grid2.getColIndexById('amt');
 	var reqQtyColIdx       = grid2.getColIndexById('reqQty');
 	var deliReqDateColIdx  = grid2.getColIndexById('deliReqDate');
 	var deliReqAreaColIdx  = grid2.getColIndexById('deliReqArea');
 	var custCodeColIdx     = grid2.getColIndexById('custCode');
+	var morderDateColIdx    = grid2.getColIndexById('morderDate');
 	
-	    data[setDateColIdx]      = grid1.setCells(rId,grid1.getColIndexById('morderDate')).getValue();
+	    data[morderDateColIdx]      = searchDate(grid1.setCells(rId,grid1.getColIndexById('morderDate')).getValue());
+	    data[setDateColIdx]      = grid1.setCells(rId,grid1.getColIndexById('setDate')).getValue();
 		data[reqDateColIdx]      = $('#rqDate').val();
 		data[pjNoColIdx]         = grid1.setCells(rId,grid1.getColIndexById('pjNo')).getValue();
 		data[setNumbColIdx]      = grid1.setCells(rId,grid1.getColIndexById('setNumb')).getValue();
@@ -156,7 +162,7 @@ function fn_hanling_row_data(rId){
 		data[itemSizeColIdx]     = grid1.setCells(rId,grid1.getColIndexById('itemSize')).getValue();
 		data[materialNameColIdx] = grid1.setCells(rId,grid1.getColIndexById('materialName')).getValue();
 		data[itemUnitColIdx]     = grid1.setCells(rId,grid1.getColIndexById('itemUnit')).getValue();
-		data[gridIdxColIdx]      = rId;
+		data[morderKeyColIdx]    = grid1.setCells(rId,grid1.getColIndexById('morderKey')).getValue();
 		data[prcColIdx]          = grid1.setCells(rId,grid1.getColIndexById('prc')).getValue();
 		data[amtColIdx]          = grid1.setCells(rId,grid1.getColIndexById('amt')).getValue();
 		data[reqQtyColIdx]       = grid1.setCells(rId,grid1.getColIndexById('janQty')).getValue();
@@ -165,15 +171,29 @@ function fn_hanling_row_data(rId){
 		data[custCodeColIdx]     = grid1.setCells(rId,grid1.getColIndexById('custCode')).getValue();
 		grid2.addRow(data);
 		grid1.cs_deleteRow(rId);
-}
+		grid1.setCells2(rId-1,0).setValue(1);
+	}
+};
 
 function doOnGrid2DblClicked(rId,cInd){
-	var grid1Idx = grid2.setCells(rId,grid2.getColIndexById('gridIdx')).getValue();
-	grid1.cs_addRow(grid1Idx);
+	var grid1Id = null;
+	var grid1Idx = null;
+	var grid2MorderKey = grid2.setCells(rId,grid2.getColIndexById('morderKey')).getValue();
+	
+	for(var i=0;i<grid1.getRowsNum();i++){
+		var grid1MorderKey = grid1.setCells2(i,grid1.getColIndexById('morderKey')).getValue();
+		if(grid2MorderKey == grid1MorderKey){
+			grid1Id = grid1.getRowId(i);
+			grid1Idx = i;
+		}
+	}
+	grid1.setCells(grid1Id,grid1.getColIndexById('cudKey')).setValue('UPDATE');
+	grid1.setCells(grid1Id,grid1.getColIndexById('chkCol')).setValue(0); 
+	grid1.cs_addRow(grid1Id);
 	grid2.deleteRow(rId);
-}
+};
 
-function fn_setFilter(grid,isChk,flag) {
+function fn_setFilter(grid,isChk) {
     if (isChk){
 	      var z = grid.dxObj.serialize();
 	      var colIdx = grid.getColumnsNum();
@@ -185,7 +205,7 @@ function fn_setFilter(grid,isChk,flag) {
 	           if (type == "ron") {
 	               filterArr.push("#numeric_filter");
 	            }else {
-	               if(i == 0 && flag){
+	               if(type == 'ch'){
 	            	  filterArr.push("");
 	            	}else{
 	            	  filterArr.push("#text_filter");
@@ -204,14 +224,26 @@ function doOnCheck(rowId, cellInd, state) {
    var flag = grid1.setCells(rowId, 0).isChecked();
    var newId = (new Date()).valueOf();
       if(flag){
-            dhtmlx.message({
-                type: "error",
-                text: rowId + "번째 줄이 이동하였습니다.",
-                 expire: 0
-             });
             fn_hanling_row_data(rowId);
+        }else{
+        	grid2_check(rowId);
         }
          return true;
+};
+
+function grid2_check(rId){
+	var grid2Idx = null;
+	var grid1MorderKey = grid1.setCells(rId,grid1.getColIndexById('morderKey')).getValue();
+	for(var i=0;i<grid2.getRowsNum();i++){
+		var grid2MorderKey = grid2.setCells2(i,grid2.getColIndexById('morderKey')).getValue();
+		if(grid1MorderKey == grid2MorderKey){
+			grid2Idx = grid2.getRowId(i);
+		}
+	}
+	grid2.deleteRow(grid2Idx);
+	grid1.cs_addRow(rId);
+	grid1.setCells(rId,grid1.getColIndexById('cudKey')).setValue('UPDATE');
+
 };
 
 function fn_search(){
@@ -220,8 +252,7 @@ function fn_search(){
 };
 
 function fn_loadGridMst(){
-	var params = gfn_getFormElemntsData("frmSearch");
-	gfn_callAjaxForGrid(grid1,params,"/erp/scm/deliverReqReg/searchM",subLayout.cells("a"));
+	gfn_callAjaxForGrid(grid1,{},"/erp/scm/deliverReqReg/searchM",subLayout.cells("a"));
 };
 
 function fn_loadGridDtl(){

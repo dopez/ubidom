@@ -28,8 +28,9 @@ public class ComponentCodeRController {
 	public List<ComponentCodeR> selEquiHistorySL(HttpServletRequest request, HttpServletResponse response,HttpSession session,ComponentCodeR componentCodeR) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
+		String partCode = componentCodeR.getPartCode();
 		map.put("compId", compId);
-		map.put("partCode", "%");
+		map.put("partCode", partCode);
 		map.put("o_cursor", null);
 		componentCodeRSservice.selComponentCodeR(map);
 		List<ComponentCodeR> list = (List<ComponentCodeR>) map.get("o_cursor");

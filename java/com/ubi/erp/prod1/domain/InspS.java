@@ -32,6 +32,8 @@ public class InspS implements Serializable {
 	private String ptDate;
 	private String checkDate;
 
+	private String orderKey;
+
 	public InspS() {
 		super();
 	}
@@ -202,6 +204,14 @@ public class InspS implements Serializable {
 
 	public void setCheckDate(String checkDate) {
 		this.checkDate = checkDate;
+	}
+
+	public String getOrderKey() {
+		return orderKey;
+	}
+
+	public void setOrderKey(String orderKey) {
+		this.orderKey = orderKey;
 	}
 
 	public static long getSerialversionuid() {

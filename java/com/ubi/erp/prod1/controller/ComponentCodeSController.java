@@ -65,5 +65,18 @@ public class ComponentCodeSController {
 		componentCodeSSservice.prcsComponentCodeS(componentCodeS);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/componentCodePOP", method = RequestMethod.POST)
+	public List<ComponentCodeS> selComponentCodePOP(HttpServletRequest request, HttpServletResponse response, HttpSession session, ComponentCodeS componentCodeS) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String partName = componentCodeS.getPartName();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
+		map.put("partName", partName);
+		map.put("o_cursor", null);
+		componentCodeSSservice.selComponentCodePOP(map);
+		List<ComponentCodeS> list = (List<ComponentCodeS>) map.get("o_cursor");
+		return list;
+	}
 
 }
