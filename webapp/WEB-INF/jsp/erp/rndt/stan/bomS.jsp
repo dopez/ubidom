@@ -11,6 +11,7 @@ var mainMenu = parent.mainMenu;
 var mainTabbar = parent.mainTabbar;
 var tabId = null;
 var uri = null;
+var rowSelVal;
    $(document).ready(function() {
 
    	Ubi.setContainer(1, [1, 2, 3, 4], "3L"); //BOM등록
@@ -327,7 +328,11 @@ function fn_gridMstSelect(id,ind){
 }
 /*아래 그리드 조회*/
 function fn_loadGridDtl(obj){
-    gfn_callAjaxForGrid(gridDtl,obj,"gridDtlSel",subLayout.cells("c"));
+    gfn_callAjaxForGrid(gridDtl,obj,"gridDtlSel",subLayout.cells("c"),fn_dtlCB);
+}
+function fn_dtlCB(data){
+	var rowIdx = cs_selectRow_check(gridDtl,"revNo",rowSelVal);
+	gridDtl.selectRow(rowIdx,true,true,true);
 }
 /*폼 조회*/
 function fn_loadFrmMain(obj){
@@ -350,12 +355,12 @@ function fn_gridItemSelect(id, ind){
 }
 /*gridMst 조회*/
 function fn_loadGridMst(obj){
-    gfn_callAjaxForGrid(gridMst,obj,"gridMstSel",subLayoutLeftGrid);
+    gfn_callAjaxForGrid(gridMst,obj,"gridMstSel",subLayoutLeftGrid,fn_loadGridMstCallBck);
 }
 /*gridMst 조회 콜백*/
 function fn_loadGridMstCallBck(data){
-	console.log(data);
-	//fn_setDateKeyUp();
+	var rowIdx = cs_selectRow_check(gridMst,"revNo",rowSelVal);
+	gridMst.selectRow(rowIdx,true,true,true);
 }
 /*제품 그리드 조회*/
 function fn_loadGridItem(){
@@ -372,10 +377,9 @@ function fn_loadGridItem(){
 }
 /*제품 그리드 조회 콜백*/
 function fn_gridItemCB(data){
-	var obj = {}
-	obj.itemCode = data[0].pCode;
 	fn_disInput("disable");
-	fn_loadGridMst(obj)
+	var rowIdx = cs_selectRow_check(gridItem,"pCode",rowSelVal);
+	gridItem.selectRow(rowIdx,true,true,true);
 }
 /*제품코드 선택전 폼은 disabled*/
 function fn_disInput(flag){

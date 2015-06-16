@@ -26,6 +26,11 @@ function fn_setTab8(){
 function fn_selgridTab8CB(data){
 	if(typeof data[0]=="undefined"){
 		fn_setRowsTab8();
+	}else if(data[4].remarks!=null||data[4].remarks!=""){
+	    tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
+	    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;")
+        tab8Grid.setCells(tab8Grid.getRowId(4), 1).setValue(data[4].remarks);
+	    tab8Grid.dxObj.setCellTextStyle(tab8Grid.getRowId(4),0,"text-align:center;");
 	}
 }
 function fn_setRowsTab8(){
@@ -35,21 +40,17 @@ function fn_setRowsTab8(){
     tab8Grid.addRow(["Target Market"]);
     tab8Grid.addRow(["적용제품"]);
     tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
-    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;")
+    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;");
+    tab8Grid.dxObj.setCellTextStyle(tab8Grid.getRowId(4),0,"text-align:center;");
 }
 function fn_tab8GridRemove(){
-	var jsonStr = tab8Grid.getJsonUpdated2();
-	if (jsonStr == "[]" || jsonStr.length <= 2){
-		dhtmlx.alert("삭제할 행이 없습니다.");
-	}else{
-		var cudKeyColIdx = tab8Grid.getColIndexById('cudKey');
-		tab8Grid.dxObj.forEachRow(function(id) {
-		tab8Grid.setCells(id,cudKeyColIdx).setValue('DELETE');
-		});
-		fn_tab8Save();
-		tab8Grid.clearAll();
-		fn_setRowsTab8();
-	}
+	var cudKeyColIdx = tab8Grid.getColIndexById('cudKey');
+	tab8Grid.dxObj.forEachRow(function(id) {
+	tab8Grid.setCells(id,cudKeyColIdx).setValue('DELETE');
+	});
+	fn_tab8Save();
+	tab8Grid.clearAll();
+	fn_setRowsTab8();
 }
 function fn_tab8Save(){
 	if(fn_seqValid()){
@@ -59,29 +60,22 @@ function fn_tab8Save(){
 			tab8Grid.setCells(id,setDateColIdx).setValue(dateVal);
 			tab8Grid.setCells(id,setSeqColIdx).setValue(seqVal);
 		});
-		/*col span 시 당해년도, total에 같은 값이 들어감 --> 아래 2컬럼은 integer타입이어야 하기 때문에 0으로 set
-		* var tmp_localAmt_ColIdx = tab8Grid.getColIndexById('localAmt');
-		* var tmp_foreAmt_ColIdx = tab8Grid.getColIndexById('foreAmt');
-		* tab8Grid.setCells(tab8Grid.getRowId(4),tmp_localAmt_ColIdx).setValue(0);
-		* tab8Grid.setCells(tab8Grid.getRowId(4),tmp_foreAmt_ColIdx).setValue(0);
-		*/
 		var jsonStr = tab8Grid.getJsonUpdated2();
 		console.log(jsonStr);
 		if (jsonStr == "[]" || jsonStr.length <= 2){
 			dhtmlx.alert("입력 된 값이 없습니다.");
 		}else{
-			
-				$("#jsonData8").val(jsonStr);
-				var params = $("#frmTab8").serialize();
-				$.ajax({
-			         url : "/erp/rndt/good/devPlanS/gridTab8Save",
-			         type : "POST",
-			         data : params,
-			         async : true,
-			         success : function(data) {
-			            MsgManager.alertMsg("INF001");
-			         }
-			     });
+			$("#jsonData8").val(jsonStr);
+			var params = $("#frmTab8").serialize();
+			$.ajax({
+		         url : "/erp/rndt/good/devPlanS/gridTab8Save",
+		         type : "POST",
+		         data : params,
+		         async : true,
+		         success : function(data) {
+		            MsgManager.alertMsg("INF001");
+		         }
+		     });
 		}
 	}
 }

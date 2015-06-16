@@ -218,7 +218,7 @@ function fn_frmMainSave(){
     });
 }
 function fn_frmMain(id) {
-    if (id == "btn3") {
+    if (id == "btn3") {//저장
         if ($('#setSeq').val() == '') {
             fn_getSeqReturn();
         }
@@ -226,12 +226,13 @@ function fn_frmMain(id) {
         $('#setDate').keyup();
         fn_setCud("u");
     }
+    if (id == "btn4"){//삭제
+        fn_setCud("d");
+        fn_frmMainSave();
+        fn_new();    	
+    }
 }
-function fn_remove(){
-    fn_setCud("d");
-    fn_frmMainSave();
-    fn_new();
-}
+
 /*set date*/
 function fn_setDate(){
     t = dateformat(new Date());
