@@ -16,12 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,21 +73,20 @@ public class PersDataPController {
 		File file = new File(PropertyUtil.getString("attach.pers.dir") + "/" + empno + ".jpg");
 		FileInputStream fis = null;
 		OutputStream os = null;
-		fis = new FileInputStream(file);
-		os = response.getOutputStream();
-/*		try{
-		fis = new FileInputStream(file);
-		os = response.getOutputStream();
-		} catch(FileNotFoundException ex){
+		// fis = new FileInputStream(file);
+		// os = response.getOutputStream();
+
+		try {
+			fis = new FileInputStream(file);
+			os = response.getOutputStream();
+		} catch (FileNotFoundException ex) {
 			file = new File(PropertyUtil.getString("attach.pers.dir") + "/blank.jpg");
 			fis = new FileInputStream(file);
 			os = response.getOutputStream();
-		} finally{
-			if(fis != null)
-				fis.close();
-			if(os != null)
-				os.close();
-		}*/
+		}
+		/*
+		 * finally{ if(fis != null) fis.close(); if(os != null) os.close(); }
+		 */
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("datasource", datasrc);
 		parameterMap.put("SubUrl1", PropertyUtil.getString("prj.base.dir3") + "/WEB-INF/report/pers/persDataPsub1.jasper");
