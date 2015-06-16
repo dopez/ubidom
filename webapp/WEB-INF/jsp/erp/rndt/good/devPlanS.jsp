@@ -95,7 +95,6 @@ $(document).ready(function() {
         }else{
         	fn_new();
         }
-        hi();
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
