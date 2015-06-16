@@ -66,7 +66,7 @@ var rowSelVal;
 	   gridDtl.addHeader({name:"개정번호",colId:"revNo",width:"100",align:"center",type:"ro"});
 	   gridDtl.addHeader({name:"공정",colId:"progNaem",width:"100",align:"center",type:"combo"});
 	   gridDtl.addHeader({name:"자재코드",colId:"matrCode",width:"100",align:"center",type:"ro"});
-	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"ro"});
+	   gridDtl.addHeader({name:"자재명",colId:"matrName",width:"100",align:"center",type:"combo"});
 	   gridDtl.addHeader({name:"소요량",colId:"wet",width:"100",align:"right",type:"edn"});
 	   gridDtl.addHeader({name:"Loss율",colId:"loss",width:"100",align:"right",type:"edn"});
 	   gridDtl.setColSort("str");	
@@ -75,7 +75,7 @@ var rowSelVal;
 	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");*/
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
        gridDtl.cs_setNumberFormat(["wet","loss"],"0,000.00");
-       gridDtl.attachEvent("onRowSelect",fn_getMatrPop);
+       gridDtl.attachEvent("onRowDblClicked",fn_getMatrPop);
 		
        $("#btnItemCd").on("click", function(){
     	var cFlag = false;
@@ -104,22 +104,41 @@ var rowSelVal;
        $("#btnGjCh").on("click",function(){
     	   fn_btnClick();
        })
-       $("#empName").on("click",function(){
+       $("#empName").on("dblclick",function(){
 			popFlag = 1;
-			gfn_load_pop('w1','common/empPOP',true,{"empName":$(this).val()});
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
        })
-       $("#appvEmpName").on("click",function(){
+       $("#appvEmpName").on("dblclick",function(){
 			popFlag = 2;
-			gfn_load_pop('w1','common/empPOP',true,{"appvEmpName":$(this).val()});
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+       })
+       $("#empName").on("focusout",function(){
+			popFlag = 1;
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+       })
+       $("#appvEmpName").on("focusout",function(){
+			popFlag = 2;
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
        })
 	    /*콤보*/
 	    var combo01 = gridDtl.getColumnCombo(1);
+       var combo02 = gridDtl.getColumnCombo(3);
 		fn_comboLoad(combo01,gridDtl.getColumnId(2),"J03",1);
+		fn_comboLaodMatr(combo02);
 		combo01.attachEvent("onClose",function(){
                var selIdx = gridDtl.getSelectedRowIndex()
 			   var progColIdx = gridDtl.getColIndexById('prog');
 			   var interCd = combo01.getSelectedText().interCode;
 			   gridDtl.setCells2(selIdx,progColIdx).setValue(interCd);
+		});
+		combo02.attachEvent("onClose",function(){
+               var selIdx = gridDtl.getSelectedRowIndex()
+			   var matrCodeIdx = gridDtl.getColIndexById('matrCode');
+			   var matrNameIdx = gridDtl.getColIndexById('matrName');
+			   var interCd = combo02.getSelectedText().interCode;
+			   var interNm = combo02.getSelectedText().interName;
+			   gridDtl.setCells2(selIdx,matrCodeIdx).setValue(interCd);
+			   gridDtl.setCells2(selIdx,matrNameIdx).setValue(interNm);
 		});
 	   //set date//
 	   calMain = new dhtmlXCalendarObject([{input: "gjDate",button: "calpicker1"},{input: "appvlDate",button: "calpicker2"}, {input: "edDate",button: "calpicker3"}]);
@@ -151,9 +170,40 @@ function fn_btnClick(){
 /*자재코드 팝업*/
 function fn_getMatrPop(rid,colIdx){
    	  var param = ""
-      if (colIdx == 2) {
+      if (colIdx == 1) {
            gfn_load_pop('w1', 'common/matrCodePOP', true, {"matrCode": param});
       }
+}
+function fn_comboLaodMatr(combo02){
+	combo02.setTemplate({
+	    input: "#interCode#",
+	    input: "#interName#",
+	    columns: [
+	       {header: "자재코드", width: 100,  option: "#interCode#"},
+		   {header: "자재명",   width: 100,  option: "#interName#"}
+	    ]		
+	});
+	combo02.enableFilteringMode("between");
+	combo02.enableAutocomplete(true);
+	combo02.allowFreeText(true);
+    var Cobj = {};
+    Cobj.matrName = "%";
+    $.ajax({
+        "url": "/erp/rndt/stan/bomS/matrCodePop",
+        "type": "post",
+        "data": Cobj,
+        "success": function(data) {
+            var list = data;
+            console.log(data);
+            for (var i = 0; i < list.length; i++) {
+            	combo02.addOption([
+   			   			  {value: i, text:
+   			   			  {interCode: list[i].matrCode,
+   			   			   interName: list[i].matrName}}   
+   			   			   ]);
+            }
+        }
+    });
 }
 /*아래그리드 한줄삽입 시*/
 function fn_setBomEle(){
@@ -322,6 +372,9 @@ function fn_gridMstSelect(id,ind){
 	var obj = {};
 	obj.revNo = gridMst.setCells(id,0).getValue();
 	obj.itemCode = $("#itemCode").val();
+	/* $("input[type=text]").each(function(){
+		$(this).val("");
+	}) */
 	fn_loadFrmMain(obj);
 	fn_Update();
 	fn_loadGridDtl(obj);
@@ -340,7 +393,8 @@ function fn_loadFrmMain(obj){
 }
 /*폼 콜백*/
 function fn_loadFrmMainCB(data){
-	
+	fn_setDblMask();
+	fn_setDateKeyUp();
 }
 /*gridItem 선택 시*/
 function fn_gridItemSelect(id, ind){
@@ -441,7 +495,7 @@ function fn_onClosePop(pName,data){
  };
 /*숫자 인풋 마스킹*/
 function fn_setDblMask(){
-	$('.double').mask('000,000.00', {reverse: true,placeholder: "0.00"});
+	$('.double').mask('000,000.00', {reverse: true,placeholder: "000.00"});
 }
 /*실수로 파싱*/
 function fn_setDefVal(){
@@ -470,6 +524,7 @@ function fn_setDateKeyUp(){
 	$("#gjDate").keyup();
 	$("#appvlDate").keyup();
 	$("#edDate").keyup();
+	$(".double").keyup();
 }
 /*콤보박스*/
 function fn_comboLoad(comboId, inputName, params, colIndx) {

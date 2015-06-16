@@ -38,6 +38,7 @@ var msk_options =  {
 $(function(){
 	  $('.format_date').mask('0000/00/00', $.extend(msk_options,{placeholder: "____/__/__"}));
 	  $('.format_month').mask('0000/00', $.extend(msk_options,{placeholder: "____/____"}));
+	  $('.double').mask('000,000.00', $.extend(msk_options,{reverse: true,placeholder: "000.00"}));
 	  $('.format_jumin').mask('000000-0000000', msk_options);
 
 });
