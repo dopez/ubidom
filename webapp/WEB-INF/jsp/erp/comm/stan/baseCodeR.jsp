@@ -43,7 +43,7 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_print(){
-	gridMain.printView('<div>before</div>','<strong>after</strong>');	
+	gridMain.cs_printView("제코드");
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

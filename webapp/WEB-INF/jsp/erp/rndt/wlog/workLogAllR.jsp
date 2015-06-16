@@ -82,7 +82,7 @@ function fn_excel(){
  };
 //print
 function  fn_print(){
-	gridMain.printView();
+	gridMain.cs_printView("업무일지(전체)");
  }
 function fn_gridMainSelCallbckFunc(data) {
 	

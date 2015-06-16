@@ -57,7 +57,7 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 }
 function fn_print(){
-	gridMain.printView("<div style='font-size:20px;text-align:center; margin-bottom:20px;'>자재 코드 목록</div>");
+	gridMain.cs_printView("자재코드");
 }
 
 </script>

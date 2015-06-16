@@ -125,7 +125,7 @@ function doOnRowDbClicked(rId,cInd){
       };
      //print
      function  fn_print(){
-     	gridMain.printView();
+    		gridMain.cs_printView("업무일지(담당)");
       }
      function fn_gridMainSelCallbckFunc(data) {
      	
