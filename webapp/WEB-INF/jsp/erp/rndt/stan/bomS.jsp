@@ -72,7 +72,6 @@ var rowSelVal;
 	   gridDtl.setColSort("str");	
 	   gridDtl.setUserData("","pk","revNo");
 	   gridDtl.init();
-	   /* gridDtl.dxObj.setNumberFormat("0,000.00",4,".",",");*/
        gridDtl.cs_setColumnHidden(["compId","itemCode","rmk","prog"]);
        gridDtl.cs_setNumberFormat(["wet","loss"],"0,000.00");
        gridDtl.attachEvent("onRowDblClicked",fn_getMatrPop);
@@ -121,7 +120,7 @@ var rowSelVal;
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
        })
 	    /*콤보*/
-	    var combo01 = gridDtl.getColumnCombo(1);
+	   var combo01 = gridDtl.getColumnCombo(1);
        var combo02 = gridDtl.getColumnCombo(3);
 		fn_comboLoad(combo01,gridDtl.getColumnId(2),"J03",1);
 		fn_comboLaodMatr(combo02);
@@ -171,12 +170,12 @@ function fn_btnClick(){
 function fn_getMatrPop(rid,colIdx){
    	  var param = ""
       if (colIdx == 1) {
-           gfn_load_pop('w1', 'common/matrCodePOP', true, {"matrCode": param});
+           gfn_load_pop('w1', 'common/matrCodePOP', true, {"matrName": param});
       }
 }
 function fn_comboLaodMatr(combo02){
 	combo02.setTemplate({
-	    input: "#interCode#",
+	    //input: "#interCode#",
 	    input: "#interName#",
 	    columns: [
 	       {header: "자재코드", width: 100,  option: "#interCode#"},
@@ -184,10 +183,11 @@ function fn_comboLaodMatr(combo02){
 	    ]		
 	});
 	combo02.enableFilteringMode("between");
-	combo02.enableAutocomplete(true);
-	combo02.allowFreeText(true);
     var Cobj = {};
     Cobj.matrName = "%";
+	fn_loadComboMatr(combo02,Cobj)
+}
+function fn_loadComboMatr(combo02,Cobj){
     $.ajax({
         "url": "/erp/rndt/stan/bomS/matrCodePop",
         "type": "post",
@@ -372,6 +372,7 @@ function fn_gridMstSelect(id,ind){
 	var obj = {};
 	obj.revNo = gridMst.setCells(id,0).getValue();
 	obj.itemCode = $("#itemCode").val();
+	byId("frmMain").reset();
 	/* $("input[type=text]").each(function(){
 		$(this).val("");
 	}) */

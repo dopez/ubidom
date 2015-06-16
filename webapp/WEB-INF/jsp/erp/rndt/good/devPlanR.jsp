@@ -42,12 +42,12 @@ $(document).ready(function() {
  	gridMain.addAtchHeader({atchHeaderName:"시작"});
  	gridMain.addAtchHeader({atchHeaderName:"종료"});
  	gridMain.addAtchHeader({atchHeaderName:"일수"});
+ 	gridMain.atchHeaderInit();
  	gridMain.dxObj.setUserData("","@setDate","format_date");
  	gridMain.dxObj.setUserData("","@stDate","format_date");
  	gridMain.dxObj.setUserData("","@endDate","format_date");
  	gridMain.setColSort("str");	
  	gridMain.setUserData("","pk","");
- 	gridMain.atchHeaderInit();
     gridMain.init();
     gridMain.cs_setColumnHidden(["setDate","setSeq"]);
     gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
@@ -104,7 +104,6 @@ function doOnRowDbClicked(rId,cInd){
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{setDate:dateValue,setSeq:seqValue,openParam:openP});	
 	}
-	
 };
 function fn_search(){
 	fn_selGridMain();
@@ -142,6 +141,9 @@ function fn_onClosePop(pName,data){
             $('#ppsEmp').val(obj.empNo);
         }
     }
+}
+function fn_print(){
+	gridMain.cs_printView("개발계획조회");
 }
 
 </script>

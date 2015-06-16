@@ -597,7 +597,7 @@ dxGrid.prototype.printView = function(before,after){
 	return this.dxObj.printView(before,after);
 }
 dxGrid.prototype.cs_printView = function(title,after){
-	return this.dxObj.printView("<div style=\' font-size: x-large; text-align: center; padding-bottom: 10px;\'>"+title+"</div>",after);
+	return this.dxObj.printView("<div style=\' font-size: x-large; text-align: center; padding-bottom: 10px;\'>"+title+"&nbsp;List</div>",after);
 }
 
 dxGrid.prototype.clearAll = function(flag){
