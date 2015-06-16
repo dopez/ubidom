@@ -48,7 +48,7 @@ function fn_excel() {
 };
 //print
 function fn_print() {
-    gridMain.printView();
+	gridMain.cs_printView("제품코드");
 }
       </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">

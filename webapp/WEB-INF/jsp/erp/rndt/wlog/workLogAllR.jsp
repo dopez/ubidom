@@ -82,7 +82,7 @@ function fn_excel(){
  };
 //print
 function  fn_print(){
-	gridMain.printView();
+	gridMain.cs_printView("업무일지(전체)");
  }
 function fn_gridMainSelCallbckFunc(data) {
 	
@@ -150,7 +150,7 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
+                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>

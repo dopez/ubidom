@@ -95,6 +95,7 @@ $(document).ready(function() {
         }else{
         	fn_new();
         }
+        hi();
 })/*doc ready end*/
 function fn_new(){
 	byId("frmMain").reset();
@@ -189,7 +190,6 @@ function fn_searchFrmTab(form,tabId,cbFunc){
 	fn_setSearchParam(tabId);
 	console.log(setSearchParam);
 	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
-	//gfn_callAjaxForForm("frmMain", obj, "selFrmMain",fn_frmSearchCB);
 }
 function fn_seqValid(){
 	var vFlag = "";
@@ -219,7 +219,7 @@ function fn_frmMainSave(){
     });
 }
 function fn_frmMain(id) {
-    if (id == "btn3") {
+    if (id == "btn3") {//저장
         if ($('#setSeq').val() == '') {
             fn_getSeqReturn();
         }
@@ -227,12 +227,13 @@ function fn_frmMain(id) {
         $('#setDate').keyup();
         fn_setCud("u");
     }
+    if (id == "btn4"){//삭제
+        fn_setCud("d");
+        fn_frmMainSave();
+        fn_new();    	
+    }
 }
-function fn_remove(){
-    fn_setCud("d");
-    fn_frmMainSave();
-    fn_new();
-}
+
 /*set date*/
 function fn_setDate(){
     t = dateformat(new Date());
@@ -323,14 +324,15 @@ function fn_onClosePop(pName,data){
 };
 
 </script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab1.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab2.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab3.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab4.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab5.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab6.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab7.js"></script>
-<script type="text/javascript" src="/js/erp/rndt/devPlanS/devPlanSTab8.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}js/test.js"></script> --%>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab1.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab2.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab3.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab4.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab5.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab6.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab7.js"></script>
+<script type="text/javascript" src="/script/erp/rndt/devPlanS/devPlanSTab8.js"></script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
 <style>

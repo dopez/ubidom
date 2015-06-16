@@ -49,7 +49,7 @@ function fn_excel(){
  };
 //print
 function  fn_print(){
-	gridMain.printView();
+	gridMain.cs_printView("진공증착기준");
  }
         </script>
 <div id="container"

@@ -6,6 +6,10 @@ var gridMain;
 var calMain;
  //화면 매개변수
 var PscrnParm = parent.scrnParm;
+var mainMenu = parent.mainMenu;
+var mainTabbar = parent.mainTabbar;
+var tabId = null;
+var uri = null;
 $(document).ready(function() {
 
     Ubi.setContainer(3, [1, 8, 9], "1C"); //업무일지조회(담당)
@@ -30,6 +34,8 @@ $(document).ready(function() {
 	gridMain.setColSort("str");
 	gridMain.init();
 	gridMain.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logName","custCode","logKind","korName","custKorName"]);
+    gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
+
     //calRangeDate
     calMain = new dhtmlXCalendarObject([{
         input: "stDate",
@@ -49,13 +55,50 @@ $(document).ready(function() {
 			popParam = e;
 			gfn_load_pop('w1','common/empPOP',true,{"empNo":$(this).val()});
 		  }else if(e.target.id == "custKorName"){
-			var param = ""
-	        gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": param});
+	        gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": $(this).val()});
 		  }
     })
     fn_search();
 })
-     //doc ready end
+//doc ready end
+function doOnRowDbClicked(rId,cInd){
+	var cFlag = true;
+	var logdateIdx = gridMain.getColIndexById('logDate');
+	var empNoIdx = gridMain.getColIndexById('empNo');
+	var seqIdx = gridMain.getColIndexById('logSeq');
+	var logNumIdx = gridMain.getColIndexById('logNum');
+	var logNameIdx = gridMain.getColIndexById('logName');
+	var V_LOG_KIND = PscrnParm;
+	var V_LOG_DATE = searchDate(gridMain.setCells(rId,logdateIdx).getValue());
+	var V_EMP_NO = gridMain.setCells(rId,empNoIdx).getValue();
+	var V_LOG_SEQ = gridMain.setCells(rId,seqIdx).getValue();
+	var V_LOG_NUM = gridMain.setCells(rId,logNumIdx).getValue();
+	var V_LOG_NAME = gridMain.setCells(rId,logNameIdx).getValue();
+	
+	var ids = mainTabbar.getAllTabs();
+	var preId;
+	if(PscrnParm==9){
+		preId = "1000000677";
+	}
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{logname:V_LOG_NAME,lognum:V_LOG_NUM,logkind:V_LOG_KIND,logdate:V_LOG_DATE,logempno:V_EMP_NO,logseq:V_LOG_SEQ});	
+	}
+	
+};
      function fn_search() {
          var obj = {};
          var splitfrDate = $("#stDate").val().split("/");
@@ -82,7 +125,7 @@ $(document).ready(function() {
       };
      //print
      function  fn_print(){
-     	gridMain.printView();
+    		gridMain.cs_printView("업무일지(담당)");
       }
      function fn_gridMainSelCallbckFunc(data) {
      	

@@ -4,6 +4,7 @@
 var gridMain, layout, toolbar, subLayout;
 var calStDate
 var popParam
+var rowSelVal
 $(document).ready(function() {
 
     Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //자재코드등록
@@ -67,18 +68,18 @@ $(document).ready(function() {
 	fn_disabledInput();
 	fn_search();
 
-     $("#inputCust1,#inputCust2").keyup(function(e) {
-	    if (e.target.id == "#inputCust1"){
+/*      $("#inputCust1,#inputCust2").keyup(function(e) {
+	    if (e.target.id == "inputCust1"){
 	    	fn_openCustCodePop(1);
-	    }else if (e.target.id == "#inputCust2"){
+	    }else if (e.target.id == "inputCust2"){
 	    	fn_openCustCodePop(2);
 	    }
-	 });
+	 }); */
      
-     $("#inputCust1,#inputCust2").click(function(e) {
- 	    if (e.target.id == "#inputCust1"){
+     $("#inputCust1,#inputCust2").dblclick(function(e) {
+ 	    if (e.target.id == "inputCust1"){
  	    	fn_openCustCodePop(1);
- 	    }else if (e.target.id == "#inputCust2"){
+ 	    }else if (e.target.id == "inputCust2"){
  	    	fn_openCustCodePop(2);
  	    }
  	 });
@@ -174,8 +175,9 @@ function fn_loadGridMain(){
 	}
 	gfn_callAjaxForGrid(gridMain,inputParams,"gridMainSearch",subLayout.cells("a"),fn_LoadGridMainCallback);
 }
-function fn_LoadGridMainCallback(){
-	
+function fn_LoadGridMainCallback(data){
+	var rowIdx = cs_selectRow_check(gridMain,"matrCode",rowSelVal)
+	gridMain.selectRow(rowIdx,true,true,true);
 }
 function fn_comboOpt(comboId,opt1,opt2){
 	comboId.addOption(1,opt1);
@@ -276,7 +278,7 @@ function fn_disabledInput(param){
 //공급사1,2 팝업
 function fn_openCustCodePop(param){
 	popParam = param
-    gfn_load_pop('w1', 'common/supplyCompCodePOP', true,popParam);
+    gfn_load_pop('w1', 'common/supplyCompCodePOP', true,{"supplyCompName":$(this).val()});
 }
 
 function fn_closeCustCodePop(param){

@@ -6,7 +6,10 @@
         var calMain;
         var PscrnParm = parent.scrnParm;
         var comboVal;
-
+        var mainMenu = parent.mainMenu;
+        var mainTabbar = parent.mainTabbar;
+        var tabId = null;
+        var uri = null;
 $(document).ready(function() {
 
     Ubi.setContainer(2, [1, 8, 9], "2E"); //업무일지조회(전체)
@@ -47,7 +50,8 @@ $(document).ready(function() {
     gridDtl.setColSort("str");
     gridDtl.init();
     gridDtl.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
-    
+    //gridDtl.attachEvent("onRowDblClicked",doOnRowDbClicked);
+
     //setDate;
     calMain = new dhtmlXCalendarObject([{
         input: "frDate",
@@ -75,6 +79,45 @@ $(document).ready(function() {
     fn_search();
 })
 //doc ready end
+function doOnRowDbClicked(rId,cInd){
+	var cFlag = true;
+	var logdateIdx = gridDtl.getColIndexById('logDate');
+	var empNoIdx = gridDtl.getColIndexById('empNo');
+	var seqIdx = gridDtl.getColIndexById('logSeq');
+	var V_LOG_KIND = PscrnParm;
+	var V_LOG_DATE = searchDate(gridDtl.setCells(rId,logdateIdx).getValue());
+	var V_EMP_NO = gridDtl.setCells(rId,empNoIdx).getValue();
+	var V_LOG_SEQ = gridDtl.setCells(rId,seqIdx).getValue();
+	var ids = mainTabbar.getAllTabs();
+	var preId;
+	if(PscrnParm==1){
+		preId = "1000000703";
+	}
+	if(PscrnParm==2){
+		preId = "1000000935";
+	}
+	if(PscrnParm==3){
+		preId = "1000000837";
+	}
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{logkind:V_LOG_KIND,logdate:V_LOG_DATE,logempno:V_EMP_NO,logseq:V_LOG_SEQ});	
+	}
+	
+};
 function fn_gridDtlSel(rowId,cellIdx){
     var kindParam = "";
 	if(cellIdx == 0){
@@ -111,7 +154,6 @@ function fn_gridSel(gridName,kindParam){
 	if($("#custCode").val() == ""){
 		$("#custCode").val("%");
 	}
-    $("input[name=empNo]").attr("disabled",false);
     $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData("frmSearch");
 	if(gridName == "gridMain"){
@@ -138,7 +180,6 @@ function fn_gridMainSelCallbckFunc(data) {
 	}
 	$("#frDate").keyup();
 	$("#toDate").keyup();
-    $("input[name=empNo]").attr("disabled",true);
     $("input[name=seqNo]").attr("disabled",true);
 }
 function fn_gridDtlSelCallbckFunc(data) {
@@ -209,11 +250,11 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
+                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs">
                         </div>
                         <label class=" col-md-1 col-md-1 control-label" for="textinput" style="margin-left:-18px;padding-right: -15px;"> 고객 </label>
                   <div class="col-sm-2 col-md-2">
-                      <input name="custKorName" id="custKorName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
+                      <input name="custKorName" id="custKorName" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-2 col-md-2">
                       <input name="custCode" id="custCode" type="hidden" value="" placeholder="">

@@ -10,14 +10,14 @@ $(function() {
 	
 	mygrid = new dxGrid("gridDiv", false);
 	
-	mygrid.addHeader({name:"편집", 		colId:"editStat", 	width:"5", 	align:"center", type:"ro"});
-	mygrid.addHeader({name:"삭제", 		colId:"chk", 		width:"5", 	align:"center", type:"ch"});
-	mygrid.addHeader({name:"시스템코드", 	colId:"sysCd", 		width:"10", align:"center", type:"ed"});
-	mygrid.addHeader({name:"시스템명", 	colId:"sysNm", 		width:"*", 	align:"center", type:"ed"});
-	mygrid.addHeader({name:"표시순서", 	colId:"viewIdx", 	width:"10", align:"center", type:"ed"});
-	mygrid.addHeader({name:"사용여부", 	colId:"useYn", 		width:"10", align:"center", type:"coro"});
-	mygrid.addHeader({name:"생성일", 		colId:"strCdate", 	width:"15", align:"center", type:"ro"});
-	mygrid.addHeader({name:"생성자", 		colId:"strCuser", 	width:"15", align:"center", type:"ro"});
+	mygrid.addHeader({name:"편집", 		colId:"editStat", 	width:"50", 	align:"center", type:"ro"});
+	mygrid.addHeader({name:"삭제", 		colId:"chk", 		width:"50", 	align:"center", type:"ch"});
+	mygrid.addHeader({name:"시스템코드", 	colId:"sysCd", 		width:"100", align:"center", type:"ed"});
+	mygrid.addHeader({name:"시스템명", 	colId:"sysNm", 		width:"150", 	align:"center", type:"ed"});
+	mygrid.addHeader({name:"표시순서", 	colId:"viewIdx", 	width:"100", align:"center", type:"ed"});
+	mygrid.addHeader({name:"사용여부", 	colId:"useYn", 		width:"100", align:"center", type:"coro"});
+	mygrid.addHeader({name:"생성일", 		colId:"strCdate", 	width:"150", align:"center", type:"ro"});
+	mygrid.addHeader({name:"생성자", 		colId:"strCuser", 	width:"150", align:"center", type:"ro"});
 	
 	/*
 	mygrid.setHeader("편집,선택,시스템코드,시스템명,표시순서,사용여부,생성일,생성자");

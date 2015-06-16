@@ -66,7 +66,7 @@ function fn_excel(){
  };
 //print
 function  fn_print(){
-	gridMain.printView();
+	gridMain.cs_printView("BOM");
  }
 function fn_onClosePop(pName,data){
 	var i;

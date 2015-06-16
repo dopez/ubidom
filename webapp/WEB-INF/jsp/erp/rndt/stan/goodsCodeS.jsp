@@ -4,6 +4,7 @@
 var layout, toolbar, subLayout;
 var gridMain//,itemGubn, itemKind1,itemKind2,itemKind3;
 var calStDate;
+var rowSelVal;
 $(document).ready(function(){
 		Ubi.setContainer(1, [1, 2, 3, 4], "2U"); //제품코드등록
 		
@@ -108,9 +109,13 @@ function fn_gridMainSel(){
 		$("#pName").val("%");
 	}
 	var obj= gfn_getFormElemntsData('frmSearch');
-    gfn_callAjaxForGrid(gridMain,obj,"gridMainSel",subLayout.cells("a"));
+    gfn_callAjaxForGrid(gridMain,obj,"gridMainSel",subLayout.cells("a"),fn_gridCB);
     byId("frmSearch").reset();
 
+}
+function fn_gridCB(data){
+	var rowIdx = cs_selectRow_check(gridMain,"pCode",rowSelVal)
+	gridMain.selectRow(rowIdx,true,true,true);
 }
 //조회 버튼 동작
 function fn_search() {

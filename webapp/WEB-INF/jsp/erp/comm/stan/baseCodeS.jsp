@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var gridMstCode;
+var rowSelVal;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4,5,6],"2U");
 	//제코드등록
@@ -31,7 +32,7 @@ $(document).ready(function(){
 	gridDtl.addHeader({name:"변수",       colId:"addVar",    width:"50", align:"center",type:"ed"});
 	gridDtl.addHeader({name:"비고",       colId:"descRmk",   width:"50", align:"center",type:"ed"});
 	gridDtl.setColSort("str");
-	gridDtl.setUserData("","pk","");
+	gridDtl.setUserData("","pk","interCode");
 	gridDtl.init();
 
 	fn_loadGridMst(1);
@@ -163,7 +164,7 @@ function fn_loadGridMst(flag){
 	if(flag == 1){
 		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"),fn_First_loadGridMst);
 	}else if(flag == 0){
-		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"));
+		gfn_callAjaxForGrid(gridMst,inputParams,"gridMstSel",subLayout.cells("a"),fn_First_loadGridMst);
 	}
 
 	gridDtl.clearAll();
@@ -175,7 +176,8 @@ function fn_loadGridDtl(code){
 }
 //좌측 그리드 콜백함수
 function fn_First_loadGridMst(data){
-	fn_loadGridDtl(data[0].code);
+	var rowIdx = cs_selectRow_check(gridMst,"code",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
 }
 
 </script>

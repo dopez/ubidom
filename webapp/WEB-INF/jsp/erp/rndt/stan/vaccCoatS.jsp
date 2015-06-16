@@ -6,6 +6,7 @@ var gridMst, gridDtl;
 var calStDate;
 var equiCode;
 var kindParam;
+var rowSelVal;
 $(document).ready(function(){
 
      Ubi.setContainer(0, [1, 3, 4, 5, 6], "3L"); //진공증착기준등록
@@ -40,7 +41,6 @@ $(document).ready(function(){
     gridDtl.addHeader({name:"Rate",colId:"rate",width:"100",align:"center",type:"ed"});
     gridDtl.addHeader({name:"에칭",colId:"ecthing2",width:"100",align:"center",type:"ed"});
     gridDtl.addHeader({name:"방식",colId:"method",width:"100",align:"center",type:"ed"});
-    //gridDtl.addHeader({name:"applyDate",colId:"applyDate",width:"100",align:"center",type:"ed"});
     gridDtl.setUserData("","pk","rNum");
     gridDtl.setColSort("str");
     gridDtl.init();
@@ -179,10 +179,13 @@ function fn_getGridDtl(equiCode){
 }
 function fn_gridDtlSelCallbckFunc(data){
 	if(data != ''){
-    byId("stDate").value = data[0].applyDate;
-    $('#stDate').mask('0000/00/00');
-    $('#stDate').mask('####/##/##');
+	    byId("stDate").value = data[0].applyDate;
+	    $('#stDate').mask('0000/00/00');
+	    $('#stDate').mask('####/##/##');
+	    var rowIdx = cs_selectRow_check(gridDtl,"equiCode",rowSelVal)
+		gridDtl.selectRow(rowIdx,true,true,true);
 	}
+	
 }
 function fn_getEquiCode(){
 	var param = "";
@@ -190,7 +193,8 @@ function fn_getEquiCode(){
 }
 
 function fn_gridMstSelCallbckFunc(data){
-   
+	var rowIdx = cs_selectRow_check(gridMst,"equiCode",rowSelVal)
+	gridMst.selectRow(rowIdx,true,true,true);
 }
 function fn_setSaveParams(){
 		   

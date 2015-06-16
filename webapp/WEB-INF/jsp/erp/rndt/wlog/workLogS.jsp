@@ -39,7 +39,7 @@ $(document).ready(function() {
     byId("stDate").value = t;
 
     //seq
-    fn_getSeqReturn();
+    //fn_getSeqReturn();
 
     //popUp
     //gridMain.attachEvent("onRowSelect",doOnRowSelect);
@@ -50,21 +50,21 @@ $(document).ready(function() {
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		  }
     })
-	fn_search();
+    fn_loadGridMain();
 })
 //doc ready end
 function fn_remove(){
-
- 	//var test  =  $("#workKind").val();
-	var fruitValue  = $('input:radio[name="workKind"]:checked').val();
-	alert(fruitValue);
+  	var totalRowNum = gridMain.getRowsNum();
+    for(var i=1; i<=totalRowNum; i++){
+		 gridMain.cs_deleteRow(i);
+	}
 }
 function fn_getSeqReturn() {
     var obj = {};
     obj.tableName = 'TBL_WORK_LOG';
     obj.seqColumn = 'LOG_SEQ';
     obj.dateColumn1 = 'LOG_DATE';
-    obj.columnData1 = $("#stDate").val();
+    obj.columnData1 = searchDate($("#stDate").val());
     obj.dateColumn2 = 'LOG_KIND';
     obj.columnData2 = PscrnParm;
     obj.returnLen = 3;
@@ -74,18 +74,31 @@ function fn_getSeqReturn() {
 function fn_SetSeq(data) {
     $("#seqNo").val(data[0].seq);
 }
-
-function fn_search() {
-    $("#logKind").val(PscrnParm);
-    if($("#empNo").val() == ""){
-    	$("#empNo").val("%");
-    };
-    $("input[name=empNo]").attr("disabled",false);
-    $("input[name=seqNo]").attr("disabled",false);
-    var param = gfn_getFormElemntsData('frmMain');
-    gfn_callAjaxForGrid(gridMain, param, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+function fn_seqValid(){
+	var vFlag = "";
+	if($("#seqNo").val()==null||$("#seqNo").val()==""
+			||typeof $("#seqNo").val()=="undefined"){
+		dhtmlx.alert("먼저 등록해주세요");
+		vFlag = false;
+		return vFlag;
+	}else{
+		vFlag = true;
+		return vFlag;
+	}
 }
-
+function fn_search() {
+	fn_seqValid();
+	fn_loadGridMain();
+}
+function fn_loadGridMain(){
+	    if($("#logKind").val() == ""){
+	    	$("#logKind").val(PscrnParm);
+	    };
+	    $("input[name=seqNo]").attr("disabled",false);
+	    $("input[name=empNo]").attr("disabled",false);
+	    var param = gfn_getFormElemntsData('frmMain');
+	    gfn_callAjaxForGrid(gridMain, param, "/erp/sale/wlog/workLogS/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc);	
+}
 function fn_gridMainSelCallbckFunc(data) {
     $("input[name=empNo]").attr("disabled",true);
     $("input[name=seqNo]").attr("disabled",true);
@@ -97,15 +110,17 @@ function fn_gridMainSelCallbckFunc(data) {
 
 function fn_delete() {
     var selectedId = gridMain.getSelectedRowId();
-    var empNoColIdx = gridMain.getColIndexById('empNo');
     gridMain.cs_deleteRow(selectedId);
-//    $('#empNo').val(gridMain.setCells2(selectedId, empNoColIdx).getValue());
-
 }
 
 function fn_save() {
-    var selRowIdx = gridMain.getSelectedRowIndex();
-    var empNoColIdx = gridMain.getColIndexById('empNo');
+  	var totalRowNum = gridMain.getRowsNum();
+	 fn_getSeqReturn();
+   var selRowIdx = gridMain.getSelectedRowIndex();
+   var logSeqCol = gridMain.getColIndexById('logSeq');
+   for(var i = 0 ;i<totalRowNum;i++){
+       gridMain.setCells2(i, logSeqCol).setValue($("#seqNo").val());
+   }
     var logNameVal = $('#logName').val();
     var logNumVal = $('#logNum').val();
 
@@ -131,13 +146,19 @@ function fn_save() {
         });
 
 }
-function fn_gridMainSaveCallbckFunc(data) {
-  	var totalRowNum = gridMain.getRowsNum();
-    dhtmlx.alert("저장 완료");
-    fn_search();
-    gridMain.selectRow(totalRowNum);
+function fn_new(){
+	byId("frmMain").reset();
+	$("#seqNo").val("");
     $("#logNum").val("");
     $("#logName").val("");
+    var t = dateformat(new Date());
+    byId("stDate").value = t;
+    $('#stDate').keyup();
+	gridMain.clearAll();
+}
+function fn_gridMainSaveCallbckFunc(data) {
+    dhtmlx.alert("저장 완료");
+    fn_new();
 }
 
 function fn_add() {
@@ -183,7 +204,6 @@ function fn_onClosePop(pName, data) {
             obj.empNo = data[i].empNo;
             $('#korName').val(obj.korName);
             $('#empNo').val(obj.empNo);
-            //저장할 때 gridMain.setCells2(selRowIdx,empNoColIdx).setValue($("#empNo").val()); 맞춰주기
         }
     }
 };
@@ -197,14 +217,14 @@ function fn_onClosePop(pName, data) {
 <div id="bootContainer">
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
-        <input type="hidden" id = "logKind" name="logKind">
+        <input type="hidden" id = "logKind" name="logKind" value="${logkind}">
         	<div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                                <input name="stDate" id="stDate" type="text" value="${logdate}" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -212,7 +232,7 @@ function fn_onClosePop(pName, data) {
                         </div>
                          <div class="col-sm-1 col-md-1">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                <input name="seqNo" id="seqNo" type="text" value="${logseq}" placeholder="" class="form-control input-xs" disabled="disabled">
                             </div>
                         </div>
                     </div>
@@ -250,12 +270,12 @@ function fn_onClosePop(pName, data) {
                    <div class="col-sm-8 col-md-8">
                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 관리번호 </label>
                        <div class="col-sm-1 col-md-1">
-                           <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" >
+                           <input name="logNum" id="logNum" type="text" value="${lognum}" placeholder="" class="form-control input-xs" >
 <!--                            <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')"> -->
                        </div>
                        <div class="col-sm-3 col-md-3">
                            <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                               <input name="logName" id="logName" type="text" value="" placeholder="과제명" class="form-control input-xs">
+                               <input name="logName" id="logName" type="text" value="${logname}" placeholder="과제명" class="form-control input-xs">
                            </div>
                        </div>
                    </div>
