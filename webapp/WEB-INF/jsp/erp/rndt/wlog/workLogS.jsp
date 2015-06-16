@@ -149,6 +149,8 @@ function fn_save() {
 function fn_new(){
 	byId("frmMain").reset();
 	$("#seqNo").val("");
+    $("#logNum").val("");
+    $("#logName").val("");
     var t = dateformat(new Date());
     byId("stDate").value = t;
     $('#stDate').keyup();
@@ -156,8 +158,6 @@ function fn_new(){
 }
 function fn_gridMainSaveCallbckFunc(data) {
     dhtmlx.alert("저장 완료");
-    $("#logNum").val("");
-    $("#logName").val("");
     fn_new();
 }
 
@@ -204,7 +204,6 @@ function fn_onClosePop(pName, data) {
             obj.empNo = data[i].empNo;
             $('#korName').val(obj.korName);
             $('#empNo').val(obj.empNo);
-            //저장할 때 gridMain.setCells2(selRowIdx,empNoColIdx).setValue($("#empNo").val()); 맞춰주기
         }
     }
 };
@@ -271,12 +270,12 @@ function fn_onClosePop(pName, data) {
                    <div class="col-sm-8 col-md-8">
                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 관리번호 </label>
                        <div class="col-sm-1 col-md-1">
-                           <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" >
+                           <input name="logNum" id="logNum" type="text" value="${lognum}" placeholder="" class="form-control input-xs" >
 <!--                            <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')"> -->
                        </div>
                        <div class="col-sm-3 col-md-3">
                            <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                               <input name="logName" id="logName" type="text" value="" placeholder="과제명" class="form-control input-xs">
+                               <input name="logName" id="logName" type="text" value="${logname}" placeholder="과제명" class="form-control input-xs">
                            </div>
                        </div>
                    </div>

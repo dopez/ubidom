@@ -50,7 +50,7 @@ $(document).ready(function() {
     gridDtl.setColSort("str");
     gridDtl.init();
     gridDtl.cs_setColumnHidden(["compId","empNo","logDate","logSeq","logNum","logName","custCode","logKind","korName"]);
-    gridDtl.attachEvent("onRowDblClicked",doOnRowDbClicked);
+    //gridDtl.attachEvent("onRowDblClicked",doOnRowDbClicked);
 
     //setDate;
     calMain = new dhtmlXCalendarObject([{
@@ -154,7 +154,6 @@ function fn_gridSel(gridName,kindParam){
 	if($("#custCode").val() == ""){
 		$("#custCode").val("%");
 	}
-    $("input[name=empNo]").attr("disabled",false);
     $("input[name=seqNo]").attr("disabled",false);
     var param = gfn_getFormElemntsData("frmSearch");
 	if(gridName == "gridMain"){
@@ -181,7 +180,6 @@ function fn_gridMainSelCallbckFunc(data) {
 	}
 	$("#frDate").keyup();
 	$("#toDate").keyup();
-    $("input[name=empNo]").attr("disabled",true);
     $("input[name=seqNo]").attr("disabled",true);
 }
 function fn_gridDtlSelCallbckFunc(data) {
@@ -252,11 +250,11 @@ function fn_onClosePop(pName, data) {
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 담당 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs" disabled="disabled">
+                            <input name="empNo" id="empNo" type="text" value="${empNo}" placeholder="" class="form-control input-xs">
                         </div>
                         <label class=" col-md-1 col-md-1 control-label" for="textinput" style="margin-left:-18px;padding-right: -15px;"> 고객 </label>
                   <div class="col-sm-2 col-md-2">
-                      <input name="custKorName" id="custKorName" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('고객코드','common/customCodePOP')">
+                      <input name="custKorName" id="custKorName" type="text" value="" placeholder="" class="form-control input-xs">
                   </div>
                   <div class="col-sm-2 col-md-2">
                       <input name="custCode" id="custCode" type="hidden" value="" placeholder="">

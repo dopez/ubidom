@@ -71,11 +71,9 @@ $(document).ready(function() {
     //popUp
     $("#empNo, #custKorName").click(function(e){
 		if(e.target.id == "empNo"){
-			popParam = e;
 			gfn_load_pop('w1','common/empPOP',true,{"empNo":$(this).val()});
 		  }else if(e.target.id == "custKorName"){
-			var param = ""
-	        gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": param});
+	        gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": $(this).val()});
 		  }
     })
     fn_search();

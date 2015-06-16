@@ -59,11 +59,15 @@ public class WorkLogSController {
 		mnv.addObject("logdate", logdate);
 		mnv.addObject("empNo", logempno);
 		mnv.addObject("logseq", logseq);
-		mnv.addObject("logkind", logkind);
-		mnv.addObject("logdate", logdate);
-		mnv.addObject("empNo", logempno);
-		mnv.addObject("logseq", logseq);
-		return mnv;
+		mnv2.addObject("logkind", logkind);
+		mnv2.addObject("logdate", logdate);
+		mnv2.addObject("empNo", logempno);
+		mnv2.addObject("logseq", logseq);
+		if (logkind.equals("9")) {
+			return mnv2;
+		} else {
+			return mnv;
+		}
 	}
 
 	/*
