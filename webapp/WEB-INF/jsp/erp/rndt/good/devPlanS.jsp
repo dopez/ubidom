@@ -221,6 +221,7 @@ function fn_frmMain(id) {
     if (id == "btn3") {//저장
         if ($('#setSeq').val() == '') {
             fn_getSeqReturn();
+	        fn_setCud("i");
         }
         fn_frmMainSave();
         $('#setDate').keyup();

@@ -20,20 +20,20 @@ function fn_frm4Chk(){
 }
 function fn_tab4Save(){
     if (fn_seqValid()) {
-
     	var param = {};
     	param.contents = $("#frmTab4").find("[name=contents]").val();
-    	param.contentsKind = $("#frmTab4").find("[name=contentsKind]").val();
-    	param.cudKey4 = $('#cudKey4').val();
+    	param.evaluateKind = $("#frmTab4").find("[name=evaluateKind]").val();
+    	param.cudKey = $('#cudKey4').val();
     	param.setDate = dateVal;
     	param.setSeq = seqVal;
-    	//param.gubn = "gubn";
-    	
+    	param.tabId = tabId;
+    	param.planNumb = planNumVal;
+   	
     	console.log("tab4 param = ",param);
     	
         $.ajax({
             type: 'POST',
-            url: "/erp/rndt/good/devPlanS/frmTab1Save",
+            url: "/erp/rndt/good/devMidS/frmTabSave",
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
@@ -46,6 +46,6 @@ function fn_tab4Save(){
         });
     }
 }
-function fn_selfrmTab4CB(data){
+/*function fn_selfrmTab4CB(data){
 	console.log(data);
-}
+}*/

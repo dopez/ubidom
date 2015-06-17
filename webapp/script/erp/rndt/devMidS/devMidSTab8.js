@@ -3,9 +3,14 @@ function fn_setTab8(){
 	tab8.cells("a").hideHeader();
 	tab8Grid = new dxGrid(tab8.cells("a"), false);
 	tab8Grid.addHeader({name:"구분",colId:"marketKind",width:"100",align:"center",type:"ro"});
-	tab8Grid.addHeader({name:"국내(백만원)",colId:"localAmt",width:"150",align:"right",type:"ed"});
-	tab8Grid.addHeader({name:"해외(천원)",colId:"foreAmt",width:"150",align:"right",type:"ed"});
+	tab8Grid.addHeader({name:"계획(백만원)",colId:"",width:"150",align:"right",type:"ed"});
+	tab8Grid.addHeader({name:"변경(천원)",colId:"",width:"150",align:"right",type:"ed"});
 	tab8Grid.addHeader({name:"비고",colId:"remarks",width:"300",align:"left",type:"ed"});
+	tab8Grid.atchFooter();
+	tab8Grid.addAtchFooter({atchFooterName:"합계"});
+	tab8Grid.addAtchFooter({atchFooterName:"#stat_total"});
+	tab8Grid.addAtchFooter({atchFooterName:"#stat_total"});
+	tab8Grid.atchFooterInit();	
 	tab8Grid.setColSort("str");	
 	tab8Grid.setUserData("","pk","");
 	tab8Grid.dxObj.enableColSpan(true);

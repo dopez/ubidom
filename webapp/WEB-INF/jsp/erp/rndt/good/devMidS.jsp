@@ -2,9 +2,12 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
 var layout, toolbar, subLayout,subTabbar;
-var tab1Toolbar,tab2Toolbar,tab3Toolbar,tab4Toolbar,tab5Toolbar,tab6Toolbar;
+var tab1Toolbar,tab2Toolbar,tab3Toolbar,tab4Toolbar,tab5Toolbar,tab6Toolbar,tab7Toolbar,tab8Toolbar;
 var combo01;
-var tab1,tab2,tab3,tab4,tab5,tab6;
+var tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
+var tabId = "a1";
+var popFlag;
+var dateVal,seqVal,planNumVal;
 $(document).ready(function() {
 
         Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발중간평가등록
@@ -16,6 +19,8 @@ $(document).ready(function() {
         //form//
         layout.cells("b").attachObject("bootContainer2");
         layout.cells("b").setHeight(180);
+		
+    	toolbar.attachEvent("onClick", fn_frmMain);
 
         //tabbar//	
         subTabbar = subLayout.cells("a").attachTabbar({
@@ -34,57 +39,111 @@ $(document).ready(function() {
             tabId = id;
         });
         
+        $("#planNumb, #korName").dblclick(function(e){
+			if(e.target.id == "planNumb"){
+				gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
+			}
+			if(e.target.id == "korName"){
+				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			}
+ 			if(e.target.id == "postName"){
+				popFlag = 5;
+ 				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+			}
+	    })
+	    
         fn_setTab1();
         fn_setTab2();
         fn_setTab3();
         fn_setTab4();
         fn_setTab5();
         fn_setTab6();
-        var tab7 = subTabbar.tabs("a7").attachLayout("2E");
-        var tab8 = subTabbar.tabs("a8").attachGrid();
-
-        //7번탭
-        tab7.cells("a").setHeight(200);
-        tab7.cells("a").setText("1.수준");
-        tab7.cells("b").setText("2. 개발목표 주요 Spec 및 차별화 Point");
-        var tab7Grid1 = tab7.cells("a").attachGrid();
-        tab7Grid1.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab7Grid1.setHeader("구분, 계획,변경", null, ["text-align:center;", "text-align:center;", "text-align:center;"]);
-        tab7Grid1.setInitWidths("100,300,300");
-        tab7Grid1.setColAlign("left,left,left");
-        tab7Grid1.setColTypes("ro,ed,ed");
-        tab7Grid1.setColSorting("str,str,str");
-        tab7Grid1.init();
-        var tab7Grid = tab7.cells("b").attachGrid();
-        tab7Grid.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab7Grid.setHeader("No, 주요 Spec 및 차별화 Point", null, ["text-align:center;", "text-align:center;"]);
-        tab7Grid.setInitWidths("50,800");
-        tab7Grid.setColAlign("left,left");
-        tab7Grid.setColTypes("ro,ed");
-        tab7Grid.setColSorting("str,str");
-        tab7Grid.init();
-
-        //8번탭
-        tab8.setImagePath("/component/dhtmlxGrid/imgs/");
-        tab8.setHeader("구분,당해년도(천원),Total(천원),비고", null, ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;"]);
-        tab8.setInitWidths("100,100,100,506");
-        tab8.setColAlign("center,right,right,center,left");
-        tab8.setColTypes("coro,price,price,txt");
-        tab8.setColSorting("str,str,str,str");
-        tab8.attachFooter("계,0,0,", ["text-align:center;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;"]);
-        tab8.init();
+        fn_setTab7();
+        fn_setTab8();
         //tab end
 
         //setDate//
         calMain = new dhtmlXCalendarObject([{
-            input: "stDate",
+            input: "setDate",
             button: "calpicker1"
         }]);
         calMain.loadUserLanguage("ko");
         calMain.hideTime();
-        fn_setDate();
-
+    	fn_setDate();
+    	
+    	fn_frm2Chk();
+    	fn_frm3Chk();
 })//doc ready end
+function fn_frmMain(id) {
+    if (id == "btn3") {//저장
+    	if($("#planNumb").val()==""||$("#planNumb").val()==null||$("#planNumb").val().length<=0){
+    		dhtmlx.alert("개발번호는 필수 입력입니다.");
+    		return;
+    	}else{
+	        if ($('#setSeq').val() == '') {
+	            fn_getSeqReturn();
+		        fn_setCud("cudKey","i");
+		        fn_frmMainSave();
+		        $('#setDate').keyup();
+		        fn_setCud("cudKey","u");
+	        }else{
+	        	fn_setCud("cudKey","u");
+		        fn_frmMainSave();
+		        $('#setDate').keyup();
+	        }
+    	}
+    }
+    if (id == "btn4"){//삭제
+    	if ($('#setSeq').val() == '') {
+            dhtmlx.alert("조회된 데이터가 없습니다.")
+            return;
+        }else{
+	        fn_setCud("cudKey","d");
+	        fn_frmMainSave();
+	        fn_new();
+        }
+    }
+}
+function fn_onClosePop(pName,data){
+	if (pName=="empNo") {
+		var i;
+		var obj={};
+        for (i = 0; i < data.length; i++) {
+            obj.korName = data[i].korName;
+            obj.empNo = data[i].empNo;
+            $('#korName').val(obj.korName);
+            $('#empNo').val(obj.empNo);
+        }
+    }
+	if (pName=="planNumb") {
+		/*close가 된 후 result가 리턴 되기 때문에 success될 때 코드를 실행하게 만듬*/
+		$.ajax({
+		        type: 'POST',
+		        url: "/erp/rndt/good/devMidS/planNumbChk",
+		        data: "planNumb="+data[0].planNumb,
+		        success: function(result) {
+		        	if(result[0].cnt>0){
+		    			dhtmlx.alert({
+		    			    text: "이미 중간평가 된 과제입니다.",
+		    			    callback: function(result){
+		    			    	gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
+		    			    }
+		    			});
+		        	}else{
+		        		var i;
+		    			var obj={};
+		    	        for (i = 0; i < data.length; i++) {
+		    	            obj.problemName = data[i].problemName;
+		    	            obj.planNumb = data[i].planNumb;
+		    	            $('#problemName').val(obj.problemName);
+		    	            $('#planNumb').val(obj.planNumb);
+		    	        }
+
+		        	}
+		        }
+		    });
+    }
+};
 </script>
 <script type="text/javascript" src="/script/erp/rndt/devMidS/devMidSFn.js"></script>
 <script type="text/javascript" src="/script/erp/rndt/devMidS/devMidSTab1.js"></script>
@@ -102,22 +161,18 @@ form{
 </style>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
-<form class="form-horizontal"id="frmTab5">
-<input type="hidden" id="jsonData1" name="jsonData1">
-</form>
-<form class="form-horizontal"id="frmTab5">
-<input type="hidden" id="jsonData5" name="jsonData5">
-</form>
 <div id="bootContainer2">
     <div class="container">
-        <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
+        <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
+        <input name="cudKey" id="cudKey" type="hidden">
+        <input name="test" type="hidden">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="stDate" id="stDate" type="text" value="" placeholder="" class="form-control input-xs">
+                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -125,7 +180,7 @@ form{
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="seqNo" id="seqNo" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                <input name="setSeq" id="setSeq" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
                             </div>
                         </div>
                         <div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">
@@ -139,7 +194,8 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 보고자 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="rptName" id="rptName" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
+                            <input name="empNo" id="empNo" type="hidden" value="${empNo}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
@@ -149,7 +205,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개발번호 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="devNo" id="devNo" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('개발번호','common/devPlanPOP')">
+                            <input name="planNumb" id="planNumb" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
@@ -159,7 +215,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 과제명 </label>
                         <div class="col-sm-10 col-md-10">
-                            <input name="prjtName" id="prjtName" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="problemName" id="problemName" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
@@ -169,9 +225,9 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 보고자의견 </label>
                         <div class="col-sm-8 col-md-8">
-                            <input type="radio" name="repoterOpn" value="1" checked="checked">현행계속
-                            <input type="radio" name="repoterOpn" value="2">Drop
-                            <input type="radio" name="repoterOpn" value="3">계획변경필요(수정계획서작성)
+                            <input type="radio" name="opKind" value="1" checked="checked">현행계속
+                            <input type="radio" name="opKind" value="2">Drop
+                            <input type="radio" name="opKind" value="3">계획변경필요(수정계획서작성)
                         </div>
                     </div>
                 </div>
@@ -179,9 +235,14 @@ form{
         </form>
     </div>
 </div>
+<form class="form-horizontal"  id="frmTab1" name="frmTab1">
+<input type="hidden" id="jsonData1" name="jsonData1">
+<input type="hidden" id="tabId1" name="tabId">
+</form>
 <div id="tab2" class="container">
     <form class="form-horizontal"  id="frmTab2">
     <input type="hidden" id="cudKey2" name="cudKey2">
+    <input type="hidden" id="tabId2" name="tabId">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -191,7 +252,7 @@ form{
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
 		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
-                        <input name="contentsKind" id="contentsKind" type="hidden" value="2" placeholder="" class="form-control input-xs">
+                        <input name="evaluateKind" id="evaluateKind" type="hidden" value="1" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
             </div>
@@ -201,6 +262,7 @@ form{
 <div id="tab3" class="container">
     <form class="form-horizontal"  id="frmTab3">
     <input type="hidden" id="cudKey3" name="cudKey3">
+    <input type="hidden" id="tabId3" name="tabId">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -210,7 +272,7 @@ form{
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
 		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
-                        <input name="contentsKind" id="contentsKind" type="hidden" value="3" placeholder="" class="form-control input-xs">
+                        <input name="evaluateKind" id="evaluateKind" type="hidden" value="2" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
             </div>
@@ -220,6 +282,7 @@ form{
 <div id="tab4" class="container">
     <form class="form-horizontal"  id="frmTab4">
     <input type="hidden" id="cudKey4" name="cudKey4">
+    <input type="hidden" id="tabId4" name="tabId">
         <div class="row">
             <div class="col-sm-8 col-md-8">
                 <div class="form-group form-group-sm">
@@ -229,10 +292,91 @@ form{
 		                          cols="50" rows="10" name="contents" id="contents"
 		                          placeholder="" class="form-control input-xs"
 		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
-                        <input name="contentsKind" id="contentsKind" type="hidden" value="4" placeholder="" class="form-control input-xs">
+                        <input name="evaluateKind" id="evaluateKind" type="hidden" value="3" placeholder="" class="form-control input-xs">
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<form class="form-horizontal"  id="frmTab5" name="frmTab5">
+<input type="hidden" id="jsonData5" name="jsonData5">
+<input type="hidden" id="tabId5" name="tabId">
+</form>
+<form class="form-horizontal"  id="frmTab6" name="frmTab6">
+<input type="hidden" id="jsonData6" name="jsonData6">
+<input type="hidden" id="tabId6" name="tabId">
+</form>
+<style>
+/*개발중간평가등록 7번째 탭*/
+#tab7_1 input {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius:1px;
+    border: 1px solid #ccc;
+    color: #555;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+#subt{
+	text-align: center;
+}
+/*개발중간평가등록 7번째 탭*/
+</style>
+<div id="tab7_1" class="container">
+    <form class="form-horizontal" style="padding-top: 5px; padding-bottom: 5px; margin: 0px;" id="frmTab7_1">
+        <input type="hidden" id="cudKey7" name="cudKey7">
+        <input type="hidden" id="tabId7" name="tabId">
+        <div class="col-sm-4 col-md-4">
+<!--         <div class="col-md-offset-1 col-sm-offset-1 col-sm-4 col-md-4"> -->
+	       <table class="table">
+		    <thead>
+		      <tr>
+		        <th class="col-sm-1 col-md-1">구분</th>
+		        <th class="col-sm-1 col-md-1" id="subt">계획</th>
+		        <th class="col-sm-1 col-md-1" id="subt">변경</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>제품</td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		      </tr>
+		      <tr>
+		        <td>기술</td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		      </tr>
+		      <tr>
+		        <td>목표재료</td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		      </tr>
+		    </tbody>
+		  </table>
+	  </div>
+    </form>
+</div>
+<div id="tab7_2" class="container">
+    <form class="form-horizontal"  id="frmTab7_2">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <div class="form-group form-group-sm">
+                    <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 내용 </label>
+                    <div class="col-sm-10 col-md-10">
+                        <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
+		                          cols="50" rows="10" name="remarks" id="remarks"
+		                          placeholder="" class="form-control input-xs"
+		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+ </div>
+ <form class="form-horizontal"  id="frmTab8" name="frmTab8">
+<input type="hidden" id="jsonData8" name="jsonData8">
+<input type="hidden" id="tabId8" name="tabId">
+</form>
