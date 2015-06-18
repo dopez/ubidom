@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.rndt.domain.DevMidS;
+import com.ubi.erp.rndt.domain.DevPlanS;
 import com.ubi.erp.rndt.service.DevMidSService;
+import com.ubi.erp.rndt.service.DevPlanSService;
 
 
 
@@ -32,6 +34,9 @@ import com.ubi.erp.rndt.service.DevMidSService;
 public class DevMidSController {
 	@Autowired
 	private DevMidSService DevMidSService;
+
+	private DevPlanSService DevPlanSService;
+
 	private static final Logger logger = LoggerFactory.getLogger(DevMidSController.class);
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -159,6 +164,28 @@ public class DevMidSController {
 		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/initSelFrmTab", method = RequestMethod.POST)
+	public List<DevPlanS> selInitFrmTab(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		System.out.println("comp=" + comp);
+		System.out.println("setDate=" + setDate);
+		System.out.println("setSeq=" + setSeq);
+		System.out.println("tabId=" + tabId);
+		DevPlanSService.selFrmTab5(map);
+
+		List<DevPlanS> list = (List<DevPlanS>) map.get("o_cursor");
+		return list;
+	}
 	@RequestMapping(value = "/gridTabSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsGridTab(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
@@ -171,6 +198,8 @@ public class DevMidSController {
 			jsonData = request.getParameter("jsonData1");
 		} else if (tabId.equals("a5")) {
 			jsonData = request.getParameter("jsonData5");
+		} else if (tabId.equals("a6")) {
+			jsonData = request.getParameter("jsonData6");
 		}
 		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<DevMidS>>() {
 		});

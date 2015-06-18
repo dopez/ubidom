@@ -42,9 +42,6 @@ function fn_setTab5(){
     	}
     })
 }
-function fn_init_searchGridTab5CB(data){
-	console.log("init data tab5 = ",data);
-}
 function fn_getJooBoo(rId,colIdx){
 	 var selRowIdx = tab5.getSelectedRowIndex();
      var juDeptIdx = tab5.getColIndexById('cJuDept');

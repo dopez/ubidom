@@ -84,17 +84,17 @@ public class DevMidS implements Serializable {
 
 	private String dataKind;
 
-	private String staff;
+	private int staff;
 
-	private String mm;
+	private int mm;
 
-	private String totMm;
+	private int totMm;
 
-	private String cStaff;
+	private int cStaff;
 
-	private String cMm;
+	private int cMm;
 
-	private String cTotMm;
+	private int cTotMm;
 
 	private String remarks;
 	/* tab7 */;
@@ -306,51 +306,51 @@ public class DevMidS implements Serializable {
 		this.dataKind = dataKind;
 	}
 
-	public String getStaff() {
+	public int getStaff() {
 		return staff;
 	}
 
-	public void setStaff(String staff) {
+	public void setStaff(int staff) {
 		this.staff = staff;
 	}
 
-	public String getMm() {
+	public int getMm() {
 		return mm;
 	}
 
-	public void setMm(String mm) {
+	public void setMm(int mm) {
 		this.mm = mm;
 	}
 
-	public String getTotMm() {
+	public int getTotMm() {
 		return totMm;
 	}
 
-	public void setTotMm(String totMm) {
+	public void setTotMm(int totMm) {
 		this.totMm = totMm;
 	}
 
-	public String getcStaff() {
+	public int getcStaff() {
 		return cStaff;
 	}
 
-	public void setcStaff(String cStaff) {
+	public void setcStaff(int cStaff) {
 		this.cStaff = cStaff;
 	}
 
-	public String getcMm() {
+	public int getcMm() {
 		return cMm;
 	}
 
-	public void setcMm(String cMm) {
+	public void setcMm(int cMm) {
 		this.cMm = cMm;
 	}
 
-	public String getcTotMm() {
+	public int getcTotMm() {
 		return cTotMm;
 	}
 
-	public void setcTotMm(String cTotMm) {
+	public void setcTotMm(int cTotMm) {
 		this.cTotMm = cTotMm;
 	}
 

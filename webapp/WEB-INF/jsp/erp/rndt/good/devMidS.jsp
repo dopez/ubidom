@@ -10,6 +10,8 @@ var popFlag;
 var dateVal,seqVal,planNumVal;
 var setSearchParam = {};
 var savecnt = 0;
+var savecnt6 = 0;
+var savecnt7 = 0;
 
 $(document).ready(function() {
 
@@ -93,6 +95,7 @@ $(document).ready(function() {
         	fn_frm2Chk();
         	fn_frm3Chk();
         	fn_frm4Chk();
+        	fn_frm7Chk();
 
         }else{
         	/*처음 등록할 때*/
@@ -101,6 +104,7 @@ $(document).ready(function() {
         	fn_frm2Chk();
         	fn_frm3Chk();
         	fn_frm4Chk();
+        	fn_frm7Chk();
         }
 
 })//doc ready end
@@ -146,13 +150,13 @@ function fn_searchGridTab(grid,tabId,layout,cbFunc){
 	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
 
 }
-function fn_init_searchGridTab(grid,tabId,layout,cbFunc,url){
+function fn_init_searchGridTab(grid,tabId,layout,url){
 	var planNumbVal = $("#planNumb").val();
 	var obj = {};
 	obj.tabId = tabId;
 	obj.setDate = planNumbVal.substr(0,8);
 	obj.setSeq = planNumbVal.substr(8,2);
-	gfn_callAjaxForGrid(grid,obj,url,layout,cbFunc);
+	gfn_callAjaxForGrid(grid,obj,url,layout);
 
 }
 function fn_searchFrmTab(form,tabId,cbFunc){
@@ -172,7 +176,9 @@ function fn_frmMain(id) {
 		        fn_frmMainSave();
 		        $('#setDate').keyup();
 		        fn_setCud("cudKey","u");
-	        	fn_init_searchGridTab(tab5,"a3",subTabbar.tabs("a5"),fn_init_searchGridTab5CB,"/erp/rndt/good/devPlanS/selGridTab")
+	        	fn_init_searchGridTab(tab5,"a3",subTabbar.tabs("a5"),"/erp/rndt/good/devPlanS/selGridTab")
+	        	fn_init_searchGridTab(tab6,"a4",subTabbar.tabs("a6"),"/erp/rndt/good/devPlanS/selGridTab")
+	        	fn_init_searchFrmTab7();
 	        }else{
 	        	fn_setCud("cudKey","u");
 		        fn_frmMainSave();
@@ -453,18 +459,18 @@ form{
 		    <tbody>
 		      <tr>
 		        <td>제품</td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="itemName" id="itemName" type="text" value="" placeholder="" readonly="readonly"></td>
+		        <td><input name="cItemName" id="cItemName" type="text" value="" placeholder=""></td>
 		      </tr>
 		      <tr>
 		        <td>기술</td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="techName" id="techName" type="text" value="" placeholder=""readonly="readonly"></td>
+		        <td><input name="cTechName" id="cTechName" type="text" value="" placeholder=""></td>
 		      </tr>
 		      <tr>
 		        <td>목표재료</td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
-		        <td><input name="itemName" id="itemName" type="text" value="" placeholder=""></td>
+		        <td><input name="targetMatr" id="targetMatr" type="text" value="" placeholder=""readonly="readonly"></td>
+		        <td><input name="cTargetMatr" id="cTargetMatr" type="text" value="" placeholder=""></td>
 		      </tr>
 		    </tbody>
 		  </table>
@@ -478,10 +484,10 @@ form{
                 <div class="form-group form-group-sm">
                     <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 내용 </label>
                     <div class="col-sm-10 col-md-10">
-                        <textarea style="height: 300px;padding: 5px;border: 3px solid #cccccc;"
+                        <textarea style="background-color:white;  height: 300px;padding: 5px;border: 3px solid #cccccc;"
 		                          cols="50" rows="10" name="remarks" id="remarks"
 		                          placeholder="" class="form-control input-xs"
-		                          onfocus="fn_textAreaSetbg('#e5fff3');" onblur="fn_textAreaSetbg('white')"></textarea>
+		                          readonly="readonly"></textarea>
                     </div>
                 </div>
             </div>

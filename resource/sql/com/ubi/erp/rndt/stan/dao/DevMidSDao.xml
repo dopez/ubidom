@@ -85,6 +85,26 @@
 		 	)
 		 }	
 	</insert>
+	<insert id="prcsGridTab6" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SAVE5(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{dataKind},
+		 		#{staff},
+		 		#{mm},
+		 		#{totMm},
+		 		#{remarks},
+		 		#{cStaff},
+		 		#{cMm},
+		 		#{cTotMm},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
 	<select id="selGridTab1" statementType="CALLABLE" >
 		 {call 
 		 	SP_RNDT_DEVMIDS_SCH2(
