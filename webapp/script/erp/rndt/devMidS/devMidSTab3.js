@@ -46,6 +46,6 @@ function fn_tab3Save(){
         });
     }
 }
-/*function fn_selfrmTab3CB(data){
-	console.log(data);
-}*/
+function fn_selfrmTab3CB(data){
+	console.log("frmTab3 data = ",data);
+}

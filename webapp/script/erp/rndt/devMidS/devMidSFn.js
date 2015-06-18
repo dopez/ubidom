@@ -1,3 +1,13 @@
+function fn_frmSearch(){
+	var mainParam = {};
+	mainParam.setDate = searchDate($("#setDate").val());
+	mainParam.setSeq = $("#setSeq").val();
+	//console.log(mainParam);
+	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
+}
+function fn_frmSearchCB(data){
+	console.log("devS frmMain data=",data);
+}
 function fn_getSeqReturn(){
 	 var obj = {};
 	    obj.tableName = 'TBL_DEV_PLAN_EVALUATE_MST';

@@ -59,4 +59,44 @@ public interface DevMidSDao {
 	 */
 	void prcsFrmTabSave(DevMidS devMidS);
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selFrmMain(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selGridTab1(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selFrmTab2(Map<String, Object> map);
+
+	void selFrmTab3(Map<String, Object> map);
+
+	void selFrmTab4(Map<String, Object> map);
+
 }

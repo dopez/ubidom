@@ -86,4 +86,74 @@ public class DevMidSService {
 		dao.prcsFrmTabSave(devMidS);
 	}
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selFrmMain(Map<String, Object> map) {
+		dao.selFrmMain(map);
+	}
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selGridTab1(Map<String, Object> map) {
+		dao.selGridTab1(map);
+	}
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selFrmTab2(Map<String, Object> map) {
+		dao.selFrmTab2(map);
+	}
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selFrmTab3(Map<String, Object> map) {
+		dao.selFrmTab3(map);
+	}
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selFrmTab4(Map<String, Object> map) {
+		dao.selFrmTab4(map);
+	}
+
 }

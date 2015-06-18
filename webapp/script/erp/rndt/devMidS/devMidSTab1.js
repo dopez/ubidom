@@ -30,7 +30,11 @@ function fn_setTab1(){
 	combo01.addOption("3","기술환경");
 	combo01.addOption("4","사업환경");
 }
+function fn_selgridTab1CB(data){
+	console.log("gridTab1 data = ", data); 
+}
 function fn_tab1Save(){
+	alert(planNumVal);
 	if(fn_seqValid()){
 		var setDateColIdx = tab1.getColIndexById('setDate');
 		var setSeqColIdx = tab1.getColIndexById('setSeq');

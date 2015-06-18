@@ -8,6 +8,7 @@ var tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
 var tabId = "a1";
 var popFlag;
 var dateVal,seqVal,planNumVal;
+var setSearchParam = {};
 $(document).ready(function() {
 
         Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발중간평가등록
@@ -16,7 +17,7 @@ $(document).ready(function() {
         toolbar = Ubi.getToolbar();
         subLayout = Ubi.getSubLayout();
 
-        //form//
+        //main form//
         layout.cells("b").attachObject("bootContainer2");
         layout.cells("b").setHeight(180);
 		
@@ -38,7 +39,18 @@ $(document).ready(function() {
         subTabbar.attachEvent("onTabClick", function(id, lastId) {
             tabId = id;
         });
-        
+    
+        fn_setTab1();
+        fn_setTab2();
+        fn_setTab3();
+        fn_setTab4();
+        fn_setTab5();
+        fn_setTab6();
+        fn_setTab7();
+        fn_setTab8();
+        //tab end
+
+        //POP UP//
         $("#planNumb, #korName").dblclick(function(e){
 			if(e.target.id == "planNumb"){
 				gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
@@ -52,16 +64,6 @@ $(document).ready(function() {
 			}
 	    })
 	    
-        fn_setTab1();
-        fn_setTab2();
-        fn_setTab3();
-        fn_setTab4();
-        fn_setTab5();
-        fn_setTab6();
-        fn_setTab7();
-        fn_setTab8();
-        //tab end
-
         //setDate//
         calMain = new dhtmlXCalendarObject([{
             input: "setDate",
@@ -69,11 +71,82 @@ $(document).ready(function() {
         }]);
         calMain.loadUserLanguage("ko");
         calMain.hideTime();
-    	fn_setDate();
-    	
-    	fn_frm2Chk();
-    	fn_frm3Chk();
+        if($("#openParam").val()=="u"){
+        	dateVal = searchDate($("#setDate").val());
+        	seqVal = $("#setSeq").val();
+        	planNumVal = $("#planNumb").val();
+        	fn_search();
+       		fn_searchFrmTab("frmTab2","a2",fn_selfrmTab2CB);
+       		fn_searchFrmTab("frmTab3","a3",fn_selfrmTab3CB);
+       		fn_searchFrmTab("frmTab4","a4",fn_selfrmTab4CB);
+       		//fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
+       		//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
+       		//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
+       		//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
+       		//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
+       		//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
+        	
+	        fn_setCud("cudKey","u");
+        	fn_frm2Chk();
+        	fn_frm3Chk();
+        	fn_frm4Chk();
+
+        }else{
+        	fn_setDate();
+        	
+        	fn_frm2Chk();
+        	fn_frm3Chk();
+        	fn_frm4Chk();
+        }
+
 })//doc ready end
+function fn_search(){
+	fn_frmSearch();
+	if(tabId=="a1"){
+		fn_searchGridTab(tab1,tabId,subTabbar.tabs("a1"),fn_selgridTab1CB)
+	}
+	if(tabId=="a2"){
+		fn_searchFrmTab("frmTab2",tabId,fn_selfrmTab2CB);
+	}
+	if(tabId=="a3"){
+		fn_searchFrmTab("frmTab3",tabId,fn_selfrmTab3CB);
+	}
+	if(tabId=="a4"){
+		fn_searchFrmTab("frmTab4",tabId,fn_selfrmTab4CB);
+	}
+	if(tabId=="a5"){
+		//fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
+		//fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
+	}
+	if(tabId=="a6"){
+		//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
+		//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
+		//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
+	}
+	if(tabId=="a7"){
+		//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
+	}
+	if(tabId=="a8"){
+		//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
+	}
+}
+function fn_setSearchParam(tabId){
+	setSearchParam.setDate = dateVal;
+	setSearchParam.setSeq = seqVal;
+	setSearchParam.tabId = tabId;
+	return setSearchParam;
+}
+function fn_searchGridTab(grid,tabId,layout,cbFunc){
+	fn_setSearchParam(tabId);
+	console.log(setSearchParam);
+	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
+
+}
+function fn_searchFrmTab(form,tabId,cbFunc){
+	fn_setSearchParam(tabId);
+	console.log(setSearchParam);
+	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
+}
 function fn_frmMain(id) {
     if (id == "btn3") {//저장
     	if($("#planNumb").val()==""||$("#planNumb").val()==null||$("#planNumb").val().length<=0){
@@ -165,14 +238,14 @@ form{
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmMain">
         <input name="cudKey" id="cudKey" type="hidden">
-        <input name="test" type="hidden">
+        <input type="hidden" value="${openParam}"id="openParam" name="openParam">
             <div class="row">
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                                <input name="setDate" id="setDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control">
@@ -180,7 +253,7 @@ form{
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="setSeq" id="setSeq" type="text" value="" placeholder="" class="form-control input-xs" disabled="disabled">
+                                <input name="setSeq" id="setSeq" type="text" value="${setSeq}" placeholder="" class="form-control input-xs" disabled="disabled">
                             </div>
                         </div>
                         <div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">
@@ -205,7 +278,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개발번호 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="planNumb" id="planNumb" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="planNumb" id="planNumb" type="text" value="${planNumb}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
@@ -215,7 +288,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 과제명 </label>
                         <div class="col-sm-10 col-md-10">
-                            <input name="problemName" id="problemName" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="problemName" id="problemName" type="text" value="${problemName}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
