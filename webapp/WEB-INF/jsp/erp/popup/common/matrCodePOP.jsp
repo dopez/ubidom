@@ -6,9 +6,9 @@ var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
 var config={
-		title:"자재코드",
+		title:"품목코드",
 		id:"matrCode",
-		width:"300",
+		width:"550",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -21,8 +21,10 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"자재코드",   colId:"matrCode", 	width:"140", align:"center", type:"ro"});
-	gridMain.addHeader({name:"자재명", colId:"matrName", width:"140", align:"center", type:"ro"});
+    gridMain.addHeader({name:"품목코드",   colId:"matrCode", 	width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"품목명", colId:"matrName", width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격", colId:"matrSpec", width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"단위", colId:"matrUnit", width:"140", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","matrCode");
 	gridMain.init();
 	fn_search();
@@ -41,7 +43,9 @@ function doOnRowDblClicked(rId,cInd){
 	  var cell = cInd;
 	  var matrCode = gridMain.setCells2(row,0).getValue();
 	  var matrName = gridMain.setCells2(row,1).getValue();
-	  var arr = [{"matrCode":matrCode,"matrName":matrName}];
+	  var matrSpec = gridMain.setCells2(row,2).getValue();
+	  var matrUnit = gridMain.setCells2(row,3).getValue();
+	  var arr = [{"matrCode":matrCode,"matrName":matrName,"matrSpec":matrSpec,"matrUnit":matrUnit}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }
@@ -51,7 +55,7 @@ function doOnRowDblClicked(rId,cInd){
 	<form class="form-horizontal" id="frmSearch" name="frmSearch" style="padding-top:10px;padding-bottom:5px;margin:0px;"> 
 		<div class="form-group form-group-sm" style="width: 200px;">
 		   <label class="col-xs-4 control-label"  id="poplabel"for="textinput">
-			 자재명
+			 품목명
 			</label>
 			<div class="col-xs-6">
 			  <input name="matrName" id="matrName" type="text" value="" placeholder="" class="form-control input-xs">

@@ -53,6 +53,22 @@ public class BomS implements Serializable {
 	private String pCode;
 	private String pName;
 	private String pGubn;
+	
+	private String matrSpec;
+	private String matrUnit;
+	
+	public String getMatrSpec() {
+		return matrSpec;
+	}
+	public void setMatrSpec(String matrSpec) {
+		this.matrSpec = matrSpec;
+	}
+	public String getMatrUnit() {
+		return matrUnit;
+	}
+	public void setMatrUnit(String matrUnit) {
+		this.matrUnit = matrUnit;
+	}
 	public String getCompId() {
 		return compId;
 	}
