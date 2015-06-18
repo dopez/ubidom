@@ -126,7 +126,7 @@ public class DevMidSController {
 		if (tabId.equals("a1")) {
 			DevMidSService.selGridTab1(map);
 		} /*
-		 * else if (tabId.equals("a4")) { DevMidSService.selGridTab4(map); }
+		 * else if (tabId.equals("a4")) { DevMidSService.selGridTab4(map); } /*
 		 * else if (tabId.equals("a7")) { DevMidSService.selGridTab7(map); }
 		 * else if (tabId.equals("a8")) { DevMidSService.selGridTab8(map); }
 		 */
@@ -169,6 +169,8 @@ public class DevMidSController {
 		String tabId = request.getParameter("tabId");
 		if (tabId.equals("a1")) {
 			jsonData = request.getParameter("jsonData1");
+		} else if (tabId.equals("a5")) {
+			jsonData = request.getParameter("jsonData5");
 		}
 		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<DevMidS>>() {
 		});

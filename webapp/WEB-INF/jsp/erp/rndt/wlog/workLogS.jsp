@@ -20,8 +20,8 @@ $(document).ready(function() {
 
     //grid
     gridMain = new dxGrid(subLayout.cells("a"),false);
-    gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
-    gridMain.addHeader({name:"내용",colId:"logNote",width:"100",align:"left",type:"ed"});
+    gridMain.addHeader({name:"No",colId:"rNum",width:"50",align:"center",type:"ro"});
+    gridMain.addHeader({name:"내용",colId:"logNote",width:"500",align:"left",type:"ed"});
     gridMain.addHeader({name:"첨부",colId:"fileName",width:"100",align:"left",type:"ed"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
@@ -44,11 +44,17 @@ $(document).ready(function() {
     //popUp
     //gridMain.attachEvent("onRowSelect",doOnRowSelect);
 
-	$("#korName").click(function(e){
+	$("#korName, #logNum, #logName").dblclick(function(e){
 		if(e.target.id == "korName"){
 			popParam = e;
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		  }
+		if(e.target.id == "logNum"){
+			gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$(this).val()});
+		}
+		if(e.target.id == "logName"){
+			gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$(this).val()});
+		}
     })
     fn_loadGridMain();
 })
@@ -205,6 +211,13 @@ function fn_onClosePop(pName, data) {
             $('#korName').val(obj.korName);
             $('#empNo').val(obj.empNo);
         }
+    } else if (pName=="planNumb") {
+        for (i = 0; i < data.length; i++) {
+            obj.problemName = data[i].problemName;
+            obj.planNumb = data[i].planNumb;
+            $('#logName').val(obj.problemName);
+            $('#logNum').val(obj.planNumb);
+        }
     }
 };
 </script>
@@ -258,9 +271,9 @@ function fn_onClosePop(pName, data) {
                    <div class="col-sm-8 col-md-8">
                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
                        <div class="col-sm-4 col-md-4">
-                          <input type="radio" name="workKind" value="개발" checked="checked">개발
-                          <input type="radio" name="workKind" value="개선">개선
-                          <input type="radio" name="workKind" value="일반">일반
+                          <input type="radio" name="workKind" value="1" checked="checked">개발
+                          <input type="radio" name="workKind" value="2">개선
+                          <input type="radio" name="workKind" value="3">일반
                        </div>
                    </div>
                </div>
@@ -269,12 +282,14 @@ function fn_onClosePop(pName, data) {
                <div class="form-group form-group-sm">
                    <div class="col-sm-8 col-md-8">
                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 관리번호 </label>
-                       <div class="col-sm-1 col-md-1">
-                           <input name="logNum" id="logNum" type="text" value="${lognum}" placeholder="" class="form-control input-xs" >
-<!--                            <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')"> -->
+                       <div class="col-sm-2 col-md-2">
+	                       <div class="col-sm-10 col-md-10">
+	                           <input name="logNum" id="logNum" type="text" value="${lognum}" placeholder="" class="form-control input-xs" >
+	<!--                            <input name="logNum" id="logNum" type="text" value="" placeholder="" class="form-control input-xs" ondblclick="gfn_load_popup('관리번호','common/manageNumPOP')"> -->
+	                       </div>
                        </div>
-                       <div class="col-sm-3 col-md-3">
-                           <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
+                       <div class="col-sm-4 col-md-4" style="margin-left: -10px;">
+                           <div class="col-sm-11 col-md-11">
                                <input name="logName" id="logName" type="text" value="${logname}" placeholder="과제명" class="form-control input-xs">
                            </div>
                        </div>

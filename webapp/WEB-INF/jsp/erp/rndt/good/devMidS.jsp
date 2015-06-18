@@ -9,6 +9,8 @@ var tabId = "a1";
 var popFlag;
 var dateVal,seqVal,planNumVal;
 var setSearchParam = {};
+var savecnt = 0;
+
 $(document).ready(function() {
 
         Ubi.setContainer(4, [1, 2, 3, 4], "1C"); //개발중간평가등록
@@ -72,6 +74,7 @@ $(document).ready(function() {
         calMain.loadUserLanguage("ko");
         calMain.hideTime();
         if($("#openParam").val()=="u"){
+        	/*조회화면을 타고 올 때*/
         	dateVal = searchDate($("#setDate").val());
         	seqVal = $("#setSeq").val();
         	planNumVal = $("#planNumb").val();
@@ -92,6 +95,7 @@ $(document).ready(function() {
         	fn_frm4Chk();
 
         }else{
+        	/*처음 등록할 때*/
         	fn_setDate();
         	
         	fn_frm2Chk();
@@ -115,7 +119,7 @@ function fn_search(){
 		fn_searchFrmTab("frmTab4",tabId,fn_selfrmTab4CB);
 	}
 	if(tabId=="a5"){
-		//fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
+
 		//fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
 	}
 	if(tabId=="a6"){
@@ -142,6 +146,15 @@ function fn_searchGridTab(grid,tabId,layout,cbFunc){
 	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
 
 }
+function fn_init_searchGridTab(grid,tabId,layout,cbFunc,url){
+	var planNumbVal = $("#planNumb").val();
+	var obj = {};
+	obj.tabId = tabId;
+	obj.setDate = planNumbVal.substr(0,8);
+	obj.setSeq = planNumbVal.substr(8,2);
+	gfn_callAjaxForGrid(grid,obj,url,layout,cbFunc);
+
+}
 function fn_searchFrmTab(form,tabId,cbFunc){
 	fn_setSearchParam(tabId);
 	console.log(setSearchParam);
@@ -159,6 +172,7 @@ function fn_frmMain(id) {
 		        fn_frmMainSave();
 		        $('#setDate').keyup();
 		        fn_setCud("cudKey","u");
+	        	fn_init_searchGridTab(tab5,"a3",subTabbar.tabs("a5"),fn_init_searchGridTab5CB,"/erp/rndt/good/devPlanS/selGridTab")
 	        }else{
 	        	fn_setCud("cudKey","u");
 		        fn_frmMainSave();
@@ -178,6 +192,31 @@ function fn_frmMain(id) {
     }
 }
 function fn_onClosePop(pName,data){
+    var selRowIdx = tab5.getSelectedRowIndex();
+    var juDeptIdx = tab5.getColIndexById('cJuDept');
+    var juPostNameIdx = tab5.getColIndexById('cjuPostName');
+    var booDeptIdx = tab5.getColIndexById('cBooDept');
+    var booPostNameIdx = tab5.getColIndexById('cbooPostName');
+	if(pName=="postCode"&& popFlag == 7){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			tab5.setCells2(selRowIdx, juDeptIdx).setValue(obj.postCode);
+			tab5.setCells2(selRowIdx, juPostNameIdx).setValue(obj.postName);
+		}		  
+	}
+	if(pName=="postCode"&& popFlag == 8){
+		var i;
+		var obj={};
+		for(i=0;i<data.length;i++){
+			obj.postName=data[i].postName;
+			obj.postCode=data[i].postCode;
+			tab5.setCells2(selRowIdx, booDeptIdx).setValue(obj.postCode);
+			tab5.setCells2(selRowIdx, booPostNameIdx).setValue(obj.postName);
+		}		  
+	}
 	if (pName=="empNo") {
 		var i;
 		var obj={};

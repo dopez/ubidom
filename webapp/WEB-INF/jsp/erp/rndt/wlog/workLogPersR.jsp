@@ -23,7 +23,7 @@ $(document).ready(function() {
 
     //grid	
 	gridMain = new dxGrid(subLayout.cells("a"),false);
-	gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"No",colId:"rNum",width:"50",align:"center",type:"ro"});
 	gridMain.addHeader({name:"일자",colId:"logDate",width:"100",align:"center",type:"ro"});
 	gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"ro"});
 	gridMain.addHeader({name:"관리번호",colId:"logNum",width:"100",align:"center",type:"ro"});
@@ -202,9 +202,9 @@ function doOnRowDbClicked(rId,cInd){
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 종류 </label>
                         <div class="col-sm-4 col-md-4">
-                           <input type="radio" name="dairyGbn" value="개발">개발
-                           <input type="radio" name="dairyGbn" value="개선">개선
-                           <input type="radio" name="dairyGbn" value="일반">일반
+                           <input type="radio" name="dairyGbn" value="1">개발
+                           <input type="radio" name="dairyGbn" value="2">개선
+                           <input type="radio" name="dairyGbn" value="3">일반
                            <input type="radio" name="dairyGbn" value="%" checked="checked">전체
                         </div>
                     </div>

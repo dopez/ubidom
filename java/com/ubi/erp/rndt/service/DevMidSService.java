@@ -67,7 +67,10 @@ public class DevMidSService {
 			devMidS.setCompId(compId);
 			if (tabId.equals("a1")) {
 				dao.prcsGridTab1(devMidS);
+			}else if (tabId.equals("a5")) {
+				dao.prcsGridTab5(devMidS);
 			}
+
 		}
 
 	}

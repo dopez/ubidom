@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     //grid	
 	gridMain = new dxGrid(subLayout.cells("a"),false);
-	gridMain.addHeader({name:"No",colId:"rNum",width:"100",align:"center",type:"ro"});
+	gridMain.addHeader({name:"No",colId:"rNum",width:"50",align:"center",type:"ro"});
 	gridMain.addHeader({name:"일자",colId:"logDate",width:"100",align:"center",type:"ro"});
 	gridMain.addHeader({name:"담당",colId:"korName",width:"100",align:"center",type:"ro"});
 	gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"ro"});

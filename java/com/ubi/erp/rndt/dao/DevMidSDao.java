@@ -99,4 +99,16 @@ public interface DevMidSDao {
 
 	void selFrmTab4(Map<String, Object> map);
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void prcsGridTab5(DevMidS devMidS);
+
 }
