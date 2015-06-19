@@ -233,9 +233,14 @@ function doOnRowSelect(rowId, colIdx) {
             "custKorName": param
         });
     }
+    
     if (colIdx == 5) {
-    	$("#fileTest").click();
-    	$("#fileTest").val();
+    	document.getElementById("fileTest").click()
+    	//$( "#fileTest" ).trigger( "click" );
+    //byId("fileTest").click();
+    	//alert($("#fileTest").val());
+    gridMain.setCells(rowId,colIdx-1).setValue($("#fileTest").val());
+   	gridMain.dxObj.selectRowById(rowId,true,true,true);
     }
     
 }
