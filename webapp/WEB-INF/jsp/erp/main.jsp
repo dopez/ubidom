@@ -57,7 +57,7 @@ $( document ).ready(function() {
 	mainLayout.cells("a").attachObject("top");
 	mainTabbar.enableAutoReSize(true);
 	mainLayout.cells("b").setWidth(220);
-	mainLayout.cells("a").setHeight(50);
+	mainLayout.cells("a").setHeight(25);
 	mainLayout.cells("a").fixSize(false, true);
 
 	/* 메뉴 쪽 레이아웃 사이즈 조절 가능*/
@@ -68,6 +68,7 @@ $( document ).ready(function() {
 	//mainLayout.cells("c").fixSize(true, true);
 	//mainLayout.cells("b").fixSize(true, true);
 
+	/*cell collapse*/
 	//mainLayout.cells("a").collapse();
  	//mainLayout.cells("d").collapse();
 
@@ -75,18 +76,18 @@ $( document ).ready(function() {
 		mainMenu.getDxObj().selectItem(id);
 		//Tabbar 클릭시 Tree scroll이 해당위치로 이동
 		mainMenu.getDxObj().focusItem(id);
+		//Tabbar 클릭시 menu path get
+		getViewFullPath(id);
 		return true;
 	});
-
 	mainTabbar.attachEvent("onTabClose", function(id){
 		if(mainTabbar.getNumberOfTabs() <= 1){
-// 			$("[name=path]").val("");
+ 			$("[name=pathbar]").val("");
 		}
 		return true;
 	});
 	mainTabbar.attachEvent("onContentLoaded", function(id){
-
-		setViewFullPath(id);
+		getViewFullPath(id);
 	});
 	$(window).resize(function(){
 		mainLayout.setSizes();
@@ -129,11 +130,11 @@ $( document ).ready(function() {
 		location.replace("/erp/main.do");
 	})
 })
+/*END MAIN DOC READY*/
 
 function doItemAction(cell) {
-    // actions, for example:
+/*all main cell header remove*/
     	cell.hideHeader();
-
 }
 
 function fncMenuConf() {
@@ -170,26 +171,7 @@ var fncSetMenuLoad = function(param) {
 function chg_selected_tab(id,lastId) {
 
 }
-function getViewFullPath(id){
 
-	var finalPath="";
-	var path;
-	var level;
-	var initPath = mainMenu.getDxObj().getItemText(id);
-
-	level = mainMenu.getDxObj().getLevel(id);
-	mainMenu.getDxObj().selectItem(id);
-	do {
-
-		var parentId = mainMenu.getDxObj().getParentId(id);
-		path = " / "+mainMenu.getDxObj().getItemText(parentId);
-		finalPath = path+finalPath;
-		id = parentId;
-		level--;
-	}while (level > 1);
-// 	mainLayout.cells("b").setText("<input id='pathbar' readonly style='margin-top:5px;border:0px;background-color:transparent;width:190px;' value='"+finalPath.slice(1)+" ▶ "+initPath+"'/>");
-	return finalPath.slice(2)+" / "+initPath;
-}
 var fncSelectItem = function(tree, id) {
 	var exegbn = "";
 	try { // folder
@@ -212,7 +194,7 @@ var fncSelectItem = function(tree, id) {
 		scrnParm = tree.getUserData(id, "scrnParm");
 
 		var menuItemText = tree.getDxObj().getItemText(id);
-
+		
 		mainTabbar.forEachTab(function(tab){
 		    var tabId = tab.getId();
 		    if(id == tabId){
@@ -223,38 +205,49 @@ var fncSelectItem = function(tree, id) {
 		});
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
-			 // mainTabbar.tabs(id).attachURL("/erp/test.do");
-			  console.log(uri);
-			  mainTabbar.tabs(id).attachURL("/"+uri+".do");
+            mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 
 	}
 }
-function setViewFullPath(id){
+function getViewFullPath(id){
+	var finalPath="";
+	var path;
+	var level;
+	var initPath = mainMenu.getDxObj().getItemText(id);
 
-	var ifr = mainTabbar.tabs(id).getFrame();
-	var fullpath = getViewFullPath(id);
+	level = mainMenu.getDxObj().getLevel(id);
+	mainMenu.getDxObj().selectItem(id);
+	do {
 
-	var elem = ifr.contentWindow.document.getElementById("path");
-	elem.innerHTML = fullpath;
+		var parentId = mainMenu.getDxObj().getParentId(id);
+		path = " > "+mainMenu.getDxObj().getItemText(parentId);
+		finalPath = path+finalPath;
+		id = parentId;
+		level--;
+	}while (level > 1);
+	$("#pathbar").val(finalPath.slice(2)+" > "+initPath);
 }
-
-
-
 </script>
-<script type="text/javascript" src="/script/erp/main/mainViewPath.js"></script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="scrnParm" name="scrnParm" />
 </form>
-<div id="top">
-	<div style="float:left;margin-top:15px;margin-left:30px;" id="home" >
-	<a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp;
-	<a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a>
+<div id="top" style="background-color:black ;">
+	<div style="float:left;margin-top:5px;margin-left:30px;" id="home" >
+<!-- 메뉴경로 넣기 전 -->
+<!-- <div style="float:left;margin-top:15px;margin-left:30px;" id="home" > -->
+<!-- <a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp; -->
+<!-- <a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a> -->
+		<p id="test">
+			<input name='pathbar' id='pathbar' readonly style='font-weight:bold; border:0px;background-color:transparent;width:400px;' value=''/>
+		</p>
 	</div>
 
-	<div style="float:right;margin-top:15px;margin-right:30px;"id="logout">
-<!-- 		<a  href="#" id="full_screen">전체화면</a>
- -->		<a  href="#" id="log_out">로그아웃</a></div>
+	<div style="float:right;margin-top:5px;margin-right:30px;"id="logout">
+<!-- 		<a  href="#" id="full_screen">전체화면</a>-->	
+		<input name='empNo' id='empNo' readonly style='font-weight:bold; margin-right:0px; border:0px;background-color:transparent; text-align:right' value="사번 : ${empNo}">
+		<input name='empNm' id='empNm' readonly style='font-weight:bold; margin-right:50px; border:0px;background-color:transparent; text-align:right' value="이름 : ${empName}">
+ 		<a  href="#" id="log_out">로그아웃</a></div>
 	</div>
 <div id="container"></div>
 <!-- <div id="statusBar" style="height:20px;">STATUS BAR</div> -->
