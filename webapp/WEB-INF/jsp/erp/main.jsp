@@ -47,6 +47,7 @@ $( document ).ready(function() {
 	leftToolbar.attachEvent("onValueChange", function(id, value){
 		mainMenu.getDxObj().findItem(value,0,1);
 	});
+	//leftToolbar.addInput("input_new",1,"",200);
 	mainMenu = mainLayout.cells("b").attachTree();
 	mainMenu.enableSmartCheckboxes(true);
 	fncMenuConf();
