@@ -7,7 +7,7 @@ function fn_setTab6(){
 	tab6.addHeader({name:"#cspan",colId:"totMm",width:"100",align:"center",type:"ro"});
 	tab6.addHeader({name:"변경",colId:"cStaff",width:"50",align:"center",type:"edn"});
 	tab6.addHeader({name:"#cspan",colId:"cMm",width:"50",align:"center",type:"edn"});
-	tab6.addHeader({name:"#cspan",colId:"cTotMm",width:"100",align:"center",type:"ron[=c4*c5]"});
+	tab6.addHeader({name:"#cspan",colId:"cTotMm",width:"100",align:"center",type:"ro[=c4*c5]"});
 	tab6.addHeader({name:"비고",colId:"remarks",width:"300",align:"center",type:"ed"});
 	tab6.setColSort("str");	
 	tab6.setUserData("","pk","dataKind");

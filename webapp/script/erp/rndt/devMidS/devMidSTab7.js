@@ -9,10 +9,12 @@ function fn_setTab7(){
     tab7Toolbar.attachEvent("onClick",function(id){
     	if(id=="btn3"){
     		fn_tab7Save();
+			savecnt7 = 1
     	}
     	if(id=="btn4"){
     		savecnt7 = 2;
 			fn_tab7Save();
+    		savecnt7 = 0;
     	}
     })
 }
@@ -50,20 +52,14 @@ function fn_tab7Save(){
     	param.planNumb = planNumVal
     	
     	console.log("tab7 param = ",param);
-    	savecnt7 = 1;
-/*        $.ajax({
+        $.ajax({
             type: 'POST',
             url: "/erp/rndt/good/devPlanS/frmTab7Save",
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
-            	if($('#cudKey7').val()=='DELETE'){
-            		byId("cudKey7").value = 'INSERT';
-            	}else{
-            		byId("cudKey7").value = 'UPDATE';
-            	}
             }
-        });*/
+        });
     }
 }
 function fn_selfrmTab7CB_1(data){
