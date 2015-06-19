@@ -21,7 +21,6 @@ var leftForm;
 var leftToolbar;
 var scrnParm;
 $( document ).ready(function() {
-
 	mainLayout = new dhtmlXLayoutObject({
 			parent: "container",
 			pattern: "3T"
@@ -243,6 +242,7 @@ function setViewFullPath(id){
 
 
 </script>
+<script type="text/javascript" src="/script/erp/main/mainViewPath.js"></script>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="scrnParm" name="scrnParm" />
 </form>
