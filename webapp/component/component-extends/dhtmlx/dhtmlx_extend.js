@@ -325,7 +325,11 @@ function fileupload(tagId,imgId,callbackFn){
 
 function searchDate(dateValue){
 	var splitfrDate = dateValue.split("/");
-    var dateValue = splitfrDate[0]+splitfrDate[1]+splitfrDate[2];
+	console.log(splitfrDate.length)
+	for(var i=0;i<splitfrDate.length;i++){
+		dateValue = dateValue + splitfrDate[i];
+	}
+    
     return dateValue;
 }
 function gfn_1col_comboLoad(comboId, params) {
@@ -464,22 +468,3 @@ function fncRowMerge(colIdx, grid) {
 	  preVal = nowVal;
 	 }
 } 
-
-function cs_tab_close(grid,cudidx){
-	mainTabbar.attachEvent("onTabClose", function(id){
-		alert(grid.getRowsNum());
-		for(var i=0;i<grid.getRowsNum();i++){
-			var crudVal = grid.setCells2(i,cudidx).getValue();
-			console.log(crudVal);
-			if(crudVal == 'INSERT' || crudVal == 'UPDATE'){
-				
-				break;
-				return false;
-			}else{
-				return true;
-			}
-		}
-		
-		
-	});
-}

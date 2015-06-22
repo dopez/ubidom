@@ -8,7 +8,7 @@ var toolbar;
 var config={
 		title:"품목코드",
 		id:"itemCode",
-		width:"500",
+		width:"470",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -21,12 +21,13 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"품목코드",   colId:"itemCode", 	width:"140", align:"center", type:"ro"});
-	gridMain.addHeader({name:"품목명", colId:"itemName", width:"140", align:"center", type:"ro"});
-	gridMain.addHeader({name:"규격", colId:"itemSpec", width:"140", align:"center", type:"ro"});
-	gridMain.addHeader({name:"단위", colId:"itemUnit", width:"140", align:"center", type:"ro"});
+    gridMain.addHeader({name:"품목코드", colId:"itemCode", width:"150", align:"center", type:"ro"});
+	gridMain.addHeader({name:"품목명",   colId:"itemName", width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"itemSpec", width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"단위",     colId:"itemUnit", width:"100", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","itemCode");
 	gridMain.init();
+	gridMain.cs_setColumnHidden(["packUnit"]);
 	fn_search();
 });
  function fn_search(){
@@ -43,7 +44,9 @@ function doOnRowDblClicked(rId,cInd){
 	  var cell = cInd;
 	  var itemCode = gridMain.setCells2(row,0).getValue();
 	  var itemName = gridMain.setCells2(row,1).getValue();
-	  var arr = [{"itemCode":itemCode,"itemName":itemName}];
+	  var itemUnit = gridMain.setCells2(row,3).getValue();
+	  var packUnit = gridMain.setCells2(row,4).getValue();
+	  var arr = [{"itemCode":itemCode,"itemName":itemName,"itemUnit":itemUnit,"packUnit":packUnit}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }

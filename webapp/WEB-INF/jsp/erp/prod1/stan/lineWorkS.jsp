@@ -47,8 +47,7 @@ $(document).ready(function(){
 	 });
 	
 	fn_search();
-	
-	cs_tab_close(gridDtl,7);
+
 });
 
 function fn_cellChange(flag){
