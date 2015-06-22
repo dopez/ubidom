@@ -10,8 +10,10 @@ var PscrnParm = parent.scrnParm;
 //로그인 empno 값
 var logInEmp = $("#empNo").val();
 $(document).ready(function() {
-
-    Ubi.setContainer(2, [2,4,1, 3, 5, 6], "1C"); //업무일지등록
+	
+	
+	
+    Ubi.setContainer(2, [2,4,1, 3, 5, 6,9], "1C"); //업무일지등록
 
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -27,6 +29,7 @@ $(document).ready(function() {
     gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"combo"});
     gridMain.addHeader({name:"내용",colId:"logNote",width:"200",align:"left",type:"ed"});
     gridMain.addHeader({name:"첨부",colId:"fileName",width:"50",align:"left",type:"ed"});
+    gridMain.addHeader({name:"test",colId:"test",width:"400",align:"left",type:"ro"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
     gridMain.init();
@@ -59,9 +62,36 @@ $(document).ready(function() {
 			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
 		  }
     })
+	$("#SAVE").click(function(e){
+		if(e.target.id == "korName"){
+			popParam = e;
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		  }
+    })
     fn_loadGridMain();
 })
 //doc ready end
+
+function fn_print(){
+	$("#frmFile").submit();
+}
+var cnt = 0
+/*히든 인풋(파일)을 만들어놓고 로우를 더블클릭 했을 때 타게 만든다!*/
+/* function eXcell_file(cell){ //the eXcell name is defined here
+	    if (cell){                // the default pattern, just copy it
+	        this.cell = cell;
+	        this.grid = this.cell.parentNode.grid;
+	    }
+	    this.edit = function(){}  //read-only cell doesn't have edit method
+	    this.isDisabled = function(){ return true; } // the cell is read-only, so it's always in the disabled state
+	    this.setValue=function(val){
+	        this.setCValue("<div><form id='frmFile"+cnt+"' method='post' action='/file/prcsFile.sc' enctype='multipart/form-data'>"
+	        +"<input type='file' name='attachFile' value='"+val+"'><input type='submit' id='SAVE' name='SAVE' value='SAVE'></form></div>",val);                                      
+	        //this.setCValue("<input type='file' name='attachFile' value='"+val+"'>",val);                                      
+	    }
+	}
+	eXcell_file.prototype = new eXcell;// nests all other methods from the base class
+ */
 function fn_getSeqReturn() {
     var obj = {};
     obj.tableName = 'TBL_WORK_LOG';
@@ -114,6 +144,7 @@ function fn_gridMainSelCallbckFunc(data) {
 function fn_delete() {
     var selectedId = gridMain.getSelectedRowId();
     gridMain.cs_deleteRow(selectedId);
+    cnt = cnt-1;
 }
 function fn_remove(){
 	  	var totalRowNum = gridMain.getRowsNum();
@@ -122,14 +153,18 @@ function fn_remove(){
 		}
 }
 function fn_save() {
+	/*seqNo가 비었을 때만 코드 리턴 한다.*/ 
+	if($("#seqNo").val()==null||$("#seqNo").val()==""
+		||typeof $("#seqNo").val()=="undefined"){
+		fn_getSeqReturn();
+	}
   	var totalRowNum = gridMain.getRowsNum();
-	 fn_getSeqReturn();
     var selRowIdx = gridMain.getSelectedRowIndex();
     var logSeqCol = gridMain.getColIndexById('logSeq');
     for(var i = 0 ;i<totalRowNum;i++){
         gridMain.setCells2(i, logSeqCol).setValue($("#seqNo").val());
     }
-         var jsonStr = gridMain.getJsonUpdated2();
+        var jsonStr = gridMain.getJsonUpdated2();
         $("#jsonData").val(jsonStr);
         var frmParam = $("#frmServer").serialize();
 	
@@ -156,7 +191,7 @@ function fn_new(){
 }
 function fn_gridMainSaveCallbckFunc(data) {
     dhtmlx.alert("저장 완료");
-    fn_new();
+    //fn_new();
 }
 
 function fn_comboLoad(comboId, inputName, params, colIndx) {
@@ -198,9 +233,20 @@ function doOnRowSelect(rowId, colIdx) {
             "custKorName": param
         });
     }
+    
+    if (colIdx == 5) {
+    	document.getElementById("fileTest").click()
+    	//$( "#fileTest" ).trigger( "click" );
+    //byId("fileTest").click();
+    	//alert($("#fileTest").val());
+    gridMain.setCells(rowId,colIdx-1).setValue($("#fileTest").val());
+   	gridMain.dxObj.selectRowById(rowId,true,true,true);
+    }
+    
 }
 
 function fn_add() {
+	cnt = cnt+1;
     var empNoVal = $('#empNo').val();
     if (empNoVal == null || empNoVal.length <= 0) {
         dhtmlx.alert("사원이름을 입력해주세요.");
@@ -245,9 +291,11 @@ function fn_onClosePop(pName, data) {
     }
 };
 </script>
-
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
+<form id='frmFile' method='post' action='/erp/sale/wlog/workLogS/prcsFile2.sc' enctype='multipart/form-data'>
+<input type='file' name='attachFile' id="fileTest" value=''><input type='submit' id='SAVE' name='SAVE' value='SAVE'>
+</form>
 <form id="frmServer">
 <input type="hidden" id="jsonData" name="jsonData">
 </form>
@@ -289,6 +337,9 @@ function fn_onClosePop(pName, data) {
                                  <input name="korName" id="korName" type="text" value="${empName}" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
+                       <!--  <div class="col-sm-2 col-md-2">
+                            <input name="testFile" id="testFile" type="file" value="" placeholder="" class="form-control input-xs">
+                        </div> -->
                     </div>
                 </div>
             </div>

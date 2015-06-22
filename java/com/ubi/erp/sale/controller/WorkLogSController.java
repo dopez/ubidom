@@ -1,5 +1,6 @@
 package com.ubi.erp.sale.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +23,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ubi.erp.cmm.exception.UbiBizException;
+import com.ubi.erp.cmm.file.AttachFileService;
+import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.sale.domain.WorkLogS;
 import com.ubi.erp.sale.service.WorkLogSService;
-
-
+import com.ubi.erp.user.controller.FileController;
+import com.ubi.erp.user.domain.AttachFile;
 
 @RestController
 @RequestMapping(value="/erp/sale/wlog/workLogS")
@@ -35,8 +39,53 @@ public class WorkLogSController {
 	@Autowired
 	private WorkLogSService workLogSService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkLogSController.class);
-	
-	
+
+	private static final Logger LOGGER2 = LoggerFactory.getLogger(FileController.class);
+
+	@Autowired
+	private AttachFileService attachFileService;
+
+	@RequestMapping(value = "/prcsFile2.sc")
+	public void prcsFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		StringBuffer sb = new StringBuffer();
+
+		try {
+			String test = PropertyUtil.getString("attach.savedir");
+
+			// 01. 물리파일 서버저장
+			List<AttachFile> uploadFileList = attachFileService.uploadAttachFile(PropertyUtil.getString("attach.savedir"), request, response);
+
+			// 02. 파일업로드 DB처리 (첫번째 파라미터가 "" 일 경우 신규, 수정일 경우 ID 셋팅)
+			// attachFileService.prcsAttachFile("", uploadFileList);
+
+			// 03. 파일정보 디버그
+			for (AttachFile file : uploadFileList) {
+				LOGGER2.debug(file.getFileSaveNm());
+				LOGGER2.debug(file.getFileSize());
+			}
+
+			// 04. 파일업로드를 위해 Form.submit 했으므로 .do 호출함
+			sb.append("<script>\n");
+			sb.append("    alert('저장되었습니다.');\n");
+			// sb.append("    location.replace('/erp/sale/wlog/workLogS.do');\n");
+			sb.append("</script>\n");
+		} catch (UbiBizException ube) {
+			sb.append("<script>\n");
+			sb.append("    MsgManager.alertMsg('ERR004');\n");
+			sb.append("    history.go(-1);\n");
+			sb.append("</script>\n");
+		} catch (IOException ioe) {
+			sb.append("<script>\n");
+			sb.append("    MsgManager.alertMsg('ERR004');\n");
+			sb.append("    history.go(-1);\n");
+			sb.append("</script>\n");
+		}
+
+		response.setContentType("text/html");
+		response.getOutputStream().print(new String(sb.toString().getBytes("UTF-8"), "8859_1"));
+
+	}
 	public ModelAndView getSession(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException{
 		String empNo = (String) session.getAttribute("empNo");
 		String empName = (String) session.getAttribute("empName");
