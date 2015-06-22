@@ -445,3 +445,21 @@ function cs_selectRow_check(grid,colId,colValue){
 		}
 	return rowIdx;
 }
+
+function fncRowMerge(colIdx, grid) {
+	 var preVal = grid.getDxObj().cells2(0,colIdx).getValue();
+	 var nowVal = "";
+	 for(var i = 1; i < grid.getRowsNum(); i++) {
+	  nowVal = grid.getDxObj().cells2(i,colIdx).getValue();
+	  if (preVal == nowVal) {
+	   var rowID = gridMain.getRowId(i);
+	   if(i%2==0){
+	    grid.getDxObj().setCellTextStyle(rowID, colIdx, "color:white;"); 
+	   }else{
+	    grid.getDxObj().setCellTextStyle(rowID, colIdx, "color:#E5E5E5;");
+	   }
+	   
+	  }
+	  preVal = nowVal;
+	 }
+} 

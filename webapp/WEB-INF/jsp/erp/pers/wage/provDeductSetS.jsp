@@ -45,7 +45,7 @@ function fn_search(){
 }
 
 function gridMainCB(data){
-	fncRowMerge(1);
+	fncRowMerge(1,gridMain);
 }
 
 function fn_save(){
@@ -73,18 +73,6 @@ function fn_delete(){
 	gridMain.cs_deleteRow(rodid);
 }
 
-function fncRowMerge(colIdx) {
-	var preVal = gridMain.getDxObj().cells2(0,colIdx).getValue();
-	var nowVal = "";
-	for(var i = 1; i < gridMain.getRowsNum(); i++) {
-		nowVal = gridMain.getDxObj().cells2(i,colIdx).getValue();
-		if (preVal == nowVal) {
-			var rowID = gridMain.getRowId(i);
-			gridMain.getDxObj().setCellTextStyle(rowID, colIdx, "color:white;");
-		}
-		preVal = nowVal;
-	}
-}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

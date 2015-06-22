@@ -82,7 +82,7 @@ function fn_comboLoad(comboId){
 	comboId.setTemplate({
 	    input: "#interName#",
 	    columns: [
-          {header: "사워번호", width: 110, option: "#empNo#"},
+          {header: "사원번호", width: 110, option: "#empNo#"},
           {header: "사원명", width: 100, option: "#korName#"}
 	    ]
 	});
