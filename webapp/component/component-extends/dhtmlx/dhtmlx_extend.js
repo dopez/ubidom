@@ -180,7 +180,7 @@ var subToolbar = function(toolbar,sublayout,btn_id_array){
 	toolbar.loadStruct("/common/json/button.json",fn_onLoad);
 
 	function fn_onLoad(){
-	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
+	  var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10,11];
 
 	  for(var i=0; i< btn_id_array.length; i++){
 	       var index = item_id_set_arr.indexOf(btn_id_array[i]);
