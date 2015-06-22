@@ -12,6 +12,7 @@ var actDelete = "DELETE";
 var gAutoHeight = true;
 var gridHeight = -50;
 var editIcon = "<img src=/images/common/caution01.png>";
+var mainTabbar = parent.mainTabbar;
 // fn editing
 function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 	if(stage==0) { // Before Editing
@@ -463,3 +464,22 @@ function fncRowMerge(colIdx, grid) {
 	  preVal = nowVal;
 	 }
 } 
+
+function cs_tab_close(grid,cudidx){
+	mainTabbar.attachEvent("onTabClose", function(id){
+		alert(grid.getRowsNum());
+		for(var i=0;i<grid.getRowsNum();i++){
+			var crudVal = grid.setCells2(i,cudidx).getValue();
+			console.log(crudVal);
+			if(crudVal == 'INSERT' || crudVal == 'UPDATE'){
+				
+				break;
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		
+	});
+}

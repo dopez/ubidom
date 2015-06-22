@@ -129,7 +129,7 @@ $(document).ready(function(){
 	combo01 =gridDtl01.getColumnCombo(1);
 	combo02 =gridDtl01.getColumnCombo(2);
 	combo03 =gridDtl02.getColumnCombo(4);
-	combo04 = dhtmlXComboFromInput("empNo");
+	combo04 = dhtmlXComboFromSelect("empNo");
 	combo05 =gridDtl02.getColumnCombo(2);
 	
 	gfn_1col_comboLoad(combo01,"E02");
@@ -138,8 +138,10 @@ $(document).ready(function(){
 	fn_comboLoad(combo04,"1");
 	fn_comboLoad(combo05,"2");
 	
-	fn_gridMstSearch();
 	
+	/* combo05.attachEvent("onKeyPressed", function(keyCode){
+		
+	 }); */
 	
 	combo05.attachEvent("onChange", function(){
 		var rowIdx = gridDtl02.getSelectedRowIndex();
@@ -147,6 +149,8 @@ $(document).ready(function(){
 		gridDtl02.setCells2(rowIdx,2).setValue(combo05.getSelectedText().partName);
 		gridDtl02.setCells2(rowIdx,3).setValue(combo05.getSelectedText().partSpec);
 	});
+	
+	fn_gridMstSearch();
 });
 
 function fn_comboLoad(comboId,cFlag){
