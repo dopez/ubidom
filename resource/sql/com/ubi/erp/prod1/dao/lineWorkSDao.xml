@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ubi.erp.prod1.dao.LineWorkSDao">
+
+	<resultMap id="LineWorkSMap" type="LineWorkS"/>
+
+	<select id="selLineWorkSL" statementType="CALLABLE">
+		 {call SP_PROD_LINEWORKS_SCH1(#{compId},#{lineCode},#{lineName},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=LineWorkSMap, javaType=ResultSet})}
+	</select>
+
+	<select id="selLineWorkSR" statementType="CALLABLE">
+		 {call SP_PROD_LINEWORKS_SCH2(#{compId},#{lineCode},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=LineWorkSMap, javaType=ResultSet})}
+	</select>
+
+	<insert id="prcsLineWorkS" statementType="CALLABLE" parameterType="LineWorkS">
+  		{call SP_PROD_LINEWORKS_SAVE(
+  		#{cudKey},#{compId},#{lineCode},#{lineName},#{matrCode},
+  		#{person},#{dayAmount},#{regDate},#{sysEmpNo}
+  		)}	
+  	</insert>
+  
+</mapper>

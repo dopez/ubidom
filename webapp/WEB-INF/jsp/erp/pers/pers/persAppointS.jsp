@@ -87,7 +87,7 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo08,"000");
 	fn_comboLoad(combo09);
 	
-	combo09.attachEvent("onClose", function(){
+	combo09.attachEvent("onChange", function(){
 	var rowIdx = gridDtl.getSelectedRowIndex();
 	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().postCode);
 	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
