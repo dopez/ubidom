@@ -12,7 +12,7 @@ var tabId = null;
 var uri = null;
 $(document).ready(function() {
 
-    Ubi.setContainer(4, [1, 8, 9], "1C"); //업무일지조회(담당)
+    Ubi.setContainer(4, [1, 8, 11,9], "1C"); //업무일지조회(담당)
 
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
