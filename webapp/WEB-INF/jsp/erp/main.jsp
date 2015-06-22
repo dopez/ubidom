@@ -172,7 +172,7 @@ var fncSetMenuLoad = function(param) {
 function chg_selected_tab(id,lastId) {
 
 }
-
+var menuId;
 var fncSelectItem = function(tree, id) {
 	var exegbn = "";
 	try { // folder
@@ -193,7 +193,8 @@ var fncSelectItem = function(tree, id) {
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
 		scrnParm = tree.getUserData(id, "scrnParm");
-
+		/*메뉴id 전역변수 처리*/
+		menuId = id;
 		var menuItemText = tree.getDxObj().getItemText(id);
 		
 		mainTabbar.forEachTab(function(tab){

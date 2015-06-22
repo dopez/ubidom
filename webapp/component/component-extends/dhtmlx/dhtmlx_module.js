@@ -60,14 +60,17 @@ var Ubi = (function() {
 		var height_arr = [50,80,114,144];
 		config.toolbar = config.layout.cells("a").attachToolbar();
 		var size = 18;
-
+		/*종료버튼 공통적용*/
+		if(parent.menuId != null || typeof parent.menuId != "undefined"){
+			btn_id_array.push(11);
+		}
 		config.toolbar.clearAll();
 		config.toolbar.setIconSize(18);
 		config.toolbar.setIconsPath("/images/button/dhtmlx/");
 		config.toolbar.loadStruct("/common/json/button.json",fn_onLoad);
-
 		function fn_onLoad(){
-			var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10];
+			console.log(btn_id_array);
+			var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10,11];
 		    
 		    for(var i=0; i< btn_id_array.length; i++){
 		    	var index = item_id_set_arr.indexOf(btn_id_array[i]);
@@ -87,6 +90,7 @@ var Ubi = (function() {
         if(bln){
         	config.layout.cells("b").setHeight(height_arr[height_level-1]);
         }
+
     }
 	
     var setSubLayout = function(pattern,cellId){
@@ -123,3 +127,8 @@ var Ubi = (function() {
     };
     
 })();
+function fn_exit(){
+	var mainTabbar = parent.mainTabbar;
+	var menuId = parent.menuId;
+		mainTabbar.tabs(menuId).close();
+	}

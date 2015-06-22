@@ -22,5 +22,8 @@
 	{ id:"sep8", type: "separator" },
 	{ id: "btn9", type: "button", img: "print.gif" ,text:"인쇄" ,action:"fn_print"},
 	{ id:"sep9", type: "separator" },
-	{ id: "btn10", type: "button", img: "help.gif" ,text:"도움말" ,action:"fn_help"}
+	{ id: "btn10", type: "button", img: "help.gif" ,text:"도움말" ,action:"fn_help"},
+	{ id:"sep10", type: "separator" },
+	{ id: "btn11", type: "button", img: "close.gif" ,text:"종료" , action:"fn_exit"},
+	{ id:"sep11", type: "separator" }
 ]
