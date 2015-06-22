@@ -40,6 +40,10 @@ public class DevMidS implements Serializable {
 
 	private String opKind;
 
+	private String midEvalKind;
+
+	private String evaluateNumb;
+
 	/* tab1 */;
 
 	private String entryKind;
@@ -496,6 +500,22 @@ public class DevMidS implements Serializable {
 
 	public void setCbooPostName(String cbooPostName) {
 		this.cbooPostName = cbooPostName;
+	}
+
+	public String getMidEvalKind() {
+		return midEvalKind;
+	}
+
+	public void setMidEvalKind(String midEvalKind) {
+		this.midEvalKind = midEvalKind;
+	}
+
+	public String getEvaluateNumb() {
+		return evaluateNumb;
+	}
+
+	public void setEvaluateNumb(String evaluateNumb) {
+		this.evaluateNumb = evaluateNumb;
 	}
 
 	public static long getSerialversionuid() {

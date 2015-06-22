@@ -88,6 +88,35 @@ public class DevMidSController {
 		return list;
 	}
 
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @RequestMapping(value = "/selDevPlanPop02", method = RequestMethod.POST)
+	 * public List<DevMidS> selDevPlanPop02(HttpServletRequest request,
+	 * HttpServletResponse response, HttpSession session, DevMidS DevMidS)
+	 * throws Exception { String comp = (String) session.getAttribute("compId");
+	 * String problemName = request.getParameter("problemName");
+	 * 
+	 * Map<String, Object> map = new HashMap<String, Object>();
+	 * map.put("V_COMPID", comp); map.put("V_PROBLEM_NAME", problemName);
+	 * map.put("o_cursor", null); DevMidSService.selDevPlanPop02(map);
+	 * List<DevMidS> list = (List<DevMidS>) map.get("o_cursor"); return list; }
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selDevPlanPop02", method = RequestMethod.POST)
+	public List<DevMidS> selDevPlanPop02(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String planNumb = request.getParameter("planNumb");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_PLAN_NUMB", planNumb);
+		map.put("o_cursor", null);
+		DevMidSService.selDevPlanPop02(map);
+		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
+		return list;
+	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selFrmMain", method = RequestMethod.POST)
 	public List<DevMidS> selFrmMain(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
