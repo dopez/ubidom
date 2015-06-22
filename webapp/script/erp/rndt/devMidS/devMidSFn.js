@@ -14,8 +14,6 @@ function fn_getSeqReturn(){
 	    obj.seqColumn = 'SET_SEQ';
 	    obj.dateColumn1 = 'SET_DATE';
 	    obj.columnData1 = searchDate($("#setDate").val());
-	    //obj.dateColumn2 = 'PLAN_NUMB';
-	    //obj.columnData2 = $("#planNumb").val();
 	    obj.returnLen = 2;
 	    gfn_callAjaxComm(obj,"/erp/comm/stan/tableSeq/selTableSeq1",fn_SetSeq); 
 }
@@ -38,6 +36,7 @@ function fn_frmMainSave(){
 	dateVal = searchDate($("#setDate").val());
 	seqVal = $("#setSeq").val();
 	planNumVal = $("#planNumb").val();
+	evaluateNumb = $("#evaluateNumb").val();
  	var params = gfn_getFormElemntsData('frmMain');
 	$("input[name=setSeq]").attr("disabled",true);
 	console.log(params);
@@ -53,13 +52,6 @@ function fn_frmMainSave(){
 function fn_SetSeq(data) {
 	   $("#setSeq").val(data[0].seq);
 	};
-function fn_new(){
-	byId("frmMain").reset();
-	$("#setSeq").val("");
-	fn_setDate();
-    $('#setDate').keyup();
-    fn_setCud("cudKey","i");
-}
 function fn_setDate(){
     var t = dateformat(new Date());
     byId("setDate").value = t;
@@ -80,3 +72,12 @@ function fn_setCud(cudId,flag){
 		byId(cudId).value = 'DELETE';
 	}
 }
+$(document).ready(function() {
+    //setDate//
+    calMain = new dhtmlXCalendarObject([{
+        input: "setDate",
+        button: "calpicker1"
+    }]);
+    calMain.loadUserLanguage("ko");
+    calMain.hideTime();
+});

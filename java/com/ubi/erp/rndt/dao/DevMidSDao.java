@@ -123,4 +123,16 @@ public interface DevMidSDao {
 	 */
 	void prcsGridTab6(DevMidS devMidS);
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selDevPlanPop02(Map<String, Object> map);
+
 }

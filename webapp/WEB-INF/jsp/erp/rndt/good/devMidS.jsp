@@ -7,7 +7,7 @@ var combo01;
 var tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
 var tabId = "a1";
 var popFlag;
-var dateVal,seqVal,planNumVal;
+var dateVal,seqVal,planNumVal,evaluateNumb;
 var setSearchParam = {};
 var savecnt = 0;
 var savecnt6 = 0;
@@ -23,7 +23,6 @@ $(document).ready(function() {
 
         //main form//
         layout.cells("b").attachObject("bootContainer2");
-        layout.cells("b").setHeight(180);
 		
     	toolbar.attachEvent("onClick", fn_frmMain);
 
@@ -53,28 +52,48 @@ $(document).ready(function() {
         fn_setTab7();
         fn_setTab8();
         //tab end
-
-        //POP UP//
-        $("#planNumb, #korName").dblclick(function(e){
-			if(e.target.id == "planNumb"){
+        	//POP UP//
+    $("#planNumb, #korName, #evaluateNumb").dblclick(function(e){
+		if(e.target.id == "planNumb"){
+			if($(':radio[name="midEvalKind"]:checked').val()==0){
 				gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
 			}
-			if(e.target.id == "korName"){
-				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-			}
- 			if(e.target.id == "postName"){
-				popFlag = 5;
- 				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-			}
-	    })
-	    
-        //setDate//
-        calMain = new dhtmlXCalendarObject([{
-            input: "setDate",
-            button: "calpicker1"
-        }]);
-        calMain.loadUserLanguage("ko");
-        calMain.hideTime();
+		}
+		if(e.target.id == "korName"){
+			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+		}
+		//if(e.target.id == "evaluateNumb"){
+		//	gfn_load_pop('w1','common/devPlanPOP02',true,{"problemName":$("#problemName").val()});
+		//}
+			if(e.target.id == "postName"){
+			popFlag = 5;
+				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		}
+    })
+        $("input[name=midEvalKind]").change(function() {
+    		var radioValue = $(this).val();
+    		if (radioValue == "0") {
+    			$("#midNumb").hide();
+    	    	$("input[name=planNumb]").attr("readonly",false);
+    	        layout.cells("b").setHeight(180);
+    		} else if (radioValue == "1") {
+    	    	$("#midNumb").show()
+    	    	$("input[name=planNumb]").attr("readonly",true);
+    	    	layout.cells("b").setHeight(210);
+    	    	fn_getEvalNum()
+    		}
+    	});
+        
+        if($(':radio[name="midEvalKind"]:checked').val()==0){
+        	$("#midNumb").hide();
+        	$("input[name=planNumb]").attr("readonly",false);
+        	layout.cells("b").setHeight(180);
+        }else{
+        	$("#midNumb").show()
+        	$("input[name=planNumb]").attr("readonly",true);
+        	layout.cells("b").setHeight(210);
+        }
+        
         if($("#openParam").val()=="u"){
         	/*조회화면을 타고 올 때*/
         	dateVal = searchDate($("#setDate").val());
@@ -108,8 +127,19 @@ $(document).ready(function() {
         }
 
 })//doc ready end
+function fn_getEvalNum(){
+	 var obj = {};
+	    obj.planNumb = $("#planNumb").val()
+	    gfn_callAjaxComm(obj,"/erp/rndt/good/devMidS/selDevPlanPop02",fn_getEvalNumCB); 
+}
+function fn_getEvalNumCB(data){
+	//console.log(data[0].evaluateNumb);
+	$("#evaluateNumb").val(data[0].evaluateNumb)
+}
 function fn_search(){
-	fn_frmSearch();
+	if(fn_seqValid()){
+		fn_frmSearch();
+	
 	if(tabId=="a1"){
 		fn_searchGridTab(tab1,tabId,subTabbar.tabs("a1"),fn_selgridTab1CB)
 	}
@@ -136,6 +166,7 @@ function fn_search(){
 	}
 	if(tabId=="a8"){
 		//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
+	}
 	}
 }
 function fn_setSearchParam(tabId){
@@ -165,6 +196,9 @@ function fn_searchFrmTab(form,tabId,cbFunc){
 	gfn_callAjaxForForm(form, setSearchParam, "selFrmTab",cbFunc);
 }
 function fn_frmMain(id) {
+	if (id=="btn2"){
+        fn_setNew();
+	}
     if (id == "btn3") {//저장
     	if($("#planNumb").val()==""||$("#planNumb").val()==null||$("#planNumb").val().length<=0){
     		dhtmlx.alert("개발번호는 필수 입력입니다.");
@@ -193,39 +227,52 @@ function fn_frmMain(id) {
         }else{
 	        fn_setCud("cudKey","d");
 	        fn_frmMainSave();
-	        fn_new();
+	        fn_setNew();
         }
     }
 }
-function fn_onClosePop(pName,data){
+function fn_setNew(){
+	byId("frmMain").reset();
+	$("#setSeq").val("");
+	$("#planNumb").val("");
+	$("#evaluateNumb").val("");
+	$("#problemName").val("");
+	fn_setDate();
+    $('#setDate').keyup();
+    fn_setCud("cudKey","i");
+	$("#midNumb").hide();
+	$("input[name=planNumb]").attr("readonly",false);
+	layout.cells("b").setHeight(180);
+}
+function fn_onClosePop(pName, data) {
     var selRowIdx = tab5.getSelectedRowIndex();
     var juDeptIdx = tab5.getColIndexById('cJuDept');
     var juPostNameIdx = tab5.getColIndexById('cjuPostName');
     var booDeptIdx = tab5.getColIndexById('cBooDept');
     var booPostNameIdx = tab5.getColIndexById('cbooPostName');
-	if(pName=="postCode"&& popFlag == 7){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			tab5.setCells2(selRowIdx, juDeptIdx).setValue(obj.postCode);
-			tab5.setCells2(selRowIdx, juPostNameIdx).setValue(obj.postName);
-		}		  
-	}
-	if(pName=="postCode"&& popFlag == 8){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			tab5.setCells2(selRowIdx, booDeptIdx).setValue(obj.postCode);
-			tab5.setCells2(selRowIdx, booPostNameIdx).setValue(obj.postName);
-		}		  
-	}
-	if (pName=="empNo") {
-		var i;
-		var obj={};
+    if (pName == "postCode" && popFlag == 7) {
+        var i;
+        var obj = {};
+        for (i = 0; i < data.length; i++) {
+            obj.postName = data[i].postName;
+            obj.postCode = data[i].postCode;
+            tab5.setCells2(selRowIdx, juDeptIdx).setValue(obj.postCode);
+            tab5.setCells2(selRowIdx, juPostNameIdx).setValue(obj.postName);
+        }
+    }
+    if (pName == "postCode" && popFlag == 8) {
+        var i;
+        var obj = {};
+        for (i = 0; i < data.length; i++) {
+            obj.postName = data[i].postName;
+            obj.postCode = data[i].postCode;
+            tab5.setCells2(selRowIdx, booDeptIdx).setValue(obj.postCode);
+            tab5.setCells2(selRowIdx, booPostNameIdx).setValue(obj.postName);
+        }
+    }
+    if (pName == "empNo") {
+        var i;
+        var obj = {};
         for (i = 0; i < data.length; i++) {
             obj.korName = data[i].korName;
             obj.empNo = data[i].empNo;
@@ -233,33 +280,54 @@ function fn_onClosePop(pName,data){
             $('#empNo').val(obj.empNo);
         }
     }
-	if (pName=="planNumb") {
-		/*close가 된 후 result가 리턴 되기 때문에 success될 때 코드를 실행하게 만듬*/
-		$.ajax({
-		        type: 'POST',
-		        url: "/erp/rndt/good/devMidS/planNumbChk",
-		        data: "planNumb="+data[0].planNumb,
-		        success: function(result) {
-		        	if(result[0].cnt>0){
-		    			dhtmlx.alert({
-		    			    text: "이미 중간평가 된 과제입니다.",
-		    			    callback: function(result){
-		    			    	gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
-		    			    }
-		    			});
-		        	}else{
-		        		var i;
-		    			var obj={};
-		    	        for (i = 0; i < data.length; i++) {
-		    	            obj.problemName = data[i].problemName;
-		    	            obj.planNumb = data[i].planNumb;
-		    	            $('#problemName').val(obj.problemName);
-		    	            $('#planNumb').val(obj.planNumb);
-		    	        }
-
-		        	}
-		        }
-		    });
+    if (pName == "evaluateNumb") {
+        var i;
+        var obj = {};
+        for (i = 0; i < data.length; i++) {
+            obj.problemName = data[i].problemName;
+            obj.evaluateNumb = data[i].evaluateNumb;
+            $('#problemName').val(obj.problemName);
+            $('#evaluateNumb').val(obj.evaluateNumb);
+        }
+    }
+    if (pName == "planNumb") {
+        var i;
+        var obj = {};
+        for (i = 0; i < data.length; i++) {
+            obj.problemName = data[i].problemName;
+            obj.planNumb = data[i].planNumb;
+            $('#problemName').val(obj.problemName);
+            $('#planNumb').val(obj.planNumb);
+        }
+        
+        /*close가 된 후 result가 리턴 되기 때문에 success될 때 코드를 실행하게 만듬*/
+        /*$.ajax({
+            type: 'POST',
+            url: "/erp/rndt/good/devMidS/planNumbChk",
+            data: "planNumb=" + data[0].planNumb,
+            success: function(result) {
+                if (result[0].cnt > 0) {
+                    dhtmlx.alert({
+                        text: "이미 중간평가 된 과제입니다.",
+                        callback: function(result) {
+                            gfn_load_pop('w1', 'common/devPlanPOP', true, {
+                                "problemName": $("#problemName").val()
+                            });
+                        }
+                    });
+                }
+                else {
+                    var i;
+                    var obj = {};
+                    for (i = 0; i < data.length; i++) {
+                        obj.problemName = data[i].problemName;
+                        obj.planNumb = data[i].planNumb;
+                        $('#problemName').val(obj.problemName);
+                        $('#planNumb').val(obj.planNumb);
+                    }
+                }
+            }
+        });*/
     }
 };
 </script>
@@ -324,6 +392,20 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개발번호 </label>
                         <div class="col-sm-2 col-md-2">
                             <input name="planNumb" id="planNumb" type="text" value="${planNumb}" placeholder="" class="form-control input-xs">
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+							<input type="radio" name="midEvalKind" id="midEvalKind" value="0" checked="checked">개발계획
+							<input type="radio" name="midEvalKind" id="midEvalKind" value="1">중간평가
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="midNumb">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-8 col-md-8">
+                        <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 중간평가번호 </label>
+                        <div class="col-sm-2 col-md-2">
+                            <input name="evaluateNumb" id="evaluateNumb" type="text" value="" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,15 @@
 		 	)
 		 }	
 	</select>
+	<select id="selDevPlanPop02" statementType="CALLABLE" >
+		 {call 
+		 	SP_COMM_DEVPLANNUMBPOP02_SCH(
+		 		#{V_COMPID},
+		 		#{V_PLAN_NUMB},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 	<select id="selPlanNumbChk" statementType="CALLABLE" >
 		 {call 
 		 	SP_RNDT_DEVMIDS_DEVPLANS_CHK(
@@ -44,6 +53,8 @@
 		 		#{planNumb},
 		 		#{problemName},
 		 		#{opKind},
+		 		#{midEvalKind},
+		 		#{evaluateNumb, jdbcType=VARCHAR},
 		 		#{sysEmpNo}
 		 	)
 		 }	
