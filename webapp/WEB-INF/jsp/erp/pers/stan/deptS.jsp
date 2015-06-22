@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo;
 var postCodeVal;
+var mainTabbar = parent.mainTabbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6],"2U");
 	//부서등록
@@ -58,7 +59,8 @@ $(document).ready(function(){
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
    fn_search();
-  
+   
+   
 });
 function fn_cellChange(flag){
 	if(flag==1){

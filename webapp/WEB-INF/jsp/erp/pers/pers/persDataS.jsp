@@ -91,7 +91,7 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo03,"P006");
 	fn_comboLoad(combo04);
 	
-	combo04.attachEvent("onClose", function(){
+	combo04.attachEvent("onChange", function(){
 		$('#postCode').val(combo04.getSelectedText().postCode);
 		});
 	

@@ -138,7 +138,12 @@ $(document).ready(function(){
 	fn_comboLoad(combo04,"1");
 	fn_comboLoad(combo05,"2");
 	
-	combo05.attachEvent("onClose", function(){
+	
+	/* combo05.attachEvent("onKeyPressed", function(keyCode){
+		
+	 }); */
+	
+	combo05.attachEvent("onChange", function(){
 		var rowIdx = gridDtl02.getSelectedRowIndex();
 		gridDtl02.setCells2(rowIdx,1).setValue(combo05.getSelectedText().partCode);
 		gridDtl02.setCells2(rowIdx,2).setValue(combo05.getSelectedText().partName);
@@ -157,6 +162,7 @@ function fn_comboLoad(comboId,cFlag){
 	          {header: "사원명", width: 100, option: "#empNo#"}
 		    ]
 		});
+		comboId.enableFilteringMode(true);
 	    obj.korName = '';
 		$.ajax({
 			"url":"/erp/pers/pers/persAppointS/selEmpPop",
@@ -171,13 +177,15 @@ function fn_comboLoad(comboId,cFlag){
 	  });
 	}else{
 		comboId.setTemplate({
-		    input: "#interName#",
+		    input: "#partName#",
 		    columns: [
 		      {header: "부품코드", width: 100, option: "#partCode#"},
 		      {header: "부품명",   width: 100, option: "#partName#"},
 	          {header: "부품규격", width: 100, option: "#partSpec#"}
 		    ]
 		});
+		comboId.enableFilteringMode(true);
+		comboId.allowFreeText(true);
 		obj.partName = '%';
 		$.ajax({
 			"url":"/erp/prod1/equi/historyS/partCodeSearch",
@@ -186,15 +194,17 @@ function fn_comboLoad(comboId,cFlag){
 			"success" : function(data){
 			  var list = data;
 			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(i,
-			 {"partCode":list[i].partCode,"partName":list[i].partName,"partSpec":list[i].partSpec});
-                  } 
+		 		  comboId.addOption(i,
+			  {partCode:list[i].partCode,partName:list[i].partName,partSpec:list[i].partSpec});
+
+			  } 
 			}
-	  });	
+	  });
+		comboId.enableFilteringMode(true);
+		comboId.enableAutocomplete(true);
+		comboId.allowFreeText(true);
+		
 	}
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
 };
 
 function gridMstOnClick(id){
@@ -609,8 +619,9 @@ function fn_onClosePop(pName,data){
 		        담당자
 		      </label>
 		      <div class="col-sm-3 col-md-3">
-			   <select name="empNo" id="empNo" class="form-control input-xs">
-			  	  </select>
+			   <!-- <select name="empNo" id="empNo" class="form-control input-xs">
+			  	  </select> -->
+			  	  <input name="empNo" id="empNo" type="text" class="form-control input-xs">
 		      </div>
 	       </div>
 	   </div>

@@ -5,10 +5,6 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var gridTabbar;
-var oneSum = 0,twoSum = 0,threeSum = 0,fourSum = 0,fiveSum = 0,
-    sixSum = 0,sevenSum = 0,eightSum = 0,nineSum = 0,tenSum = 0,
-    elevenSum = 0,twelveSum = 0,thirteenSum = 0,fourteenSum = 0, fifteenSum = 0,
-    totSum = 0;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//근속년수별인원현황
@@ -80,22 +76,22 @@ function gridMstAttachFooter(){
 	gridMst.atchFooter();
 	gridMst.addAtchFooter({atchFooterName:""});
 	gridMst.addAtchFooter({atchFooterName:"년수별계"});
-	gridMst.addAtchFooter({atchFooterName:oneSum});
-	gridMst.addAtchFooter({atchFooterName:twoSum});
-	gridMst.addAtchFooter({atchFooterName:threeSum});
-	gridMst.addAtchFooter({atchFooterName:fourSum});
-	gridMst.addAtchFooter({atchFooterName:fiveSum});
-	gridMst.addAtchFooter({atchFooterName:sixSum});
-	gridMst.addAtchFooter({atchFooterName:sevenSum});
-	gridMst.addAtchFooter({atchFooterName:eightSum});
-	gridMst.addAtchFooter({atchFooterName:nineSum});
-	gridMst.addAtchFooter({atchFooterName:tenSum});
-	gridMst.addAtchFooter({atchFooterName:elevenSum});
-	gridMst.addAtchFooter({atchFooterName:twelveSum});
-	gridMst.addAtchFooter({atchFooterName:thirteenSum});
-	gridMst.addAtchFooter({atchFooterName:fourteenSum});
-	gridMst.addAtchFooter({atchFooterName:fifteenSum});
-	gridMst.addAtchFooter({atchFooterName:totSum});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMst.addAtchFooter({atchFooterName:"#stat_total"});
 	gridMst.atchFooterInit();	
 }
 function fn_excel(){
@@ -114,27 +110,10 @@ function fn_excel(){
 	 params.empNo = $("#korName").val();
 	 params.postCode = $("#postCode").val();
 	 params.jikgun = $("#jikgun").val();
-	 gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"),gridMstSearchCB);
+	 gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
 	 gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("a"));
 };
-function gridMstSearchCB(data){
-	oneSum = 0,twoSum = 0,threeSum = 0,fourSum = 0,fiveSum = 0,
-    sixSum = 0,sevenSum = 0,eightSum = 0,nineSum = 0,tenSum = 0,
-    elevenSum = 0,twelveSum = 0,thirteenSum = 0,fourteenSum = 0, fifteenSum = 0,
-    totSum = 0;
-	for(var i=0; i<data.length;i++){
-		oneSum += data[i].one*1;           twoSum += data[i].two*1;
-		threeSum += data[i].three*1;       fourSum += data[i].four*1;
-		fiveSum += data[i].five*1;         sixSum += data[i].six*1;
-		sevenSum += data[i].seven*1;       eightSum += data[i].eight*1;
-		nineSum += data[i].nine*1;         tenSum += data[i].ten*1;
-		elevenSum += data[i].eleven*1;     twelveSum += data[i].twelve*1;
-		thirteenSum += data[i].thirteen*1; fourteenSum += data[i].fourteen*1;
-		fifteenSum += data[i].fifteen*1;   totSum += data[i].tot*1;
-	}
-	  gridMst.detachFooter(0);
-	  gridMstAttachFooter();
-}
+
 function fn_onClosePop(pName,data){
     if(pName == "empNo"){
 	     $('#korName').val(data[0].korName);
