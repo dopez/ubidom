@@ -130,6 +130,7 @@ $( document ).ready(function() {
 		event.preventDefault();
 		location.replace("/erp/main.do");
 	})
+
 })
 /*END MAIN DOC READY*/
 
@@ -174,6 +175,7 @@ function chg_selected_tab(id,lastId) {
 }
 var menuId;
 var fncSelectItem = function(tree, id) {
+
 	var exegbn = "";
 	try { // folder
 		exegbn = tree.getUserData(id, "exegbn");
@@ -187,29 +189,29 @@ var fncSelectItem = function(tree, id) {
 	} catch(e){
 		alert(e);
 	}
-
 	if(exegbn=="1") { // item
-
 		var flag = true;
 		var uri = tree.getUserData(id, "uri");
 		scrnParm = tree.getUserData(id, "scrnParm");
 		/*메뉴id 전역변수 처리*/
 		menuId = id;
+
 		var menuItemText = tree.getDxObj().getItemText(id);
-		
 		mainTabbar.forEachTab(function(tab){
 		    var tabId = tab.getId();
 		    if(id == tabId){
 				flag=false;
 				mainTabbar.tabs(tabId).setActive();
+				menuId = tabId;
 			}
 
 		});
+
 		if(flag){
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
             mainTabbar.tabs(id).attachURL("/"+uri+".do");
-		}
 
+		}
 	}
 }
 function getViewFullPath(id){
