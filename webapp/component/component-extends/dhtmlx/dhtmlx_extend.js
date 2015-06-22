@@ -324,13 +324,14 @@ function fileupload(tagId,imgId,callbackFn){
 }
 
 function searchDate(dateValue){
+	var value = null;
 	var splitfrDate = dateValue.split("/");
 	console.log(splitfrDate.length)
 	for(var i=0;i<splitfrDate.length;i++){
-		dateValue = dateValue + splitfrDate[i];
+		value = value + splitfrDate[i];
 	}
     
-    return dateValue;
+    return value;
 }
 function gfn_1col_comboLoad(comboId, params) {
     comboId.setTemplate({
