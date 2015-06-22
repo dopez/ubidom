@@ -129,6 +129,7 @@ var Ubi = (function() {
 })();
 function fn_exit(){
 	var mainTabbar = parent.mainTabbar;
-	var menuId = parent.menuId;
-		mainTabbar.tabs(menuId).close();
-	}
+	var menuId;
+	menuId = mainTabbar.getActiveTab();
+	mainTabbar.tabs(menuId).close();
+}

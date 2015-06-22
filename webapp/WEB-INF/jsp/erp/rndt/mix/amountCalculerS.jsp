@@ -74,7 +74,7 @@ $(document).ready(function(){
 	<div class="row">
 			<div class="form-group form-group-sm">
 			 <div class="col-sm-8 col-md-8">
-				  <label class="col-sm-2 col-md-2 control-label" for="textinput">
+				  <!-- <label class="col-sm-2 col-md-2 control-label" for="textinput">
 					제품군 
 			      </label>
 				  <div class="col-sm-3 col-md-3">
@@ -87,7 +87,7 @@ $(document).ready(function(){
 					 <div class="col-sm-4 col-md-4">
 						<input type="radio" name="gubn" id="gubn" value="3군">3군
 					 </div>
-				   </div>
+				   </div> -->
 				    <label class="col-sm-2 col-md-2 control-label" for="textinput">
 					  제품군 
 			         </label>
