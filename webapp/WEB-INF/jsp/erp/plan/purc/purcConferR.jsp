@@ -70,6 +70,7 @@
             
             function fn_gridMainSelCallbckFunc(data) {
                 $("#setSDate").keyup();
+                $("#setEDate").keyup();
             }                    
             
             function doOnRowDbClicked(rId,cInd){
