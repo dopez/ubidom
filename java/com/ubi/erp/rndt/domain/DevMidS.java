@@ -68,9 +68,9 @@ public class DevMidS implements Serializable {
 
 	private String booPostName;
 
-	private String cjuPostName;
+	private String cJuPostName;
 
-	private String cbooPostName;
+	private String cBooPostName;
 
 	private String cPlanDate;
 
@@ -486,22 +486,6 @@ public class DevMidS implements Serializable {
 		this.booPostName = booPostName;
 	}
 
-	public String getCjuPostName() {
-		return cjuPostName;
-	}
-
-	public void setCjuPostName(String cjuPostName) {
-		this.cjuPostName = cjuPostName;
-	}
-
-	public String getCbooPostName() {
-		return cbooPostName;
-	}
-
-	public void setCbooPostName(String cbooPostName) {
-		this.cbooPostName = cbooPostName;
-	}
-
 	public String getMidEvalKind() {
 		return midEvalKind;
 	}
@@ -516,6 +500,22 @@ public class DevMidS implements Serializable {
 
 	public void setEvaluateNumb(String evaluateNumb) {
 		this.evaluateNumb = evaluateNumb;
+	}
+
+	public String getcJuPostName() {
+		return cJuPostName;
+	}
+
+	public void setcJuPostName(String cJuPostName) {
+		this.cJuPostName = cJuPostName;
+	}
+
+	public String getcBooPostName() {
+		return cBooPostName;
+	}
+
+	public void setcBooPostName(String cBooPostName) {
+		this.cBooPostName = cBooPostName;
 	}
 
 	public static long getSerialversionuid() {

@@ -2,6 +2,8 @@ function fn_setTab2(){
     tab2 = subTabbar.tabs("a2").attachObject("tab2");
     tab2Toolbar = subToolbar(tab2Toolbar,subTabbar.tabs("a2"),[3,4]);
     tab2Toolbar.attachEvent("onClick",function(id){
+		if(fn_seqValid()){
+
     	if(id=="btn3"){
     		fn_tab2Save();
     	}
@@ -9,6 +11,7 @@ function fn_setTab2(){
     		$('#cudKey2').val('DELETE');
     		fn_tab2Save();
     	}
+		}
     })
 }
 function fn_frm2Chk(){

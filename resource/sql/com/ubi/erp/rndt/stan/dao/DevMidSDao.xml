@@ -5,6 +5,46 @@
 
 <resultMap type="DevMidS" id="DevMidSMap"/>
 
+	<select id="selChangeCont" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_TAB5_NEW_SCH(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selChangeCont2" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_TAB6_NEW_SCH(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selChangeCont3" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_TAB7_NEW_SCH(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selChangeCont4" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_TAB8_NEW_SCH(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 	<select id="selFrmMain" statementType="CALLABLE" >
 		 {call 
 		 	SP_RNDT_DEVMIDS_SCH1(
@@ -156,6 +196,46 @@
 		 	)
 		 }	
 	</select>
+	<select id="selGridTab5" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SCH6(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+ 	<select id="selGridTab6" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SCH7(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+ 	<select id="selFrmTab7" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SCH8(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+ 	<select id="selGridTab8" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SCH9(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevMidSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 	<insert id="prcsFrmTabSave" statementType="CALLABLE" >
 		 {call 
 		 	SP_RNDT_DEVMIDS_SAVE3(
@@ -165,6 +245,41 @@
 		 		#{setDate},
 		 		#{evaluateKind},
 		 		#{contents},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+	<insert id="prcsFrmTab7Save" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SAVE6(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{itemName},
+		 		#{techName},
+		 		#{targetMatr},
+		 		#{cItemName},
+		 		#{cTechName},
+		 		#{cTargetMatr},
+		 		#{remarks},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+	<insert id="prcsGridTab8" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVMIDS_SAVE7(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{investKind},
+		 		#{dhAmt},
+		 		#{cDhAmt},
+		 		#{remarks},
 		 		#{planNumb},
 		 		#{sysEmpNo}
 		 	)

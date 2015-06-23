@@ -135,4 +135,124 @@ public interface DevMidSDao {
 	 */
 	void selDevPlanPop02(Map<String, Object> map);
 
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selChangeCont(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selChangeCont2(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selChangeCont3(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selChangeCont4(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selGridTab5(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selGridTab6(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selFrmTab7(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void selGridTab8(Map<String, Object> map);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void prcsFrmTab7Save(DevMidS devMidS);
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	void prcsGridTab8(DevMidS devMidS);
+
 }

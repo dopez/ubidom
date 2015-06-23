@@ -44,4 +44,47 @@
 		 }
 	</select>
 	
+	<insert id="gridTopSave" statementType="CALLABLE">
+		 {call
+		 	SP_PURC_CONSULT_SAVE1(
+		 		#{cudKey, jdbcType=VARCHAR},
+		 		#{compId, jdbcType=VARCHAR},
+		 		#{setDate, jdbcType=VARCHAR},
+		 		#{setSeq, jdbcType=VARCHAR},
+		 		#{empNo, jdbcType=VARCHAR},
+		 		#{custCode, jdbcType=VARCHAR},
+		 		#{rmk, jdbcType=VARCHAR},
+		 		#{settle1State, jdbcType=VARCHAR},
+		 		#{settle1Emp, jdbcType=VARCHAR},
+		 		#{settle2State, jdbcType=VARCHAR},
+		 		#{settle2Emp, jdbcType=VARCHAR},
+		 		#{settle3State, jdbcType=VARCHAR},
+		 		#{settle3Emp, jdbcType=VARCHAR},
+		 		#{settle4State, jdbcType=VARCHAR},
+		 		#{settle4Emp, jdbcType=VARCHAR},		 				 				 		
+		 		#{sysEmpNo, jdbcType=VARCHAR}
+		 	)
+		 }
+	</insert>		
+	
+	<insert id="gridMainSave" statementType="CALLABLE">
+		 {call
+		 	SP_PURC_CONSULT_SAVE2(
+		 		#{cudKey, jdbcType=VARCHAR},
+		 		#{compId, jdbcType=VARCHAR},
+		 		#{setDateTemp, jdbcType=VARCHAR},
+		 		#{setSeqTemp, jdbcType=VARCHAR},
+		 		#{setNo, jdbcType=VARCHAR},
+		 		#{itemCode, jdbcType=VARCHAR},
+		 		#{qty, jdbcType=VARCHAR},
+		 		#{cost, jdbcType=VARCHAR},
+		 		#{amt, jdbcType=VARCHAR},
+		 		#{deliDate, jdbcType=VARCHAR},
+		 		#{deliPlace, jdbcType=VARCHAR},
+		 		#{rmk, jdbcType=VARCHAR},
+		 		#{sysEmpNo, jdbcType=VARCHAR}
+		 	)
+		 }
+	</insert>	
+	
 </mapper>

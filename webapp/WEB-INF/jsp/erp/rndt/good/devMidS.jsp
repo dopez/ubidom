@@ -3,7 +3,7 @@
         <script type="text/javascript">
 var layout, toolbar, subLayout,subTabbar;
 var tab1Toolbar,tab2Toolbar,tab3Toolbar,tab4Toolbar,tab5Toolbar,tab6Toolbar,tab7Toolbar,tab8Toolbar;
-var combo01;
+var combo01,combo02,combo03,combo04;
 var tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8;
 var tabId = "a1";
 var popFlag;
@@ -52,6 +52,18 @@ $(document).ready(function() {
         fn_setTab7();
         fn_setTab8();
         //tab end
+        if($("#midEvalParam").val()=="1"){
+        	$("input[name=midEvalKind]").val(1);
+	    	$("#midNumb").show()
+	    	$("input[name=planNumb]").attr("readonly",true);
+	    	layout.cells("b").setHeight(210);
+        }
+/*         if($("#opKindParam").val()!=""){
+        	$("input[name=midEvalKind]").val(1);
+	    	$("#midNumb").show()
+	    	$("input[name=planNumb]").attr("readonly",true);
+	    	layout.cells("b").setHeight(210);
+        } */
         	//POP UP//
 	    $("#planNumb, #korName, #evaluateNumb").dblclick(function(e){
 			if(e.target.id == "planNumb"){
@@ -67,20 +79,22 @@ $(document).ready(function() {
 					gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
 			}
 	    })
-        $("input[name=midEvalKind]").change(function() {
+        $("input[name=midEvalKind]").click(function() {
     		var radioValue = $(this).val();
     		if (radioValue == "0") {
     			$("#midNumb").hide();
     	    	$("input[name=planNumb]").attr("readonly",false);
     	        layout.cells("b").setHeight(180);
+    	        $("#evaluateNumb").val("");
     		} else if (radioValue == "1") {
-    	    	$("#midNumb").show()
-    	    	$("input[name=planNumb]").attr("readonly",true);
-    	    	layout.cells("b").setHeight(210);
-    	    	fn_getEvalNum()
+    			if(fn_planNumbValid()){
+	    	    	$("#midNumb").show()
+	    	    	$("input[name=planNumb]").attr("readonly",true);
+	    	    	layout.cells("b").setHeight(210);
+	    	    	fn_getEvalNum();
+    			}
     		}
     	});
-        
         if($(':radio[name="midEvalKind"]:checked').val()==0){
         	$("#midNumb").hide();
         	$("input[name=planNumb]").attr("readonly",false);
@@ -89,6 +103,7 @@ $(document).ready(function() {
         	$("#midNumb").show()
         	$("input[name=planNumb]").attr("readonly",true);
         	layout.cells("b").setHeight(210);
+	    	fn_getEvalNum();
         }
         
         if($("#openParam").val()=="u"){
@@ -100,13 +115,11 @@ $(document).ready(function() {
        		fn_searchFrmTab("frmTab2","a2",fn_selfrmTab2CB);
        		fn_searchFrmTab("frmTab3","a3",fn_selfrmTab3CB);
        		fn_searchFrmTab("frmTab4","a4",fn_selfrmTab4CB);
-       		//fn_searchFrmTab("frmTab5_1",tabId,fn_selfrmTab5CB_1);
-       		//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
-       		//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
-       		//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
-       		//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
-       		//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
-        	
+			fn_searchGridTab(tab5,"a5",subTabbar.tabs("a5"),fn_selgridTab5CB)
+			fn_searchGridTab(tab6,"a6",subTabbar.tabs("a6"),fn_selgridTab6CB)
+			fn_searchFrmTab("frmTab7_1","a7",fn_selfrmTab7CB_1);
+			fn_searchFrmTab("frmTab7_2","a7",fn_selfrmTab7CB_2);
+			fn_searchGridTab(tab8,"a8",subTabbar.tabs("a8"),fn_selgridTab8CB)
 	        fn_setCud("cudKey","u");
         	fn_frm2Chk();
         	fn_frm3Chk();
@@ -124,13 +137,34 @@ $(document).ready(function() {
         }
 
 })//doc ready end
+function fn_planNumbValid(){
+	var vFlag = "";
+	if($("#planNumb").val()==null||$("#planNumb").val()==""
+				||typeof $("#planNumb").val()=="undefined"){
+		dhtmlx.alert("개발번호를 선택하세요");
+		vFlag = false;
+		return vFlag;
+	}else{
+		vFlag = true;
+		return vFlag;
+	}
+}
 function fn_getEvalNum(){
-	 var obj = {};
+		var obj = {};
 	    obj.planNumb = $("#planNumb").val()
-	    gfn_callAjaxComm(obj,"/erp/rndt/good/devMidS/selDevPlanPop02",fn_getEvalNumCB); 
+	    gfn_callAjaxComm(obj,"/erp/rndt/good/devMidS/selDevPlanPop02",fn_getEvalNumCB);
+
 }
 function fn_getEvalNumCB(data){
-	$("#evaluateNumb").val(data[0].evaluateNumb)
+	if(typeof data[0]=="undefined"){
+		dhtmlx.alert("중간평가를 1회 이상 하지 않은 항목입니다.");
+		$( "input:radio[name=midEvalKind][value=0]" ).trigger('click');
+		$("#planNumb").val("");
+		$("#problemName").val("");
+		
+	}else{
+		$("#evaluateNumb").val(data[0].evaluateNumb);
+	}
 }
 function fn_search(){
 	if(fn_seqValid()){
@@ -149,19 +183,17 @@ function fn_search(){
 			fn_searchFrmTab("frmTab4",tabId,fn_selfrmTab4CB);
 		}
 		if(tabId=="a5"){
-	
-			//fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
+			fn_searchGridTab(tab5,tabId,subTabbar.tabs("a5"),fn_selgridTab5CB)
 		}
 		if(tabId=="a6"){
-			//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
-			//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
-			//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
+			fn_searchGridTab(tab6,tabId,subTabbar.tabs("a6"),fn_selgridTab6CB)
 		}
 		if(tabId=="a7"){
-			//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
+			fn_searchFrmTab("frmTab7_1",tabId,fn_selfrmTab7CB_1);
+			fn_searchFrmTab("frmTab7_2",tabId,fn_selfrmTab7CB_2);
 		}
 		if(tabId=="a8"){
-			//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
+			fn_searchGridTab(tab8,tabId,subTabbar.tabs("a8"),fn_selgridTab8CB)
 		}
 	}
 }
@@ -177,13 +209,13 @@ function fn_searchGridTab(grid,tabId,layout,cbFunc){
 	gfn_callAjaxForGrid(grid,setSearchParam,"selGridTab",layout,cbFunc);
 
 }
-function fn_init_searchGridTab(grid,tabId,layout,url){
+function fn_init_searchGridTab(grid,tabId,layout,url,CB){
 	var planNumbVal = $("#planNumb").val();
 	var obj = {};
 	obj.tabId = tabId;
 	obj.setDate = planNumbVal.substr(0,8);
 	obj.setSeq = planNumbVal.substr(8,2);
-	gfn_callAjaxForGrid(grid,obj,url,layout);
+	gfn_callAjaxForGrid(grid,obj,url,layout,CB);
 
 }
 function fn_searchFrmTab(form,tabId,cbFunc){
@@ -206,9 +238,6 @@ function fn_frmMain(id) {
 		        fn_frmMainSave();
 		        $('#setDate').keyup();
 		        fn_setCud("cudKey","u");
-	        	fn_init_searchGridTab(tab5,"a3",subTabbar.tabs("a5"),"/erp/rndt/good/devPlanS/selGridTab")
-	        	fn_init_searchGridTab(tab6,"a4",subTabbar.tabs("a6"),"/erp/rndt/good/devPlanS/selGridTab")
-	        	fn_init_searchFrmTab7();
 	        }else{
 	        	fn_setCud("cudKey","u");
 		        fn_frmMainSave();
@@ -243,9 +272,9 @@ function fn_setNew(){
 function fn_onClosePop(pName, data) {
     var selRowIdx = tab5.getSelectedRowIndex();
     var juDeptIdx = tab5.getColIndexById('cJuDept');
-    var juPostNameIdx = tab5.getColIndexById('cjuPostName');
+    var juPostNameIdx = tab5.getColIndexById('cJuPostName');
     var booDeptIdx = tab5.getColIndexById('cBooDept');
-    var booPostNameIdx = tab5.getColIndexById('cbooPostName');
+    var booPostNameIdx = tab5.getColIndexById('cBooPostName');
     if (pName == "postCode" && popFlag == 7) {
         var i;
         var obj = {};
@@ -389,9 +418,10 @@ form{
                         <div class="col-sm-2 col-md-2">
                             <input name="planNumb" id="planNumb" type="text" value="${planNumb}" placeholder="" class="form-control input-xs">
                         </div>
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-6 col-md-6" id="radioBtn">
 							<input type="radio" name="midEvalKind" id="midEvalKind" value="0" checked="checked">개발계획
 							<input type="radio" name="midEvalKind" id="midEvalKind" value="1">중간평가
+							<input type="hidden" name="midEvalParam" id="midEvalParam" value="${midEvalKind}">
                         </div>
                     </div>
                 </div>
@@ -401,7 +431,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 중간평가번호 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="evaluateNumb" id="evaluateNumb" type="text" value="" placeholder="" class="form-control input-xs">
+                            <input name="evaluateNumb" id="evaluateNumb" type="text" value="${evaluateNumb}" placeholder="" class="form-control input-xs">
                         </div>
                     </div>
                 </div>
@@ -424,6 +454,8 @@ form{
                             <input type="radio" name="opKind" value="1" checked="checked">현행계속
                             <input type="radio" name="opKind" value="2">Drop
                             <input type="radio" name="opKind" value="3">계획변경필요(수정계획서작성)
+                            <input type="hidden" name="opKindParam" id="opKindParam" value="${opKind}">
+                            
                         </div>
                     </div>
                 </div>

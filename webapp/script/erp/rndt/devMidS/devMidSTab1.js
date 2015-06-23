@@ -2,7 +2,7 @@ function fn_setTab1(){
 	tab1 = new dxGrid(subTabbar.tabs("a1"), false);
 	tab1.addHeader({name:"No",colId:"rNum",width:"50",align:"center",type:"cntr"});
 	tab1.addHeader({name:"주요항목",colId:"entryKind",width:"100",align:"center",type:"combo"});
-	tab1.addHeader({name:"내용",colId:"contents",width:"700",align:"center",type:"ed"});
+	tab1.addHeader({name:"내용",colId:"contents",width:"700",align:"left",type:"ed"});
 	tab1.setColSort("str");	
 	tab1.setUserData("","pk","planNumb");
 	tab1.init();
@@ -11,6 +11,8 @@ function fn_setTab1(){
 
 	tab1Toolbar = subToolbar(tab1Toolbar,subTabbar.tabs("a1"),[3,4,5,6]);
 	tab1Toolbar.attachEvent("onClick",function(id){
+		if(fn_seqValid()){
+		
     	if(id=="btn3"){
     		fn_tab1Save();
     	}
@@ -23,6 +25,7 @@ function fn_setTab1(){
     	if(id=="btn6"){
     		
     	}
+		}
     })
 	combo01 = tab1.getColumnCombo(1);
 	combo01.addOption("1","고객/시장");
@@ -34,7 +37,6 @@ function fn_selgridTab1CB(data){
 	console.log("gridTab1 data = ", data); 
 }
 function fn_tab1Save(){
-	alert(planNumVal);
 	if(fn_seqValid()){
 		var setDateColIdx = tab1.getColIndexById('setDate');
 		var setSeqColIdx = tab1.getColIndexById('setSeq');

@@ -48,6 +48,11 @@ public class DevMidSController {
 		String openParam = request.getParameter("openParam");
 		String problemName = request.getParameter("problemName");
 		String planNumb = request.getParameter("planNumb");
+
+		String midEvalKind = request.getParameter("midEvalKind");
+		String evaluateNumb = request.getParameter("evaluateNumb");
+		String opKind = request.getParameter("opKind");
+
 		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devMidS");
 		mnv.addObject("empName", empName);
 		mnv.addObject("empNo", empNo);
@@ -56,6 +61,9 @@ public class DevMidSController {
 		mnv.addObject("problemName", problemName);
 		mnv.addObject("planNumb", planNumb);
 		mnv.addObject("openParam", openParam);
+		mnv.addObject("midEvalKind", midEvalKind);
+		mnv.addObject("evaluateNumb", evaluateNumb);
+		mnv.addObject("opKind", opKind);
 		return mnv;
 	}
 	@SuppressWarnings("unchecked")
@@ -159,11 +167,82 @@ public class DevMidSController {
 		map.put("o_cursor", null);
 		if (tabId.equals("a1")) {
 			DevMidSService.selGridTab1(map);
-		} /*
-		 * else if (tabId.equals("a4")) { DevMidSService.selGridTab4(map); } /*
-		 * else if (tabId.equals("a7")) { DevMidSService.selGridTab7(map); }
-		 * else if (tabId.equals("a8")) { DevMidSService.selGridTab8(map); }
-		 */
+		} else if (tabId.equals("a5")) {
+			DevMidSService.selGridTab5(map);
+		} else if (tabId.equals("a6")) {
+			DevMidSService.selGridTab6(map);
+		} else if (tabId.equals("a8")) {
+			DevMidSService.selGridTab8(map);
+		}
+
+		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selChangeCont", method = RequestMethod.POST)
+	public List<DevMidS> selChangeCont(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		DevMidSService.selChangeCont(map);
+		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selChangeCont2", method = RequestMethod.POST)
+	public List<DevMidS> selChangeCont2(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		DevMidSService.selChangeCont2(map);
+		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selChangeCont3", method = RequestMethod.POST)
+	public List<DevMidS> selChangeCont3(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+
+		DevMidSService.selChangeCont3(map);
+		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selChangeCont4", method = RequestMethod.POST)
+	public List<DevMidS> selChangeCont4(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevMidS DevMidS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String tabId = request.getParameter("tabId");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		DevMidSService.selChangeCont4(map);
 		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
 		return list;
 	}
@@ -186,10 +265,10 @@ public class DevMidSController {
 			DevMidSService.selFrmTab3(map);
 		} else if (tabId.equals("a4")) {
 			DevMidSService.selFrmTab4(map);
+		} else if (tabId.equals("a7")) {
+			DevMidSService.selFrmTab7(map);
 		}
-		/*
-		 * else if (tabId.equals("a6")) { DevMidSService.selFrmTab6(map); }
-		 */
+
 		List<DevMidS> list = (List<DevMidS>) map.get("o_cursor");
 		return list;
 	}
@@ -229,6 +308,8 @@ public class DevMidSController {
 			jsonData = request.getParameter("jsonData5");
 		} else if (tabId.equals("a6")) {
 			jsonData = request.getParameter("jsonData6");
+		} else if (tabId.equals("a8")) {
+			jsonData = request.getParameter("jsonData8");
 		}
 		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<DevMidS>>() {
 		});
@@ -247,6 +328,8 @@ public class DevMidSController {
 		DevMidS.setCompId(compId);
 		if (tabId.equals("a2") || tabId.equals("a3") || tabId.equals("a4")) {
 			DevMidSService.prcsFrmTabSave(DevMidS);
+		} else if (tabId.equals("a7")) {
+			DevMidSService.prcsFrmTab7Save(DevMidS);
 		}
 
 	}

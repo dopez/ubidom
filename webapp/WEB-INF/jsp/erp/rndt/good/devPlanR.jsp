@@ -26,7 +26,7 @@ $(document).ready(function() {
      gridMain.addHeader({name:"작성자",colId:"writerName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"제안자",colId:"ppsName",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"제안부서",colId:"postName",width:"100",align:"center",type:"ro"});
-     gridMain.addHeader({name:"과제명",colId:"problemName",width:"100",align:"center",type:"ro"});
+     gridMain.addHeader({name:"과제명",colId:"problemName",width:"200",align:"left",type:"ro"});
      gridMain.addHeader({name:"개발예산(천원)",colId:"totAmt",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"개발일정",colId:"stDate",width:"100",align:"center",type:"ro"});
      gridMain.addHeader({name:"#cspan",colId:"endDate",width:"100",align:"center",type:"ro"});
@@ -114,8 +114,7 @@ function fn_selGridMain(){
 	obj.edDate = searchDate($("#edDate").val());
 	obj.writerEmp = $("#writerEmp").val();
 	obj.ppsEmp = $("#ppsEmp").val();
-	console.log(obj);
-	 //gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
+	gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
 }
 function fn_selGridMainCB(data){
 	console.log("devR data=",data);
