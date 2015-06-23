@@ -228,18 +228,10 @@
                	paymentCheck();
 			};
 			
-			//결제란 저장
-			saveTopMainGrid = function(url, seq){
-				var cudKey = "";
-				
-				if(seq == ""){
-					cudKey = "INSERT";	
-				}else{
-					cudKey = "UPDATE";
-				}
-				
+			//결제란 저장, 수정, 삭제
+			saveTopMainGrid = function(url, mstCudKey){
    				var jsonData = {
-   					cudKey : cudKey, 
+   					cudKey : mstCudKey, 
 					compId : "${compId}",
 					setDate : $("#setDate").val(),
 					setSeq : $("#setSeq").val(),
@@ -271,17 +263,6 @@
                     }
                 });                  
    				
-			};
-			
-			removeAllDisabled = function(){
-				$("#settleSelectBox1").removeAttr("disabled");
-				$("#settleSelectBox2").removeAttr("disabled");
-				$("#settleSelectBox3").removeAttr("disabled");
-				$("#settleSelectBox4").removeAttr("disabled");
-				$("#settleKorName1").removeAttr("disabled");
-				$("#settleKorName2").removeAttr("disabled");
-				$("#settleKorName3").removeAttr("disabled");
-				$("#settleKorName4").removeAttr("disabled");
 			};
 			
 			gridMain.dxObj.selectRow(0,true,true,true);

@@ -35,14 +35,13 @@
                 gridMain.init();
                 gridMain.cs_setNumberFormat(["cost","amt"], "0,000");
                 gridMain.cs_setColumnHidden(["setSeqTemp", "setDateTemp"]);
-                
             	g_dxRules = {
             			itemCode : [r_notEmpty],
             			matrName : [r_notEmpty],
             			matrSpec : [r_notEmpty],
             			matrUnit : [r_notEmpty],
-            			cost : [r_notEmpty],
-            			amt : [r_notEmpty],
+            			cost : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
+            			amt : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
             			deliDate : [r_notEmpty]
             	};                
                 
@@ -131,7 +130,15 @@
             
             function fn_delete(){
             	var rodid = gridMain.getSelectedRowId();
+            	var setNoIdx = gridMain.getColIndexById('setNo');
+            	var totalRowNum = gridMain.getRowsNum();
+            	var selRowIdx = gridMain.getSelectedRowIndex();
+            	
             	gridMain.cs_deleteRow(rodid); 
+            	
+            	for(var i=selRowIdx; i<gridMain.getRowsNum();i++){
+            		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i+1, 3));	 
+            	}         	
             };
             
             function fn_remove(){
@@ -190,16 +197,21 @@
             };
             
             function fn_save() {
-            	
-            	if($("#seqNo").val()==null||$("#seqNo").val()=="" ||typeof $("#seqNo").val()=="undefined"){
-            		fn_getSeqReturn();
-            	}       
+            	var mstCudKey = "";
             	
             	if($("#custName").val() == ""){
             		alert("공급업체를 선택하세요.");
             		$("#custName").focus();
             		return false;
+            	}            	
+            	
+            	if($("#seqNo").val()==null||$("#seqNo").val()=="" ||typeof $("#seqNo").val()=="undefined"){
+            		mstCudKey = "INSERT";
+            		fn_getSeqReturn();
+            	}else{
+            		mstCudKey = "UPDATE";
             	}
+
               	var totalRowNum = gridMain.getRowsNum();
                 var selRowIdx = gridMain.getSelectedRowIndex();       
                 var setSeqTemp = gridMain.getColIndexById('setSeqTemp');
@@ -217,7 +229,7 @@
                 if (jsonStr == null || jsonStr.length <= 0){
                 	return false;
                 }else{
-                	saveTopMainGrid("/erp/plan/purc/purcConferS/gridTopSave", "${setSeq}");
+                	saveTopMainGrid("/erp/plan/purc/purcConferS/gridTopSave", mstCudKey);
                 	
                     $.ajax({
                         url: "/erp/plan/purc/purcConferS/gridMainSave",
