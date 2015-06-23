@@ -115,7 +115,7 @@ function fn_selGridMain(){
 	obj.writerEmp = $("#writerEmp").val();
 	obj.ppsEmp = $("#ppsEmp").val();
 	console.log(obj);
-	 gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
+	 //gfn_callAjaxForGrid(gridMain,obj,"selGridMain",subLayout.cells("a"),fn_selGridMainCB);
 }
 function fn_selGridMainCB(data){
 	console.log("devR data=",data);

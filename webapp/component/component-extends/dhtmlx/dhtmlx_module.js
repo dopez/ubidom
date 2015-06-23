@@ -69,7 +69,6 @@ var Ubi = (function() {
 		config.toolbar.setIconsPath("/images/button/dhtmlx/");
 		config.toolbar.loadStruct("/common/json/button.json",fn_onLoad);
 		function fn_onLoad(){
-			console.log(btn_id_array);
 			var item_id_set_arr = [1,2,3,4,5,6,7,8,9,10,11];
 		    
 		    for(var i=0; i< btn_id_array.length; i++){

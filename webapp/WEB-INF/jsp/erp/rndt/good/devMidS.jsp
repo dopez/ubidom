@@ -53,23 +53,20 @@ $(document).ready(function() {
         fn_setTab8();
         //tab end
         	//POP UP//
-    $("#planNumb, #korName, #evaluateNumb").dblclick(function(e){
-		if(e.target.id == "planNumb"){
-			if($(':radio[name="midEvalKind"]:checked').val()==0){
-				gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
+	    $("#planNumb, #korName, #evaluateNumb").dblclick(function(e){
+			if(e.target.id == "planNumb"){
+				if($(':radio[name="midEvalKind"]:checked').val()==0){
+					gfn_load_pop('w1','common/devPlanPOP',true,{"problemName":$("#problemName").val()});
+				}
 			}
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-		//if(e.target.id == "evaluateNumb"){
-		//	gfn_load_pop('w1','common/devPlanPOP02',true,{"problemName":$("#problemName").val()});
-		//}
-			if(e.target.id == "postName"){
-			popFlag = 5;
-				gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-    })
+			if(e.target.id == "korName"){
+				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			}
+				if(e.target.id == "postName"){
+				popFlag = 5;
+					gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+			}
+	    })
         $("input[name=midEvalKind]").change(function() {
     		var radioValue = $(this).val();
     		if (radioValue == "0") {
@@ -133,40 +130,39 @@ function fn_getEvalNum(){
 	    gfn_callAjaxComm(obj,"/erp/rndt/good/devMidS/selDevPlanPop02",fn_getEvalNumCB); 
 }
 function fn_getEvalNumCB(data){
-	//console.log(data[0].evaluateNumb);
 	$("#evaluateNumb").val(data[0].evaluateNumb)
 }
 function fn_search(){
 	if(fn_seqValid()){
 		fn_frmSearch();
 	
-	if(tabId=="a1"){
-		fn_searchGridTab(tab1,tabId,subTabbar.tabs("a1"),fn_selgridTab1CB)
-	}
-	if(tabId=="a2"){
-		fn_searchFrmTab("frmTab2",tabId,fn_selfrmTab2CB);
-	}
-	if(tabId=="a3"){
-		fn_searchFrmTab("frmTab3",tabId,fn_selfrmTab3CB);
-	}
-	if(tabId=="a4"){
-		fn_searchFrmTab("frmTab4",tabId,fn_selfrmTab4CB);
-	}
-	if(tabId=="a5"){
-
-		//fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
-	}
-	if(tabId=="a6"){
-		//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
-		//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
-		//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
-	}
-	if(tabId=="a7"){
-		//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
-	}
-	if(tabId=="a8"){
-		//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
-	}
+		if(tabId=="a1"){
+			fn_searchGridTab(tab1,tabId,subTabbar.tabs("a1"),fn_selgridTab1CB)
+		}
+		if(tabId=="a2"){
+			fn_searchFrmTab("frmTab2",tabId,fn_selfrmTab2CB);
+		}
+		if(tabId=="a3"){
+			fn_searchFrmTab("frmTab3",tabId,fn_selfrmTab3CB);
+		}
+		if(tabId=="a4"){
+			fn_searchFrmTab("frmTab4",tabId,fn_selfrmTab4CB);
+		}
+		if(tabId=="a5"){
+	
+			//fn_searchFrmTab("frmTab5_2",tabId,fn_selfrmTab5CB_2);
+		}
+		if(tabId=="a6"){
+			//fn_searchFrmTab("tab6_1",tabId,fn_selfrmTab6CB_1);
+			//fn_searchFrmTab("tab6_2",tabId,fn_selfrmTab6CB_2);
+			//fn_searchFrmTab("tab6_3",tabId,fn_selfrmTab6CB_3);
+		}
+		if(tabId=="a7"){
+			//fn_searchGridTab(tab7,tabId,subTabbar.tabs("a7"),fn_selgridTab7CB);	
+		}
+		if(tabId=="a8"){
+			//fn_searchGridTab(tab8Grid,tabId,tab8.cells("a"),fn_selgridTab8CB);	
+		}
 	}
 }
 function fn_setSearchParam(tabId){
