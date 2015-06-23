@@ -1,86 +1,123 @@
 function fn_setTab8(){
-	tab8 = subTabbar.tabs("a8").attachLayout("1C");
-	tab8.cells("a").hideHeader();
-	tab8Grid = new dxGrid(tab8.cells("a"), false);
-	tab8Grid.addHeader({name:"구분",colId:"marketKind",width:"100",align:"center",type:"ro"});
-	tab8Grid.addHeader({name:"계획(백만원)",colId:"",width:"150",align:"right",type:"ed"});
-	tab8Grid.addHeader({name:"변경(천원)",colId:"",width:"150",align:"right",type:"ed"});
-	tab8Grid.addHeader({name:"비고",colId:"remarks",width:"300",align:"left",type:"ed"});
-	tab8Grid.atchFooter();
-	tab8Grid.addAtchFooter({atchFooterName:"합계"});
-	tab8Grid.addAtchFooter({atchFooterName:"#stat_total"});
-	tab8Grid.addAtchFooter({atchFooterName:"#stat_total"});
-	tab8Grid.atchFooterInit();	
-	tab8Grid.setColSort("str");	
-	tab8Grid.setUserData("","pk","");
-	tab8Grid.dxObj.enableColSpan(true);
-	tab8Grid.init();
-	tab8Grid.cs_setColumnHidden(["setDate","setSeq"]);
-	fn_setRowsTab8()
-    
-	tab8Toolbar = subToolbar(tab8Toolbar,subTabbar.tabs("a8"),[3,4]);
+	tab8 = new dxGrid(subTabbar.tabs("a8"), false);
+	tab8.addHeader({name:"구분",colId:"investKind",width:"100",align:"center",type:"combo"});
+	tab8.addHeader({name:"계획(천원)",colId:"dhAmt",width:"150",align:"right",type:"ron"});
+	tab8.addHeader({name:"변경(천원)",colId:"cDhAmt",width:"150",align:"right",type:"edn"});
+	tab8.addHeader({name:"비고",colId:"remarks",width:"300",align:"left",type:"ed"});
+	tab8.atchFooter();
+	tab8.addAtchFooter({atchFooterName:"합계"});
+	tab8.addAtchFooter({atchFooterName:"#stat_total"});
+	tab8.addAtchFooter({atchFooterName:"#stat_total"});
+	tab8.atchFooterInit();	
+	tab8.setColSort("str");	
+	tab8.setUserData("","pk","");
+	tab8.init();
+	tab8.cs_setColumnHidden(["planNumb","setDate","setSeq"]);
+	tab8Toolbar = subToolbar(tab8Toolbar,subTabbar.tabs("a8"),[2,3,4]);
 	tab8Toolbar.attachEvent("onClick",function(id){
+		if(fn_seqValid()){
+		if(id=="btn2"){
+			
+				if($("#evaluateNumb").val()==""){
+					/*중간평가번호가 없을 때는 개발계획 테이블에서 셀렉트 해온 후 중간평가테이블에 저장한다.*/
+		        	fn_init_searchGridTab(tab8,"a7",subTabbar.tabs("a8"),"/erp/rndt/good/devPlanS/selGridTab")
+				}else{
+					/*중간평가번호가 있을 때에는 c_컬럼을 계획 컬럼으로 불러온 후 저장한다.*/
+					var evaluateNumb = $("#evaluateNumb").val();
+					var obj = {};
+					obj.setDate = evaluateNumb.substr(0,8);
+					obj.setSeq = evaluateNumb.substr(8,2);
+					gfn_callAjaxForGrid(tab8,obj,"selChangeCont4",subTabbar.tabs("a8"));
+				}
+				fn_saveChangeTab8();
+		}
     	if(id=="btn3"){
     		fn_tab8Save();
     	}
     	if(id=="btn4"){
-    		fn_tab8GridRemove();
+    		fn_tab8Remove();
     	}
+		}
     })
+	combo03 = tab8.getColumnCombo(0);
+	combo03.addOption("1","착수");
+	combo03.addOption("2","완료");
+	combo03.addOption("3","이관");
+	combo03.addOption("4","출시");
+	combo03.disable();
 }
-function fn_selgridTab8CB(data){
-	if(typeof data[0]=="undefined"){
-		fn_setRowsTab8();
-	}else if(data[4].remarks!=null||data[4].remarks!=""){
-	    tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
-	    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;")
-        tab8Grid.setCells(tab8Grid.getRowId(4), 1).setValue(data[4].remarks);
-	    tab8Grid.dxObj.setCellTextStyle(tab8Grid.getRowId(4),0,"text-align:center;");
-	}
-}
-function fn_setRowsTab8(){
-	tab8Grid.addRow(["Market Size"]);
-    tab8Grid.addRow(["예상매출액"]);
-    tab8Grid.addRow(["예상경상익율"]);
-    tab8Grid.addRow(["Target Market"]);
-    tab8Grid.addRow(["적용제품"]);
-    tab8Grid.dxObj.setColspan(tab8Grid.getRowId(4),1,3);
-    tab8Grid.dxObj.setRowTextStyle(tab8Grid.getRowId(4),"text-align:left;");
-    tab8Grid.dxObj.setCellTextStyle(tab8Grid.getRowId(4),0,"text-align:center;");
-}
-function fn_tab8GridRemove(){
-	var cudKeyColIdx = tab8Grid.getColIndexById('cudKey');
-	tab8Grid.dxObj.forEachRow(function(id) {
-	tab8Grid.setCells(id,cudKeyColIdx).setValue('DELETE');
+function fn_saveChangeTab8(){
+	var cudKeyColIdx = tab8.getColIndexById('cudKey');
+	var setDateColIdx = tab8.getColIndexById('setDate');
+	var setSeqColIdx = tab8.getColIndexById('setSeq');
+	var planNumbIdx = tab8.getColIndexById('planNumb');
+	tab8.dxObj.forEachRow(function(id) {
+    	tab8.setCells(id,cudKeyColIdx).setValue('INSERT');
+        tab8.setCells(id,setDateColIdx).setValue(dateVal);
+        tab8.setCells(id,setSeqColIdx).setValue(seqVal);
+        tab8.setCells(id,planNumbIdx).setValue(planNumVal);
 	});
-	fn_tab8Save();
-	tab8Grid.clearAll();
-	fn_setRowsTab8();
+	var jsonStr = tab8.getJsonUpdated2();
+	console.log(jsonStr);
+	$("#jsonData8").val(jsonStr);
+	console.log(jsonStr);
+	$("input[name='tabId']").val(tabId);
+	var params = $("#frmTab8").serialize();
+	$.ajax({
+         url : "/erp/rndt/good/devMidS/gridTabSave",
+         type : "POST",
+         data : params,
+         async : true,
+         success : function(data) {
+            //MsgManager.alertMsg("INF001");
+         }
+     });
+}
+function fn_tab8Remove(){
+	var jsonStr = tab8.getJsonUpdated2();
+	if (jsonStr == "[]" || jsonStr.length <= 2){
+		dhtmlx.alert("삭제할 행이 없습니다.");
+	}else{
+		var cudKeyColIdx = tab8.getColIndexById('cudKey');
+		tab8.dxObj.forEachRow(function(id) {
+		tab8.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
+		fn_tab8Save();
+		tab8.clearAll();
+	}
 }
 function fn_tab8Save(){
 	if(fn_seqValid()){
-		var setDateColIdx = tab8Grid.getColIndexById('setDate');
-		var setSeqColIdx = tab8Grid.getColIndexById('setSeq');
-		tab8Grid.dxObj.forEachRow(function(id) {
-			tab8Grid.setCells(id,setDateColIdx).setValue(dateVal);
-			tab8Grid.setCells(id,setSeqColIdx).setValue(seqVal);
+		var setDateColIdx = tab8.getColIndexById('setDate');
+		var setSeqColIdx = tab8.getColIndexById('setSeq');
+		tab8.dxObj.forEachRow(function(id) {
+			tab8.setCells(id,setDateColIdx).setValue(dateVal);
+			tab8.setCells(id,setSeqColIdx).setValue(seqVal);
 		});
-		var jsonStr = tab8Grid.getJsonUpdated2();
-		console.log(jsonStr);
+		
+		var jsonStr = tab8.getJsonUpdated2();
 		if (jsonStr == "[]" || jsonStr.length <= 2){
 			dhtmlx.alert("입력 된 값이 없습니다.");
 		}else{
-			$("#jsonData8").val(jsonStr);
-			var params = $("#frmTab8").serialize();
-			$.ajax({
-		         url : "/erp/rndt/good/devPlanS/gridTab8Save",
-		         type : "POST",
-		         data : params,
-		         async : true,
-		         success : function(data) {
-		            MsgManager.alertMsg("INF001");
-		         }
-		     });
+			g_dxRules = {planKind : [r_notEmpty]}
+			if(gfn_validation("planKind", "구분",1||2||3||4)){
+				$("#jsonData8").val(jsonStr);
+				$("input[name='tabId']").val(tabId);
+				var params = $("#frmTab8").serialize();
+				console.log(params);
+				$.ajax({
+			         url : "/erp/rndt/good/devMidS/gridTabSave",
+			         type : "POST",
+			         data : params,
+			         async : true,
+			         success : function(data) {
+			            MsgManager.alertMsg("INF001");
+			         }
+			     });
+			}
 		}
 	}
+}
+function fn_selgridTab8CB(data){
+	console.log("tab8",data);
 }

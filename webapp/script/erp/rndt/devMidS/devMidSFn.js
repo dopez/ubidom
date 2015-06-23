@@ -23,7 +23,19 @@ function fn_seqValid(){
 		||typeof $("#setSeq").val()=="undefined"
 			||$("#planNumb").val()==null||$("#planNumb").val()==""
 			||typeof $("#planNumb").val()=="undefined"){
-		dhtmlx.alert("위 Form부터 작성/저장 하세요");
+		dhtmlx.alert("상위내용 저장 후 작성/저장 하세요");
+		vFlag = false;
+		return vFlag;
+	}else{
+		vFlag = true;
+		return vFlag;
+	}
+}
+function fn_planNumbValid(){
+	var vFlag = "";
+	if($("#planNumb").val()==null||$("#planNumb").val()==""
+				||typeof $("#planNumb").val()=="undefined"){
+		dhtmlx.alert("개발번호를 선택하세요");
 		vFlag = false;
 		return vFlag;
 	}else{
@@ -32,6 +44,9 @@ function fn_seqValid(){
 	}
 }
 function fn_frmMainSave(){
+    if($(':radio[name="midEvalKind"]:checked').val()==1){
+    	fn_getEvalNum();
+    }
 	$("input[name=setSeq]").attr("disabled",false);
 	dateVal = searchDate($("#setDate").val());
 	seqVal = $("#setSeq").val();

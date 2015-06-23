@@ -8,6 +8,10 @@ import org.apache.ibatis.type.Alias;
 public class DevMidR implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String midEvalKind;
+
+	private String evaluateNumb;
+
 	private String ppsName;
 
 	private String ppsEmp;
@@ -17,17 +21,11 @@ public class DevMidR implements Serializable {
 	private String stDate;
 
 	private String edDate;
+
 	private int cnt;
 
 	private String rNum;
 
-	public String getrNum() {
-		return rNum;
-	}
-
-	public void setrNum(String rNum) {
-		this.rNum = rNum;
-	}
 
 	private String compId;
 
@@ -124,6 +122,20 @@ public class DevMidR implements Serializable {
 	private String cDhAmt;
 
 	private String cTotAmt;
+
+	private int sumDhAmt;
+
+	private int sumCDhAmt;
+
+	private String endDate;
+
+	private String cStDate;
+
+	private String cEndDate;
+
+	private int dd;
+
+	private int cDd;
 
 	public String getCompId() {
 		return compId;
@@ -517,6 +529,85 @@ public class DevMidR implements Serializable {
 		this.empName = empName;
 	}
 
+	public int getSumDhAmt() {
+		return sumDhAmt;
+	}
+
+	public void setSumDhAmt(int sumDhAmt) {
+		this.sumDhAmt = sumDhAmt;
+	}
+
+	public int getSumCDhAmt() {
+		return sumCDhAmt;
+	}
+
+	public void setSumCDhAmt(int sumCDhAmt) {
+		this.sumCDhAmt = sumCDhAmt;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getcStDate() {
+		return cStDate;
+	}
+
+	public void setcStDate(String cStDate) {
+		this.cStDate = cStDate;
+	}
+
+	public String getcEndDate() {
+		return cEndDate;
+	}
+
+	public void setcEndDate(String cEndDate) {
+		this.cEndDate = cEndDate;
+	}
+
+	public int getDd() {
+		return dd;
+	}
+
+	public void setDd(int dd) {
+		this.dd = dd;
+	}
+
+	public int getcDd() {
+		return cDd;
+	}
+
+	public void setcDd(int cDd) {
+		this.cDd = cDd;
+	}
+
+	public String getMidEvalKind() {
+		return midEvalKind;
+	}
+
+	public void setMidEvalKind(String midEvalKind) {
+		this.midEvalKind = midEvalKind;
+	}
+
+	public String getEvaluateNumb() {
+		return evaluateNumb;
+	}
+
+	public void setEvaluateNumb(String evaluateNumb) {
+		this.evaluateNumb = evaluateNumb;
+	}
+
+	public String getrNum() {
+		return rNum;
+	}
+
+	public void setrNum(String rNum) {
+		this.rNum = rNum;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

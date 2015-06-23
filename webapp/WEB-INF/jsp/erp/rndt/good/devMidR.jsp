@@ -26,22 +26,27 @@ var uri = null;
 		gridMain.addHeader({name:"보고자",colId:"empName",width:"100",align:"center",type:"ro"});
 		gridMain.addHeader({name:"제안자",colId:"ppsName",width:"100",align:"center",type:"ro"});
 		gridMain.addHeader({name:"제안부서",colId:"postName",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"과제명",colId:"problemName",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"계획",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"변경",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
-		gridMain.addHeader({name:"#cspan",colId:"",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"과제명",colId:"problemName",width:"200",align:"left",type:"ro"});
+		gridMain.addHeader({name:"계획",colId:"sumDhAmt",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"stDate",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"endDate",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"dd",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"변경",colId:"sumCDhAmt",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"cStDate",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"cEndDate",width:"100",align:"center",type:"ro"});
+		gridMain.addHeader({name:"#cspan",colId:"cDd",width:"100",align:"center",type:"ro"});
 		gridMain.dxObj.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,계발예산(천원),개발기간,#cspan,#cspan,개발예산(천원),개발기간,#cspan,#cspan", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", ]);
 		gridMain.dxObj.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,시작,종료,일수,#rspan,시작,종료,일수", ["text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", "text-align:center;vertical-align:middle;", ]);
-		gridMain.dxObj.attachFooter("개발예산 Total,#cspan,#cspan,#cspan,#cspan,0,,#cspan,#cspan,#cspan,#cspan,#cspan,", ["text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", ]);
-		
-		
+		//gridMain.dxObj.attachFooter("개발예산 Total,#cspan,#cspan,#cspan,#cspan,#stat_total,,#cspan,#cspan,#cspan,#cspan,#cspan,#stat_total", ["text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", "text-align:right;font-weight:bold;", ]);
+		gridMain.dxObj.setUserData("","@setDate","format_date");
+		gridMain.dxObj.setUserData("","@stDate","format_date");
+		gridMain.dxObj.setUserData("","@endDate","format_date");
+		gridMain.dxObj.setUserData("","@cEndDate","format_date");
+		gridMain.dxObj.setUserData("","@cStDate","format_date");
+		gridMain.setColSort("str");	
+		gridMain.setUserData("","pk","setDate");
     	gridMain.init();
-        gridMain.cs_setColumnHidden(["planNumb","empNo","setSeq"]);
+        gridMain.cs_setColumnHidden(["evaluateNumb","midEvalKind","planNumb","empNo","setSeq","opKind"]);
         gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
         gridMain.enableSmartRendering(false);
         
@@ -84,7 +89,14 @@ function doOnRowDbClicked(rId,cInd){
 	var planNumbValue = gridGetVal(rId,gridMain,"planNumb");
 	var empNameValue = gridGetVal(rId,gridMain,"empName");
 	var empNoValue = gridGetVal(rId,gridMain,"empNo");
+	var midEvalKindValue = gridGetVal(rId,gridMain,"midEvalKind");
+	var evaluateNumbValue = gridGetVal(rId,gridMain,"evaluateNumb");
+	var opKindValue = gridGetVal(rId,gridMain,"opKind");
 	var openP = "u";
+	var obj = {planNumb:planNumbValue,problemName:problemNameValue,empName:empNameValue,empNo:empNoValue,setDate:dateValue,setSeq:seqValue,openParam:openP};
+	obj.midEvalKind = midEvalKindValue;
+	obj.evaluateNumb = evaluateNumbValue;
+	obj.opKind = opKindValue;
 	var ids = mainTabbar.getAllTabs();
 	var preId = "1000000683";
 	for(var i=0;i<ids.length;i++){
@@ -92,6 +104,7 @@ function doOnRowDbClicked(rId,cInd){
 			if(MsgManager.confirmMsg("INF006")) { 
 				mainTabbar.tabs(preId).close();
 				cFlag = true;
+				break;
 			}else{
 				cFlag = false;
 				return;
@@ -102,7 +115,7 @@ function doOnRowDbClicked(rId,cInd){
 		var uri = mainMenu.getUserData(preId, "uri");
 		var menuItemText = mainMenu.getDxObj().getItemText(preId);
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,{planNumb:planNumbValue,problemName:problemNameValue,empName:empNameValue,empNo:empNoValue,setDate:dateValue,setSeq:seqValue,openParam:openP});	
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,obj);	
 	}
 };
 function fn_search(){

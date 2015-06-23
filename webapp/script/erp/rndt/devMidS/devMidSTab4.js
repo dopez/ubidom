@@ -2,6 +2,8 @@ function fn_setTab4(){
     tab4 = subTabbar.tabs("a4").attachObject("tab4");
     tab4Toolbar = subToolbar(tab4Toolbar,subTabbar.tabs("a4"),[3,4]);
     tab4Toolbar.attachEvent("onClick",function(id){
+		if(fn_seqValid()){
+
     	if(id=="btn3"){
     		fn_tab4Save();
     	}
@@ -9,6 +11,7 @@ function fn_setTab4(){
     		$('#cudKey4').val('DELETE');
     		fn_tab4Save();
     	}
+		}
     })
 }
 function fn_frm4Chk(){
