@@ -33,10 +33,11 @@ public class MonthlyPlanSController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView selMonthlyDate(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
-		String planMm = request.getParameter("planMm");
+		String yyyy = request.getParameter("planMm").substring(0, 4);
+		String mm = request.getParameter("planMm").substring(4, 6);
 		String setNumb = request.getParameter("setNumb");
 		ModelAndView mnv = new ModelAndView("/erp/prod1/prod/monthlyPlanS");
-		mnv.addObject("planMm", planMm);
+		mnv.addObject("planMm", yyyy + "/" + mm);
 		mnv.addObject("setNumb", setNumb);
 		return mnv;
 	}

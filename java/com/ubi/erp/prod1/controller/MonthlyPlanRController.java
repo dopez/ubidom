@@ -31,13 +31,12 @@ public class MonthlyPlanRController {
 		String compId = (String) session.getAttribute("compId");
 		String frMm = request.getParameter("frMm");
 		String toMm = request.getParameter("toMm");
-		String itemCode = request.getParameter("itemCode");
 		map.put("compId", compId);
 		map.put("frMm", frMm);
 		map.put("toMm", toMm);
 		map.put("prodKind", "1");
 		map.put("equiCode", "%");
-		map.put("itemCode", itemCode);
+		map.put("itemCode", "%");
 		map.put("o_cursor", null);
 		monthlyPlanRService.selMonthlyPlanR(map);
 		List<MonthlyPlanR> list = (List<MonthlyPlanR>) map.get("o_cursor");

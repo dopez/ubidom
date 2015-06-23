@@ -62,7 +62,7 @@ var Ubi = (function() {
 		var size = 18;
 		/*종료버튼 공통적용*/
 		if(parent.menuId != null || typeof parent.menuId != "undefined"){
-			btn_id_array.push(11);
+		//	btn_id_array.push(11);
 		}
 		config.toolbar.clearAll();
 		config.toolbar.setIconSize(18);
@@ -126,9 +126,9 @@ var Ubi = (function() {
     };
     
 })();
-function fn_exit(){
+/*function fn_exit(){
 	var mainTabbar = parent.mainTabbar;
 	var menuId;
 	menuId = mainTabbar.getActiveTab();
 	mainTabbar.tabs(menuId).close();
-}
+}*/

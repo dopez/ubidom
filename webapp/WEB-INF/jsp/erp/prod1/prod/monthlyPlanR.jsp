@@ -4,6 +4,10 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;   
+var mainMenu = parent.mainMenu;
+var mainTabbar = parent.mainTabbar;
+var tabId = null;
+var uri = null;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//월간생산계획조회
@@ -13,70 +17,160 @@ $(document).ready(function(){
 	
 	layout.cells("b").attachObject("bootContainer");
 	
-	gridMain = subLayout.cells("a").attachGrid();
-	gridMain.setImagePath("/component/dhtmlxGrid/imgs/");
-	gridMain.setHeader("연월,품목코드,품명,포장,단위,전월실적,#cspan,재고,1일,2일,"+
-			           "3일,4일,5일,6일,7일,8일,9일,10일,11일,12일,"+
-			           "13일,14일,15일,16일,17일,18일,19일,20일,21일,22일,"+
-			           "23일,24일,25일,26일,27일,28일,29일,30일,31일,합계",null,
-			          ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			           "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.attachHeader("#rspan,#rspan,#rspan,#rspan,#rspan,매출,생산,#rspan,#rspan,#rspan,"+
-			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
-			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,"+
-			              "#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan",
-			             ["text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;",
-			              "text-align:center;","text-align:center;","text-align:center;","text-align:center;","text-align:center;"]);
-	gridMain.setInitWidths("100,100,100,100,100,50,50,50,50,50,"+
-		 	               "50,50,50,50,50,50,50,50,50,50,"+
-			               "50,50,50,50,50,50,50,50,50,50,"+
-			               "50,50,50,50,50,50,50,50,50,50");
-	gridMain.setColAlign("center,left,left,left,left,right,right,right,right,right,"+
-			             "right,right,right,right,right,right,right,right,right,right,"+
-			             "right,right,right,right,right,right,right,right,right,right,"+
-			             "right,right,right,right,right,right,right,right,right,right");
-	gridMain.setColTypes("ro,ro,ro,ro,ro,ron,ron,ron,ron,ron,"+
-			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
-			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron,"+
-			             "ron,ron,ron,ron,ron,ron,ron,ron,ron,ron");
-	gridMain.setColSorting("date,str,str,str,str,int,int,int,int,int,"+
-			               "int,int,int,int,int,int,int,int,int,int,"+
-			               "int,int,int,int,int,int,int,int,int,int,"+
-			               "int,int,int,int,int,int,int,int,int,int");
-	gridMain.attachFooter("공정계,,,,,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0");
-	gridMain.attachFooter("월계,,,,,0,0,0,0,0,"+
-		 	              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0");
-	gridMain.attachFooter("합계,,,,,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0,"+
-			              "0,0,0,0,0,0,0,0,0,0");
-	gridMain.init();	
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+	gridMain.addHeader({name:"NO",       colId:"no",         width:"40", align:"center", type:"cntr"});
+	gridMain.addHeader({name:"년월",     colId:"planMm",     width:"80",  align:"center",  type:"ro"});
+	gridMain.addHeader({name:"품목코드", colId:"itemCode",   width:"120", align:"left",  type:"ro"});
+	gridMain.addHeader({name:"품목명",   colId:"itemName",   width:"80", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"포장",     colId:"packUnit",   width:"80", align:"left",   type:"ron"});
+	gridMain.addHeader({name:"단위",     colId:"itemUnit",   width:"80", align:"left",   type:"ro"});
+	gridMain.addHeader({name:"1일",      colId:"planDay1",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"2일",      colId:"planDay2",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"3일",      colId:"planDay3",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"4일",      colId:"planDay4",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"5일",      colId:"planDay5",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"6일",      colId:"planDay6",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"7일",      colId:"planDay7",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"8일",      colId:"planDay8",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"9일",      colId:"planDay9",   width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"10일",     colId:"planDay10",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"11일",     colId:"planDay11",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"12일",     colId:"planDay12",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"13일",     colId:"planDay13",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"14일",     colId:"planDay14",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"15일",     colId:"planDay15",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"16일",     colId:"planDay16",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"17일",     colId:"planDay17",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"18일",     colId:"planDay18",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"19일",     colId:"planDay19",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"20일",     colId:"planDay20",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"21일",     colId:"planDay21",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"22일",     colId:"planDay22",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"23일",     colId:"planDay23",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"24일",     colId:"planDay24",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"25일",     colId:"planDay25",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"26일",     colId:"planDay26",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"27일",     colId:"planDay27",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"28일",     colId:"planDay28",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"29일",     colId:"planDay29",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"30일",     colId:"planDay30",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"31일",     colId:"planDay31",  width:"60", align:"right",  type:"edn"});
+	gridMain.addHeader({name:"합계",     colId:"planDaySum", width:"60", align:"right",  type:"ron"});
+	gridMain.setUserData("","pk","no");
+	gridMain.setColSort("str");
+	gridMainAttachFooter();
+	gridMain.init(); 
+	gridMain.cs_setColumnHidden(["setNumb","prodKind","equiCode"]);
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+		
 	
-	calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+	calMain = new dhtmlXCalendarObject([{input:"frMm",button:"calpicker1"},{input:"toMm",button:"calpicker2"}]);
 	calMain.loadUserLanguage("ko");
-	calMain.setDateFormat("%Y");
+	calMain.setDateFormat("%Y/%m");
 	calMain.hideTime();
-	var t = new Date().getFullYear();
-	byId("stDate").value = t;
-	byId("edDate").value = t;
+	 var t = new Date().getFullYear();
+	 var m = +new Date().getMonth()+1;
+	 m = fn_monthLen(m);
+	byId("frMm").value = t+"/"+m;
+	byId("toMm").value = t+"/"+m;
 });
+function doOnRowDblClicked(rId,cInd){
+	var cFlag = true;
+	var planMmIdx = gridMain.getColIndexById('planMm');
+	var setNumbIdx = gridMain.getColIndexById('setNumb');
+	var dateValue = gridMain.setCells(rId,planMmIdx).getValue();
+	var seqValue = gridMain.setCells(rId,setNumbIdx).getValue();
+	var ids = mainTabbar.getAllTabs();
+	var preId = "1000000497";
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{planMm:dateValue,setNumb:seqValue});	
+	}
+};
+function gridMainAttachFooter(){
+	gridMain.atchFooter();
+	gridMain.addAtchFooter({atchFooterName:""});
+	gridMain.addAtchFooter({atchFooterName:"합계"});
+	gridMain.addAtchFooter({atchFooterName:""});
+	gridMain.addAtchFooter({atchFooterName:""});
+	gridMain.addAtchFooter({atchFooterName:""});
+	gridMain.addAtchFooter({atchFooterName:""});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.addAtchFooter({atchFooterName:"#stat_total"});
+	gridMain.atchFooterInit();	
+}
+
+function fn_search(){
+	fn_loadGridMain();
+};
+function fn_excel(){
+	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
+ };
+ function fn_print(){
+	 gridMain.dxObj.printView();
+ }
+ function fn_loadGridMain(params) {
+	 var obj ={};
+	 obj.frMm = searchDate($("#frMm").val());
+	 obj.toMm = searchDate($("#toMm").val());
+	 gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
+};
+function fn_loadGridMainCB(data){
+	 gridMain.dxObj.customGroupFormat=function(name,count){
+		 var yyyy = name.substring(0,4);
+		 var mm = name.substring(5,7);
+	      return yyyy+"년 "+mm+"월";
+	}
+	gridMain.dxObj.groupBy(1,["","#title","#cspan","#cspan","#cspan","#cspan","#stat_total","#stat_total","#stat_total",
+	                          "#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total",
+	                          "#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total",
+	                          "#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total",
+	                          "#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total","#stat_total",
+	                          "#stat_total","#stat_total","#stat_total"]); 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
@@ -91,19 +185,19 @@ $(document).ready(function(){
 				<div class="col-sm-6 col-md-6">
                     <div class="col-sm-4 col-md-4">
                          <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                              <input type="text" class="form-control input-xs" name="frMm" id="frMm" value="">
                          </div>
                          <div class="col-sm-2 col-md-2">
-                             <input type="button" id="calpicker1" class="calicon form-control"  onclick="setSens(1,'edDate', 'max')">
+                             <input type="button" id="calpicker1" class="calicon form-control"  onclick="setSens(1,'toMm', 'max')">
                           </div>
                      </div>
                      <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                         <div class="col-sm-4 col-md-4">
                           <div class="col-sm-10 col-md-10">
-                              <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                              <input type="text" class="form-control input-xs" name="toMm" id="toMm" value="">
                           </div>
                           <div class="col-sm-2 col-md-2"> 
-                             <input type="button" id="calpicker2" class="calicon form-control"  onclick="setSens(1,'stDate', 'min')">
+                             <input type="button" id="calpicker2" class="calicon form-control"  onclick="setSens(1,'frMm', 'min')">
                           </div>
                        </div> 
                  </div>              

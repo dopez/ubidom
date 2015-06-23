@@ -24,6 +24,12 @@ public class MonthlyPlanR implements Serializable {
 
 	private String itemCode;
 
+	private String itemName;
+
+	private String packUnit;
+
+	private String itemUnit;
+
 	private int planDay1;
 
 	private int planDay2;
@@ -93,6 +99,30 @@ public class MonthlyPlanR implements Serializable {
 	private String frMm;
 
 	private String toMm;
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getPackUnit() {
+		return packUnit;
+	}
+
+	public void setPackUnit(String packUnit) {
+		this.packUnit = packUnit;
+	}
+
+	public String getItemUnit() {
+		return itemUnit;
+	}
+
+	public void setItemUnit(String itemUnit) {
+		this.itemUnit = itemUnit;
+	}
 
 	public String getFrMm() {
 		return frMm;

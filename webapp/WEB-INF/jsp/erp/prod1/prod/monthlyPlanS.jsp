@@ -58,6 +58,7 @@ $(document).ready(function(){
 	gridMain.cs_setColumnHidden(["setNumb","prodKind","equiCode","planMm"]);
 	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
+	gridMain.attachEvent("onCellChanged",doOnCellChanged);
 	
 	calMain = new dhtmlXCalendarObject([{input:"planMm",button:"calpicker"}]); 
     calMain.loadUserLanguage("ko");
@@ -68,20 +69,46 @@ $(document).ready(function(){
     m = fn_monthLen(m);
     if($('#planMm').val() == ''){
     	  byId("planMm").value = t+"/"+m;
-    	}
+    }
     
     fn_search();
 });
+function doOnCellChanged(rId,cInd,nValue){
+	if(cInd==5){totalTimeCalcul(rId);}
+	if(cInd==6){totalTimeCalcul(rId);}
+	if(cInd==7){totalTimeCalcul(rId);}
+	if(cInd==8){totalTimeCalcul(rId);}
+	if(cInd==9){totalTimeCalcul(rId);}
+	if(cInd==10){totalTimeCalcul(rId);}
+	if(cInd==11){totalTimeCalcul(rId);}
+	if(cInd==12){totalTimeCalcul(rId);}
+	if(cInd==13){totalTimeCalcul(rId);}
+	if(cInd==14){totalTimeCalcul(rId);}
+	if(cInd==15){totalTimeCalcul(rId);}
+	if(cInd==16){totalTimeCalcul(rId);}
+	if(cInd==17){totalTimeCalcul(rId);}
+	if(cInd==18){totalTimeCalcul(rId);}
+	if(cInd==19){totalTimeCalcul(rId);}
+	if(cInd==20){totalTimeCalcul(rId);}
+	if(cInd==21){totalTimeCalcul(rId);}
+	if(cInd==22){totalTimeCalcul(rId);}
+	if(cInd==23){totalTimeCalcul(rId);}
+	if(cInd==24){totalTimeCalcul(rId);}
+	if(cInd==25){totalTimeCalcul(rId);}
+	if(cInd==26){totalTimeCalcul(rId);}
+	if(cInd==27){totalTimeCalcul(rId);}
+	if(cInd==28){totalTimeCalcul(rId);}
+	if(cInd==29){totalTimeCalcul(rId);}
+	if(cInd==30){totalTimeCalcul(rId);}
+};
 function doOnRowSelect(id,ind){
 	totalTimeCalcul(id);
 }
 function totalTimeCalcul(id){
 	var planDaySumColIdx = gridMain.getColIndexById('planDaySum');
-	sum = gridMain.setCells(id,planDaySumColIdx).getValue()*1;
-	
-	for(var i=5;i<gridMain.getColumnsNum()-1;i++){
+	sum = 0;
+	for(var i=5;i<36;i++){
 		sum = sum + gridMain.setCells(id,i).getValue()*1;
-		sum = sum*1;
 	}
 	gridMain.setCells(id,planDaySumColIdx).setValue(sum);
 }
@@ -97,22 +124,9 @@ function fn_loadGridMain(){
 	var obj={};
 	obj.planMm = searchDate($('#planMm').val());
 	obj.setNumb = $('#setNumb').val();
-	 gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
+	 gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
 }
 
-function fn_loadGridMainCB(data){
-	var planDaySumColIdx = gridMain.getColIndexById('planDaySum');
-	if(gridMain.getRowsNum()>0){
-		for(var i=0; i<gridMain.getRowsNum();i++){
-			var sum = gridMain.setCells(i,planDaySumColIdx).getValue()*1;
-			for(var j=5;j<gridMain.getColumnsNum()-1;j++){
-				sum = sum + gridMain.setCells(i,j).getValue()*1;
-				gridMain.setCells(i,planDaySumColIdx).setValue(sum);
-			}
-			
-		}
-	}
-}
 function fn_new(){
 	gridMain.clearAll();
 	gridMain.parse("","js");
@@ -121,10 +135,10 @@ function fn_new(){
 
 function fn_getSeqReturn(){
 	 var obj = {};
-	    obj.tableName = 'TBL_PROD_PLAN_YEAR';
+	    obj.tableName = 'TBL_PROD_PLAN_MONTH';
 	    obj.seqColumn = 'SET_NUMB';
-	    obj.dateColumn1 = 'PLAN_YEAR';
-	    obj.columnData1 = $("#planYear").val();
+	    obj.dateColumn1 = 'PLAN_MM';
+	    obj.columnData1 = searchDate($("#planMm").val());
 	    obj.returnLen = 2;
 	    gfn_callAjaxComm(obj,"/erp/comm/stan/tableSeq/selTableSeq1",fn_SetSeq); 
 };
@@ -138,6 +152,10 @@ function fn_SetSeq(data) {
 };
 
 function fn_save(){
+	for(var j=0;j<gridMain.getRowsNum();j++){
+		var rowId = gridMain.getRowId(j);
+		totalTimeCalcul(rowId);
+	}
 	var setNumbIdx = gridMain.getColIndexById('setNumb');
 	if($('#setNumb').val() != ''){
 		var seqValue = $('#setNumb').val();
