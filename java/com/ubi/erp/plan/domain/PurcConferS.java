@@ -55,6 +55,10 @@ public class PurcConferS implements Serializable{
 	private String matrName;
 	private String matrSpec;
 	private String matrUnit;
+	private String empName;
+	private String cudKey;
+	private String setSeqTemp;
+	private String setDateTemp;
 	
 	public String getCompId() {
 		return compId;
@@ -331,6 +335,30 @@ public class PurcConferS implements Serializable{
 	}
 	public void setCustName(String custName) {
 		this.custName = custName;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public String getCudKey() {
+		return cudKey;
+	}
+	public void setCudKey(String cudKey) {
+		this.cudKey = cudKey;
+	}
+	public String getSetSeqTemp() {
+		return setSeqTemp;
+	}
+	public void setSetSeqTemp(String setSeqTemp) {
+		this.setSeqTemp = setSeqTemp;
+	}
+	public String getSetDateTemp() {
+		return setDateTemp;
+	}
+	public void setSetDateTemp(String setDateTemp) {
+		this.setDateTemp = setDateTemp;
 	}	
 	
 }
