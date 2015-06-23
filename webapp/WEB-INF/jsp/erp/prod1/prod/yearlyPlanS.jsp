@@ -12,8 +12,6 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
-
-	gridMain = subLayout.cells("a").attachGrid();
 	
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",       colId:"no",         width:"40", align:"center", type:"cntr"});

@@ -326,7 +326,6 @@ function fileupload(tagId,imgId,callbackFn){
 function searchDate(dateValue){
 	var value = null;
 	var splitfrDate = dateValue.split("/");
-	console.log(splitfrDate.length)
 	for(var i=0;i<splitfrDate.length;i++){
 		value = value + splitfrDate[i];
 	}
