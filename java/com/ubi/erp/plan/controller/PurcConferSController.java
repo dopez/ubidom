@@ -1,6 +1,7 @@
 package com.ubi.erp.plan.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -125,4 +134,26 @@ public class PurcConferSController {
 
 		return list;
 	}	
+	
+	@RequestMapping(value = "/gridTopSave", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void gridTopSave(HttpSession session, @RequestBody PurcConferS purcConferS, ModelMap map) throws Exception {
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");
+		purcConferSService.prcsGridTop(purcConferS, sysEmpNo, compId);
+	}	
+	
+	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void gridMainSave(HttpServletRequest request, HttpServletResponse response,HttpSession session, PurcConferS purcConferS) throws Exception {
+		List<PurcConferS> list = new ArrayList<PurcConferS>();
+		
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");		
+		String jsonData = request.getParameter("jsonData");
+		
+		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<PurcConferS>>(){});		
+		purcConferSService.prcsGridMain(list, sysEmpNo, compId);
+	}	
+	
 }

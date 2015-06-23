@@ -24,19 +24,20 @@
                 gridMain.addHeader({name:"No",colId:"",width:"50",align:"center",type:"cntr"});
                 gridMain.addHeader({name:"품의일자",colId:"setDate",width:"100",align:"center",type:"ro"});
                 gridMain.addHeader({name:"품의자",colId:"empNo",width:"100",align:"center",type:"ro"});
-                gridMain.addHeader({name:"공급업체",colId:"custName",width:"100",align:"center",type:"ro"});
-                gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"center",type:"ro"});
-                gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"center",type:"ro"});
-                gridMain.addHeader({name:"단위",colId:"matrUnit",width:"100",align:"center",type:"ro"});
-                gridMain.addHeader({name:"수량",colId:"qty",width:"100",align:"left",type:"ro"});
-                gridMain.addHeader({name:"단가",colId:"cost",width:"100",align:"left",type:"ro"});
-                gridMain.addHeader({name:"금액",colId:"amt",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"공급업체",colId:"custName",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"단위",colId:"matrUnit",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"수량",colId:"qty",width:"100",align:"right",type:"ron"});
+                gridMain.addHeader({name:"단가",colId:"cost",width:"100",align:"right",type:"ron"});
+                gridMain.addHeader({name:"금액",colId:"amt",width:"100",align:"right",type:"ron"});
                 gridMain.addHeader({name:"납기일자",colId:"deliDate",width:"100",align:"center",type:"ro"});
                 gridMain.setUserData("","pk","");
                 gridMain.setColSort("str");
                 gridMain.dxObj.setUserData("","@setDate","format_date");
                 gridMain.dxObj.setUserData("","@deliDate","format_date");
                 gridMain.init();    
+                gridMain.cs_setNumberFormat(["qty","cost","amt"], "0,000");
                 gridMain.cs_setColumnHidden(["setSeq"]);
                 gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
                 
@@ -69,6 +70,7 @@
             
             function fn_gridMainSelCallbckFunc(data) {
                 $("#setSDate").keyup();
+                $("#setEDate").keyup();
             }                    
             
             function doOnRowDbClicked(rId,cInd){
