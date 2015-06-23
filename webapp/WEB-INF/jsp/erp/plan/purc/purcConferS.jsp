@@ -133,12 +133,14 @@
             	var setNoIdx = gridMain.getColIndexById('setNo');
             	var totalRowNum = gridMain.getRowsNum();
             	var selRowIdx = gridMain.getSelectedRowIndex();
+
+            	for(var i=selRowIdx+1; i<totalRowNum;i++){
+            		console.log(i);
+            		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i, 3));	 
+            	}
             	
             	gridMain.cs_deleteRow(rodid); 
             	
-            	for(var i=selRowIdx; i<gridMain.getRowsNum();i++){
-            		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i+1, 3));	 
-            	}         	
             };
             
             function fn_remove(){
