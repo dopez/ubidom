@@ -220,20 +220,8 @@ var fncSelectItem = function(tree, id) {
 		}
 	}
 }
-function closeEvent(grid){
-	var exitVal = true;
-	 var cudKeyIdx = grid.getColIndexById('cudKey');
-	 for(var i=0;i<grid.getRowsNum();i++){
-		 var cudVal = grid.setCells2(i,cudKeyIdx).getValue();
-		 if(cudVal != ''){
-			 exitVal = false;
-			 break;
-		 }
-	 }
-	 if(exitVal){
-		 var menuId = mainTabbar.getActiveTab();
-		mainTabbar.tabs(menuId).close(); 
-	 }	
+function closeEvent(){
+	$('iframe')[0].contentWindow.fn_exit();
 }
 
 function getViewFullPath(id){

@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>jqGrid RowSpan Example</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/redmond/jquery-ui.css" />
@@ -18,10 +17,9 @@
 <script type="text/javascript">
 	$(function () {
 		'use strict';
-		
 		// 1. RowSpan 대상컬럼수만큼 생성(country, state)
 		var prevColOne = { cellId: undefined, value: undefined };
-	
+
 		// 2. RowSpan 대상컬럼 속성에 cellattr 지정(변수명이 중복되지 않도록 정의)
 		$("#list").jqGrid({
 		    url : "/erp/pers/wage/provDeductSetS/jqTest",
@@ -29,7 +27,7 @@
 			datatype: "json",
 			colNames: ['subjectKind', 'subjectCode', 'subjectName', 'userOrder', 'calcKind', 'avgKind', 'taxYnO', 'taxYnM', 'nonTaxAmt', 'remarks'],
 			colModel: [
-				{ name: 'subjectKind', width: 150, align: 'center', 
+				{ name: 'subjectKind', width: 100, align: 'center', 
 					cellattr: function (rowId, val, rawObject, cm, rdata) {
 						var result;
 						if (prevColOne.value == val) {
@@ -73,6 +71,7 @@
 				});
 			}
 		});
+		
 	});
 </script>
 </head>
