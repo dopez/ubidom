@@ -210,8 +210,8 @@ var fncSelectItem = function(tree, id) {
 		});
 
 		if(flag){
-		/* 	var src = '&nbsp;&nbsp;<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
-			'onclick="closeEvent('+id+')">'; */
+		 	var src = '&nbsp;&nbsp;<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
+			'id="closeBtn" name="closeBtn">'; 
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
             mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}

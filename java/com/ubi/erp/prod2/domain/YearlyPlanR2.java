@@ -1,11 +1,11 @@
-package com.ubi.erp.prod1.domain;
+package com.ubi.erp.prod2.domain;
 
 import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("YearlyPlanR")
-public class YearlyPlanR implements Serializable {
+@Alias("YearlyPlanR2")
+public class YearlyPlanR2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String no;
@@ -23,8 +23,6 @@ public class YearlyPlanR implements Serializable {
 	private String prodKind;
 
 	private String equiCode;
-
-	private String equiName;
 
 	private String itemCode;
 
@@ -63,14 +61,6 @@ public class YearlyPlanR implements Serializable {
 	private String frYear;
 
 	private String toYear;
-
-	public String getEquiName() {
-		return equiName;
-	}
-
-	public void setEquiName(String equiName) {
-		this.equiName = equiName;
-	}
 
 	public String getFrYear() {
 		return frYear;

@@ -468,3 +468,11 @@ function fncRowMerge(colIdx, grid) {
 	  preVal = nowVal;
 	 }
 } 
+
+function cell_calculator(grid,id,stNum,endNum){
+	sum = 0;
+	for(var i=stNum;i<endNum;i++){
+		sum = sum + grid.setCells(id,i).getValue()*1;
+	}
+	return sum;
+}

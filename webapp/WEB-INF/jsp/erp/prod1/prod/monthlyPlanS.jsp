@@ -139,8 +139,10 @@ function fn_getSeqReturn(){
 	    obj.seqColumn = 'SET_NUMB';
 	    obj.dateColumn1 = 'PLAN_MM';
 	    obj.columnData1 = searchDate($("#planMm").val());
+	    obj.dateColumn2 = 'PROD_KIND';
+	    obj.columnData2 = '1';
 	    obj.returnLen = 2;
-	    gfn_callAjaxComm(obj,"/erp/comm/stan/tableSeq/selTableSeq1",fn_SetSeq); 
+	    gfn_callAjaxComm(obj,"/erp/comm/stan/tableSeq/selTableSeq2",fn_SetSeq); 
 };
 
 function fn_SetSeq(data) {
@@ -152,10 +154,6 @@ function fn_SetSeq(data) {
 };
 
 function fn_save(){
-	for(var j=0;j<gridMain.getRowsNum();j++){
-		var rowId = gridMain.getRowId(j);
-		totalTimeCalcul(rowId);
-	}
 	var setNumbIdx = gridMain.getColIndexById('setNumb');
 	if($('#setNumb').val() != ''){
 		var seqValue = $('#setNumb').val();

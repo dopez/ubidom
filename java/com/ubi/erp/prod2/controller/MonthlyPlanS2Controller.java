@@ -1,4 +1,4 @@
-package com.ubi.erp.prod1.controller;
+package com.ubi.erp.prod2.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,31 +20,33 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ubi.erp.prod1.domain.MonthlyPlanS;
-import com.ubi.erp.prod1.service.MonthlyPlanSService;
+import com.ubi.erp.prod2.domain.MonthlyPlanS2;
+import com.ubi.erp.prod2.service.MonthlyPlanS2Service;
 
 @RestController
-@RequestMapping(value = "/erp/prod1/prod/monthlyPlanS")
-public class MonthlyPlanSController {
+@RequestMapping(value = "/erp/prod2/prod/monthlyPlanS")
+public class MonthlyPlanS2Controller {
 	
 	@Autowired
-	private MonthlyPlanSService monthlyPlanSService;
+	private MonthlyPlanS2Service monthlyPlanSService;
 	
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView selMonthlyDate(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+	public ModelAndView selMonthlyDate2(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String yyyy = request.getParameter("planMm").substring(0, 4);
 		String mm = request.getParameter("planMm").substring(4, 6);
 		String setNumb = request.getParameter("setNumb");
-		ModelAndView mnv = new ModelAndView("/erp/prod1/prod/monthlyPlanS");
+		String equiCode = request.getParameter("equiCode");
+		ModelAndView mnv = new ModelAndView("/erp/prod2/prod/monthlyPlanS");
 		mnv.addObject("planMm", yyyy + "/" + mm);
 		mnv.addObject("setNumb", setNumb);
+		mnv.addObject("equiCode", equiCode);
 		return mnv;
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSearch", method = RequestMethod.POST)
-	public List<MonthlyPlanS> selMonthlyPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	public List<MonthlyPlanS2> selMonthlyPlanS2(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		String setNumb = request.getParameter("setNumb");
@@ -52,25 +54,25 @@ public class MonthlyPlanSController {
 		map.put("compId", compId);
 		map.put("planMm", planMm);
 		map.put("setNumb", setNumb);
-		map.put("prodKind", "1");
+		map.put("prodKind", "2");
 		map.put("o_cursor", null);
-		monthlyPlanSService.selMonthlyPlanS(map);
-		List<MonthlyPlanS> list = (List<MonthlyPlanS>) map.get("o_cursor");
+		monthlyPlanSService.selMonthlyPlanS2(map);
+		List<MonthlyPlanS2> list = (List<MonthlyPlanS2>) map.get("o_cursor");
 		return list;
 	}
 
 	
 	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void prcsMonthlyPlanS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	public void prcsMonthlyPlanS2(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String compId = (String) session.getAttribute("compId");
 		String jsonData = request.getParameter("jsonData");
 
-		List<MonthlyPlanS> list = new ArrayList<MonthlyPlanS>();
+		List<MonthlyPlanS2> list = new ArrayList<MonthlyPlanS2>();
 		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<MonthlyPlanS>>() {
+		list = mapper.readValue(jsonData, new TypeReference<ArrayList<MonthlyPlanS2>>() {
 		});
-		monthlyPlanSService.prcsMonthlyPlanS(list, sysEmpNo, compId);
+		monthlyPlanSService.prcsMonthlyPlanS2(list, sysEmpNo, compId);
 	}
 }
