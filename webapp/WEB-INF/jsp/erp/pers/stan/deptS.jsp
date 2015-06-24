@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo;
 var postCodeVal;
+var mainTabbar = parent.mainTabbar;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6,11],"2U");
 	//부서등록
@@ -53,12 +54,11 @@ $(document).ready(function(){
 	$("#postName").dblclick(function(){
 		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
 	});
-   
+	
    combo =gridDtl.getColumnCombo(5);
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
    fn_search();
-   
    
 });
 function fn_cellChange(flag){
@@ -162,7 +162,6 @@ function fn_onClosePop(pName,data){
  };
  
  function fn_exit(){
-	 var mainTabbar = parent.mainTabbar;
 	 var exitVal = true;
 	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
 	 for(var i=0;i<gridDtl.getRowsNum();i++){
