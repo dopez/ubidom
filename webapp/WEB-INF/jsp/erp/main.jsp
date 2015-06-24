@@ -57,6 +57,7 @@ $( document ).ready(function() {
 	mainMenu.enableCheckBoxes(true, true);
 	mainLayout.cells("a").attachObject("top");
 	mainTabbar.enableAutoReSize(true);
+	
 	mainLayout.cells("b").setWidth(220);
 	mainLayout.cells("a").setHeight(25);
 	mainLayout.cells("a").fixSize(false, true);
@@ -72,7 +73,7 @@ $( document ).ready(function() {
 	/*cell collapse*/
 	//mainLayout.cells("a").collapse();
  	//mainLayout.cells("d").collapse();
-
+    
 	mainTabbar.attachEvent("onSelect", function(id, lastId){
 		mainMenu.getDxObj().selectItem(id);
 		//Tabbar 클릭시 Tree scroll이 해당위치로 이동
@@ -81,12 +82,14 @@ $( document ).ready(function() {
 		getViewFullPath(id);
 		return true;
 	});
-	mainTabbar.attachEvent("onTabClose", function(id){
+	
+	/* mainTabbar.attachEvent("onTabClose", function(id){
 		if(mainTabbar.getNumberOfTabs() <= 1){
  			$("[name=pathbar]").val("");
 		}
 		return true;
-	});
+	}); */
+	
 	mainTabbar.attachEvent("onContentLoaded", function(id){
 		getViewFullPath(id);
 	});
@@ -94,10 +97,9 @@ $( document ).ready(function() {
 		mainLayout.setSizes();
 	});
 	$('#full_screen').click(function(event) {
-
 		event.preventDefault();
-
 	});
+	
 	$('#log_out').click(function(event) {
 		event.preventDefault();
 		dhtmlx.confirm({
@@ -208,12 +210,17 @@ var fncSelectItem = function(tree, id) {
 		});
 
 		if(flag){
+		/* 	var src = '&nbsp;&nbsp;<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
+			'onclick="closeEvent('+id+')">'; */
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
             mainTabbar.tabs(id).attachURL("/"+uri+".do");
-
 		}
 	}
 }
+/* function closeEvent(id){
+	//console.log(mainTabbar.tabs(id).cell);
+	console.log( page.childNodes[0]);
+} */
 function getViewFullPath(id){
 	var finalPath="";
 	var path;
@@ -246,7 +253,6 @@ function getViewFullPath(id){
 			<input name='pathbar' id='pathbar' readonly style='font-weight:bold; border:0px;background-color:transparent;width:400px;' value=''/>
 		</p>
 	</div>
-
 	<div style="float:right;margin-top:5px;margin-right:30px;"id="logout">
 <!-- 		<a  href="#" id="full_screen">전체화면</a>-->	
 		<input name='empNo' id='empNo' readonly style='font-weight:bold; margin-right:0px; border:0px;background-color:transparent; text-align:right' value="사번 : ${empNo}">

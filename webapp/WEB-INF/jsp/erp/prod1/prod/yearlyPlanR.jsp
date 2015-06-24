@@ -113,11 +113,8 @@ function fn_excel(){
  }
  function fn_loadGridMain(params) {
 	 var params= gfn_getFormElemntsData("frmSearch");
-	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
+	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
-function fn_loadGridMainCB(data){
-	
-}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

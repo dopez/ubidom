@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ubi.erp.prod1.dao.MonthlyPlanSDao">
+
+	<resultMap id="MonthlyPlanSMap" type="MonthlyPlanS"/>
+	
+  	<select id="selMonthlyPlanS" statementType="CALLABLE">
+		 {call SP_PROD_MONTHLYPLANS_SCH(#{compId},#{planMm},#{setNumb},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthlyPlanSMap, javaType=ResultSet})}
+	</select>
+       
+	<insert id="prcsMonthlyPlanS" statementType="CALLABLE" parameterType="MonthlyPlanS">
+  		{call SP_PROD_MONTHLYPLANS_SAVE(
+  		#{cudKey},#{compId},#{setNumb},#{planMm},#{prodKind},
+  		#{equiCode},#{itemCode},#{planDay1},#{planDay2},#{planDay3},
+		#{planDay4},#{planDay5},#{planDay6},#{planDay7},#{planDay8},
+		#{planDay9},#{planDay10},#{planDay11},#{planDay12},#{planDay13},
+		#{planDay14},#{planDay15},#{planDay16},#{planDay17},#{planDay18},
+		#{planDay19},#{planDay20},#{planDay21},#{planDay22},#{planDay23},
+		#{planDay24},#{planDay25},#{planDay26},#{planDay27},#{planDay28},
+		#{planDay29},#{planDay30},#{planDay31},
+  		#{planDaySum},#{sysEmpNo}
+  		)}	
+  	</insert>
+  
+  
+</mapper>
+        

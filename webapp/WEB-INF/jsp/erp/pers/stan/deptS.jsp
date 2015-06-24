@@ -6,9 +6,8 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo;
 var postCodeVal;
-var mainTabbar = parent.mainTabbar;
 $(document).ready(function(){
-	Ubi.setContainer(1,[1,2,3,5,6],"2U");
+	Ubi.setContainer(1,[1,2,3,5,6,11],"2U");
 	//부서등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -161,7 +160,23 @@ function fn_onClosePop(pName,data){
 		}		  
 	}	  
  };
-
+ 
+ function fn_exit(){
+	 var mainTabbar = parent.mainTabbar;
+	 var exitVal = true;
+	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
+	 for(var i=0;i<gridDtl.getRowsNum();i++){
+		 var cudVal = gridDtl.setCells2(i,cudKeyIdx).getValue();
+		 if(cudVal != ''){
+			 exitVal = false;
+			 break;
+		 }
+	 }
+	 if(exitVal){
+		 var menuId = mainTabbar.getActiveTab();
+		mainTabbar.tabs(menuId).close();	 
+	 }		
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

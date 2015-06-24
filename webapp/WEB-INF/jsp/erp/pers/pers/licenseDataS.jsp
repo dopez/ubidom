@@ -6,7 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
 $(document).ready(function(){
-	Ubi.setContainer(2,[1,3,5,6],"2U");
+	Ubi.setContainer(2,[1,3,5,6,11],"2U");
 	//자격면허등록
 	layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -152,6 +152,23 @@ function fn_onClosePop(pName,data){
 	     $('#korName').val(data[0].korName);
 	}	  
  };
+ 
+ function fn_exit(){
+	 var mainTabbar = parent.mainTabbar;
+	 var exitVal = true;
+	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
+	 for(var i=0;i<gridDtl.getRowsNum();i++){
+		 var cudVal = gridDtl.setCells2(i,cudKeyIdx).getValue();
+		 if(cudVal != ''){
+			 exitVal = false;
+			 break;
+		 }
+	 }
+	 if(exitVal){
+		 var menuId = mainTabbar.getActiveTab();
+		mainTabbar.tabs(menuId).close();	 
+	 }		
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

@@ -12,7 +12,6 @@ var actDelete = "DELETE";
 var gAutoHeight = true;
 var gridHeight = -50;
 var editIcon = "<img src=/images/common/caution01.png>";
-var mainTabbar = parent.mainTabbar;
 // fn editing
 function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 	if(stage==0) { // Before Editing
@@ -60,6 +59,7 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 function setUpdateAcType(obj, rowId){
 	var cudKeyColIdx = obj.getColIndexById(cudKeyCol);
 	if (cudKeyColIdx >= 0) {
+		
 		var cell = obj.cells(rowId, cudKeyColIdx);
 		if(cell.getValue() != actInsert && cell.getValue() != actUpdate) {
 			cell.setValue(actUpdate);
