@@ -1,92 +1,37 @@
-package com.ubi.erp.prod1.domain;
+package com.ubi.erp.prod2.domain;
 
 import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("YearlyPlanR")
-public class YearlyPlanR implements Serializable {
+@Alias("YearlyPlanS2")
+public class YearlyPlanS2 implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	private String no;
-
 	private String sysEmpNo;
-
 	private String compId;
-
 	private String cudKey;
-
 	private String setNumb;
-
 	private String planYear;
-
 	private String prodKind;
-
 	private String equiCode;
-
-	private String equiName;
-
 	private String itemCode;
-
 	private String itemName;
-
 	private String itemUnit;
-
 	private String packUnit;
-
 	private int planQty1;
-
 	private int planQty2;
-
 	private int planQty3;
-
 	private int planQty4;
-
 	private int planQty5;
-
 	private int planQty6;
-
 	private int planQty7;
-
 	private int planQty8;
-
 	private int planQty9;
-
 	private int planQty10;
-
 	private int planQty11;
-
 	private int planQty12;
-
 	private int planQtySum;
-
-	private String frYear;
-
-	private String toYear;
-
-	public String getEquiName() {
-		return equiName;
-	}
-
-	public void setEquiName(String equiName) {
-		this.equiName = equiName;
-	}
-
-	public String getFrYear() {
-		return frYear;
-	}
-
-	public void setFrYear(String frYear) {
-		this.frYear = frYear;
-	}
-
-	public String getToYear() {
-		return toYear;
-	}
-
-	public void setToYear(String toYear) {
-		this.toYear = toYear;
-	}
 
 	public String getNo() {
 		return no;

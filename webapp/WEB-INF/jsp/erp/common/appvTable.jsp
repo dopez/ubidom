@@ -39,7 +39,7 @@
 	   			if($(this).val() == ""){
    					$("#"+selectBoxId+" option").each(function(index){
 						if($("#"+selectBoxId+" option").eq(index).val() == "5"){
-							$("#"+selectBoxId+" option").eq(index).attr("selected", "selected")	
+							$("#"+selectBoxId+" option").eq(index).attr("selected", "selected");
 						}
    					});
 	   			}
@@ -77,18 +77,15 @@
 	   					$("#settleSelectBox1").attr("disabled", "disabled");
 	   				}
 	   				if(empNo == $("#settle2Emp").val()){
-	   					if(empNo == $("#settle1Emp").val()){
-	   						$("#settleKorName2").removeAttr("disabled");
-	   						$("#settle2EmpBtn").removeAttr("disabled");
-	   					}else{
-	   						$("#settleKorName2").attr("disabled", "disabled");
-	   						$("#settle2EmpBtn").attr("disabled", "disabled");
-	   					}
 	   					if((settleSelected1 == "0" || settleSelected1 == "9") || (settleSelected3 == "1" || settleSelected3 == "9") 
 	   							|| (settleSelected4 == "1" || settleSelected4 == "9")){
 	   						$("#settleSelectBox2").attr("disabled", "disabled");
+	   						$("#settleKorName2").attr("disabled", "disabled");
+	   						$("#settle2EmpBtn").attr("disabled", "disabled");	   						
 	   					}else{
 	   						$("#settleSelectBox2").removeAttr("disabled");
+	   						$("#settleKorName2").removeAttr("disabled");
+	   						$("#settle2EmpBtn").removeAttr("disabled");	   						
 	   					}
 	   				}else{
 	   					$("#settleSelectBox2").attr("disabled", "disabled");
@@ -96,18 +93,15 @@
    						$("#settle2EmpBtn").attr("disabled", "disabled");	   					
 	   				}
 	   				if(empNo == $("#settle3Emp").val()){
-	   					if(empNo == $("#settle1Emp").val()){
-	   						$("#settleKorName3").removeAttr("disabled");
-	   						$("#settle3EmpBtn").removeAttr("disabled");
-	   					}else{
-	   						$("#settleKorName3").attr("disabled", "disabled");
-	   						$("#settle3EmpBtn").attr("disabled", "disabled");
-	   					}	   					
 	   					if((settleSelected1 == "0" || settleSelected1 == "9") || (settleSelected2 == "0" || settleSelected2 == "9") 
 	   							|| (settleSelected4 == "1" || settleSelected4 == "9")){
 	   						$("#settleSelectBox3").attr("disabled", "disabled");
+	   						$("#settleKorName3").attr("disabled", "disabled");
+	   						$("#settle3EmpBtn").attr("disabled", "disabled");	   						
 	   					}else{
 	   						$("#settleSelectBox3").removeAttr("disabled");	
+	   						$("#settleKorName3").removeAttr("disabled");
+	   						$("#settle3EmpBtn").removeAttr("disabled");	   						
 	   						if(settleSelected3 == "5"){
 	   							$("#settleSelectBox1").attr("disabled", "disabled");
 	   						}
@@ -118,18 +112,16 @@
    						$("#settle3EmpBtn").attr("disabled", "disabled");	   					
 	   				}	   				
 	   				if(empNo == $("#settle4Emp").val()){
-	   					if(empNo == $("#settle1Emp").val()){
-	   						$("#settleKorName4").removeAttr("disabled");
-	   						$("#settle4EmpBtn").removeAttr("disabled");
-	   					}else{
-	   						$("#settleKorName4").attr("disabled", "disabled");
-	   						$("#settle4EmpBtn").attr("disabled", "disabled");
-	   					}	   					
 	   					if((settleSelected1 == "0" || settleSelected1 == "0") || (settleSelected2 == "0" || settleSelected2 == "9") 
 	   							|| (settleSelected3 == "0" || settleSelected3 == "9")){
+	   						$("#settleKorName4").attr("disabled", "disabled");
+	   						$("#settle4EmpBtn").attr("disabled", "disabled");	   						
 	   						$("#settleSelectBox4").attr("disabled", "disabled");
 	   					}else{
-	   						$("#settleSelectBox4").removeAttr("disabled");	   	
+	   						$("#settleSelectBox4").removeAttr("disabled");
+	   						$("#settleKorName4").removeAttr("disabled");
+	   						$("#settle4EmpBtn").removeAttr("disabled");
+	   						
 	   						if(settleSelected4 == "5"){
 	   							$("#settleSelectBox1").attr("disabled", "disabled");
 	   							$("#settleSelectBox2").attr("disabled", "disabled");

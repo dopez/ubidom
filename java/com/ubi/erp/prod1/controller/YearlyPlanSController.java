@@ -51,6 +51,7 @@ public class YearlyPlanSController {
 		map.put("compId", compId);
 		map.put("planYear", planYear);
 		map.put("setNumb", setNumb);
+		map.put("prodKind", "1");
 		map.put("o_cursor", null);
 		yearlyPlanSSservice.selYearlyPlanS(map);
 		List<YearlyPlanS> list = (List<YearlyPlanS>) map.get("o_cursor");

@@ -1,5 +1,6 @@
 package com.ubi.erp.pers.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,22 +12,31 @@ import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ubi.erp.cmm.util.PropertyUtil;
 import com.ubi.erp.pers.domain.FamilyDataS;
 import com.ubi.erp.pers.service.FamilyDataSService;
 
 @RestController
 @RequestMapping(value = "/erp/pers/pers/familyDataS")
-public class FamilyDataSController {
+public class FamilyDataSController implements ApplicationContextAware {
 
 	@Autowired
 	private FamilyDataSService familyDataSSservice;
+
+	@SuppressWarnings("unused")
+	private WebApplicationContext context = null;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMstSearch",method = RequestMethod.POST)
@@ -73,4 +83,15 @@ public class FamilyDataSController {
 		familyDataSSservice.prcsFamilyDataS(list, sysEmpNo);
 	}
 
+	@RequestMapping(value = "/download")
+	public ModelAndView prcsImgDown(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String filename = request.getParameter("filename");
+		File file = new File(PropertyUtil.getString("attach.pers.dir") + "/" + filename + ".jpg");
+		return new ModelAndView("download", "downloadFile", file);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		context = (WebApplicationContext) applicationContext;
+	}
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>jqGrid RowSpan Example</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/redmond/jquery-ui.css" />
@@ -18,20 +17,17 @@
 <script type="text/javascript">
 	$(function () {
 		'use strict';
-		
 		// 1. RowSpan 대상컬럼수만큼 생성(country, state)
 		var prevColOne = { cellId: undefined, value: undefined };
-		var prevColTwo = { cellId: undefined, value: undefined };
-		var prevColThree = { cellId: undefined, value: undefined };
-	
+
 		// 2. RowSpan 대상컬럼 속성에 cellattr 지정(변수명이 중복되지 않도록 정의)
 		$("#list").jqGrid({
-		    url : "/erp/sys",
+		    url : "/erp/pers/wage/provDeductSetS/jqTest",
 		    mType: "get",
 			datatype: "json",
-			colNames: ['sysNm', 'viewIdx', 'useYn', 'strCdate', 'strCuser'],
+			colNames: ['subjectKind', 'subjectCode', 'subjectName', 'userOrder', 'calcKind', 'avgKind', 'taxYnO', 'taxYnM', 'nonTaxAmt', 'remarks'],
 			colModel: [
-				{ name: 'sysNm', width: 150, align: 'center', 
+				{ name: 'subjectKind', width: 100, align: 'center', 
 					cellattr: function (rowId, val, rawObject, cm, rdata) {
 						var result;
 						if (prevColOne.value == val) {
@@ -44,34 +40,15 @@
 						return result;
 					}
 				},
-				{ name: 'viewIdx', width: 150, align: 'center', 
-					cellattr: function (rowId, val, rawObject, cm, rdata) {
-						var result;
-						if (prevColTwo.value == val) {
-							result = ' style="display: none" spanTwo="' + prevColTwo.cellId + '"';
-						} else {
-							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
-							result = ' twospan="1" id="' + cellId + '"';
-							prevColTwo = { cellId: cellId, value: val };
-						}
-						return result;
-					}
-				},
-				{ name: 'useYn', width: 150, align: 'center',
-					cellattr: function (rowId, val, rawObject, cm, rdata) {
-						var result;
-						if (prevColThree.value == val) {
-							result = ' style="display: none" spanThree="' + prevColThree.cellId + '"';
-						} else {
-							var cellId = this.id + '_two_' + rowId + '_' + cm.name;
-							result = ' threespan="1" id="' + cellId + '"';
-							prevColThree = { cellId: cellId, value: val };
-						}
-						return result;
-					}
-				},
-				{ name: 'strCdate', width: 150, align: 'center' },
-				{ name: 'strCuser', width: 150, align: 'center' }
+				{ name: 'subjectCode', width: 100, align: 'center'},
+				{ name: 'subjectName', width: 100, align: 'center'},
+				{ name: 'userOrder',   width: 100, align: 'center'},
+				{ name: 'calcKind',    width: 100, align: 'center'},
+				{ name: 'avgKind',     width: 100, align: 'center'},
+				{ name: 'taxYnO',      width: 100, align: 'center'},
+				{ name: 'taxYnM',      width: 100, align: 'center'},
+				{ name: 'nonTaxAmt',   width: 100, align: 'center'},
+				{ name: 'remarks',     width: 100, align: 'center'}
 			],
 			cmTemplate: {sortable: false},
 			rowNum: 100,
@@ -92,23 +69,13 @@
 					var spans = $('td[spanOne="' + this.id + '"]', grid).length + 1;
 					if (spans > 1) $(this).attr('rowspan', spans);
 				});
-				$('td[twospan="1"]', grid).each(function () {
-					var spans = $('td[spanTwo="' + this.id + '"]', grid).length + 1;
-					if (spans > 1) $(this).attr('rowspan', spans);
-				});
-				$('td[threespan="1"]', grid).each(function () {
-					var spans = $('td[spanThree="' + this.id + '"]', grid).length + 1;
-					if (spans > 1) $(this).attr('rowspan', spans);
-				});
 			}
 		});
+		
 	});
 </script>
 </head>
 <body>
-	<form name="frmSearch" method="post" target="_blank" action="/erp/sys/excel">
-	<input type="button" value="Excel" onclick='frmSearch.submit();'>
-	</form>
     <table id="list"><tr><td/></tr></table>
 </body>
 </html>

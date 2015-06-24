@@ -20,6 +20,7 @@ var mainMenu;
 var leftForm;
 var leftToolbar;
 var scrnParm;
+var closeBtn;
 $( document ).ready(function() {
 	mainLayout = new dhtmlXLayoutObject({
 			parent: "container",
@@ -83,12 +84,12 @@ $( document ).ready(function() {
 		return true;
 	});
 	
-	/* mainTabbar.attachEvent("onTabClose", function(id){
+	mainTabbar.attachEvent("onTabClose", function(id){
 		if(mainTabbar.getNumberOfTabs() <= 1){
  			$("[name=pathbar]").val("");
 		}
 		return true;
-	}); */
+	}); 
 	
 	mainTabbar.attachEvent("onContentLoaded", function(id){
 		getViewFullPath(id);
@@ -201,7 +202,7 @@ var fncSelectItem = function(tree, id) {
 		var menuItemText = tree.getDxObj().getItemText(id);
 		mainTabbar.forEachTab(function(tab){
 		    var tabId = tab.getId();
-		    if(id == tabId){
+		    if(id == tabId){ 
 				flag=false;
 				mainTabbar.tabs(tabId).setActive();
 				menuId = tabId;
@@ -210,17 +211,19 @@ var fncSelectItem = function(tree, id) {
 		});
 
 		if(flag){
-		/* 	var src = '&nbsp;&nbsp;<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
-			'onclick="closeEvent('+id+')">'; */
+		 	 closeBtn = '<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
+			'id="closeBtn" name="closeBtn" onClick="closeEvent()">'; 
+			
+			//mainTabbar.addTab(id, menuItemText+'&nbsp;&nbsp;'+closeBtn, null, null, true, false);
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
             mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 	}
 }
-/* function closeEvent(id){
-	//console.log(mainTabbar.tabs(id).cell);
-	console.log( page.childNodes[0]);
-} */
+function closeEvent(){
+	$('iframe')[0].contentWindow.fn_exit();
+}
+
 function getViewFullPath(id){
 	var finalPath="";
 	var path;

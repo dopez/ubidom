@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6,11],"2U");
 	//자격면허등록
@@ -154,7 +155,6 @@ function fn_onClosePop(pName,data){
  };
  
  function fn_exit(){
-	 var mainTabbar = parent.mainTabbar;
 	 var exitVal = true;
 	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
 	 for(var i=0;i<gridDtl.getRowsNum();i++){

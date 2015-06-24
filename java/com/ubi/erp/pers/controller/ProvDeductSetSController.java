@@ -1,10 +1,12 @@
 package com.ubi.erp.pers.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,7 +32,7 @@ public class ProvDeductSetSController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSearch",method = RequestMethod.POST)
-	public List<ProvDeductSetS> selPersDataSR(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public List<ProvDeductSetS> selProvDeductSetS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String compId = (String) session.getAttribute("compId");
 		map.put("compId", compId);
@@ -42,7 +44,7 @@ public class ProvDeductSetSController {
 	
 	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void crudPersAppointS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void prcsProvDeductSetS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		String compId = (String) session.getAttribute("compId");
 		String sysEmpNo = (String) session.getAttribute("empNo");
 		String jsonData = request.getParameter("jsonData");
@@ -51,4 +53,25 @@ public class ProvDeductSetSController {
 		list = mapper.readValue(jsonData, new TypeReference<ArrayList<ProvDeductSetS>>(){});
 		provDeductSetSService.prcsProvDeductSetS(list,compId,sysEmpNo);
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/jqTest", method = RequestMethod.GET)
+	public void selPersDataSR(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String compId = (String) session.getAttribute("compId");
+		map.put("compId", compId);
+		map.put("o_cursor", null);
+		provDeductSetSService.selProvDeductSetS(map);
+		List<ProvDeductSetS> list = (List<ProvDeductSetS>) map.get("o_cursor");
+		String jsonStr = new ObjectMapper().writeValueAsString(list);
+		System.out.println(":::::::::::" + jsonStr);
+		makeResponse(response, "json", jsonStr);
+	}
+
+	private void makeResponse(HttpServletResponse response, String resType, String str) throws IOException {
+		response.setContentType("application/" + resType + ";");
+		ServletOutputStream sos = response.getOutputStream();
+		sos.print(new String(str.getBytes("UTF-8"), "8859_1"));
+	}
+
 }

@@ -1,6 +1,5 @@
 if(typeof dhtmlx == 'undefined' || dhtmlx == null)
 {
-
 	document.write("<script type='text/javascript' src='/component/dhtmlxSuite/codebase/dhtmlx.js'></script>");
 	document.write("<script type='text/javascript' src='/component/dhtmlxSuite/codebase/dhtmlx_deprecated.js'></script>");
 
@@ -13,6 +12,4 @@ if(typeof dhtmlx == 'undefined' || dhtmlx == null)
 	document.write("<script type='text/javascript' src='/component/component-extends/dhtmlx/dxcalendar_extend.js'></script>");
 	document.write("<script type='text/javascript' src='/component/component-extends/dhtmlx/dhtmlx_module.js'></script>");
 	document.write("<script type='text/javascript' src='/component/component-extends/dhtmlx/source.js'></script>");
-
-
 }

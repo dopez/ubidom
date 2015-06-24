@@ -7,7 +7,6 @@ var gridMain;
 var mainMenu = parent.mainMenu;
 var mainTabbar = parent.mainTabbar;
 var tabId = null;
-var uri = null;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8,9],"1C");
 	//연간생산계획조회

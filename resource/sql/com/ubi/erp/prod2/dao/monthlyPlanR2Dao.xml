@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ubi.erp.prod2.dao.MonthlyPlanR2Dao">
+
+	<resultMap id="MonthlyPlanR2Map" type="MonthlyPlanR2"/>
+	
+  	<select id="selMonthlyPlanR2" statementType="CALLABLE">
+		 {call SP_PROD_MONTHLYPLANR_SCH(#{compId},#{frMm},#{toMm},#{prodKind},#{equiCode},#{itemCode},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=MonthlyPlanR2Map, javaType=ResultSet})}
+	</select>
+  
+</mapper>
+        

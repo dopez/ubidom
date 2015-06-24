@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var combo01, combo02;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6,11],"2U");
 	//가족사항등록
@@ -69,6 +70,12 @@ $(document).ready(function(){
 	gfn_single_comboLoad(combo02,["0","1"],["비장애","장애"],2);
 	
 });
+/* function doOnRowDbClicked(rId,cInd){
+	if(cInd==1){
+	     var url = "/erp/pers/pers/familyDataS/download?filename="+filename;
+	     $(location).attr('href',url);
+	}
+}; */
 function doOnMstRowSelect(id,ind){
 	var compIdx = gridMst.getColIndexById('compId');
 	var empIdx = gridMst.getColIndexById('empNo');
@@ -162,7 +169,6 @@ function fn_onClosePop(pName,data){
  };
  
  function fn_exit(){
-	 var mainTabbar = parent.mainTabbar;
 	 var exitVal = true;
 	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
 	 for(var i=0;i<gridDtl.getRowsNum();i++){

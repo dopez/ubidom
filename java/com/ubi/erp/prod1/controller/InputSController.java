@@ -43,7 +43,6 @@ public class InputSController {
 	public ModelAndView selEquiInspRtoInspS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
-		System.out.println(setDate + ";;;;;;;;");
 		ModelAndView mnv = new ModelAndView("/erp/prod1/equi/inputS");
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
