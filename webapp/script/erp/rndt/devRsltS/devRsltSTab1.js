@@ -10,6 +10,7 @@ function fn_setTab1(){
     	if(id=="btn4"){
     		$('#cudKey1').val('DELETE');
     		fn_tab1Save();
+    		byId("frmTab1").reset();
     	}
 		}
     })
@@ -40,6 +41,7 @@ function fn_tab1Save(){
             data: param,
             success: function(data) {
             	MsgManager.alertMsg("INF001");
+    			fn_searchFrmTab("frmTab1","a1");
             	if($('#cudKey1').val()=='DELETE'){
             		byId("cudKey1").value = 'INSERT';
             	}else{

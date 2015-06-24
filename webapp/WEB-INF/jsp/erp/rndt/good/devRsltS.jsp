@@ -56,23 +56,29 @@ var setSearchParam = {};
            		fn_searchFrmTab("frmTab2","a2");
            		fn_searchFrmTab("frmTab3","a3");
     			fn_searchFrmTab("frmTab7","a7");
-
-           		//fn_searchFrmTab("frmTab4","a4",fn_selfrmTab4CB);
+    			fn_searchFrmTab("frmTab4_1","a4");
+    			fn_searchFrmTab("frmTab4_2","a4");
+    			fn_searchFrmTab("frmTab5_1","a5");
+    			fn_searchFrmTab("frmTab5_2","a5");
+    			fn_searchFrmTab("frmTab5_3","a5");
            		
             	fn_frm1Chk();
             	fn_frm2Chk();
             	fn_frm3Chk();
+            	fn_frm4Chk();
+            	fn_frm5Chk();
             	fn_frm7Chk();
 
             }else{
             	/*처음 등록할 때*/
             	fn_setDate();
             	
-            	fn_frm5Chk();
             	
             	fn_frm1Chk();
             	fn_frm2Chk();
             	fn_frm3Chk();
+            	fn_frm4Chk();
+            	fn_frm5Chk();
             	fn_frm7Chk();
             }
             $("#planNumb, #korName, #evaluateNumb").dblclick(function(e){

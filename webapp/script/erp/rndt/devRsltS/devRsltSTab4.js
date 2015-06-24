@@ -27,6 +27,8 @@ function fn_setTab4(){
     	if(id=="btn4"){
     		savecnt4 = 2;
 			fn_tab4Save();
+    		byId("frmTab4_1").reset();
+    		byId("frmTab4_2").reset();
     		savecnt4 = 0;
     	}
 		}
@@ -96,6 +98,8 @@ function fn_tab4Save(){
             url: "/erp/rndt/good/devRsltS/frmTabSave",
             data: param,
             success: function(data) {
+    			fn_searchFrmTab("frmTab4_1","a4");
+    			fn_searchFrmTab("frmTab4_2","a4");
             	MsgManager.alertMsg("INF001");
             }
         });

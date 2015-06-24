@@ -22,6 +22,10 @@ function fn_setTab5(){
     	if(id=="btn4"){
     		savecnt5 = 2;
 			fn_tab5Save();
+    		byId("frmTab5_1").reset();
+    		byId("frmTab5_2").reset();
+    		byId("frmTab5_3").reset();
+
     		savecnt5 = 0;
     	}
 		}
@@ -79,6 +83,9 @@ function fn_tab5Save(){
             url: "/erp/rndt/good/devRsltS/frmTabSave",
             data: param,
             success: function(data) {
+    			fn_searchFrmTab("frmTab5_1","a5");
+    			fn_searchFrmTab("frmTab5_2","a5");
+    			fn_searchFrmTab("frmTab5_3","a5");
             	MsgManager.alertMsg("INF001");
             }
         });

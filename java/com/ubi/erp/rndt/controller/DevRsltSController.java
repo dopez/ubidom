@@ -1,5 +1,6 @@
 package com.ubi.erp.rndt.controller;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.rndt.domain.DevRsltS;
 import com.ubi.erp.rndt.service.DevRsltSService;
@@ -29,7 +31,22 @@ public class DevRsltSController {
 	private DevRsltSService DevRsltSService;
 	private static final Logger logger = LoggerFactory.getLogger(DevRsltSController.class);
 
-
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView selDevMidS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
+		String empName = request.getParameter("empName");
+		String empNo = request.getParameter("empNo");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		String openParam = request.getParameter("openParam");
+		
+		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devMidS");
+		mnv.addObject("empName", empName);
+		mnv.addObject("empNo", empNo);
+		mnv.addObject("setDate", setDate);
+		mnv.addObject("setSeq", setSeq);
+		mnv.addObject("openParam", openParam);
+		return mnv;
+	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selPlanNumb", method = RequestMethod.POST)
 	public List<DevRsltS> selPlanNumb(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevRsltS DevRsltS) throws Exception {
