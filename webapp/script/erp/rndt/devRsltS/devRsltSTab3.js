@@ -25,7 +25,7 @@ function fn_tab3Save(){
     if (fn_seqValid()) {
     	var param = {};
     	param.contents = $("#frmTab3").find("[name=contents]").val();
-    	param.evaluateKind = $("#frmTab3").find("[name=evaluateKind]").val();
+    	param.contentsKind = $("#frmTab3").find("[name=contentsKind]").val();
     	param.cudKey = $('#cudKey3').val();
     	param.setDate = dateVal;
     	param.setSeq = seqVal;
@@ -36,10 +36,10 @@ function fn_tab3Save(){
     	
         $.ajax({
             type: 'POST',
-            url: "/erp/rndt/good/devMidS/frmTabSave",
+            url: "/erp/rndt/good/devRsltS/frmTabSave",
             data: param,
             success: function(data) {
-            	MsgManager.alertMsg("INF001");
+            	MsgManager.alertMsg("INF003");
             	if($('#cudKey3').val()=='DELETE'){
             		byId("cudKey3").value = 'INSERT';
             	}else{
@@ -49,6 +49,6 @@ function fn_tab3Save(){
         });
     }
 }
-function fn_selfrmTab3CB(data){
+function fn_selfrmtab3CB(data){
 	console.log("frmTab3 data = ",data);
 }

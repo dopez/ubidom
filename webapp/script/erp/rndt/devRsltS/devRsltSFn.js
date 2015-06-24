@@ -2,7 +2,7 @@ function fn_frmSearch(){
 	var mainParam = {};
 	mainParam.setDate = searchDate($("#setDate").val());
 	mainParam.setSeq = $("#setSeq").val();
-	//console.log(mainParam);
+	console.log(mainParam);
 	gfn_callAjaxForForm("frmMain", mainParam, "selFrmMain",fn_frmSearchCB);
 }
 function fn_frmSearchCB(data){
@@ -10,7 +10,7 @@ function fn_frmSearchCB(data){
 }
 function fn_getSeqReturn(){
 	 var obj = {};
-	    obj.tableName = 'TBL_DEV_PLAN_EVALUATE_MST';
+	    obj.tableName = 'TBL_DEV_RESULT_MST';
 	    obj.seqColumn = 'SET_SEQ';
 	    obj.dateColumn1 = 'SET_DATE';
 	    obj.columnData1 = searchDate($("#setDate").val());
@@ -44,20 +44,15 @@ function fn_planNumbValid(){
 	}
 }
 function fn_frmMainSave(){
-    if($(':radio[name="midEvalKind"]:checked').val()==1){
-    	fn_getEvalNum();
-    }
-	$("input[name=setSeq]").attr("disabled",false);
 	dateVal = searchDate($("#setDate").val());
 	seqVal = $("#setSeq").val();
 	planNumVal = $("#planNumb").val();
-	evaluateNumb = $("#evaluateNumb").val();
+	//evaluateNumb = $("#evaluateNumb").val();
  	var params = gfn_getFormElemntsData('frmMain');
-	$("input[name=setSeq]").attr("disabled",true);
 	console.log(params);
 	    $.ajax({
         type: 'POST',
-        url: "/erp/rndt/good/devMidS/frmMainSave",
+        url: "/erp/rndt/good/devRsltS/frmMainSave",
         data: params,
         success: function(data) {
             MsgManager.alertMsg("INF001");
@@ -70,6 +65,7 @@ function fn_SetSeq(data) {
 function fn_setDate(){
     var t = dateformat(new Date());
     byId("setDate").value = t;
+    byId("dueDate").value = "";
 }
 function fn_textAreaSetbg(color)
 {
