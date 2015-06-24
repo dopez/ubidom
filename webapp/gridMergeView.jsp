@@ -106,6 +106,9 @@
 </script>
 </head>
 <body>
+	<form name="frmSearch" method="post" target="_blank" action="/erp/sys/excel">
+	<input type="button" value="Excel" onclick='frmSearch.submit();'>
+	</form>
     <table id="list"><tr><td/></tr></table>
 </body>
 </html>
