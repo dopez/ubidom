@@ -146,4 +146,29 @@
 		 	)
 		 }	
 	</insert>
+	<insert id="prcsGridTab6" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SAVE5(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{investKind},
+		 		#{planAmt},
+		 		#{cPlanAmt},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+	<select id="selGridTab6" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SCH5(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 </mapper>

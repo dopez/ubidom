@@ -43,7 +43,7 @@ var setSearchParam = {};
             fn_setTab3();
             fn_setTab4();
             fn_setTab5();
-            
+            fn_setTab6();
             fn_setTab7();
 
             //tab end
@@ -61,7 +61,14 @@ var setSearchParam = {};
     			fn_searchFrmTab("frmTab5_1","a5");
     			fn_searchFrmTab("frmTab5_2","a5");
     			fn_searchFrmTab("frmTab5_3","a5");
-           		
+    			fn_selGridTab6();
+				var jsonStr = tab6.getJsonUpdated2();
+				if (jsonStr == "[]" || jsonStr.length <= 2){
+					savecnt=0;
+				}else{
+					savecnt=1;
+				}
+
             	fn_frm1Chk();
             	fn_frm2Chk();
             	fn_frm3Chk();
@@ -124,7 +131,7 @@ function fn_search(){
 			fn_searchFrmTab("frmTab5_3",tabId);
 		}
 		if(tabId=="a6"){
-			//fn_searchGridTab(tab6,tabId,subTabbar.tabs("a6"),fn_selgridTab6CB)
+			fn_selGridTab6();
 		}
 		if(tabId=="a7"){
 			fn_searchFrmTab("frmTab7",tabId);
@@ -145,6 +152,7 @@ function fn_frmMain(id) {
 		        fn_setCud("cudKey","i");
 		        fn_frmMainSave();
 		        $('#setDate').keyup();
+		        $('#dueDate').keyup();
 		        fn_setCud("cudKey","u");
 	        }else{
 	        	fn_setCud("cudKey","u");
@@ -392,13 +400,13 @@ form{
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 일자 </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date"> </div>
+                                <input name="setDate" id="setDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date"> </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker1" class="calicon form-control"> </div>
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <div class="col-sm-offset-1 col-md-offset-1 col-sm-11 col-md-11">
-                                <input name="setSeq" id="setSeq" type="text" value="" placeholder="" class="form-control input-xs" readonly="readonly"> </div>
+                                <input name="setSeq" id="setSeq" type="text" value="${setSeq}" placeholder="" class="form-control input-xs" readonly="readonly"> </div>
                         </div>
                         <div class="col-sm-offset-4 col-md-offset-4 col-sm-3 col-md-3">
                             <input type="button" class="btn btn-default btn-xs form-control" id="btnReportPrint" name="btnReportPrint" value="개발결과보고서인쇄"> </div>
@@ -420,7 +428,7 @@ form{
                     <div class="col-sm-8 col-md-8">
                         <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 개발번호 </label>
                         <div class="col-sm-2 col-md-2">
-                            <input name="planNumb" id="planNumb" type="text" value="" placeholder="" class="form-control input-xs"> 
+                            <input name="planNumb" id="planNumb" type="text" value="${planNumb}" placeholder="" class="form-control input-xs"> 
                         </div>
                         <div class="col-sm-6 col-md-6" id="radioBtn">
 							<input type="radio" name="midevalKind" id="midevalKind" value="0" checked="checked">개발계획
@@ -534,3 +542,6 @@ form{
         </div>
     </form>
 </div>
+<form class="form-horizontal"  id="frmTab6">
+<input type="hidden" id="jsonData6" name="jsonData6">
+</form>

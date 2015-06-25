@@ -63,7 +63,7 @@ function fn_tab5Save(){
     	
     	
     	
-        if($("#openParam").val()=="u"||savecnt5==1){
+        if(savecnt5==1){
     		byId("cudKey5").value = 'UPDATE';
         }else if(savecnt5==2){
         	byId("cudKey5").value = 'DELETE';

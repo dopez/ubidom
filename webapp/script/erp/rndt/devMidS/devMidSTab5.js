@@ -47,7 +47,7 @@ function fn_setTab5(){
 	    			obj.setSeq = evaluateNumb.substr(8,2);
 	    			gfn_callAjaxForGrid(tab5,obj,"selChangeCont",subTabbar.tabs("a5"));
 	    		}
-	    		fn_saveChangeTab5();
+	    		//fn_saveChangeTab5();
     		}
     	
     	if(id=="btn3"){

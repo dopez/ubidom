@@ -73,6 +73,25 @@ public class DevRsltS implements Serializable {
 
 	private String cTotAmt;
 
+	private String planAmt;
+
+	private String cPlanAmt;
+
+	public String getPlanAmt() {
+		return planAmt;
+	}
+
+	public void setPlanAmt(String planAmt) {
+		this.planAmt = planAmt;
+	}
+
+	public String getcPlanAmt() {
+		return cPlanAmt;
+	}
+
+	public void setcPlanAmt(String cPlanAmt) {
+		this.cPlanAmt = cPlanAmt;
+	}
 	public String getCompId() {
 		return compId;
 	}

@@ -17,13 +17,25 @@ function fn_setTab1(){
     		fn_tab1Save();
     	}
     	if(id=="btn4"){
-    		
+    			var jsonStr = tab1.getJsonUpdated2();
+    			if (jsonStr == "[]" || jsonStr.length <= 2){
+    				dhtmlx.alert("삭제할 행이 없습니다.");
+    			}else{
+    			    var cudKeyColIdx = tab1.getColIndexById('cudKey');
+    				tab1.dxObj.forEachRow(function(id) {
+    					tab1.setCells(id,cudKeyColIdx).setValue('DELETE');
+    				});
+    				fn_tab1Save();
+    				tab1.clearAll();
+    			}
     	}
     	if(id=="btn5"){
     		fn_addTab1();
     	}
     	if(id=="btn6"){
-    		
+    	    var rodid = tab1.getSelectedRowId();
+    	    tab1.cs_deleteRow(rodid);
+
     	}
 		}
     })
