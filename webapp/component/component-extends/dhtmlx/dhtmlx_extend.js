@@ -344,7 +344,6 @@ function gfn_1col_comboLoad(comboId, params) {
     comboId.enableFilteringMode(true);
     comboId.enableAutocomplete(true);
     comboId.allowFreeText(true);
-    comboId.confirmValue();
     var obj = {};
     obj.compId = '100';
     obj.code = params;
@@ -379,7 +378,6 @@ function gfn_single_comboLoad(comboId,value,key,cLength){
 comboId.enableFilteringMode(true);
 comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
-comboId.confirmValue();
 }
 
 

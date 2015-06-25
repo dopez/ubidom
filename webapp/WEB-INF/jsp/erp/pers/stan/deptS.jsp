@@ -59,6 +59,8 @@ $(document).ready(function(){
    combo =gridDtl.getColumnCombo(5);
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
+   combo.attachEvent("onChange", function(){
+	});
    fn_search();
    
 });
