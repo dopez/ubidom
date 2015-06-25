@@ -25,7 +25,7 @@ public class PurcConferS implements Serializable{
 	private String deliDate;
 	private String deliPlace;
 	private String rmk;
-	private double purcExceptReason;
+	private String purcExceptReason;
 	private String purcYn;
 	private String settle1State;
 	private String settle1Emp;
@@ -150,10 +150,10 @@ public class PurcConferS implements Serializable{
 	public void setRmk(String rmk) {
 		this.rmk = rmk;
 	}
-	public double getPurcExceptReason() {
+	public String getPurcExceptReason() {
 		return purcExceptReason;
 	}
-	public void setPurcExceptReason(double purcExceptReason) {
+	public void setPurcExceptReason(String purcExceptReason) {
 		this.purcExceptReason = purcExceptReason;
 	}
 	public String getPurcYn() {
