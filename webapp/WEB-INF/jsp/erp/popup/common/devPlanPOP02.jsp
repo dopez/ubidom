@@ -6,8 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;
 var toolbar;
 var config={
-		title:"중간평가번호",
-		id:"evaluateNumb",
+		title:"개발번호",
+		id:"planNumb",
 		width:"300",
 		height:"500"
 	}
@@ -22,15 +22,17 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"중간평가번호",   colId:"evaluateNumb", 	width:"140", align:"center", type:"ro"});
+    gridMain.addHeader({name:"개발번호",   colId:"planNumb", 	width:"140", align:"center", type:"ro"});
 	gridMain.addHeader({name:"과제명", colId:"problemName", width:"140", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","planNumb");
 	gridMain.init();
 	fn_search();
 });
  function fn_search(){
-	 var params = "problemName=" + $("#problemName").val();
-	  gfn_callAjaxForGrid(gridMain,params,"/erp/rndt/good/devMidS/selDevPlanPop02",subLayout.cells("a"),fn_loadGridListCodeCB);
+	 var params = {};
+	 params.problemName = $("#problemName").val();
+	 params.popParam = parent.popParam;
+	  gfn_callAjaxForGrid(gridMain,params,"/erp/rndt/good/devRsltS/selPlanNumb",subLayout.cells("a"),fn_loadGridListCodeCB);
 }
 //fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB() {
@@ -39,9 +41,9 @@ function fn_loadGridListCodeCB() {
 
 function doOnRowDblClicked(rId,cInd){
 	  var row = rId-1;
-	  var evaluateNumb = gridMain.setCells2(row,0).getValue();
+	  var planNumb = gridMain.setCells2(row,0).getValue();
 	  var problemName = gridMain.setCells2(row,1).getValue();
-	  var arr = [{"evaluateNumb":evaluateNumb,"problemName":problemName}];
+	  var arr = [{"planNumb":planNumb,"problemName":problemName}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }
@@ -55,6 +57,7 @@ function doOnRowDblClicked(rId,cInd){
 			</label>
 			<div class="col-xs-6">
 			  <input name="problemName" id="problemName" type="text" value="" placeholder="" class="form-control input-xs">
+			  <input name="kind" id="kind" type="hidden" value="" placeholder="" class="form-control input-xs">
 			</div>
 		</div>  
   </form>

@@ -10,6 +10,8 @@ function fn_setTab2(){
     	if(id=="btn4"){
     		$('#cudKey2').val('DELETE');
     		fn_tab2Save();
+    		byId("frmTab2").reset();
+
     	}
 		}
     })
@@ -25,7 +27,7 @@ function fn_tab2Save(){
     if (fn_seqValid()) {
     	var param = {};
     	param.contents = $("#frmTab2").find("[name=contents]").val();
-    	param.evaluateKind = $("#frmTab2").find("[name=evaluateKind]").val();
+    	param.contentsKind = $("#frmTab2").find("[name=contentsKind]").val();
     	param.cudKey = $('#cudKey2').val();
     	param.setDate = dateVal;
     	param.setSeq = seqVal;
@@ -36,10 +38,11 @@ function fn_tab2Save(){
     	
         $.ajax({
             type: 'POST',
-            url: "/erp/rndt/good/devMidS/frmTabSave",
+            url: "/erp/rndt/good/devRsltS/frmTabSave",
             data: param,
             success: function(data) {
-            	MsgManager.alertMsg("INF001");
+            	MsgManager.alertMsg("INF002");
+    			fn_searchFrmTab("frmTab2","a2");
             	if($('#cudKey2').val()=='DELETE'){
             		byId("cudKey2").value = 'INSERT';
             	}else{
@@ -49,6 +52,6 @@ function fn_tab2Save(){
         });
     }
 }
-function fn_selfrmTab2CB(data){
+function fn_selfrmtab2CB(data){
 	console.log("frmTab2 data = ",data);
 }

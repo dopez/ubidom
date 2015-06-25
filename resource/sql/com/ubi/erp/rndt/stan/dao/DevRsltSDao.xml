@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ubi.erp.rndt.dao.DevRsltSDao">
+
+<resultMap type="DevRsltS" id="DevRsltSMap"/>
+
+	<select id="selPlanNumb01" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_POP_SCH1(
+		 		#{V_COMP_ID},
+		 		#{V_PROBLEM_NAME},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selPlanNumb02" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_POP_SCH2(
+		 		#{V_COMP_ID},
+		 		#{V_PROBLEM_NAME},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selInitTab4" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_INIT_SCH1(
+		 		#{V_COMP_ID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<insert id="prcsFrmMainSave" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SAVE1(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{empNo},
+		 		#{planNumb},
+		 		#{problemName},
+		 		#{dueDate},
+		 		#{midevalKind},
+		 		#{evaluateNumb, jdbcType=VARCHAR},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+	<select id="selFrmMain" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SCH1(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<insert id="prcsFrmTabSave" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SAVE2(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setSeq},
+		 		#{setDate},
+		 		#{contentsKind},
+		 		#{contents},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+		<select id="selFrmTabContents" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SCH2(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{V_CONTENTS_KIND},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+		<select id="selFrmTab4" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SCH3(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+		<select id="selFrmTab5" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SCH4(
+		 		#{V_COMPID},
+		 		#{V_SET_DATE},
+		 		#{V_SET_SEQ},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=DevRsltSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<insert id="prcsFrmTab4Save" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SAVE3(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{itemName},
+		 		#{techName},
+		 		#{targetMatr},
+		 		#{cItemName},
+		 		#{cTechName},
+		 		#{cTargetMatr},
+		 		#{remarks},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+	<insert id="prcsFrmTab5Save" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_DEVRSLTS_SAVE4(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{patentLocal},
+		 		#{patentFore},
+		 		#{paperLocal},
+		 		#{paperFore},
+		 		#{cPatentLocal},
+		 		#{cPatentFore},
+		 		#{cPaperLocal},
+		 		#{cPaperFore},
+		 		#{targetItem},
+		 		#{devKind},
+		 		#{planNumb},
+		 		#{sysEmpNo}
+		 	)
+		 }	
+	</insert>
+</mapper>
