@@ -33,21 +33,19 @@ $(document).ready(function() {
     fn_calValue();
 
     comboMatrGubn = dhtmlXComboFromSelect("matrGubn");
-    fn_comboOpt(comboMatrGubn,"자재");
-
+    gfn_single_comboLoad(comboMatrGubn,["1","2","3"],["자재","모재","포장"],3);
+    
     comboDisKind = dhtmlXComboFromSelect("disKind");
-    fn_comboOpt(comboDisKind,"제조","개봉");
+    gfn_single_comboLoad(comboDisKind,["1","2"],["제조","개볼"],2);
    
     comboInspYn = dhtmlXComboFromSelect("inspYn");
-    fn_comboOpt(comboInspYn,"무검사","검사");
+    gfn_single_comboLoad(comboInspYn,["1","2"],["무검사","검사"],2);
     
     comboUseYn = dhtmlXComboFromSelect("useYn");
-    fn_comboOpt(comboUseYn,"사용","미사용");
+    gfn_single_comboLoad(comboUseYn,["1","2"],["사용","미사용"],2);
     
     comboChemicalKind = dhtmlXComboFromSelect("chemicalKind");
-    fn_comboOpt(comboChemicalKind,"산","알칼리");
-    comboChemicalKind.addOption("3","혼적가능");
-    comboChemicalKind.addOption("4","단독선적");
+    gfn_single_comboLoad(comboChemicalKind,["1","2","3","4"],["산","알칼리","혼적가능","단독선적"],4);
 	
     comboAcctKind = dhtmlXComboFromSelect("acctKind");
     comboAcctKind.setTemplate({
@@ -68,13 +66,6 @@ $(document).ready(function() {
 	fn_disabledInput();
 	fn_search();
 
-/*      $("#inputCust1,#inputCust2").keyup(function(e) {
-	    if (e.target.id == "inputCust1"){
-	    	fn_openCustCodePop(1);
-	    }else if (e.target.id == "inputCust2"){
-	    	fn_openCustCodePop(2);
-	    }
-	 }); */
      
      $("#inputCust1,#inputCust2").dblclick(function(e) {
  	    if (e.target.id == "inputCust1"){
@@ -179,15 +170,7 @@ function fn_LoadGridMainCallback(data){
 	var rowIdx = cs_selectRow_check(gridMain,"matrCode",rowSelVal)
 	gridMain.selectRow(rowIdx,true,true,true);
 }
-function fn_comboOpt(comboId,opt1,opt2){
-	comboId.addOption(1,opt1);
-	if(opt2==null){
-		return
-	}else{
-		comboId.addOption(2,opt2);
-	}
-	comboId.readonly(true);
-}
+
 function fn_comboCodeLoad(comboId){
 	   var param={};
 	   param.code = "J04"

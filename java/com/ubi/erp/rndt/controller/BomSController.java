@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubi.erp.rndt.domain.BomS;
-import com.ubi.erp.rndt.domain.GoodsCodeS;
-import com.ubi.erp.rndt.domain.BomS;
 import com.ubi.erp.rndt.service.BomSService;
-import com.ubi.erp.rndt.service.GoodsCodeRService;
 
 
 
@@ -35,7 +30,6 @@ public class BomSController {
 	
 	@Autowired
 	private BomSService BomSService;
-	private static final Logger logger = LoggerFactory.getLogger(BomSController.class);
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/matrCodePop", method = RequestMethod.POST)
@@ -51,6 +45,23 @@ public class BomSController {
 		List<BomS> list  = (List<BomS>) map.get("o_cursor");
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selectMatrCodePop", method = RequestMethod.POST)
+	public List<BomS> selSelectMatrCodePop(HttpServletRequest request, HttpServletResponse response, HttpSession session, BomS BomS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String matrName = request.getParameter("matrName");
+		String matrGubn = request.getParameter("matrGubn");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_MATR_NAME", matrName);
+		map.put("V_MATR_GUBN", matrGubn);
+		map.put("o_cursor", null);
+		BomSService.selSelectMatrCodePop(map);
+		List<BomS> list = (List<BomS>) map.get("o_cursor");
+		return list;
+	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridItemSel", method = RequestMethod.POST)
 	public List<BomS> selGridItem(HttpServletRequest request, HttpServletResponse response,HttpSession session, BomS BomS) throws Exception {

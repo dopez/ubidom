@@ -56,7 +56,17 @@ public class BomS implements Serializable {
 	
 	private String matrSpec;
 	private String matrUnit;
+
+	// radio select
+	private String matrGubn;
 	
+	public String getMatrGubn() {
+		return matrGubn;
+	}
+
+	public void setMatrGubn(String matrGubn) {
+		this.matrGubn = matrGubn;
+	}
 	public String getMatrSpec() {
 		return matrSpec;
 	}
