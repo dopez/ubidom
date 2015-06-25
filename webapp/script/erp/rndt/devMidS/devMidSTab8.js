@@ -29,7 +29,7 @@ function fn_setTab8(){
 					obj.setSeq = evaluateNumb.substr(8,2);
 					gfn_callAjaxForGrid(tab8,obj,"selChangeCont4",subTabbar.tabs("a8"));
 				}
-				fn_saveChangeTab8();
+				//fn_saveChangeTab8();
 		}
     	if(id=="btn3"){
     		fn_tab8Save();

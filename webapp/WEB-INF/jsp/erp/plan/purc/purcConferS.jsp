@@ -9,7 +9,8 @@
     var PscrnParm = parent.scrnParm;
     var nDate;
     var rowSelVal;
-    var combo01;
+    var combo01, combo02;
+    var qty=0, cost=0, amt=0, sum;
     $(document).ready(function() {
 
         Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //시험검사의뢰등록
@@ -28,65 +29,34 @@
         gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"center",type:"combo"});
         gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"left",type:"ro"});
         gridMain.addHeader({name:"단위",colId:"matrUnit",width:"100",align:"left",type:"ro"});
+        gridMain.addHeader({name:"수량",colId:"qty",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"단가",colId:"cost",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"금액",colId:"amt",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"납기일자",colId:"deliDate",width:"100",align:"center",type:"dhxCalendarA"});
         gridMain.addHeader({name:"납기장소",colId:"deliPlace",width:"100",align:"left",type:"ed"});
-        /* gridMain.addHeader({name:"선택",colId:"purchase1",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"hold1",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"cancel1",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"purchase2",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"hold2",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"cancel2",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"purchase3",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"hold3",width:"50",align:"center",type:"ro"});
-        gridMain.addHeader({name:"#cspan",colId:"cancel3",width:"50",align:"center",type:"ro"}); */        
-
-    	/* gridMain.atchHeader();
-    	for(var i=0; i<9; i++){
-    		gridMain.addAtchHeader({atchHeaderName:"#rspan"});	
-    	}
-    	gridMain.addAtchHeader({atchHeaderName:"검토"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});
-    	gridMain.addAtchHeader({atchHeaderName:"검토"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});
-    	gridMain.addAtchHeader({atchHeaderName:"승인"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});
-    	gridMain.addAtchHeader({atchHeaderName:"#cspan"});    	
-    	gridMain.atchHeaderInit();
-    	
-    	gridMain.atchHeader();
-    	for(var i=0; i<9; i++){
-    		gridMain.addAtchHeader({atchHeaderName:"#rspan"});	
-    	}   	
-    	for(var i=0; i<3; i++){
-        	gridMain.addAtchHeader({atchHeaderName:"구매"});
-        	gridMain.addAtchHeader({atchHeaderName:"보류"});
-        	gridMain.addAtchHeader({atchHeaderName:"취소"});  	
-    	}       	
-    	gridMain.atchHeaderInit(); */
-    	
+        gridMain.addHeader({name:"구매구분",colId:"purcYn",width:"100",align:"left",type:"combo"});
         gridMain.setUserData("","pk","");
         gridMain.setColSort("str");
         gridMain.dxObj.setUserData("","@deliDate","format_date");
         gridMain.init();
-        gridMain.cs_setNumberFormat(["cost","amt"], "0,000");
+        gridMain.cs_setNumberFormat(["cost","amt", "qty"], "0,000");
         gridMain.cs_setColumnHidden(["setSeqTemp", "setDateTemp"]);
     	g_dxRules = {
     			itemCode : [r_notEmpty],
     			matrName : [r_notEmpty],
     			matrSpec : [r_notEmpty],
     			matrUnit : [r_notEmpty],
+    			qty : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			cost : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			amt : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			deliDate : [r_notEmpty]
     	};                
         
-    	combo01 =gridMain.getColumnCombo(2);
+    	combo01 = gridMain.getColumnCombo(2);
     	fn_comboLoad(combo01, "", "1");
-    	/* fn_comboLoad("custName", "", "2"); */
+    	
+    	combo02 = gridMain.getColumnCombo(10);
+    	fn_comboLoad(combo02, "", "2");
     	
     	combo01.attachEvent("onChange", function(){
     		var rowIdx = gridMain.getSelectedRowIndex();
@@ -119,12 +89,29 @@
         //popUp
         gridMain.attachEvent("onRowSelect",doOnRowSelect);
         gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-        gridMain.attachEvent("onCheckbox", function(rId, cInd, state){
-            //alert(state);
-        });        
+        gridMain.attachEvent("onCellChanged",doOnCellChanged);
+        
+        function doOnCellChanged(rId,cInd,nValue){
+        	if(cInd==5){
+        		doOnRowSelect(rId,cInd);
+        	}else if(cInd==6){
+       		   	doOnRowSelect(rId,cInd);
+       	   	}        	
+        }
         
         function doOnRowSelect(rowId, colIdx){
         	fn_search("top");
+        	doOnTotalAmt(rowId, colIdx);
+        }
+        
+        function doOnTotalAmt(rowId, colIdx){
+    		var qtyIdx = gridMain.getColIndexById('qty');
+    		var costIdx = gridMain.getColIndexById('cost');
+    		var amtIdx = gridMain.getColIndexById('amt');
+    		qty = gridMain.setCells(rowId, qtyIdx).getValue()*1;
+    		cost = gridMain.setCells(rowId, costIdx).getValue()*1;
+    		amt = (qty*cost);
+    		gridMain.setCells(rowId, amtIdx).setValue(amt);    		
         }
         
         function doOnRowDblClicked(rowId, colIdx) {
@@ -181,15 +168,6 @@
         gridMain.addRow();
         gridMain.selectRow(totalRowNum);
         gridMain.setCells2(totalRowNum, setNoIdx).setValue(leadingZeros(totalRowNum+1, 3));
-        
-        /* for(var i=1; i<=3; i++){
-            var purchase = gridMain.getColIndexById("purchase"+i);
-            var hold = gridMain.getColIndexById("hold"+i);
-            var cancel = gridMain.getColIndexById("cancel"+i);        	
-            gridMain.setCells2(totalRowNum, purchase).setValue("<input type='radio' name='selected"+i+selRowIdx+"' value='0'>");
-            gridMain.setCells2(totalRowNum, hold).setValue("<input type='radio' name='selected"+i+selRowIdx+"' value='1'>");
-            gridMain.setCells2(totalRowNum, cancel).setValue("<input type='radio' name='selected"+i+selRowIdx+"' value='2'>");        	
-        } */
 	}
     
     function fn_delete(){
@@ -336,8 +314,7 @@
 			      {header: "단위", width: 100, option: "#matrUnit#"}
 			    ]
 			});
-			comboId.enableFilteringMode(true);
-			comboId.allowFreeText(true);
+			
 			$.ajax({
 				url: "/erp/rndt/stan/bomS/matrCodePop",
 				type: "post",
@@ -349,31 +326,29 @@
 					} 
 				}
 			});
-			comboId.enableFilteringMode(true);
-			comboId.enableAutocomplete(true);
-			comboId.allowFreeText(true);    			
 		}else if(chk == "2"){
-			var myCombo2;
-			myCombo2 = new dhtmlXCombo("custNameZone", "custName", 200);
-			myCombo2.setTemplate({
-				input: "#capital#, #country#",
-				columns: [
-					{header: "&nbsp;",  width:  40, css: "flag",    option: "<img src='#flag#' border='0' style='margin-top: 4px; margin-left: 2px;'>"},
-					{header: "Capital", width:  80, css: "capital", option: "#capital#"},
-					{header: "Country", width: 110, css: "country", option: "#country#"},
-					{header: "Proverb", width: 250, css: "proverb", option: "#proverb#"}
-				]
+			comboId.setTemplate({
+				input: "#purcYn#",
+				columns: [{
+				    header: "구매구분",
+				    width: 100,
+				    option: "#purcYn#"
+				}]
 			});
-			myCombo.addOption([
-			   				{value: "1", text: { flag: "../common/flags/austria.png", country: "Austria", capital: "Vienna", proverb: "Two wrongs don't make a right" } },
-			   				{value: "2", text: { flag: "../common/flags/belarus.png", country: "Belarus", capital: "Minsk", proverb: "The pen is mightier than the sword" } },
-			   				{value: "3", text: { flag: "../common/flags/cameroon.png", country: "Cameroon", capital: "Yaoundé", proverb: "Actions speak louder than words" }, selected: 1 },
-			   				{value: "4", text: { flag: "../common/flags/canada.png", country: "Canada", capital: "Ottawa", proverb: "If it ain't broke, don't fix it" } }
-			   			]);			
-			myCombo2.enableFilteringMode(true);			
+
+			if($("#setSeq").val() == ""){
+				comboId.addOption("1", "구매");	 
+			}else{
+				comboId.addOption("1", "구매");
+				comboId.addOption("5", "보류");
+				comboId.addOption("0", "취소");	       		 
+			}
 		}else if(chk == "3"){
 			
 		}
+        comboId.enableFilteringMode(true);
+        comboId.enableAutocomplete(true);
+        comboId.allowFreeText(true);  
     }
     
 </script>
@@ -421,7 +396,7 @@
                             </div>
                             <label class="col-sm-2 col-md-2 control-label" for="textinput">공급업체 </label>
                             <div class="col-sm-2 col-md-2" id="custNameZone">
-                                <!-- <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs"> -->
+                                <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>
@@ -435,3 +410,36 @@
         </form>
     </div>
 </div>        
+
+<script type="text/javascript">
+$(document).ready(function(){
+	combo02.attachEvent("onFocus", function(){
+		var permission1 = $("#permission1").val();
+		var permission2 = $("#permission2").val();
+		var permission3 = $("#permission3").val();
+	 
+		if($("#setSeq").val() == ""){
+	    	combo02.deleteOption("0");
+	    	combo02.deleteOption("5");			
+		}else{
+			if(permission1 == "0" && permission2 == "0" && permission3 == "0"){
+				combo02.disable();
+		        var purcYnIdx = gridMain.getColIndexById('purcYn');
+		        var totalRowNum = gridMain.getRowsNum();
+		        for(var i=0; i<totalRowNum; i++){
+		        	if(gridMain.setCells2(i, purcYnIdx).getValue() == "1"){
+		        		combo02.deleteOption("5");
+		        		combo02.deleteOption("0");
+		        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "5"){
+		        		combo02.deleteOption("1");
+		        		combo02.deleteOption("0");
+		        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "0"){
+		        		combo02.deleteOption("1");
+		        		combo02.deleteOption("5");
+		        	}
+		        }  			
+			}			
+		}
+	});
+});
+</script>

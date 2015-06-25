@@ -82,6 +82,7 @@
 		 		#{deliDate, jdbcType=VARCHAR},
 		 		#{deliPlace, jdbcType=VARCHAR},
 		 		#{rmk, jdbcType=VARCHAR},
+		 		#{purcYn, jdbcType=VARCHAR},
 		 		#{sysEmpNo, jdbcType=VARCHAR}
 		 	)
 		 }

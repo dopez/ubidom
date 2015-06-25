@@ -92,6 +92,7 @@ function doOnRowDbClicked(rId,cInd){
 			if(MsgManager.confirmMsg("INF006")) { 
 				mainTabbar.tabs(preId).close();
 				cFlag = true;
+				break;
 			}else{
 				cFlag = false;
 				return;

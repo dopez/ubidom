@@ -78,7 +78,7 @@ function fn_tab4Save(){
     	param.cItemName = $("#frmTab4_1").find("[name=cItemName]").val();
     	param.cTechName =$("#frmTab4_1").find("[name=cTechName]").val();
     	param.cTargetMatr = $("#frmTab4_1").find("[name=cTargetMatr]").val();
-        if($("#openParam").val()=="u"||savecnt4==1){
+        if(savecnt4==1){
     		byId("cudKey4").value = 'UPDATE';
         }else if(savecnt4==2){
         	byId("cudKey4").value = 'DELETE';

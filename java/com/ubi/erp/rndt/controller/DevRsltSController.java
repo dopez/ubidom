@@ -1,6 +1,7 @@
 package com.ubi.erp.rndt.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +41,15 @@ public class DevRsltSController {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
 		String openParam = request.getParameter("openParam");
+		String planNumb = request.getParameter("planNumb");
 		
-		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devMidS");
+		ModelAndView mnv = new ModelAndView("/erp/rndt/good/devRsltS");
 		mnv.addObject("empName", empName);
 		mnv.addObject("empNo", empNo);
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
 		mnv.addObject("openParam", openParam);
+		mnv.addObject("planNumb", planNumb);
 		return mnv;
 	}
 	@SuppressWarnings("unchecked")
@@ -162,5 +167,35 @@ public class DevRsltSController {
 		}
 		List<DevRsltS> list = (List<DevRsltS>) map.get("o_cursor");
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/selGridTab6", method = RequestMethod.POST)
+	public List<DevRsltS> selGridTab6(HttpServletRequest request, HttpServletResponse response, HttpSession session, DevRsltS DevRsltS) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String setDate = request.getParameter("setDate");
+		String setSeq = request.getParameter("setSeq");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		DevRsltSService.selGridTab6(map);
+		List<DevRsltS> list = (List<DevRsltS>) map.get("o_cursor");
+		return list;
+	}
+
+	@RequestMapping(value = "/gridTab6Save", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void prcsGridTab6(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		List<DevRsltS> list = new ArrayList<DevRsltS>();
+
+		String compId = (String) session.getAttribute("compId");
+		String sysEmpNo = (String) session.getAttribute("empNo");
+		String jsonData = request.getParameter("jsonData6");
+
+		list = new ObjectMapper().readValue(jsonData, new TypeReference<ArrayList<DevRsltS>>() {
+		});
+		DevRsltSService.prcsGridTab6(list, sysEmpNo, compId);
 	}
 }

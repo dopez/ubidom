@@ -32,6 +32,8 @@ public class DevRsltR implements Serializable {
 
 	private String dd;
 
+	private String cDhAmt;
+
 	private String sumCDhAmt;
 	private String cStDate;
 	private String cEndDate;
@@ -182,6 +184,14 @@ public class DevRsltR implements Serializable {
 
 	public void setMidevalKind(String midevalKind) {
 		this.midevalKind = midevalKind;
+	}
+
+	public String getcDhAmt() {
+		return cDhAmt;
+	}
+
+	public void setcDhAmt(String cDhAmt) {
+		this.cDhAmt = cDhAmt;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
