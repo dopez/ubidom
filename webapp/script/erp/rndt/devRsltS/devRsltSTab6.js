@@ -61,7 +61,10 @@ function fn_tab6Remove(){
 	if (jsonStr == "[]" || jsonStr.length <= 2){
 		dhtmlx.alert("삭제할 행이 없습니다.");
 	}else{
-		savecnt=2;
+		var cudKeyColIdx = tab6.getColIndexById('cudKey');
+		tab6.dxObj.forEachRow(function(id) {
+	        tab6.setCells(id,cudKeyColIdx).setValue('DELETE');
+		});
 		fn_tab6Save();
 		tab6.clearAll();
 	}
@@ -74,14 +77,6 @@ function fn_tab6Save(){
 		var planNumbIdx = tab6.getColIndexById('planNumb');
 		var cudKeyColIdx = tab6.getColIndexById('cudKey');
 		tab6.dxObj.forEachRow(function(id) {
-	        if(savecnt==1){
-				tab6.setCells(id,cudKeyColIdx).setValue('UPDATE');
-	        }else if(savecnt==0){
-	        	tab6.setCells(id,cudKeyColIdx).setValue('INSERT');
-	        	savecnt=1;
-	        }else{
-	    		tab6.setCells(id,cudKeyColIdx).setValue('DELETE');
-	        }
 	        tab6.setCells(id,setDateColIdx).setValue(dateVal);
 	        tab6.setCells(id,setSeqColIdx).setValue(seqVal);
 	        tab6.setCells(id,planNumbIdx).setValue(planNumVal);
