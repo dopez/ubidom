@@ -85,7 +85,7 @@ function fn_setCud(cudId,flag){
 }
 $(document).ready(function() {
     //setDate//
-    calMain = new dhtmlXCalendarObject([{input: "stDate",button: "calpicker1"},
+    calMain = new dhtmlXCalendarObject([{input: "setDate",button: "calpicker1"},
                                         {input: "dueDate",button: "calpicker2"}]);
     calMain.loadUserLanguage("ko");
     calMain.hideTime();
