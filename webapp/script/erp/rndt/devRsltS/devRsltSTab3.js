@@ -40,7 +40,7 @@ function fn_tab3Save(){
             url: "/erp/rndt/good/devRsltS/frmTabSave",
             data: param,
             success: function(data) {
-            	MsgManager.alertMsg("INF003");
+            	MsgManager.alertMsg("INF001");
     			fn_searchFrmTab("frmTab3","a3");
             	if($('#cudKey3').val()=='DELETE'){
             		byId("cudKey3").value = 'INSERT';

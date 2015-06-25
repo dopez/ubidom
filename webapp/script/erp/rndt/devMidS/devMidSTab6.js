@@ -71,7 +71,7 @@ function fn_tab6Btn(id){
 				obj.setSeq = evaluateNumb.substr(8,2);
 				gfn_callAjaxForGrid(tab6,obj,"selChangeCont2",subTabbar.tabs("a6"));
 			}
-			fn_saveChangeTab6();
+			//fn_saveChangeTab6();
 	}
 	if(id=="btn3"){
 		fn_tab6Save();

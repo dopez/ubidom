@@ -17,7 +17,7 @@ function fn_setTab7(){
 	    			/*중간평가번호가 있을 때에는 c_컬럼을 계획 컬럼으로 불러온 후 저장한다.*/
 	    			fn_init_searchFrmTab7("#evaluateNumb","/erp/rndt/good/devMidS/selChangeCont3");
 	    		}
-	    		fn_saveChangeTab7();
+	    		//fn_saveChangeTab7();
 
     	}
     	if(id=="btn3"){
