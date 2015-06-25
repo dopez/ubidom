@@ -5,6 +5,7 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
+var clickCheck = 0;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//학력/경력사항등록
@@ -46,10 +47,14 @@ $(document).ready(function(){
 	
 	$("#postName,#korName").dblclick(function(e){
 		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		 // gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
+		clickCheck = 1;	
+		 gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			//gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			clickCheck = 2;
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 	});
 	
@@ -68,6 +73,22 @@ $(document).ready(function(){
 	
 	
 });
+function fn_onOpenPop(pName){
+	var value;
+     if(pName == "codeLen2"){
+    	 var obj={};
+    	 if(clickCheck == 1){
+    		 obj.innerName= $('#postName').val();
+    		 obj.kind=  '부서';
+    	 }else{
+    		 obj.innerName= $('#korName').val();
+    		 obj.kind=  '사원'; 
+    	 }
+    	 value = obj; 
+	}
+	return value;
+};
+
 function doOnMstRowSelect(id,ind){
 	var compIdx = gridMst.getColIndexById('compId');
 	var empIdx = gridMst.getColIndexById('empNo');
@@ -152,13 +173,24 @@ function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
-function fn_onClosePop(pName,data){
+/* function fn_onClosePop(pName,data){
 	if(pName=="postCode"){
 		$('#postName').val(data[0].postName);	  
 	}else if(pName == "empNo"){
 	     $('#korName').val(data[0].korName);
-	}	  
- };
+	}else if(pName == "codeLen2"){
+	     $('#korName').val(data[0].innerName);
+	}	  	  
+ }; */
+ function fn_onClosePop(pName,data){
+ if(pName == "codeLen2"){
+	 if(clickCheck == 1){
+		 $('#postName').val(data[0].innerName);
+	  }else{
+		  $('#korName').val(data[0].innerName);
+	  }
+	}	  	  
+};
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />
