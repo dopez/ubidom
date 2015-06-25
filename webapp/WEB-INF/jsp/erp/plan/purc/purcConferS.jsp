@@ -294,6 +294,7 @@
 			      {header: "단위", width: 100, option: "#matrUnit#"}
 			    ]
 			});
+			
 			$.ajax({
 				url: "/erp/rndt/stan/bomS/matrCodePop",
 				type: "post",
@@ -398,9 +399,21 @@ $(document).ready(function(){
 		var permission3 = $("#permission3").val();
 	 
 		if(permission1 == "0" && permission2 == "0" && permission3 == "0"){
-			alert("권한이 없습니다.");
 			combo02.disable();
-			return false;
+	        var purcYnIdx = gridMain.getColIndexById('purcYn');
+	        var totalRowNum = gridMain.getRowsNum();
+	        for(var i=0; i<totalRowNum; i++){
+	        	if(gridMain.setCells2(i, purcYnIdx).getValue() == "1"){
+	        		combo02.deleteOption("5");
+	        		combo02.deleteOption("0");
+	        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "5"){
+	        		combo02.deleteOption("1");
+	        		combo02.deleteOption("0");
+	        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "0"){
+	        		combo02.deleteOption("1");
+	        		combo02.deleteOption("5");
+	        	}
+	        }  			
 		}
 	});
 });
