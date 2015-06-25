@@ -7,6 +7,7 @@ var gridMst, gridDtl;
 var combo;
 var postCodeVal;
 var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6,11],"2U");
 	//부서등록
@@ -172,8 +173,7 @@ function fn_onClosePop(pName,data){
 		 }
 	 }
 	 if(exitVal){
-		 var menuId = mainTabbar.getActiveTab();
-		mainTabbar.tabs(menuId).close();	 
+		mainTabbar.tabs(ActTabId).close();	 
 	 }		
 }
 </script>

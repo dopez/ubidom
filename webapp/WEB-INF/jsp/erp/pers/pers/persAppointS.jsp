@@ -106,6 +106,7 @@ function fn_comboLoad(comboId){
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);
+	comboId.confirmValue();
 	var obj={};
 	obj.postName = '%';
 		$.ajax({

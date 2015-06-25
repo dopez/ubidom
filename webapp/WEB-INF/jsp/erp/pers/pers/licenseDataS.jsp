@@ -6,6 +6,7 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
 var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6,11],"2U");
 	//자격면허등록
@@ -165,8 +166,7 @@ function fn_onClosePop(pName,data){
 		 }
 	 }
 	 if(exitVal){
-		 var menuId = mainTabbar.getActiveTab();
-		mainTabbar.tabs(menuId).close();	 
+		mainTabbar.tabs(ActTabId).close();	 
 	 }		
 }
 </script>

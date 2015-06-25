@@ -138,11 +138,6 @@ $(document).ready(function(){
 	fn_comboLoad(combo04,"1");
 	fn_comboLoad(combo05,"2");
 	
-	
-	/* combo05.attachEvent("onKeyPressed", function(keyCode){
-		
-	 }); */
-	
 	combo05.attachEvent("onChange", function(){
 		var rowIdx = gridDtl02.getSelectedRowIndex();
 		gridDtl02.setCells2(rowIdx,1).setValue(combo05.getSelectedText().partCode);
@@ -184,8 +179,6 @@ function fn_comboLoad(comboId,cFlag){
 	          {header: "부품규격", width: 100, option: "#partSpec#"}
 		    ]
 		});
-		comboId.enableFilteringMode(true);
-		comboId.allowFreeText(true);
 		obj.partName = '%';
 		$.ajax({
 			"url":"/erp/prod1/equi/historyS/partCodeSearch",
@@ -200,11 +193,11 @@ function fn_comboLoad(comboId,cFlag){
 			  } 
 			}
 	  });
-		comboId.enableFilteringMode(true);
-		comboId.enableAutocomplete(true);
-		comboId.allowFreeText(true);
-		
 	}
+	comboId.enableFilteringMode(true);
+	comboId.enableAutocomplete(true);
+	comboId.allowFreeText(true);
+	comboId.confirmValue();
 };
 
 function gridMstOnClick(id){
