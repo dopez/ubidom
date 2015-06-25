@@ -53,6 +53,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMst.filterBy(3,byId("postName").value);

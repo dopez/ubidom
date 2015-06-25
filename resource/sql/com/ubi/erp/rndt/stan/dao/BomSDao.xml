@@ -24,6 +24,19 @@
 		 	)
 		 }	
 	</select>
+	
+	<select id="selSelectMatrCodePop" statementType="CALLABLE" >
+		 {call
+		 	SP_COMM_SELECT_MATRCODE_SCH(
+		 		#{V_COMPID},
+		 		#{V_MATR_NAME},
+		 		#{V_MATR_GUBN},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=BomSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	
+	
 	<select id="selGridMst" statementType="CALLABLE" >
 		 {call 
 		 	SP_STND_BOMS_SCH2(

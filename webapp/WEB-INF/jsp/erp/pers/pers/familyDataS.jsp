@@ -7,6 +7,7 @@ var gridMst, gridDtl;
 var combo01, combo02;
 var rowSelVal;
 var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6,11],"2U");
 	//가족사항등록
@@ -178,10 +179,8 @@ function fn_onClosePop(pName,data){
 			 break;
 		 }
 	 }
-	 console.log(exitVal);
 	 if(exitVal){
-		var menuId = mainTabbar.getActiveTab();
-		mainTabbar.tabs(menuId).close();	 
+		mainTabbar.tabs(ActTabId).close();	 
 	 }		
 }
 </script>

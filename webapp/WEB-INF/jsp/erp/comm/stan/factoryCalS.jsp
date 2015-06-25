@@ -32,7 +32,7 @@ $(document).ready(function(){
 	});
 	
 	combo =gridMain.getColumnCombo(3);
-	fn_comboSet(combo);
+	gfn_single_comboLoad(combo01,["D","H","L"],["평일","공휴","법정"],3);
 	
 	calMain = new dhtmlXCalendarObject([{input:"searchDate",button:"calpicker"}]);
 	calMain.loadUserLanguage("ko");
@@ -51,21 +51,6 @@ function saveCalendar(){
 	obj.yyyy = yValue;
 	obj.mm = mValue;
 	fn_initCalendar(obj);
-}
-function fn_comboSet(comboId){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "평일/휴무", width: 100,  option: "#interName#"}
-	    ]
-	});
-	comboId.addOption("D","평일");
-	comboId.addOption("H","공휴");
-	comboId.addOption("L","법정");
-
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
 }
 
 function fn_search(){

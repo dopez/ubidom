@@ -10,6 +10,7 @@
     var nDate;
     var rowSelVal;
     var combo01, combo02;
+    var qty=0, cost=0, amt=0, sum;
     $(document).ready(function() {
 
         Ubi.setContainer(3, [1, 2, 3, 4, 5, 6], "1C"); //시험검사의뢰등록
@@ -28,6 +29,7 @@
         gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"center",type:"combo"});
         gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"left",type:"ro"});
         gridMain.addHeader({name:"단위",colId:"matrUnit",width:"100",align:"left",type:"ro"});
+        gridMain.addHeader({name:"수량",colId:"qty",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"단가",colId:"cost",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"금액",colId:"amt",width:"100",align:"right",type:"edn"});
         gridMain.addHeader({name:"납기일자",colId:"deliDate",width:"100",align:"center",type:"dhxCalendarA"});
@@ -37,13 +39,14 @@
         gridMain.setColSort("str");
         gridMain.dxObj.setUserData("","@deliDate","format_date");
         gridMain.init();
-        gridMain.cs_setNumberFormat(["cost","amt"], "0,000");
+        gridMain.cs_setNumberFormat(["cost","amt", "qty"], "0,000");
         gridMain.cs_setColumnHidden(["setSeqTemp", "setDateTemp"]);
     	g_dxRules = {
     			itemCode : [r_notEmpty],
     			matrName : [r_notEmpty],
     			matrSpec : [r_notEmpty],
     			matrUnit : [r_notEmpty],
+    			qty : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			cost : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			amt : [r_notEmpty, r_onlyNumber, r_maxLen+"|16"],
     			deliDate : [r_notEmpty]
@@ -52,7 +55,7 @@
     	combo01 = gridMain.getColumnCombo(2);
     	fn_comboLoad(combo01, "", "1");
     	
-    	combo02 = gridMain.getColumnCombo(9);
+    	combo02 = gridMain.getColumnCombo(10);
     	fn_comboLoad(combo02, "", "2");
     	
     	combo01.attachEvent("onChange", function(){
@@ -86,12 +89,29 @@
         //popUp
         gridMain.attachEvent("onRowSelect",doOnRowSelect);
         gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
-        gridMain.attachEvent("onCheckbox", function(rId, cInd, state){
-            //alert(state);
-        });        
+        gridMain.attachEvent("onCellChanged",doOnCellChanged);
+        
+        function doOnCellChanged(rId,cInd,nValue){
+        	if(cInd==5){
+        		doOnRowSelect(rId,cInd);
+        	}else if(cInd==6){
+       		   	doOnRowSelect(rId,cInd);
+       	   	}        	
+        }
         
         function doOnRowSelect(rowId, colIdx){
         	fn_search("top");
+        	doOnTotalAmt(rowId, colIdx);
+        }
+        
+        function doOnTotalAmt(rowId, colIdx){
+    		var qtyIdx = gridMain.getColIndexById('qty');
+    		var costIdx = gridMain.getColIndexById('cost');
+    		var amtIdx = gridMain.getColIndexById('amt');
+    		qty = gridMain.setCells(rowId, qtyIdx).getValue()*1;
+    		cost = gridMain.setCells(rowId, costIdx).getValue()*1;
+    		amt = (qty*cost);
+    		gridMain.setCells(rowId, amtIdx).setValue(amt);    		
         }
         
         function doOnRowDblClicked(rowId, colIdx) {
@@ -398,22 +418,27 @@ $(document).ready(function(){
 		var permission2 = $("#permission2").val();
 		var permission3 = $("#permission3").val();
 	 
-		if(permission1 == "0" && permission2 == "0" && permission3 == "0"){
-			combo02.disable();
-	        var purcYnIdx = gridMain.getColIndexById('purcYn');
-	        var totalRowNum = gridMain.getRowsNum();
-	        for(var i=0; i<totalRowNum; i++){
-	        	if(gridMain.setCells2(i, purcYnIdx).getValue() == "1"){
-	        		combo02.deleteOption("5");
-	        		combo02.deleteOption("0");
-	        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "5"){
-	        		combo02.deleteOption("1");
-	        		combo02.deleteOption("0");
-	        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "0"){
-	        		combo02.deleteOption("1");
-	        		combo02.deleteOption("5");
-	        	}
-	        }  			
+		if($("#setSeq").val() == ""){
+	    	combo02.deleteOption("0");
+	    	combo02.deleteOption("5");			
+		}else{
+			if(permission1 == "0" && permission2 == "0" && permission3 == "0"){
+				combo02.disable();
+		        var purcYnIdx = gridMain.getColIndexById('purcYn');
+		        var totalRowNum = gridMain.getRowsNum();
+		        for(var i=0; i<totalRowNum; i++){
+		        	if(gridMain.setCells2(i, purcYnIdx).getValue() == "1"){
+		        		combo02.deleteOption("5");
+		        		combo02.deleteOption("0");
+		        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "5"){
+		        		combo02.deleteOption("1");
+		        		combo02.deleteOption("0");
+		        	}else if(gridMain.setCells2(i, purcYnIdx).getValue() == "0"){
+		        		combo02.deleteOption("1");
+		        		combo02.deleteOption("5");
+		        	}
+		        }  			
+			}			
 		}
 	});
 });

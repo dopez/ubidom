@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +25,6 @@ public class BomRController {
 	
 	@Autowired
 	private BomRService BomRService;
-	private static final Logger logger = LoggerFactory.getLogger(BomRController.class);
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/itemCodePop", method = RequestMethod.POST)
@@ -43,6 +40,7 @@ public class BomRController {
 		List<BomR> list  = (List<BomR>) map.get("o_cursor");
 		return list;
 	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/selGridMain", method = RequestMethod.POST)
 	public List<BomR> selGridMain(HttpServletRequest request, HttpServletResponse response,HttpSession session, BomR BomR) throws Exception {
@@ -59,6 +57,22 @@ public class BomRController {
 		map.put("o_cursor", null);
 		BomRService.selGridMain(map);
 		List<BomR> list  = (List<BomR>) map.get("o_cursor");
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/itemAllCodePop", method = RequestMethod.POST)
+	public List<BomR> selItemAllCodePop(HttpServletRequest request, HttpServletResponse response, HttpSession session, BomR BomR) throws Exception {
+		String comp = (String) session.getAttribute("compId");
+		String itemName = request.getParameter("itemName");
+		String itemKind = request.getParameter("itemKind");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_NAME", itemName);
+		map.put("V_KIND", itemKind);
+		map.put("o_cursor", null);
+		BomRService.selItemAllCodePop(map);
+		List<BomR> list = (List<BomR>) map.get("o_cursor");
 		return list;
 	}
 }

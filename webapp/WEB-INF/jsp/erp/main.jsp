@@ -20,7 +20,7 @@ var mainMenu;
 var leftForm;
 var leftToolbar;
 var scrnParm;
-var closeBtn;
+var ActTabId;
 $( document ).ready(function() {
 	mainLayout = new dhtmlXLayoutObject({
 			parent: "container",
@@ -84,12 +84,12 @@ $( document ).ready(function() {
 		return true;
 	});
 	
-	mainTabbar.attachEvent("onTabClose", function(id){
+	/* mainTabbar.attachEvent("onTabClose", function(id){
 		if(mainTabbar.getNumberOfTabs() <= 1){
  			$("[name=pathbar]").val("");
 		}
 		return true;
-	}); 
+	});  */
 	
 	mainTabbar.attachEvent("onContentLoaded", function(id){
 		getViewFullPath(id);
@@ -178,7 +178,7 @@ function chg_selected_tab(id,lastId) {
 }
 var menuId;
 var fncSelectItem = function(tree, id) {
-
+	
 	var exegbn = "";
 	try { // folder
 		exegbn = tree.getUserData(id, "exegbn");
@@ -211,8 +211,10 @@ var fncSelectItem = function(tree, id) {
 		});
 
 		if(flag){
+			ActTabId = id;
+			
 		 	 closeBtn = '<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
-			'id="closeBtn" name="closeBtn" onClick="closeEvent()">'; 
+			'id="closeBtn" name="closeBtn" onClick="closeEvent('+id+')">'; 
 			
 			//mainTabbar.addTab(id, menuItemText+'&nbsp;&nbsp;'+closeBtn, null, null, true, false);
 			mainTabbar.addTab(id, menuItemText, null, null, true, true);
@@ -220,9 +222,17 @@ var fncSelectItem = function(tree, id) {
 		}
 	}
 }
-function closeEvent(){
-	$('iframe')[0].contentWindow.fn_exit();
-}
+function closeEvent(id){
+	var menuId = mainTabbar.getActiveTab();
+	if(id==menuId){
+		var enaIdx = mainTabbar.tabs(menuId).getIndex();
+		$('iframe')[enaIdx].contentWindow.fn_exit();
+	 }else{
+		 var disIdx = mainTabbar.tabs(id).getIndex();
+		 $('iframe')[disIdx].contentWindow.fn_exit(); 
+	 }
+	
+} 
 
 function getViewFullPath(id){
 	var finalPath="";

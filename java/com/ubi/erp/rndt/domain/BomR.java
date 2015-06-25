@@ -93,6 +93,16 @@ public class BomR implements Serializable {
 
 	private String pGubn;
 
+	private String itemKind;
+
+	public String getItemKind() {
+		return itemKind;
+	}
+
+	public void setItemKind(String itemKind) {
+		this.itemKind = itemKind;
+	}
+
 	public String getCompId() {
 		return compId;
 	}

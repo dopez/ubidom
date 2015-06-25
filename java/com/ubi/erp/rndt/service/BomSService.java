@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ubi.erp.rndt.dao.BomSDao;
 import com.ubi.erp.rndt.domain.BomS;
-import com.ubi.erp.rndt.domain.VaccCoatS;
 
 @Service
 public class BomSService {
@@ -41,8 +40,12 @@ public class BomSService {
 	}
 	public void selMatrCodePop(Map<String, Object> map) {
 		dao.selMatrCodePop(map);
-		
 	}
+
+	public void selSelectMatrCodePop(Map<String, Object> map) {
+		dao.selSelectMatrCodePop(map);
+	}
+
 	public void prcsGridDtl(List<BomS> list, String sysEmpNo, String compId) {
 		for(BomS BomS : list) {
 			BomS.setSysEmpNo(sysEmpNo);
