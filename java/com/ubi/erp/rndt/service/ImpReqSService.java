@@ -1,6 +1,7 @@
 package com.ubi.erp.rndt.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,20 @@ public class ImpReqSService {
 			ImpReqS.setCompId(compId);
 			dao.prcsGridMain(ImpReqS);
 		}
+	}
+
+	/**
+	 * 1.개요 :
+	 * 
+	 * 2.파라미터 :
+	 * 
+	 * 3.리턴값 : void
+	 * 
+	 * @name_ko
+	 * @param
+	 */
+	public void selGridMain(Map<String, Object> map) {
+		dao.selGridMain(map);
 	}
 
 }

@@ -7,14 +7,32 @@
 
 	<insert id="prcsGridMain" statementType="CALLABLE" >
 		 {call 
-		 	SP_RNDT_ImpReqS_SCH(
-		 		#{comp},
-		 		#{stDate, jdbcType=VARCHAR},
-		 		#{edDate, jdbcType=VARCHAR},
-		 		#{empNo, jdbcType=VARCHAR},
-		 		#{ppsEmp, jdbcType=VARCHAR},
-		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ImpReqSMap, javaType=ResultSet}
+		 	SP_RNDT_IMPREQS_SAVE(
+		 		#{cudKey},
+		 		#{compId},
+		 		#{setDate},
+		 		#{setSeq},
+		 		#{setNo},
+		 		#{reqDno, jdbcType=VARCHAR},
+		 		#{custCode, jdbcType=VARCHAR},
+		 		#{reqEmp, jdbcType=VARCHAR},
+		 		#{itemCode, jdbcType=VARCHAR},
+		 		#{reqConts, jdbcType=VARCHAR},
+		 		#{state, jdbcType=VARCHAR},
+		 		#{endReqDate, jdbcType=VARCHAR},
+		 		#{sysEmpNo}
 		 	)
 		 }	
 	</insert>
+	<select id="selGridMain" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_IMPREQS_SCH(
+		 		#{V_COMP_ID},
+		 		#{V_SET_DATE, jdbcType=VARCHAR},
+		 		#{V_SET_SEQ, jdbcType=VARCHAR},
+		 		#{V_SET_NO, jdbcType=VARCHAR},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ImpReqSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
 </mapper>

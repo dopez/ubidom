@@ -25,7 +25,7 @@ $(document).ready(function(){
 	gridMain.setColSort("str");	
 	gridMain.setUserData("","pk","rNum");
 	gridMain.init();
-    gridMain.cs_setColumnHidden(["setDate","setSeq","reqDno","reqEmp","reqEmpName","state"]);
+    gridMain.cs_setColumnHidden(["setDate","setSeq","reqDno","reqEmp","reqEmpName","state","setNo"]);
     gridMain.attachEvent("onRowDblClicked",doOnRowDbClicked);
 	calMain = new dhtmlXCalendarObject([{input:"setDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
@@ -38,13 +38,14 @@ $(document).ready(function(){
 		}
     })
     fn_setCombo();
+    fn_search();
 });
 function fn_save(){
 	fn_saveGridMain();
 }
 function fn_search(){
 	/*조회*/
-	
+	fn_selGridMain();
 }
 function fn_new(){
 	/*신규*/
@@ -123,7 +124,7 @@ function fn_onClosePop(pName, data) {
                         </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="setDate" id="setDate" type="text" value="" placeholder="" class="form-control input-xs format_date">
+                                <input name="setDate" id="setDate" type="text" value="${setDate}" placeholder="" class="form-control input-xs format_date">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker" class="calicon form-control">
@@ -131,7 +132,8 @@ function fn_onClosePop(pName, data) {
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <div class="col-sm-11 col-md-11 col-sm-offset-1 col-md-offset-1">
-                                <input name="setSeq" id="setSeq" type="text" value="" placeholder="" class="form-control input-xs" readonly="readonly">
+                                <input name="setSeq" id="setSeq" type="text" value="${setSeq}" placeholder="" class="form-control input-xs" readonly="readonly">
+                                <input name="setNo" id="setNo" type="hidden" value="${setNo}" placeholder="" class="form-control input-xs">
                             </div>
                         </div>
                     </div>
