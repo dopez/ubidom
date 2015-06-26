@@ -541,3 +541,30 @@ function cs_grid_rowspan_next(grid,colIdx,stNum,endNum){
 	 return endRowArr;
 }
 //---------------------------------------------------------------------------------//
+/*조회화면에서 등록화면으로 이동[그리드 더블클릭 이벤트 시 사용한다.]*/
+function gfn_moveMenu(menuCd, obj){
+	/*menuCd : 이동할 화면코드 || obj : 넘겨줄 파라미터(오브젝트 타입)*/
+	var cFlag = true;
+	var mainMenu = parent.mainMenu;
+	var mainTabbar = parent.mainTabbar;
+	var ids = mainTabbar.getAllTabs();
+	var preId = menuCd;
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+				break;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,obj);	
+	}
+}

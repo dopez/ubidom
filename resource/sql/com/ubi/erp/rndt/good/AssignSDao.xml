@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.ubi.erp.rndt.dao.ImpReqSDao">
+<mapper namespace="com.ubi.erp.rndt.dao.AssignSDao">
 
-<resultMap type="ImpReqS" id="ImpReqSMap"/>
+<resultMap type="AssignS" id="AssignSMap"/>
 
-	<insert id="prcsGridMain" statementType="CALLABLE" >
+<!-- 	<insert id="prcsGridMain" statementType="CALLABLE" >
 		 {call 
-		 	SP_RNDT_IMPREQS_SAVE(
+		 	SP_RNDT_AssignS_SAVE(
 		 		#{cudKey},
 		 		#{compId},
 		 		#{setDate},
@@ -23,15 +23,12 @@
 		 		#{sysEmpNo}
 		 	)
 		 }	
-	</insert>
-	<select id="selGridMain" statementType="CALLABLE" >
+	</insert> -->
+	<select id="selGridMst" statementType="CALLABLE" >
 		 {call 
-		 	SP_RNDT_IMPREQS_SCH(
+		 	SP_RNDT_ASSIGNS_SCH01(
 		 		#{V_COMP_ID},
-		 		#{V_SET_DATE, jdbcType=VARCHAR},
-		 		#{V_SET_SEQ, jdbcType=VARCHAR},
-		 		#{V_SET_NO, jdbcType=VARCHAR},
-		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=ImpReqSMap, javaType=ResultSet}
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=AssignSMap, javaType=ResultSet}
 		 	)
 		 }	
 	</select>

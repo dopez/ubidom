@@ -9,8 +9,12 @@ function gridGetVal(rId,gridNm,colId){
 	var colVal = gridNm.setCells(rId,colIdx).getValue();
 	return colVal;
 }
-function gridSetVal(gridNm,colId,val){
-    var selRowIdx = gridNm.getSelectedRowIndex();
+function gridSetVal(gridNm,colId,val,rowId){
 	var colIdx = gridNm.getColIndexById(colId);
-	gridNm.setCells2(selRowIdx, colIdx).setValue(val);
+	if(rowId==null||rowId==""||typeof rowId=="undefined"){
+	    var selRowIdx = gridNm.getSelectedRowIndex();
+		gridNm.setCells2(selRowIdx, colIdx).setValue(val);
+	}else{
+		gridNm.setCells(rowId, colIdx).setValue(val);
+	}
 } 

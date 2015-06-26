@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("ImpReqS")
-public class ImpReqS implements Serializable {
+@Alias("AssignS")
+public class AssignS implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String rNum;
 
