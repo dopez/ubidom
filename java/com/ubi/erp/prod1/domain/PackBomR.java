@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("PackBomS")
-public class PackBomS implements Serializable {
+@Alias("PackBomR")
+public class PackBomR implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String cudKey;

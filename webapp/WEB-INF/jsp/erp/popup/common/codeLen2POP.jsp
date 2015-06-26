@@ -42,7 +42,6 @@ function init_search(){
 	 gfn_callAjaxForGrid(gridMain,params,"/erp/pop/len2",subLayout.cells("a"),fn_loadGridListCodeCB);
  }
  
-//fn_loadGridListCode callback 함수
 function fn_loadGridListCodeCB(data) {
 	if(data.length<1){
 		parent.MsgManager.alertMsg("WRN011");

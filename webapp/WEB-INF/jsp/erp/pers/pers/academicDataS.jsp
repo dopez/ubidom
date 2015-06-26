@@ -173,15 +173,6 @@ function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
-/* function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}else if(pName == "codeLen2"){
-	     $('#korName').val(data[0].innerName);
-	}	  	  
- }; */
  function fn_onClosePop(pName,data){
  if(pName == "codeLen2"){
 	 if(clickCheck == 1){

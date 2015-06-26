@@ -27,17 +27,40 @@ $(document).ready(function(){
 	gridMain.addHeader({name:"단위", colId:"matrUnit", width:"140", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","matrCode");
 	gridMain.init();
-	fn_search();
+	init_search();
 });
+function init_search(){
+	var params = parent.fn_onOpenPop(config.id);
+	$('#matrName').val(params.matrName);
+	$('input:radio[name=matrGubn]:input[value='+params.matrGubn+']').attr("checked", true);
+	loadGridMain(params);
+}
+
  function fn_search(){
 	 var obj={};
 	 obj.matrName = $("#matrName").val();
 	 obj.matrGubn = $(':radio[name="matrGubn"]:checked').val();
-	  gfn_callAjaxForGrid(gridMain,obj,"/erp/rndt/stan/bomS/selectMatrCodePop",subLayout.cells("a"),fn_loadGridListCodeCB);
+	 loadGridMain(obj);
 }
+ function loadGridMain(params){
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/rndt/stan/bomS/selectMatrCodePop",subLayout.cells("a"),fn_loadGridListCodeCB);
+ }
 //fn_loadGridListCode callback 함수
-function fn_loadGridListCodeCB() {
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+function fn_loadGridListCodeCB(data) {
+	if(data.length<1){
+		parent.MsgManager.alertMsg("WRN011");
+		parent.dhxWins.window("w1").close();
+	}else if(data.length==1){
+		  var matrCode = data[0].matrCode;
+		  var matrName = data[0].matrName;
+		  var matrSpec = data[0].matrSpec;
+		  var matrUnit = data[0].matrUnit;
+		  var arr = [{"matrCode":matrCode,"matrName":matrName,"matrSpec":matrSpec,"matrUnit":matrUnit}];
+		  parent.fn_onClosePop(config.id,arr);
+		  parent.dhxWins.window("w1").close();
+	}else{
+	   gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);	
+	}
 };
 
 function doOnRowDblClicked(rId,cInd){
