@@ -253,24 +253,33 @@ function getViewFullPath(id){
 	$("#pathbar").val(finalPath.slice(2)+" > "+initPath);
 }
 </script>
+<style>
+.crop {
+float: left;
+overflow: hidden;
+}
+.crop img {
+margin:-12px 0px -20px -10px;
+}
+</style>
 <form id="hiddenform" name="hiddenform" method="post">
     <input type="hidden" id="scrnParm" name="scrnParm" />
 </form>
-<div id="top" style="background-color:black ;">
-	<div style="float:left;margin-top:5px;margin-left:30px;" id="home" >
-<!-- 메뉴경로 넣기 전 -->
-<!-- <div style="float:left;margin-top:15px;margin-left:30px;" id="home" > -->
-<!-- <a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp; -->
-<!-- <a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a> -->
-		<p id="test">
-			<input name='pathbar' id='pathbar' readonly style='font-weight:bold; border:0px;background-color:transparent;width:400px;' value=''/>
-		</p>
-	</div>
-	<div style="float:right;margin-top:5px;margin-right:30px;"id="logout">
-<!-- 		<a  href="#" id="full_screen">전체화면</a>-->	
-		<input name='empNo' id='empNo' readonly style='font-weight:bold; margin-right:0px; border:0px;background-color:transparent; text-align:right' value="사번 : ${empNo}">
-		<input name='empNm' id='empNm' readonly style='font-weight:bold; margin-right:50px; border:0px;background-color:transparent; text-align:right' value="이름 : ${empName}">
- 		<a  href="#" id="log_out">로그아웃</a></div>
-	</div>
+<div id="top">
+    <div style="float:left;margin-top:5px;margin-left:20px;" id="home">
+        <!-- 메뉴경로 넣기 전 -->
+        <!-- <div style="float:left;margin-top:15px;margin-left:30px;" id="home" > -->
+        <!-- <a href="#" onclick="window.open('/report/reportPdf.do','rpt','');">PDF</a>&nbsp;&nbsp; -->
+        <!-- <a href="#" onclick="window.open('/report/reportExcel.do','rpt','');">XLS</a> -->
+        <p class="crop" id = "home a">
+	        <img id="" alt="ceko_logo_1" src="../images/common/CEKOlogo.png">
+        </p>
+	<input name='pathbar' id='pathbar' readonly style='font-weight:bold; border:0px;background-color:transparent;width:400px;' value='' />
+    </div>
+    <div style="float:right;margin-top:5px;margin-right:30px;" id="logout">
+        <input name='empNo' id='empNo' readonly style='font-weight:bold; margin-right:0px; border:0px;background-color:transparent; text-align:right' value="사번 : ${empNo}">
+        <input name='empNm' id='empNm' readonly style='font-weight:bold; margin-right:50px; border:0px;background-color:transparent; text-align:right' value="이름 : ${empName}">
+        <a href="#" id="log_out">로그아웃</a></div>
+</div>
 <div id="container"></div>
 <!-- <div id="statusBar" style="height:20px;">STATUS BAR</div> -->
