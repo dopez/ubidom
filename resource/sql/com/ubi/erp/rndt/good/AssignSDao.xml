@@ -5,9 +5,9 @@
 
 <resultMap type="AssignS" id="AssignSMap"/>
 
-<!-- 	<insert id="prcsGridMain" statementType="CALLABLE" >
+ 	<insert id="prcsGridDtl" statementType="CALLABLE" >
 		 {call 
-		 	SP_RNDT_AssignS_SAVE(
+		 	SP_RNDT_ASSIGN_SAVE(
 		 		#{cudKey},
 		 		#{compId},
 		 		#{setDate},
@@ -20,13 +20,26 @@
 		 		#{reqConts, jdbcType=VARCHAR},
 		 		#{state, jdbcType=VARCHAR},
 		 		#{endReqDate, jdbcType=VARCHAR},
+		 		#{assignsDate, jdbcType=VARCHAR},
+		 		#{assignsEmp, jdbcType=VARCHAR},
+		 		#{equiCode, jdbcType=VARCHAR},
+		 		#{inchEmp, jdbcType=VARCHAR},
+		 		#{deliDate, jdbcType=VARCHAR},
 		 		#{sysEmpNo}
 		 	)
 		 }	
-	</insert> -->
+	</insert> 
 	<select id="selGridMst" statementType="CALLABLE" >
 		 {call 
 		 	SP_RNDT_ASSIGNS_SCH01(
+		 		#{V_COMP_ID},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=AssignSMap, javaType=ResultSet}
+		 	)
+		 }	
+	</select>
+	<select id="selGridDtl" statementType="CALLABLE" >
+		 {call 
+		 	SP_RNDT_ASSIGNS_SCH02(
 		 		#{V_COMP_ID},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=AssignSMap, javaType=ResultSet}
 		 	)

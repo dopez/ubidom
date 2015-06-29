@@ -39,12 +39,13 @@ $( document ).ready(function() {
                                 "equiCode","inchEmp","deliDate","resultDate",
                                 "resultEmp","reqBefore","reqAfter","remarks",
                                 "stateName","inchEmpName","equiName","assignsEmpName","resultEmpName"]);
-	
+    gridMst.attachEvent("onRowDblClicked",doOnRowDblClicked);
+
 	//down
 	subLayout.cells("b").showHeader();
 	subLayout.cells("b").setText('배정내역&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-	'<input type="button" value="선택항목 추가" onclick="fn_btnAdd()" class="imgTest" style="background-color: buttonhighlight;">&nbsp;&nbsp;&nbsp;&nbsp;'+
-	'<input type="button" value="선택항목 제거" onclick="" class="imgRowRemove" style="background-color: buttonhighlight;">');
+	'<input type="button" value="선택항목 추가" onclick="fn_btnAdd()" class="imgTest" style="background-color: buttonhighlight;">&nbsp;&nbsp;&nbsp;&nbsp;');
+	//+'<input type="button" value="선택항목 제거" onclick="" class="imgRowRemove" style="background-color: buttonhighlight;">');
 	gridDtl = new dxGrid(subLayout.cells("b"),false);
 	gridDtl.addHeader({name:"No",colId:"rNum",width:"50",align:"center",type:"cntr"});
 	gridDtl.addHeader({name:"관리번호",colId:"reqDno",width:"100",align:"center",type:"ro"});
@@ -88,12 +89,17 @@ $( document ).ready(function() {
      })
      fn_setCombo();
      fn_selGridMst();
+     fn_selGridDtl();
 })
 function fn_search(){
 	fn_selGridMst();
+	fn_selGridDtl();
 }
 function fn_selGridMst(){
     gfn_callAjaxForGrid(gridMst,"","selGridMst",subLayout.cells("a"));
+}
+function fn_selGridDtl(){
+    gfn_callAjaxForGrid(gridDtl,"","selGridDtl",subLayout.cells("b"));
 }
 function fn_onClosePop(pName, data) {
     if (pName == "empNo") {
@@ -102,10 +108,13 @@ function fn_onClosePop(pName, data) {
     }
 }
 //추가 버튼 이벤트
-function fn_btnAdd(){
-//	var selRowId = {};
-    var	selRowId = gridMst.getSelectedRowId();
-   	var selRowIdArr = selRowId.split(",");
+function fn_btnAdd(rId,cInd){
+	if(rId){
+		var selRowIdArr = [rId];
+	}else{
+	    var	selRowId = gridMst.getSelectedRowId();
+   		var selRowIdArr = selRowId.split(",");
+	}
    	var totalColNum = gridDtl.getColumnCount();
   	var totalRowNum = gridDtl.getRowsNum();
 	
@@ -117,15 +126,15 @@ function fn_btnAdd(){
    		data[getDtlColIdx("reqDno")] = gridGetVal(selRowIdArr[i],gridMst,"reqDno");
    		data[getDtlColIdx("custCode")] = gridGetVal(selRowIdArr[i],gridMst,"custCode");
    		data[getDtlColIdx("custKorName")] = gridGetVal(selRowIdArr[i],gridMst,"custKorName");
-   		data[getDtlColIdx("reqEmp")] = gridGetVal(selRowIdArr[i],gridMst,"reqEmpName");
-   		data[getDtlColIdx("reqEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"reqEmp");
+   		data[getDtlColIdx("reqEmp")] = gridGetVal(selRowIdArr[i],gridMst,"reqEmp");
+   		data[getDtlColIdx("reqEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"reqEmpName");
    		data[getDtlColIdx("itemCode")] = gridGetVal(selRowIdArr[i],gridMst,"itemCode");
    		data[getDtlColIdx("itemName")] = gridGetVal(selRowIdArr[i],gridMst,"itemName");
    		data[getDtlColIdx("reqConts")] = gridGetVal(selRowIdArr[i],gridMst,"reqConts");
    		data[getDtlColIdx("state")] = gridGetVal(selRowIdArr[i],gridMst,"state");
    		data[getDtlColIdx("endReqDate")] = gridGetVal(selRowIdArr[i],gridMst,"endReqDate");
-   		data[getDtlColIdx("assignsDate")] = gridGetVal(selRowIdArr[i],gridMst,"assignsDate");
-   		data[getDtlColIdx("assignsEmp")] = gridGetVal(selRowIdArr[i],gridMst,"assignsEmp");
+   		data[getDtlColIdx("assignsDate")] = searchDate($("#assignsDate").val());//gridGetVal(selRowIdArr[i],gridMst,"assignsDate");
+   		data[getDtlColIdx("assignsEmp")] = $("#assignsEmp").val();//gridGetVal(selRowIdArr[i],gridMst,"assignsEmp");
    		data[getDtlColIdx("equiCode")] = gridGetVal(selRowIdArr[i],gridMst,"equiCode");
    		data[getDtlColIdx("inchEmp")] = gridGetVal(selRowIdArr[i],gridMst,"inchEmp");
    		data[getDtlColIdx("deliDate")] = gridGetVal(selRowIdArr[i],gridMst,"deliDate");
@@ -137,17 +146,18 @@ function fn_btnAdd(){
    		data[getDtlColIdx("stateName")] = gridGetVal(selRowIdArr[i],gridMst,"stateName");
    		//data[getDtlColIdx("inchEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"inchEmpName");
    		//data[getDtlColIdx("equiName")] = gridGetVal(selRowIdArr[i],gridMst,"equiName");
-   		data[getDtlColIdx("assignsEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"assignsEmpName");
+   		data[getDtlColIdx("assignsEmpName")] = $("#assignsEmpName").val();//gridGetVal(selRowIdArr[i],gridMst,"assignsEmpName");
    		data[getDtlColIdx("resultEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"resultEmpName");
-//	    gridMst.dxObj.deleteRow(selRowIdArr[i]);
 	    gridMst.cs_deleteRow(selRowIdArr[i]);
-	    //gridMst.cs_addRow(selRowIdArr[i]);
   		gridDtl.addRow(data);
    	}
    	gridDtl.selectRow(totalRowNum);
 }
+function doOnRowDblClicked(rId,cInd){
+	fn_btnAdd(rId,cInd);
+
+}
 function doOnRowDtlDblClicked(rId,cInd){
-	//gridDtl.dxObj.deleteRow(rId)
 	fn_btnDel(rId,cInd);
 }
 function fn_btnDel(rId,cInd){
@@ -155,35 +165,84 @@ function fn_btnDel(rId,cInd){
 	var gridDtlsetNo = gridGetVal(rId,gridDtl,"setNo");
 	var gridDtlreqDno = gridGetVal(rId,gridDtl,"reqDno");
 	var gridDtlKey = gridDtlsetNo + gridDtlreqDno;
-	console.log("gridDtlKey = " + gridDtlKey);
 	for(var i=0;i<gridMst.getRowsNum();i++){
 		var gridMstreqDno = gridMst.setCells2(i,gridMst.getColIndexById('reqDno')).getValue();
 		var gridMstsetNo = gridMst.setCells2(i,gridMst.getColIndexById('setNo')).getValue();
 		var gridMstKey = gridMstsetNo + gridMstreqDno;
 		if(gridDtlKey == gridMstKey){
 			gridMstId = gridMst.getRowId(i);
-		console.log("for gridMstKey = "+gridMstKey);
 		}
 	}
-	console.log("rId = "+rId);
 	gridDtl.parse("","js");
 	gridDtl.deleteRow(rId);
-	//gridDtl.parse("","js");
-	console.log("out gridMstId = "+gridMstId);
 	gridMst.cs_addRow(gridMstId);
+	gridSetVal(gridMst,"cudKey","",gridMstId);
 }
 function getDtlColIdx(colId){
 	/*gridDtl colIdx 가져옴*/
 	var colIdx = gridDtl.getColIndexById(colId);
 	return colIdx;
 }
-
+function fn_save(){
+	fn_prcsGridDtl();
+}
+function fn_prcsGridDtl(){
+	fn_setState();
+	var jsonStr = gridDtl.getJsonUpdated2();
+    if (jsonStr == "[]" || jsonStr.length <= 2) return;         		
+	$("#jsonData").val(jsonStr);  
+	console.log(jsonStr);
+    var params = gfn_getFormElemntsData("frmServer");
+     $.ajax({
+       url : "/erp/rndt/good/assignS/prcsGridDtl",
+       type : "POST",
+       data : params,
+       async : true,
+       success : function(data) {
+        fn_delGridMst();
+        fn_search();
+        MsgManager.alertMsg("INF001");
+        }
+   });   
+}
+function fn_setState(){
+	gridDtl.dxObj.forEachRow(function(id){
+		if(gridGetVal(id,gridDtl,"state")=="10"){
+			gridSetVal(gridDtl,"state","20",id);
+			gridSetVal(gridDtl,"cudKey","UPDATE",id);
+		}
+		
+	})
+}
+function fn_delGridMst(){
+	gridMst.dxObj.forEachRow(function(id){
+		if(gridGetVal(id,gridMst,"cudKey")=="DELETE"){
+			gridMst.deleteRow(id);
+		};
+	})
+}
+function fn_remove(){
+	gridDtl.dxObj.forEachRow(function(id){
+		gridDtl.cs_deleteRow(id);
+	})
+}
+function fn_new(){
+	byId("frmSearch").reset()
+	byId("frmServer").reset()
+    var t = dateformat(new Date());
+    byId("assignsDate").value = t;
+    $("#assignsDate").keyup();
+    fn_search();
+}
 </script>
 <script type="text/javascript" src="/script/erp/rndt/impReqS/impReqSGridFn.js"></script>
 <script type="text/javascript" src="/script/erp/rndt/assignS/assignSCombo.js"></script>
 <script type="text/javascript" src="/script/erp/rndt/assignS/assignSFrmFn.js"></script>
 <div id="container" style="position: relative; width: 100%; height: 100%;">
 </div>
+<form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmServer">
+	<input name="jsonData" id="jsonData" type="hidden">
+</form>
 <div id="bootContainer2">
     <div class="container">
         <form class="form-horizontal" style="padding-top: 10px; padding-bottom: 5px; margin: 0px;" id="frmSearch">
