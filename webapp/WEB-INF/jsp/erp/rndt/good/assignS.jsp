@@ -144,8 +144,6 @@ function fn_btnAdd(rId,cInd){
    		data[getDtlColIdx("reqAfter")] = gridGetVal(selRowIdArr[i],gridMst,"reqAfter");
    		data[getDtlColIdx("remarks")] = gridGetVal(selRowIdArr[i],gridMst,"remarks");
    		data[getDtlColIdx("stateName")] = gridGetVal(selRowIdArr[i],gridMst,"stateName");
-   		//data[getDtlColIdx("inchEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"inchEmpName");
-   		//data[getDtlColIdx("equiName")] = gridGetVal(selRowIdArr[i],gridMst,"equiName");
    		data[getDtlColIdx("assignsEmpName")] = $("#assignsEmpName").val();//gridGetVal(selRowIdArr[i],gridMst,"assignsEmpName");
    		data[getDtlColIdx("resultEmpName")] = gridGetVal(selRowIdArr[i],gridMst,"resultEmpName");
 	    gridMst.cs_deleteRow(selRowIdArr[i]);
@@ -229,9 +227,12 @@ function fn_remove(){
 function fn_new(){
 	byId("frmSearch").reset()
 	byId("frmServer").reset()
+	
     var t = dateformat(new Date());
     byId("assignsDate").value = t;
     $("#assignsDate").keyup();
+    $("#assignsEmpName").val("");
+    $("#assignsEmp").val("");
     fn_search();
 }
 </script>
