@@ -54,6 +54,7 @@ public class PurcConferRController {
 		map.put("V_SET_SDATE", setSDate);
 		map.put("V_SET_EDATE", setEDate);
 		map.put("V_CUST_CODE", custCode);
+		map.put("V_SETTLE4_STATE", "");
 		map.put("o_cursor", null);
 		purcConferRService.gridMainSel(map);
 		List<PurcConferR> list  = (List<PurcConferR>) map.get("o_cursor");

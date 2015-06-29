@@ -176,13 +176,15 @@
     	var totalRowNum = gridMain.getRowsNum();
     	var selRowIdx = gridMain.getSelectedRowIndex();
 
-    	for(var i=selRowIdx+1; i<totalRowNum;i++){
-    		console.log(i);
-    		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i, 3));	 
+    	if(selRowIdx >= 0){
+        	for(var i=selRowIdx+1; i<totalRowNum;i++){
+        		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i, 3));	 
+        	}   		
+        	gridMain.cs_deleteRow(rodid); 
+    	}else{
+    		alert("삭제하실 항목을 선택하세요.");
+    		return false;
     	}
-    	
-    	gridMain.cs_deleteRow(rodid); 
-    	
     };
     
     function fn_remove(){
