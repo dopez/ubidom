@@ -13,6 +13,7 @@
 		 		#{V_SET_SDATE},
 		 		#{V_SET_EDATE},
 		 		#{V_CUST_CODE},
+		 		#{V_SETTLE4_STATE},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PurcConferRMap, javaType=ResultSet}
 		 	)
 		 }
