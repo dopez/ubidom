@@ -476,3 +476,95 @@ function cell_calculator(grid,id,stNum,endNum){
 	}
 	return sum;
 }
+
+//dhtmlx Grid Merge 보류----------------------------------------------------//
+function cs_grid_rowspan_Init(grid,colIdx){
+	var endRow = 0;
+	var rowIdx = 0;
+	var endRowArr =[];
+	var rowId = [];
+	var preVal = grid.setCells2(0,colIdx).getValue();
+	 var nowVal = "";
+	 rowId[rowIdx] = grid.getRowId(0);
+	 endRowArr[rowIdx] = endRow;
+	 for(var i = 0; i < grid.getRowsNum(); i++) {
+	   nowVal = grid.setCells2(i,colIdx).getValue();
+	  if (preVal == nowVal) {
+		  endRow++;
+	  }else{
+		  rowIdx++;
+		  endRowArr[rowIdx] = endRow;
+		  rowId[rowIdx] = grid.getRowId(i);
+		  endRow = 1;  
+	   }
+	  preVal = nowVal; 
+	 }
+	 rowIdx++;
+	 endRowArr[rowIdx] = endRow;
+	 for(var j=0;j<rowId.length;j++){
+		 grid.dxObj.setRowspan(rowId[j],colIdx,endRowArr[j+1]);
+    }
+	 return endRowArr;
+}
+// dhtmlx Grid Merge 보류
+function cs_grid_rowspan_next(grid,colIdx,stNum,endNum){
+	var preStNum = stNum;
+	var endRow = 0;
+	var rowIdx = 0;
+	var endRowArr =[];
+	var rowId = [];
+	var preVal = grid.setCells2(0,colIdx).getValue();
+	 var nowVal = "";
+	 rowId[rowIdx] = grid.getRowId(preStNum);
+	 endRowArr[rowIdx] = endRow;
+	 if(stNum != 0){
+			stNum = stNum+1;
+		}
+	 for(var i = stNum; i < preStNum+endNum; i++) {
+	   nowVal = grid.setCells2(i,colIdx).getValue();
+	  if (preVal == nowVal) {
+		  endRow++;
+	  }else{
+		  rowIdx++;
+		  endRowArr[rowIdx] = endRow;
+		  rowId[rowIdx] = grid.getRowId(i);
+		  endRow = 1;  
+	   }
+	  preVal = nowVal; 
+	 }
+	 rowIdx++;
+	 endRowArr[rowIdx] = endRow;
+	 console.log(endRowArr);
+	 for(var j=0;j<rowId.length;j++){
+		 grid.dxObj.setRowspan(rowId[j],colIdx,endRowArr[j+1]);
+    }
+	 return endRowArr;
+}
+//---------------------------------------------------------------------------------//
+/*조회화면에서 등록화면으로 이동[그리드 더블클릭 이벤트 시 사용한다.]*/
+function gfn_moveMenu(menuCd, obj){
+	/*menuCd : 이동할 화면코드 || obj : 넘겨줄 파라미터(오브젝트 타입)*/
+	var cFlag = true;
+	var mainMenu = parent.mainMenu;
+	var mainTabbar = parent.mainTabbar;
+	var ids = mainTabbar.getAllTabs();
+	var preId = menuCd;
+	for(var i=0;i<ids.length;i++){
+		if(ids[i] == preId){
+			if(MsgManager.confirmMsg("INF006")) { 
+				mainTabbar.tabs(preId).close();
+				cFlag = true;
+				break;
+			}else{
+				cFlag = false;
+				return;
+			}
+		}
+	}
+	if(cFlag){
+		var uri = mainMenu.getUserData(preId, "uri");
+		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,obj);	
+	}
+}

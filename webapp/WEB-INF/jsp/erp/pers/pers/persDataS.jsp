@@ -12,6 +12,8 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 var combo01, combo02, combo03, combo04;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,4,9],"2U");
 	//인사자료등록
@@ -82,6 +84,12 @@ $(document).ready(function(){
 		}
 	 }); 
 	
+    $("#frmMain input:text,input:checkbox").on("change keyup", function(e){
+		if($("#cudKey").val() == ''){
+		   $("#cudKey").val("INSERT");
+		}
+	});
+    
 	combo01 = dhtmlXComboFromSelect("jikwee");
 	combo02 = dhtmlXComboFromSelect("jikmu");
 	combo03 = dhtmlXComboFromSelect("jikchak");
@@ -100,8 +108,7 @@ $(document).ready(function(){
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();
 	fn_calValue();
-	
-	byId("cudKey").value = "INSERT";
+
 	fn_search();
 });
 $(window).resize(function(){
@@ -125,6 +132,7 @@ function fn_comboLoad(comboId){
 	comboId.enableFilteringMode(true);
 	comboId.enableAutocomplete(true);
 	comboId.allowFreeText(true);
+	comboId.confirmValue();
 	var obj={};
 	obj.postName = '%';
 		$.ajax({
@@ -193,10 +201,13 @@ function fn_new(){
 	combo01.unSelectOption();
 	combo02.unSelectOption();
 	combo03.unSelectOption();;
-	byId("cudKey").value = "INSERT";
 };
 
  function fn_save(){
+	 cudVal = $('#cudKey').val();	
+	 if(cudVal == ''){
+		 byId("cudKey").value = "INSERT"; 
+	  }
 	   f_dxRules = {
 	   empNo : ["사원번호",r_notEmpty,r_len + "|7"],
 	   korName : ["성명",r_notEmpty],
@@ -249,6 +260,7 @@ function fn_loadFormListCB(data){
 	if(data[0].imgPath != null){			
 	  $("#target").attr("src", "/erp/pers/pers/persDataS/getPersImg?empNo=" + data[0].empNo);
 	}
+	$('#cudKey').val('');
 };
 
 function fn_onOpenPop(pName){
@@ -266,7 +278,18 @@ function fn_onOpenPop(pName){
 		var url = "/erp/pers/pers/persDataP/report/persDataP.do"; 
 			url = url + "?empNo=" + $("#empNo").val();
 		window.open(url,'rpt','');
-	}
+}
+ 
+ function fn_exit(){
+	 var exitVal = true;
+		 var cudVal = cudVal = $('#cudKey').val();	
+		 if(cudVal != ''){ 
+			 exitVal = false;
+		 }
+	 if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	 
+	 }		
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

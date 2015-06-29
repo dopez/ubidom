@@ -109,6 +109,11 @@ function fn_comboLoad(comboId,cFlag){
                   } 
 			}
 	  });
+
+		comboId.enableFilteringMode(true);
+		comboId.enableAutocomplete(true);
+		comboId.allowFreeText(true);
+		comboId.confirmValue();	
 };
 
 function doOnRowDblClicked(rId,cInd){

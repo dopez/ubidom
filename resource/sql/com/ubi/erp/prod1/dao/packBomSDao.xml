@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ubi.erp.prod1.dao.PackBomSDao">
+
+	<resultMap id="PackBomSMap" type="PackBomS"/>
+
+	<select id="selPackBomSTree" statementType="CALLABLE">
+		 {call SP_STAN_PACKBOMS_TREE_SCH1(#{compId},#{keyValue},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PackBomSMap, javaType=ResultSet})}
+	</select>
+
+    <select id="selPackBomDelChk" statementType="CALLABLE">
+		 {call SP_STAN_PACKBOMS_DEL_CHK(#{compId},#{keyValue},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PackBomSMap, javaType=ResultSet})}
+	</select>
+	
+	
+	<select id="selPackBomSSch1" statementType="CALLABLE">
+		 {call SP_STAN_PACKBOMS_SCH1(#{compId},#{keyValue},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PackBomSMap, javaType=ResultSet})}
+	</select>
+	
+	<select id="selPackBomSSch2" statementType="CALLABLE">
+		 {call SP_STAN_PACKBOMS_SCH2(#{compId},#{keyValue},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PackBomSMap, javaType=ResultSet})}
+	</select>
+	
+	<select id="selPackBomSSch3" statementType="CALLABLE">
+		 {call SP_STAN_PACKBOMS_SCH3(#{compId},#{keyvalue1},#{keyvalue2},
+		 #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PackBomSMap, javaType=ResultSet})}
+	</select>
+
+	<insert id="prcspackBomSSave1" statementType="CALLABLE" parameterType="PackBomS">
+  		{call SP_STAN_PACKBOMS_SAVE1(
+  		#{cudKey},#{compId},#{keyvalue1},#{keyvalue2},#{ea},
+  		#{loss},#{useDate},#{useYn},#{rmk},#{sysEmpNo}
+  		)}	
+  	</insert>
+
+  	<insert id="prcspackBomSSave2" statementType="CALLABLE" parameterType="PackBomS">
+  		{call SP_STAN_PACKBOMS_SAVE2(
+  		#{cudKey},#{compId},#{keyvalue1},#{keyvalue2},#{progCode},
+  		#{prodKind},#{progSeq},#{rmk},#{sysEmpNo}
+  		)}	
+  	</insert>
+
+</mapper>
