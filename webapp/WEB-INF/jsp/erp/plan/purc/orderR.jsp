@@ -2,70 +2,102 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript">
             var layout, toolbar, subLayout
-            var gridMst;
-            var gridDtl;
+            var gridMain, gridSub;
             var calMain;
             $(document).ready(function() {
+                Ubi.setContainer(3, [1, 8, 9], "1C"); //발주조회
 
-                Ubi.setContainer(3, [1, 8, 9], "2E"); //발주조회
-
-                layout = Ubi.getLayout();
+            	layout = Ubi.getLayout();
                 toolbar = Ubi.getToolbar();
-                subLayout = Ubi.getSubLayout();
-
-                //form//
+                subLayout = Ubi.getSubLayout();             	
+            	
                 layout.cells("b").attachObject("bootContainer2");
+				subLayout.cells("a").showHeader();
+				subLayout.cells("a").setText("품의내역");
 
-                //up
-
-                subLayout.cells("a").showHeader();
-                subLayout.cells("a").setText("발주내역");
-                gridMst = subLayout.cells("a").attachGrid();
-                gridMst.setImagePath("/component/dhtmlxGrid/imgs/"); //7 col
-                gridMst.setHeader("No,품의일자,품의자,공급업체,결재금액,발주,인쇄", null, []);
-                gridMst.attachFooter("&nbsp;,합계,#cspan,#cspan,0,&nbsp;,#cspan", []);
-                gridMst.setInitWidths("50,100,100,100,100,100,100");
-                gridMst.setColAlign("center,center,left,left,right,center,center");
-                gridMst.setColTypes("ron,dhxCalendar,ed,ed,edn,ra,ra");
-                gridMst.setColSorting("str,date,str,str,int,str,str");
-                gridMst.init();
-
-                //down
-                subLayout.cells("b").showHeader();
-                subLayout.cells("b").setText("발주상세내역");
-
-                gridDtl = subLayout.cells("b").attachGrid();
-                gridDtl.setImagePath("/component/dhtmlxGrid/imgs/"); //9col
-                gridDtl.setHeader("No,품명,규격,단위,수량,단가,금액,납기일자,납품장소", null, []);
-                gridDtl.attachFooter("&nbsp;,합계,#cspan,#cspan,0,0,0,&nbsp;,#cspan", null, []);
-
-
-                gridDtl.setInitWidths("50,100,100,100,100,100,100,100,100");
-                gridDtl.setColAlign("center,center,center,center,right,right,right,center,center");
-                gridDtl.setColTypes("ron,ed,ed,ed,edn,edn,edn,dhxCalendar,ed");
-                gridDtl.setColSorting("str,str,str,str,str,str,str,str,str,str,str,str,");
-                gridDtl.init();
-
-                /* //calRangeDate
-                calMain = new dhtmlXCalendarObject([{
-                    input: "stDate",
-                    button: "calpicker1"
-                }, {
-                    input: "edDate",
-                    button: "calpicker2"
-                }]);
-                calMain.loadUserLanguage("ko");
-                calMain.hideTime();
-                var t = dateformat(new Date());
-                byId("stDate").value = t; */
-                calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker1"},{input:"edDate",button:"calpicker2"}]);
+                gridMain = new dxGrid(subLayout.cells("a"),false);
+                gridMain.addHeader({name:"No",colId:"no",width:"50",align:"center",type:"cntr"});
+                gridMain.addHeader({name:"품의일자",colId:"setDate",width:"100",align:"center",type:"ro"});
+                gridMain.addHeader({name:"품의자",colId:"empName",width:"100",align:"center",type:"ro"});
+                gridMain.addHeader({name:"공급업체",colId:"custName",width:"100",align:"left",type:"ro"});
+                gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"center",type:"ed"});
+                gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"center",type:"ed"});
+                gridMain.addHeader({name:"단위",colId:"matrUnit",width:"100",align:"left",type:"ed"});
+                gridMain.addHeader({name:"수량",colId:"qty",width:"100",align:"right",type:"edn"});
+                gridMain.addHeader({name:"단가",colId:"cost",width:"100",align:"right",type:"edn"});
+                gridMain.addHeader({name:"금액",colId:"amt",width:"100",align:"right",type:"edn"});
+                gridMain.addHeader({name:"납기일자",colId:"deliDate",width:"100",align:"center",type:"dhxCalendarA"});
+                gridMain.setUserData("","pk","no");
+                gridMain.setColSort("str");
+                gridMain.dxObj.setUserData("", "@setDate","format_date");
+                gridMain.dxObj.setUserData("", "@deliDate","format_date");
+                gridMain.init();
+                gridMain.cs_setNumberFormat(["qty", "cost", "amt"], "0,000");
+                gridMain.cs_setColumnHidden(["compId", "setSeq", "setNo", "purcConsultKey"]);                
+                gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+                
+                calMain = new dhtmlXCalendarObject([{input:"setSDate",button:"calpicker1"},{input:"setEDate",button:"calpicker2"}]);
             	calMain.loadUserLanguage("ko");
             	calMain.hideTime();
             	var t = dateformat(new Date());
-            	byId("stDate").value = t;
-            	byId("edDate").value = t;
-
-            })
+            	byId("setSDate").value = t;
+            	byId("setEDate").value = t;
+            	
+                $("#custName").dblclick(function(){
+                	gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": ""});
+                });            	
+            	
+                fn_onClosePop = function(pName, data) {
+                    var i;
+                    var obj = {};
+                    if(pName == "custCode"){
+                        $("#custCode").val("");
+                        $("#custName").val("");
+                        $("#custCode").val(data[0].custCode);
+                        $("#custName").val(data[0].custKorName);
+                	}else if(pName == "empNo"){
+                		//popUpCallback(data);
+                	}
+                };            	
+            });
+            
+            function doOnRowDblClicked(rId, cInd){
+            	var cFlag = true;
+            	var setDateIdx = gridMain.getColIndexById('setDate');
+            	var setSeqIdx = gridMain.getColIndexById('setSeq');
+            	var dateValue = gridMain.setCells(rId,setDateIdx).getValue();
+            	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
+            	var ids = mainTabbar.getAllTabs();
+            	var preId = "1000000772";
+            	for(var i=0;i<ids.length;i++){
+            		if(ids[i] == preId){
+            			if(MsgManager.confirmMsg("INF006")) { 
+            				mainTabbar.tabs(preId).close();
+            				cFlag = true;
+            			}else{
+            				cFlag = false;
+            				return;
+            			}
+            		}
+            	}
+            	if(cFlag){
+            		var uri = mainMenu.getUserData(preId, "uri");
+            		var menuItemText = mainMenu.getDxObj().getItemText(preId);
+            		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
+            		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue,setSeq:seqValue});	
+            	}            	
+            }
+            
+            function fn_search() {
+                var param = gfn_getFormElemntsData('frmSearch');
+                gfn_callAjaxForGrid(gridMain, param, "/erp/plan/purc/purcConferR/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+            }               
+            
+            function fn_gridMainSelCallbckFunc(data) {
+                $("#setSDate").keyup();
+                $("#setEDate").keyup();
+            }                          
+            
         </script>
 
         <div id="container" style="position: relative; width: 100%; height: 100%;">
@@ -76,24 +108,23 @@
                     <div class="row">
                         <div class="form-group form-group-sm">
                             <div class="col-sm-8 col-md-8">
-                                <label class=" col-sm-2 col-md-2 control-label" for="textinput">
-                                    기간 </label>
+                                <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 기간 </label>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="col-sm-4 col-md-4">
                                         <div class="col-sm-10 col-md-10">
-                                            <input type="text" class="form-control input-xs" name="stDate" id="stDate" value="">
+                                            <input type="text" class="form-control input-xs format_date" name="setSDate" id="setSDate" value="">
                                         </div>
                                         <div class="col-sm-2 col-md-2">
-                                           <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'edDate', 'max')">
+                                           <input type="button" id="calpicker1" class="calicon form-control" onclick="setSens(1,'setEDate', 'max')">
                                         </div>
                                     </div>
                                     <label class="col-sm-1 col-md-1 control-label" for="textinput" style="margin-right: 15px;">~</label>
                                     <div class="col-sm-4 col-md-4">
                                         <div class="col-sm-10 col-md-10">
-                                            <input type="text" class="form-control input-xs" name="edDate" id="edDate" value="">
+                                            <input type="text" class="form-control input-xs format_date" name="setEDate" id="setEDate" value="">
                                         </div>
                                         <div class="col-sm-2 col-md-2">
-                                            <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'stDate', 'min')">
+                                            <input type="button" id="calpicker2" class="calicon form-control" onclick="setSens(1,'setSDate', 'min')">
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +137,7 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 의뢰부서 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('의뢰부서','common/requestPOP')">
+                                    <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +147,8 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 공급업체 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="supplCompName" id="supplCompName" type="text" value="" placeholder="" class="form-control input-xs"ondblclick="gfn_load_popup('공급업체','common/supplyCompPOP')">
+                                	<input type="hidden" name="custCode" id="custCode">
+                                    <input name="custName" id="custName" type="text" value="" placeholder="" class="form-control input-xs">
                                 </div>
                             </div>
                         </div>
