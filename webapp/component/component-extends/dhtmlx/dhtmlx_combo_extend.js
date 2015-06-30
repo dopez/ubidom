@@ -24,6 +24,14 @@ function gfn_1col_comboLoad(comboId, params) {
             }
         }
     });
+    comboId.attachEvent("onBlur", function(){
+        var getValue = comboId.getComboText();
+        var getIdx =  comboId.getIndexByValue(getValue);
+        if(getIdx == -1){
+        	MsgManager.alertMsg("WRN013");
+        	comboId.setComboText("");
+        }
+    });
 };
 
 function gfn_single_comboLoad(comboId,value,key,cLength){
@@ -40,6 +48,15 @@ function gfn_single_comboLoad(comboId,value,key,cLength){
 comboId.enableFilteringMode(true);
 comboId.enableAutocomplete(true);
 comboId.allowFreeText(true);
+
+comboId.attachEvent("onBlur", function(){
+    var getValue = comboId.getComboText();
+    var getIdx =  comboId.getIndexByValue(getValue);
+    if(getIdx == -1){
+    	MsgManager.alertMsg("WRN013");
+    	comboId.setComboText("");
+    }
+});
 }
 
 function gfn_codeLen2_comboLoad(comboId,params){
@@ -66,6 +83,14 @@ function gfn_codeLen2_comboLoad(comboId,params){
                 comboId.addOption(list[i].innerCode,
                 		{"innerCode":list[i].innerCode,"innerName":list[i].innerName});
             }
+        }
+    });
+    comboId.attachEvent("onBlur", function(){
+        var getValue = comboId.getComboText();
+        var getIdx =  comboId.getIndexByValue(getValue);
+        if(getIdx == -1){
+        	MsgManager.alertMsg("WRN013");
+        	comboId.setComboText("");
         }
     });
 }
@@ -95,6 +120,14 @@ function gfn_codeLen4_comboLoad(comboId,params){
                 comboId.addOption(list[i].innerCode,
                 		{"innerCode":list[i].innerCode,"innerName":list[i].innerName,"spec":list[i].spec});
             }
+        }
+    });
+    comboId.attachEvent("onBlur", function(){
+        var getValue = comboId.getComboText();
+        var getIdx =  comboId.getIndexByValue(getValue);
+        if(getIdx == -1){
+        	MsgManager.alertMsg("WRN013");
+        	comboId.setComboText("");
         }
     });
 }
