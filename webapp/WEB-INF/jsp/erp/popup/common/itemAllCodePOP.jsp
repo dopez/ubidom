@@ -21,24 +21,38 @@ $(document).ready(function(){
     layout.cells("b").attachObject("bootContainer");
     
     gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"품목코드", colId:"itemCode", width:"150", align:"center", type:"ro"});
-	gridMain.addHeader({name:"품목명",   colId:"itemName", width:"100", align:"center", type:"ro"});
-	gridMain.addHeader({name:"규격",     colId:"itemSpec", width:"100", align:"center", type:"ro"});
-	gridMain.addHeader({name:"단위",     colId:"itemUnit", width:"100", align:"center", type:"ro"});
-	gridMain.setUserData("","pk","itemCode");
+    gridMain.addHeader({name:"품목코드", colId:"innerCode", width:"150", align:"center", type:"ro"});
+	gridMain.addHeader({name:"품목명",   colId:"innerName", width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",     colId:"spec",      width:"100", align:"center", type:"ro"});
+	gridMain.addHeader({name:"단위",     colId:"unit",      width:"100", align:"center", type:"ro"});
+	gridMain.setUserData("","pk","");
 	gridMain.init();
 	gridMain.cs_setColumnHidden(["packUnit"]);
 	fn_search();
 });
  function fn_search(){
 	 var obj={};
-	   obj.itemName = $("#itemName").val();
-	   obj.itemKind = $(':radio[name="itemKind"]:checked').val();
-	  gfn_callAjaxForGrid(gridMain,obj,"/erp/rndt/stan/bomR/itemAllCodePop",subLayout.cells("a"),fn_loadGridListCodeCB);
+	   obj.innerName = $("#itemName").val();
+	   obj.kind = $(':radio[name="kind"]:checked').val();
+	  gfn_callAjaxForGrid(gridMain,obj,"/erp/pop/itemAllCode",subLayout.cells("a"),fn_loadGridListCodeCB);
 }
 
-function fn_loadGridListCodeCB() {
-	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
+function fn_loadGridListCodeCB(data) {
+	if(data.length<1){
+		parent.MsgManager.alertMsg("WRN011");
+		parent.dhxWins.window("w1").close();
+	}else if(data.length==1){
+		  var itemCode = data[0].innerCode;
+		  var itemName = data[0].innerName;
+		  var itemSpec = data[0].spec;
+		  var itemUnit = data[0].unit;
+		  var itemUnit = data[0].unit;
+		  var arr = [{"innerCode":itemCode,"innerName":itemName,"spec":itemSpec,"unit":itemUnit,"packUnit":''}];
+		  parent.fn_onClosePop(config.id,arr);
+		  parent.dhxWins.window("w1").close();
+	}else{
+		gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);	
+	}
 };
 
 function doOnRowDblClicked(rId,cInd){
@@ -49,7 +63,7 @@ function doOnRowDblClicked(rId,cInd){
 	  var itemSpec = gridMain.setCells2(row,2).getValue();
 	  var itemUnit = gridMain.setCells2(row,3).getValue();
 	  var packUnit = gridMain.setCells2(row,4).getValue();
-	  var arr = [{"itemCode":itemCode,"itemName":itemName,"itemSpec":itemSpec,"itemUnit":itemUnit,"packUnit":packUnit}];
+	  var arr = [{"innerCode":itemCode,"innerName":itemName,"spec":itemSpec,"unit":itemUnit,"packUnit":packUnit}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }
@@ -70,10 +84,10 @@ function doOnRowDblClicked(rId,cInd){
 			 구분
 			</label>
 			<div class="col-xs-2">
-			  <input name="itemKind" id="itemKind" type="radio" value="1" checked="checked">자재
+			  <input name="kind" id="kind" type="radio" value="1" checked="checked">자재
 			</div>
 			<div class="col-xs-2">
-			  <input name="itemKind" id="itemKind" type="radio" value="2">품목
+			  <input name="kind" id="kind" type="radio" value="2">품목
 			</div>
 		</div>  
   </form>

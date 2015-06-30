@@ -27,6 +27,16 @@ public class Popup implements Serializable {
 
 	// 4개짜리 kind = 제품, 자재, 설비부품
 
+	private String gubn;
+
+	public String getGubn() {
+		return gubn;
+	}
+
+	public void setGubn(String gubn) {
+		this.gubn = gubn;
+	}
+
 	public String getCompId() {
 		return compId;
 	}

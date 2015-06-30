@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2,3,5,6],"2U");
 	//라인작업등록
@@ -94,19 +96,13 @@ function fn_delete(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	 if (jsonStr == null || jsonStr.length <= 0) return;         		
 	    $("#jsonData").val(jsonStr);                      
-	    $.ajax({
-	         url : "/erp/prod1/stan/lineWorkS/gridDtlSave",
-	         type : "POST",
-	         data : $("#pform").serialize(),
-	         async : true,
-	         success : function(data) {
-	        	 MsgManager.alertMsg("INF001");
-		         fn_search(); 
-		         rowSelVal = null;
-	         }
-	  });
+	    var params = $("#pform").serialize(); 
+		gfn_callAjaxComm(params,"gridDtlSave",fn_DtlSaveCB);
  } 
-
+function fn_DtlSaveCB(data){
+	fn_search(); 
+    rowSelVal = null;	
+};
 function doOnMstRowSelect(id,ind){
 	var lineCodeIdx = gridMst.getColIndexById('lineCode');
 	var obj = {};
@@ -138,6 +134,18 @@ function fn_loadGridDtl(params) {
   gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));  
 };
 
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

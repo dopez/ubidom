@@ -11,6 +11,4 @@ public interface BomRDao {
 
 	void selGridMain(Map<String, Object> map);
 
-	void selItemAllCodePop(Map<String, Object> map);
-
 }

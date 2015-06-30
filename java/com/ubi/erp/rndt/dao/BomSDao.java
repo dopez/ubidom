@@ -19,8 +19,6 @@ public interface BomSDao {
 
 	void selMatrCodePop(Map<String, Object> map);
 
-	void selSelectMatrCodePop(Map<String, Object> map);
-
 	void prcsGridDtl(BomS bomS);
 
 	void prcsBomCopy(BomS bomS);

@@ -26,6 +26,30 @@ function gfn_getMappingUrl(param){
 	return uri.trim();
 }
 
+function gfn_callAjaxTreeComm(param,url,callbackFn){
+	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
+	var gData = [];
+	$.ajax({
+    	url:  url,
+        type: "POST",
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // default content type (mime-type)
+        data: param,
+        async: false,
+        dataType: "json",
+        success: function(data) {
+        	gData=data;
+
+      		if (callbackFn != undefined) {
+                  callbackFn.call(this, data);
+               }	
+        },
+        error: function(xhr) { // if error occured
+
+        }
+    });
+	return gData;
+}
+
 function gfn_callAjaxComm(param,url,callbackFn){
 	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
 	var gData = [];

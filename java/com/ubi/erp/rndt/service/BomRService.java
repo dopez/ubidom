@@ -26,8 +26,4 @@ public class BomRService {
 
 	}
 
-	public void selItemAllCodePop(Map<String, Object> map) {
-		dao.selItemAllCodePop(map);
-	}
-
 }

@@ -82,7 +82,7 @@ $(document).ready(function(){
 	combo =gridDtl.getColumnCombo(10);
 	combo01 = gridDtl.getColumnCombo(11);
 	 gfn_single_comboLoad(combo,["1","2","3"],["양호","이상","보류"],3);
-	 gfn_codeLen2_comboLoad(combo01,"사원");	
+	 gfn_codeLen2_comboLoad(combo01,"사원");
 });
 function fn_onOpenPop(pName){
 	var obj = {};

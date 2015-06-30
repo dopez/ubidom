@@ -60,19 +60,4 @@ public class BomRController {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/itemAllCodePop", method = RequestMethod.POST)
-	public List<BomR> selItemAllCodePop(HttpServletRequest request, HttpServletResponse response, HttpSession session, BomR BomR) throws Exception {
-		String comp = (String) session.getAttribute("compId");
-		String itemName = request.getParameter("itemName");
-		String itemKind = request.getParameter("itemKind");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("V_COMPID", comp);
-		map.put("V_NAME", itemName);
-		map.put("V_KIND", itemKind);
-		map.put("o_cursor", null);
-		BomRService.selItemAllCodePop(map);
-		List<BomR> list = (List<BomR>) map.get("o_cursor");
-		return list;
-	}
 }

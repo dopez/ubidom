@@ -4,6 +4,8 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//포장BOM조회
@@ -57,7 +59,9 @@ function fn_excel(){
 function fn_print(){
 	gridMain.printView();
 };
-
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close(); 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -42,10 +42,6 @@ public class BomSService {
 		dao.selMatrCodePop(map);
 	}
 
-	public void selSelectMatrCodePop(Map<String, Object> map) {
-		dao.selSelectMatrCodePop(map);
-	}
-
 	public void prcsGridDtl(List<BomS> list, String sysEmpNo, String compId) {
 		for(BomS BomS : list) {
 			BomS.setSysEmpNo(sysEmpNo);

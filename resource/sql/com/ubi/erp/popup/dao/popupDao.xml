@@ -15,4 +15,13 @@
 		     #{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PopupMap, javaType=ResultSet})}
 	</select>
 	
+	<select id="selItemAllCode" statementType="CALLABLE" >
+		 {call SP_COMM_ITEM_ALLCODE_SCH(#{V_COMPID},#{V_NAME},#{V_KIND},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PopupMap, javaType=ResultSet})}	
+	</select>
+	
+		<select id="selSelectMatrCode" statementType="CALLABLE" >
+		 {call SP_COMM_SELECT_MATRCODE_SCH(#{V_COMPID},#{V_MATR_NAME},#{V_MATR_GUBN},
+		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PopupMap, javaType=ResultSet})}	
+	</select>
 </mapper>

@@ -9,6 +9,8 @@ var toolbar01, toolbar02;
 var combo01, combo02, combo03;
 var popFlag = true;
 var rowSelVal = '';
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,2],"4C");
 	//포장BOM등록
@@ -243,7 +245,7 @@ function fn_search(){
 	clearTree();
 	var obj={};
 	obj.keyValue = $('#iCode').val();
-	gfn_callAjaxComm(obj,"treeSearch",load_treeCB);
+	gfn_callAjaxTreeComm(obj,"treeSearch",load_treeCB);
 };
 
 function load_treeCB(data){
@@ -274,19 +276,11 @@ function fn_mst_save(){
 	 var jsonStr = gridMst.getJsonUpdated2();
      if (jsonStr == null || jsonStr.length <= 0) return;         		
         $("#jsonData").val(jsonStr);  
-        $.ajax({
-	          url : "/erp/prod1/stan/packBomS/MstSave",
-	          type : "POST",
-	          data : $("#pform").serialize(),
-	          async : true,
-	          success : function(data) {
-	        	  fn_mst_saveCB(data);
-	           }
-	      });
+        var params = $("#pform").serialize(); 
+		gfn_callAjaxComm(params,"MstSave",fn_mst_saveCB);
 };
 
 function fn_mst_saveCB(data){
-	MsgManager.alertMsg("INF001");
 	var rowIdx = gridMst.getSelectedRowIndex();
 	var keyValue1Idx = gridMst.getColIndexById('keyvalue1');
 	var keyValue2Idx = gridMst.getColIndexById('keyvalue2');
@@ -390,17 +384,12 @@ function fn_dtl_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
         if (jsonStr == null || jsonStr.length <= 0) return;         		
            $("#jsonData").val(jsonStr);  
-           $.ajax({
-	          url : "/erp/prod1/stan/packBomS/DtlSave",
-	          type : "POST",
-	          data : $("#pform").serialize(),
-	          async : true,
-	          success : function(data) {
-	          MsgManager.alertMsg("INF001");
-	            fn_search();
-	            rowSelVal = null;
-	           }
-	      });
+           var params = $("#pform").serialize(); 
+   		gfn_callAjaxComm(params,"DtlSave",fn_dtl_saveCB);
+};
+function fn_dtl_saveCB(data){
+	fn_search();
+    rowSelVal = null;
 };
 
 function fn_dtl_remove(){
@@ -439,32 +428,33 @@ function fn_onClosePop(pName,data){
 	var itemUnitColIdx = gridMst.getColIndexById('itemUnit');
 	 if(pName == "selMatrCode"){
 		 if(popFlag){
-			gridMst.setCells2(getId,keyvalue2ColIdx).setValue(data[0].matrCode);
-			gridMst.setCells2(getId,itemNameColIdx).setValue(data[0].matrName);
-			gridMst.setCells2(getId,itemSpecColIdx).setValue(data[0].matrSpec);
-			gridMst.setCells2(getId,itemUnitColIdx).setValue(data[0].matrUnit); 
+			gridMst.setCells2(getId,keyvalue2ColIdx).setValue(data[0].innerCode);
+			gridMst.setCells2(getId,itemNameColIdx).setValue(data[0].innerName);
+			gridMst.setCells2(getId,itemSpecColIdx).setValue(data[0].spec);
+			gridMst.setCells2(getId,itemUnitColIdx).setValue(data[0].unit); 
 		 }else{
-			 $('#iCode').val(data[0].matrCode);
-			 $('#iName').val(data[0].matrName);
+			 $('#iCode').val(data[0].innerCode);
+			 $('#iName').val(data[0].innerName);
 		 }
 	  }	
 	 if(pName == "itemAllCode"){
-		 if(itemCode_Check(data[0].itemCode)){
+		 if(itemCode_Check(data[0].innerCode)){
 			 MsgManager.alertMsg("WRN010");
 			 return;
 		 }else{
-			 gridMst.setCells2(getId,keyvalue2ColIdx).setValue(data[0].itemCode);
-			 gridMst.setCells2(getId,itemNameColIdx).setValue(data[0].itemName);
-			 gridMst.setCells2(getId,itemSpecColIdx).setValue(data[0].itemSpec);
-			 gridMst.setCells2(getId,itemUnitColIdx).setValue(data[0].itemUnit);
+			 gridMst.setCells2(getId,keyvalue2ColIdx).setValue(data[0].innerCode);
+			 gridMst.setCells2(getId,itemNameColIdx).setValue(data[0].innerName);
+			 gridMst.setCells2(getId,itemSpecColIdx).setValue(data[0].spec);
+			 gridMst.setCells2(getId,itemUnitColIdx).setValue(data[0].unit);
 		 }
 	  }	 
 };
 function itemCode_Check(itemCode){
 	flag = false;
 	for(var i=0;i<gridMst.getRowsNum();i++){
-		 var orinVal = gridMst.setCells2(i,1).getValue();
-		 if(orinVal == itemCode){
+		 var keyVal2 = gridMst.setCells2(i,1).getValue();
+		 var keyVal1 = gridMst.setCells2(i,11).getValue();
+		 if(keyVal2 == itemCode || keyVal1 == itemCode){
 			 flag = true;
 			 break;
 		 }else{
@@ -472,6 +462,19 @@ function itemCode_Check(itemCode){
 		 }
 	}
 	return flag;
+};
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridMst,gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">

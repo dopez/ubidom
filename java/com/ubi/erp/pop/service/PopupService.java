@@ -25,4 +25,12 @@ public class PopupService {
 	public void selPopLen4(Map<String, Object> map) {
 		dao.selPopLen4(map);
 	}
+
+	public void selItemAllCode(Map<String, Object> map) {
+		dao.selItemAllCode(map);
+	}
+
+	public void selSelectMatrCode(Map<String, Object> map) {
+		dao.selSelectMatrCode(map);
+	}
 }
