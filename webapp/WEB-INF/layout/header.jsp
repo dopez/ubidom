@@ -14,6 +14,10 @@ response.setDateHeader("Expires", 0);
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 
+<script type="text/javascript">
+	var PARAM_INFO = JSON.parse('<c:out value="${PARAM_INFO}" escapeXml="false"></c:out>');
+</script>
+
 <!--Jquery google CDN 추가  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ubi.erp.cmm.util.gson.JsonUtil;
+
 @Controller
 public class JspController {
 
@@ -18,6 +20,8 @@ public class JspController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(uri.replace(".do", ""));
+
+		req.setAttribute("PARAM_INFO", JsonUtil.parseToString(req.getParameterMap()));
 
 		return mav;
 	}
