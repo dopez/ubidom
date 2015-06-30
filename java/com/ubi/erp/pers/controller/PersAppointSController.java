@@ -97,23 +97,4 @@ public class PersAppointSController {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/selEmpPop",method = RequestMethod.POST)
-	public List<PersAppointS> selEmpPop(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersAppointS persAppointS) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		String compId = (String) session.getAttribute("compId");
-		String korName;
-		if(request.getParameter("korName").equals("")){
-			korName = "%";
-		}else{
-			korName = request.getParameter("korName");
-		}
-		map.put("compId", compId);
-		map.put("empNo", "%");
-		map.put("korName", korName);
-		map.put("o_cursor", null);
-		persAppointSService.selEmpPop(map);
-		List<PersAppointS> list = (List<PersAppointS>) map.get("o_cursor");
-		return list;
-	}
 }

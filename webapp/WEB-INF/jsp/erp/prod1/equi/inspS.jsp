@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
 var combo, combo01;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,2,3,4,6],"2E");
 	//설비점검등록
@@ -73,48 +75,23 @@ $(document).ready(function(){
 	
 	$("#eqCode").dblclick(function(e){
 		if(e.target.id == "eqCode"){
-			gfn_load_pop('w1','common/equiCodePOP',true,{"eqCode":$(this).val()});
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 	});
-	
-	$("#eqCode").keyup(function(e) {
-    	if(e.target.id == "eqCode"){
-    		gridMst.filterBy(1,byId("eqCode").value);
-		}
-	 }); 
-	
+
 	combo =gridDtl.getColumnCombo(10);
 	combo01 = gridDtl.getColumnCombo(11);
 	 gfn_single_comboLoad(combo,["1","2","3"],["양호","이상","보류"],3);
-	 fn_comboLoad(combo01);
-		
+	 gfn_codeLen2_comboLoad(combo01,"사원");	
 });
-function fn_comboLoad(comboId,cFlag){
+function fn_onOpenPop(pName){
 	var obj = {};
-		comboId.setTemplate({
-		    input: "#interName#",
-		    columns: [
-	          {header: "사원명", width: 100, option: "#empNo#"}
-		    ]
-		});
-	    obj.korName = '';
-		$.ajax({
-			"url":"/erp/pers/pers/persAppointS/selEmpPop",
-			"type":"post",
-			"data":obj,
-			"success" : function(data){
-			  var list = data;
-			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(list[i].empNo,list[i].korName);
-                  } 
-			}
-	  });
-
-		comboId.enableFilteringMode(true);
-		comboId.enableAutocomplete(true);
-		comboId.allowFreeText(true);
-		comboId.confirmValue();	
-};
+	if(pName == 'codeLen2'){
+		obj.innerName = $('#eqCode').val();
+		obj.kind = '설비';
+	}
+	return obj;
+}
 
 function doOnRowDblClicked(rId,cInd){
 	var cudVal = gridMst.setCells(rId,gridMst.getColIndexById('cudKey')).getValue();
@@ -267,18 +244,12 @@ function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	 if(jsonStr == null || jsonStr.length <= 0 ) return;
 	 $("#jsonData").val(jsonStr);
-    $.ajax({
-       url : "/erp/prod1/equi/inspS/gridDtlSave",
-       type : "POST",
-       data : $("#pform").serialize(),
-       async : true,
-       success : function(data) {
-       MsgManager.alertMsg("INF001");
-       fn_search();
-        }
-   }); 
+    var params = $("#pform").serialize();
+    gfn_callAjaxComm(params,"gridDtlSave",fn_DtlSaveCB);  
 };
-
+function fn_DtlSaveCB(data){
+	fn_search();	
+}
 function fn_remove(){
 	for(var i=0; i<gridDtl.getRowsNum();i++){
 		gridDtl.cs_deleteRow(gridDtl.getRowId(i));	 
@@ -290,12 +261,25 @@ function fn_delete(){
 	gridDtl.cs_deleteRow(rodid);
 };
 
-function fn_onClosePop(pName,data){
-	  if(pName == "equiCode"){
-		$('#eqCode').val(data[0].equiCode);
+ function fn_onClosePop(pName,data){
+	  if(pName == "codeLen2"){
+		$('#eqCode').val(data[0].innerCode);
 	  }
 		  
- };
+};
+ 
+ function fn_exit(){
+		var exitVal = cs_close_event([gridDtl]);
+		if(exitVal){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			if(MsgManager.confirmMsg("WRN012")){
+				mainTabbar.tabs(ActTabId).close();	
+			}else{
+				return true;
+			}
+		} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8,9],"1C");
 	//설비점검조회
@@ -45,17 +47,19 @@ $(document).ready(function(){
 	
 	$("#equiCode").dblclick(function(e){
 		if(e.target.id == "equiCode"){
-			gfn_load_pop('w1','common/equiCodePOP',true,{"equiCode":$(this).val()});
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 	});
 	
-	$("#equiCode").keyup(function(e) {
-    	if(e.target.id == "equiCode"){
-    		gridMain.filterBy(1,byId("equiCode").value);
-		}
-	 }); 
-	
 });
+function fn_onOpenPop(pName){
+	var obj = {};
+	if(pName == 'codeLen2'){
+		obj.innerName = $('#equiCode').val();
+		obj.kind = '설비';
+	}
+	return obj;
+}
 function fn_search(){
     fn_loadGridMain();
 }
@@ -75,11 +79,14 @@ function fn_print(){
 }
 
 function fn_onClosePop(pName,data){
-	  if(pName == "equiCode"){
-		$('#equiCode').val(data[0].equiCode);
+	  if(pName == "codeLen2"){
+		$('#equiCode').val(data[0].innerCode);
 	  }
 		  
 };
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

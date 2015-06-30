@@ -8,8 +8,10 @@ var calMain;
 var amountSum = 0, moneySum = 0;
 var mainMenu = parent.mainMenu;
 var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 var tabId = null;
 var uri = null;
+var popCheck = 0;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8,9],"1C");
 	//발주조회
@@ -53,23 +55,29 @@ $(document).ready(function(){
 	
 	$("#custCode,#partCode").dblclick(function(e){
 		if(e.target.id == "custCode"){
-			gfn_load_pop('w1','common/customPOP',true,{"supplyComp":$(this).val()});
+			popCheck = 1;
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 		if(e.target.id == "partCode"){
-			gfn_load_pop('w1','prod1/compHistoryPOP',true,{});
+			popCheck = 2;
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
     });
 	
-	$("#custCode,#partCode").keyup(function(e) {
-    	if(e.target.id == "custCode"){
-    		gridMain.filterBy(2,byId("custCode").value);
-		}
-    	if(e.target.id == "partCode"){
-    		gridMain.filterBy(4,byId("partCode").value);
-		}
-	 }); 
-	
 });
+function fn_onOpenPop(pName){
+	var obj = {};
+	if(pName == 'codeLen2'){
+		if(popCheck == 1){
+			obj.innerName = $('#custCode').val();
+			obj.kind = '고객';
+		}else{
+			obj.innerName = $('#partCode').val();
+			obj.kind = '부품';
+		}
+	}
+	return obj;
+}
 function doOnRowDbClicked(rId,cInd){
 	var cFlag = true;
 	var setDateIdx = gridMain.getColIndexById('setDate');
@@ -149,16 +157,21 @@ function fn_excel(){
 
 function fn_print(){
 	gridMain.printView();
-}
-function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-	 if(pName == "partCode"){
-		 $('#partCode').val(data[0].partCode);
-	  }if(pName == "custCode"){
-		$('#custCode').val(data[0].custKorName);
-	  } 
- };
+};
+
+ function fn_onClosePop(pName,data){
+	  if(pName == "codeLen2"){
+		  if(popCheck == 1){
+			  $('#custCode').val(data[0].innerName);
+			}else{
+				$('#partCode').val(data[0].innerCode);
+			}
+	  }	  
+};
+
+ function fn_exit(){
+		mainTabbar.tabs(ActTabId).close();	
+};
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

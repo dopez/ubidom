@@ -11,6 +11,4 @@ public interface ComponentCodeSDao {
 	void selComponentCodeSR(Map<String, Object> param);
 
 	void prcsComponentCodeS(ComponentCodeS componentCodeS);
-
-	void selComponentCodePOP(Map<String, Object> param);
 }

@@ -37,9 +37,5 @@ public class PersAppointSService {
 	public List<PersAppointS> selPersBaseCode(PersAppointS persAppointS) {
 		return dao.selPersBaseCode(persAppointS);
 	}
-	
-	public void selEmpPop(Map<String, Object> map) {
-		dao.selEmpPop(map);
-	}
 
 }

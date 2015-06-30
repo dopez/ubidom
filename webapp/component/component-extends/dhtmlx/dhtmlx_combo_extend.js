@@ -69,3 +69,32 @@ function gfn_codeLen2_comboLoad(comboId,params){
         }
     });
 }
+
+function gfn_codeLen4_comboLoad(comboId,params){
+	comboId.setTemplate({
+        input: "#innerName#",
+        columns: [
+                {header: "코드",width: 100,option: "#innerCode#"},
+                {header: "코드명",width: 100,option: "#innerName#"},
+                {header: "규격",width: 100,option: "#spec#"},
+                  ]
+    });
+    comboId.enableFilteringMode(true);
+    comboId.enableAutocomplete(true);
+    comboId.allowFreeText(true);
+    var obj = {};
+    obj.innerName='';
+    obj.kind = params;
+    $.ajax({
+        "url": "/erp/pop/len4",
+        "type": "post",
+        "data": obj,
+        "success": function(data) {
+            var list = data;
+            for (var i = 0; i < list.length; i++) {
+                comboId.addOption(list[i].innerCode,
+                		{"innerCode":list[i].innerCode,"innerName":list[i].innerName,"spec":list[i].spec});
+            }
+        }
+    });
+}

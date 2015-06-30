@@ -129,7 +129,6 @@ function fn_exit(){
 		} 
 	 }		
 }
-
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

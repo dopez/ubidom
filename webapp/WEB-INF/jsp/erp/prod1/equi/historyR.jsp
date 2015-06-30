@@ -4,6 +4,8 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//설비이력조회
@@ -12,8 +14,7 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
 	
 	layout.cells("b").attachObject("bootContainer");
-	
-	
+
 	gridMain = new dxGrid(subLayout.cells("a"), false);
 	gridMain.addHeader({name:"NO",           colId:"no",             width:"50",  align:"center", type:"cntr"});
 	gridMain.addHeader({name:"설비코드",     colId:"equiCode",       width:"80",  align:"left",   type:"ro"});
@@ -33,9 +34,9 @@ $(document).ready(function(){
 	gridMain.dxObj.setUserData("","@buyDate","format_date");
 	gridMain.init(); 
 	
-	$("#equiCode,#partCode").dblclick(function(e){
+	$("#equiCode").dblclick(function(e){
 		if(e.target.id == "equiCode"){
-			gfn_load_pop('w1','common/equiCodePOP',true,{"supplyComp":$(this).val()});
+			gfn_load_pop('w1','common/codeLen4POP',true,{});
 		}
     });
 	
@@ -46,6 +47,14 @@ $(document).ready(function(){
 	 });
 
 });
+function fn_onOpenPop(pName){
+	var obj = {};
+	if(pName == 'codeLen4'){
+		obj.innerName = $('#equiCode').val();
+		obj.kind = '설비';
+	}
+	return obj;
+}
 function fn_search(){
     fn_loadGridMain();
 }
@@ -64,10 +73,14 @@ function fn_print(){
 function fn_onClosePop(pName,data){
 	var i;
 	var obj={};
-	 if(pName == "equiCode"){
-		 $('#equiCode').val(data[0].equiCode);
+	 if(pName == "codeLen4"){
+		 $('#equiCode').val(data[0].innerCode);
 	  }
  };
+ 
+ function fn_exit(){
+	 mainTabbar.tabs(ActTabId).close(); 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

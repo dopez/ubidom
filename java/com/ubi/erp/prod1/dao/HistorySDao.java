@@ -11,6 +11,4 @@ public interface HistorySDao {
 	void selEquiHistorySR(Map<String, Object> param);
 
 	void prcsEquiHistoryS(HistoryS historyS);
-	
-	void selEquiCode(Map<String, Object> param);
 }

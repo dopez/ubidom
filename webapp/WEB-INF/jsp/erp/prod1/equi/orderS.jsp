@@ -5,6 +5,9 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
+var popCheck = 0;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,2,3,4,5,6],"1C");
 	//발주등록
@@ -17,7 +20,7 @@ $(document).ready(function(){
     gridMain = new dxGrid(subLayout.cells("a"),false);
     gridMain.addHeader({name:"No",       colId:"no",          width:"50",  align:"center", type:"cntr"});
     gridMain.addHeader({name:"부품코드", colId:"partCode",    width:"80",  align:"left",   type:"ro"});
-    gridMain.addHeader({name:"부품명",   colId:"partName",    width:"80",  align:"left",   type:"ro"});
+    gridMain.addHeader({name:"부품명",   colId:"partName",    width:"80",  align:"left",   type:"ed"});
     gridMain.addHeader({name:"규격",     colId:"partSpec",    width:"80",  align:"left",   type:"ro"});
     gridMain.addHeader({name:"단위",     colId:"partUnit",    width:"80",  align:"left",   type:"ro"});
     gridMain.addHeader({name:"수량",     colId:"qty",         width:"60",  align:"right",  type:"edn"});
@@ -32,20 +35,24 @@ $(document).ready(function(){
     gridMain.init();	
     gridMain.cs_setColumnHidden(["orderEmp","custCode","setSeq","setNo","custKorName"]);
 	gridMain.attachEvent("onRowSelect",doOnRowSelect);
+	gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
 	gridMain.attachEvent("onCellChanged",doOnCellChanged);
+	gridMain.attachEvent("onEnter",doOnEnter);
 	
     $("#korName,#orderPrint,#supplyComp").click(function(e){
 		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+			popCheck = 1;
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		  }
 		if(e.target.id == "orderPrint"){
-			
+			//발주서 인쇄
 		  }
 		if(e.target.id == "supplyComp"){
-			gfn_load_pop('w1','common/customPOP',true,{"supplyComp":$(this).val()});
+			popCheck = 2;
+			gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
     })
-
+    
     calMain = new dhtmlXCalendarObject([{input:"stDate",button:"calpicker"}]); 
 	calMain.loadUserLanguage("ko");
 	calMain.hideTime();	   
@@ -56,16 +63,39 @@ $(document).ready(function(){
 	
 	fn_search();
 });
-
+function fn_onOpenPop(pName){
+	var obj = {};
+	if(pName == 'codeLen2'){
+		if(popCheck == 1){
+			obj.innerName = $('#korName').val();
+			obj.kind = '사원';
+		}else{
+			obj.innerName = $('#supplyComp').val();
+			obj.kind = '고객';
+		}
+	}else{
+		var rowIdx = gridMain.getSelectedRowIndex();
+		obj.innerName = gridMain.setCells2(rowIdx,2).getValue();
+		obj.kind = '설비부품';
+	}
+	return obj;
+}
+function doOnEnter(id,ind){
+	if(ind==2){
+		gfn_load_pop('w1','common/codeLen4POP',true,{});
+	}
+}
 function doOnCellChanged(rId,cInd,nValue){
 	if(cInd==6){
 		doOnRowSelect(rId,cInd);
 	   }
 }
-function doOnRowSelect(id,ind){
+function doOnRowDblClicked(id,ind){
 	if(ind==1){
-		gfn_load_pop('w1','prod1/compHistoryPOP',true,{});
+		gfn_load_pop('w1','common/codeLen4POP',true,{});
 	}
+}
+function doOnRowSelect(id,ind){
 	totalQtyCalcul(id);
 };
 
@@ -149,18 +179,11 @@ function fn_save(){
   if (jsonStr == null || jsonStr.length <= 0) return;         		
       $("#jsonData").val(jsonStr);  
       var params = gfn_getFormElemntsData("pform");
-       $.ajax({
-         url : "/erp/prod1/equi/orderS/gridMainSave",
-         type : "POST",
-         data : params,
-         async : true,
-         success : function(data) {
-         MsgManager.alertMsg("INF001");
-          fn_search();
-          }
-     });   
+       gfn_callAjaxComm(params,"gridMainSave",fn_MainSaveCB);    
 };
-
+function fn_MainSaveCB(data){
+	fn_search();
+}
 function fn_remove(){
 	for(var i=0; i<gridMain.getRowsNum();i++){
 		gridMain.cs_deleteRow(gridMain.getRowId(i));	 
@@ -196,29 +219,38 @@ function fn_delete(){
 	  gridMain.cs_deleteRow(rodid); 
 };
 
-function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-	 if(pName == "empNo"){
-		$('#korName').val(data[0].korName);
-		$('#empNo').val(data[0].empNo);
-		for(var i=0; i<gridMain.getRowsNum();i++){
-			  gridMain.setCells2(i,11).setValue(data[0].empNo);
+ function fn_onClosePop(pName,data){
+	    if(pName == "codeLen2"){
+			  if(popCheck == 1){
+				  $('#korName').val(data[0].innerName);
+					$('#empNo').val(data[0].innerCode);
+					for(var i=0; i<gridMain.getRowsNum();i++){
+						  gridMain.setCells2(i,11).setValue(data[0].innerCode);
+						}
+			  }else{
+				  $('#supplyComp').val(data[0].innerName);
+					$('#custCode').val(data[0].innerCode); 
+			  }
+		  }else{
+			  var rowIdx = gridMain.getSelectedRowIndex();
+				gridMain.setCells2(rowIdx,1).setValue(data[0].innerCode);
+				gridMain.setCells2(rowIdx,2).setValue(data[0].innerName);
+				gridMain.setCells2(rowIdx,3).setValue(data[0].spec);
+				gridMain.setCells2(rowIdx,4).setValue(data[0].unit); 
+		  }
+	 };
+ function fn_exit(){
+		var exitVal = cs_close_event([gridMain]);
+		if(exitVal){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			if(MsgManager.confirmMsg("WRN012")){
+				mainTabbar.tabs(ActTabId).close();	
+			}else{
+				return true;
 			}
-	}
-	 if(pName == "partCode"){
-			for(i=0;i<data.length;i++){
-				var rowIdx = gridMain.getSelectedRowIndex();
-				gridMain.setCells2(rowIdx,1).setValue(data[i].partCode);
-				gridMain.setCells2(rowIdx,2).setValue(data[i].partName);
-				gridMain.setCells2(rowIdx,3).setValue(data[i].partSpec);
-				gridMain.setCells2(rowIdx,4).setValue(data[i].partUnit);
-			}
-	  }if(pName == "custCode"){
-		$('#supplyComp').val(data[0].custKorName);
-		$('#custCode').val(data[0].custCode);
-	  } 
- };
+		} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

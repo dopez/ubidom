@@ -22,8 +22,4 @@
   		#{imgPath},#{sysEmpNo}
   		)}	
   	</insert>
-  	
-  	<select id="selEquiCode" statementType="CALLABLE">
-		 {call SP_PROD1_EQUICODE_SCH(#{compId},#{equiName},#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=HistorySMap, javaType=ResultSet})}	
-	</select>
 </mapper>

@@ -5,6 +5,9 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var calMain;
+var popCheck = 0;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,2,3,4,5,6],"2E");
 	//입고등록
@@ -58,10 +61,12 @@ $(document).ready(function(){
 	 gridDtl.cs_setColumnHidden(["custCode","orderKey","setSeq","setNo","compId","inputEmp","oldQty"]);
 	 $("#korName,#supplyComp").click(function(e){
 			if(e.target.id == "korName"){
-				gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
+				popCheck = 1;
+				gfn_load_pop('w1','common/codeLen2POP',true,{});
 			  }
 			if(e.target.id == "supplyComp"){
-				gfn_load_pop('w1','common/customPOP',true,{"supplyComp":$(this).val()});
+				popCheck = 2;
+				gfn_load_pop('w1','common/codeLen2POP',true,{});
 			}
 	    })
 	 
@@ -76,6 +81,19 @@ $(document).ready(function(){
 	fn_loadGridMst();
 	fn_search();	
 });
+function fn_onOpenPop(pName){
+	var obj = {};
+	if(pName == 'codeLen2'){
+		if(popCheck == 1){
+			obj.innerName = $('#korName').val();
+			obj.kind = '사원';
+		}else{
+			obj.innerName = $('#supplyComp').val();
+			obj.kind = '고객';
+		}
+	}
+	return obj;
+}
 function doOnRowDblClicked(rId,cInd){
 	var cudVal = gridMst.setCells(rId,gridMst.getColIndexById('cudKey')).getValue();
 	if($('#korName').val() == ''){
@@ -299,17 +317,13 @@ function fn_save(){
   if (jsonStr == null || jsonStr.length <= 0) return;         		
       $("#jsonData").val(jsonStr);  
       var params = gfn_getFormElemntsData("pform");
-       $.ajax({
-         url : "/erp/prod1/equi/inputS/gridDtlSave",
-         type : "POST",
-         data : params,
-         async : true,
-         success : function(data) {
-         MsgManager.alertMsg("INF001");
-          fn_search();
-          }
-     });   
+     gfn_callAjaxComm(params,"gridDtlSave",fn_DtlSaveCB);
 };
+
+function fn_DtlSaveCB(data){
+	fn_search();
+}
+
 function fn_remove(){
 	for(var i=0; i<gridDtl.getRowsNum();i++){
 		gridDtl.cs_deleteRow(gridDtl.getRowId(i));	 
@@ -355,21 +369,27 @@ function fn_delete(){
 	gridDtl.cs_deleteRow(rodid); 
 };
 
-function fn_onClosePop(pName,data){
-	var i;
-	var obj={};
-	 if(pName == "empNo"){ 
-		$('#korName').val(data[0].korName);
-		$('#empNo').val(data[0].empNo);
-		for(var i=0; i<gridDtl.getRowsNum();i++){
-		gridDtl.setCells2(i,14).setValue(data[0].empNo);
-		}
-	}
-	if(pName == "custCode"){
-		$('#supplyComp').val(data[0].custKorName);
-		$('#custCode').val(data[0].custCode);
-	  } 
+ function fn_onClosePop(pName,data){
+    if(pName == "codeLen2"){
+		  if(popCheck == 1){
+			  $('#korName').val(data[0].innerName);
+		  }else{
+			  $('#supplyComp').val(data[0].innerName);  
+		  }
+	  }
  };
+ function fn_exit(){
+		var exitVal = cs_close_event([gridDtl]);
+		if(exitVal){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			if(MsgManager.confirmMsg("WRN012")){
+				mainTabbar.tabs(ActTabId).close();	
+			}else{
+				return true;
+			}
+		} 
+	}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

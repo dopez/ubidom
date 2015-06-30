@@ -4,6 +4,8 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,8,9],"1C");
 	//부품코드조회
@@ -26,18 +28,13 @@ $(document).ready(function(){
 	gridMain.setUserData("","pk","no");
 	gridMain.init(); 
 	
-	$("#partCode").dblclick(function(e){
-		if(e.target.id == "partCode"){
-		  gfn_load_pop('w1','common/componentCodePOP',true,{"partName":$(this).val()});
-		}
-	});
-	
 	$("#partCode").keyup(function(e) {
     	if(e.target.id == "partCode"){
     		 gridMain.filterBy(1,byId("partCode").value);
 		}
 	 });
 
+	fn_search();
 });
 function fn_search(){
     fn_loadGridMain();
@@ -52,7 +49,9 @@ function fn_excel(){
 function fn_print(){
 	gridMain.printView();
 }
-
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close(); 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

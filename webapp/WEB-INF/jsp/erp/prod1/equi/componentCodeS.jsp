@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;
 var combo01, combo02, combo03;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	//부품코드등록
 	Ubi.setContainer(1,[1,2,3,4],"2U");
@@ -62,7 +64,11 @@ $(document).ready(function(){
 			}
 		 });
 
-	byId("cudKey").value = "INSERT";
+	   $("#frmMain input:text,input:checkbox").on("change keyup", function(e){
+			if($("#cudKey").val() == ''){
+			   $("#cudKey").val("INSERT");
+			}
+		});
 	fn_search();
 });
 
@@ -86,10 +92,14 @@ function fn_new(){
 	combo01.unSelectOption();
 	combo02.unSelectOption();
 	combo03.unSelectOption();
-	byId("cudKey").value = "INSERT";
 };
 
 function fn_save(){
+	cudVal = $('#cudKey').val();	
+	 if(cudVal == ''){
+		 byId("cudKey").value = "INSERT"; 
+	  }
+	 
 	f_dxRules = {
 	   partCode : ["부품코드",r_notEmpty, r_len + "|5"],
 	   kind1    : ["종류1",r_notEmpty],
@@ -101,20 +111,13 @@ function fn_save(){
 		 $("input[name=partCode]").attr("disabled",false);
 		var params = gfn_getFormElemntsData('frmMain');
 		rowSelVal= $('#partCode').val();	
-	     $.ajax(
-			{
-			  type:'POST',
-			  url:"/erp/prod1/equi/componentCodeS/gridFormSave",
-			  data:params,
-			  success:function(data)
-			  {
-			   MsgManager.alertMsg("INF001");
-			   fn_search();
-			   rowSelVal = null;
-			  }
-		});
+		gfn_callAjaxComm(params,"gridFormSave",fn_formSaveCB);   
 	}
 };
+function fn_formSaveCB(data){
+	fn_search();
+	rowSelVal = null;
+}
 function disableValue(flag){
 	if(flag == 1){
 	  $("input[name=partCode]").attr("disabled",true);
@@ -154,6 +157,23 @@ function fn_remove(){
     var rodid = gridMain.getSelectedRowId();
     gridMain.cs_deleteRow(rodid);
 };
+
+function fn_exit(){
+	 var exitVal = true;
+		 var cudVal = cudVal = $('#cudKey').val();	
+		 if(cudVal != ''){ 
+			 exitVal = false;
+		 }
+	 if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	 
+	 }else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		} 
+	 }		
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
