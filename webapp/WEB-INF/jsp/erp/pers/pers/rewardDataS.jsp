@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//상벌사항등록
@@ -134,6 +136,19 @@ function fn_loadGridMstCB(data){
 };
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
+}
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">

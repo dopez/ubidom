@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8],"1C");
 	//월근태종합현황
@@ -82,6 +84,10 @@ function fn_loadGridMainCB(data){
 function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 };
+
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

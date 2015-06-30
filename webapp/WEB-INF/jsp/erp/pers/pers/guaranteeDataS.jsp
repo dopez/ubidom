@@ -7,6 +7,8 @@ var gridMst, gridDtl01, gridDtl02;
 var gridTabbar;
 var isActTab1, isActTab2;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,5,6],"2U");
 	//신원보증/보험등록
@@ -232,6 +234,19 @@ function fn_loadGridMstCB(data){
 function fn_loadGridDtls(params){
 	gfn_callAjaxForGrid(gridDtl01,params,"gridDtl02Search",gridTabbar.tabs("a1"));
 	gfn_callAjaxForGrid(gridDtl02,params,"gridDtl01Search",gridTabbar.tabs("a2"));
+}
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl01,gridDtl02]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">

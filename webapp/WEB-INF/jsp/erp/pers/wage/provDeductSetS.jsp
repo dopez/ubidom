@@ -4,6 +4,8 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var combo01, combo02, combo03, combo04;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(0,[1,3,5,6],"1C");
 	//지급공제항목설정
@@ -71,8 +73,20 @@ function fn_add(){
 function fn_delete(){
 	var rodid = gridMain.getSelectedRowId();
 	gridMain.cs_deleteRow(rodid);
-}
+};
 
+function fn_exit(){
+	var exitVal = cs_close_event([gridMain]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

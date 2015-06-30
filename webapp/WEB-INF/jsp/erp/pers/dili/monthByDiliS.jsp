@@ -7,6 +7,8 @@ var gridMst, gridDtl;
 var calMain;
 var combo;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,6,8],"3E");
 	//월근태
@@ -98,6 +100,7 @@ $(document).ready(function(){
 });
 function fn_loadGridMstPOPCB(data){
 	var obj=gfn_getFormElemntsData("frmMain");
+	console.log("2",data);
 	if(data[0].cnt > 0){
 		if(MsgManager.confirmMsg("INF005")) { 
 			gfn_callAjaxForGrid(gridMst,obj,"gridPopSave",subLayout.cells("a"));
@@ -177,10 +180,11 @@ function fn_excel(){
 }
 function fn_loadGridMst(){
 	var obj=gfn_getFormElemntsData("frmMain");
-	
     gfn_callAjaxForGrid(gridMst,obj,"gridMstSearch",subLayout.cells("a"),fn_loadGridMstCB);
 }
 function fn_loadGridMstCB(data){
+	console.log(data);
+	$('#yymm').keyup();
 	var rowIdx = cs_selectRow_check(gridMst,"empNo",rowSelVal);
 	gridMst.selectRow(rowIdx,true,true,true);
 
@@ -191,6 +195,19 @@ function fn_loadGridDtl(params){
 }
 function fn_loadGridDtlCB(data){
 	$('#yymm').keyup();
+}
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridMst,gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">
@@ -210,7 +227,7 @@ function fn_loadGridDtlCB(data){
                         </label>
                         <div class="col-sm-2 col-md-2">
                             <div class="col-sm-10 col-md-10">
-                                <input name="yymm" id="yymm" type="text" value="" placeholder="" class="form-control input-xs format_month">
+                                <input name="yymm" id="yymm" type="text" value="" class="form-control input-xs format_month">
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <input type="button" id="calpicker" class="calicon form-control">
@@ -240,7 +257,7 @@ function fn_loadGridDtlCB(data){
                 <div class="form-group form-group-sm">
                     <div class="col-sm-8 col-md-8">
                         <label class="col-sm-2 col-md-2 control-label" for="textinput">
-                                          부서
+                          부서
                         </label>
                         <div class="col-sm-2 col-md-2">
                             <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">

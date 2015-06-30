@@ -7,6 +7,8 @@ var gridMst, gridDtl;
 var status;
 var  combo09;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
@@ -76,12 +78,12 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo06,"004");
 	gfn_1col_comboLoad(combo07,"P006");
 	gfn_1col_comboLoad(combo08,"000");
-	fn_comboLoad(combo09);
+	gfn_codeLen2_comboLoad(combo09,"부서");
 	
-	combo09.attachEvent("onChange", function(){
+	combo09.attachEvent("onBlur", function(){
 	var rowIdx = gridDtl.getSelectedRowIndex();
-	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().postCode);
-	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
+	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().innerCode);
+	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().innerName);
 	});
 	
 	fn_search();
@@ -95,34 +97,6 @@ function fn_onOpenPop(pName){
     	 value = obj; 
 	}
 	return value;
-};
-function fn_comboLoad(comboId){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-          {header: "부서코드", width: 110, option: "#postCode#"},
-          {header: "부서명", width: 100, option: "#postName#"}
-	    ]
-	});
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
-	comboId.confirmValue();
-	var obj={};
-	obj.postName = '%';
-		$.ajax({
-			"url":"/erp/pers/stan/deptS/gridMstSearch",
-			"type":"post",
-			"data":obj,
-			"success" : function(data){
-			  var list = data;
-			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(list[i].postCode,
-			    {"postCode":list[i].postCode,"postName":list[i].postName});
-				  
-                  } 
-			}
-	  });	
 };
 
 function fn_search(){
@@ -210,6 +184,19 @@ function fn_onClosePop(pName,data){
 		  gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName);
 		}	  	  
 };
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

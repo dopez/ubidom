@@ -147,31 +147,6 @@ $(window).resize(function(){
 	}
 });
 
-//삭제될 popup 로직
-function gfn_load_popup(subject,view_path){
-	var w1;
-	var eleId = "container";
-	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(eleId);
-	w1 = dhxWins.createWindow(eleId, 50, 80, 320, 300);
-	     dhxWins.window(eleId).setText(subject);
-	// iframe, get
-	w1.attachURL("/erp/popup/"+view_path+".do");
-	return w1;
-}
-//삭제될 popup 로직
-function gfn_big_load_popup(width,height,subject,view_path){
-	var w1;
-	var eleId = "container";
-	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(eleId);
-	w1 = dhxWins.createWindow(eleId, 50, 80, width, height);
-	     dhxWins.window(eleId).setText(subject);
-	// iframe, get
-	w1.attachURL("/erp/popup/"+view_path+".do");
-	return w1;
-}
-
 var subToolbar = function(toolbar,sublayout,btn_id_array){
 	toolbar = sublayout.attachToolbar();
 
@@ -332,54 +307,6 @@ function searchDate(dateValue){
     
     return value;
 }
-function gfn_1col_comboLoad(comboId, params) {
-    comboId.setTemplate({
-        input: "#interName#",
-        columns: [{
-            header: "종 류",
-            width: 100,
-            option: "#interName#"
-        }]
-    });
-    comboId.enableFilteringMode(true);
-    comboId.enableAutocomplete(true);
-    comboId.allowFreeText(true);
-    var obj = {};
-    obj.compId = '100';
-    obj.code = params;
-    doOnOpen(comboId, obj);
-}
-
-function doOnOpen(comboId, params) {
-    $.ajax({
-        "url": "/erp/cmm/InterCodeR",
-        "type": "post",
-        "data": params,
-        "success": function(data) {
-            var list = data;
-            for (var i = 0; i < list.length; i++) {
-                comboId.addOption(list[i].interCode, list[i].interName);
-            }
-        }
-    });
-}
-
-function gfn_single_comboLoad(comboId,value,key,cLength){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-	       {header: "구분", width: 100,  option: "#interName#"}
-	    ]
-	});
-	for(var i=0;i<cLength;i++){
-		comboId.addOption(value[i],key[i]);
-	}
-
-comboId.enableFilteringMode(true);
-comboId.enableAutocomplete(true);
-comboId.allowFreeText(true);
-}
-
 
 function gfn_check_jumin(grid,colId) {
 	var jFlag = true;
@@ -477,70 +404,6 @@ function cell_calculator(grid,id,stNum,endNum){
 	return sum;
 }
 
-//dhtmlx Grid Merge 보류----------------------------------------------------//
-function cs_grid_rowspan_Init(grid,colIdx){
-	var endRow = 0;
-	var rowIdx = 0;
-	var endRowArr =[];
-	var rowId = [];
-	var preVal = grid.setCells2(0,colIdx).getValue();
-	 var nowVal = "";
-	 rowId[rowIdx] = grid.getRowId(0);
-	 endRowArr[rowIdx] = endRow;
-	 for(var i = 0; i < grid.getRowsNum(); i++) {
-	   nowVal = grid.setCells2(i,colIdx).getValue();
-	  if (preVal == nowVal) {
-		  endRow++;
-	  }else{
-		  rowIdx++;
-		  endRowArr[rowIdx] = endRow;
-		  rowId[rowIdx] = grid.getRowId(i);
-		  endRow = 1;  
-	   }
-	  preVal = nowVal; 
-	 }
-	 rowIdx++;
-	 endRowArr[rowIdx] = endRow;
-	 for(var j=0;j<rowId.length;j++){
-		 grid.dxObj.setRowspan(rowId[j],colIdx,endRowArr[j+1]);
-    }
-	 return endRowArr;
-}
-// dhtmlx Grid Merge 보류
-function cs_grid_rowspan_next(grid,colIdx,stNum,endNum){
-	var preStNum = stNum;
-	var endRow = 0;
-	var rowIdx = 0;
-	var endRowArr =[];
-	var rowId = [];
-	var preVal = grid.setCells2(0,colIdx).getValue();
-	 var nowVal = "";
-	 rowId[rowIdx] = grid.getRowId(preStNum);
-	 endRowArr[rowIdx] = endRow;
-	 if(stNum != 0){
-			stNum = stNum+1;
-		}
-	 for(var i = stNum; i < preStNum+endNum; i++) {
-	   nowVal = grid.setCells2(i,colIdx).getValue();
-	  if (preVal == nowVal) {
-		  endRow++;
-	  }else{
-		  rowIdx++;
-		  endRowArr[rowIdx] = endRow;
-		  rowId[rowIdx] = grid.getRowId(i);
-		  endRow = 1;  
-	   }
-	  preVal = nowVal; 
-	 }
-	 rowIdx++;
-	 endRowArr[rowIdx] = endRow;
-	 console.log(endRowArr);
-	 for(var j=0;j<rowId.length;j++){
-		 grid.dxObj.setRowspan(rowId[j],colIdx,endRowArr[j+1]);
-    }
-	 return endRowArr;
-}
-//---------------------------------------------------------------------------------//
 /*조회화면에서 등록화면으로 이동[그리드 더블클릭 이벤트 시 사용한다.]*/
 function gfn_moveMenu(menuCd, obj){
 	/*menuCd : 이동할 화면코드 || obj : 넘겨줄 파라미터(오브젝트 타입)*/
@@ -567,4 +430,21 @@ function gfn_moveMenu(menuCd, obj){
 		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
 		mainTabbar.tabs(preId).attachURL("/"+uri+".do",null,obj);	
 	}
+}
+
+//closeBtn event 
+function cs_close_event(gridArr){
+	var flag = true;
+	for(var i=0;i<gridArr.length;i++){
+		for(j=0;j<gridArr[i].getRowsNum();j++){
+			var cudKeyIdx = gridArr[i].getColIndexById('cudKey');
+			 var cudVal = gridArr[i].setCells2(j,cudKeyIdx).getValue();
+			 if(cudVal != ''){
+				 flag = false;
+				 break;
+			 }
+		}
+	}
+	
+	return flag;
 }

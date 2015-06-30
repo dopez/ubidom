@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
 var combo;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(4,[1,8],"1C");
 	//일일근태조회
@@ -72,6 +74,10 @@ function fn_loadGridMain(){
 	$('#frDate').keyup();
 	$('#toDate').keyup();
 	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
+}
+
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	
 }
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

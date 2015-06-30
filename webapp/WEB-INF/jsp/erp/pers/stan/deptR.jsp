@@ -4,6 +4,8 @@
 <script type="text/javascript">
 var layout,toolbar,subLayout;
 var gridMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8,9],"1C");
 	//부서조회
@@ -27,10 +29,11 @@ $(document).ready(function(){
 	
 	$("#postName").keyup(function(e) {
     	if(e.target.id == "postName"){
-    		gridMain.filterBy(1,byId("postName").value);
+    		gridMain.filterBy(2,byId("postName").value);
 		}
 	 }); 
 
+	fn_search();
 });
 //조회
 function fn_search(){
@@ -54,6 +57,10 @@ function  fn_print(){
 function fn_loadGridList(params) {
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
+
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

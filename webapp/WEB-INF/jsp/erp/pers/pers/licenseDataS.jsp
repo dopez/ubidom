@@ -139,18 +139,16 @@ function fn_loadGridDtl(params){
 }
 
  function fn_exit(){
-	 var exitVal = true;
-	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
-	 for(var i=0;i<gridDtl.getRowsNum();i++){
-		 var cudVal = gridDtl.setCells2(i,cudKeyIdx).getValue();
-		 if(cudVal != ''){
-			 exitVal = false;
-			 break;
-		 }
-	 }
-	 if(exitVal){
-		mainTabbar.tabs(ActTabId).close();	 
-	 }		
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">

@@ -7,6 +7,8 @@ var gridMst, gridDtl;
 var calMain;
 var payAmtSum = 0;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,3],"2U");
 	//급여기본자료(유동/공제)
@@ -132,6 +134,19 @@ function fn_loadGridDtlCB(data){
 	gridDtl.detachFooter(0);
 	gridDtlAttachFooter();
 };
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

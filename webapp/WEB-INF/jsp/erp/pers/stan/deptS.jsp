@@ -55,8 +55,6 @@ $(document).ready(function(){
    combo =gridDtl.getColumnCombo(5);
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
-   combo.attachEvent("onChange", function(){
-	});
    fn_search();
    
 });
@@ -147,19 +145,17 @@ function fn_loadGridDtl(params) {
   gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));  
 };
 
- function fn_exit(){
-	 var exitVal = true;
-	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');
-	 for(var i=0;i<gridDtl.getRowsNum();i++){
-		 var cudVal = gridDtl.setCells2(i,cudKeyIdx).getValue();
-		 if(cudVal != ''){
-			 exitVal = false;
-			 break;
-		 }
-	 }
-	 if(exitVal){
-		mainTabbar.tabs(ActTabId).close();	 
-	 }		
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">
