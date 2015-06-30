@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMst, gridDtl;
 var gridTabbar;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//근속년수별인원현황
@@ -55,19 +57,13 @@ $(document).ready(function(){
 	gridDtl.setColSort("str");
 	gridDtl.init(); 
 	
-	fn_search();
-	
-	$("#korName").dblclick(function(e){
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-
 	$("#korName").keyup(function(e) {
     	if(e.target.id == "korName"){
     		gridDtl.filterBy(2,byId("korName").value);
 		}
 	 });
+	
+	fn_search();
 });
 function fn_search(){
 	fn_loadGridList();
@@ -114,11 +110,9 @@ function fn_excel(){
 	 gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("a"));
 };
 
-function fn_onClosePop(pName,data){
-    if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -13,7 +13,7 @@ $(document).ready(function() {
 	
 	
 	
-    Ubi.setContainer(2, [2,4,1, 3, 5, 6,9,11], "1C"); //업무일지등록
+    Ubi.setContainer(2, [2,4,1, 3, 5, 6], "1C"); //업무일지등록
 
     layout = Ubi.getLayout();
     toolbar = Ubi.getToolbar();
@@ -29,7 +29,7 @@ $(document).ready(function() {
     gridMain.addHeader({name:"종류",colId:"workKind",width:"100",align:"center",type:"combo"});
     gridMain.addHeader({name:"내용",colId:"logNote",width:"200",align:"left",type:"ed"});
     gridMain.addHeader({name:"첨부",colId:"fileName",width:"50",align:"left",type:"ed"});
-    gridMain.addHeader({name:"test",colId:"test",width:"400",align:"left",type:"ro"});
+    //gridMain.addHeader({name:"test",colId:"test",width:"400",align:"left",type:"ro"});
     gridMain.setUserData("","pk","");
     gridMain.setColSort("str");
     gridMain.init();

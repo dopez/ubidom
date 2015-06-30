@@ -6,20 +6,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ubi.erp.pop.dao.PopLen2Dao;
+import com.ubi.erp.pop.dao.PopupDao;
 
 @Service
-public class PopLen2Service {
+public class PopupService {
 
-	private PopLen2Dao dao;
+	private PopupDao dao;
 
 	@Autowired
 	public void setSqlSession(SqlSession sqlSession) {
-		dao = sqlSession.getMapper(PopLen2Dao.class);
+		dao = sqlSession.getMapper(PopupDao.class);
 	}
 
 	public void selPopLen2(Map<String, Object> map) {
 		dao.selPopLen2(map);
 	}
 
+	public void selPopLen4(Map<String, Object> map) {
+		dao.selPopLen4(map);
+	}
 }

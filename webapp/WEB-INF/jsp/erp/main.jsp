@@ -213,11 +213,11 @@ var fncSelectItem = function(tree, id) {
 		if(flag){
 			ActTabId = id;
 			
-		 	 closeBtn = '<input type="image" src="/images/button/dhtmlx/close.gif" width="12" height="12"'+
+		 	 closeBtn = '<input type="image" src="/images/button/dhtmlx/close_2.gif" width="11" height="11"'+
 			'id="closeBtn" name="closeBtn" onClick="closeEvent('+id+')">'; 
 			
-			//mainTabbar.addTab(id, menuItemText+'&nbsp;&nbsp;'+closeBtn, null, null, true, false);
-			mainTabbar.addTab(id, menuItemText, null, null, true, true);
+			mainTabbar.addTab(id, menuItemText+'&nbsp;&nbsp;'+closeBtn, null, null, true, false);
+			//mainTabbar.addTab(id, menuItemText, null, null, true, true);
             mainTabbar.tabs(id).attachURL("/"+uri+".do");
 		}
 	}

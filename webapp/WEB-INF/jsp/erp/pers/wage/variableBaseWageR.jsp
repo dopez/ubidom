@@ -7,6 +7,8 @@ var gridMst, gridDtl;
 var calMain;
 var payAmtSum = 0;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,3],"2U");
 	//급여기본자료(유동/공제)
@@ -40,15 +42,6 @@ $(document).ready(function(){
     gridDtlAttachFooter();
     gridDtl.init();	
     gridDtl.cs_setColumnHidden(["empNo"]);	
-
-    $("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
 	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
@@ -140,15 +133,20 @@ function fn_loadGridDtlCB(data){
 	 }
 	gridDtl.detachFooter(0);
 	gridDtlAttachFooter();
-}
+};
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

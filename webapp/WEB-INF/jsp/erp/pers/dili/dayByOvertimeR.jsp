@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
 var workSum = 0,overSum = 0,nightSum = 0,holiSum = 0;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,8],"1C");
 	//일일잔업일보
@@ -36,12 +38,6 @@ $(document).ready(function(){
 	
 	fn_search();
 	
-	$("#postName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-	});
-	
 	$("#postName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMain.filterBy(1,byId("postName").value);
@@ -70,8 +66,9 @@ function fn_excel(){
  function fn_loadGridMain(){
 	 var obj = gfn_getFormElemntsData("frmSearch");
 		gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"),fn_loadGridMainCB);
-	}
-	function fn_loadGridMainCB(data){
+};
+ 
+function fn_loadGridMainCB(data){
 	   workSum = 0,overSum = 0,nightSum = 0,holiSum = 0;
 		for(var i=0; i<data.length;i++){
 			workSum += data[i].workTime*1;   overSum += data[i].overTime*1;
@@ -83,14 +80,13 @@ function fn_excel(){
 		 gridMain.dxObj.customGroupFormat=function(name,count){
 		      return name+" :부서계 "+count+"명";
 		}
-		gridMain.dxObj.groupBy(1,["","#title","#cspan","","#stat_total","#stat_total","#stat_total","#stat_total"]);
+		gridMain.dxObj.groupBy(1,["","#title","#cspan","#cspan","#stat_total","#stat_total","#stat_total","#stat_total"]);
 		$('#workDate').keyup();
 };
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}	  
-};
+
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

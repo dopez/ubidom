@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(3,[1,8],"1C");
 	//월근태종합현황
@@ -51,12 +53,6 @@ $(document).ready(function(){
 	
 	fn_search();
 	
-	$("#postName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-	});
-	
 	$("#postName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMain.filterBy(1,byId("postName").value);
@@ -89,11 +85,9 @@ function fn_excel(){
 	gridMain.getDxObj().toExcel("http://175.209.128.74/grid-excel/generate");
 };
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}  
- };
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	 
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

@@ -5,6 +5,8 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var combo01, combo02;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,3,5,6],"1C");
 	//재증명서발급
@@ -71,47 +73,28 @@ $(document).ready(function(){
 	combo01 =gridMain.getColumnCombo(certKindIdx);
 	combo02 =gridMain.getColumnCombo(korNameIdx);
 	gfn_single_comboLoad(combo01,["1","2"],["재직","경력"],2);
-	fn_comboLoad(combo02);
-	combo02.attachEvent("onClose", function(){
+	gfn_codeLen2_comboLoad(combo02,"사원");
+
+	combo02.attachEvent("onBlur", function(){
 		var rowIdx = gridMain.getSelectedRowIndex();
 		gridMain.setCells2(rowIdx,4).setValue(combo02.getSelectedText().empNo);
 		gridMain.setCells2(rowIdx,5).setValue(combo02.getSelectedText().korName);
 		});
 });
-function fn_comboLoad(comboId){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-          {header: "사원번호", width: 110, option: "#empNo#"},
-          {header: "사원명", width: 100, option: "#korName#"}
-	    ]
-	});
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
-	comboId.confirmValue();
-	var obj = {};
-	obj.korName = '';
-		$.ajax({
-			"url":"/erp/pers/pers/persAppointS/selEmpPop",
-			"type":"post",
-			"data":obj,
-			"success" : function(data){
-			  var list = data;
-			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(list[i].empNo,
-			    {"empNo":list[i].empNo,"korName":list[i].korName});
-                  } 
-			}
-	  });	
-};
 
 function doOnRowDbClicked(id,ind){
 	if(ind==4){
-		gfn_load_pop('w1','common/empPOP',true,{"korName":""});
+		gfn_load_pop('w1','common/codeLen2POP',true,{});
 		}
 }
-
+function fn_onOpenPop(pName){
+	if(pName=="codeLen2"){
+		var obj = {};
+		obj.innerName = '';
+		obj.kind = "사원";
+	} 
+	return obj;
+}
 function fn_search(){
 	fn_loadGridMain();
 }
@@ -165,6 +148,10 @@ function fn_onClosePop(pName,data){
 		gridMain.setCells2(selRowIdx,empNoIdx).setValue(data[0].empNo); 		  
 	}  
  };
+ 
+ function fn_exit(){
+	 mainTabbar.tabs(ActTabId).close();	
+	}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

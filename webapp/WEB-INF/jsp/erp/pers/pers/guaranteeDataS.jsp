@@ -7,6 +7,8 @@ var gridMst, gridDtl01, gridDtl02;
 var gridTabbar;
 var isActTab1, isActTab2;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,5,6],"2U");
 	//신원보증/보험등록
@@ -66,15 +68,6 @@ $(document).ready(function(){
 
    fn_search();
 	
-   $("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-	
 	$("#postName,#korName").keyup(function(e) {
    	if(e.target.id == "postName"){
    		gridMst.filterBy(3,byId("postName").value);
@@ -88,7 +81,6 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo01,"P007");
 
 });
-
 function doOnMstRowSelect(id,ind){
 	var compIdx = gridMst.getColIndexById('compId');
 	var empIdx = gridMst.getColIndexById('empNo');
@@ -244,13 +236,18 @@ function fn_loadGridDtls(params){
 	gfn_callAjaxForGrid(gridDtl02,params,"gridDtl01Search",gridTabbar.tabs("a2"));
 }
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl01,gridDtl02]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

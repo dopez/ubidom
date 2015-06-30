@@ -7,6 +7,8 @@ var gridMst, gridDtl;
 var status;
 var  combo09;
 var rowSelVal;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,5,6],"2U");
 	//인사발령등록
@@ -50,15 +52,6 @@ $(document).ready(function(){
 	
 	gridDtl.attachEvent("onRowDblClicked",onGridDtlDblClicked);
 	
-	$("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMst.filterBy(3,byId("postName").value);
@@ -85,43 +78,25 @@ $(document).ready(function(){
 	gfn_1col_comboLoad(combo06,"004");
 	gfn_1col_comboLoad(combo07,"P006");
 	gfn_1col_comboLoad(combo08,"000");
-	fn_comboLoad(combo09);
+	gfn_codeLen2_comboLoad(combo09,"부서");
 	
-	combo09.attachEvent("onChange", function(){
+	combo09.attachEvent("onBlur", function(){
 	var rowIdx = gridDtl.getSelectedRowIndex();
-	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().postCode);
-	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().postName);
+	gridDtl.setCells2(rowIdx,5).setValue(combo09.getSelectedText().innerCode);
+	gridDtl.setCells2(rowIdx,6).setValue(combo09.getSelectedText().innerName);
 	});
 	
 	fn_search();
 });
-function fn_comboLoad(comboId){
-	comboId.setTemplate({
-	    input: "#interName#",
-	    columns: [
-          {header: "부서코드", width: 110, option: "#postCode#"},
-          {header: "부서명", width: 100, option: "#postName#"}
-	    ]
-	});
-	comboId.enableFilteringMode(true);
-	comboId.enableAutocomplete(true);
-	comboId.allowFreeText(true);
-	comboId.confirmValue();
-	var obj={};
-	obj.postName = '%';
-		$.ajax({
-			"url":"/erp/pers/stan/deptS/gridMstSearch",
-			"type":"post",
-			"data":obj,
-			"success" : function(data){
-			  var list = data;
-			  for(var i=0;i<list.length;i++){
-				  comboId.addOption(list[i].postCode,
-			    {"postCode":list[i].postCode,"postName":list[i].postName});
-				  
-                  } 
-			}
-	  });	
+function fn_onOpenPop(pName){
+	var value;
+     if(pName == "codeLen2"){
+    	 var obj={};
+    		 obj.innerName= $('#postName').val();
+    		 obj.kind=  '부서';
+    	 value = obj; 
+	}
+	return value;
 };
 
 function fn_search(){
@@ -151,7 +126,7 @@ function gridMstOnRowSelect(id,ind){
 function onGridDtlDblClicked(rInd,cInd){
 	status = 1;
 	if(cInd==5){
-	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
+	gfn_load_pop('w1','common/codeLen2POP',true,{});
 	}
 }
 
@@ -201,22 +176,27 @@ function fn_delete(){
 }
 
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		if(status == 1){
-			var postCodeIdx = gridDtl.getColIndexById('postCode');
-			var postNameIdx = gridDtl.getColIndexById('postName');
-			var selRowIdx = gridDtl.getSelectedRowIndex();
-			gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
-			gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName); 
+	 if(pName == "codeLen2"){
+		  var postCodeIdx = gridDtl.getColIndexById('postCode');
+		  var postNameIdx = gridDtl.getColIndexById('postName');
+		  var selRowIdx = gridDtl.getSelectedRowIndex();
+		  gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
+		  gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName);
+		}	  	  
+};
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridDtl]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
 		}else{
-			$('#postName').val(data[0].postName);
-			status = 1;
-		}	  
-	}
-	else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+			return true;
+		}
+	} 
+}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

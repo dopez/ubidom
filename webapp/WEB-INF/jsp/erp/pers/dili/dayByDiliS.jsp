@@ -7,6 +7,8 @@ var gridMain;
 var calMain;
 var combo;
 var sum;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(2,[1,3,4,8],"1C");
 	//일일근태등록
@@ -45,12 +47,6 @@ $(document).ready(function(){
 	calMain.hideTime();	   
 	var t = dateformat(new Date());
 	byId("workDay").value = t;
-	
-	$("#postCode").dblclick(function(e){
-		if(e.target.id == "postCode"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-	});
 	
 	$("#diliSBtn").click(function(e){
         if(e.target.id == 'diliSBtn'){
@@ -140,13 +136,24 @@ function fn_loadGridMain(){
 }
 
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postCode').val(data[0].postName);	  
-	}else if(pName == 'saveDiliS'){
+  if(pName == 'saveDiliS'){
 		MsgManager.alertMsg("INF001");
 		fn_search();
 	}
  };
+ 
+ function fn_exit(){
+		var exitVal = cs_close_event([gridMain]);
+		if(exitVal){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			if(MsgManager.confirmMsg("WRN012")){
+				mainTabbar.tabs(ActTabId).close();	
+			}else{
+				return true;
+			}
+		} 
+	}
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

@@ -4,18 +4,55 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("PopLen2")
-public class PopLen2 implements Serializable {
+@Alias("Popup")
+public class Popup implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	private String compId;
+
 	private String innerCode;
+
 	private String innerName;
+
 	private String kind;
-	//Kind 종류
+
+	// Kind 종류
 	// '사원' , '부서', '부품', '고객', '개발관리' , ' 설비', '개발01', '개발02'
+
+	private String spec;
+
+	private String unit;
+
+	private int packUnit;
+
+	// 4개짜리 kind = 제품, 자재, 설비부품
 
 	public String getCompId() {
 		return compId;
+	}
+
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public int getPackUnit() {
+		return packUnit;
+	}
+
+	public void setPackUnit(int packUnit) {
+		this.packUnit = packUnit;
 	}
 
 	public void setCompId(String compId) {

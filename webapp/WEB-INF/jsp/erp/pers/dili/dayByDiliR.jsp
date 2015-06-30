@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;  
 var calMain;
 var combo;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(4,[1,8],"1C");
 	//일일근태조회
@@ -48,15 +50,6 @@ $(document).ready(function(){
 	combo =gridMain.getColumnCombo(6);
 	gfn_1col_comboLoad(combo,"P008");
 	
-	$("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMain.filterBy(2,byId("postName").value);
@@ -83,13 +76,9 @@ function fn_loadGridMain(){
 	gfn_callAjaxForGrid(gridMain,obj,"gridMainSearch",subLayout.cells("a"));
 }
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+function fn_exit(){
+	mainTabbar.tabs(ActTabId).close();	
+}
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
