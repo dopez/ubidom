@@ -113,17 +113,8 @@ function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	  if (jsonStr == null || jsonStr.length <= 0) return;         		
 	      $("#jsonData").val(jsonStr);                      
-	      $.ajax({
-	         url : "/erp/pers/wage/fixBaseWageR/gridDtlSave",
-	         type : "POST",
-	         data : $("#pform").serialize(),
-	         async : true,
-	         success : function(data) {
-	         MsgManager.alertMsg("INF001");
-	         fn_search();
-	         rowSelVal = null;
-	          }
-	     });
+	      var params = $("#pform").serialize();  
+	  	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB);   
 };
 
 function fn_exit(){

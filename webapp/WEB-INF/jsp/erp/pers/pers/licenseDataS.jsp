@@ -103,18 +103,14 @@ function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
-       $.ajax({
-          url : "/erp/pers/pers/licenseDataS/gridDtlSave",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-          fn_search();
-          rowSelVal = null;
-           }
-      }); 
+       var params = $("#pform").serialize();  
+   	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB);   
 }
+
+function fn_saveDtlCB(data){
+	fn_search();
+    rowSelVal = null;
+};
 
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();

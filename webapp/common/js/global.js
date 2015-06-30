@@ -2,12 +2,12 @@
 //####################### Javascript global settings #######################//
 
 $(function(){
-	$(document).ajaxComplete(function(event, xhr, settings){
+	/*$(document).ajaxComplete(function(event, xhr, settings){
 		if(xhr.getResponseHeader("EXCEPTION")=="Y") {
 			var exObj = JSON.parse(xhr.responseText);
 			alert(MsgManager.getMsg(exObj.EXCEPTION_MSG_CODE, exObj.EXCEPTION_MSG_PARAM));
 		}
-	});
+	});*/
 
 	$(document).ajaxError(function(e, xhr, settings, exception) {
 		if(xhr.status == 0){

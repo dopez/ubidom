@@ -99,19 +99,16 @@ function fn_save(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);  
-	       var params = gfn_getFormElemntsData("pform");
-	      $.ajax({
-	          url : "/erp/pers/wage/variableBaseWageR/gridDtlSave",
-	          type : "POST",
-	          data : params,
-	          async : true,
-	          success : function(data) {
-	          MsgManager.alertMsg("INF001");
-	          fn_search();
-		      rowSelVal = null;
-	          }
-	  });
+	      var params = gfn_getFormElemntsData("pform");  
+	  	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB);  
 };
+
+function fn_saveDtlCB(data){
+	fn_search();
+    rowSelVal = null;
+};
+
+
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"),fn_loadGridDtlCB);
 }

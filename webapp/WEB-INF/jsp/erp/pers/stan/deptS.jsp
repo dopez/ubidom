@@ -97,24 +97,15 @@ function fn_delete(){
 }
 
  function fn_save(){
-	var rowIdx = gridDtl.getSelectedRowIndex();
-	var colIdx = gridDtl.getColIndexById('postCode');
-	    postCodeVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
-	 var jsonStr = gridDtl.getJsonUpdated2();
-	 if (jsonStr == null || jsonStr.length <= 0) return;         		
-	    $("#jsonData").val(jsonStr);                      
-	    $.ajax({
-	         url : "/erp/pers/stan/deptS/gridDtlSave",
-	         type : "POST",
-	         data : $("#pform").serialize(),
-	         async : true,
-	         success : function(data) {
-	        	 MsgManager.alertMsg("INF001");
-		         fn_search(); 
-	         }
-	  });
+	  var jsonStr = gridDtl.getJsonUpdated2();
+	  if (jsonStr == null || jsonStr.length <= 0) return;         		
+	    $("#jsonData").val(jsonStr);
+	  var params = $("#pform").serialize();  
+	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB);
  } 
-
+function fn_saveDtlCB(data){
+    fn_search(); 
+}
 function doOnRowSelect(id,ind){
 	var postCodeIdx = gridMst.getColIndexById('postCode');
 	var postNameIdx = gridMst.getColIndexById('postName');

@@ -26,7 +26,7 @@ function gfn_getMappingUrl(param){
 	return uri.trim();
 }
 
-function gfn_callAjaxComm(param,url,callbackFn) {
+function gfn_callAjaxComm(param,url,callbackFn){
 	if (!url.match(/\//g)) url = gfn_getMappingUrl(url);
 	var gData = [];
 	$.ajax({
@@ -36,11 +36,19 @@ function gfn_callAjaxComm(param,url,callbackFn) {
         data: param,
         async: false,
         dataType: "json",
-        success: function(data, status) {
+        success: function(data, event, xhr, settings) {
         	gData=data;
-            if (callbackFn != undefined) {
-                callbackFn.call(this, data);
-            }
+        	
+        	if(xhr.getResponseHeader("EXCEPTION")=="Y") {
+      			var exObj = JSON.parse(xhr.responseText);
+      			alert(MsgManager.getMsg(exObj.EXCEPTION_MSG_CODE, exObj.EXCEPTION_MSG_PARAM));
+      			return;
+      		}else{
+      			parent.MsgManager.alertMsg("INF001");
+      			if (callbackFn != undefined) {
+                    callbackFn.call(this, data);
+                 }	
+      		 }
         },
         error: function(xhr) { // if error occured
 
@@ -62,10 +70,10 @@ function gfn_callAjaxForGrid(grid, param, url, layout, callbackFn) {
         beforeSend: function() {
             layout.progressOn();
         },
-        success: function(data, status) {
+        success: function(data,status) {
 
           gData = gfn_temp(grid,data);
-
+          
           if (callbackFn != undefined) {
               callbackFn.call(this, data);
            }

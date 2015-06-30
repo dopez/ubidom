@@ -95,30 +95,25 @@ function fn_add(){
 	}
 }
 function fn_save(){
-	var rowIdx = gridDtl.getSelectedRowIndex();
-	var colIdx = gridDtl.getColIndexById('empNo');
-	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
+    var rowIdx = gridDtl.getSelectedRowIndex();
+   	var colIdx = gridDtl.getColIndexById('empNo');
+   	rowSelVal=gridDtl.setCells2(rowIdx, colIdx).getValue();
 
-	 var jsonStr = gridDtl.getJsonUpdated2();
-   if (jsonStr == null || jsonStr.length <= 0) return;         		
-       $("#jsonData").val(jsonStr);                      
-       $.ajax({
-          url : "/erp/pers/pers/educationDataS/gridDtlSave",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-          fn_search();
-          rowSelVal = null;
-           }
-      }); 
-}
+         var jsonStr = gridDtl.getJsonUpdated2();
+     	  if (jsonStr == null || jsonStr.length <= 0) return;         		
+     	    $("#jsonData").val(jsonStr);
+     	  var params = $("#pform").serialize();  
+     	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB);  
+};
 
+function fn_saveDtlCB(data){
+	fn_search();
+    rowSelVal = null;
+};
 function fn_delete(){
     var rodid = gridDtl.getSelectedRowId();
     gridDtl.cs_deleteRow(rodid);
-}
+};
 
 function fn_loadGridMst(){
 	var obj={};

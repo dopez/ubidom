@@ -108,18 +108,13 @@ function fn_save(){
 	 var jsonStr = gridMain.getJsonUpdated2();
    if (jsonStr == null || jsonStr.length <= 0) return;         		
        $("#jsonData").val(jsonStr);                      
-       $.ajax({
-          url : "/erp/pers/dili/dayByDiliS/gridMainSave",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-          fn_search();
-           }
-      }); 
+       var params = $("#pform").serialize();  
+   	  gfn_callAjaxComm(params,"gridMainSave",fn_SaveCB); 
+     
 }
-
+function fn_SaveCB(data){
+	 fn_search();
+}
 function fn_remove(){
 	for(var i=0; i<gridMain.getRowsNum();i++){
 		gridMain.cs_deleteRow(gridMain.getRowId(i));	 

@@ -134,18 +134,10 @@ function fn_save(){
 	 var jsonStr = gridMst.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
-	       $.ajax({
-	          url : "/erp/pers/dili/monthByDiliS/gridMstSave",
-	          type : "POST",
-	          data : $("#pform").serialize(),
-	          async : true,
-	          success : function(data) {
-	          MsgManager.alertMsg("INF001");
-	          fn_search();
-	          rowSelVal = null;
-	           }
-	      });
+	       var params = $("#pform").serialize();  
+	 	  gfn_callAjaxComm(params,"gridMstSave",fn_saveCB);      
 };
+
 function fn_DtlSave(){
 	var rowIdx = gridDtl.getSelectedRowIndex();
 	var colIdx = gridDtl.getColIndexById('empNo');
@@ -154,18 +146,15 @@ function fn_DtlSave(){
 	 var jsonStr = gridDtl.getJsonUpdated2();
 	   if (jsonStr == null || jsonStr.length <= 0) return;         		
 	       $("#jsonData").val(jsonStr);                      
-	       $.ajax({
-	          url : "/erp/pers/dili/dayByDiliS/gridMainSave",
-	          type : "POST",
-	          data : $("#pform").serialize(),
-	          async : true,
-	          success : function(data) {
-	          MsgManager.alertMsg("INF001");
-	          fn_search();
-	          rowSelVal = null;
-	           }
-	      });
+	       var params = $("#pform").serialize();  
+	   	  gfn_callAjaxComm(params,"gridMainSave",fn_saveCB);            
 };
+
+function fn_saveCB(data){
+	fn_search();
+    rowSelVal = null;
+};
+
 function fn_remove(){
 	for(var i=0; i<gridMst.getRowsNum();i++){
 		gridMst.cs_deleteRow(gridMst.getRowId(i));	 

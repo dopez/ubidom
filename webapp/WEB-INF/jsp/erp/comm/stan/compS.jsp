@@ -94,18 +94,15 @@ function fn_save(){
 	 
 	if(gfn_formValidation('frmMain')){
  		 disableValue(1);	
-        $.ajax({
-         url : "/erp/comm/stan/compS/formSave",
-         type : "POST",
-         data : gfn_getFormElemntsData('frmMain'),
-         async : true,
-         success : function(data) {
-         MsgManager.alertMsg("INF001");
-         fn_search();
-         }
-      }); 
+		var params = gfn_getFormElemntsData('frmMain'); 
+		gfn_callAjaxComm(params,"formSave",fn_formSaveCB);  
+       
 	}
 };
+
+function fn_formSaveCB(data){
+	 fn_search();
+}
 
 function fn_remove(){
 	$('#cudKey').val('DELETE');

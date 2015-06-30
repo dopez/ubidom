@@ -173,22 +173,19 @@ function fn_save(){
 		 else if(jsonStr2 == null || jsonStr2.length <= 0) return;
 		 $("#jsonData").val(jsonStr);
 	     $("#jsonData2").val(jsonStr2);
-	     $.ajax({
-	        url : "/erp/pers/pers/guaranteeDataS/gridDtlSave",
-	        type : "POST",
-	        data : $("#pform").serialize(),
-	        async : true,
-	        success : function(data) {
-	        MsgManager.alertMsg("INF001");
-	        fn_search();
-	        rowSelVal = null;
-	         }
-	    }); 
+	     var params = $("#pform").serialize();  
+	  	  gfn_callAjaxComm(params,"gridDtlSave",fn_saveDtlCB); 
 	 }else{
 		 MsgManager.alertMsg("WRN008");
 		return; 
 	 }
-}
+};
+
+function fn_saveDtlCB(data){
+	fn_search();
+    rowSelVal = null;
+};
+
 function fn_remove(){
 	isActTab1 = gridTabbar.tabs("a1").isActive();
     isActTab2 = gridTabbar.tabs("a2").isActive();

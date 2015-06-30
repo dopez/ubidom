@@ -224,21 +224,12 @@ function fn_new(){
 		  combo03.enable();
 		  
 		var params = gfn_getFormElemntsData('frmMain');
-		console.log("1",$('#bldKind').val());
-	     $.ajax(
-			{
-			  type:'POST',
-			  url:"/erp/pers/pers/persDataS/formSave",
-			  data:params,
-			  success:function(data)
-			  {
-			   MsgManager.alertMsg("INF001"); 
-			   fn_search();
-			  }
-		});
+	     gfn_callAjaxComm(params,"formSave",fn_formSaveCB); 
 	}
 }; 
-
+function fn_formSaveCB(data){
+	fn_search();
+}
 function fn_remove(){
 	$('#cudKey').val('DELETE');
     var rodid = gridMain.getSelectedRowId();

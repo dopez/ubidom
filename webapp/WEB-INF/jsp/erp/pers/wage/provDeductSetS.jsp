@@ -54,16 +54,12 @@ function fn_save(){
 	 var jsonStr = gridMain.getJsonUpdated2();
   if (jsonStr == null || jsonStr.length <= 0) return;         		
       $("#jsonData").val(jsonStr);                      
-      $.ajax({
-         url : "/erp/pers/wage/provDeductSetS/gridMainSave",
-         type : "POST",
-         data : $("#pform").serialize(),
-         async : true,
-         success : function(data) {
-         MsgManager.alertMsg("INF001");
-         fn_search();
-          }
-     }); 	
+      var params = $("#pform").serialize();  
+  	  gfn_callAjaxComm(params,"gridMainSave",fn_gridSaveCB);  
+  	 
+}
+function fn_gridSaveCB(data){
+	fn_search();
 }
 function fn_add(){
 	 var totalColNum = gridMain.getColumnCount();

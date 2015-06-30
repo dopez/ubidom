@@ -77,8 +77,8 @@ $(document).ready(function(){
 
 	combo02.attachEvent("onBlur", function(){
 		var rowIdx = gridMain.getSelectedRowIndex();
-		gridMain.setCells2(rowIdx,4).setValue(combo02.getSelectedText().empNo);
-		gridMain.setCells2(rowIdx,5).setValue(combo02.getSelectedText().korName);
+		gridMain.setCells2(rowIdx,4).setValue(combo02.getSelectedText().innerCode);
+		gridMain.setCells2(rowIdx,5).setValue(combo02.getSelectedText().innerName);
 		});
 });
 
@@ -109,19 +109,16 @@ function fn_add(){
 }
 
 function fn_save(){
-	 var jsonStr = gridMain.getJsonUpdated2();
-   if (jsonStr == null || jsonStr.length <= 0) return;     
-       $("#jsonData").val(jsonStr);                      
-       $.ajax({
-          url : "/erp/pers/pers/certificateDataS/gridMainSave",
-          type : "POST",
-          data : $("#pform").serialize(),
-          async : true,
-          success : function(data) {
-          MsgManager.alertMsg("INF001");
-          fn_search();
-           }
-      }); 
+      var jsonStr = gridMain.getJsonUpdated2();
+   	  if (jsonStr == null || jsonStr.length <= 0) return;         		
+   	  $("#jsonData").val(jsonStr);
+   	  var params = $("#pform").serialize();  
+   	  gfn_callAjaxComm(params,"gridMainSave",fn_SaveCB);    
+   	  
+};
+
+function fn_SaveCB(){
+	fn_search();
 }
 
 function fn_delete(){
@@ -140,12 +137,12 @@ function fn_loadGridMainCB(data){
 }
 
 function fn_onClosePop(pName,data){
-	if(pName=="empNo"){
+	if(pName=="codeLen2"){
 		var empNoIdx = gridMain.getColIndexById('empNo');
 		var korNameIdx = gridMain.getColIndexById('korName');
 		var selRowIdx = gridMain.getSelectedRowIndex();
-		gridMain.setCells2(selRowIdx,korNameIdx).setValue(data[0].korName);
-		gridMain.setCells2(selRowIdx,empNoIdx).setValue(data[0].empNo); 		  
+		gridMain.setCells2(selRowIdx,korNameIdx).setValue(data[0].innerName);
+		gridMain.setCells2(selRowIdx,empNoIdx).setValue(data[0].innerCode); 		  
 	}  
  };
  
