@@ -72,7 +72,7 @@ $(document).ready(function(){
 	combo02 =gridMain.getColumnCombo(korNameIdx);
 	gfn_single_comboLoad(combo01,["1","2"],["재직","경력"],2);
 	fn_comboLoad(combo02);
-	combo02.attachEvent("onClose", function(){
+	combo02.attachEvent("onCheck", function(value, state){
 		var rowIdx = gridMain.getSelectedRowIndex();
 		gridMain.setCells2(rowIdx,4).setValue(combo02.getSelectedText().empNo);
 		gridMain.setCells2(rowIdx,5).setValue(combo02.getSelectedText().korName);

@@ -51,11 +51,7 @@ $(document).ready(function(){
     		gridMst.filterBy(1,byId("postName").value);
 		}
 	 }); 
-	
-	$("#postName").dblclick(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$("#postName").val()});
-	});
-	
+
    combo =gridDtl.getColumnCombo(5);
    gfn_single_comboLoad(combo,["판관","제조"],["판관","제조"],2);
    
@@ -151,19 +147,6 @@ function fn_loadGridDtl(params) {
   gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));  
 };
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			var params =  "postName=" + data[i].postName;
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			$("#postName").val(obj.postName);
-		}		  
-	}	  
- };
- 
  function fn_exit(){
 	 var exitVal = true;
 	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');

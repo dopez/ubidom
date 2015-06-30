@@ -43,15 +43,6 @@ $(document).ready(function(){
 
 	fn_search();
 	
-	$("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMst.filterBy(3,byId("postName").value);
@@ -64,7 +55,6 @@ $(document).ready(function(){
 	combo01 =gridDtl.getColumnCombo(4);
 	gfn_single_comboLoad(combo01,["1","2"],["사내","사외"],2);
 });
-
 function doOnMstRowSelect(id,ind){
 	var compIdx = gridMst.getColIndexById('compId');
 	var empIdx = gridMst.getColIndexById('empNo');
@@ -145,14 +135,6 @@ function fn_loadGridMstCB(data){
 function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 };
-
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

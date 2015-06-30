@@ -7,8 +7,8 @@ var gridMain;
 var toolbar;
 var config={
 		title:"코드검색",
-		id:"codeLen2",
-		width:"300",
+		id:"codeLen4",
+		width:"550",
 		height:"500"
 	}
 $(document).ready(function(){
@@ -18,10 +18,12 @@ $(document).ready(function(){
     subLayout = Ubi.getSubLayout(); 
     
     layout.cells("b").attachObject("bootContainer");
-    
-    gridMain = new dxGrid(subLayout.cells("a"), false);
-    gridMain.addHeader({name:"코드",   colId:"innerCode", 	width:"140", align:"center", type:"ro"});
+	
+	gridMain = new dxGrid(subLayout.cells("a"), false);
+    gridMain.addHeader({name:"코드",   colId:"innerCode", width:"140", align:"center", type:"ro"});
 	gridMain.addHeader({name:"코드명", colId:"innerName", width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"규격",   colId:"spec",      width:"140", align:"center", type:"ro"});
+	gridMain.addHeader({name:"단위",   colId:"unit",      width:"140", align:"center", type:"ro"});
 	gridMain.setUserData("","pk","");
 	gridMain.init();
 	init_search();
@@ -39,7 +41,7 @@ function init_search(){
 	 loadGridMain(obj);
 }
  function loadGridMain(params){
-	 gfn_callAjaxForGrid(gridMain,params,"/erp/pop/len2",subLayout.cells("a"),fn_loadGridListCodeCB);
+	 gfn_callAjaxForGrid(gridMain,params,"/erp/pop/len4",subLayout.cells("a"),fn_loadGridListCodeCB);
  }
  
 function fn_loadGridListCodeCB(data) {
@@ -49,7 +51,9 @@ function fn_loadGridListCodeCB(data) {
 	}else if(data.length==1){
 		  var innerCode = data[0].innerCode;
 		  var innerName = data[0].innerName;
-		  var arr = [{"innerCode":innerCode,"innerName":innerName}];
+		  var spec = data[0].spec;
+		  var unit = data[0].unit;
+		  var arr = [{"innerCode":innerCode,"innerName":innerName,"spec":spec,"unit":unit}];
 		  parent.fn_onClosePop(config.id,arr);
 		  parent.dhxWins.window("w1").close();
 	}else{
@@ -63,7 +67,9 @@ function doOnRowDblClicked(rId,cInd){
 	  var cell = cInd;
 	  var innerCode = gridMain.setCells2(row,0).getValue();
 	  var innerName = gridMain.setCells2(row,1).getValue();
-	  var arr = [{"innerCode":innerCode,"innerName":innerName}];
+	  var spec = gridMain.setCells2(row,2).getValue();
+	  var unit = gridMain.setCells2(row,3).getValue();
+	  var arr = [{"innerCode":innerCode,"innerName":innerName,"spec":spec,"unit":unit}];
 	  parent.fn_onClosePop(config.id,arr);
 	  parent.dhxWins.window("w1").close();
 }

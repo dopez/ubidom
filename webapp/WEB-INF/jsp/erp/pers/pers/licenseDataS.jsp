@@ -44,15 +44,6 @@ $(document).ready(function(){
 	gridDtl.attachEvent("onRowSelect",doOnDtlRowSelect);
 	
     fn_search();
-	
-   $("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
    
    $("#postName,#korName").keyup(function(e) {
    	if(e.target.id == "postName"){
@@ -147,14 +138,6 @@ function fn_loadGridDtl(params){
 	gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("b"));
 }
 
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
- 
  function fn_exit(){
 	 var exitVal = true;
 	 var cudKeyIdx = gridDtl.getColIndexById('cudKey');

@@ -46,12 +46,6 @@ $(document).ready(function(){
 	var t = dateformat(new Date());
 	byId("workDay").value = t;
 	
-	$("#postCode").dblclick(function(e){
-		if(e.target.id == "postCode"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-	});
-	
 	$("#diliSBtn").click(function(e){
         if(e.target.id == 'diliSBtn'){
 			gfn_load_pop('w1','pers/dayByDiliSPOP',true,{});
@@ -140,9 +134,7 @@ function fn_loadGridMain(){
 }
 
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postCode').val(data[0].postName);	  
-	}else if(pName == 'saveDiliS'){
+  if(pName == 'saveDiliS'){
 		MsgManager.alertMsg("INF001");
 		fn_search();
 	}

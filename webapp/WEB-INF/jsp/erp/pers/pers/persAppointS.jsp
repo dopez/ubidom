@@ -50,15 +50,6 @@ $(document).ready(function(){
 	
 	gridDtl.attachEvent("onRowDblClicked",onGridDtlDblClicked);
 	
-	$("#postName,#korName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
-	
 	$("#postName,#korName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMst.filterBy(3,byId("postName").value);
@@ -95,6 +86,16 @@ $(document).ready(function(){
 	
 	fn_search();
 });
+function fn_onOpenPop(pName){
+	var value;
+     if(pName == "codeLen2"){
+    	 var obj={};
+    		 obj.innerName= $('#postName').val();
+    		 obj.kind=  '부서';
+    	 value = obj; 
+	}
+	return value;
+};
 function fn_comboLoad(comboId){
 	comboId.setTemplate({
 	    input: "#interName#",
@@ -151,7 +152,7 @@ function gridMstOnRowSelect(id,ind){
 function onGridDtlDblClicked(rInd,cInd){
 	status = 1;
 	if(cInd==5){
-	gfn_load_pop('w1','common/deptCodePOP',true,{"postName":""});
+	gfn_load_pop('w1','common/codeLen2POP',true,{});
 	}
 }
 
@@ -201,22 +202,14 @@ function fn_delete(){
 }
 
 function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		if(status == 1){
-			var postCodeIdx = gridDtl.getColIndexById('postCode');
-			var postNameIdx = gridDtl.getColIndexById('postName');
-			var selRowIdx = gridDtl.getSelectedRowIndex();
-			gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
-			gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName); 
-		}else{
-			$('#postName').val(data[0].postName);
-			status = 1;
-		}	  
-	}
-	else if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
+	 if(pName == "codeLen2"){
+		  var postCodeIdx = gridDtl.getColIndexById('postCode');
+		  var postNameIdx = gridDtl.getColIndexById('postName');
+		  var selRowIdx = gridDtl.getSelectedRowIndex();
+		  gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
+		  gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName);
+		}	  	  
+};
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

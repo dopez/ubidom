@@ -56,12 +56,6 @@ $(document).ready(function(){
 	gridDtl.init(); 
 	
 	fn_search();
-	
-	$("#korName").dblclick(function(e){
-		if(e.target.id == "korName"){
-			gfn_load_pop('w1','common/empPOP',true,{"korName":$(this).val()});
-		}
-	});
 
 	$("#korName").keyup(function(e) {
     	if(e.target.id == "korName"){
@@ -113,12 +107,6 @@ function fn_excel(){
 	 gfn_callAjaxForGrid(gridMst,params,"gridMstSearch",subLayout.cells("a"));
 	 gfn_callAjaxForGrid(gridDtl,params,"gridDtlSearch",subLayout.cells("a"));
 };
-
-function fn_onClosePop(pName,data){
-    if(pName == "empNo"){
-	     $('#korName').val(data[0].korName);
-	}	  
- };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">

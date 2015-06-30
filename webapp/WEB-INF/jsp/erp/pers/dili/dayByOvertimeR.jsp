@@ -36,12 +36,6 @@ $(document).ready(function(){
 	
 	fn_search();
 	
-	$("#postName").dblclick(function(e){
-		if(e.target.id == "postName"){
-		  gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-		}
-	});
-	
 	$("#postName").keyup(function(e) {
     	if(e.target.id == "postName"){
     		gridMain.filterBy(1,byId("postName").value);
@@ -85,11 +79,6 @@ function fn_excel(){
 		}
 		gridMain.dxObj.groupBy(1,["","#title","#cspan","","#stat_total","#stat_total","#stat_total","#stat_total"]);
 		$('#workDate').keyup();
-};
-function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		$('#postName').val(data[0].postName);	  
-	}	  
 };
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>

@@ -30,10 +30,6 @@ $(document).ready(function(){
     		gridMain.filterBy(1,byId("postName").value);
 		}
 	 }); 
-	
-	$("#postName").dblclick(function(){
-		gfn_load_pop('w1','common/deptCodePOP',true,{"postName":$(this).val()});
-	});
 
 });
 //조회
@@ -58,21 +54,6 @@ function  fn_print(){
 function fn_loadGridList(params) {
 	 gfn_callAjaxForGrid(gridMain,params,"gridMainSearch",subLayout.cells("a"));
 };
-
-  function fn_onClosePop(pName,data){
-	if(pName=="postCode"){
-		var i;
-		var obj={};
-		for(i=0;i<data.length;i++){
-			var params =  "postName=" + data[i].postName;
-			obj.postName=data[i].postName;
-			obj.postCode=data[i].postCode;
-			obj.historyKind = $('input[name="historyKind"]:checked').val();
-			 $("#postName").val(obj.postName);
-		}		  
-	}	  
- };
-
 </script>
 <div id="container" style="position: relative; width: 100%; height: 100%;"></div>
 <div id="bootContainer" style="position: relative;">
