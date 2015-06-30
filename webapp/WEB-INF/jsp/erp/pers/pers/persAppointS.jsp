@@ -180,8 +180,8 @@ function fn_onClosePop(pName,data){
 		  var postCodeIdx = gridDtl.getColIndexById('postCode');
 		  var postNameIdx = gridDtl.getColIndexById('postName');
 		  var selRowIdx = gridDtl.getSelectedRowIndex();
-		  gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].postCode);
-		  gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].postName);
+		  gridDtl.setCells2(selRowIdx,postCodeIdx).setValue(data[0].innerCode);
+		  gridDtl.setCells2(selRowIdx,postNameIdx).setValue(data[0].innerName);
 		}	  	  
 };
 

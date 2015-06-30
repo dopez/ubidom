@@ -45,9 +45,9 @@ function gfn_gridEditCell(stage,rId,cInd,nValue,oValue) {
 		}else if(this.getColType(cInd)=="ch"){
 			setUpdateAcType(this, rId);
 		}
+		
 	} else if((stage == 2)) { // After Editing
         var colId = this.getColumnId(cInd);
-
 		$("td").css("background","");
 		if((oValue != nValue)) {
 			setUpdateAcType(this, rId);

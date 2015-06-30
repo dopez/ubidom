@@ -3,6 +3,7 @@ package com.ubi.erp.pers.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ubi.erp.cmm.util.MakeResponseUtil;
 import com.ubi.erp.cmm.util.PropertyUtil;
+import com.ubi.erp.cmm.util.gson.JsonUtil;
 import com.ubi.erp.pers.domain.FamilyDataS;
 import com.ubi.erp.pers.service.FamilyDataSService;
 
@@ -75,12 +79,34 @@ public class FamilyDataSController implements ApplicationContextAware {
 	@RequestMapping(value = "/gridDtlSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsFamilyDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String sysEmpNo = (String) session.getAttribute("empNo");
-		String jsonData = request.getParameter("jsonData");
-		List<FamilyDataS> list = new ArrayList<FamilyDataS>();
-		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<FamilyDataS>>(){});
-		familyDataSSservice.prcsFamilyDataS(list, sysEmpNo);
+		Hashtable<String, String> ht = new Hashtable<String, String>();
+		try {
+			String sysEmpNo = (String) session.getAttribute("empNo");
+			String jsonData = request.getParameter("jsonData");
+			List<FamilyDataS> list = new ArrayList<FamilyDataS>();
+			ObjectMapper mapper = new ObjectMapper();
+			list = mapper.readValue(jsonData, new TypeReference<ArrayList<FamilyDataS>>() {
+			});
+			familyDataSSservice.prcsFamilyDataS(list, sysEmpNo);
+
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("rtnCode", "1");
+			String jsonStr = new String(JsonUtil.parseToString(map));
+			MakeResponseUtil.makeResponse(response, "json", jsonStr);
+		} catch (DuplicateKeyException e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR005");
+		} catch (Exception e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR002");
+		} finally {
+			if (!ht.isEmpty()) {
+				response.setHeader("EXCEPTION", "Y");
+				MakeResponseUtil.makeResponse(response, "json", JsonUtil.parseToString(ht));
+			}
+		}
 	}
 
 	@RequestMapping(value = "/download")

@@ -1,13 +1,11 @@
 package com.ubi.erp.pers.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubi.erp.cmm.util.MakeResponseUtil;
 import com.ubi.erp.cmm.util.gson.JsonUtil;
 import com.ubi.erp.pers.domain.DeptS;
 import com.ubi.erp.pers.service.DeptSService;
@@ -66,20 +65,19 @@ public class DeptSController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("rtnCode", "1");
 			String jsonStr = new String(JsonUtil.parseToString(map));
-			makeResponse(response, "json", jsonStr);
+			MakeResponseUtil.makeResponse(response, "json", jsonStr);
 		} catch (DuplicateKeyException e) {
 			ht.put("rtnCode", "-1");
 			ht.put("EXCEPTION_TYPE", "BIZ");
-			ht.put("EXCEPTION_MSG_CODE", "ERR005"); // PK 중복
+			ht.put("EXCEPTION_MSG_CODE", "ERR005");
 		} catch (Exception e) {
 			ht.put("rtnCode", "-1");
 			ht.put("EXCEPTION_TYPE", "BIZ");
-			ht.put("EXCEPTION_MSG_CODE", "ERR002"); // 서버오류
-			// ht.put("EXCEPTION_MSG_CODE", e.getMessage()); // 서버오류
+			ht.put("EXCEPTION_MSG_CODE", "ERR002");
 		} finally {
 			if (!ht.isEmpty()) {
 				response.setHeader("EXCEPTION", "Y");
-				makeResponse(response, "json", JsonUtil.parseToString(ht));
+				MakeResponseUtil.makeResponse(response, "json", JsonUtil.parseToString(ht));
 			}
 		}
 	}
@@ -101,11 +99,5 @@ public class DeptSController {
 		deptSService.selDeptCodeS(map);
 		List<DeptS> list = (List<DeptS>) map.get("o_cursor");
 		return list;
-	}
-
-	private void makeResponse(HttpServletResponse response, String resType, String str) throws IOException {
-		response.setContentType("application/" + resType + ";");
-		ServletOutputStream sos = response.getOutputStream();
-		sos.print(new String(str.getBytes("UTF-8"), "8859_1"));
 	}
 }

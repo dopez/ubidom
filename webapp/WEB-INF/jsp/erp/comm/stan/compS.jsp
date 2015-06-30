@@ -6,6 +6,8 @@
 var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(0,[1,2,3,4],"2U");
 	//사업장 등록
@@ -34,7 +36,11 @@ $(document).ready(function(){
    	 execDaumPostcode("zipCode","address");
 	}); 
 	
-	byId("cudKey").value = "INSERT";
+	 $("#frmMain input:text,input:checkbox").on("change keyup", function(e){
+			if($("#cudKey").val() == ''){
+			   $("#cudKey").val("INSERT");
+			}
+		});
 	fn_search();
 });
 function doOnRowSelect(id, ind){
@@ -60,7 +66,6 @@ function fn_new(){
 	byId("frmMain").reset();
 	fn_calValue();
 	disableValue(1);
-	byId("cudKey").value = "INSERT";
 };
 function fn_calValue(){
 	var t = dateformat(new Date());
@@ -70,6 +75,10 @@ function fn_loadGridList(){
     gfn_callAjaxForGrid(gridMain,{},"gridMainSearch",subLayout.cells("a"));
 };
 function fn_save(){
+	 cudVal = $('#cudKey').val();	
+	 if(cudVal == ''){
+		 byId("cudKey").value = "INSERT"; 
+	  }
 	 f_dxRules = {
 	   compId :        ["회사코드",r_notEmpty],
 	   compName :      ["회사명",r_notEmpty],
@@ -106,6 +115,24 @@ function fn_remove(){
 function fn_loadFormList(params){
 	gfn_callAjaxForForm("frmMain",params,"formSearch");
 };
+
+function fn_exit(){
+	 var exitVal = true;
+		 var cudVal = cudVal = $('#cudKey').val();	
+		 if(cudVal != ''){ 
+			 exitVal = false;
+		 }
+	 if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	 
+	 }else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		} 
+	 }		
+}
+
 </script>
 <form id="pform" name="pform" method="post">
     <input type="hidden" id="jsonData" name="jsonData" />

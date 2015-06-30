@@ -3,6 +3,7 @@ package com.ubi.erp.pers.controller;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.cmm.util.JasperReportUtil;
+import com.ubi.erp.cmm.util.MakeResponseUtil;
 import com.ubi.erp.cmm.util.gson.DateFormatUtil;
+import com.ubi.erp.cmm.util.gson.JsonUtil;
 import com.ubi.erp.pers.domain.CertificateDataS;
 import com.ubi.erp.pers.service.CertificateDataSService;
 
@@ -51,13 +55,36 @@ public class CertificateDataSController {
 	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsCertificateDataS(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
-		String sysEmpNo = (String) session.getAttribute("empNo");
-		String compId = (String) session.getAttribute("compId");
-		String jsonData = request.getParameter("jsonData");
-		List<CertificateDataS> list = new ArrayList<CertificateDataS>();
-		ObjectMapper mapper = new ObjectMapper();
-		list = mapper.readValue(jsonData, new TypeReference<ArrayList<CertificateDataS>>(){});
-		certificateDataSService.prcsCertificateDataS(list,compId,sysEmpNo);
+		Hashtable<String, String> ht = new Hashtable<String, String>();
+		try {
+			String sysEmpNo = (String) session.getAttribute("empNo");
+			String compId = (String) session.getAttribute("compId");
+			String jsonData = request.getParameter("jsonData");
+			List<CertificateDataS> list = new ArrayList<CertificateDataS>();
+			ObjectMapper mapper = new ObjectMapper();
+			list = mapper.readValue(jsonData, new TypeReference<ArrayList<CertificateDataS>>() {
+			});
+			certificateDataSService.prcsCertificateDataS(list, compId, sysEmpNo);
+
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("rtnCode", "1");
+			String jsonStr = new String(JsonUtil.parseToString(map));
+			MakeResponseUtil.makeResponse(response, "json", jsonStr);
+		} catch (DuplicateKeyException e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR005");
+		} catch (Exception e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR002");
+		} finally {
+			if (!ht.isEmpty()) {
+				response.setHeader("EXCEPTION", "Y");
+				MakeResponseUtil.makeResponse(response, "json", JsonUtil.parseToString(ht));
+			}
+		}
+
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -79,4 +106,5 @@ public class CertificateDataSController {
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("o_cursor");
 		return JasperReportUtil.render("certificateDataP",list, "pdf");
 	}
+
 }

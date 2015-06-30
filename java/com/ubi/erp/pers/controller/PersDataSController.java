@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubi.erp.cmm.file.ImageUploadService;
+import com.ubi.erp.cmm.util.MakeResponseUtil;
 import com.ubi.erp.cmm.util.PropertyUtil;
+import com.ubi.erp.cmm.util.gson.JsonUtil;
 import com.ubi.erp.pers.domain.PersDataS;
 import com.ubi.erp.pers.service.PersDataSService;
 
@@ -69,21 +73,42 @@ public class PersDataSController {
 	@RequestMapping(value = "/formSave", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void prcsPersData(HttpServletRequest request, HttpServletResponse response,HttpSession session,PersDataS persDataS) throws Exception {
-		String sysEmpNo = (String) session.getAttribute("empNo");
-		persDataS.setSysEmpNo(sysEmpNo);
-		persDataS.setArmyJong(persDataS.getArmyKind());
+		Hashtable<String, String> ht = new Hashtable<String, String>();
+		try {
+			String sysEmpNo = (String) session.getAttribute("empNo");
+			persDataS.setSysEmpNo(sysEmpNo);
+			persDataS.setArmyJong(persDataS.getArmyKind());
 
-		persDataS.setBldKind(checkValue(persDataS.getBldKind()));
-		persDataS.setArmyMerit(checkValue(persDataS.getArmyMerit()));
-		persDataS.setDisorderYn(checkValue(persDataS.getDisorderYn()));
+			persDataS.setBldKind(checkValue(persDataS.getBldKind()));
+			persDataS.setArmyMerit(checkValue(persDataS.getArmyMerit()));
+			persDataS.setDisorderYn(checkValue(persDataS.getDisorderYn()));
 
-	 	if(saveFilename != null){  
-	 	persDataS.setImgPath(saveFilename);
-	 	saveFilename = null;
-	 	}else{
-	 	 persDataS.setImgPath(""); 
-	 	}
-	 	persDataSService.prcsPersDataS(persDataS);	
+			if (saveFilename != null) {
+				persDataS.setImgPath(saveFilename);
+				saveFilename = null;
+			} else {
+				persDataS.setImgPath("");
+			}
+			persDataSService.prcsPersDataS(persDataS);
+
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("rtnCode", "1");
+			String jsonStr = new String(JsonUtil.parseToString(map));
+			MakeResponseUtil.makeResponse(response, "json", jsonStr);
+		} catch (DuplicateKeyException e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR005");
+		} catch (Exception e) {
+			ht.put("rtnCode", "-1");
+			ht.put("EXCEPTION_TYPE", "BIZ");
+			ht.put("EXCEPTION_MSG_CODE", "ERR002");
+		} finally {
+			if (!ht.isEmpty()) {
+				response.setHeader("EXCEPTION", "Y");
+				MakeResponseUtil.makeResponse(response, "json", JsonUtil.parseToString(ht));
+			}
+		}
 	}
 	
 	//파일 List 불러오기

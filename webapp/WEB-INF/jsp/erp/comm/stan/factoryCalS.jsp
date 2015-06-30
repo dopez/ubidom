@@ -6,6 +6,8 @@ var layout,toolbar,subLayout;
 var gridMain;
 var calMain;
 var combo;
+var mainTabbar = parent.mainTabbar;
+var ActTabId = parent.ActTabId;
 $(document).ready(function(){
 	Ubi.setContainer(1,[1,3,4],"1C");
 	//회사 달력등록
@@ -119,6 +121,19 @@ function reSaveCalendar(){
 function fn_initCalendar(params){
 	gfn_callAjaxForGrid(gridMain,params,"initCalendar",subLayout.cells("a"));
 	fn_search();
+}
+
+function fn_exit(){
+	var exitVal = cs_close_event([gridMain]);
+	if(exitVal){
+		mainTabbar.tabs(ActTabId).close();	
+	}else{
+		if(MsgManager.confirmMsg("WRN012")){
+			mainTabbar.tabs(ActTabId).close();	
+		}else{
+			return true;
+		}
+	} 
 }
 </script>
 <form id="pform" name="pform" method="post">
