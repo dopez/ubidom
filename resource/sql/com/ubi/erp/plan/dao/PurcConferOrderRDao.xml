@@ -8,12 +8,12 @@
 
   	<select id="gridMainSel" statementType="CALLABLE">
 		 {call
-		 	SP_PURC_CONSULT_SCH3(
+		 	SP_PURC_FORDER_SCH3(
 		 		#{V_COMPID},
-		 		#{V_SET_SDATE},
-		 		#{V_SET_EDATE},
-		 		#{V_CUST_CODE},
-		 		#{V_SETTLE4_STATE},
+		 		#{V_SET_SDATE, jdbcType=VARCHAR},
+		 		#{V_SET_EDATE, jdbcType=VARCHAR},
+		 		#{V_CUST_CODE, jdbcType=VARCHAR},
+		 		#{V_POST_CODE, jdbcType=VARCHAR},
 		 		#{o_cursor, mode=OUT, jdbcType=CURSOR, resultMap=PurcConferOrderRMap, javaType=ResultSet}
 		 	)
 		 }

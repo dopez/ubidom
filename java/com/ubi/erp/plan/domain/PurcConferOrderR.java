@@ -55,7 +55,28 @@ public class PurcConferOrderR implements Serializable{
 	private String setSDate;
 	private String setEDate;
 	private String empName;
+	private String postCode;
+	private String mstEmpNo;
+	private String mstEmpName;
 	
+	public String getPostCode() {
+		return postCode;
+	}
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+	public String getMstEmpNo() {
+		return mstEmpNo;
+	}
+	public void setMstEmpNo(String mstEmpNo) {
+		this.mstEmpNo = mstEmpNo;
+	}
+	public String getMstEmpName() {
+		return mstEmpName;
+	}
+	public void setMstEmpName(String mstEmpName) {
+		this.mstEmpName = mstEmpName;
+	}
 	public String getSetSDate() {
 		return setSDate;
 	}

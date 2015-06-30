@@ -24,7 +24,7 @@
 
         //grid	
         gridMain = new dxGrid(subLayout.cells("a"),false);
-        gridMain.addHeader({name:"No",colId:"setNo",width:"50",align:"center",type:"ro"});
+        gridMain.addHeader({name:"No",colId:"setNo",width:"50",align:"center",type:"cntr"});
         gridMain.addHeader({name:"품목코드",colId:"itemCode",width:"100",align:"center",type:"ro"});
         gridMain.addHeader({name:"품명",colId:"matrName",width:"100",align:"center",type:"combo"});
         gridMain.addHeader({name:"규격",colId:"matrSpec",width:"100",align:"left",type:"ro"});
@@ -167,7 +167,7 @@
         var setNoIdx = gridMain.getColIndexById('setNo');
         gridMain.addRow();
         gridMain.selectRow(totalRowNum);
-        gridMain.setCells2(totalRowNum, setNoIdx).setValue(leadingZeros(totalRowNum+1, 3));
+        //gridMain.setCells2(totalRowNum, setNoIdx).setValue(leadingZeros(totalRowNum+1, 3));
 	}
     
     function fn_delete(){
@@ -177,9 +177,9 @@
     	var selRowIdx = gridMain.getSelectedRowIndex();
 
     	if(selRowIdx >= 0){
-        	for(var i=selRowIdx+1; i<totalRowNum;i++){
+        	/* for(var i=selRowIdx+1; i<totalRowNum;i++){
         		gridMain.setCells2(i, setNoIdx).setValue(leadingZeros(i, 3));	 
-        	}   		
+        	} */   		
         	gridMain.cs_deleteRow(rodid); 
     	}else{
     		alert("삭제하실 항목을 선택하세요.");
@@ -292,6 +292,7 @@
     function fn_gridMainSaveCallbckFunc(data) {
         dhtmlx.alert("저장 완료");
         fn_search("top");
+        fn_search("grid");
     }        
     
     function leadingZeros(n, digits) {

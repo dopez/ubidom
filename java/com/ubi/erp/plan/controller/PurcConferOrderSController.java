@@ -25,10 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ubi.erp.plan.domain.PurcConferOrderS;
-import com.ubi.erp.plan.domain.PurcConferR;
 import com.ubi.erp.plan.domain.PurcConferS;
 import com.ubi.erp.plan.service.PurcConferOrderSService;
-import com.ubi.erp.plan.service.PurcConferRService;
 import com.ubi.erp.sale.controller.WorkLogSController;
 
 @RestController
@@ -39,9 +37,6 @@ public class PurcConferOrderSController {
 	
 	@Autowired
 	private PurcConferOrderSService purcConferOrderSService;
-	
-	@Autowired
-	private PurcConferRService purcConferRService;
 	
 	public ModelAndView getSession(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException{
 		String empNo = (String) session.getAttribute("empNo");
@@ -58,9 +53,16 @@ public class PurcConferOrderSController {
 	public ModelAndView selPurcConferS(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ParseException {
 		String setDate = request.getParameter("setDate");
 		String setSeq = request.getParameter("setSeq");
+		String custCode = request.getParameter("custCode");
+		String custName = request.getParameter("custName");
+		String purcConsultKey = request.getParameter("purcConsultKey");
+		
 		ModelAndView mnv = new ModelAndView("/erp/plan/purc/orderS");
 		mnv.addObject("setDate", setDate);
 		mnv.addObject("setSeq", setSeq);
+		mnv.addObject("custCode", custCode);
+		mnv.addObject("custName", custName);
+		mnv.addObject("purcConsultKey", purcConsultKey);
 		return mnv;
 	}	
 	
@@ -68,17 +70,14 @@ public class PurcConferOrderSController {
 	@RequestMapping(value = "/topMainSel", method = RequestMethod.POST)
 	public List<PurcConferOrderS> topMainSel(HttpServletRequest request, HttpServletResponse response,HttpSession session, PurcConferOrderS purcConferOrderS) throws Exception {
 		String comp = (String) session.getAttribute("compId");
-		String setDate = purcConferOrderS.getSetDate();
 		String custCode = purcConferOrderS.getCustCode();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
-		map.put("V_SET_SDATE", setDate);
-		map.put("V_SET_EDATE", setDate);
 		map.put("V_CUST_CODE", custCode);
 		map.put("V_SETTLE4_STATE", "1");
 		map.put("o_cursor", null);
-		purcConferRService.gridMainSel(map);
+		purcConferOrderSService.topMainSel(map);
 		List<PurcConferOrderS> list  = (List<PurcConferOrderS>) map.get("o_cursor");
 		
 		logger.debug("resultset is "+list);
@@ -88,12 +87,22 @@ public class PurcConferOrderSController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/gridMainSel", method = RequestMethod.POST)
-	public List<PurcConferS> gridMainSel(HttpServletRequest request, HttpServletResponse response,HttpSession session, PurcConferOrderS purcConferOrderS) throws Exception {
+	public List<PurcConferOrderS> gridMainSel(HttpServletRequest request, HttpServletResponse response,HttpSession session, PurcConferOrderS purcConferOrderS) throws Exception {
 		String comp = (String) session.getAttribute("compId");
 		String setDate = purcConferOrderS.getSetDate();
 		String setSeq = purcConferOrderS.getSetSeq();
 		
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("V_COMPID", comp);
+		map.put("V_SET_DATE", setDate);
+		map.put("V_SET_SEQ", setSeq);
+		map.put("o_cursor", null);
+		purcConferOrderSService.gridMainSel(map);
+		List<PurcConferOrderS> list  = (List<PurcConferOrderS>) map.get("o_cursor");
+		
+		logger.debug("resultset is "+list);
+		
+		return list;
 	}		
 	
 	@SuppressWarnings("unchecked")
@@ -129,14 +138,6 @@ public class PurcConferOrderSController {
 		logger.debug("resultset is "+list);
 
 		return list;
-	}	
-	
-	@RequestMapping(value = "/gridTopSave", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void gridTopSave(HttpSession session, @RequestBody PurcConferOrderS orderS, ModelMap map) throws Exception {
-		String compId = (String) session.getAttribute("compId");
-		String sysEmpNo = (String) session.getAttribute("empNo");
-		purcConferOrderSService.prcsGridTop(orderS, sysEmpNo, compId);
 	}	
 	
 	@RequestMapping(value = "/gridMainSave", method = RequestMethod.POST)

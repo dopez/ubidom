@@ -48,13 +48,14 @@ public class PurcConferOrderRController {
 		String setSDate = purcConferOrderR.getSetSDate();
 		String setEDate = purcConferOrderR.getSetEDate();
 		String custCode = purcConferOrderR.getCustCode();
+		String postCode = purcConferOrderR.getPostCode();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("V_COMPID", comp);
 		map.put("V_SET_SDATE", setSDate);
 		map.put("V_SET_EDATE", setEDate);
 		map.put("V_CUST_CODE", custCode);
-		map.put("V_SETTLE4_STATE", "");
+		map.put("V_POST_CODE", postCode);
 		map.put("o_cursor", null);
 		purcConferOrderRService.gridMainSel(map);
 		List<PurcConferOrderR> list  = (List<PurcConferOrderR>) map.get("o_cursor");

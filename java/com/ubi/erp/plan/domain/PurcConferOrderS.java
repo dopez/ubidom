@@ -52,6 +52,7 @@ public class PurcConferOrderS implements Serializable{
 	private String updEmpNo;
 	private String updDate;	
 	private String seq;
+	private String matrCode;
 	private String matrName;
 	private String matrSpec;
 	private String matrUnit;
@@ -359,6 +360,12 @@ public class PurcConferOrderS implements Serializable{
 	}
 	public void setSetDateTemp(String setDateTemp) {
 		this.setDateTemp = setDateTemp;
+	}
+	public String getMatrCode() {
+		return matrCode;
+	}
+	public void setMatrCode(String matrCode) {
+		this.matrCode = matrCode;
 	}	
 	
 }

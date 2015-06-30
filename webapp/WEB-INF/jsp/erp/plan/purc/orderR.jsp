@@ -4,6 +4,10 @@
             var layout, toolbar, subLayout
             var gridMain, gridSub;
             var calMain;
+            var mainMenu = parent.mainMenu;
+            var mainTabbar = parent.mainTabbar;
+            var tabId = null;
+            var uri = null;
             $(document).ready(function() {
                 Ubi.setContainer(3, [1, 8, 9], "1C"); //발주조회
 
@@ -33,7 +37,7 @@
                 gridMain.dxObj.setUserData("", "@deliDate","format_date");
                 gridMain.init();
                 gridMain.cs_setNumberFormat(["qty", "cost", "amt"], "0,000");
-                gridMain.cs_setColumnHidden(["compId", "setSeq", "setNo", "purcConsultKey"]);                
+                gridMain.cs_setColumnHidden(["compId", "setSeq", "setNo", "purcConsultKey", "custCode"]);                
                 gridMain.attachEvent("onRowDblClicked",doOnRowDblClicked);
                 
                 calMain = new dhtmlXCalendarObject([{input:"setSDate",button:"calpicker1"},{input:"setEDate",button:"calpicker2"}]);
@@ -45,8 +49,12 @@
             	
                 $("#custName").dblclick(function(){
                 	gfn_load_pop('w1', 'common/customPOP', true, {"custKorName": ""});
-                });            	
-            	
+                });   
+                
+                $("#postName").dblclick(function(){
+                	gfn_load_pop('w1', 'common/deptCodePOP', true, {"postName": ""});
+                });                   
+                
                 fn_onClosePop = function(pName, data) {
                     var i;
                     var obj = {};
@@ -55,20 +63,31 @@
                         $("#custName").val("");
                         $("#custCode").val(data[0].custCode);
                         $("#custName").val(data[0].custKorName);
-                	}else if(pName == "empNo"){
-                		//popUpCallback(data);
+                	}else if(pName == "postCode"){
+                        $("#postCode").val("");
+                        $("#postName").val("");
+                        $("#postCode").val(data[0].postCode);
+                        $("#postName").val(data[0].postName);
                 	}
-                };            	
+                };    
             });
             
             function doOnRowDblClicked(rId, cInd){
             	var cFlag = true;
             	var setDateIdx = gridMain.getColIndexById('setDate');
             	var setSeqIdx = gridMain.getColIndexById('setSeq');
+            	var purcConsultKeyIdx = gridMain.getColIndexById('purcConsultKey');
+            	var custCodeIdx = gridMain.getColIndexById('custCode');
+            	var custNameIdx = gridMain.getColIndexById('custName');
+            	
             	var dateValue = gridMain.setCells(rId,setDateIdx).getValue();
             	var seqValue = gridMain.setCells(rId,setSeqIdx).getValue();
+            	var purcConsultKeyValue = gridMain.setCells(rId,purcConsultKeyIdx).getValue();
+            	var custCodeValue = gridMain.setCells(rId,custCodeIdx).getValue();
+            	var custNameValue = gridMain.setCells(rId,custNameIdx).getValue();
+            	
             	var ids = mainTabbar.getAllTabs();
-            	var preId = "1000000772";
+            	var preId = "1000000771";
             	for(var i=0;i<ids.length;i++){
             		if(ids[i] == preId){
             			if(MsgManager.confirmMsg("INF006")) { 
@@ -84,13 +103,21 @@
             		var uri = mainMenu.getUserData(preId, "uri");
             		var menuItemText = mainMenu.getDxObj().getItemText(preId);
             		mainTabbar.addTab(preId, menuItemText, null, null, true, true);
-            		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,{setDate:dateValue,setSeq:seqValue});	
+            		mainTabbar.tabs(preId).attachURL("/"+uri+".do",false,
+	            		{
+	            			setDate:dateValue, 
+	            			setSeq:seqValue,
+	            			custCode : custCodeValue,
+	            			custName : custNameValue,
+	            			purcConsultKey:purcConsultKeyValue
+	            		}
+            		);	
             	}            	
             }
             
             function fn_search() {
                 var param = gfn_getFormElemntsData('frmSearch');
-                gfn_callAjaxForGrid(gridMain, param, "/erp/plan/purc/purcConferR/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
+                gfn_callAjaxForGrid(gridMain, param, "/erp/plan/purc/orderR/gridMainSel", subLayout.cells("a"), fn_gridMainSelCallbckFunc)
             }               
             
             function fn_gridMainSelCallbckFunc(data) {
@@ -137,7 +164,8 @@
                             <div class="col-sm-8 col-md-8">
                                 <label class=" col-sm-2 col-md-2 control-label" for="textinput"> 의뢰부서 </label>
                                 <div class="col-sm-2 col-md-2">
-                                    <input name="deptName" id="deptName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input name="postName" id="postName" type="text" value="" placeholder="" class="form-control input-xs">
+                                    <input type="hidden" name="postCode" id="postCode">
                                 </div>
                             </div>
                         </div>
