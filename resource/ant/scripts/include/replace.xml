@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <project name="include.replace">
+  	<!-- dev config change -->
+    <target name="replace_dev"
+               depends="replace_typedef_xml_dev,
+               replace_globalvars_xml_dev,
+               replace_mvc_servlet_context_xml_dev,
+               replace_datasource_xml_dev,
+        	   replace_log4j_xml_dev,
+        	   replace_properties_file_dev"/>
+    <!-- opr config change -->           
+    <target name="replace_opr"
+               depends="replace_typedef_xml_opr,
+               replace_globalvars_xml_opr,
+               replace_mvc_servlet_context_xml_opr,
+               replace_datasource_xml_opr,
+ 	   		   replace_log4j_xml_opr,
+ 	   		   replace_properties_file_opr"/>
+
+<!-- replace dev configure start -->
+    <!-- Xplatform development Server Settings -->
+    <target name="replace_typedef_xml_dev">
+       <delete file="${dev.target.xui.dir}/default_typedef.xml" />
+       <copy file="${dev.origin.xui.dir}/default_typedef_dev.xml"
+       tofile="${dev.target.xui.dir}/default_typedef.xml" />
+       <echo message="replace default_typedef.xml" />
+    </target>
+
+   <target name="replace_globalvars_xml_dev">
+       <delete file="${dev.target.xui.dir}/globalvars.xml" />
+       <copy file="${dev.origin.xui.dir}/globalvars_dev.xml"
+        tofile="${dev.target.xui.dir}/globalvars.xml" />
+       <echo message="replace globalvars.xml" />
+    </target>
+   
+    <!-- Spring config Settings --> 
+    <target name="replace_mvc_servlet_context_xml_dev">
+      <delete file="${dev.target.resource.dir}/spring/mvc-context-servlet.xml" />
+      <copy file="${dev.origin.resource.dir}/spring/mvc-context-servlet.xml.dev"
+      tofile="${dev.target.resource.dir}/spring/mvc-context-servlet.xml" />
+      <echo message="replace mvc-context-servlet.xml" />
+    </target>
+    
+    <target name="replace_datasource_xml_dev">
+      <delete file="${dev.target.resource.dir}/spring/context-datasource.xml" />
+      <copy file="${dev.origin.resource.dir}/spring/context-datasource.xml.dev"
+      tofile="${dev.target.resource.dir}/spring/context-datasource.xml" />
+      <echo message="replace context-datasource.xml" />
+    </target>
+    
+    <target name="replace_log4j_xml_dev">
+      <delete file="${dev.target.resource.dir}/log4j.xml" />
+      <copy file="${dev.origin.resource.dir}/log4j.xml.dev"
+      tofile="${dev.target.resource.dir}/log4j.xml" />
+      <echo message="replace log4j.xml" />
+    </target>
+    
+    <target name="replace_properties_file_dev">
+      <delete file="${dev.target.resource.dir}/config/context.properties" />
+      <copy file="${dev.origin.resource.dir}/config/context.properties.dev"
+      tofile="${dev.target.resource.dir}/config/context.properties" />
+      <echo message="replace context.properties file" />
+    </target>
+<!-- replace dev configure end -->    
+
+<!-- replace opr configure start -->
+    <!-- Xplatform opration Server Settings -->
+    <target name="replace_typedef_xml_opr">
+       <delete file="${opr.target.xui.dir}/default_typedef.xml" />
+       <copy file="${opr.origin.xui.dir}/default_typedef_oper.xml"
+       tofile="${opr.target.xui.dir}/default_typedef.xml" />
+       <echo message="replace default_typedef.xml" />
+    </target>
+
+   <target name="replace_globalvars_xml_opr">
+       <delete file="${opr.target.xui.dir}/globalvars.xml" />
+       <copy file="${opr.origin.xui.dir}/globalvars_oper.xml"
+        tofile="${opr.target.xui.dir}/globalvars.xml" />
+       <echo message="replace globalvars.xml" />
+    </target>
+   
+    <!-- Spring config Settings --> 
+    <target name="replace_mvc_servlet_context_xml_opr">
+      <delete file="${opr.target.resource.dir}/spring/mvc-context-servlet.xml" />
+      <copy file="${opr.origin.resource.dir}/spring/mvc-context-servlet.xml.opr"
+      tofile="${opr.target.resource.dir}/spring/mvc-context-servlet.xml" />
+      <echo message="replace mvc-context-servlet.xml" />
+    </target>
+    
+    <target name="replace_datasource_xml_opr">
+      <delete file="${opr.target.resource.dir}/spring/context-datasource.xml" />
+      <copy file="${opr.origin.resource.dir}/spring/context-datasource.xml.opr"
+      tofile="${opr.target.resource.dir}/spring/context-datasource.xml" />
+      <echo message="replace context-datasource.xml" />
+    </target>
+    
+    <target name="replace_log4j_xml_opr">
+      <delete file="${opr.target.resource.dir}/log4j.xml" />
+      <copy file="${opr.origin.resource.dir}/log4j.xml.opr"
+      tofile="${opr.target.resource.dir}/log4j.xml" />
+      <echo message="replace log4j.xml" />
+    </target>
+    
+    <target name="replace_properties_file_opr">
+      <delete file="${opr.target.resource.dir}/config/context.properties" />
+      <copy file="${opr.origin.resource.dir}/config/context.properties.opr"
+      tofile="${opr.target.resource.dir}/config/context.properties" />
+      <echo message="replace context.properties file" />
+    </target>
+<!-- replace opr configure end -->    
+</project> 
+

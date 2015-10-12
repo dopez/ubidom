@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="include.restart">
+
+  <target name="restart_dev"
+          depends="jdown_dev,  
+                   jboot_dev
+                   "/>
+  
+  <target name="restart_opr"
+          depends="jdown_opr,  
+                   jboot_opr
+                   "/>
+
+  <!-- restart was -->
+  <target name="jboot_dev">
+    <echo message="--[START] Starting WAS boot..." level="info" /> 
+    <exec executable="/bin/sh" os="Linux">
+    	 <arg value="-c"/>
+    	 <arg value="cd ${dev.was.dir}/bin;./jcboot container1"/>
+    </exec> 
+    <echo message="--[START] Started WAS boot..."/>
+  </target>                     
+
+  <target name="jdown_dev">
+    <echo message="--[SHUTDOWN] Starting WAS down..." level="info" />
+    <exec executable="/bin/sh" os="Linux">
+    		<arg value="-c"/>
+    	 	<arg value="cd ${dev.was.dir}/bin; ./jcdown container1"/>
+    </exec>
+    <echo message="--[SHUTDOWN] Started WAS down..."/>
+  </target>
+  
+  <!-- operating system jeus container boot -->
+  <target name="jboot_opr">
+    <echo message="--[START] Starting WAS1, WAS2 boot..." level="info" /> 
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.was.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="touch .bash_profile;cd ${opr.was.dir}/bin; ./jcboot container1"
+    	failonerror="false"
+    	verbose="true"/>
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.was.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="touch .bash_profile;cd ${opr.was.dir}/bin; ./jcboot container1"
+    	failonerror="false"
+    	verbose="true"/>
+    <echo message="--[START] Started WAS boot..."/>
+  </target>                     
+
+	<!-- operating system jeus container down -->
+  <target name="jdown_opr">
+    <echo message="--[SHUTDOWN] Starting WAS1, WAS2 down..." level="info" />
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.was.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="touch .bash_profile; cd ${opr.was.dir}/bin; ./jcdown container1"
+    	failonerror="false"
+    	verbose="true"/>
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.was.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="touch .bash_profile;cd ${opr.was.dir}/bin; ./jcdown container1"
+    	failonerror="false"
+    	verbose="true"/>    	
+    <echo message="--[SHUTDOWN] Started WAS down..."/>
+  </target>
+
+</project>

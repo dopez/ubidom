@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="include.deploy">
+
+  <target name="deploy_dev"
+          depends="deploy_dev_classes,  
+                   deploy_dev_resources,
+                   deploy_dev_jsp,
+                   deploy_dev_xui,
+                   deploy_dev_etc,
+                   deploy_dev_lib,
+                   deploy_dev_web
+                   "/>
+          
+  <target name="deploy_opr"
+  	      depends="deploy_opr_classes,
+  	               deploy_opr_resources,
+  	               deploy_opr_jsp,
+  	               deploy_opr_xui,
+  	               deploy_opr_etc,
+  	               deploy_opr_lib,
+  	               deploy_opr_web
+  	               "/>
+
+
+<!-- deploy dev env start -->
+  <!-- deploy classes -->
+  <target name="deploy_dev_classes">
+    <mkdir dir="${deploy.was.classes.dir}"/>
+    <copy todir="${deploy.was.classes.dir}" verbose="true">
+      <fileset dir="${dev.target.classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev classes finished" />
+  </target>                     
+
+  <!-- deploy resource -->
+  <target name="deploy_dev_resources">
+    <!--mkdir dir="${deploy.was.classes.dir}"/-->
+    <copy todir="${deploy.was.classes.dir}" verbose="true">
+      <fileset dir="${dev.target.resource.dir}">
+        <include name="fileupload/**"/>
+        <include name="config/**" />
+        <include name="message/**"/>
+        <include name="spring/**"/>
+        <include name="sql/**"/>
+        <include name="tiles/**"/>
+        <include name="validator/**"/>
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+    <echo message="deploy dev resource finished" />
+  </target>
+
+  <!-- deploy jsp -->
+  <target name="deploy_dev_jsp">
+    <mkdir dir="${deploy.was.jsp.dir}"/>
+    <copy todir="${deploy.was.jsp.dir}" verbose="true">
+      <fileset dir="${dev.target.jsp.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev jsp finished" />
+  </target>
+  
+  <!-- deploy etc -->
+  <target name="deploy_dev_etc">
+    <mkdir dir="${deploy.was.dir}/license"/>
+    <copy todir = "${deploy.was.dir}" verbose="true">
+      <fileset dir="${dev.target.dir}">
+        <exclude name="WEB-INF/classes/**"/>
+        <exclude name="WEB-INF/jsp/**"/>
+        <exclude name="WEB-INF/lib/**"/>
+        <exclude name="xui/**"/>
+        <exclude name="resource/**"/>
+      </fileset>
+    </copy>
+    <echo message="deploy dev etc finished"/>
+  </target>
+
+  <!-- deploy lib -->
+  <target name="deploy_dev_lib">
+    <mkdir dir="${deploy.was.lib.dir}"/>
+    <copy todir="${deploy.was.lib.dir}" verbose="true">
+      <fileset dir="${dev.target.lib.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev lib finished" />
+  </target>
+
+	<!-- web server -->
+  <!-- deploy xui -->
+  <target name="deploy_dev_xui">
+    <mkdir dir="${deploy.was.xui.dir}"/>
+    <copy todir="${deploy.was.xui.dir}" verbose="true">
+      <fileset dir="${dev.target.xui.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev xui finished" />
+  </target>
+  
+  <!-- deploy static file -->
+  <target name="deploy_dev_web">
+  	<mkdir dir="${deploy.was.dir}/resource"/>
+    <copy todir="${deploy.was.dir}/resource" verbose="true">
+      <fileset dir="${dev.target.static.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev static file finished" />
+  </target>
+  
+  <!-- deploy static file -->
+  <target name="deploy_dev_mrd">
+  	<mkdir dir="${deploy.web.dir}/mrd"/>
+    <copy todir="${deploy.web.dir}/mrd" verbose="true">
+      <fileset dir="${dev.target.mrd.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <echo message="deploy dev static file finished" />
+  </target>
+
+  <!-- delete web  -->
+  <target name="delete_web_dev">
+    <delete dir="${deploy.web.dir}" />
+    <echo message="delete web files" />
+    <mkdir dir="${deploy.web.dir}"/>
+  </target>
+<!-- deploy dev env end -->  
+
+<!-- deploy opr env start -->
+  <!-- deploy classes -->
+  <target name="deploy_opr_classes">
+  	<!-- make opr1 dir -->
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.classes.dir}" 
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.classes.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- copy files to opr1 classes -->
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.classes.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </scp>
+    <!-- copy files to opr2 classes -->
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.classes.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </scp>
+    <echo message="deploy opr classes finished" />
+  </target>                     
+
+  <!-- deploy resource -->
+  <target name="deploy_opr_resources">
+  	<!-- copy files to opr1 resource -->
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.classes.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.resource.dir}">
+        <include name="fileupload/**"/>
+        <include name="config/**" />
+        <include name="message/**"/>
+        <include name="spring/**"/>
+        <include name="sql/**"/>
+        <include name="tiles/**"/>
+        <include name="validator/**"/>
+        <include name="*.xml"/>
+      </fileset>
+    </scp>
+    <!-- copy files to opr2 resource -->
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.classes.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.resource.dir}">
+        <include name="fileupload/**"/>
+        <include name="config/**" />
+        <include name="message/**"/>
+        <include name="spring/**"/>
+        <include name="sql/**"/>
+        <include name="tiles/**"/>
+        <include name="validator/**"/>
+        <include name="*.xml"/>
+      </fileset>
+    </scp>
+    <echo message="deploy opr resource finished" />
+  </target>
+
+  <!-- deploy jsp -->
+  <target name="deploy_opr_jsp">
+    <!-- make opr1 dir -->
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.jsp.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.jsp.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.jsp.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.jsp.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.jsp.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.jsp.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <echo message="deploy opr jsp finished" />
+  </target>
+
+  <!-- deploy xui -->
+  <target name="deploy_opr_xui">
+    <!-- make opr1 dir -->
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.xui.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.xui.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.xui.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.xui.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <scp todir="${opr.username}:${opt.password}@${opr2.host.name}:${deploy.was.xui.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.xui.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <echo message="deploy opr xui finished" />
+  </target>
+
+  <!-- deploy etc -->
+  <target name="deploy_opr_etc">
+    <!-- make opr1 dir -->
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.dir}/license"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.dir}/license"
+    	failonerror="false"
+    	verbose="true"/>
+    
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.dir}">
+        <exclude name="WEB-INF/classes/**"/>
+        <exclude name="WEB-INF/jsp/**"/>
+        <exclude name="WEB-INF/lib/**"/>
+        <exclude name="xui/**"/>
+        <exclude name="resource/**"/>
+      </fileset>
+    </scp>
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.dir}">
+        <exclude name="WEB-INF/classes/**"/>
+        <exclude name="WEB-INF/jsp/**"/>
+        <exclude name="WEB-INF/lib/**"/>
+        <exclude name="xui/**"/>
+        <exclude name="resource/**"/>
+      </fileset>
+    </scp>
+    <echo message="deploy opr etc finished"/>
+  </target>
+
+  <!-- deploy lib -->
+  <target name="deploy_opr_lib">
+    <sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.lib.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.lib.dir}"
+    	failonerror="false"
+    	verbose="true"/>
+    
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.lib.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.lib.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.lib.dir}" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.lib.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <echo message="deploy opr lib finished" />
+  </target>
+  
+  <!-- deploy static file -->
+  <target name="deploy_opr_web">
+  	<sshexec host="${opr1.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.dir}/resource"
+    	failonerror="false"
+    	verbose="true"/>
+    <!-- make opr2 dir -->
+    <sshexec host="${opr2.host.name}" 
+    	username="${opr.username}" 
+    	password="${opr.password}" 
+    	keyfile="${user.home}/.ssh/id_rsa"
+    	command="mkdir ${deploy.was.dir}/resource"
+    	failonerror="false"
+    	verbose="true"/>
+    	
+    <scp todir="${opr.username}:${opr.password}@${opr1.host.name}:${deploy.was.dir}/resource" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.web.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <scp todir="${opr.username}:${opr.password}@${opr2.host.name}:${deploy.was.dir}/resource" keyfile="${user.home}/.ssh/id_rsa" verbose="true">
+      <fileset dir="${opr.target.web.dir}">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <echo message="deploy opr static file finished" />
+  </target>
+
+  <!-- delete web  -->
+  <target name="delete_web_opr">
+    <delete dir="${deploy.web.dir}" />
+    <echo message="delete web files" />
+    <mkdir dir="${deploy.web.dir}"/>
+  </target>
+<!-- deploy opr env end -->  
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" basedir=".">
+	<property file="build.properties"/>
+	<import file="${basedir}/include/deploy.xml"/>
+	<import file="${basedir}/include/replace.xml"/>
+	<import file="${basedir}/include/restart.xml"/>
+	<target name="build_dev" depends="replace_dev, deploy_dev, restart_dev"/>
+	<target name="build_opr" depends="replace_opr, deploy_opr, restart_opr"/>
+</project>
