@@ -1,5 +1,7 @@
 package com.ubi.erp.cmm.controller;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,8 +22,13 @@ public class JspController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(uri.replace(".do", ""));
+		Enumeration<String> params = req.getParameterNames();
 
-		req.setAttribute("PARAM_INFO", JsonUtil.parseToString(req.getParameterMap()));
+		if (params.hasMoreElements()) {
+			req.setAttribute("PARAM_INFO", JsonUtil.parseToString(req.getParameterMap()));
+		} else {
+			req.setAttribute("PARAM_INFO", "{\"param\":[\"null\"]}");
+		}
 
 		return mav;
 	}
