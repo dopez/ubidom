@@ -6,6 +6,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>erp</name>
+	<description>유비덤 프로젝트 파일 (Git 사용 당시 버전)</description>
 
 	<properties>
 		<spring.version>4.1.4.RELEASE</spring.version>
@@ -529,5 +530,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 </project>
