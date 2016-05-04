@@ -80,5 +80,10 @@
         <aop:pointcut id="requiredTx" expression="execution(* com.ubi.erp..*Service.*(..))" />
         <aop:advisor  id="txAdvisor" advice-ref="txAdvice" pointcut-ref="requiredTx" />
     </aop:config>
+
+    <!-- ############################ 개인정보 암복호화용 ############################## -->
+    <bean id="aesEncoder" class="com.ubi.erp.cmm.util.AESEncoder">
+        <constructor-arg value="dE43gjer3QCmojo7" />
+    </bean>
 	
 </beans>
